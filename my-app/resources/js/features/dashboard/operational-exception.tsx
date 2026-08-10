@@ -35,7 +35,11 @@ export function OperationalException() {
 
     if (exceptions.length === 0) {
         return (
-            <div className="flex items-center gap-2 px-1 text-xs text-flex-text-muted">
+            <div
+                className="flex items-center gap-2 px-1 text-xs text-flex-text-muted"
+                role="status"
+                aria-live="polite"
+            >
                 <RiCheckLine className="size-3.5 text-status-live" />
                 <span>All queues operating within targets</span>
             </div>

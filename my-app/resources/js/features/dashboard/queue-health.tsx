@@ -54,7 +54,7 @@ export function QueueHealth() {
                 </h3>
             </div>
 
-            <div className="overflow-x-auto">
+            <div className="relative overflow-x-auto">
                 <table className="w-full text-left text-xs">
                     <thead>
                         <tr className="border-b border-border text-[10px] font-semibold text-flex-text-muted uppercase">

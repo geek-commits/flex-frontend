@@ -68,7 +68,7 @@ function ContactCenterDashboardInner() {
                     size="sm"
                     className="gap-1.5 text-xs"
                     onClick={refresh}
-                    disabled={false}
+                    disabled={isRefreshing}
                     aria-busy={isRefreshing}
                 >
                     <RiRefreshLine className="size-3.5" />

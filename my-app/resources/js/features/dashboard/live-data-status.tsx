@@ -49,12 +49,12 @@ export function LiveDataStatus() {
                         <span
                             className={`size-1.5 rounded-full ${
                                 connectionState === 'live'
-                                    ? 'animate-pulse bg-status-live'
-                                    : connectionState === 'stale'
-                                      ? 'bg-status-stale'
-                                      : connectionState === 'reconnecting'
-                                        ? 'animate-pulse bg-status-talking'
-                                        : 'bg-status-disconnected'
+                                    ? 'bg-status-live'
+                                : connectionState === 'stale'
+                                    ? 'bg-status-stale'
+                                : connectionState === 'reconnecting'
+                                    ? 'bg-status-talking'
+                                : 'bg-status-disconnected'
                             }`}
                             aria-hidden="true"
                         />

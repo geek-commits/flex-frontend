@@ -65,7 +65,12 @@ export function CallVolumeChart() {
     }
 
     return (
-        <ChartContainer config={volumeConfig} className="h-[220px] w-full">
+        <ChartContainer
+            config={volumeConfig}
+            className="h-[220px] w-full"
+            role="img"
+            aria-label="Call volume, answered versus missed, last 14 days"
+        >
             <ResponsiveContainer width="100%" height="100%">
                 <AreaChart
                     data={data.callVolume14d}
