@@ -13,6 +13,8 @@ import { format } from 'date-fns';
 import React, { useCallback, useMemo, useState } from 'react';
 import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
 import { DateRangeSelect } from '@/components/flex/date-range-select';
+import { FlexStatus  } from '@/components/flex/flex-status';
+import type {FlexStatusTone} from '@/components/flex/flex-status';
 import { SearchHighlight } from '@/components/flex/search-highlight';
 import { Alert, AlertTitle } from '@/components/reui/alert';
 import {
@@ -29,22 +31,20 @@ import { DataGridScrollArea } from '@/components/reui/data-grid/data-grid-scroll
 import { DataGridTable } from '@/components/reui/data-grid/data-grid-table';
 import { Filters   } from '@/components/reui/filters';
 import type {Filter, FilterFieldConfig} from '@/components/reui/filters';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cdrRepository  } from '@/domain/cdr-repository';
 import type {CdrQuery} from '@/domain/cdr-repository';
 import type { CDRRecord } from '@/domain/types';
 import { AdminShell } from '@/layouts/admin-shell';
-import { statusToneClasses } from '@/lib/status-styles';
 
 const QUEUE_OPTIONS = ['Customer Support', 'Sales & Inquiries', 'Technical Escalations'];
 
-const STATUS_META: Record<CDRRecord['status'], string> = {
-    answered: `${statusToneClasses.live.bgClass} ${statusToneClasses.live.textClass} ${statusToneClasses.live.borderClass}`,
-    missed: `${statusToneClasses.disconnected.bgClass} ${statusToneClasses.disconnected.textClass} ${statusToneClasses.disconnected.borderClass}`,
-    voicemail: `${statusToneClasses.stale.bgClass} ${statusToneClasses.stale.textClass} ${statusToneClasses.stale.borderClass}`,
-    transferred: `${statusToneClasses.talking.bgClass} ${statusToneClasses.talking.textClass} ${statusToneClasses.talking.borderClass}`,
+const STATUS_TONE: Record<CDRRecord['status'], FlexStatusTone> = {
+    answered: 'success',
+    missed: 'danger',
+    voicemail: 'warning',
+    transferred: 'info',
 };
 
 const cdrContextGroups: ContextSidebarGroup[] = [
@@ -238,15 +238,11 @@ return false;
                 accessorKey: 'status',
                 id: 'status',
                 header: ({ column }) => <DataGridColumnHeader title="Status" column={column} />,
-                cell: ({ row }) => {
-                    const meta = STATUS_META[row.original.status];
-
-                    return (
-                        <Badge variant="outline" className={`capitalize ${meta}`}>
-                            {row.original.status}
-                        </Badge>
-                    );
-                },
+                cell: ({ row }) => (
+                    <FlexStatus tone={STATUS_TONE[row.original.status]} className="capitalize">
+                        {row.original.status}
+                    </FlexStatus>
+                ),
                 size: 120,
                 enableSorting: true,
             },

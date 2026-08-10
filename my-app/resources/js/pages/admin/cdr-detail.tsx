@@ -3,7 +3,8 @@ import { RiDownload2Line, RiPhoneLine, RiExportLine, RiPlayFill, RiPauseLine } f
 import React, { useState } from 'react';
 import { BackLink } from '@/components/flex/back-link';
 import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
-import { Badge } from '@/components/ui/badge';
+import { FlexStatus  } from '@/components/flex/flex-status';
+import type {FlexStatusTone} from '@/components/flex/flex-status';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getCallTimeline } from '@/data/cdr-events.mock';
@@ -23,11 +24,11 @@ const cdrContextGroups: ContextSidebarGroup[] = [
     },
 ];
 
-const STATUS_META: Record<CDRRecord['status'], { label: string; tone: keyof typeof statusToneClasses }> = {
-    answered: { label: 'Answered', tone: 'live' },
-    missed: { label: 'Missed', tone: 'disconnected' },
-    voicemail: { label: 'Voicemail', tone: 'stale' },
-    transferred: { label: 'Transferred', tone: 'talking' },
+const STATUS_META: Record<CDRRecord['status'], { label: string; tone: FlexStatusTone }> = {
+    answered: { label: 'Answered', tone: 'success' },
+    missed: { label: 'Missed', tone: 'danger' },
+    voicemail: { label: 'Voicemail', tone: 'warning' },
+    transferred: { label: 'Transferred', tone: 'info' },
 };
 
 const formatDuration = (sec: number) => {
@@ -42,8 +43,7 @@ export default function CdrDetailPage() {
     const record = cdrRepository.getById(recordId);
     const [playing, setPlaying] = useState(false);
 
-    const tone = record ? STATUS_META[record.status].tone : 'neutral';
-    const toneClass = statusToneClasses[tone];
+    const status = record ? STATUS_META[record.status] : undefined;
 
     return (
         <AdminShell
@@ -81,13 +81,9 @@ export default function CdrDetailPage() {
                                             <span className="text-2xl font-bold font-mono text-foreground tracking-tight">
                                                 {record.customerPhone}
                                             </span>
-                                            <Badge
-                                                variant="outline"
-                                                className={`capitalize ${toneClass.bgClass} ${toneClass.textClass} ${toneClass.borderClass}`}
-                                            >
-                                                <span className={`size-1.5 rounded-full ${toneClass.dotClass}`} />
-                                                {STATUS_META[record.status].label}
-                                            </Badge>
+                                            <FlexStatus tone={status?.tone ?? 'neutral'} className="capitalize">
+                                                {status?.label ?? 'Unknown'}
+                                            </FlexStatus>
                                         </div>
                                         <p className="text-xs text-muted-foreground">
                                             {record.date} · {record.queueName} · {record.agentName}

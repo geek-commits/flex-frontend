@@ -3,6 +3,8 @@ import { RiPlayFill, RiPhoneLine } from '@remixicon/react';
 import type { ColumnDef, PaginationState, SortingState } from '@tanstack/react-table';
 import { useTable } from '@tanstack/react-table';
 import React, { useMemo, useState } from 'react';
+import { FlexStatus  } from '@/components/flex/flex-status';
+import type {FlexStatusTone} from '@/components/flex/flex-status';
 import {
     DataGrid,
     DataGridContainer,
@@ -14,11 +16,9 @@ import { DataGridColumnHeader } from '@/components/reui/data-grid/data-grid-colu
 import { DataGridPagination } from '@/components/reui/data-grid/data-grid-pagination';
 import { DataGridScrollArea } from '@/components/reui/data-grid/data-grid-scroll-area';
 import { DataGridTable } from '@/components/reui/data-grid/data-grid-table';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { AgentShell } from '@/layouts/agent-shell';
-import { statusToneClasses } from '@/lib/status-styles';
 
 export interface MissedCallRecord {
     id: string;
@@ -40,10 +40,10 @@ const RECORDS: MissedCallRecord[] = [
     { id: 'mc-6', phoneNumber: '+255 733 556 677', missedAt: '2026-08-06 14:02:51', category: 'Technical Inquiry', queueName: 'Technical Escalations', status: 'callback-scheduled', attempts: 2, hasVoicemail: true },
 ];
 
-const STATUS_TONE: Record<MissedCallRecord['status'], { label: string; tone: keyof typeof statusToneClasses }> = {
-    unhandled: { label: 'Unhandled', tone: 'disconnected' },
-    'callback-scheduled': { label: 'Callback Scheduled', tone: 'stale' },
-    resolved: { label: 'Resolved', tone: 'live' },
+const STATUS_TONE: Record<MissedCallRecord['status'], { label: string; tone: FlexStatusTone }> = {
+    unhandled: { label: 'Unhandled', tone: 'danger' },
+    'callback-scheduled': { label: 'Callback Scheduled', tone: 'warning' },
+    resolved: { label: 'Resolved', tone: 'success' },
 };
 
 export default function MissedCallsPage() {
@@ -123,14 +123,8 @@ export default function MissedCallsPage() {
                 header: ({ column }) => <DataGridColumnHeader title="Status" column={column} />,
                 cell: ({ row }) => {
                     const meta = STATUS_TONE[row.original.status];
-                    const tone = statusToneClasses[meta.tone];
 
-                    return (
-                        <Badge variant="outline" className={`${tone.bgClass} ${tone.textClass} ${tone.borderClass}`}>
-                            <span className={`size-1.5 rounded-full ${tone.dotClass}`} />
-                            {meta.label}
-                        </Badge>
-                    );
+                    return <FlexStatus tone={meta.tone}>{meta.label}</FlexStatus>;
                 },
                 size: 160,
                 enableSorting: true,
