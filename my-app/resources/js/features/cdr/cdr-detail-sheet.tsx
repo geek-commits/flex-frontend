@@ -1,11 +1,12 @@
 import { router } from '@inertiajs/react';
 import { RiDownload2Line, RiExternalLinkLine, RiPlayFill, RiPauseLine } from '@remixicon/react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FlexDetailSheet } from '@/components/flex/flex-detail-sheet';
 import { FlexStatus } from '@/components/flex/flex-status';
 import { Button } from '@/components/ui/button';
 import { getCallTimeline } from '@/data/cdr-events.mock';
 import { cdrRepository } from '@/domain/cdr-repository';
+import type { CDRRecord } from '@/domain/types';
 import { CDR_STATUS_TONE, formatDuration } from '@/features/cdr/cdr-columns';
 
 export interface CdrDetailSheetProps {
@@ -14,9 +15,19 @@ export interface CdrDetailSheetProps {
 }
 
 export function CdrDetailSheet({ recordId, onOpenChange }: CdrDetailSheetProps) {
-    const record = recordId ? cdrRepository.getById(recordId) : undefined;
+    const [record, setRecord] = useState<CDRRecord>();
+    const [loadedId, setLoadedId] = useState<string>();
     const open = !!recordId;
     const [playing, setPlaying] = useState(false);
+
+    if (recordId && recordId !== loadedId) {
+        setLoadedId(recordId);
+        const found = cdrRepository.getById(recordId);
+
+        if (found) {
+            setRecord(found);
+        }
+    }
 
     return (
         <FlexDetailSheet
