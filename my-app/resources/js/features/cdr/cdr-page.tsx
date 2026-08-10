@@ -1,4 +1,4 @@
-import { Head, router } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { RiRefreshLine } from '@remixicon/react';
 import type { PaginationState, SortingState } from '@tanstack/react-table';
 import { useTable } from '@tanstack/react-table';
@@ -14,6 +14,7 @@ import { cdrRepository  } from '@/domain/cdr-repository';
 import type {CdrQuery} from '@/domain/cdr-repository';
 import type { CDRRecord } from '@/domain/types';
 import { cdrColumns } from '@/features/cdr/cdr-columns';
+import { CdrDetailSheet } from '@/features/cdr/cdr-detail-sheet';
 import { CdrTable } from '@/features/cdr/cdr-table';
 import { CdrToolbar  } from '@/features/cdr/cdr-toolbar';
 import type {QuickFilter} from '@/features/cdr/cdr-toolbar';
@@ -42,6 +43,7 @@ export function CdrPage() {
     const [error, setError] = useState<string>();
     const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
     const [sorting, setSorting] = useState<SortingState>([{ id: 'date', desc: true }]);
+    const [detailId, setDetailId] = useState<string>();
 
     const query = useMemo<CdrQuery>(() => {
         const q: CdrQuery = { search };
@@ -99,7 +101,7 @@ return false;
     }, [baseResults, filters]);
 
     const openDetail = useCallback((record: CDRRecord) => {
-        router.visit(`/admin/cdr/${record.id}`);
+        setDetailId(record.id);
     }, []);
 
     const columns = useMemo(() => cdrColumns(openDetail), [openDetail]);
@@ -226,6 +228,8 @@ return false;
                     rollout.
                 </p>
             </div>
+
+            <CdrDetailSheet recordId={detailId} onOpenChange={(open) => !open && setDetailId(undefined)} />
         </AdminShell>
     );
 }
