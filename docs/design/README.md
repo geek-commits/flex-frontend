@@ -89,4 +89,4 @@ Documentation drift is a defect. If a rule stops matching the codebase, fix the 
 ## Tooling notes
 
 - **Component gallery:** a dedicated dev UI gallery is intentionally **deferred** for this release. The repository has no Storybook / Ladle / component-gallery tooling, and this phase must not add tooling "for fashion". Gallery needs are served today by the canonical routes themselves (Dashboard, CDR, Campaigns), the shared FLEX primitives, and browser-based visual verification. Revisit only when a low-cost, existing-pattern-friendly gallery becomes available.
-- **Tests:** the frontend has no JS test framework; quality gates rely on `tsc --noEmit`, `eslint`, `npm run build`, and browser verification. The Laravel backend uses Pest.
+- **Tests:** the frontend has no JS test framework; quality gates rely on `npm run lint:check`, `npm run types:check`, and `npm run build` (under `my-app/`), plus browser verification. The Laravel backend uses Pest.

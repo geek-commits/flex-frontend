@@ -45,7 +45,7 @@ Every feature implementation includes:
 
 ## Tooling note
 
-The frontend has no JS test framework. Gates rely on `tsc --noEmit`, `eslint`, `npm run build`, and browser verification (console errors included). The Laravel backend uses Pest (`php artisan test --compact`). Only claim checks that were actually run.
+The frontend has no JS test framework. Gates rely on `npm run lint:check`, `npm run types:check`, and `npm run build` (under `my-app/`), plus browser verification (console errors included). The Laravel backend uses Pest (`php artisan test --compact`). Only claim checks that were actually run.
 
 ## Commit rules
 

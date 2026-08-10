@@ -23,7 +23,7 @@ Each `QueueHealth` entry:
 | `longestWait` | Longest current wait (seconds) |
 | `availableAgents` | Agents currently Ready in this queue |
 | `totalAgents` | Agents assigned to this queue |
-| `sla` | SLA performance percentage |
+| `sla` | SLA (Service-Level Agreement) performance percentage |
 
 Related: `QueueSla` (`queue`, `withinSla`) for SLA trend display; operations summary aggregates queue/agent state counts.
 

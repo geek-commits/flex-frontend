@@ -60,3 +60,10 @@ When live subscriptions exist (not yet implemented in the POC — polling is use
 - expose connection status only when it is actually knowable.
 
 Do not document websocket behavior as current until it exists; do not prescribe polling where the runtime will use websockets, and vice versa (see `domain/data-freshness.md`).
+
+## Anti-patterns
+
+- Two components polling the same domain independently;
+- a poll interval that outlives the component (leaked timer);
+- a refresh that resets to a blank state instead of preserving the last known data;
+- claiming "Live" while the state is `stale` or `error`.

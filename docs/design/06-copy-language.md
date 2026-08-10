@@ -11,7 +11,7 @@ FLEX uses canonical terms from the runtime types (`resources/js/types/flex.ts`) 
 | Runtime value | Canonical display label |
 |---|---|
 | `ready` | Ready |
-| `talking` | Talking / On Call |
+| `talking` | Talking (On Call) |
 | `ringing` | Ringing |
 | `wrap-up` | Wrap Up |
 | `break` | Break |
@@ -38,7 +38,7 @@ Runtime call states include `idle`, `dialing`, `ringing`, `connected`, `hold`, `
 
 ### Objects
 
-Use the canonical object names exactly: `Queue`, `Agent`, `Campaign`, `Recording`, `Tenant`, `User`, `Role`, `Permission`, `IVR`, `Time Condition`, `Call Detail Record (CDR)`, `Call Campaign`.
+Use the canonical object names exactly: `Queue`, `Agent`, `Campaign`, `Recording`, `Tenant`, `User`, `Role`, `Permission`, `IVR (Interactive Voice Response)`, `Time Condition`, `Call Records (CDR)`, `Call Campaign`. Expand acronyms such as `CDR`, `IVR`, and `SLA (Service-Level Agreement)` at first use.
 
 ## Copy rules
 
