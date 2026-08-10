@@ -6,6 +6,7 @@ import { SearchHighlight } from '@/components/flex/search-highlight';
 import type { DataGridFeatures } from '@/components/reui/data-grid/data-grid';
 import { DataGridColumnHeader } from '@/components/reui/data-grid/data-grid-column-header';
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
 import type { CDRRecord } from '@/domain/types';
 
 export const CDR_STATUS_TONE: Record<CDRRecord['status'], FlexStatusTone> = {
@@ -37,6 +38,7 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
             ),
             size: 168,
             enableSorting: true,
+            meta: { skeleton: <Skeleton className="h-4 w-28" /> },
         },
         {
             accessorKey: 'customerPhone',
@@ -53,6 +55,7 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
             },
             size: 170,
             enableSorting: true,
+            meta: { skeleton: <Skeleton className="h-4 w-20" /> },
         },
         {
             accessorKey: 'agentName',
@@ -65,6 +68,7 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
             },
             size: 150,
             enableSorting: true,
+            meta: { skeleton: <Skeleton className="h-4 w-24" /> },
         },
         {
             accessorKey: 'queueName',
@@ -77,6 +81,7 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
             },
             size: 190,
             enableSorting: true,
+            meta: { skeleton: <Skeleton className="h-4 w-32" /> },
         },
         {
             accessorKey: 'durationSeconds',
@@ -87,6 +92,7 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
             ),
             size: 96,
             enableSorting: true,
+            meta: { skeleton: <Skeleton className="h-4 w-10" /> },
         },
         {
             accessorKey: 'status',
@@ -99,6 +105,7 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
             ),
             size: 120,
             enableSorting: true,
+            meta: { skeleton: <Skeleton className="h-4 w-16 rounded-full" /> },
         },
         {
             accessorKey: 'hasRecording',

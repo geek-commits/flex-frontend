@@ -67,7 +67,15 @@ q.dateTo = dateTo;
         return q;
     }, [search, quickFilter, dateFrom, dateTo]);
 
-    const baseResults = useMemo(() => cdrRepository.query(query), [query]);
+    const { records: baseResults, error: queryError } = useMemo(() => {
+        try {
+            return { records: cdrRepository.query(query), error: undefined as string | undefined };
+        } catch {
+            return { records: [], error: 'The call records service did not respond.' };
+        }
+    }, [query]);
+
+    const loadError = error ?? queryError;
 
     const filteredData = useMemo(() => {
         const active = filters.filter((filter) => filter.values?.length > 0 && filter.values.some((v) => v !== ''));
@@ -112,16 +120,12 @@ return false;
         setIsLoading(true);
         setError(undefined);
         // Local mock adapter: resolve on a microtask to render the loading state.
+        // The data read itself happens in the safe query memo below; errors there
+        // surface through `queryError` without crashing the page.
         setTimeout(() => {
-            try {
-                cdrRepository.query(query);
-                setIsLoading(false);
-            } catch {
-                setError('The call records service did not respond.');
-                setIsLoading(false);
-            }
+            setIsLoading(false);
         }, 350);
-    }, [query]);
+    }, []);
 
     const clearAll = useCallback(() => {
         setSearch('');
@@ -190,10 +194,10 @@ return false;
                     onClearFilters={() => setFilters([])}
                 />
 
-                {error ? (
+                {loadError ? (
                     <FlexErrorState
                         title="Couldn't load call records"
-                        description={error}
+                        description={loadError}
                         action={
                             <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={refresh}>
                                 <RiRefreshLine className="size-3.5" />
