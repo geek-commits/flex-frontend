@@ -1,7 +1,6 @@
 @import 'tailwindcss';
 
 @import 'tw-animate-css';
-@import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/raleway";
 
@@ -194,9 +193,9 @@
     --success-foreground:
         var(--color-emerald-900);
     --info:
-        var(--color-violet-500);
+        var(--color-sky-500);
     --info-foreground:
-        var(--color-violet-900);
+        var(--color-sky-900);
     --warning:
         var(--color-yellow-500);
     --warning-foreground:
@@ -205,6 +204,90 @@
         var(--color-zinc-900);
     --invert-foreground:
         var(--color-zinc-50);
+
+    /* ═══════════════════════════════════════════════════════
+       FLEX DESIGN TOKENS v0.1 — single source of truth
+       Pages consume these semantic names; do not hardcode
+       arbitrary brand/visual values in page components.
+       ═══════════════════════════════════════════════════════ */
+
+    /* Brand — FLEX blue is the primary interactive/action color */
+    --flex-brand-primary: var(--primary);
+    --flex-brand-primary-hover: oklch(0.44 0.22 264);
+    --flex-brand-primary-active: oklch(0.40 0.20 264);
+    --flex-brand-primary-subtle: oklch(0.95 0.02 264);
+    --flex-brand-secondary: var(--color-sky-500);
+
+    /* Surfaces */
+    --flex-surface: var(--card);
+    --flex-surface-subtle: oklch(0.985 0.002 247);
+    --flex-surface-muted: var(--muted);
+
+    /* Borders */
+    --flex-border: var(--border);
+    --flex-border-strong: oklch(0.87 0.004 247);
+
+    /* Text hierarchy */
+    --flex-text-primary: var(--foreground);
+    --flex-text-secondary: oklch(0.42 0.01 247);
+    --flex-text-muted: var(--muted-foreground);
+    --flex-text-disabled: oklch(0.72 0.005 247);
+
+    /* Status semantics (non-color indicator always paired) */
+    --flex-status-success: var(--status-live);
+    --flex-status-success-subtle: var(--status-live-bg);
+    --flex-status-warning: var(--status-stale);
+    --flex-status-warning-subtle: var(--status-stale-bg);
+    --flex-status-danger: var(--status-disconnected);
+    --flex-status-danger-subtle: var(--status-disconnected-bg);
+    --flex-status-info: var(--status-talking);
+    --flex-status-info-subtle: var(--status-talking-bg);
+    --flex-status-neutral: var(--status-notready);
+    --flex-status-neutral-subtle: var(--status-notready-bg);
+
+    /* Radius */
+    --flex-radius-sm: 6px;
+    --flex-radius-md: 8px;
+    --flex-radius-lg: 12px;
+    --flex-radius-pill: 999px;
+
+    /* Shadows — content stays flat; elevation only for overlays */
+    --flex-shadow-none: none;
+    --flex-shadow-overlay: 0 8px 24px rgb(15 23 42 / 0.08);
+    --flex-shadow-modal: 0 16px 48px rgb(15 23 42 / 0.14);
+
+    /* Motion */
+    --flex-duration-fast: 120ms;
+    --flex-duration-default: 150ms;
+    --flex-duration-overlay: 200ms;
+    --flex-ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Focus */
+    --flex-focus-ring: var(--ring);
+
+    /* Spacing rules (applied by shell/table components) */
+    --flex-space-page-x: 1.5rem;
+    --flex-space-page-y: 1.5rem;
+    --flex-space-section: 1.5rem;
+    --flex-space-toolbar: 0.625rem;
+    --flex-space-control: 0.5rem;
+    --flex-space-panel: 1rem;
+    --flex-space-cell-x: 1rem;
+    --flex-space-cell-y: 0.75rem;
+    --flex-space-header: 1.5rem;
+
+    /* Typography hierarchy */
+    --flex-font-size-page-title: 1.25rem;
+    --flex-font-size-subtitle: 0.75rem;
+    --flex-font-size-section: 0.75rem;
+    --flex-font-size-card-title: 0.875rem;
+    --flex-font-size-body: 0.8125rem;
+    --flex-font-size-metadata: 0.75rem;
+    --flex-font-size-caption: 0.6875rem;
+    --flex-font-size-table-header: 0.6875rem;
+    --flex-font-size-table-body: 0.8125rem;
+    --flex-font-size-numeric: 0.8125rem;
+    --flex-font-numeric: tabular-nums;
 }
 
 .dark {
@@ -306,9 +389,9 @@
     --success-foreground:
         var(--color-emerald-600);
     --info:
-        var(--color-violet-500);
+        var(--color-sky-500);
     --info-foreground:
-        var(--color-violet-600);
+        var(--color-sky-600);
     --warning:
         var(--color-yellow-500);
     --warning-foreground:
@@ -317,6 +400,17 @@
         var(--color-zinc-700);
     --invert-foreground:
         var(--color-zinc-50);
+
+    /* FLEX tokens — dark overrides */
+    --flex-brand-primary-hover: oklch(0.52 0.21 264);
+    --flex-brand-primary-active: oklch(0.56 0.20 264);
+    --flex-brand-primary-subtle: oklch(0.24 0.06 264);
+    --flex-surface-subtle: oklch(0.20 0.006 247);
+    --flex-border-strong: oklch(1 0 0 / 0.16);
+    --flex-text-secondary: oklch(0.80 0.01 247);
+    --flex-text-disabled: oklch(0.48 0.01 247);
+    --flex-shadow-overlay: 0 8px 24px rgb(0 0 0 / 0.4);
+    --flex-shadow-modal: 0 16px 48px rgb(0 0 0 / 0.6);
 }
 
 @layer base {
@@ -435,4 +529,62 @@
         var(--success);
     --color-destructive-foreground:
         var(--destructive-foreground);
+
+    /* FLEX semantic tokens → utilities (e.g. bg-flex-surface, text-flex-text-secondary) */
+    --color-flex-brand: var(--flex-brand-primary);
+    --color-flex-brand-hover: var(--flex-brand-primary-hover);
+    --color-flex-brand-active: var(--flex-brand-primary-active);
+    --color-flex-brand-subtle: var(--flex-brand-primary-subtle);
+    --color-flex-brand-secondary: var(--flex-brand-secondary);
+    --color-flex-surface: var(--flex-surface);
+    --color-flex-surface-subtle: var(--flex-surface-subtle);
+    --color-flex-surface-muted: var(--flex-surface-muted);
+    --color-flex-border: var(--flex-border);
+    --color-flex-border-strong: var(--flex-border-strong);
+    --color-flex-text-primary: var(--flex-text-primary);
+    --color-flex-text-secondary: var(--flex-text-secondary);
+    --color-flex-text-muted: var(--flex-text-muted);
+    --color-flex-text-disabled: var(--flex-text-disabled);
+    --color-flex-status-success: var(--flex-status-success);
+    --color-flex-status-success-bg: var(--flex-status-success-subtle);
+    --color-flex-status-warning: var(--flex-status-warning);
+    --color-flex-status-warning-bg: var(--flex-status-warning-subtle);
+    --color-flex-status-danger: var(--flex-status-danger);
+    --color-flex-status-danger-bg: var(--flex-status-danger-subtle);
+    --color-flex-status-info: var(--flex-status-info);
+    --color-flex-status-info-bg: var(--flex-status-info-subtle);
+    --color-flex-status-neutral: var(--flex-status-neutral);
+    --color-flex-status-neutral-bg: var(--flex-status-neutral-subtle);
+
+    --shadow-flex-overlay: var(--flex-shadow-overlay);
+    --shadow-flex-modal: var(--flex-shadow-modal);
+
+    --duration-flex-fast: var(--flex-duration-fast);
+    --duration-flex-default: var(--flex-duration-default);
+    --duration-flex-overlay: var(--flex-duration-overlay);
+
+    --ease-flex: var(--flex-ease);
+}
+
+/* Shared focus ring for interactive FLEX controls */
+@layer utilities {
+    .flex-focus-visible {
+        @apply outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:ring-offset-background;
+    }
+    .flex-numeric {
+        font-variant-numeric: var(--flex-font-numeric);
+        font-feature-settings: 'tnum';
+    }
+}
+
+/* Respect reduced motion — core functionality never depends on animation */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
