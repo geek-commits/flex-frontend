@@ -24,7 +24,13 @@ import type { CampaignStatus } from '@/types/flex';
 
 const campaignsContextGroups: ContextSidebarGroup[] = [
     {
-        groupTitle: 'Telephony',
+        groupTitle: 'Supervision',
+        items: [
+            { title: 'Dashboard', href: '/dashboard', capability: 'dashboard.view' },
+        ],
+    },
+    {
+        groupTitle: 'Operations',
         items: [
             { title: 'Call Records (CDR)', href: '/admin/cdr', capability: 'cdr.view' },
             { title: 'Call Campaigns', href: '/admin/campaigns', capability: 'campaigns.view' },
