@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
 import { Link } from '@inertiajs/react';
 import { RiSearchLine } from '@remixicon/react';
-import { Input } from '@/components/ui/input';
+import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 
 export interface ModuleItem {
     id: string;
@@ -68,6 +68,7 @@ export function ModuleDirectory({ title, description, modules }: ModuleDirectory
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                             {categoryModules.map((mod) => {
                                 const Icon = mod.icon;
+
                                 return (
                                     <Link key={mod.id} href={mod.href} className="group">
                                         <Card className="h-full bg-card border-border hover:border-primary/40 hover:shadow-xs transition-all">

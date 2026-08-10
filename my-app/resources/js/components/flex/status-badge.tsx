@@ -4,9 +4,10 @@ import {
     agentStateMap,
     connectionStateMap,
     campaignStatusMap,
-    aiFeatureStatusMap,
-    type StatusConfig,
+    aiFeatureStatusMap
+    
 } from '@/lib/status-styles';
+import type {StatusConfig} from '@/lib/status-styles';
 import type { AgentState, ConnectionState, CampaignStatus, AIFeatureStatus } from '@/types/flex';
 
 export type StatusBadgeType =
