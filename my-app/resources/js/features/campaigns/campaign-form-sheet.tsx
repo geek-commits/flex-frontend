@@ -5,13 +5,18 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle } from '@/components/ui/sheet';
-import { campaignRepository  } from '@/domain/campaign-repository';
-import type {CampaignDraft} from '@/domain/campaign-repository';
+import { campaignRepository } from '@/domain/campaign-repository';
+import type { CampaignDraft } from '@/domain/campaign-repository';
 import type { CampaignRecord } from '@/domain/types';
+import { CAMPAIGN_STATUS_OPTIONS } from '@/features/campaigns/campaign-status';
 import type { CampaignStatus } from '@/types/flex';
 
-const DESTINATION_OPTIONS = ['Outbound IVR Survey Queue', 'Direct Agent Dispatch', 'Broadcast Audio Prompt', 'Outbound Sales Queue'];
-const STATUS_OPTIONS: CampaignStatus[] = ['active', 'paused', 'scheduled', 'completed', 'draft'];
+const DESTINATION_OPTIONS = [
+    'Outbound IVR Survey Queue',
+    'Direct Agent Dispatch',
+    'Broadcast Audio Prompt',
+    'Outbound Sales Queue',
+];
 
 const EMPTY_DRAFT: CampaignDraft = {
     title: '',
@@ -46,18 +51,18 @@ function validateDraft(draft: CampaignDraft): Partial<Record<keyof CampaignDraft
     const errors: Partial<Record<keyof CampaignDraft, string>> = {};
 
     if (!draft.title.trim()) {
-errors.title = 'Title is required.';
-} else if (draft.title.trim().length < 3) {
-errors.title = 'Title must be at least 3 characters.';
-}
+        errors.title = 'Title is required.';
+    } else if (draft.title.trim().length < 3) {
+        errors.title = 'Title must be at least 3 characters.';
+    }
 
     if (!draft.destination) {
-errors.destination = 'Destination is required.';
-}
+        errors.destination = 'Destination is required.';
+    }
 
     if (!draft.scheduleTime) {
-errors.scheduleTime = 'Schedule time is required.';
-}
+        errors.scheduleTime = 'Schedule time is required.';
+    }
 
     if (draft.totalContacts < 0 || draft.dialedCount < 0 || draft.answeredCount < 0) {
         errors.totalContacts = 'Counts must be zero or greater.';
@@ -92,11 +97,7 @@ export function CampaignFormSheet({ open, onOpenChange, editing, onSaved }: Camp
                     </SheetDescription>
                 </SheetHeader>
 
-                <CampaignFormFields
-                    editing={editing}
-                    onClose={() => onOpenChange(false)}
-                    onSaved={onSaved}
-                />
+                <CampaignFormFields editing={editing} onClose={() => onOpenChange(false)} onSaved={onSaved} />
             </SheetContent>
         </Sheet>
     );
@@ -171,10 +172,7 @@ function CampaignFormFields({
                     <Label htmlFor="campaign-destination" className="text-xs font-semibold">
                         Destination
                     </Label>
-                    <Select
-                        value={draft.destination || null}
-                        onValueChange={(value) => updateDraft({ destination: value ?? '' })}
-                    >
+                    <Select value={draft.destination || null} onValueChange={(value) => updateDraft({ destination: value ?? '' })}>
                         <SelectTrigger id="campaign-destination" className="w-full">
                             <SelectValue placeholder="Select a destination" />
                         </SelectTrigger>
@@ -207,15 +205,12 @@ function CampaignFormFields({
                     <Label htmlFor="campaign-status" className="text-xs font-semibold">
                         Status
                     </Label>
-                    <Select
-                        value={draft.status}
-                        onValueChange={(value) => updateDraft({ status: (value as CampaignStatus) ?? 'draft' })}
-                    >
+                    <Select value={draft.status} onValueChange={(value) => updateDraft({ status: (value as CampaignStatus) ?? 'draft' })}>
                         <SelectTrigger id="campaign-status" className="w-full">
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                            {STATUS_OPTIONS.map((status) => (
+                            {CAMPAIGN_STATUS_OPTIONS.map((status) => (
                                 <SelectItem key={status} value={status} className="text-xs capitalize">
                                     {status}
                                 </SelectItem>

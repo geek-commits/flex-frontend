@@ -3,7 +3,6 @@ import { RiPauseFill, RiPlayFill, RiEditLine, RiDeleteBin6Line, RiUserStarLine, 
 import React, { useState } from 'react';
 import { toast } from 'sonner';
 import { BackLink } from '@/components/flex/back-link';
-import { CampaignFormSheet } from '@/components/flex/campaign-form-sheet';
 import { MetricCard, MetricGroup } from '@/components/flex/metric-card';
 import { StatusBadge } from '@/components/flex/status-badge';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
@@ -11,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { campaignRepository } from '@/domain/campaign-repository';
 import type { CampaignRecord } from '@/domain/types';
+import { CampaignFormSheet } from '@/features/campaigns/campaign-form-sheet';
 import { AdminShell } from '@/layouts/admin-shell';
 import type { CampaignStatus } from '@/types/flex';
 
