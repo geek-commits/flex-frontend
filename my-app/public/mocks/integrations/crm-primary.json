@@ -1,0 +1,80 @@
+{
+  "integrationId": "crm-primary",
+  "type": "crm",
+  "vendor": "Flex CRM Adapter",
+  "version": "2.1.0",
+  "mode": "mock",
+  "displayConfig": {
+    "title": "Customer Relationship Manager",
+    "subtitle": "Flex CRM Integration Host",
+    "iconUrl": null,
+    "primaryColor": "#1d4ed8",
+    "theme": "light"
+  },
+  "iframeConfig": {
+    "src": null,
+    "sandbox": "allow-same-origin allow-scripts allow-forms allow-popups",
+    "allow": "microphone; camera",
+    "referrerPolicy": "strict-origin-when-cross-origin"
+  },
+  "mockContent": {
+    "enabled": true,
+    "customerProfile": {
+      "name": "Amani Njoki",
+      "phone": "+255 712 345 678",
+      "email": "amani.njoki@example.co.tz",
+      "accountId": "ACC-10042",
+      "tier": "VIP Gold",
+      "language": "English",
+      "timezone": "Africa/Dar_es_Salaam",
+      "lastContact": "2026-07-28T09:15:00Z",
+      "openTickets": 1,
+      "lifetimeValue": "TZS 4,250,000"
+    },
+    "recentInteractions": [
+      {
+        "id": "int-001",
+        "type": "call",
+        "date": "2026-07-28",
+        "duration": "04:12",
+        "agent": "John Doe",
+        "queue": "Customer Support",
+        "status": "resolved",
+        "notes": "Customer inquired about invoice discrepancy. Resolved by issuing credit."
+      },
+      {
+        "id": "int-002",
+        "type": "email",
+        "date": "2026-07-15",
+        "subject": "Service Upgrade Request",
+        "status": "closed",
+        "notes": "Customer submitted upgrade request via email. Processed by billing team."
+      },
+      {
+        "id": "int-003",
+        "type": "call",
+        "date": "2026-07-10",
+        "duration": "02:45",
+        "agent": "Sarah Smith",
+        "queue": "Sales & Inquiries",
+        "status": "resolved",
+        "notes": "Upsell opportunity identified. Customer interested in Premium plan."
+      }
+    ],
+    "openTickets": [
+      {
+        "id": "TKT-5521",
+        "title": "Billing Discrepancy — July Invoice",
+        "priority": "high",
+        "status": "open",
+        "created": "2026-08-01T08:30:00Z",
+        "assignedTo": "Billing Team"
+      }
+    ]
+  },
+  "hostBridge": {
+    "eventNamespace": "flex.crm",
+    "inboundEvents": ["call.connected", "call.ended", "call.hold", "agent.state.changed"],
+    "outboundEvents": ["crm.record.opened", "crm.note.saved", "crm.ticket.created"]
+  }
+}
