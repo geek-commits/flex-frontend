@@ -101,7 +101,7 @@ export function CdrToolbar({
                             onClick={() => onQuickFilterChange(option.value)}
                             className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-colors duration-flex-fast ${
                                 quickFilter === option.value
-                                    ? 'bg-primary text-primary-foreground'
+                                    ? 'bg-primary/10 text-primary'
                                     : 'text-muted-foreground hover:text-foreground hover:bg-muted/70'
                             }`}
                         >

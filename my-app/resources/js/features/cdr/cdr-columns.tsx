@@ -32,7 +32,9 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
             accessorKey: 'date',
             id: 'date',
             header: ({ column }) => <DataGridColumnHeader title="Date & Time" column={column} />,
-            cell: ({ getValue }) => <span className="font-mono text-flex-text-muted">{getValue() as string}</span>,
+            cell: ({ getValue }) => (
+                <span className="font-mono flex-numeric text-flex-text-muted">{getValue() as string}</span>
+            ),
             size: 168,
             enableSorting: true,
         },
@@ -44,7 +46,7 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
                 const queryText = (table.options.meta as { search?: string } | undefined)?.search ?? '';
 
                 return (
-                    <span className="font-semibold text-flex-text-primary">
+                    <span className="font-semibold font-mono flex-numeric text-flex-text-primary">
                         <SearchHighlight text={row.original.customerPhone} query={queryText} />
                     </span>
                 );
