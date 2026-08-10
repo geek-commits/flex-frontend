@@ -11,7 +11,7 @@ import type { User } from '@/types';
 import type { AgentState, ConnectionState } from '@/types/flex';
 
 export interface AppTopbarProps {
-    title: string;
+    title?: string;
     subtitle?: string;
     mode?: 'admin' | 'agent';
     agentState?: AgentState;
@@ -111,14 +111,16 @@ export function AppTopbar({
                 </Sheet>
 
                 <div>
-                    <h1 className="text-sm font-semibold text-foreground tracking-tight flex items-center gap-2">
-                        {title}
-                        {mode === 'agent' && (
-                            <span className="px-2 py-0.5 text-[10px] font-bold uppercase rounded-full bg-primary/10 text-primary border border-primary/20">
-                                Agent Mode
-                            </span>
-                        )}
-                    </h1>
+                    {title && (
+                        <h1 className="text-sm font-semibold text-foreground tracking-tight flex items-center gap-2">
+                            {title}
+                            {mode === 'agent' && (
+                                <span className="px-2 py-0.5 text-[10px] font-bold uppercase rounded-full bg-primary/10 text-primary border border-primary/20">
+                                    Agent Mode
+                                </span>
+                            )}
+                        </h1>
+                    )}
                     {subtitle && <p className="text-xs text-muted-foreground">{subtitle}</p>}
                 </div>
             </div>
