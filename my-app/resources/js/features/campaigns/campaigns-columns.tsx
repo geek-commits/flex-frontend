@@ -16,10 +16,11 @@ export interface CampaignRowHandlers {
     onEdit: (record: CampaignRecord) => void;
     onToggleStatus: (record: CampaignRecord) => void;
     onDelete: (record: CampaignRecord) => void;
+    statusBusyId?: string;
 }
 
 export function campaignColumns(handlers: CampaignRowHandlers): ColumnDef<DataGridFeatures, CampaignRecord>[] {
-    const { onView, onEdit, onToggleStatus, onDelete } = handlers;
+    const { onView, onEdit, onToggleStatus, onDelete, statusBusyId } = handlers;
 
     return [
         {
@@ -122,6 +123,7 @@ export function campaignColumns(handlers: CampaignRowHandlers): ColumnDef<DataGr
                             variant="ghost"
                             size="icon-xs"
                             title={row.original.status === 'active' ? 'Pause campaign' : 'Start campaign'}
+                            disabled={statusBusyId === row.original.id}
                             onClick={(e) => {
                                 e.stopPropagation();
                                 onToggleStatus(row.original);

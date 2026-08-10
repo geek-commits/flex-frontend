@@ -48,6 +48,7 @@ export function CampaignsPage() {
 
     const [deleteTarget, setDeleteTarget] = useState<CampaignRecord>();
     const [deleting, setDeleting] = useState(false);
+    const [statusBusyId, setStatusBusyId] = useState<string>();
 
     const refresh = useCallback(() => {
         setIsLoading(true);
@@ -93,20 +94,28 @@ export function CampaignsPage() {
 
     const toggleStatus = useCallback(
         (record: CampaignRecord) => {
+            if (statusBusyId) {
+                return;
+            }
+
             const nextStatus: CampaignStatus = record.status === 'active' ? 'paused' : 'active';
-            campaignRepository.update(record.id, {
-                title: record.title,
-                destination: record.destination,
-                scheduleTime: record.scheduleTime,
-                status: nextStatus,
-                totalContacts: record.totalContacts,
-                dialedCount: record.dialedCount,
-                answeredCount: record.answeredCount,
-            });
-            refresh();
-            toast.success(nextStatus === 'active' ? 'Campaign started' : 'Campaign paused');
+            setStatusBusyId(record.id);
+            setTimeout(() => {
+                campaignRepository.update(record.id, {
+                    title: record.title,
+                    destination: record.destination,
+                    scheduleTime: record.scheduleTime,
+                    status: nextStatus,
+                    totalContacts: record.totalContacts,
+                    dialedCount: record.dialedCount,
+                    answeredCount: record.answeredCount,
+                });
+                setStatusBusyId(undefined);
+                refresh();
+                toast.success(nextStatus === 'active' ? 'Campaign started' : 'Campaign paused');
+            }, 250);
         },
-        [refresh]
+        [refresh, statusBusyId]
     );
 
     const openDetail = useCallback((record: CampaignRecord) => {
@@ -120,8 +129,9 @@ export function CampaignsPage() {
                 onEdit: openEdit,
                 onToggleStatus: toggleStatus,
                 onDelete: openDelete,
+                statusBusyId,
             }),
-        [openDetail, openEdit, toggleStatus, openDelete]
+        [openDetail, openEdit, toggleStatus, openDelete, statusBusyId]
     );
 
     const [columnOrder, setColumnOrder] = useState<string[]>(() => columns.map((column) => column.id as string));
@@ -266,6 +276,7 @@ export function CampaignsPage() {
                     setDetailId(undefined);
                     openDelete(record);
                 }}
+                statusBusy={statusBusyId === detailId}
             />
 
             <CampaignFormSheet open={sheetOpen} onOpenChange={setSheetOpen} editing={editing} onSaved={refresh} />

@@ -16,6 +16,7 @@ export interface CampaignDetailSheetProps {
     onEdit: (record: CampaignRecord) => void;
     onToggleStatus: (record: CampaignRecord) => void;
     onDelete: (record: CampaignRecord) => void;
+    statusBusy?: boolean;
 }
 
 /**
@@ -27,6 +28,7 @@ export function CampaignDetailSheet({
     onEdit,
     onToggleStatus,
     onDelete,
+    statusBusy = false,
 }: CampaignDetailSheetProps) {
     const [record, setRecord] = useState<CampaignRecord>();
     const [loadedId, setLoadedId] = useState<string>();
@@ -69,6 +71,7 @@ export function CampaignDetailSheet({
                                 size="sm"
                                 className="gap-1.5 text-xs"
                                 onClick={() => onToggleStatus(record)}
+                                disabled={statusBusy}
                             >
                                 {record.status === 'active' ? (
                                     <RiPauseFill className="size-3.5 text-status-stale" />
