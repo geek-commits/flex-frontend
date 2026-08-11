@@ -43,9 +43,11 @@ docs/design/
 ├── 12-quality-gates.md          ← how FLEX UI work is tested and accepted
 ├── domain/
 │   ├── agent-state.md
+│   ├── agent-workspace.md
 │   ├── call-state.md
 │   ├── queue-state.md
 │   ├── campaign-state.md
+│   ├── agent-monitoring.md
 │   ├── data-freshness.md
 │   ├── permission-model.md
 │   └── tenant-context.md
