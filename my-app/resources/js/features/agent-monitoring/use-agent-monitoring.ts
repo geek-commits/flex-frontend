@@ -1,4 +1,5 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+import type { Filter } from '@/components/reui/filters';
 import type {
     ActiveCall,
     AgentState,
@@ -38,6 +39,9 @@ export function useAgentMonitoring() {
         refresh,
     } = useDashboardData();
 
+    const [search, setSearch] = useState('');
+    const [filters, setFilters] = useState<Filter<string>[]>([]);
+
     const agents = useMemo<MonitoringAgentRow[]>(() => {
         if (!data) {
             return [];
@@ -68,9 +72,94 @@ export function useAgentMonitoring() {
         return counts;
     }, [agents]);
 
+    const queues = useMemo(
+        () =>
+            Array.from(new Set(agents.map((agent) => agent.queue))).sort(
+                (a, b) => a.localeCompare(b),
+            ),
+        [agents],
+    );
+
+    const hasPopoverFilters = useMemo(
+        () =>
+            filters.some(
+                (filter) =>
+                    filter.values?.length > 0 &&
+                    filter.values.some((value) => value !== ''),
+            ),
+        [filters],
+    );
+
+    const hasActiveFilters = search.trim() !== '' || hasPopoverFilters;
+
+    const filteredAgents = useMemo(() => {
+        const active = filters.filter(
+            (filter) =>
+                filter.values?.length > 0 &&
+                filter.values.some((value) => value !== ''),
+        );
+        const query = search.trim().toLowerCase();
+
+        return agents.filter((agent) => {
+            if (
+                query &&
+                !agent.name.toLowerCase().includes(query) &&
+                !agent.extension.toLowerCase().includes(query)
+            ) {
+                return false;
+            }
+
+            for (const filter of active) {
+                const { field, operator, values } = filter;
+
+                if (field === 'state') {
+                    if (
+                        (operator === 'is' || operator === 'equals') &&
+                        !values.includes(agent.state)
+                    ) {
+                        return false;
+                    }
+
+                    if (operator === 'is_not' && values.includes(agent.state)) {
+                        return false;
+                    }
+                }
+
+                if (field === 'queue') {
+                    if (
+                        (operator === 'is' || operator === 'equals') &&
+                        !values.includes(agent.queue)
+                    ) {
+                        return false;
+                    }
+
+                    if (operator === 'is_not' && values.includes(agent.queue)) {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        });
+    }, [agents, search, filters]);
+
+    const clearFilters = useCallback(() => {
+        setSearch('');
+        setFilters([]);
+    }, []);
+
     return {
         agents,
         summary,
+        queues,
+        filteredAgents,
+        search,
+        setSearch,
+        filters,
+        setFilters,
+        hasActiveFilters,
+        hasPopoverFilters,
+        clearFilters,
         isLoading,
         isRefreshing,
         error,

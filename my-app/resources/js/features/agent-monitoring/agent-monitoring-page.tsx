@@ -4,6 +4,8 @@ import React from 'react';
 import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexLiveDataStatus } from '@/components/flex/flex-live-data-status';
+import { Button } from '@/components/ui/button';
+import { AgentMonitoringToolbar } from '@/features/agent-monitoring/agent-monitoring-toolbar';
 import { AgentStateSummary } from '@/features/agent-monitoring/agent-state-summary';
 import { useAgentMonitoring } from '@/features/agent-monitoring/use-agent-monitoring';
 import { DashboardProvider } from '@/features/dashboard/dashboard-context';
@@ -48,17 +50,67 @@ const monitoringContextGroups: ContextSidebarGroup[] = [
     },
 ];
 
-function AgentMonitoringPipelineStatus() {
-    const { connectionState, lastUpdated, isRefreshing, refresh } =
-        useAgentMonitoring();
+function AgentMonitoringContent() {
+    const {
+        agents,
+        filteredAgents,
+        search,
+        setSearch,
+        filters,
+        setFilters,
+        queues,
+        hasActiveFilters,
+        clearFilters,
+        connectionState,
+        lastUpdated,
+        isRefreshing,
+        refresh,
+    } = useAgentMonitoring();
+
+    const showFilteredEmpty = hasActiveFilters && filteredAgents.length === 0;
 
     return (
-        <FlexLiveDataStatus
-            connectionState={connectionState}
-            lastUpdated={lastUpdated}
-            isRefreshing={isRefreshing}
-            onRefresh={refresh}
-        />
+        <div className="flex w-full flex-col gap-[var(--flex-space-section)]">
+            <FlexLiveDataStatus
+                connectionState={connectionState}
+                lastUpdated={lastUpdated}
+                isRefreshing={isRefreshing}
+                onRefresh={refresh}
+            />
+
+            <AgentStateSummary />
+
+            <AgentMonitoringToolbar
+                search={search}
+                onSearchChange={setSearch}
+                filters={filters}
+                onFiltersChange={setFilters}
+                queues={queues}
+                hasActiveFilters={hasActiveFilters}
+                onClearFilters={clearFilters}
+            />
+
+            {showFilteredEmpty ? (
+                <FlexEmptyState
+                    title="No agents match your filters"
+                    description="Try a different search or clear your filters."
+                    action={
+                        <Button variant="outline" size="sm" className="text-xs" onClick={clearFilters}>
+                            Clear filters
+                        </Button>
+                    }
+                />
+            ) : hasActiveFilters ? (
+                <p className="text-xs text-flex-text-muted">
+                    {filteredAgents.length} of {agents.length} agents match
+                </p>
+            ) : (
+                <FlexEmptyState
+                    title="Agent monitoring is coming online"
+                    description="Live agent activity will appear here."
+                />
+            )}
+        </div>
     );
 }
 
@@ -74,16 +126,7 @@ export function AgentMonitoringPage() {
             >
                 <Head title="Agent Monitoring — Flex Contact Center" />
 
-                <div className="flex w-full flex-col gap-[var(--flex-space-section)]">
-                    <AgentMonitoringPipelineStatus />
-
-                    <AgentStateSummary />
-
-                    <FlexEmptyState
-                        title="Agent monitoring is coming online"
-                        description="Live agent activity will appear here."
-                    />
-                </div>
+                <AgentMonitoringContent />
             </AdminShell>
         </DashboardProvider>
     );
