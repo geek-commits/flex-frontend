@@ -3,6 +3,9 @@ import { RiDashboardLine } from '@remixicon/react';
 import React from 'react';
 import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
+import { FlexLiveDataStatus } from '@/components/flex/flex-live-data-status';
+import { useAgentMonitoring } from '@/features/agent-monitoring/use-agent-monitoring';
+import { DashboardProvider } from '@/features/dashboard/dashboard-context';
 import { AdminShell } from '@/layouts/admin-shell';
 
 const monitoringContextGroups: ContextSidebarGroup[] = [
@@ -44,21 +47,41 @@ const monitoringContextGroups: ContextSidebarGroup[] = [
     },
 ];
 
+function AgentMonitoringPipelineStatus() {
+    const { connectionState, lastUpdated, isRefreshing, refresh } =
+        useAgentMonitoring();
+
+    return (
+        <FlexLiveDataStatus
+            connectionState={connectionState}
+            lastUpdated={lastUpdated}
+            isRefreshing={isRefreshing}
+            onRefresh={refresh}
+        />
+    );
+}
+
 export function AgentMonitoringPage() {
     return (
-        <AdminShell
-            title="Agent Monitoring"
-            subtitle="Live agent activity and supervisor intervention."
-            contextTitle="Supervision"
-            contextSubtitle="Realtime workforce monitoring"
-            contextGroups={monitoringContextGroups}
-        >
-            <Head title="Agent Monitoring — Flex Contact Center" />
+        <DashboardProvider>
+            <AdminShell
+                title="Agent Monitoring"
+                subtitle="Live agent activity and supervisor intervention."
+                contextTitle="Supervision"
+                contextSubtitle="Realtime workforce monitoring"
+                contextGroups={monitoringContextGroups}
+            >
+                <Head title="Agent Monitoring — Flex Contact Center" />
 
-            <FlexEmptyState
-                title="Agent monitoring is coming online"
-                description="Live agent activity will appear here."
-            />
-        </AdminShell>
+                <div className="flex w-full flex-col gap-[var(--flex-space-section)]">
+                    <AgentMonitoringPipelineStatus />
+
+                    <FlexEmptyState
+                        title="Agent monitoring is coming online"
+                        description="Live agent activity will appear here."
+                    />
+                </div>
+            </AdminShell>
+        </DashboardProvider>
     );
 }

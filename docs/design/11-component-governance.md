@@ -22,7 +22,7 @@ CampaignsPage    → route composition
 ```
 
 - **Base layer:** shadcn/Radix/TanStack primitives (`components/ui/*`, `@tanstack/react-table`, `recharts`).
-- **FLEX primitives:** shared FLEX-level components that encode product-system rules (`components/flex/*` — `flex-status`, `flex-detail-sheet`, `flex-empty-state`, `flex-loading-state`, `flex-error-state`, `flex-page-header`, `flex-page-content`, `back-link`, `context-sidebar`, `primary-rail`, `metric-card`, `trend-charts`).
+- **FLEX primitives:** shared FLEX-level components that encode product-system rules (`components/flex/*` — `flex-status`, `flex-live-data-status`, `flex-detail-sheet`, `flex-empty-state`, `flex-loading-state`, `flex-error-state`, `flex-page-header`, `flex-page-content`, `back-link`, `context-sidebar`, `primary-rail`, `metric-card`, `trend-charts`).
 - **Domain composition:** feature-specific components composed from primitives (`features/cdr/*`, `features/campaigns/*`, `features/dashboard/*`).
 - **Route:** the page composes domain components (`pages/admin/*`).
 
