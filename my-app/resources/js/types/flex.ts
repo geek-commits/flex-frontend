@@ -11,6 +11,7 @@ export type CallState =
     | 'idle'
     | 'dialing'
     | 'ringing'
+    | 'connecting'
     | 'connected'
     | 'hold'
     | 'muted'
