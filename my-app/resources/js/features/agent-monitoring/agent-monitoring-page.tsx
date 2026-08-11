@@ -4,6 +4,7 @@ import React from 'react';
 import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexLiveDataStatus } from '@/components/flex/flex-live-data-status';
+import { AgentStateSummary } from '@/features/agent-monitoring/agent-state-summary';
 import { useAgentMonitoring } from '@/features/agent-monitoring/use-agent-monitoring';
 import { DashboardProvider } from '@/features/dashboard/dashboard-context';
 import { AdminShell } from '@/layouts/admin-shell';
@@ -75,6 +76,8 @@ export function AgentMonitoringPage() {
 
                 <div className="flex w-full flex-col gap-[var(--flex-space-section)]">
                     <AgentMonitoringPipelineStatus />
+
+                    <AgentStateSummary />
 
                     <FlexEmptyState
                         title="Agent monitoring is coming online"
