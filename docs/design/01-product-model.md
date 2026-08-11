@@ -20,7 +20,7 @@ These map to the user roles in the *Flex CC User Manual* (Agent, Supervisor, Adm
 | Workspace | Primary users | Runtime evidence | Core concerns |
 |---|---|---|---|
 | Agent | Agents | `pages/agent/*` (Agent Workspace, Missed Calls, Troubleshooting, Quick Support), `call-manager` | availability, call state, customer context, next action |
-| Supervision | Supervisors, Admins | `pages/admin/contact-center-dashboard.tsx`, `features/cdr/*`, `features/campaigns/*`, Reports | exceptions, queue/SLA health, workforce state, intervention |
+| Supervision | Supervisors, Admins | `pages/admin/contact-center-dashboard.tsx`, `pages/admin/agent-monitoring.tsx`, `features/agent-monitoring/*`, `features/cdr/*`, `features/campaigns/*`, Reports | exceptions, queue/SLA health, workforce state, intervention |
 | Administration | Administrators | `pages/admin/management-console.tsx`, `pages/admin/system.tsx`, settings | configuration clarity, validation, consequence awareness, safe change |
 | Platform | Super Administrators | `super-admin` role (all capabilities); tenant modules are placeholders only | tenant context, platform scope, cross-tenant support |
 
@@ -51,12 +51,12 @@ Core concepts (from the manual and `pages/agent/*`):
 Core concepts:
 
 - Realtime Dashboard;
+- Agent Monitoring (`/admin/monitoring` — realtime workforce state, live-call context, and the Call Whispering intervention, see `domain/agent-monitoring.md`);
 - Agent Activity by State;
 - Active Calls;
 - SLA and Queue Stats;
 - Call Volumes;
-- Agent Monitoring;
-- Call Whispering;
+- Call Whispering (simulated in the POC; requires the Call Manager integration path for real media);
 - CDR, Campaigns, Reports.
 
 **Design implication:** Supervisor UI prioritizes exceptions, operational health, workforce state, and intervention (see `03-attention-hierarchy.md`). Operational data is the page, not decoration.

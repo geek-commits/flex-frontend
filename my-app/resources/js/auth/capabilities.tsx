@@ -11,6 +11,7 @@ import {
     RiPhoneLine,
     RiErrorWarningLine,
     RiCustomerService2Line,
+    RiTeamLine,
 } from '@remixicon/react';
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
@@ -29,6 +30,7 @@ export type Role = 'super-admin' | 'admin' | 'agent';
 
 export type Capability =
     | 'dashboard.view'
+    | 'monitor.view'
     | 'console.view'
     | 'cdr.view'
     | 'campaigns.view'
@@ -47,6 +49,7 @@ export type Capability =
 
 const ALL: Capability[] = [
     'dashboard.view',
+    'monitor.view',
     'console.view',
     'cdr.view',
     'campaigns.view',
@@ -69,6 +72,7 @@ export const ROLE_CAPABILITIES: Record<Role, Capability[]> = {
     'super-admin': ALL,
     admin: [
         'dashboard.view',
+        'monitor.view',
         'console.view',
         'cdr.view',
         'campaigns.view',
@@ -99,6 +103,7 @@ export interface NavEntry {
 export const NAVIGATION: NavEntry[] = [
     { title: 'Agent Workspace', href: '/agent', icon: RiCustomerServiceLine, capability: 'agent.workspace', workspace: 'agent', badge: 'Live' },
     { title: 'Contact Center Dashboard', href: '/dashboard', icon: RiDashboard3Line, capability: 'dashboard.view', workspace: 'admin' },
+    { title: 'Agent Monitoring', href: '/admin/monitoring', icon: RiTeamLine, capability: 'monitor.view', workspace: 'admin' },
     { title: 'Management Console', href: '/admin/console', icon: RiAppsLine, capability: 'console.view', workspace: 'admin' },
     { title: 'Call Records (CDR)', href: '/admin/cdr', icon: RiPhoneFindLine, capability: 'cdr.view', workspace: 'admin' },
     { title: 'Call Campaigns', href: '/admin/campaigns', icon: RiMegaphoneLine, capability: 'campaigns.view', workspace: 'admin' },

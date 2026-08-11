@@ -9,6 +9,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::middleware(['auth', 'verified'])->group(function () {
     // Admin Surfaces
     Route::inertia('dashboard', 'admin/contact-center-dashboard')->name('dashboard');
+    Route::inertia('admin/monitoring', 'admin/agent-monitoring')->name('admin.monitoring');
     Route::inertia('admin/console', 'admin/management-console')->name('admin.console');
     Route::inertia('admin/cdr', 'admin/cdr')->name('admin.cdr');
     Route::inertia('admin/campaigns', 'admin/campaigns')->name('admin.campaigns');

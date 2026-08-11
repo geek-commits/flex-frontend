@@ -66,7 +66,7 @@ Global Settings
 Actual visibility always depends on existing permissions. The current runtime ships the two canonical contextual groups on supervision surfaces:
 
 ```text
-SUPERVISION    Dashboard
+SUPERVISION    Dashboard · Agent Monitoring
 OPERATIONS     CDR · Campaigns · Reports
 ```
 
