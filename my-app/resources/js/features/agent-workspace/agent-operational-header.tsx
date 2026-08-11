@@ -1,0 +1,126 @@
+import { Link, usePage } from '@inertiajs/react';
+import { RiMenuLine } from '@remixicon/react';
+import React from 'react';
+import { useCapabilities } from '@/auth/capabilities';
+import { FlexLogo } from '@/components/flex/flex-logo';
+import { GlobalSearchTrigger } from '@/components/flex/global-search';
+import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import type { User } from '@/types';
+import type { AgentState, ConnectionState } from '@/types/flex';
+import { AgentStateControl } from './agent-state-control';
+import { ConnectionStatus } from './connection-status';
+import { SessionTimer } from './session-timer';
+
+export interface AgentOperationalHeaderProps {
+    agentState: AgentState;
+    onAgentStateChange: (state: AgentState) => void;
+    pendingState?: AgentState | null;
+    stateError?: string | null;
+    connectionState: ConnectionState;
+    sessionStartedAt?: string;
+    title?: string;
+    subtitle?: string;
+}
+
+/**
+ * Agent operational header — not a generic SaaS topbar (AGENT_WORKSPACE_PLAN §17).
+ * Operational priority: Agent State → Telephony Connection → Timer, then generic
+ * search/account chrome.
+ */
+export function AgentOperationalHeader({
+    agentState,
+    onAgentStateChange,
+    pendingState,
+    stateError,
+    connectionState,
+    sessionStartedAt,
+    title = 'Agent Workspace',
+    subtitle = 'External CRM & Central Call Manager',
+}: AgentOperationalHeaderProps) {
+    const { url, props } = usePage();
+    const { navEntries } = useCapabilities();
+    const user = props.auth?.user as User | undefined;
+
+    return (
+        <header className="h-14 bg-card border-b border-border px-4 flex items-center justify-between gap-3 sticky top-0 z-20 shrink-0 select-none">
+            {/* Title / Mobile Drawer */}
+            <div className="flex items-center gap-2.5 min-w-0">
+                <Sheet>
+                    <SheetTrigger asChild>
+                        <Button variant="ghost" size="icon-sm" className="md:hidden">
+                            <RiMenuLine className="size-4" />
+                        </Button>
+                    </SheetTrigger>
+                    <SheetContent side="left" className="w-64 p-4 flex flex-col gap-4">
+                        <SheetHeader>
+                            <SheetTitle className="text-left">
+                                <FlexLogo size={22} />
+                            </SheetTitle>
+                        </SheetHeader>
+                        <nav className="flex flex-col gap-1 mt-2">
+                            {navEntries.map((item) => {
+                                const isActive = url.startsWith(item.href);
+                                const Icon = item.icon;
+
+                                return (
+                                    <Link
+                                        key={item.href}
+                                        href={item.href}
+                                        className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
+                                            isActive
+                                                ? 'bg-primary text-primary-foreground'
+                                                : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                                        }`}
+                                    >
+                                        <Icon className="size-4" />
+                                        <span>{item.title}</span>
+                                    </Link>
+                                );
+                            })}
+                        </nav>
+                    </SheetContent>
+                </Sheet>
+
+                <div className="min-w-0">
+                    <h1 className="text-sm font-semibold text-foreground tracking-tight flex items-center gap-2">
+                        {title}
+                        <span className="px-2 py-0.5 text-[10px] font-bold uppercase rounded-full bg-primary/10 text-primary border border-primary/20">
+                            Agent Mode
+                        </span>
+                    </h1>
+                    <p className="text-xs text-muted-foreground truncate">{subtitle}</p>
+                </div>
+            </div>
+
+            {/* Operational Controls */}
+            <div className="flex items-center gap-3">
+                <AgentStateControl
+                    state={agentState}
+                    onSelect={onAgentStateChange}
+                    pendingState={pendingState}
+                    error={stateError}
+                />
+
+                <ConnectionStatus state={connectionState} />
+
+                <SessionTimer startedAt={sessionStartedAt} />
+
+                <GlobalSearchTrigger />
+
+                {/* Account */}
+                <div className="flex items-center gap-2 pl-2 border-l border-border">
+                    <div className="text-right hidden lg:block">
+                        <div className="text-xs font-semibold text-foreground leading-none">
+                            {user?.name || 'Super Administrator'}
+                        </div>
+                        <div className="text-[10px] text-muted-foreground font-medium mt-0.5">
+                            {user?.email || 'admin@flex.com'}
+                        </div>
+                    </div>
+                    <span className="size-2 rounded-full bg-status-live" title="Authenticated" />
+                </div>
+            </div>
+        </header>
+    );
+}

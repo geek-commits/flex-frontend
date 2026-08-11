@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { PrimaryRail } from '@/components/flex/primary-rail';
 import { AppTopbar } from '@/components/flex/app-topbar';
+import { PrimaryRail } from '@/components/flex/primary-rail';
 import type { AgentState } from '@/types/flex';
 
 export interface AgentShellProps {
@@ -8,6 +8,8 @@ export interface AgentShellProps {
     subtitle?: string;
     children: React.ReactNode;
     callManagerPanel?: React.ReactNode;
+    /** Custom top band; overrides the default AppTopbar chrome. */
+    topbar?: React.ReactNode;
 }
 
 export function AgentShell({
@@ -15,6 +17,7 @@ export function AgentShell({
     subtitle = 'Active Operational Session',
     children,
     callManagerPanel,
+    topbar,
 }: AgentShellProps) {
     const [agentState, setAgentState] = useState<AgentState>('ready');
 
@@ -25,13 +28,15 @@ export function AgentShell({
 
             {/* Main Content & Toolbar */}
             <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
-                <AppTopbar
-                    title={title}
-                    subtitle={subtitle}
-                    mode="agent"
-                    agentState={agentState}
-                    onAgentStateChange={setAgentState}
-                />
+                {topbar ?? (
+                    <AppTopbar
+                        title={title}
+                        subtitle={subtitle}
+                        mode="agent"
+                        agentState={agentState}
+                        onAgentStateChange={setAgentState}
+                    />
+                )}
 
                 {/* Workspace Grid Layout: Central Workspace + Optional Call Manager */}
                 <div className="flex-1 flex min-h-0 overflow-hidden">

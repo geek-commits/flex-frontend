@@ -2,7 +2,7 @@
 
 Canonical semantics for the FLEX Agent transaction workspace. Workspace: **Agent**. Primary user: an agent working a shift (not a Super Administrator test account). This is the high-frequency call-handling surface: availability state, telephony connection, external CRM integration boundary, Call Manager, Wrap Up, and recent call context.
 
-Execution authority: `AGENT_WORKSPACE_PLAN.md` (repo root). This doc records the modernization baseline and the architectural decisions taken at Phase 0.
+Execution authority: `AGENT_WORKSPACE_PLAN.md` (repo root). This doc records the modernization baseline and the architectural decisions taken at Phases 0–2.
 
 ## Boundary rule
 
@@ -12,9 +12,9 @@ The external CRM integration host is a **frozen integration boundary**. FLEX own
 
 | Concern | Owner (runtime) |
 |---|---|
-| Agent state | `AgentShell` local `useState<AgentState>('ready')`; selector in `AppTopbar` (`components/flex/app-topbar.tsx`) |
-| State duration | `AppTopbar` hardcoded session counter (00:05:19 initial) — not authoritative |
-| Signaling connection | Static `connectionState='live'` prop; `connectionStateMap` (`lib/status-styles.ts`) |
+| Agent state | `AgentWorkspacePage` local `useState<AgentState>('ready')` (`features/agent-workspace/agent-workspace-page.tsx`); `AgentStateControl` (`features/agent-workspace/agent-state-control.tsx`) in the operational header — selectable states: `ready` / `not-ready` / `break` only |
+| State/session duration | `SessionTimer` (`features/agent-workspace/session-timer.tsx`) — real session start (workspace mount), ticks 1 s, `hh:mm:ss`, dash (`—`) when no start; authoritative for the session |
+| Signaling connection | Static `connectionState='live'`; `ConnectionStatus` (`features/agent-workspace/connection-status.tsx`) renders via `connectionStateMap` (`lib/status-styles.ts`); distinct from agent availability |
 | WebRTC media | None |
 | Active call | `CallManager` local `useState<CallState>('idle')` (`components/flex/call-manager.tsx`) |
 | Call duration | Hardcoded `02:14` string |
@@ -35,11 +35,19 @@ The external CRM integration host is a **frozen integration boundary**. FLEX own
 - **Telephony adapter:** the inline `setTimeout` simulation in the presentational Call Manager is replaced by an isolated mock adapter behind a production-facing interface (`§56`, `§57`). Deterministic test scenarios are supported.
 - **State extension:** `incoming` and `connecting` call states are added to the runtime model for the incoming-call surface; `muted` / `hold` remain derived flags rather than mutually exclusive call states. `call-state.md` and `types/flex.ts` are updated in the same phase (§114).
 
+## Decisions (Phase 2)
+
+- **Operational header:** the workspace renders `AgentOperationalHeader` (`features/agent-workspace/agent-operational-header.tsx`) as its top band via the generic `AgentShell` `topbar` slot; `AppTopbar` is untouched and remains the top band for the other agent pages (`missed-calls`, `troubleshooting`, `support`). Operational priority per `AGENT_WORKSPACE_PLAN.md` §17: Agent State → Connection → Timer → search/account chrome.
+- **Selectable states:** only `ready`, `not-ready`, `break` are offered in `AgentStateControl` (§18 — do not make system-driven states manually selectable). `talking`, `ringing`, `wrap-up`, `offline` are display-only, driven by the runtime.
+- **Pending/failure contract:** state changes are controlled; while a transition is pending the control is disabled (prevents duplicate submissions) and still shows the current authoritative state; failures are surfaced in place (`error` prop) and never silently flip the displayed state. The 450 ms round-trip is a POC stand-in for the transition the Phase 4 telephony adapter makes authoritative.
+- **Session timer:** derives from a real workspace session start (mount timestamp) and ticks once per second; it never fabricates a duration and never drives state (`agent-state.md` timer rules). No start renders `—`.
+- **Mobile drawer:** uses capability-filtered `navEntries` from `auth/capabilities.tsx` (permission-aware) rather than a second static list.
+
 ## Pre-existing defects (recorded at baseline, not caused by this work)
 
 - Call Manager call-control buttons are icon-only (ambiguous); plan §65 requires icon + label.
 - Call duration in the active-call card is a hardcoded string.
-- Topbar session timer is a hardcoded demo counter, not authoritative.
+- Topbar session timer is a hardcoded demo counter on the other agent pages (`AppTopbar`); the workspace session timer is real since Phase 2.
 - Transfer button exists with no transfer flow.
 - No `incoming` / `connecting` / `ended` / `failed` live presentation in Call Manager.
 - Mute / Hold are local toggles and not server-authoritative states.
@@ -71,5 +79,5 @@ During ringing, Answer/Decline dominate; during an active call, call state and c
 
 ## Where shown
 
-- `/agent` — Agent Workspace: operational header, CRM integration host, Call Manager (`pages/agent/index.tsx`).
+- `/agent` — Agent Workspace: operational header (`AgentOperationalHeader` → `AgentStateControl`, `ConnectionStatus`, `SessionTimer`, account), CRM integration host, Call Manager (`pages/agent/index.tsx`).
 - Related routes: `/agent/missed-calls`, `/agent/troubleshooting`, `/agent/support` (agent workspace), Dashboard wallboard, Agent Monitoring (`/admin/monitoring`).
