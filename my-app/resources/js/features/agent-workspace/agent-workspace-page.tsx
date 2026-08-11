@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { CallManager } from '@/components/flex/call-manager';
-import { EmbeddedWorkspace } from '@/components/flex/embedded-workspace';
 import { AgentShell } from '@/layouts/agent-shell';
 import type { AgentState, ConnectionState } from '@/types/flex';
 import { AgentOperationalHeader } from './agent-operational-header';
+import { CrmIntegrationHost } from './integration/crm-integration-host';
 
 /** POC transition round-trip simulation; the real adapter (Phase 4) becomes authoritative. */
 const STATE_TRANSITION_DELAY_MS = 450;
@@ -57,7 +57,7 @@ export function AgentWorkspacePage() {
         >
             {/* Central Workspace: Frozen Iframe Integration Boundary */}
             <div className="h-full w-full flex flex-col">
-                <EmbeddedWorkspace
+                <CrmIntegrationHost
                     title="Customer Workspace"
                     mockConfigPath="/mocks/integrations/crm-primary.json"
                 />

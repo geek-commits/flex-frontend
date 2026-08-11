@@ -4,6 +4,7 @@
   "vendor": "Flex CRM Adapter",
   "version": "2.1.0",
   "mode": "mock",
+  "connection": "connected",
   "displayConfig": {
     "title": "Customer Relationship Manager",
     "subtitle": "Flex CRM Integration Host",
