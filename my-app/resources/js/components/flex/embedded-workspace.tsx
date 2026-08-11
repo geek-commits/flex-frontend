@@ -91,8 +91,8 @@ export function EmbeddedWorkspace({
             <div className="h-10 px-3 border-b border-border bg-muted/30 flex items-center justify-between shrink-0 select-none text-xs">
                 <div className="flex items-center gap-2 text-muted-foreground font-medium truncate">
                     <RiShieldKeyholeLine className="size-3.5 text-primary" />
-                    <span className="truncate">{title}</span>
-                    <span className="px-1.5 py-0.2 text-[9px] font-semibold rounded bg-muted text-muted-foreground uppercase shrink-0">
+                    <span className="truncate font-semibold text-foreground">{title}</span>
+                    <span className="px-1.5 py-px text-[9px] font-bold uppercase rounded-full bg-primary/10 text-primary border border-primary/20 shrink-0">
                         Integration Boundary
                     </span>
                 </div>
@@ -118,15 +118,16 @@ export function EmbeddedWorkspace({
             <div className="h-7 px-3 border-b border-border bg-muted/10 flex items-center gap-2 text-[10px] text-muted-foreground select-none overflow-hidden">
                 <RiDatabase2Line className="size-3 shrink-0" />
                 <span className="truncate">
-                    Host: <span className="font-semibold text-foreground">{config?.vendor ?? 'Flex CRM Adapter'}</span>
+                    External CRM
                     {config?.integrationId && (
-                        <span className="ml-1 font-mono text-muted-foreground/70">{config.integrationId}</span>
+                        <span className="ml-1 font-mono text-muted-foreground/60">{config.integrationId}</span>
                     )}
                 </span>
                 <span className="px-1 py-px rounded bg-muted text-muted-foreground uppercase font-semibold shrink-0">
-                    mode: {mode}
+                    {mode === 'mock' ? 'Mock integration' : 'Connected'}
                 </span>
-                {config?.version && <span className="hidden sm:inline font-mono">v{config.version}</span>}
+                {config?.version && <span className="hidden sm:inline font-mono text-muted-foreground/60">v{config.version}</span>}
+                <span className="ml-auto hidden lg:inline truncate text-muted-foreground/70">{config?.vendor}</span>
             </div>
 
             {/* Iframe Viewport Area */}
