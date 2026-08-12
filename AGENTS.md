@@ -6,7 +6,9 @@ This repository contains the FLEX Contact Center frontend POC (under `my-app/`).
 - **Work** with the design rules in `docs/design/` and the domain models in `docs/design/domain/` as the default source of product-design behavior.
 - **Mirror** the canonical routes documented in `docs/design/exemplars/` (CDR, Campaigns, Dashboard).
 
-The POC-specific rules and Laravel Boost guidelines live in `my-app/AGENTS.md` and apply to work under `my-app/`.
+Feature work is tracked as GitHub issues cut per phase; consult `docs/product/FLEX_FEATURE_PARITY.md` for the canonical feature-completion tracker before any revamp.
+
+POC-specific rules and Laravel Boost guidelines live in `my-app/AGENTS.md` and apply to work under `my-app/`.
 
 ## Workspaces
 
@@ -56,3 +58,17 @@ Every implementation phase must be tested, visually verified, functionally verif
 - Verify affected routes in the browser; check the console for errors.
 - Review the diff (`git status`, `git diff`); stage only intended files; never commit secrets, `.env`, or generated noise.
 - When a canonical pattern changes, update the relevant design document in the same code change.
+
+## Agent skills
+
+### Issue tracker
+
+Work is tracked as GitHub issues cut per PLAN phase via `gh`. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+The five canonical triage labels (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`) are used as-is. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: one `CONTEXT.md` + `docs/adr/` at the repo root, with FLEX's `docs/design/` operating system and `docs/product/FLEX_FEATURE_PARITY.md` as product references. See `docs/agents/domain.md`.
