@@ -50,7 +50,7 @@ export const agentStateMap: Record<AgentState, StatusConfig> = {
     ready: { label: 'Ready', ...status.live },
     talking: { label: 'Talking', ...status.talking },
     ringing: { label: 'Ringing', ...status.stale, dotClass: 'bg-status-stale' },
-    'wrap-up': { label: 'Wrap-Up', ...status.neutral },
+    'wrap-up': { label: 'Wrap Up', ...status.neutral },
     break: { label: 'Break', ...status.stale },
     'not-ready': { label: 'Not Ready', ...status.neutral },
     offline: { label: 'Offline', ...status.disconnected },

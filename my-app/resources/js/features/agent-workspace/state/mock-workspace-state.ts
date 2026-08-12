@@ -62,6 +62,7 @@ const initialWorkspaceState = (): WorkspaceState => ({
     isOnHold: false,
     transfer: null,
     history: [],
+    wrapUpStartedAt: null,
 });
 
 export class MockWorkspaceState {
@@ -117,7 +118,11 @@ export class MockWorkspaceState {
 
     /** Wrap Up mode begins; the call record is closed. */
     private beginWrapUp(): void {
-        this.set({ agentState: 'wrap-up', agentStatePending: null });
+        this.set({
+            agentState: 'wrap-up',
+            agentStatePending: null,
+            wrapUpStartedAt: new Date().toISOString(),
+        });
         this.transitionTo('wrap-up', {
             isMuted: false,
             isOnHold: false,
@@ -126,7 +131,11 @@ export class MockWorkspaceState {
         });
         this.schedule(() => {
             if (this.state.callState === 'wrap-up') {
-                this.set({ callState: 'idle', agentState: 'ready' });
+                this.set({
+                    callState: 'idle',
+                    agentState: 'ready',
+                    wrapUpStartedAt: null,
+                });
             }
         }, WORKSPACE_TIMINGS.wrapUpReturnMs);
     }

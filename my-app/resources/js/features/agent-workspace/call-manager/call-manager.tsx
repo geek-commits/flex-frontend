@@ -1,6 +1,7 @@
 import { RiPhoneLine } from '@remixicon/react';
 import React, { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
+import { WORKSPACE_TIMINGS } from '../state/mock-workspace-state';
 import { useWorkspaceState } from '../state/use-workspace-state';
 import type { CallTarget } from '../state/workspace-types';
 import { ActiveCallSurface } from './active-call-surface';
@@ -41,7 +42,12 @@ export function CallManager() {
     let surface: React.ReactNode;
 
     if (callState === 'wrap-up') {
-        surface = <WrapUpSurface />;
+        surface = (
+            <WrapUpSurface
+                startedAt={ws.wrapUpStartedAt}
+                durationMs={WORKSPACE_TIMINGS.wrapUpReturnMs}
+            />
+        );
     } else if (callState === 'ringing') {
         surface = (
             <IncomingCallSurface

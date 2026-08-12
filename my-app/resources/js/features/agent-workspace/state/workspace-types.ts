@@ -80,4 +80,7 @@ export interface WorkspaceState {
     isOnHold: boolean;
     transfer: TransferState | null;
     history: CallHistoryEntry[];
+
+    /** ISO timestamp the current Wrap Up began; `null` outside Wrap Up. */
+    wrapUpStartedAt: string | null;
 }

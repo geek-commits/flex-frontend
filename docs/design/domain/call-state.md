@@ -16,7 +16,7 @@ The type declares eleven states. Only states the runtime actually supports may b
 | `hold` | Call on hold | Yes — mock owner `isOnHold` (`toggleHold()`), Call Manager surface |
 | `muted` | Agent muted | Yes — mock owner `isMuted` (`toggleMute()`), Call Manager surface |
 | `transferring` | Transfer in progress | Yes — mock owner direct-transfer flow (`startTransfer()` → `selectTransferTarget()` → `completeTransfer()`), see Call actions |
-| `wrap-up` | Post-call state (see `agent-state.md`) | Yes — mock owner auto-returns to `idle`/`ready` |
+| `wrap-up` | Post-call state (see `agent-state.md`) | Yes — mock owner auto-returns to `idle`/`ready`; remaining time derived from `wrapUpStartedAt` + `WORKSPACE_TIMINGS.wrapUpReturnMs` (`useWrapUpCountdown`, display-only, no invented values) |
 | `ended` | Call finished | Not exposed as a live state; CDR records outcomes |
 | `failed` | Call failed | Not exposed in the live call UI |
 
