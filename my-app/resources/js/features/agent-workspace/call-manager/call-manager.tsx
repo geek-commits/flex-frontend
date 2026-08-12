@@ -71,7 +71,10 @@ export function CallManager() {
                 onToggleMute={ws.toggleMute}
                 onToggleHold={ws.toggleHold}
                 onTransfer={ws.startTransfer}
+                onSelectTransferTarget={ws.selectTransferTarget}
+                onConfirmTransfer={ws.completeTransfer}
                 onCancelTransfer={ws.cancelTransfer}
+                onDismissTransferFailure={ws.dismissTransferFailure}
                 onEnd={ws.endCall}
             />
         );

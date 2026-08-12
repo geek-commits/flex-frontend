@@ -1,4 +1,5 @@
 import type { AgentState, CallState, ConnectionState } from '@/types/flex';
+import { isTransferTargetReachable } from './transfer-targets';
 import type {
     ActiveCall,
     CallHistoryEntry,
@@ -36,6 +37,10 @@ export const WORKSPACE_TIMINGS = {
     ringTimeoutMs: 12000,
     /** Wrap Up auto-return to Ready / idle. */
     wrapUpReturnMs: 6000,
+    /** Transfer: confirm → pending → hand-off (or failure) duration. */
+    transferPendingMs: 900,
+    /** Transfer-failure notice shown before the banner auto-clears. */
+    transferFailureNoticeMs: 6000,
 } as const;
 
 type Listener = (state: WorkspaceState) => void;
@@ -283,6 +288,12 @@ export class MockWorkspaceState {
     }
 
     // ── Transfer (direct only — warm requires real backend capability) ────
+    //
+    // Deterministic direct-transfer flow (AGENT_WORKSPACE_PLAN §40–§44, §57):
+    // connected → transfer (selecting) → choose target → pending → hand-off
+    // (records `transferred`) OR failure (returns to connected, caller stays
+    // on the line). Warm transfer is not supported: the runtime has no
+    // consultation state, so only a direct transfer is offered.
 
     startTransfer(): void {
         if (this.state.callState !== 'connected') {
@@ -294,7 +305,7 @@ export class MockWorkspaceState {
     }
 
     selectTransferTarget(target: CallTarget): void {
-        if (this.state.callState !== 'transferring') {
+        if (this.state.callState !== 'transferring' || this.state.transfer?.status !== 'selecting') {
             return;
         }
 
@@ -312,22 +323,56 @@ export class MockWorkspaceState {
 
     completeTransfer(): void {
         const transfer = this.state.transfer;
+
+        if (this.state.callState !== 'transferring' || transfer?.status !== 'selecting' || !transfer.target) {
+            return;
+        }
+
+        const target = transfer.target;
+        this.set({ transfer: { status: 'pending', target } });
+        this.schedule(() => this.finishTransfer(target), WORKSPACE_TIMINGS.transferPendingMs);
+    }
+
+    /** Pending transfer resolves to hand-off or failure (deterministic). */
+    private finishTransfer(target: CallTarget): void {
+        if (this.state.callState !== 'transferring' || this.state.transfer?.status !== 'pending') {
+            return;
+        }
+
+        if (!isTransferTargetReachable(target)) {
+            // §44 — backend authoritative: the caller stays on the line.
+            this.transitionTo('connected', { transfer: { status: 'failed', target } });
+            this.schedule(() => {
+                if (this.state.transfer?.status === 'failed') {
+                    this.set({ transfer: null });
+                }
+            }, WORKSPACE_TIMINGS.transferFailureNoticeMs);
+
+            return;
+        }
+
         const call = this.state.activeCall;
 
-        if (this.state.callState !== 'transferring' || !transfer?.target || !call) {
+        if (!call) {
             return;
         }
 
         this.pushHistory({
             target: call.target,
             direction: call.direction,
-            outcome: 'outgoing',
+            outcome: 'transferred',
             startedAt: call.startedAt,
             durationSeconds: call.connectedAt
                 ? Math.max(0, Math.floor((Date.now() - new Date(call.connectedAt).getTime()) / 1000))
                 : 0,
         });
         this.beginWrapUp();
+    }
+
+    dismissTransferFailure(): void {
+        if (this.state.transfer?.status === 'failed') {
+            this.set({ transfer: null });
+        }
     }
 
     // ── Media / connection (deterministic mock scenarios — §57) ───────────

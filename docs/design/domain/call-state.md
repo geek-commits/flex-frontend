@@ -15,7 +15,7 @@ The type declares eleven states. Only states the runtime actually supports may b
 | `connected` | Active conversation | Yes — mock owner; displayed on Dashboard |
 | `hold` | Call on hold | Yes — mock owner `isOnHold` (`toggleHold()`), Call Manager surface |
 | `muted` | Agent muted | Yes — mock owner `isMuted` (`toggleMute()`), Call Manager surface |
-| `transferring` | Transfer in progress | Displayed on Dashboard; transfer flow stubbed in mock owner but UI control disabled until backend support |
+| `transferring` | Transfer in progress | Yes — mock owner direct-transfer flow (`startTransfer()` → `selectTransferTarget()` → `completeTransfer()`), see Call actions |
 | `wrap-up` | Post-call state (see `agent-state.md`) | Yes — mock owner auto-returns to `idle`/`ready` |
 | `ended` | Call finished | Not exposed as a live state; CDR records outcomes |
 | `failed` | Call failed | Not exposed in the live call UI |
@@ -34,7 +34,7 @@ The type declares eleven states. Only states the runtime actually supports may b
 answered | missed | voicemail | transferred
 ```
 
-These are historical call outcomes, distinct from live call states. The mock owner records `answered | missed | declined | outgoing` per call; CDR mapping is the reporting boundary.
+These are historical call outcomes, distinct from live call states. The mock owner records `answered | missed | declined | outgoing | transferred` per call; CDR mapping is the reporting boundary.
 
 ## Call actions
 
@@ -45,14 +45,14 @@ These are historical call outcomes, distinct from live call states. The mock own
 | Decline | `ringing` | Records `declined` and returns to `idle`; unanswered rings record `missed` after the ring timeout |
 | Mute / Unmute | call active | `isMuted` toggle |
 | Hold / Resume | call active | `isOnHold` toggle |
-| Transfer | call active | Flow stubbed in mock owner; UI control stays disabled until the backend implements it — do not claim transfer works |
+| Transfer | call active (`connected`) | Direct transfer only — the runtime has no consultation state, so Warm Transfer is not offered (§43). `connected → transferring (selecting) → pending → hand-off (records `transferred`, then Wrap Up)`; Cancel returns to `connected`; an unreachable target fails deterministically and returns to `connected` with a failure notice (the caller stays on the line, §44) |
 | End | call active | Records history and moves to `wrap-up`, then auto-returns to `idle`/`ready` |
 
 ## Call action safety
 
 - **Hold** only while a call is active and supported;
 - **Resume** only while held;
-- **Transfer** requires a valid target — and is not offered as functional until the backend implements it;
+- **Transfer** requires a valid, reachable target — agents and queues only (no placeholder categories, §41); unreachable targets are shown disabled and a transfer to one fails without forcing Wrap Up (§44);
 - **Decline** only for an applicable incoming state;
 - **duplicate call initiation prevented** — dial is disabled while a call is active;
 - **duplicate answer prevented** — answering a call that is no longer `ringing` is a no-op;

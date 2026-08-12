@@ -23,6 +23,7 @@ export function useWorkspaceState(): WorkspaceState & {
     selectTransferTarget: (target: CallTarget) => void;
     cancelTransfer: () => void;
     completeTransfer: () => void;
+    dismissTransferFailure: () => void;
     setConnection: (state: ConnectionState) => void;
     setMicStatus: (status: MicStatus) => void;
 } {
@@ -45,6 +46,7 @@ export function useWorkspaceState(): WorkspaceState & {
             selectTransferTarget: (target: CallTarget) => workspaceState.selectTransferTarget(target),
             cancelTransfer: () => workspaceState.cancelTransfer(),
             completeTransfer: () => workspaceState.completeTransfer(),
+            dismissTransferFailure: () => workspaceState.dismissTransferFailure(),
             setConnection: (next: ConnectionState) => workspaceState.setConnection(next),
             setMicStatus: (status: MicStatus) => workspaceState.setMicStatus(status),
         }),

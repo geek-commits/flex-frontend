@@ -34,7 +34,7 @@ export interface ActiveCall {
     connectedAt?: string;
 }
 
-export type CallHistoryOutcome = 'answered' | 'missed' | 'declined' | 'failed' | 'outgoing';
+export type CallHistoryOutcome = 'answered' | 'missed' | 'declined' | 'failed' | 'outgoing' | 'transferred';
 
 /** Lightweight agent convenience history — not CDR (AGENT_WORKSPACE_PLAN §46). */
 export interface CallHistoryEntry {
@@ -48,7 +48,13 @@ export interface CallHistoryEntry {
 
 export type TransferStatus = 'selecting' | 'pending' | 'failed';
 
-/** Direct-transfer flow state (warm transfer only if the runtime supports it). */
+/**
+ * Direct-transfer flow state (AGENT_WORKSPACE_PLAN §40–§44).
+ *
+ * Warm transfer is not supported: the runtime has no consultation state, so
+ * `transferring` always means a direct transfer. `failed` keeps the target so
+ * the surface can state what failed; the original call stays connected.
+ */
 export interface TransferState {
     status: TransferStatus;
     target: CallTarget | null;
