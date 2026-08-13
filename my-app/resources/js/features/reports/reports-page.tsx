@@ -74,7 +74,7 @@ export function ReportsPage() {
                     query={query}
                     onQueryChange={setQuery}
                     onBack={openLibrary}
-                    renderFilters={(q, change) => <ReportFilterBar query={q} onQueryChange={change} />}
+                    renderFilters={(q, change) => <ReportFilterBar report={activeReport} query={q} onQueryChange={change} />}
                     renderResult={(run: ReportRun) => <ReportResults run={run} />}
                 />
             )}
