@@ -2,12 +2,15 @@ import { Head } from '@inertiajs/react';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useCapabilities } from '@/auth/capabilities';
 import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
+import { scheduledReportsRepository } from '@/domain/scheduled-reports-repository';
 import { ReportExportMenu } from '@/features/reports/report-export-menu';
 import { ReportFilterBar } from '@/features/reports/report-filter-bar';
 import { ReportLibrary } from '@/features/reports/report-library';
 import { getReportById, REPORTS } from '@/features/reports/report-registry';
 import type { ReportQuery } from '@/features/reports/report-types';
 import { ReportViewer } from '@/features/reports/report-viewer';
+import { ScheduledReportsPage } from '@/features/reports/scheduled/scheduled-reports-page';
+import type { ScheduledReportRecord } from '@/features/reports/scheduled/scheduled-types';
 import { ReportViewerContent } from '@/features/reports/viewers';
 import { AdminShell } from '@/layouts/admin-shell';
 
@@ -38,6 +41,9 @@ export function ReportsPage() {
     const [view, setView] = useState<ReportsView>('library');
     const [activeReportId, setActiveReportId] = useState<string>();
     const [query, setQuery] = useState<ReportQuery>(DEFAULT_QUERY);
+    const [scheduledRecords, setScheduledRecords] = useState<ScheduledReportRecord[]>(() =>
+        scheduledReportsRepository.querySchedules()
+    );
 
     const permittedReports = useMemo(() => REPORTS.filter((report) => has(report.permission)), [has]);
 
@@ -48,7 +54,10 @@ export function ReportsPage() {
         setActiveReportId(undefined);
     }, []);
 
-    const openScheduled = useCallback(() => setView('scheduled'), []);
+    const openScheduled = useCallback(() => {
+        setScheduledRecords(scheduledReportsRepository.querySchedules());
+        setView('scheduled');
+    }, []);
 
     const openReport = useCallback((report: { id: string }) => {
         setActiveReportId(report.id);
@@ -82,7 +91,14 @@ export function ReportsPage() {
             )}
 
             {view === 'scheduled' && (
-                <p className="text-xs text-flex-text-muted">Scheduled Reports — coming in a later phase.</p>
+                <ScheduledReportsPage
+                    records={scheduledRecords}
+                    onBackToLibrary={openLibrary}
+                    onCreate={() => undefined}
+                    onEdit={() => undefined}
+                    onViewLogs={() => undefined}
+                    onRetry={() => undefined}
+                />
             )}
         </AdminShell>
     );
