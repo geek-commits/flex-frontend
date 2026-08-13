@@ -73,12 +73,12 @@ export function ReportLibrary({ reports, onOpen, onOpenScheduled }: ReportLibrar
             <div className="flex flex-col gap-[var(--flex-space-section)]">
                 {grouped.map(({ category, items }) => (
                     <section key={category.key} aria-labelledby={`report-category-${category.key}`}>
-                        <div className="mb-2 flex items-center gap-2">
-                            <RiFileChartLine className="size-3.5 text-flex-text-muted" />
-                            <h2 id={`report-category-${category.key}`} className="text-xs font-bold uppercase tracking-wider text-flex-text-muted">
+                        <div className="mb-2 flex items-center gap-2 min-w-0">
+                            <RiFileChartLine className="size-3.5 text-flex-text-muted shrink-0" />
+                            <h2 id={`report-category-${category.key}`} className="text-xs font-bold uppercase tracking-wider text-flex-text-muted shrink-0">
                                 {category.label}
                             </h2>
-                            <span className="text-[10px] text-flex-text-muted">· {category.description}</span>
+                            <span className="text-[10px] text-flex-text-muted truncate">· {category.description}</span>
                         </div>
                         <div className="overflow-hidden rounded-lg border border-border bg-background">
                             <ul className="divide-y divide-border">

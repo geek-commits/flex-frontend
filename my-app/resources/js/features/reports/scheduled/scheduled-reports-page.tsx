@@ -1,4 +1,4 @@
-import { RiAddLine, RiSearchLine } from '@remixicon/react';
+import { RiAddLine, RiArrowLeftLine, RiSearchLine } from '@remixicon/react';
 import React, { useMemo, useState } from 'react';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { Button } from '@/components/ui/button';
@@ -50,14 +50,21 @@ export function ScheduledReportsPage({
         });
     }, [records, search, statusFilter, stateFilter]);
 
-    const hasFilters = statusFilter !== 'all' || stateFilter !== 'all';
+    const hasFilters = statusFilter !== 'all' || stateFilter !== 'all' || Boolean(search.trim());
+
+    const clearAll = () => {
+        setSearch('');
+        setStatusFilter('all');
+        setStateFilter('all');
+    };
 
     return (
         <div className="flex flex-col gap-[var(--flex-space-section)] w-full">
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
                 <div className="flex items-center gap-2">
                     <Button variant="ghost" size="sm" className="gap-1.5 text-xs -ml-2" onClick={onBackToLibrary}>
-                        <span>‹</span> Back to Reports
+                        <RiArrowLeftLine className="size-3.5" />
+                        Back to Reports
                     </Button>
                 </div>
                 <div className="flex items-center gap-2">
@@ -135,10 +142,7 @@ export function ScheduledReportsPage({
                                 variant="outline"
                                 size="sm"
                                 className="text-xs"
-                                onClick={() => {
-                                    setStatusFilter('all');
-                                    setStateFilter('all');
-                                }}
+                                onClick={clearAll}
                             >
                                 Clear filters
                             </Button>

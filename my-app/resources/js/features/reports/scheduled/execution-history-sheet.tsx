@@ -1,4 +1,4 @@
-import { RiCloseLine } from '@remixicon/react';
+import { RiArrowDownSLine, RiArrowRightSLine } from '@remixicon/react';
 import React, { useMemo, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
@@ -81,7 +81,7 @@ function ExecutionRow({
                     </span>
                 </div>
                 <Button variant="ghost" size="sm" className="gap-1 text-xs shrink-0" onClick={onToggle}>
-                    <RiCloseLine className="size-3.5 rotate-45" />
+                    {expanded ? <RiArrowDownSLine className="size-3.5" /> : <RiArrowRightSLine className="size-3.5" />}
                     {expanded ? 'Hide stages' : 'Stages'}
                 </Button>
             </div>

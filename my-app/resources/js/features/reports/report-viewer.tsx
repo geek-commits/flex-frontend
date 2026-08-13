@@ -88,7 +88,7 @@ export function ReportViewer({
 
     return (
         <div className="flex flex-col gap-[var(--flex-space-section)] w-full">
-            <div className="flex items-start justify-between gap-3">
+            <div className="flex flex-wrap items-start justify-between gap-3">
                 <div className="flex flex-col gap-1 min-w-0">
                     <Button variant="ghost" size="sm" className="gap-1.5 text-xs w-fit -ml-2" onClick={onBack}>
                         <RiArrowLeftLine className="size-3.5" />
@@ -97,7 +97,7 @@ export function ReportViewer({
                     <h1 className="text-lg font-bold text-flex-text-primary">{report.label}</h1>
                     <p className="text-xs text-flex-text-muted">{report.description}</p>
                 </div>
-                <div className="flex items-center gap-2 shrink-0">
+                <div className="flex flex-wrap items-center gap-2 shrink-0">
                     {renderExport?.(report, run)}
                     <Button
                         variant="outline"
