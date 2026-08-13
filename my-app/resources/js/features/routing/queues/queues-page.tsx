@@ -9,6 +9,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Skeleton } from '@/components/ui/skeleton';
 import { routingRepository } from '@/domain/routing-repository';
 import type { QueueRecord, QueueStrategy } from '@/domain/routing-types';
+import { QueueDeleteDialog } from '@/features/routing/queues/queue-delete-dialog';
+import { QueueDetailSheet } from '@/features/routing/queues/queue-detail-sheet';
+import { QueueFormSheet } from '@/features/routing/queues/queue-form-sheet';
 import { QUEUE_STRATEGY_LABELS } from '@/features/routing/queues/queue-labels';
 import { QueueTable } from '@/features/routing/queues/queue-table';
 import { RoutingShell } from '@/features/routing/routing-shell';
@@ -21,6 +24,14 @@ export function QueuesPage() {
     const [strategyFilter, setStrategyFilter] = useState<QueueStrategy | 'all'>('all');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string>();
+    const [detailId, setDetailId] = useState<string>();
+    const [formOpen, setFormOpen] = useState(false);
+    const [editingId, setEditingId] = useState<string>();
+    const [deleteId, setDeleteId] = useState<string>();
+
+    const detailQueue = detailId ? records.find((queue) => queue.id === detailId) : undefined;
+    const editingQueue = editingId ? records.find((queue) => queue.id === editingId) : undefined;
+    const deleteQueue = deleteId ? records.find((queue) => queue.id === deleteId) : undefined;
 
     const refresh = useCallback(() => {
         setIsLoading(true);
@@ -35,6 +46,21 @@ export function QueuesPage() {
             setIsLoading(false);
         }, 350);
     }, []);
+
+    const openCreate = () => {
+        setEditingId(undefined);
+        setFormOpen(true);
+    };
+
+    const openEdit = (queue: QueueRecord) => {
+        setEditingId(queue.id);
+        setFormOpen(true);
+    };
+
+    const openDetail = (queue: QueueRecord) => setDetailId(queue.id);
+    const openDelete = (queue: QueueRecord) => setDeleteId(queue.id);
+
+    const handleSaved = () => setRecords(routingRepository.queryQueues());
 
     const filtered = useMemo(() => {
         const needle = search.trim().toLowerCase();
@@ -56,7 +82,7 @@ export function QueuesPage() {
             title="Queues"
             subtitle="Configure call distribution and queue members."
             actions={
-                <Button size="sm" className="gap-1.5 text-xs">
+                <Button size="sm" className="gap-1.5 text-xs" onClick={openCreate}>
                     <RiAddLine className="size-4" />
                     Add Queue
                 </Button>
@@ -119,7 +145,7 @@ export function QueuesPage() {
                         }
                         action={
                             records.length === 0 ? (
-                                <Button variant="outline" size="sm" className="text-xs">
+                                <Button variant="outline" size="sm" className="text-xs" onClick={openCreate}>
                                     Add Queue
                                 </Button>
                             ) : (
@@ -140,9 +166,9 @@ export function QueuesPage() {
                 ) : (
                     <QueueTable
                         records={filtered}
-                        onView={() => undefined}
-                        onEdit={() => undefined}
-                        onMembers={() => undefined}
+                        onView={openDetail}
+                        onEdit={openEdit}
+                        onMembers={openDetail}
                     />
                 )}
 
@@ -150,6 +176,33 @@ export function QueuesPage() {
                     POC mock adapter — `RoutingRepository` boundary; replace with the real routing backend in rollout.
                 </p>
             </div>
+
+            <QueueDetailSheet
+                queue={detailQueue}
+                onOpenChange={(open) => !open && setDetailId(undefined)}
+                onEdit={openEdit}
+                onDelete={openDelete}
+            />
+
+            <QueueFormSheet
+                key={editingId ?? 'new'}
+                open={formOpen}
+                onOpenChange={(open) => {
+                    if (!open) {
+                        setEditingId(undefined);
+                    }
+
+                    setFormOpen(open);
+                }}
+                editing={editingQueue}
+                onSaved={handleSaved}
+            />
+
+            <QueueDeleteDialog
+                queue={deleteQueue}
+                onOpenChange={(open) => !open && setDeleteId(undefined)}
+                onDeleted={handleSaved}
+            />
         </RoutingShell>
     );
 }
