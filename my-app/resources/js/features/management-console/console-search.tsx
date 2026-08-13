@@ -33,7 +33,7 @@ export function ConsoleSearch({ value, onChange, placeholder = 'Search modules a
                     type="button"
                     onClick={() => onChange('')}
                     aria-label="Clear search"
-                    className="absolute right-1.5 top-1/2 -translate-y-1/2 flex size-6 items-center justify-center rounded-md text-muted-foreground transition-colors duration-flex-fast hover:text-foreground flex-focus-visible"
+                    className="absolute right-1 top-1/2 -translate-y-1/2 flex size-7 items-center justify-center rounded-md text-muted-foreground transition-colors duration-flex-fast hover:text-foreground flex-focus-visible"
                 >
                     <RiCloseLine className="size-4" aria-hidden="true" />
                 </button>
