@@ -34,35 +34,39 @@ export interface ModuleEntry {
     category: string;
     badge?: string;
     capability?: Capability;
+    /** Search terms that describe what an administrator manages here. */
+    keywords?: string[];
+    /** True only for destinations outside the FLEX SPA (new tab semantics). */
+    external?: boolean;
 }
 
 export const CONSOLE_MODULES: ModuleEntry[] = [
     // Core Administration
-    { id: 'tenants', href: '/admin/tenants', title: 'Tenants & Multi-Org', description: 'Manage tenant accounts, organizations, and domain isolation.', icon: RiGroupLine, category: 'Core Administration', capability: 'roles.manage' },
-    { id: 'agents', href: '/admin/agents', title: 'Agents & Proficiencies', description: 'Configure agent profiles, extension mapping, and skill routing.', icon: RiUserStarLine, category: 'Core Administration', capability: 'console.view' },
-    { id: 'users', href: '/admin/users', title: 'Users & Roles', description: 'Role-based access control, credentials, and security policies.', icon: RiUser3Line, category: 'Core Administration', capability: 'roles.manage' },
-    { id: 'roles', href: '/admin/roles', title: 'Roles & Permissions', description: 'Granular policy management for admin and supervisory roles.', icon: RiShieldUserLine, category: 'Core Administration', capability: 'roles.manage' },
+    { id: 'tenants', href: '/admin/tenants', title: 'Tenants & Multi-Org', description: 'Manage tenant accounts, organizations, and domain isolation.', icon: RiGroupLine, category: 'Core Administration', keywords: ['tenant', 'multi-org', 'organization', 'domain', 'account'], capability: 'roles.manage' },
+    { id: 'agents', href: '/admin/agents', title: 'Agents & Proficiencies', description: 'Configure agent profiles, extension mapping, and skill routing.', icon: RiUserStarLine, category: 'Core Administration', keywords: ['agent', 'proficiency', 'skill', 'extension'], capability: 'console.view' },
+    { id: 'users', href: '/admin/users', title: 'Users & Roles', description: 'Role-based access control, credentials, and security policies.', icon: RiUser3Line, category: 'Core Administration', keywords: ['users', 'accounts', 'access', 'password'], capability: 'roles.manage' },
+    { id: 'roles', href: '/admin/roles', title: 'Roles & Permissions', description: 'Granular policy management for admin and supervisory roles.', icon: RiShieldUserLine, category: 'Core Administration', keywords: ['roles', 'permissions', 'policy', 'capability'], capability: 'roles.manage' },
 
     // Telephony & Operations
-    { id: 'cdr', href: '/admin/cdr', title: 'Call Detail Records (CDR)', description: 'Search, filter, and inspect granular telephony logs and recordings.', icon: RiPhoneFindLine, category: 'Telephony & Operations', badge: 'Essential', capability: 'cdr.view' },
-    { id: 'call-campaigns', href: '/admin/campaigns', title: 'Call Campaigns', description: 'Outbound campaign management, schedules, and analytics.', icon: RiMegaphoneLine, category: 'Telephony & Operations', capability: 'campaigns.view' },
-    { id: 'queue', href: '/admin/queues', title: 'Queues & SLA', description: 'Configure inbound queues, wrap-up rules, and SLA targets.', icon: RiStackLine, category: 'Telephony & Operations', capability: 'console.view' },
-    { id: 'ivr', href: '/admin/ivr', title: 'IVR Trees', description: 'Build interactive voice response menus and keypress flows.', icon: RiFlowChart, category: 'Telephony & Operations', capability: 'console.view' },
-    { id: 'recordings', href: '/admin/recordings', title: 'Call Recordings', description: 'Manage call audio archives, retention, and playback.', icon: RiDiscLine, category: 'Telephony & Operations', capability: 'console.view' },
+    { id: 'cdr', href: '/admin/cdr', title: 'Call Detail Records (CDR)', description: 'Search, filter, and inspect granular telephony logs and recordings.', icon: RiPhoneFindLine, category: 'Telephony & Operations', keywords: ['cdr', 'call detail record', 'calls', 'telephony', 'log'], capability: 'cdr.view' },
+    { id: 'call-campaigns', href: '/admin/campaigns', title: 'Call Campaigns', description: 'Outbound campaign management, schedules, and analytics.', icon: RiMegaphoneLine, category: 'Telephony & Operations', keywords: ['campaign', 'outbound', 'dialer', 'schedules'], capability: 'campaigns.view' },
+    { id: 'queue', href: '/admin/queues', title: 'Queues & SLA', description: 'Configure inbound queues, wrap-up rules, and SLA targets.', icon: RiStackLine, category: 'Telephony & Operations', keywords: ['queue', 'acd', 'routing', 'wrap-up', 'sla', 'distribution'], capability: 'console.view' },
+    { id: 'ivr', href: '/admin/ivr', title: 'IVR Trees', description: 'Build interactive voice response menus and keypress flows.', icon: RiFlowChart, category: 'Telephony & Operations', keywords: ['ivr', 'voice menu', 'routing', 'menu'], capability: 'console.view' },
+    { id: 'recordings', href: '/admin/recordings', title: 'Call Recordings', description: 'Manage call audio archives, retention, and playback.', icon: RiDiscLine, category: 'Telephony & Operations', keywords: ['recording', 'audio', 'prompts', 'archive'], capability: 'console.view' },
 
     // Analytics & Quality
-    { id: 'call-stats', href: '/admin/stats', title: 'Call Statistics', description: 'Real-time performance analytics, call volumes, and metrics.', icon: RiBarChartGroupedLine, category: 'Analytics & Quality', capability: 'reports.view' },
-    { id: 'reports', href: '/admin/reports', title: 'Reports Engine', description: 'Generate, schedule, and export operational PDF/Excel reports.', icon: RiFileChartLine, category: 'Analytics & Quality', capability: 'reports.view' },
-    { id: 'charts', href: '/admin/charts', title: 'Flex Charts', description: 'Visual analytics dashboard for supervisory overview.', icon: RiPieChartLine, category: 'Analytics & Quality', capability: 'reports.view' },
-    { id: 'survey-monitoring', href: '/admin/surveys', title: 'Survey Monitoring', description: 'Customer CSAT/NPS survey feedback and scorecards.', icon: RiSurveyLine, category: 'Analytics & Quality', capability: 'reports.view' },
+    { id: 'call-stats', href: '/admin/stats', title: 'Call Statistics', description: 'Real-time performance analytics, call volumes, and metrics.', icon: RiBarChartGroupedLine, category: 'Analytics & Quality', keywords: ['statistics', 'analytics', 'metrics', 'volume'], capability: 'reports.view' },
+    { id: 'reports', href: '/admin/reports', title: 'Reports Engine', description: 'Generate, schedule, and export operational PDF/Excel reports.', icon: RiFileChartLine, category: 'Analytics & Quality', keywords: ['report', 'export', 'pdf', 'excel', 'schedule'], capability: 'reports.view' },
+    { id: 'charts', href: '/admin/charts', title: 'Flex Charts', description: 'Visual analytics dashboard for supervisory overview.', icon: RiPieChartLine, category: 'Analytics & Quality', keywords: ['charts', 'visualization', 'analytics', 'graph'], capability: 'reports.view' },
+    { id: 'survey-monitoring', href: '/admin/surveys', title: 'Survey Monitoring', description: 'Customer CSAT/NPS survey feedback and scorecards.', icon: RiSurveyLine, category: 'Analytics & Quality', keywords: ['survey', 'csat', 'nps', 'feedback', 'scorecard'], capability: 'reports.view' },
 
     // System Configuration
-    { id: 'inbound-routes', href: '/admin/routes/inbound', title: 'Inbound Routes', description: 'DID pattern routing, time conditions, and destination rules.', icon: RiRouterLine, category: 'System Configuration', capability: 'console.view' },
-    { id: 'time-conditions', href: '/admin/time-conditions', title: 'Time Conditions', description: 'Schedule working hours, holidays, and off-hour routing.', icon: RiTimeLine, category: 'System Configuration', capability: 'console.view' },
-    { id: 'system-settings', href: '/admin/system', title: 'System Settings', description: 'SIP trunks, global environment variables, and mail config.', icon: RiEqualizerLine, category: 'System Configuration', capability: 'system.view' },
-    { id: 'security', href: '/admin/security', title: 'Security & Audit', description: 'IP access controls, firewall rules, and audit trail logs.', icon: RiShieldKeyholeLine, category: 'System Configuration', capability: 'roles.manage' },
-    { id: 'backups', href: '/admin/backups', title: 'Backups & Storage', description: 'Database snapshot archives, retention, and disaster recovery.', icon: RiDatabase2Line, category: 'System Configuration', capability: 'console.view' },
-    { id: 'global-settings', href: '/settings/profile', title: 'Global Settings', description: 'Application branding, localization, and theme defaults.', icon: RiSettings3Line, category: 'System Configuration', capability: 'settings.manage' },
+    { id: 'inbound-routes', href: '/admin/routes/inbound', title: 'Inbound Routes', description: 'DID pattern routing, time conditions, and destination rules.', icon: RiRouterLine, category: 'System Configuration', keywords: ['inbound', 'route', 'did', 'destination', 'trunk'], capability: 'console.view' },
+    { id: 'time-conditions', href: '/admin/time-conditions', title: 'Time Conditions', description: 'Schedule working hours, holidays, and off-hour routing.', icon: RiTimeLine, category: 'System Configuration', keywords: ['time', 'schedule', 'hours', 'holiday', 'condition'], capability: 'console.view' },
+    { id: 'system-settings', href: '/admin/system', title: 'System Settings', description: 'SIP trunks, global environment variables, and mail config.', icon: RiEqualizerLine, category: 'System Configuration', keywords: ['system', 'sip', 'trunk', 'mail', 'environment'], capability: 'system.view' },
+    { id: 'security', href: '/admin/security', title: 'Security & Audit', description: 'IP access controls, firewall rules, and audit trail logs.', icon: RiShieldKeyholeLine, category: 'System Configuration', keywords: ['security', 'audit', 'ip', 'firewall', 'access'], capability: 'roles.manage' },
+    { id: 'backups', href: '/admin/backups', title: 'Backups & Storage', description: 'Database snapshot archives, retention, and disaster recovery.', icon: RiDatabase2Line, category: 'System Configuration', keywords: ['backup', 'snapshot', 'storage', 'database'], capability: 'console.view' },
+    { id: 'global-settings', href: '/settings/profile', title: 'Global Settings', description: 'Application branding, localization, and theme defaults.', icon: RiSettings3Line, category: 'System Configuration', keywords: ['settings', 'branding', 'localization', 'theme'], capability: 'settings.manage' },
 ];
 
 export const SETTINGS_MODULES: ModuleEntry[] = [
