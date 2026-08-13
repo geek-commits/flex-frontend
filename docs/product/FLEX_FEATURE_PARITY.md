@@ -203,8 +203,8 @@ Treat as external/integration-owned. Do not redesign blindly (plan §7).
 
 | ID | Feature | Manual | Evidence | Lifecycle | Notes |
 |---|---|---|---|---|---|
-| REPORT-001 | Reports module | YES | `pages/admin/reports.tsx` | REVAMPED (route exists) | audit routes/workflows |
-| REPORT-002…013 | Call Summary, Agent Performance, IVR, Customer End to IVR, Outgoing Calls, Provider Minutes, Recordings, Yearly Performance, Agent State Log, Agent Outgoing, Queue Logs, Logs by Agent | YES | — | MANUAL_ONLY | backend reports; no dedicated surfaces found |
+| REPORT-001 | Reports module | YES | `pages/admin/reports.tsx` | REVAMPED (route exists) | 2026-08 baseline: page fully hardcoded (inline catalog + scheduled jobs); no repo/data/capability filter/context sidebar; backend absent (GAP-006). Modernization P0 in progress. |
+| REPORT-002…013 | Call Summary, Agent Performance, IVR, Customer End to IVR, Outgoing Calls, Provider Minutes, Recordings, Yearly Performance, Agent State Log, Agent Outgoing, Queue Logs, Logs by Agent | YES | — | MANUAL_ONLY | canonical library will expose 10 manual reports grouped per plan §14 (PERFORMANCE / AGENTS / QUEUE & IVR / TELEPHONY & QUALITY); runtime names were non-canonical mock labels — reconciliation recorded, canonical names adopted |
 | REPORT-014…017 | CSV / Excel / PDF export, Copy/Print | YES | — | MANUAL_ONLY | audit each export |
 | REPORT-018 | Custom report configuration request | YES | — | UNKNOWN | audit workflow |
 
