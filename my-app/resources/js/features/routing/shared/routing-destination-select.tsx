@@ -39,7 +39,7 @@ export function RoutingDestinationSelect({ id, label, value, onChange }: Routing
             <Label className="text-xs font-semibold">{label}</Label>
             <div className="flex flex-col gap-2 sm:flex-row">
                 <Select value={type} onValueChange={(next) => handleTypeChange((next as RoutingDestinationType) ?? 'Queue')}>
-                    <SelectTrigger className="w-full sm:w-36 h-9 text-xs">
+                    <SelectTrigger className="w-full sm:w-36 h-9 text-xs" aria-label={`${label} type`}>
                         <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
