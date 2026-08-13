@@ -2,7 +2,7 @@ import { Link, usePage } from '@inertiajs/react';
 import { RiMenuLine } from '@remixicon/react';
 import React from 'react';
 import { useCapabilities } from '@/auth/capabilities';
-import { FlexLogo } from '@/components/flex/flex-logo';
+import { FlexBrandMark } from '@/components/flex/brand';
 import { GlobalSearchTrigger } from '@/components/flex/global-search';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
@@ -55,7 +55,7 @@ export function AgentOperationalHeader({
                     <SheetContent side="left" className="w-64 p-4 flex flex-col gap-4">
                         <SheetHeader>
                             <SheetTitle className="text-left">
-                                <FlexLogo size={22} />
+                                <FlexBrandMark size={26} />
                             </SheetTitle>
                         </SheetHeader>
                         <nav className="flex flex-col gap-1 mt-2">

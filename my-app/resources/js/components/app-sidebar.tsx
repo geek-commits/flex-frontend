@@ -5,7 +5,7 @@ import {
     RiMegaphoneLine,
     RiCustomerServiceLine,
 } from '@remixicon/react';
-import { FlexLogo } from '@/components/flex/flex-logo';
+import { FlexBrandMark } from '@/components/flex/brand';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import {
@@ -51,7 +51,7 @@ export function AppSidebar() {
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
                             <Link href={dashboard()} prefetch>
-                                <FlexLogo size={22} showText={false} />
+                                <FlexBrandMark size={26} standalone={false} />
                                 <span className="truncate font-semibold text-sm">Flex</span>
                             </Link>
                         </SidebarMenuButton>

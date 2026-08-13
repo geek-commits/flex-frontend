@@ -41,6 +41,7 @@ docs/design/
 ├── 10-admin-safety.md           ← safe configuration change management
 ├── 11-component-governance.md   ← layering, decision test, anti-patterns
 ├── 12-quality-gates.md          ← how FLEX UI work is tested and accepted
+├── brand.md                     ← official FLEX monogram, canonical component, brand motion rules
 ├── domain/
 │   ├── agent-state.md
 │   ├── agent-workspace.md

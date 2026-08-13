@@ -50,3 +50,7 @@ Use the tokens; never hard-code a new duration for an existing interaction class
 - A live indicator that pulses to signal "alive";
 - KPI numbers that roll up on every poll refresh;
 - a spinner or shimmer on every background refresh (see `07-feedback-states.md`).
+
+## Brand motion exception
+
+The FLEX brand mark (`brand.md`) is the one intentional long-duration animation in the product. It constructs once on application-shell mount and stays idle. Brand motion tokens are separate from product motion tokens and never apply to UI controls, status, or loading. Reduced-motion still renders the completed brand mark immediately.

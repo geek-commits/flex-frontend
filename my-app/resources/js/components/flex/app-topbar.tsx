@@ -1,7 +1,7 @@
 import { Link, usePage } from '@inertiajs/react';
 import { RiWifiLine, RiTimeLine, RiMenuLine, RiDashboard3Line, RiCustomerServiceLine, RiPhoneFindLine, RiMegaphoneLine, RiFileChartLine, RiRobotLine, RiServerLine, RiSettings4Line } from '@remixicon/react';
 import React, { useState, useEffect } from 'react';
-import { FlexLogo } from '@/components/flex/flex-logo';
+import { FlexBrandMark } from '@/components/flex/brand';
 import { GlobalSearchTrigger } from '@/components/flex/global-search';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -83,7 +83,7 @@ export function AppTopbar({
                     <SheetContent side="left" className="w-64 p-4 flex flex-col gap-4">
                         <SheetHeader>
                             <SheetTitle className="text-left">
-                                <FlexLogo size={22} />
+                                <FlexBrandMark size={26} />
                             </SheetTitle>
                         </SheetHeader>
                         <nav className="flex flex-col gap-1 mt-2">

@@ -2,7 +2,7 @@ import { Link, usePage } from '@inertiajs/react';
 import { RiMoonLine, RiSunLine } from '@remixicon/react';
 import React from 'react';
 import { NAVIGATION, useCapabilities } from '@/auth/capabilities';
-import { FlexLogo } from '@/components/flex/flex-logo';
+import { FlexBrandMark } from '@/components/flex/brand';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useAppearance } from '@/hooks/use-appearance';
 import type { User } from '@/types';
@@ -32,7 +32,7 @@ export function PrimaryRail({ currentPath, activeWorkspace = 'admin' }: PrimaryR
                 {/* Top Section: Logo & primary navigation */}
                 <div className="flex flex-col items-center gap-5 w-full">
                     <Link href="/dashboard" className="p-1 hover:opacity-90 transition-opacity" title="Flex Contact Center">
-                        <FlexLogo size={24} showText={false} />
+                        <FlexBrandMark size={28} standalone />
                     </Link>
 
                     <div className="w-8 h-px bg-border my-0.5" />
