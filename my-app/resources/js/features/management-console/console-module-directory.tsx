@@ -1,9 +1,11 @@
 import React, { useMemo } from 'react';
+import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import type { ModuleEntry } from '@/domain/modules';
 import { ConsoleModuleSection } from '@/features/management-console/console-module-section';
 
 export interface ConsoleModuleDirectoryProps {
     modules: ModuleEntry[];
+    query?: string;
 }
 
 /**
@@ -12,7 +14,7 @@ export interface ConsoleModuleDirectoryProps {
  * modules. This component is the directory's presentational shell only —
  * permission filtering happens upstream before modules are passed in.
  */
-export function ConsoleModuleDirectory({ modules }: ConsoleModuleDirectoryProps) {
+export function ConsoleModuleDirectory({ modules, query }: ConsoleModuleDirectoryProps) {
     const sections = useMemo(() => {
         const groups = new Map<string, ModuleEntry[]>();
 
@@ -28,6 +30,19 @@ export function ConsoleModuleDirectory({ modules }: ConsoleModuleDirectoryProps)
 
         return Array.from(groups.entries()).map(([title, items]) => ({ title, items }));
     }, [modules]);
+
+    if (sections.length === 0) {
+        return (
+            <FlexEmptyState
+                title={query?.trim() ? `No modules match "${query.trim()}".` : 'No administration modules are available for this account.'}
+                description={
+                    query?.trim()
+                        ? 'Try another search term.'
+                        : 'Your role does not grant access to any administration modules.'
+                }
+            />
+        );
+    }
 
     return (
         <div className="flex w-full flex-col gap-6">
