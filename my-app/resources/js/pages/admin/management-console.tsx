@@ -1,24 +1,17 @@
 import { Head } from '@inertiajs/react';
 import React from 'react';
-import { ModuleDirectory  } from '@/components/flex/module-directory';
-import type {ModuleItem} from '@/components/flex/module-directory';
 import { CONSOLE_MODULES } from '@/domain/modules';
+import { ConsoleModuleDirectory } from '@/features/management-console/console-module-directory';
 import { AdminShell } from '@/layouts/admin-shell';
 
 export default function ManagementConsole() {
-    const modules: ModuleItem[] = CONSOLE_MODULES;
-
     return (
         <AdminShell
             title="Management Console"
             subtitle="Central administration for FLEX."
         >
             <Head title="Management Console — Flex Contact Center" />
-            <ModuleDirectory
-                title="Application Modules"
-                description="Access operational tools, telephony routing, reporting, and settings."
-                modules={modules}
-            />
+            <ConsoleModuleDirectory modules={CONSOLE_MODULES} />
         </AdminShell>
     );
 }
