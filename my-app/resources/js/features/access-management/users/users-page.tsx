@@ -12,6 +12,8 @@ import { accessRepository } from '@/domain/access-repository';
 import type { UserAccount, UserRoleFilter, UserStatusFilter } from '@/features/access-management/shared/types';
 import { UserDetailSheet } from '@/features/access-management/users/user-detail-sheet';
 import { UserFormSheet } from '@/features/access-management/users/user-form-sheet';
+import type { UserLifecycleAction } from '@/features/access-management/users/user-lifecycle-dialog';
+import { UserLifecycleDialog } from '@/features/access-management/users/user-lifecycle-dialog';
 import { UserResetPasswordDialog } from '@/features/access-management/users/user-reset-password-dialog';
 import { userColumns } from '@/features/access-management/users/users-columns';
 import { UsersTable } from '@/features/access-management/users/users-table';
@@ -48,6 +50,7 @@ export function UsersPage() {
     const [formOpen, setFormOpen] = useState(false);
     const [editingId, setEditingId] = useState<string>();
     const [resetTargetId, setResetTargetId] = useState<string>();
+    const [lifecycleTarget, setLifecycleTarget] = useState<{ id: string; action: UserLifecycleAction }>();
 
     const refresh = useCallback(() => {
         setIsLoading(true);
@@ -72,7 +75,10 @@ export function UsersPage() {
                 user.name.toLowerCase().includes(needle) ||
                 user.email.toLowerCase().includes(needle) ||
                 user.username.toLowerCase().includes(needle);
-            const matchesStatus = statusFilter === 'all' || user.status === statusFilter;
+            const matchesStatus =
+                statusFilter === 'all'
+                    ? user.status !== 'deleted'
+                    : user.status === statusFilter;
             const matchesRole = roleFilter === 'all' || user.role === roleFilter;
 
             return matchesSearch && matchesStatus && matchesRole;
@@ -90,6 +96,10 @@ export function UsersPage() {
 
     const openResetPassword = useCallback((user: UserAccount) => {
         setResetTargetId(user.id);
+    }, []);
+
+    const openLifecycle = useCallback((user: UserAccount, action: UserLifecycleAction) => {
+        setLifecycleTarget({ id: user.id, action });
     }, []);
 
     const columns = useMemo(
@@ -226,11 +236,19 @@ export function UsersPage() {
                 onOpenChange={(open) => !open && setDetailId(undefined)}
                 onEdit={openEdit}
                 onResetPassword={openResetPassword}
+                onLifecycle={openLifecycle}
             />
 
             <UserResetPasswordDialog
                 user={resetTargetId ? records.find((record) => record.id === resetTargetId) : undefined}
                 onOpenChange={(open) => !open && setResetTargetId(undefined)}
+            />
+
+            <UserLifecycleDialog
+                user={lifecycleTarget ? records.find((record) => record.id === lifecycleTarget.id) : undefined}
+                action={lifecycleTarget?.action}
+                onOpenChange={(open) => !open && setLifecycleTarget(undefined)}
+                onCompleted={handleSaved}
             />
 
             <UserFormSheet

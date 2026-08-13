@@ -41,7 +41,7 @@ function matches(query: UserQuery, user: UserAccount): boolean {
 
     const matchesStatus = !query.status || query.status === 'all' || user.status === query.status;
     const matchesRole = !query.role || query.role === 'all' || user.role === query.role;
-    const matchesDeletedView = query.deleted ? user.status === 'deleted' : user.status !== 'deleted';
+    const matchesDeletedView = !query.deleted || user.status === 'deleted';
 
     return matchesSearch && matchesStatus && matchesRole && matchesDeletedView;
 }
