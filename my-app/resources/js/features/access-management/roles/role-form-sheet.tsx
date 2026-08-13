@@ -1,7 +1,6 @@
 import { RiSearchLine } from '@remixicon/react';
 import React, { useCallback, useMemo, useState } from 'react';
 import { toast } from 'sonner';
-import type { Capability } from '@/auth/capabilities';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
@@ -49,7 +48,7 @@ export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleForm
     }, []);
 
     const togglePermission = useCallback(
-        (id: Capability) => {
+        (id: string) => {
             setDraft((d) => {
                 const has = d.permissions.includes(id);
 

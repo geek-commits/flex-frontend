@@ -12,9 +12,11 @@ import { ROLE_CAPABILITIES } from '@/auth/capabilities';
  */
 
 export interface PermissionDefinition {
-    id: Capability;
+    id: string;
     name: string;
     module: string;
+    /** Action suffix derived from the real capability token (`view` | `manage` | `workspace` | `manager`). */
+    type: string;
 }
 
 /** Human labels for each capability — display-only, derived 1:1 from the registry. */
@@ -59,19 +61,30 @@ const MODULE_BY_PREFIX: Record<string, string> = {
 };
 
 export const PERMISSIONS: PermissionDefinition[] = (Object.keys(PERMISSION_LABELS) as Capability[]).map((id) => {
-    const prefix = id.split('.')[0];
+    const parts = id.split('.');
+    const prefix = parts[0];
+    const type = parts[1] ?? prefix;
 
     return {
         id,
         name: PERMISSION_LABELS[id],
         module: MODULE_BY_PREFIX[prefix] ?? prefix,
+        type,
     };
 });
+
+/** Distinct permission types present in the real capability set. */
+export const PERMISSION_TYPES: string[] = Array.from(new Set(PERMISSIONS.map((permission) => permission.type))).sort();
+
+export interface PermissionDraft {
+    name: string;
+    type: string;
+}
 
 export interface RoleRecord {
     id: string;
     name: string;
-    permissions: Capability[];
+    permissions: string[];
     /** Count of POC users currently assigned this role. */
     userCount: number;
 }
@@ -87,7 +100,7 @@ export function roleRecords(userCounts: Record<Role, number>): RoleRecord[] {
 
 export interface RoleDraft {
     name: string;
-    permissions: Capability[];
+    permissions: string[];
 }
 
 /** Modules with their permission options, in a stable order. */

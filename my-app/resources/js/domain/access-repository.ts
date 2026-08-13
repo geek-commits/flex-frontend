@@ -1,7 +1,14 @@
 import type { Role } from '@/auth/capabilities';
 import { USERS_MOCK_RECORDS } from '@/data/users.mock';
-import { roleRecords   } from '@/features/access-management/shared/permission-catalog';
-import type {RoleDraft, RoleRecord} from '@/features/access-management/shared/permission-catalog';
+import {
+    PERMISSIONS,
+    roleRecords
+    
+    
+    
+    
+} from '@/features/access-management/shared/permission-catalog';
+import type {PermissionDefinition, PermissionDraft, RoleDraft, RoleRecord} from '@/features/access-management/shared/permission-catalog';
 import type { UserAccount, UserDraft, UserQuery, UserUpdateDraft } from '@/features/access-management/shared/types';
 
 /**
@@ -25,11 +32,15 @@ export interface AccessRepository {
     queryRoles(): RoleRecord[];
     createRole(draft: RoleDraft): RoleRecord;
     updateRole(id: string, draft: RoleDraft): RoleRecord | undefined;
+    queryPermissions(): PermissionDefinition[];
+    createPermission(draft: PermissionDraft): PermissionDefinition;
 }
 
 let records = [...USERS_MOCK_RECORDS];
 
 let roles = roleRecords({ 'super-admin': 0, admin: 0, agent: 0 });
+
+let permissions = [...PERMISSIONS];
 
 export const roleLabels: Record<Role, string> = {
     'super-admin': 'Super Administrator',
@@ -174,5 +185,28 @@ export const accessRepository: AccessRepository = {
         existing.permissions = draft.permissions;
 
         return existing;
+    },
+
+    queryPermissions() {
+        return permissions;
+    },
+
+    createPermission(draft: PermissionDraft) {
+        const slug = draft.name
+            .trim()
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+
+        const permission: PermissionDefinition = {
+            id: slug ? `${slug}.${draft.type}` : `p${Date.now()}`,
+            name: draft.name.trim(),
+            module: 'Custom',
+            type: draft.type,
+        };
+
+        permissions = [...permissions, permission];
+
+        return permission;
     },
 };
