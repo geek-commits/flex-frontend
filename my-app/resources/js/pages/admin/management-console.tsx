@@ -1,5 +1,6 @@
 import { Head } from '@inertiajs/react';
 import React, { useState } from 'react';
+import { useCapabilities } from '@/auth/capabilities';
 import { CONSOLE_MODULES } from '@/domain/modules';
 import { ConsoleModuleDirectory } from '@/features/management-console/console-module-directory';
 import { ConsoleSearch } from '@/features/management-console/console-search';
@@ -8,7 +9,8 @@ import { AdminShell } from '@/layouts/admin-shell';
 
 export default function ManagementConsole() {
     const [query, setQuery] = useState('');
-    const visibleModules = useVisibleModules({ modules: CONSOLE_MODULES, query });
+    const { has } = useCapabilities();
+    const visibleModules = useVisibleModules({ modules: CONSOLE_MODULES, query, has });
 
     return (
         <AdminShell
