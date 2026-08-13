@@ -13,6 +13,7 @@ import { QueueDeleteDialog } from '@/features/routing/queues/queue-delete-dialog
 import { QueueDetailSheet } from '@/features/routing/queues/queue-detail-sheet';
 import { QueueFormSheet } from '@/features/routing/queues/queue-form-sheet';
 import { QUEUE_STRATEGY_LABELS } from '@/features/routing/queues/queue-labels';
+import { QueueMembersSheet } from '@/features/routing/queues/queue-members-sheet';
 import { QueueTable } from '@/features/routing/queues/queue-table';
 import { RoutingShell } from '@/features/routing/routing-shell';
 
@@ -28,10 +29,12 @@ export function QueuesPage() {
     const [formOpen, setFormOpen] = useState(false);
     const [editingId, setEditingId] = useState<string>();
     const [deleteId, setDeleteId] = useState<string>();
+    const [membersQueueId, setMembersQueueId] = useState<string>();
 
     const detailQueue = detailId ? records.find((queue) => queue.id === detailId) : undefined;
     const editingQueue = editingId ? records.find((queue) => queue.id === editingId) : undefined;
     const deleteQueue = deleteId ? records.find((queue) => queue.id === deleteId) : undefined;
+    const membersQueue = membersQueueId ? records.find((queue) => queue.id === membersQueueId) : undefined;
 
     const refresh = useCallback(() => {
         setIsLoading(true);
@@ -59,6 +62,7 @@ export function QueuesPage() {
 
     const openDetail = (queue: QueueRecord) => setDetailId(queue.id);
     const openDelete = (queue: QueueRecord) => setDeleteId(queue.id);
+    const openMembers = (queue: QueueRecord) => setMembersQueueId(queue.id);
 
     const handleSaved = () => setRecords(routingRepository.queryQueues());
 
@@ -168,7 +172,7 @@ export function QueuesPage() {
                         records={filtered}
                         onView={openDetail}
                         onEdit={openEdit}
-                        onMembers={openDetail}
+                        onMembers={openMembers}
                     />
                 )}
 
@@ -181,7 +185,14 @@ export function QueuesPage() {
                 queue={detailQueue}
                 onOpenChange={(open) => !open && setDetailId(undefined)}
                 onEdit={openEdit}
+                onMembers={openMembers}
                 onDelete={openDelete}
+            />
+
+            <QueueMembersSheet
+                queue={membersQueue}
+                onOpenChange={(open) => !open && setMembersQueueId(undefined)}
+                onChanged={handleSaved}
             />
 
             <QueueFormSheet
