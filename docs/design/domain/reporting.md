@@ -1,18 +1,21 @@
 # domain — Reports & Scheduled Reports
 
-Defines the UI treatment and baseline for the Reports & Scheduled Reports surfaces. This is a **frontend modernization**, not a reporting-engine rewrite. Report calculations, backend contracts, permissions, tenant boundaries, and generation logic are preserved.
+Defines the UI treatment for the Reports & Scheduled Reports surfaces. This is a **frontend modernization**, not a reporting-engine rewrite. Report calculations, backend contracts, permissions, tenant boundaries, and generation logic are preserved.
 
 ## Workspace
 
 **Administration** (configure and operate the contact center). Primary users: Supervisor, Administrator, Super Administrator per actual permission. Reports is a high-density operational analysis workspace, not a decorative catalog.
 
-## Current runtime (baseline, 2026-08)
+## Current runtime (FLEX Reports v0.1, shipped)
 
-- Single route: `/admin/reports` → `pages/admin/reports.tsx` (route registered in `routes/web.php`, permission surface `reports.view`).
-- The page is **fully hardcoded** — an inline `reportCatalog` (9 reports across 7 categories), a `scheduledReports` array (3 jobs), and a date-range card. There is **no repository, no data file, no capability filtering, no context sidebar, and no report detail route**.
-- **Backend:** no reporting/scheduling backend exists. Parity tracker flags `REPORT-002…013`, `REPORT-014…017`, `SCHED-001…030` as `MANUAL_ONLY`; gap `GAP-006` confirms no runtime/API mapping.
+- Single route: `/admin/reports` → `features/reports/reports-page.tsx` (route registered in `routes/web.php`, permission surface `reports.view`).
+- **Report Library**: a compact grouped directory (PERFORMANCE / AGENTS / QUEUE & IVR / TELEPHONY & QUALITY) with search over real report metadata; loads metadata only, never report datasets.
+- **Report Viewer**: canonical in-page surface with a shared filter bar (date period + report-specific filters), loading/empty/error states, and a contextual Export menu (supported formats only, with Preparing/success/failure states).
+- **Viewers** (`features/reports/viewers/*`): section-first Contact Center & Yearly Performance, table-first Agent reports (Performance / State Log / Outgoing), IVR & Customer End to IVR, multi-section Outgoing Calls, high-density Queue Logs, and Recordings.
+- **Scheduled Reports** (`features/reports/scheduled/*`): dense schedules table with **separate schedule status and execution state**, search/filters, create/edit sheet (Report / Schedule / Recipients / Status), execution history with stage detail, delete confirmation, and Failed-only retry.
+- **Backend:** no reporting/scheduling backend exists. Parity tracker flags REPORT-* and SCHED-* as `REVAMPED` mock-adapter surfaces (gap `GAP-006`); the backend remains authoritative for generation and authorization.
 - **Permission:** only `reports.view` exists (`auth/capabilities.tsx`), held by `super-admin` and `admin`, not `agent`. There is **no** `reports.manage`; do not invent one.
-- **Tenant:** single implicit tenant. No tenant-switching UI exists; `tenant-context.md` records it as future treatment only. Reports data, schedules, recipients, and logs remain scoped to the single tenant.
+- **Tenant:** single implicit tenant. No tenant-switching UI exists; `tenant-context.md` records it as future treatment only.
 
 ## Baseline matrix — reports
 

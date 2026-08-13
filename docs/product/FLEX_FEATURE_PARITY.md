@@ -203,9 +203,9 @@ Treat as external/integration-owned. Do not redesign blindly (plan §7).
 
 | ID | Feature | Manual | Evidence | Lifecycle | Notes |
 |---|---|---|---|---|---|
-| REPORT-001 | Reports module | YES | `pages/admin/reports.tsx` | REVAMPED (route exists) | 2026-08 baseline: page fully hardcoded (inline catalog + scheduled jobs); no repo/data/capability filter/context sidebar; backend absent (GAP-006). Modernization P0 in progress. |
-| REPORT-002…013 | Call Summary, Agent Performance, IVR, Customer End to IVR, Outgoing Calls, Provider Minutes, Recordings, Yearly Performance, Agent State Log, Agent Outgoing, Queue Logs, Logs by Agent | YES | — | MANUAL_ONLY | canonical library will expose 10 manual reports grouped per plan §14 (PERFORMANCE / AGENTS / QUEUE & IVR / TELEPHONY & QUALITY); runtime names were non-canonical mock labels — reconciliation recorded, canonical names adopted |
-| REPORT-014…017 | CSV / Excel / PDF export, Copy/Print | YES | — | MANUAL_ONLY | audit each export |
+| REPORT-001 | Reports module | YES | `pages/admin/reports.tsx` → `features/reports/*` | REVAMPED (route exists) | FLEX Reports v0.1 shipped: canonical AdminShell + context sidebar, grouped searchable Report Library, in-page Report Viewer, filter bar, export menu. Backend absent (GAP-006) — mock `ReportRepository` behind real capability model. |
+| REPORT-002…013 | Contact Center Performance, Yearly Performance, Agent Performance, Agent State Log, Agent Outgoing, IVR Report, Customer End to IVR, Queue Logs, Outgoing Calls, Recordings | YES | `features/reports/viewers/*` | MANUAL_ONLY → REVAMPED | 10 canonical viewers shipped (section-first Contact Center/Yearly, table-first Agent reports, multi-section Outgoing, high-density Queue Logs). Report names reconciled to manual canonical inventory; runtime names were non-canonical mock labels. |
+| REPORT-014…017 | PDF / Excel / CSV export | YES | `features/reports/report-export-menu.tsx` | MANUAL_ONLY → REVAMPED | canonical Export menu with supported-format awareness + Preparing/success/failure states; no browser-fake exports. Copy/Print not surfaced (backend absent). |
 | REPORT-018 | Custom report configuration request | YES | — | UNKNOWN | audit workflow |
 
 ---
@@ -214,7 +214,7 @@ Treat as external/integration-owned. Do not redesign blindly (plan §7).
 
 | ID | Feature | Manual | Evidence | Lifecycle | Notes |
 |---|---|---|---|---|---|
-| SCHED-001…030 | Create/edit/delete schedule, name, type, output format, Daily/Weekly/Monthly/custom, email/user/role/department targets, Active/Inactive, Last/Next Run, execution state (Scheduled/Running/Completed/Failed/Retrying), logs, retry, records processed, file size, emails sent/failed, download logs | YES | — | MANUAL_ONLY | audit before Reports redesign — do not drop fields |
+| SCHED-001…030 | Create/edit/delete schedule, name, type, output format, Daily/Weekly/Monthly/custom, email/user/role/department targets, Active/Inactive, Last/Next Run, execution state (Scheduled/Running/Completed/Failed/Retrying), logs, retry, records processed, file size, emails sent/failed, download logs | YES | `features/reports/scheduled/*` | MANUAL_ONLY → REVAMPED | Scheduled Reports workspace shipped: dense table with distinct status vs execution state, search/filters, create/edit sheet (Report/Schedule/Recipients/Status), execution history + stage detail, delete confirmation, retry (Failed-only). Mock `ScheduledReportsRepository`; backend remains authoritative. |
 
 ---
 
@@ -266,7 +266,7 @@ Maintained during audits. Unresolved entries are kept (do not delete to look gre
 | GAP-003 | EXTERNAL_BOUNDARY_UNKNOWN | CRM-001…012 | CRM family ownership (external vs embedded) unverified | HIGH | integration ownership audit |
 | GAP-004 | TENANT_SCOPE_UNKNOWN | Tenants family | tenant switch/view/exit UX not implemented; boundary mapping required before admin revamps | HIGH | auth/tenant audit |
 | GAP-005 | ROUTE_MISMATCH | Management Console family | most `domain/modules.ts` routes resolve to placeholder pages (`admin/{module}`) — console directory itself is real; inbound-routes href aligned to a routable path | MEDIUM | surface-first evidence per module |
-| GAP-006 | UNKNOWN_BACKEND | Agent metrics (AGENT-005…018), Reports, Scheduled Reports, Subscriptions, Mail | manual-only; no runtime/API mapping | MEDIUM | repository/runtime audit |
+| GAP-006 | UNKNOWN_BACKEND | Agent metrics (AGENT-005…018), Subscriptions, Mail | Reports + Scheduled Reports shipped as REVAMPED mock-adapter surfaces (FLEX Reports v0.1); backend still absent for these | MEDIUM | repository/runtime audit on backend rollout |
 | GAP-007 | PLAN_EXISTS_NOT_IMPLEMENTED | none at baseline | all 7 prior revamps verified shipped | CLOSED | — |
 | GAP-008 | Manual terminology | AGENT-STATE / wrap timer settings | "Wrap-Up" vs "Wrap Up" canonicalized; timer default location unresolved | LOW | resolve via real admin config surface |
 
@@ -300,7 +300,7 @@ After `MANAGEMENT_CONSOLE_PLAN.md` execution (`7827cb8` → `5a84f0d`):
 ```text
 1. ~~Management Console + Navigation Architecture~~ ✅ shipped (`7827cb8` → `5a84f0d`)
 2. ~~Users / Roles / Permissions~~ ✅ shipped (access-management workspace; mock `AccessRepository` behind real capability model)
-3. Reports + Scheduled Reports
+3. ~~Reports + Scheduled Reports~~ ✅ shipped (FLEX Reports v0.1; `features/reports/*`; mock `ReportRepository` + `ScheduledReportsRepository`)
 4. Queues / IVR / Routing / Time Groups / Time Conditions
 5. Callback + Voicemail
 6. Recordings
