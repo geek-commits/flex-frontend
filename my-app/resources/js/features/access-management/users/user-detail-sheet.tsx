@@ -1,6 +1,8 @@
+import { RiEditLine } from '@remixicon/react';
 import React from 'react';
 import { FlexDetailSheet } from '@/components/flex/flex-detail-sheet';
 import { FlexStatus } from '@/components/flex/flex-status';
+import { Button } from '@/components/ui/button';
 import { roleLabels } from '@/domain/access-repository';
 import type { UserAccount } from '@/features/access-management/shared/types';
 import { formatLastActivity, USER_STATUS_TONE } from '@/features/access-management/users/user-status';
@@ -8,6 +10,7 @@ import { formatLastActivity, USER_STATUS_TONE } from '@/features/access-manageme
 export interface UserDetailSheetProps {
     user?: UserAccount;
     onOpenChange: (open: boolean) => void;
+    onEdit?: (user: UserAccount) => void;
 }
 
 function DetailRow({ label, children }: { label: string; children: React.ReactNode }) {
@@ -19,13 +22,29 @@ function DetailRow({ label, children }: { label: string; children: React.ReactNo
     );
 }
 
-export function UserDetailSheet({ user, onOpenChange }: UserDetailSheetProps) {
+export function UserDetailSheet({ user, onOpenChange, onEdit }: UserDetailSheetProps) {
     return (
         <FlexDetailSheet
             open={!!user}
             onOpenChange={onOpenChange}
             title={user?.name ?? 'User'}
             meta={user?.email}
+            footer={
+                user && onEdit ? (
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        className="gap-1.5 text-xs"
+                        onClick={() => {
+                            onEdit(user);
+                            onOpenChange(false);
+                        }}
+                    >
+                        <RiEditLine className="size-3.5" />
+                        Edit User
+                    </Button>
+                ) : undefined
+            }
         >
             <div className="flex flex-col gap-3">
                 <DetailRow label="Status">

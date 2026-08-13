@@ -45,6 +45,7 @@ export function UsersPage() {
 
     const [detailId, setDetailId] = useState<string>();
     const [formOpen, setFormOpen] = useState(false);
+    const [editingId, setEditingId] = useState<string>();
 
     const refresh = useCallback(() => {
         setIsLoading(true);
@@ -80,13 +81,18 @@ export function UsersPage() {
         setDetailId(user.id);
     }, []);
 
+    const openEdit = useCallback((user: UserAccount) => {
+        setEditingId(user.id);
+        setFormOpen(true);
+    }, []);
+
     const columns = useMemo(
         () =>
             userColumns({
                 onView: openDetail,
-                onEdit: openDetail,
+                onEdit: openEdit,
             }),
-        [openDetail]
+        [openDetail, openEdit]
     );
 
     const [columnOrder, setColumnOrder] = useState<string[]>(() => columns.map((column) => column.id as string));
@@ -113,9 +119,10 @@ export function UsersPage() {
         setPagination((prev) => ({ ...prev, pageIndex: 0 }));
     };
 
-    const handleCreated = () => {
+    const handleSaved = () => {
         setRecords(accessRepository.queryUsers({}));
         setPagination((prev) => ({ ...prev, pageIndex: 0 }));
+        setEditingId(undefined);
     };
 
     return (
@@ -211,9 +218,22 @@ export function UsersPage() {
             <UserDetailSheet
                 user={records.find((record) => record.id === detailId)}
                 onOpenChange={(open) => !open && setDetailId(undefined)}
+                onEdit={openEdit}
             />
 
-            <UserFormSheet open={formOpen} onOpenChange={setFormOpen} onSaved={handleCreated} />
+            <UserFormSheet
+                key={editingId ?? 'new'}
+                open={formOpen}
+                onOpenChange={(open) => {
+                    if (!open) {
+                        setEditingId(undefined);
+                    }
+
+                    setFormOpen(open);
+                }}
+                editing={editingId ? records.find((record) => record.id === editingId) : undefined}
+                onSaved={handleSaved}
+            />
         </AdminShell>
     );
 }

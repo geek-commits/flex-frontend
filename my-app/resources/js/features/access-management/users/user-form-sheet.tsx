@@ -6,9 +6,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle } from '@/components/ui/sheet';
-import { accessRepository } from '@/domain/access-repository';
+import { accessRepository, roleLabels } from '@/domain/access-repository';
 import { ROLE_OPTIONS } from '@/features/access-management/shared/role-options';
-import type { UserDraft } from '@/features/access-management/shared/types';
+import type { UserAccount, UserDraft } from '@/features/access-management/shared/types';
 
 const ORGANIZATION_OPTIONS = ['FLEX HQ', 'Nairobi Central', 'Customer Support', 'Sales & Inquiries', 'Technical Escalations'];
 
@@ -21,8 +21,19 @@ const EMPTY_DRAFT: UserDraft = {
     credentials: 'email',
 };
 
-function seedDraft(): UserDraft {
-    return { ...EMPTY_DRAFT };
+function seedDraft(editing?: UserAccount): UserDraft {
+    if (!editing) {
+        return { ...EMPTY_DRAFT };
+    }
+
+    return {
+        name: editing.name,
+        email: editing.email,
+        username: editing.username,
+        role: editing.role,
+        organization: editing.organization,
+        credentials: 'email',
+    };
 }
 
 type UserFormErrors = Partial<Record<'name' | 'email' | 'username' | 'organization', string>>;
@@ -54,11 +65,12 @@ function validateDraft(draft: UserDraft): UserFormErrors {
 export interface UserFormSheetProps {
     open: boolean;
     onOpenChange: (open: boolean) => void;
+    editing?: UserAccount;
     onSaved?: () => void;
 }
 
-export function UserFormSheet({ open, onOpenChange, onSaved }: UserFormSheetProps) {
-    const [draft, setDraft] = useState<UserDraft>(seedDraft);
+export function UserFormSheet({ open, onOpenChange, editing, onSaved }: UserFormSheetProps) {
+    const [draft, setDraft] = useState<UserDraft>(() => seedDraft(editing));
     const [errors, setErrors] = useState<UserFormErrors>({});
     const [saving, setSaving] = useState(false);
 
@@ -69,7 +81,7 @@ export function UserFormSheet({ open, onOpenChange, onSaved }: UserFormSheetProp
 
     const handleOpenChange = (next: boolean) => {
         if (!next) {
-            setDraft(seedDraft());
+            setDraft(seedDraft(editing));
             setErrors({});
         }
 
@@ -87,17 +99,28 @@ export function UserFormSheet({ open, onOpenChange, onSaved }: UserFormSheetProp
         setSaving(true);
         setTimeout(() => {
             try {
-                accessRepository.createUser({
-                    name: draft.name.trim(),
-                    email: draft.email.trim(),
-                    username: draft.username.trim(),
-                    role: draft.role,
-                    organization: draft.organization,
-                    credentials: 'email',
-                });
-                toast.success('User created. Temporary login instructions were sent by email.');
+                if (editing) {
+                    accessRepository.updateUser(editing.id, {
+                        name: draft.name.trim(),
+                        email: draft.email.trim(),
+                        username: draft.username.trim(),
+                        role: draft.role,
+                        organization: draft.organization,
+                    });
+                    toast.success('User updated');
+                } else {
+                    accessRepository.createUser({
+                        name: draft.name.trim(),
+                        email: draft.email.trim(),
+                        username: draft.username.trim(),
+                        role: draft.role,
+                        organization: draft.organization,
+                        credentials: 'email',
+                    });
+                    toast.success('User created. Temporary login instructions were sent by email.');
+                }
             } catch {
-                toast.error('User could not be created');
+                toast.error(editing ? 'User could not be updated' : 'User could not be created');
             }
 
             setSaving(false);
@@ -106,12 +129,16 @@ export function UserFormSheet({ open, onOpenChange, onSaved }: UserFormSheetProp
         }, 300);
     };
 
+    const roleChanged = !!editing && editing.role !== draft.role;
+
     return (
         <Sheet open={open} onOpenChange={handleOpenChange}>
             <SheetContent className="w-full sm:max-w-md">
                 <SheetHeader>
-                    <SheetTitle>Add User</SheetTitle>
-                    <SheetDescription>Create a user account and establish initial access.</SheetDescription>
+                    <SheetTitle>{editing ? 'Edit User' : 'Add User'}</SheetTitle>
+                    <SheetDescription>
+                        {editing ? 'Update the user account and access details.' : 'Create a user account and establish initial access.'}
+                    </SheetDescription>
                 </SheetHeader>
 
                 <div className="flex-1 overflow-y-auto px-4 pb-4 flex flex-col gap-4">
@@ -176,6 +203,13 @@ export function UserFormSheet({ open, onOpenChange, onSaved }: UserFormSheetProp
                         </Select>
                     </div>
 
+                    {roleChanged && (
+                        <p className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-800">
+                            Role change from {roleLabels[editing!.role]} to {roleLabels[draft.role]} takes effect immediately
+                            and may change what {draft.name.trim() || 'this user'} can access.
+                        </p>
+                    )}
+
                     <div className="flex flex-col gap-1.5">
                         <Label htmlFor="user-organization" className="text-xs font-semibold">
                             Organization
@@ -198,13 +232,15 @@ export function UserFormSheet({ open, onOpenChange, onSaved }: UserFormSheetProp
                         {errors.organization && <p className="text-xs text-destructive">{errors.organization}</p>}
                     </div>
 
-                    <div className="rounded-md border border-border bg-flex-surface-muted/50 px-3 py-2.5">
-                        <p className="text-xs text-flex-text-strong font-semibold">Temporary credentials</p>
-                        <p className="mt-0.5 text-xs text-flex-text-muted">
-                            Temporary login instructions will be sent to the user&apos;s email. They must change the
-                            temporary password on first login.
-                        </p>
-                    </div>
+                    {!editing && (
+                        <div className="rounded-md border border-border bg-flex-surface-muted/50 px-3 py-2.5">
+                            <p className="text-xs text-flex-text-strong font-semibold">Temporary credentials</p>
+                            <p className="mt-0.5 text-xs text-flex-text-muted">
+                                Temporary login instructions will be sent to the user&apos;s email. They must change the
+                                temporary password on first login.
+                            </p>
+                        </div>
+                    )}
                 </div>
 
                 <SheetFooter className="border-t border-border px-4 py-3">
@@ -212,7 +248,7 @@ export function UserFormSheet({ open, onOpenChange, onSaved }: UserFormSheetProp
                         Cancel
                     </Button>
                     <Button onClick={handleSave} disabled={saving}>
-                        {saving ? 'Creating…' : 'Create User'}
+                        {saving ? 'Saving…' : editing ? 'Save Changes' : 'Create User'}
                     </Button>
                 </SheetFooter>
             </SheetContent>
