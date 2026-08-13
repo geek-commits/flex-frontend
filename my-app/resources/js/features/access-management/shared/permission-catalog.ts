@@ -1,0 +1,105 @@
+import type { Capability, Role } from '@/auth/capabilities';
+import { ROLE_CAPABILITIES } from '@/auth/capabilities';
+
+/**
+ * Roles & Permissions POC contracts.
+ *
+ * Permission vocabulary derives from the real capability registry
+ * (`auth/capabilities.tsx`) — no invented taxonomy. Roles are the three
+ * canonical runtime roles. The mock adapter (`domain/access-repository.ts`)
+ * must be replaced by the real backend in rollout; the backend remains
+ * authoritative for authorization.
+ */
+
+export interface PermissionDefinition {
+    id: Capability;
+    name: string;
+    module: string;
+}
+
+/** Human labels for each capability — display-only, derived 1:1 from the registry. */
+export const PERMISSION_LABELS: Record<Capability, string> = {
+    'dashboard.view': 'View Dashboard',
+    'monitor.view': 'View Agent Monitoring',
+    'console.view': 'View Management Console',
+    'cdr.view': 'View Call Records',
+    'campaigns.view': 'View Campaigns',
+    'campaigns.manage': 'Manage Campaigns',
+    'reports.view': 'View Reports',
+    'ai.view': 'View AI Center',
+    'system.view': 'View System & Infrastructure',
+    'settings.manage': 'Manage Settings',
+    'security.view': 'View Security',
+    'roles.manage': 'Manage Roles & Permissions',
+    'agent.workspace': 'Use Agent Workspace',
+    'call.manager': 'Use Call Manager',
+    'missed-calls.view': 'View Missed Calls',
+    'troubleshooting.view': 'View Troubleshooting',
+    'support.view': 'View Quick Support',
+};
+
+/** Module derived from the capability token prefix. */
+const MODULE_BY_PREFIX: Record<string, string> = {
+    dashboard: 'Dashboard',
+    monitor: 'Monitoring',
+    console: 'Management Console',
+    cdr: 'Call Records',
+    campaigns: 'Campaigns',
+    reports: 'Reports',
+    ai: 'AI Center',
+    system: 'System',
+    settings: 'Settings',
+    security: 'Security',
+    roles: 'Roles & Permissions',
+    agent: 'Agent Workspace',
+    call: 'Call Manager',
+    missed: 'Missed Calls',
+    troubleshooting: 'Troubleshooting',
+    support: 'Support',
+};
+
+export const PERMISSIONS: PermissionDefinition[] = (Object.keys(PERMISSION_LABELS) as Capability[]).map((id) => {
+    const prefix = id.split('.')[0];
+
+    return {
+        id,
+        name: PERMISSION_LABELS[id],
+        module: MODULE_BY_PREFIX[prefix] ?? prefix,
+    };
+});
+
+export interface RoleRecord {
+    id: Role;
+    name: string;
+    permissions: Capability[];
+    /** Count of POC users currently assigned this role. */
+    userCount: number;
+}
+
+export function roleRecords(userCounts: Record<Role, number>): RoleRecord[] {
+    return (Object.keys(ROLE_CAPABILITIES) as Role[]).map((id) => ({
+        id,
+        name: id === 'super-admin' ? 'Super Administrator' : id === 'admin' ? 'Administrator' : 'Agent',
+        permissions: [...ROLE_CAPABILITIES[id]],
+        userCount: userCounts[id] ?? 0,
+    }));
+}
+
+export interface RoleDraft {
+    name: string;
+    permissions: Capability[];
+}
+
+/** Modules with their permission options, in a stable order. */
+export function permissionGroups(permissions: PermissionDefinition[]): { module: string; permissions: PermissionDefinition[] }[] {
+    const byModule = new Map<string, PermissionDefinition[]>();
+
+    for (const permission of permissions) {
+        const list = byModule.get(permission.module) ?? [];
+
+        list.push(permission);
+        byModule.set(permission.module, list);
+    }
+
+    return Array.from(byModule.entries()).map(([module, items]) => ({ module, permissions: items }));
+}
