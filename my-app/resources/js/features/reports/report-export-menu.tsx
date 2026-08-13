@@ -70,6 +70,7 @@ export function ReportExportMenu({ report, query }: ReportExportMenuProps) {
                                 type="button"
                                 onClick={() => handleExport(format)}
                                 disabled={!!exporting}
+                                aria-label={`Export as ${format}`}
                                 className="flex items-center gap-2 rounded-md px-2 py-1.5 text-xs text-foreground hover:bg-muted/60 disabled:opacity-50 transition-colors text-left"
                             >
                                 <Icon className="size-4" />

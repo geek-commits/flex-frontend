@@ -27,6 +27,7 @@ export function ReportLibraryItem({ report, onOpen }: ReportLibraryItemProps) {
                     variant="outline"
                     size="sm"
                     className="gap-1.5 text-xs shrink-0"
+                    aria-label={`Run ${report.label}`}
                     onClick={() => onOpen(report)}
                 >
                     <span>Run</span>

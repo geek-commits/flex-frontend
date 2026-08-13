@@ -54,21 +54,21 @@ export function ScheduledReportsTable({ records, onViewLogs, onEdit, onRetry, on
                                     <td className="px-4 py-2.5"><ScheduleStatusBadge status={schedule.status} /></td>
                                     <td className="px-4 py-2.5">
                                         <div className="flex items-center gap-0.5 justify-end">
-                                            <Button variant="ghost" size="icon-xs" title="View logs" onClick={() => onViewLogs(schedule)}>
+                                            <Button variant="ghost" size="icon-xs" title="View logs" aria-label={`View logs for ${schedule.name}`} onClick={() => onViewLogs(schedule)}>
                                                 <RiHistoryLine className="size-3.5" />
                                             </Button>
-                                            <Button variant="ghost" size="icon-xs" title="Edit schedule" onClick={() => onEdit(schedule)}>
+                                            <Button variant="ghost" size="icon-xs" title="Edit schedule" aria-label={`Edit ${schedule.name}`} onClick={() => onEdit(schedule)}>
                                                 <RiPencilLine className="size-3.5" />
                                             </Button>
                                             {schedule.executionState === 'Failed' && (
-                                                <Button variant="ghost" size="icon-xs" title="Retry" onClick={() => onRetry(schedule)}>
+                                                <Button variant="ghost" size="icon-xs" title="Retry" aria-label={`Retry ${schedule.name}`} onClick={() => onRetry(schedule)}>
                                                     <RiRefreshLine className="size-3.5" />
                                                 </Button>
                                             )}
-                                            <Button variant="ghost" size="icon-xs" title="View" onClick={() => onViewLogs(schedule)}>
+                                            <Button variant="ghost" size="icon-xs" title="View" aria-label={`View ${schedule.name}`} onClick={() => onViewLogs(schedule)}>
                                                 <RiEyeLine className="size-3.5" />
                                             </Button>
-                                            <Button variant="ghost" size="icon-xs" title="Delete schedule" className="text-destructive" onClick={() => onDelete(schedule)}>
+                                            <Button variant="ghost" size="icon-xs" title="Delete schedule" aria-label={`Delete ${schedule.name}`} className="text-destructive" onClick={() => onDelete(schedule)}>
                                                 <RiDeleteBin6Line className="size-3.5" />
                                             </Button>
                                         </div>
