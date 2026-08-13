@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { accessRepository } from '@/domain/access-repository';
 import type { UserAccount, UserRoleFilter, UserStatusFilter } from '@/features/access-management/shared/types';
 import { UserDetailSheet } from '@/features/access-management/users/user-detail-sheet';
+import { UserFormSheet } from '@/features/access-management/users/user-form-sheet';
 import { userColumns } from '@/features/access-management/users/users-columns';
 import { UsersTable } from '@/features/access-management/users/users-table';
 import { UsersToolbar } from '@/features/access-management/users/users-toolbar';
@@ -43,6 +44,7 @@ export function UsersPage() {
     const [sorting, setSorting] = useState<SortingState>([]);
 
     const [detailId, setDetailId] = useState<string>();
+    const [formOpen, setFormOpen] = useState(false);
 
     const refresh = useCallback(() => {
         setIsLoading(true);
@@ -111,6 +113,11 @@ export function UsersPage() {
         setPagination((prev) => ({ ...prev, pageIndex: 0 }));
     };
 
+    const handleCreated = () => {
+        setRecords(accessRepository.queryUsers({}));
+        setPagination((prev) => ({ ...prev, pageIndex: 0 }));
+    };
+
     return (
         <AdminShell
             title="Users"
@@ -124,7 +131,7 @@ export function UsersPage() {
                         <RiRefreshLine className="size-3.5" />
                         <span>Refresh</span>
                     </Button>
-                    <Button size="sm" className="gap-1.5 text-xs">
+                    <Button size="sm" className="gap-1.5 text-xs" onClick={() => setFormOpen(true)}>
                         <RiAddLine className="size-4" />
                         <span>Add User</span>
                     </Button>
@@ -182,7 +189,7 @@ export function UsersPage() {
                                 }
                                 action={
                                     records.length === 0 ? (
-                                        <Button variant="outline" size="sm" className="text-xs">
+                                        <Button variant="outline" size="sm" className="text-xs" onClick={() => setFormOpen(true)}>
                                             Add User
                                         </Button>
                                     ) : (
@@ -205,6 +212,8 @@ export function UsersPage() {
                 user={records.find((record) => record.id === detailId)}
                 onOpenChange={(open) => !open && setDetailId(undefined)}
             />
+
+            <UserFormSheet open={formOpen} onOpenChange={setFormOpen} onSaved={handleCreated} />
         </AdminShell>
     );
 }

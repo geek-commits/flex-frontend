@@ -47,7 +47,7 @@ export interface UserDraft {
     role: Role;
     organization: string;
     /** Temporary credentials are sent by email; never surfaced in the UI. */
-    credentials: 'email' | 'manual';
+    credentials: 'email';
 }
 
 export interface UserUpdateDraft {
