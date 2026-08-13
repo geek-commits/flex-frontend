@@ -32,14 +32,14 @@ export function RolesTable({ records, isLoading, emptyMessage, onEdit }: RolesTa
     }
 
     return (
-        <div className="overflow-hidden rounded-lg border border-border bg-background">
+        <div className="overflow-x-auto rounded-lg border border-border bg-background">
             <table className="w-full text-sm">
                 <thead>
                     <tr className="border-b border-border bg-muted/40 text-left">
-                        <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted">Role</th>
-                        <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted">Permissions</th>
-                        <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted">Users</th>
-                        <th className="px-4 py-2.5 text-right text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted">Actions</th>
+                        <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap">Role</th>
+                        <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap">Permissions</th>
+                        <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap">Users</th>
+                        <th className="px-4 py-2.5 text-right text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -66,6 +66,7 @@ export function RolesTable({ records, isLoading, emptyMessage, onEdit }: RolesTa
                                     variant="ghost"
                                     size="icon-xs"
                                     title="Edit role"
+                                    aria-label={`Edit ${role.name}`}
                                     onClick={() => onEdit(role)}
                                 >
                                     <RiEditLine className="size-3.5" />
