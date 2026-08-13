@@ -1,5 +1,6 @@
 import { Head } from '@inertiajs/react';
 import React, { useCallback, useMemo, useState } from 'react';
+import { toast } from 'sonner';
 import { useCapabilities } from '@/auth/capabilities';
 import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
 import { scheduledReportsRepository } from '@/domain/scheduled-reports-repository';
@@ -9,6 +10,7 @@ import { ReportLibrary } from '@/features/reports/report-library';
 import { getReportById, REPORTS } from '@/features/reports/report-registry';
 import type { ReportQuery } from '@/features/reports/report-types';
 import { ReportViewer } from '@/features/reports/report-viewer';
+import { DeleteScheduleDialog } from '@/features/reports/scheduled/delete-schedule-dialog';
 import { ExecutionHistorySheet } from '@/features/reports/scheduled/execution-history-sheet';
 import { ScheduleFormSheet } from '@/features/reports/scheduled/schedule-form-sheet';
 import { ScheduledReportsPage } from '@/features/reports/scheduled/scheduled-reports-page';
@@ -49,9 +51,11 @@ export function ReportsPage() {
     const [scheduleFormOpen, setScheduleFormOpen] = useState(false);
     const [editingScheduleId, setEditingScheduleId] = useState<string>();
     const [executionScheduleId, setExecutionScheduleId] = useState<string>();
+    const [deleteScheduleId, setDeleteScheduleId] = useState<string>();
 
     const editingSchedule = editingScheduleId ? scheduledRecords.find((record) => record.id === editingScheduleId) : undefined;
     const executionSchedule = executionScheduleId ? scheduledRecords.find((record) => record.id === executionScheduleId) : undefined;
+    const deleteSchedule = deleteScheduleId ? scheduledRecords.find((record) => record.id === deleteScheduleId) : undefined;
 
     const refreshSchedules = useCallback(() => {
         setScheduledRecords(scheduledReportsRepository.querySchedules());
@@ -69,6 +73,16 @@ export function ReportsPage() {
 
     const openExecutionHistory = useCallback((schedule: ScheduledReportRecord) => {
         setExecutionScheduleId(schedule.id);
+    }, []);
+
+    const openDeleteSchedule = useCallback((schedule: ScheduledReportRecord) => {
+        setDeleteScheduleId(schedule.id);
+    }, []);
+
+    const retrySchedule = useCallback((schedule: ScheduledReportRecord) => {
+        scheduledReportsRepository.retrySchedule(schedule.id);
+        setScheduledRecords(scheduledReportsRepository.querySchedules());
+        toast.success('Retry started');
     }, []);
 
     const permittedReports = useMemo(() => REPORTS.filter((report) => has(report.permission)), [has]);
@@ -123,13 +137,20 @@ export function ReportsPage() {
                     onCreate={openCreateSchedule}
                     onEdit={openEditSchedule}
                     onViewLogs={openExecutionHistory}
-                    onRetry={() => undefined}
+                    onRetry={retrySchedule}
+                    onDelete={openDeleteSchedule}
                 />
             )}
 
             <ExecutionHistorySheet
                 schedule={executionSchedule}
                 onOpenChange={(open) => !open && setExecutionScheduleId(undefined)}
+            />
+
+            <DeleteScheduleDialog
+                schedule={deleteSchedule}
+                onOpenChange={(open) => !open && setDeleteScheduleId(undefined)}
+                onDeleted={refreshSchedules}
             />
 
             <ScheduleFormSheet

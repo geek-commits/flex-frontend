@@ -17,6 +17,7 @@ export interface ScheduledReportsPageProps {
     onEdit: (schedule: ScheduledReportRecord) => void;
     onViewLogs: (schedule: ScheduledReportRecord) => void;
     onRetry: (schedule: ScheduledReportRecord) => void;
+    onDelete: (schedule: ScheduledReportRecord) => void;
     records: ScheduledReportRecord[];
 }
 
@@ -26,6 +27,7 @@ export function ScheduledReportsPage({
     onEdit,
     onViewLogs,
     onRetry,
+    onDelete,
     records,
 }: ScheduledReportsPageProps) {
     const [search, setSearch] = useState('');
@@ -144,7 +146,7 @@ export function ScheduledReportsPage({
                     }
                 />
             ) : (
-                <ScheduledReportsTable records={filtered} onViewLogs={onViewLogs} onEdit={onEdit} onRetry={onRetry} />
+                <ScheduledReportsTable records={filtered} onViewLogs={onViewLogs} onEdit={onEdit} onRetry={onRetry} onDelete={onDelete} />
             )}
         </div>
     );

@@ -1,4 +1,4 @@
-import { RiEyeLine, RiHistoryLine, RiPencilLine, RiRefreshLine } from '@remixicon/react';
+import { RiDeleteBin6Line, RiEyeLine, RiHistoryLine, RiPencilLine, RiRefreshLine } from '@remixicon/react';
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { getReportById } from '@/features/reports/report-registry';
@@ -13,6 +13,7 @@ export interface ScheduledReportsTableProps {
     onViewLogs: (schedule: ScheduledReportRecord) => void;
     onEdit: (schedule: ScheduledReportRecord) => void;
     onRetry: (schedule: ScheduledReportRecord) => void;
+    onDelete: (schedule: ScheduledReportRecord) => void;
 }
 
 /**
@@ -20,7 +21,7 @@ export interface ScheduledReportsTableProps {
  * Next Run / Execution State / Status / Actions. Status and execution state are
  * rendered as distinct components.
  */
-export function ScheduledReportsTable({ records, onViewLogs, onEdit, onRetry }: ScheduledReportsTableProps) {
+export function ScheduledReportsTable({ records, onViewLogs, onEdit, onRetry, onDelete }: ScheduledReportsTableProps) {
     return (
         <div className="overflow-hidden rounded-lg border border-border bg-background">
             <div className="overflow-x-auto">
@@ -66,6 +67,9 @@ export function ScheduledReportsTable({ records, onViewLogs, onEdit, onRetry }: 
                                             )}
                                             <Button variant="ghost" size="icon-xs" title="View" onClick={() => onViewLogs(schedule)}>
                                                 <RiEyeLine className="size-3.5" />
+                                            </Button>
+                                            <Button variant="ghost" size="icon-xs" title="Delete schedule" className="text-destructive" onClick={() => onDelete(schedule)}>
+                                                <RiDeleteBin6Line className="size-3.5" />
                                             </Button>
                                         </div>
                                     </td>

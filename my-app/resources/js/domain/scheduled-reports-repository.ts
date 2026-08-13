@@ -26,7 +26,7 @@ let schedules = [...SCHEDULED_REPORT_MOCK_RECORDS];
 
 export const scheduledReportsRepository: ScheduledReportsRepository = {
     querySchedules() {
-        return schedules;
+        return [...schedules];
     },
 
     getById(id: string) {
