@@ -40,7 +40,7 @@ Resolved from `git log` (46 commits, `main`, remote `origin` → `github.com/gee
 | Craft Infrastructure (design OS + AGENTS.md) | `FLEX_CRAFT_INFRASTRUCTURE_PLAN.md` §6 | `docs/design/*` (01–12, `domain/`, `exemplars/`), root `AGENTS.md` | docs QAs | ✅ `655db6e` → `4bfd90b` |
 | Agent Monitoring + Call Whispering | `AGENT_MONITORING_PLAN.md` | `features/agent-monitoring/*`, `pages/admin/agent-monitoring.tsx` | store/browser verified | ✅ `f54145e` → `24187c6` |
 | Agent Workspace + Call Manager (Phases 1–11) | `AGENT_WORKSPACE_PLAN.md` | `features/agent-workspace/*`, `pages/agent/index.tsx` | store/browser verified | ✅ `ad46ccf` → `3c501e6` |
-| Management Console + Navigation | next after parity | `pages/admin/management-console.tsx` + `admin/{module}` placeholders — see §7 readiness | not verified | ⬜ NOT STARTED |
+| Management Console + Navigation | next after parity | `pages/admin/management-console.tsx` + `admin/{module}` placeholders — see §7 readiness | not verified | ✅ `7827cb8` → `5a84f0d` (11 commits) |
 
 > Rule: every `SHIPPED` above is backed by remote-verified commits on `origin/main`. Detail pages using Inertia routes: `admin/cdr/{record}`, `admin/campaigns/{campaign}`.
 
@@ -222,12 +222,12 @@ Treat as external/integration-owned. Do not redesign blindly (plan §7).
 
 | ID | Feature | Manual | Evidence | Lifecycle | Notes |
 |---|---|---|---|---|---|
-| ADMIN-CONSOLE-001 | Management Console | YES | `pages/admin/management-console.tsx`, `domain/modules.ts` | REVAMPED (directory surface) | module registry exists |
-| ADMIN-CONSOLE-002 | Search settings/modules | YES | `components/flex/global-search.tsx`, module-directory | REVAMPED | |
+| ADMIN-CONSOLE-001 | Management Console | YES | `pages/admin/management-console.tsx`, `features/management-console/*`, `domain/modules.ts` | REVAMPED | grouped directory surface; 18 modules / 4 categories; `docs/screenshots/02-management-console-after-desktop.png` |
+| ADMIN-CONSOLE-002 | Search settings/modules | YES | `features/management-console/console-search.tsx` + `use-visible-modules.ts` | REVAMPED | searches canonical registry (label/description/category/keywords); permission filter runs first |
 | ADMIN-CONSOLE-003 | Default timers (incl. Wrap-Up duration) | YES | described in `domain/modules.ts` queue description; mock owner `wrapUpReturnMs` | CONFIRMED_FRONTEND | **real config location unresolved** — readiness gap |
 | ADMIN-CONSOLE-004 | Ringtone | YES | — | MANUAL_ONLY | |
 | ADMIN-CONSOLE-005 | Ring volume | YES | — | MANUAL_ONLY | |
-| ADMIN-CONSOLE-006 | Permission-aware visibility | YES | `auth/capabilities.tsx` (Capability model) | REVAMPED (frontend guard) | backend remains authoritative |
+| ADMIN-CONSOLE-006 | Permission-aware visibility | YES | `auth/capabilities.tsx` (Capability model); console filters by `has()` | REVAMPED (frontend guard) | backend remains authoritative; search never surfaces hidden modules |
 
 ## Queues / IVR / Time / Recordings / Users / Roles / Mail / Subscriptions / Tenants
 
@@ -265,7 +265,7 @@ Maintained during audits. Unresolved entries are kept (do not delete to look gre
 | GAP-002 | NEEDS_PRODUCT_DECISION | AGENT-CALL-011 | Warm Transfer documented in manual, no runtime consultation state | HIGH | product + telephony decision |
 | GAP-003 | EXTERNAL_BOUNDARY_UNKNOWN | CRM-001…012 | CRM family ownership (external vs embedded) unverified | HIGH | integration ownership audit |
 | GAP-004 | TENANT_SCOPE_UNKNOWN | Tenants family | tenant switch/view/exit UX not implemented; boundary mapping required before admin revamps | HIGH | auth/tenant audit |
-| GAP-005 | ROUTE_MISMATCH | Management Console family | many `domain/modules.ts` routes are placeholder pages — plan!=surface | MEDIUM | surface-first evidence per module |
+| GAP-005 | ROUTE_MISMATCH | Management Console family | most `domain/modules.ts` routes resolve to placeholder pages (`admin/{module}`) — console directory itself is real; inbound-routes href aligned to a routable path | MEDIUM | surface-first evidence per module |
 | GAP-006 | UNKNOWN_BACKEND | Agent metrics (AGENT-005…018), Reports, Scheduled Reports, Subscriptions, Mail | manual-only; no runtime/API mapping | MEDIUM | repository/runtime audit |
 | GAP-007 | PLAN_EXISTS_NOT_IMPLEMENTED | none at baseline | all 7 prior revamps verified shipped | CLOSED | — |
 | GAP-008 | Manual terminology | AGENT-STATE / wrap timer settings | "Wrap-Up" vs "Wrap Up" canonicalized; timer default location unresolved | LOW | resolve via real admin config surface |
@@ -274,30 +274,30 @@ Maintained during audits. Unresolved entries are kept (do not delete to look gre
 
 # 14. MANAGEMENT CONSOLE READINESS GATE (plan §8)
 
-Before starting `MANAGEMENT_CONSOLE_PLAN.md` execution:
+After `MANAGEMENT_CONSOLE_PLAN.md` execution (`7827cb8` → `5a84f0d`):
 
 | Readiness item | Status | Evidence |
 |---|---|---|
-| Console route/module registry | ✅ | `pages/admin/management-console.tsx`, `domain/modules.ts` |
-| Search behavior | ✅ | `global-search.tsx`, module-directory |
+| Console route/module registry | ✅ | `pages/admin/management-console.tsx`, `domain/modules.ts`, `features/management-console/*` |
+| Search behavior | ✅ | `features/management-console/console-search.tsx` + `use-visible-modules.ts` |
 | Module permission visibility | ⚠️ frontend only | `capabilities.tsx` Capability model; backend enforcement unverified |
-| Tenant context behavior | ⬜ | not implemented (GAP-004) |
+| Tenant context behavior | ⬜ | not implemented (GAP-004); document-only per Phase 6 |
 | Queue route | ⚠️ placeholder | `/admin/queues` registry entry only |
 | IVR route | ⚠️ placeholder | `/admin/ivr` registry entry only |
 | Time Group / Time Condition route | ⚠️ placeholder | `/admin/time-conditions` registry entry only |
 | Users route | ⚠️ placeholder | `/admin/users` registry entry only |
 | Recordings route | ⚠️ placeholder | `/admin/recordings` registry entry only |
 | Default / Wrap-Up timer config location | ⬜ | unresolved (GAP-008) |
-| Module navigation behavior | ✅ | `NAVIGATION` in `capabilities.tsx`, `PrimaryRail`, `ContextSidebar` |
+| Module navigation behavior | ✅ | every console module route resolves; Back/Enter/focus verified; `features/management-console/console-module-item.tsx` |
 
-**Verdict:** ✅ ENTRY WITH AUDIT GAPS — the console directory and permission model are real; the individual CRUD modules remain placeholder/audit items that must become evidenced (`REVAMP_PLANNED` per revamp-control rule) as they are modernized.
+**Verdict:** ✅ CONSOLE DIRECTORY SHIPPED WITH AUDIT GAPS — the grouped, searchable, permission-aware directory is real and every module route resolves; the individual CRUD modules remain placeholder/audit items that must become evidenced (`REVAMP_PLANNED` per revamp-control rule) as they are modernized.
 
 ---
 
 # 15. RECOMMENDED ROADMAP AFTER PARITY (default)
 
 ```text
-1. Management Console + Navigation Architecture
+1. ~~Management Console + Navigation Architecture~~ ✅ shipped (`7827cb8` → `5a84f0d`)
 2. Users / Roles / Permissions
 3. Reports + Scheduled Reports
 4. Queues / IVR / Routing / Time Groups / Time Conditions
