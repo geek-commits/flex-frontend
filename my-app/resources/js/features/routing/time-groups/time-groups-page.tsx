@@ -8,6 +8,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { routingRepository } from '@/domain/routing-repository';
 import type { TimeGroupRecord } from '@/domain/routing-types';
 import { RoutingShell } from '@/features/routing/routing-shell';
+import { TimeGroupDeleteDialog } from '@/features/routing/time-groups/time-group-delete-dialog';
 import { TimeGroupFormSheet } from '@/features/routing/time-groups/time-group-form-sheet';
 import { TimeGroupTable } from '@/features/routing/time-groups/time-group-table';
 
@@ -18,8 +19,10 @@ export function TimeGroupsPage() {
     const [error, setError] = useState<string>();
     const [formOpen, setFormOpen] = useState(false);
     const [editingId, setEditingId] = useState<string>();
+    const [deleteId, setDeleteId] = useState<string>();
 
     const editingGroup = editingId ? records.find((group) => group.id === editingId) : undefined;
+    const deleteGroup = deleteId ? records.find((group) => group.id === deleteId) : undefined;
 
     const refresh = useCallback(() => {
         setIsLoading(true);
@@ -44,6 +47,8 @@ export function TimeGroupsPage() {
         setEditingId(group.id);
         setFormOpen(true);
     };
+
+    const openDelete = (group: TimeGroupRecord) => setDeleteId(group.id);
 
     const handleSaved = () => setRecords(routingRepository.queryTimeGroups());
 
@@ -113,7 +118,7 @@ export function TimeGroupsPage() {
                         }
                     />
                 ) : (
-                    <TimeGroupTable records={filtered} onEdit={openEdit} />
+                    <TimeGroupTable records={filtered} onEdit={openEdit} onDelete={openDelete} />
                 )}
 
                 <p className="text-[10px] text-flex-text-muted">
@@ -133,6 +138,12 @@ export function TimeGroupsPage() {
                 }}
                 editing={editingGroup}
                 onSaved={handleSaved}
+            />
+
+            <TimeGroupDeleteDialog
+                group={deleteGroup}
+                onOpenChange={(open) => !open && setDeleteId(undefined)}
+                onDeleted={handleSaved}
             />
         </RoutingShell>
     );

@@ -1,4 +1,4 @@
-import { RiPencilLine } from '@remixicon/react';
+import { RiDeleteBin6Line, RiPencilLine } from '@remixicon/react';
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { routingRepository } from '@/domain/routing-repository';
@@ -8,10 +8,11 @@ import { formatTimeGroupSummary } from '@/features/routing/time-groups/time-grou
 export interface TimeGroupTableProps {
     records: TimeGroupRecord[];
     onEdit: (group: TimeGroupRecord) => void;
+    onDelete: (group: TimeGroupRecord) => void;
 }
 
 /** Dense Time Group directory table with schedule summaries and usage. */
-export function TimeGroupTable({ records, onEdit }: TimeGroupTableProps) {
+export function TimeGroupTable({ records, onEdit, onDelete }: TimeGroupTableProps) {
     return (
         <div className="overflow-hidden rounded-lg border border-border bg-background">
             <div className="overflow-x-auto">
@@ -43,6 +44,9 @@ export function TimeGroupTable({ records, onEdit }: TimeGroupTableProps) {
                                         <div className="flex items-center gap-0.5 justify-end">
                                             <Button variant="ghost" size="icon-xs" title="Edit" aria-label={`Edit ${group.description}`} onClick={() => onEdit(group)}>
                                                 <RiPencilLine className="size-3.5" />
+                                            </Button>
+                                            <Button variant="ghost" size="icon-xs" title="Delete" aria-label={`Delete ${group.description}`} className="text-destructive" onClick={() => onDelete(group)}>
+                                                <RiDeleteBin6Line className="size-3.5" />
                                             </Button>
                                         </div>
                                     </td>
