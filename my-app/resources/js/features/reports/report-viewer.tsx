@@ -1,5 +1,5 @@
 import { RiArrowLeftLine, RiRefreshLine } from '@remixicon/react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexErrorState } from '@/components/flex/flex-error-state';
 import { Button } from '@/components/ui/button';
@@ -40,12 +40,22 @@ export function ReportViewer({
     const [run, setRun] = useState<ReportRun>();
     const [state, setState] = useState<LoadState>('idle');
     const [generating, setGenerating] = useState(false);
+    const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+    const mountedRef = useRef(true);
 
     const runReport = () => {
+        if (timerRef.current) {
+            clearTimeout(timerRef.current);
+        }
+
         setGenerating(true);
         setState('loading');
 
-        setTimeout(() => {
+        timerRef.current = setTimeout(() => {
+            if (!mountedRef.current) {
+                return;
+            }
+
             try {
                 const result = reportRepository.runReport(report.id, query);
 
@@ -60,11 +70,19 @@ export function ReportViewer({
     };
 
     useEffect(() => {
+        mountedRef.current = true;
         const timer = setTimeout(() => {
             runReport();
         }, 0);
 
-        return () => clearTimeout(timer);
+        return () => {
+            mountedRef.current = false;
+            clearTimeout(timer);
+
+            if (timerRef.current) {
+                clearTimeout(timerRef.current);
+            }
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [report.id]);
 
