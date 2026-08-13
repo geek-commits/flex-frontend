@@ -285,7 +285,8 @@ After `MANAGEMENT_CONSOLE_PLAN.md` execution (`7827cb8` → `5a84f0d`):
 | Queue route | ⚠️ placeholder | `/admin/queues` registry entry only |
 | IVR route | ⚠️ placeholder | `/admin/ivr` registry entry only |
 | Time Group / Time Condition route | ⚠️ placeholder | `/admin/time-conditions` registry entry only |
-| Users route | ⚠️ placeholder | `/admin/users` registry entry only |
+| Users route | ✅ | `/admin/users` revamped (mock `AccessRepository`); `features/access-management/users/*` |
+| Roles / Permissions route | ✅ | `/admin/roles` revamped; `features/access-management/roles/*` |
 | Recordings route | ⚠️ placeholder | `/admin/recordings` registry entry only |
 | Default / Wrap-Up timer config location | ⬜ | unresolved (GAP-008) |
 | Module navigation behavior | ✅ | every console module route resolves; Back/Enter/focus verified; `features/management-console/console-module-item.tsx` |
@@ -298,7 +299,7 @@ After `MANAGEMENT_CONSOLE_PLAN.md` execution (`7827cb8` → `5a84f0d`):
 
 ```text
 1. ~~Management Console + Navigation Architecture~~ ✅ shipped (`7827cb8` → `5a84f0d`)
-2. Users / Roles / Permissions
+2. ~~Users / Roles / Permissions~~ ✅ shipped (access-management workspace; mock `AccessRepository` behind real capability model)
 3. Reports + Scheduled Reports
 4. Queues / IVR / Routing / Time Groups / Time Conditions
 5. Callback + Voicemail
