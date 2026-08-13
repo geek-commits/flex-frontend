@@ -1,4 +1,6 @@
+import { EXECUTION_MOCK_RECORDS } from '@/data/executions.mock';
 import { SCHEDULED_REPORT_MOCK_RECORDS } from '@/data/scheduled-reports.mock';
+import type { ExecutionRecord } from '@/features/reports/scheduled/execution-types';
 import type { ScheduledReportDraft, ScheduledReportRecord } from '@/features/reports/scheduled/scheduled-types';
 
 /**
@@ -13,9 +15,11 @@ import type { ScheduledReportDraft, ScheduledReportRecord } from '@/features/rep
 export interface ScheduledReportsRepository {
     querySchedules(): ScheduledReportRecord[];
     getById(id: string): ScheduledReportRecord | undefined;
+    queryExecutions(scheduleId: string): ExecutionRecord[];
     createSchedule(draft: ScheduledReportDraft): ScheduledReportRecord;
     updateSchedule(id: string, draft: ScheduledReportDraft): ScheduledReportRecord | undefined;
     deleteSchedule(id: string): void;
+    retrySchedule(id: string): ScheduledReportRecord | undefined;
 }
 
 let schedules = [...SCHEDULED_REPORT_MOCK_RECORDS];
@@ -27,6 +31,10 @@ export const scheduledReportsRepository: ScheduledReportsRepository = {
 
     getById(id: string) {
         return schedules.find((schedule) => schedule.id === id);
+    },
+
+    queryExecutions(scheduleId: string) {
+        return EXECUTION_MOCK_RECORDS.filter((execution) => execution.scheduleId === scheduleId);
     },
 
     createSchedule(draft: ScheduledReportDraft) {
@@ -73,5 +81,16 @@ export const scheduledReportsRepository: ScheduledReportsRepository = {
 
     deleteSchedule(id: string) {
         schedules = schedules.filter((schedule) => schedule.id !== id);
+    },
+
+    retrySchedule(id: string) {
+        const existing = schedules.find((schedule) => schedule.id === id);
+
+        if (existing) {
+            existing.executionState = 'Retrying';
+            existing.nextRun = 'Scheduled';
+        }
+
+        return existing;
     },
 };

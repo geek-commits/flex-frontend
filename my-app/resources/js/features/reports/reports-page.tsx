@@ -9,6 +9,7 @@ import { ReportLibrary } from '@/features/reports/report-library';
 import { getReportById, REPORTS } from '@/features/reports/report-registry';
 import type { ReportQuery } from '@/features/reports/report-types';
 import { ReportViewer } from '@/features/reports/report-viewer';
+import { ExecutionHistorySheet } from '@/features/reports/scheduled/execution-history-sheet';
 import { ScheduleFormSheet } from '@/features/reports/scheduled/schedule-form-sheet';
 import { ScheduledReportsPage } from '@/features/reports/scheduled/scheduled-reports-page';
 import type { ScheduledReportRecord } from '@/features/reports/scheduled/scheduled-types';
@@ -47,8 +48,10 @@ export function ReportsPage() {
     );
     const [scheduleFormOpen, setScheduleFormOpen] = useState(false);
     const [editingScheduleId, setEditingScheduleId] = useState<string>();
+    const [executionScheduleId, setExecutionScheduleId] = useState<string>();
 
     const editingSchedule = editingScheduleId ? scheduledRecords.find((record) => record.id === editingScheduleId) : undefined;
+    const executionSchedule = executionScheduleId ? scheduledRecords.find((record) => record.id === executionScheduleId) : undefined;
 
     const refreshSchedules = useCallback(() => {
         setScheduledRecords(scheduledReportsRepository.querySchedules());
@@ -62,6 +65,10 @@ export function ReportsPage() {
     const openEditSchedule = useCallback((schedule: ScheduledReportRecord) => {
         setEditingScheduleId(schedule.id);
         setScheduleFormOpen(true);
+    }, []);
+
+    const openExecutionHistory = useCallback((schedule: ScheduledReportRecord) => {
+        setExecutionScheduleId(schedule.id);
     }, []);
 
     const permittedReports = useMemo(() => REPORTS.filter((report) => has(report.permission)), [has]);
@@ -115,10 +122,15 @@ export function ReportsPage() {
                     onBackToLibrary={openLibrary}
                     onCreate={openCreateSchedule}
                     onEdit={openEditSchedule}
-                    onViewLogs={() => undefined}
+                    onViewLogs={openExecutionHistory}
                     onRetry={() => undefined}
                 />
             )}
+
+            <ExecutionHistorySheet
+                schedule={executionSchedule}
+                onOpenChange={(open) => !open && setExecutionScheduleId(undefined)}
+            />
 
             <ScheduleFormSheet
                 key={editingScheduleId ?? 'new'}
