@@ -40,3 +40,19 @@ Actual wording must follow runtime behavior once implemented; do not ship this c
 - tenant context lost on navigation;
 - destructive tenant actions confirmed without naming the tenant;
 - view-as-tenant that looks identical to the tenant's normal view.
+
+## Access management surfaces (Users, Roles & Permissions)
+
+The access-management workspace (`/admin/users`, `/admin/roles`) follows the same
+tenant-safety rules. In the current POC the mock `AccessRepository`
+(`my-app/resources/js/domain/access-repository.ts`) is a single implicit tenant, so:
+
+- user, role, and permission queries stay scoped to that tenant;
+- mutation forms (add/edit user, role permission assignment, add permission)
+  operate against the same scoped session store — there is no cross-tenant target;
+- there is no tenant-context switch in the POC, so a form cannot be submitted
+  against a different tenant by accident.
+
+When the backend introduces real tenant context, these surfaces must remain scoped:
+the repository boundary must receive the active tenant and every query/mutation
+must refuse to cross it. Do not present tenant switching as current behavior.
