@@ -6,6 +6,8 @@ import { ConsoleModuleSection } from '@/features/management-console/console-modu
 export interface ConsoleModuleDirectoryProps {
     modules: ModuleEntry[];
     query?: string;
+    /** Whether the role can reach at least one module before search is applied. */
+    hasPermittedModules?: boolean;
 }
 
 /**
@@ -13,8 +15,11 @@ export interface ConsoleModuleDirectoryProps {
  * category, preserves product order, and skips any group with no visible
  * modules. This component is the directory's presentational shell only —
  * permission filtering happens upstream before modules are passed in.
+ *
+ * Feedback precedence: permission-empty always outranks search-empty so a
+ * role that can see nothing is never told its search simply had no hits.
  */
-export function ConsoleModuleDirectory({ modules, query }: ConsoleModuleDirectoryProps) {
+export function ConsoleModuleDirectory({ modules, query, hasPermittedModules = true }: ConsoleModuleDirectoryProps) {
     const sections = useMemo(() => {
         const groups = new Map<string, ModuleEntry[]>();
 
@@ -32,14 +37,28 @@ export function ConsoleModuleDirectory({ modules, query }: ConsoleModuleDirector
     }, [modules]);
 
     if (sections.length === 0) {
+        if (!hasPermittedModules) {
+            return (
+                <FlexEmptyState
+                    title="No administration modules are available for this account."
+                    description="Your role does not grant access to any administration modules."
+                />
+            );
+        }
+
+        if (query?.trim()) {
+            return (
+                <FlexEmptyState
+                    title={`No modules match "${query.trim()}".`}
+                    description="Try another search term."
+                />
+            );
+        }
+
         return (
             <FlexEmptyState
-                title={query?.trim() ? `No modules match "${query.trim()}".` : 'No administration modules are available for this account.'}
-                description={
-                    query?.trim()
-                        ? 'Try another search term.'
-                        : 'Your role does not grant access to any administration modules.'
-                }
+                title="No administration modules are available for this account."
+                description="Your role does not grant access to any administration modules."
             />
         );
     }
