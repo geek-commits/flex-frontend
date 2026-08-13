@@ -17,6 +17,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('admin/settings', 'admin/settings')->name('admin.settings');
     Route::inertia('admin/system', 'admin/system')->name('admin.system');
     Route::inertia('admin/ai', 'admin/ai')->name('admin.ai');
+    Route::inertia('admin/users', 'admin/users')->name('admin.users');
+    Route::inertia('admin/roles', 'admin/roles')->name('admin.roles');
 
     // Entity detail pages
     Route::get('admin/cdr/{record}', fn (string $record) => Inertia::render('admin/cdr-detail', ['record' => $record]))->name('admin.cdr.show');
