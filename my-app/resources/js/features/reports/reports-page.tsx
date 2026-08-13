@@ -2,6 +2,7 @@ import { Head } from '@inertiajs/react';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useCapabilities } from '@/auth/capabilities';
 import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
+import { ReportExportMenu } from '@/features/reports/report-export-menu';
 import { ReportFilterBar } from '@/features/reports/report-filter-bar';
 import { ReportLibrary } from '@/features/reports/report-library';
 import { getReportById, REPORTS } from '@/features/reports/report-registry';
@@ -75,6 +76,7 @@ export function ReportsPage() {
                     onQueryChange={setQuery}
                     onBack={openLibrary}
                     renderFilters={(q, change) => <ReportFilterBar report={activeReport} query={q} onQueryChange={change} />}
+                    renderExport={(report) => <ReportExportMenu report={report} query={query} />}
                     renderResult={(run) => <ReportViewerContent run={run} report={activeReport} query={query} />}
                 />
             )}

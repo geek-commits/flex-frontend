@@ -13,6 +13,8 @@ import type { QueueLogRow, ReportQuery, ReportResultData, ReportRun } from '@/fe
 
 export interface ReportRepository {
     runReport(reportId: ReportId, query: ReportQuery): ReportRun;
+    /** Simulates async file generation for a supported format. */
+    exportReport(reportId: ReportId, format: string, query: ReportQuery): Promise<void>;
 }
 
 function applyFilter(data: ReportResultData, query: ReportQuery): ReportResultData {
@@ -79,5 +81,11 @@ export const reportRepository: ReportRepository = {
             data,
             generatedAt: new Date().toISOString(),
         };
+    },
+
+    async exportReport(reportId: ReportId, format: string, _query: ReportQuery) {
+        // POC MOCK — no real file is produced. A real adapter would call the
+        // export endpoint with tenant/auth and return a protected download URL.
+        await new Promise((resolve) => setTimeout(resolve, 900));
     },
 };
