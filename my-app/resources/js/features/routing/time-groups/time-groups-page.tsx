@@ -8,6 +8,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { routingRepository } from '@/domain/routing-repository';
 import type { TimeGroupRecord } from '@/domain/routing-types';
 import { RoutingShell } from '@/features/routing/routing-shell';
+import { TimeGroupFormSheet } from '@/features/routing/time-groups/time-group-form-sheet';
 import { TimeGroupTable } from '@/features/routing/time-groups/time-group-table';
 
 export function TimeGroupsPage() {
@@ -15,6 +16,10 @@ export function TimeGroupsPage() {
     const [search, setSearch] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string>();
+    const [formOpen, setFormOpen] = useState(false);
+    const [editingId, setEditingId] = useState<string>();
+
+    const editingGroup = editingId ? records.find((group) => group.id === editingId) : undefined;
 
     const refresh = useCallback(() => {
         setIsLoading(true);
@@ -29,6 +34,18 @@ export function TimeGroupsPage() {
             setIsLoading(false);
         }, 350);
     }, []);
+
+    const openCreate = () => {
+        setEditingId(undefined);
+        setFormOpen(true);
+    };
+
+    const openEdit = (group: TimeGroupRecord) => {
+        setEditingId(group.id);
+        setFormOpen(true);
+    };
+
+    const handleSaved = () => setRecords(routingRepository.queryTimeGroups());
 
     const filtered = useMemo(() => {
         const needle = search.trim().toLowerCase();
@@ -45,7 +62,7 @@ export function TimeGroupsPage() {
             title="Time Groups"
             subtitle="Define reusable schedules for time-based routing."
             actions={
-                <Button size="sm" className="gap-1.5 text-xs">
+                <Button size="sm" className="gap-1.5 text-xs" onClick={openCreate}>
                     <RiAddLine className="size-4" />
                     Add Time Group
                 </Button>
@@ -89,20 +106,34 @@ export function TimeGroupsPage() {
                         }
                         action={
                             records.length === 0 ? (
-                                <Button variant="outline" size="sm" className="text-xs">
+                                <Button variant="outline" size="sm" className="text-xs" onClick={openCreate}>
                                     Add Time Group
                                 </Button>
                             ) : undefined
                         }
                     />
                 ) : (
-                    <TimeGroupTable records={filtered} onEdit={() => undefined} />
+                    <TimeGroupTable records={filtered} onEdit={openEdit} />
                 )}
 
                 <p className="text-[10px] text-flex-text-muted">
                     POC mock adapter — `RoutingRepository` boundary; replace with the real routing backend in rollout.
                 </p>
             </div>
+
+            <TimeGroupFormSheet
+                key={editingId ?? 'new'}
+                open={formOpen}
+                onOpenChange={(open) => {
+                    if (!open) {
+                        setEditingId(undefined);
+                    }
+
+                    setFormOpen(open);
+                }}
+                editing={editingGroup}
+                onSaved={handleSaved}
+            />
         </RoutingShell>
     );
 }
