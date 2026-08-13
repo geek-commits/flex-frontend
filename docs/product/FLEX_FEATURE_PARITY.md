@@ -233,9 +233,9 @@ Treat as external/integration-owned. Do not redesign blindly (plan §7).
 
 | Feature family | Manual | Frontend evidence | Lifecycle | Notes |
 |---|---|---|---|---|
-| Queues (list/add/view/members/edit/delete, ACD, ring duration) | YES | `domain/modules.ts` entries (`/admin/queues`, `/admin/settings/queues`) | MANUAL_ONLY | placeholder routes, no surfaces |
-| IVR (list/add/edit/delete, destination, prompt/ringtone/recording, entries) | YES | module entries | MANUAL_ONLY | `ADMIN-IVR-007` entries needs product/runtime clarification |
-| Time Groups & Time Conditions | YES | module entries (`/admin/time-conditions`, settings family) | MANUAL_ONLY | |
+| Queues (list/add/view/members/edit/delete, ACD, ring duration) | YES | `domain/modules.ts` entries (`/admin/queues`, `/admin/settings/queues`) | MANUAL_ONLY | 2026-08 baseline: placeholder routes, no surfaces. Modernization P0 in progress. |
+| IVR (list/add/edit/delete, destination, prompt/ringtone/recording, entries) | YES | module entries | MANUAL_ONLY | 2026-08 baseline: placeholder routes, no surfaces; `ADMIN-IVR-007` entries needs product/runtime clarification. Modernization P0 in progress. |
+| Time Groups & Time Conditions | YES | module entries (`/admin/time-conditions`, settings family) | MANUAL_ONLY | 2026-08 baseline: placeholder routes; `/admin/time-groups` has no route or module entry. Modernization P0 in progress. |
 | Recordings (list/upload/name/description/preview/edit/replace/delete; CDR dependency) | YES | module entries; CDR detail | MANUAL_ONLY | |
 | User Management (create/update/reset/deactivate/roles) | YES | `features/access-management/users/*`; `/admin/users` | MANUAL_ONLY → REVAMPED | 2026-08: mock `AccessRepository` behind real capability model — add/edit sheets, email temp credentials, password reset link, deactivate/soft-delete/Show Deleted/restore; no backend CRUD (Fortify only), backend remains authoritative |
 | Roles & Permissions (roles/permissions/module visibility/ops/role-permission map; tenant-restricted admin) | YES | `features/access-management/roles/*`; `/admin/roles`; `auth/capabilities.tsx` | CONFIRMED_FRONTEND → REVAMPED | Roles/Permissions tabs; roles directory with real permission counts from capability registry; grouped permission assignment; read-only permission catalog + Add Permission (types derived from real tokens); backend enforcement unverified |
