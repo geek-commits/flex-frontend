@@ -27,6 +27,8 @@ import {
 import { AGENT_MOCK_ROSTER } from '@/data/agents.mock';
 import { CAMPAIGN_MOCK_RECORDS } from '@/data/campaigns.mock';
 import { CDR_MOCK_RECORDS } from '@/data/cdr.mock';
+import { CONSOLE_MODULES } from '@/domain/modules';
+import { filterModulesByPermission, filterModulesByQuery } from '@/features/management-console/use-visible-modules';
 
 interface GlobalSearchContextValue {
     open: boolean;
@@ -145,6 +147,12 @@ function GlobalSearchDialog({ open, onOpenChange }: { open: boolean; onOpenChang
 
     const visibleNavigation = NAVIGATION.filter((entry) => has(entry.capability));
     const recordIndex = useMemo(() => buildRecordIndex(), []);
+    const moduleIndex = useMemo(() => {
+        const navigationHrefs = new Set(visibleNavigation.map((entry) => entry.href));
+
+        return filterModulesByPermission(CONSOLE_MODULES, has).filter((module) => !navigationHrefs.has(module.href));
+    }, [has, visibleNavigation]);
+    const filteredModules = filterModulesByQuery(moduleIndex, query);
 
     const filteredRecords = recordIndex
         .filter((record) => {
@@ -176,6 +184,14 @@ return false;
             ...entry,
             group: 'Navigation',
             kind: 'navigation' as const,
+        })),
+        modules: filteredModules.map((module) => ({
+            kind: 'navigation' as const,
+            title: module.title,
+            subtitle: module.category,
+            href: module.href,
+            group: 'Modules',
+            icon: module.icon,
         })),
         actions: ACTION_INDEX.filter((a) => {
             if (a.href.startsWith('/admin/campaigns') && !has('campaigns.view')) {
@@ -217,6 +233,22 @@ return false;
                                     <Icon className="size-4 text-muted-foreground" />
                                     <SearchHighlight text={item.title} query={query} />
                                     <span className="text-[10px] text-muted-foreground uppercase">{item.badge ?? item.workspace}</span>
+                                </CommandItem>
+                            );
+                        })}
+                    </CommandGroup>
+                )}
+
+                {grouped.modules.length > 0 && (
+                    <CommandGroup heading="Modules">
+                        {grouped.modules.map((item) => {
+                            const Icon = item.icon;
+
+                            return (
+                                <CommandItem key={item.href} value={`module ${item.title}`} onSelect={() => run(item.href)}>
+                                    <Icon className="size-4 text-muted-foreground" />
+                                    <SearchHighlight text={item.title} query={query} />
+                                    <span className="text-[10px] text-muted-foreground uppercase">{item.subtitle}</span>
                                 </CommandItem>
                             );
                         })}
