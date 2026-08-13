@@ -1,3 +1,4 @@
+import { Link } from '@inertiajs/react';
 import React from 'react';
 import { FlexDetailSheet } from '@/components/flex/flex-detail-sheet';
 import { Button } from '@/components/ui/button';
@@ -53,7 +54,19 @@ export function TimeConditionDetailSheet({ condition, onOpenChange, onEdit, onDe
                 <DetailRow label="Status">
                     {condition && <RoutingStatusBadge status={condition.status} />}
                 </DetailRow>
-                <DetailRow label="Time Group">{group?.description ?? '—'}</DetailRow>
+                <DetailRow label="Time Group">
+                    {group ? (
+                        group.missing ? (
+                            <span className="text-destructive">Unknown / deleted</span>
+                        ) : (
+                            <Link href="/admin/time-groups" className="text-primary hover:underline">
+                                {group.description}
+                            </Link>
+                        )
+                    ) : (
+                        '—'
+                    )}
+                </DetailRow>
                 <DetailRow label="When schedule matches">{condition && formatDestination(condition.matchDestination)}</DetailRow>
                 <DetailRow label="When schedule does not match">{condition && formatDestination(condition.noMatchDestination)}</DetailRow>
             </div>

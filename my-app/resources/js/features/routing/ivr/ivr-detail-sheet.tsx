@@ -3,6 +3,7 @@ import { FlexDetailSheet } from '@/components/flex/flex-detail-sheet';
 import { Button } from '@/components/ui/button';
 import type { IVRRecord } from '@/domain/routing-types';
 import { formatDestination } from '@/domain/routing-types';
+import { DestinationCrossLink } from '@/features/routing/shared/destination-cross-link';
 import { RoutingStatusBadge } from '@/features/routing/shared/routing-status';
 
 export interface IVRDetailSheetProps {
@@ -72,7 +73,7 @@ export function IVRDetailSheet({ ivr, onOpenChange, onEdit, onDelete }: IVRDetai
                                         <tr key={index} className="border-b border-border last:border-b-0">
                                             <td className="px-3 py-1.5 font-mono text-xs text-flex-text-primary">{entry.key}</td>
                                             <td className="px-3 py-1.5 text-xs text-flex-text-primary">{entry.label}</td>
-                                            <td className="px-3 py-1.5 text-xs text-flex-text-muted">{formatDestination(entry.destination)}</td>
+                                            <td className="px-3 py-1.5 text-right"><DestinationCrossLink destination={entry.destination} /></td>
                                         </tr>
                                     ))}
                                 </tbody>
