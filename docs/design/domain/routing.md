@@ -6,13 +6,16 @@ Defines the UI treatment for the FLEX routing-configuration family. This is a **
 
 **Administration** (configure call distribution). Primary users: Administrator, Supervisor (where permissions allow), Super Administrator (platform/tenant-context support). These are high-consequence operational configuration surfaces — not decorative settings dashboards.
 
-## Current runtime (baseline, 2026-08)
+## Current runtime (FLEX Routing Configuration v0.1, shipped)
 
-- All four modules are **placeholder**: `/admin/queues`, `/admin/ivr`, `/admin/time-conditions` resolve via the `admin/{module}` catch-all to `pages/admin/module-placeholder.tsx` ("Coming soon"). `/admin/time-groups` has **no route and no module entry** (hits generic "Module not part of the POC").
-- **Dual registry entries** in `domain/modules.ts`: `queue`, `ivr`, `time-conditions` each exist in both `CONSOLE_MODULES` (`/admin/...`, gated `console.view`) and `SETTINGS_MODULES` (`/admin/settings/...`, gated `settings.manage`). No `time-groups` entry anywhere.
-- **Backend:** no routing-configuration backend exists. Parity tracker flags Queues, IVR, Time Groups & Time Conditions as `MANUAL_ONLY` placeholder.
-- **Permission:** only `console.view` and `settings.manage` gate these modules. There is **no** queue/ivr/time-specific capability; do not invent one. The canonical surfaces will live at `/admin/...` (gated `console.view`, held by `super-admin` and `admin`).
-- **Tenant:** single implicit tenant. No tenant-switching UI exists; `tenant-context.md` records it as future treatment only. Routing data stays scoped to the single tenant.
+- Four canonical routes: `/admin/queues`, `/admin/ivr`, `/admin/time-groups` (new), `/admin/time-conditions` → `features/routing/*`. All gated `console.view`.
+- **Queues** (`features/routing/queues/*`): dense directory (search + strategy filter), structured form (General / Call Distribution / Status), detail sheet, first-class **Members** surface (search, add/remove, duplicate prevention), delete confirmation.
+- **IVR** (`features/routing/ivr/*`): directory, form with a **menu-entry editor** (key → label → destination rows, duplicate-key validation), shared destination picker, fallback destination, delete confirmation.
+- **Time Groups** (`features/routing/time-groups/*`): directory with schedule summaries + usage; form with **multiple schedule entries** (hours, weekdays, month days, months) via a reusable `schedule-entry-editor`; timezone note; delete dialog that blocks deletion when the group is used by a Time Condition.
+- **Time Conditions** (`features/routing/time-conditions/*`): directory showing the Time Group relationship (with missing-reference safety); form with Time Group selector + **when schedule matches / does not match** routing destinations; delete confirmation.
+- **Relationships** (`features/routing/shared/*`): `RoutingRepository` boundary (`domain/routing-repository.ts`); shared destination picker, destination cross-links, time-group resolver, status badge, delete dialogs. Cross-module links (Time Condition → Time Group, IVR → Queue/IVR/Recording destinations, Time Group → usage count).
+- **Backend:** no routing-configuration backend exists. Parity tracker flags Queues/IVR/Time Groups/Time Conditions as `REVAMPED` mock-adapter surfaces; the backend remains authoritative for routing semantics and authorization.
+- **Tenant:** single implicit tenant (no switch UI). Routing data stays scoped to the single tenant.
 
 ## Queue runtime semantics (preserved)
 
@@ -29,14 +32,16 @@ Queue          → distributes call to members
 
 Only surface relationships that actual data supports — do not invent direct object relationships absent from the runtime.
 
-## Baseline matrix — modules
+## Module matrix
 
 | MODULE | ROUTE | CATEGORY | PERMISSION | STATUS |
 |---|---|---|---|---|
-| Queues | `/admin/queues` | Telephony & Operations | `console.view` | placeholder |
-| IVR | `/admin/ivr` | Telephony & Operations | `console.view` | placeholder |
-| Time Groups | `/admin/time-groups` (new) | Telephony & Operations | `console.view` | no route/entry |
-| Time Conditions | `/admin/time-conditions` | System Configuration | `console.view` | placeholder |
+| Queues | `/admin/queues` | Telephony & Operations | `console.view` | shipped |
+| IVR | `/admin/ivr` | Telephony & Operations | `console.view` | shipped |
+| Time Groups | `/admin/time-groups` | Telephony & Operations | `console.view` | shipped (new route) |
+| Time Conditions | `/admin/time-conditions` | System Configuration | `console.view` | shipped |
+
+Settings-directory entries for queues/ivr/time-conditions were consolidated to these canonical `/admin/...` routes.
 
 ## Baseline matrix — capabilities (manual)
 

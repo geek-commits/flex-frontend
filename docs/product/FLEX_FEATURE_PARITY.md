@@ -233,9 +233,9 @@ Treat as external/integration-owned. Do not redesign blindly (plan §7).
 
 | Feature family | Manual | Frontend evidence | Lifecycle | Notes |
 |---|---|---|---|---|
-| Queues (list/add/view/members/edit/delete, ACD, ring duration) | YES | `domain/modules.ts` entries (`/admin/queues`, `/admin/settings/queues`) | MANUAL_ONLY | 2026-08 baseline: placeholder routes, no surfaces. Modernization P0 in progress. |
-| IVR (list/add/edit/delete, destination, prompt/ringtone/recording, entries) | YES | module entries | MANUAL_ONLY | 2026-08 baseline: placeholder routes, no surfaces; `ADMIN-IVR-007` entries needs product/runtime clarification. Modernization P0 in progress. |
-| Time Groups & Time Conditions | YES | module entries (`/admin/time-conditions`, settings family) | MANUAL_ONLY | 2026-08 baseline: placeholder routes; `/admin/time-groups` has no route or module entry. Modernization P0 in progress. |
+| Queues (list/add/view/members/edit/delete, ACD, ring duration) | YES | `features/routing/queues/*`; `/admin/queues` | MANUAL_ONLY → REVAMPED | FLEX Routing v0.1: dense directory (search/strategy filter), structured form (General/Call Distribution), detail sheet, first-class members (add/remove, duplicate prevention), delete confirmation. Mock `RoutingRepository`. |
+| IVR (list/add/edit/delete, destination, prompt/ringtone/recording, entries) | YES | `features/routing/ivr/*`; `/admin/ivr` | MANUAL_ONLY → REVAMPED | FLEX Routing v0.1: directory, form with menu-entry editor (key→label→destination), shared destination picker, fallback destination, duplicate-key validation, delete confirmation. |
+| Time Groups & Time Conditions | YES | `features/routing/time-groups/*`, `features/routing/time-conditions/*`; `/admin/time-groups`, `/admin/time-conditions` | MANUAL_ONLY → REVAMPED | FLEX Routing v0.1: Time Group form with multiple schedule entries (hours/weekdays/month days/months) + delete dependency-block; Time Condition list/form with Time Group relationship + match/no-match routing. New `/admin/time-groups` route/module added. |
 | Recordings (list/upload/name/description/preview/edit/replace/delete; CDR dependency) | YES | module entries; CDR detail | MANUAL_ONLY | |
 | User Management (create/update/reset/deactivate/roles) | YES | `features/access-management/users/*`; `/admin/users` | MANUAL_ONLY → REVAMPED | 2026-08: mock `AccessRepository` behind real capability model — add/edit sheets, email temp credentials, password reset link, deactivate/soft-delete/Show Deleted/restore; no backend CRUD (Fortify only), backend remains authoritative |
 | Roles & Permissions (roles/permissions/module visibility/ops/role-permission map; tenant-restricted admin) | YES | `features/access-management/roles/*`; `/admin/roles`; `auth/capabilities.tsx` | CONFIRMED_FRONTEND → REVAMPED | Roles/Permissions tabs; roles directory with real permission counts from capability registry; grouped permission assignment; read-only permission catalog + Add Permission (types derived from real tokens); backend enforcement unverified |
@@ -265,7 +265,7 @@ Maintained during audits. Unresolved entries are kept (do not delete to look gre
 | GAP-002 | NEEDS_PRODUCT_DECISION | AGENT-CALL-011 | Warm Transfer documented in manual, no runtime consultation state | HIGH | product + telephony decision |
 | GAP-003 | EXTERNAL_BOUNDARY_UNKNOWN | CRM-001…012 | CRM family ownership (external vs embedded) unverified | HIGH | integration ownership audit |
 | GAP-004 | TENANT_SCOPE_UNKNOWN | Tenants family | tenant switch/view/exit UX not implemented; boundary mapping required before admin revamps | HIGH | auth/tenant audit |
-| GAP-005 | ROUTE_MISMATCH | Management Console family | most `domain/modules.ts` routes resolve to placeholder pages (`admin/{module}`) — console directory itself is real; inbound-routes href aligned to a routable path | MEDIUM | surface-first evidence per module |
+| GAP-005 | ROUTE_MISMATCH | Management Console family | most `domain/modules.ts` routes resolve to placeholder pages (`admin/{module}`) — console directory itself is real; queues/ivr/time-groups/time-conditions/users/roles now revamped | MEDIUM | surface-first evidence per module (remaining: recordings, tenants, agents, stats, charts, etc.) |
 | GAP-006 | UNKNOWN_BACKEND | Agent metrics (AGENT-005…018), Subscriptions, Mail | Reports + Scheduled Reports shipped as REVAMPED mock-adapter surfaces (FLEX Reports v0.1); backend still absent for these | MEDIUM | repository/runtime audit on backend rollout |
 | GAP-007 | PLAN_EXISTS_NOT_IMPLEMENTED | none at baseline | all 7 prior revamps verified shipped | CLOSED | — |
 | GAP-008 | Manual terminology | AGENT-STATE / wrap timer settings | "Wrap-Up" vs "Wrap Up" canonicalized; timer default location unresolved | LOW | resolve via real admin config surface |
@@ -282,9 +282,9 @@ After `MANAGEMENT_CONSOLE_PLAN.md` execution (`7827cb8` → `5a84f0d`):
 | Search behavior | ✅ | `features/management-console/console-search.tsx` + `use-visible-modules.ts` |
 | Module permission visibility | ⚠️ frontend only | `capabilities.tsx` Capability model; backend enforcement unverified |
 | Tenant context behavior | ⬜ | not implemented (GAP-004); document-only per Phase 6 |
-| Queue route | ⚠️ placeholder | `/admin/queues` registry entry only |
-| IVR route | ⚠️ placeholder | `/admin/ivr` registry entry only |
-| Time Group / Time Condition route | ⚠️ placeholder | `/admin/time-conditions` registry entry only |
+| Queue route | ✅ | `/admin/queues` revamped (mock `RoutingRepository`); `features/routing/queues/*` |
+| IVR route | ✅ | `/admin/ivr` revamped; `features/routing/ivr/*` |
+| Time Group / Time Condition route | ✅ | `/admin/time-groups` + `/admin/time-conditions` revamped; `features/routing/time-groups/*`, `time-conditions/*` |
 | Users route | ✅ | `/admin/users` revamped (mock `AccessRepository`); `features/access-management/users/*` |
 | Roles / Permissions route | ✅ | `/admin/roles` revamped; `features/access-management/roles/*` |
 | Recordings route | ⚠️ placeholder | `/admin/recordings` registry entry only |
@@ -301,7 +301,7 @@ After `MANAGEMENT_CONSOLE_PLAN.md` execution (`7827cb8` → `5a84f0d`):
 1. ~~Management Console + Navigation Architecture~~ ✅ shipped (`7827cb8` → `5a84f0d`)
 2. ~~Users / Roles / Permissions~~ ✅ shipped (access-management workspace; mock `AccessRepository` behind real capability model)
 3. ~~Reports + Scheduled Reports~~ ✅ shipped (FLEX Reports v0.1; `features/reports/*`; mock `ReportRepository` + `ScheduledReportsRepository`)
-4. Queues / IVR / Routing / Time Groups / Time Conditions
+4. ~~Queues / IVR / Routing / Time Groups / Time Conditions~~ ✅ shipped (FLEX Routing Configuration v0.1; `features/routing/*`; mock `RoutingRepository`)
 5. Callback + Voicemail
 6. Recordings
 7. Subscription + Mail
