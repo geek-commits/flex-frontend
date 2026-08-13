@@ -9,6 +9,9 @@ import { routingRepository } from '@/domain/routing-repository';
 import type { TimeConditionRecord } from '@/domain/routing-types';
 import { RoutingShell } from '@/features/routing/routing-shell';
 import { resolveTimeGroup } from '@/features/routing/shared/time-group-resolver';
+import { TimeConditionDeleteDialog } from '@/features/routing/time-conditions/time-condition-delete-dialog';
+import { TimeConditionDetailSheet } from '@/features/routing/time-conditions/time-condition-detail-sheet';
+import { TimeConditionFormSheet } from '@/features/routing/time-conditions/time-condition-form-sheet';
 import { TimeConditionTable } from '@/features/routing/time-conditions/time-condition-table';
 
 export function TimeConditionsPage() {
@@ -16,6 +19,14 @@ export function TimeConditionsPage() {
     const [search, setSearch] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string>();
+    const [detailId, setDetailId] = useState<string>();
+    const [formOpen, setFormOpen] = useState(false);
+    const [editingId, setEditingId] = useState<string>();
+    const [deleteId, setDeleteId] = useState<string>();
+
+    const detailCondition = detailId ? records.find((condition) => condition.id === detailId) : undefined;
+    const editingCondition = editingId ? records.find((condition) => condition.id === editingId) : undefined;
+    const deleteCondition = deleteId ? records.find((condition) => condition.id === deleteId) : undefined;
 
     const refresh = useCallback(() => {
         setIsLoading(true);
@@ -30,6 +41,21 @@ export function TimeConditionsPage() {
             setIsLoading(false);
         }, 350);
     }, []);
+
+    const openCreate = () => {
+        setEditingId(undefined);
+        setFormOpen(true);
+    };
+
+    const openEdit = (condition: TimeConditionRecord) => {
+        setEditingId(condition.id);
+        setFormOpen(true);
+    };
+
+    const openDetail = (condition: TimeConditionRecord) => setDetailId(condition.id);
+    const openDelete = (condition: TimeConditionRecord) => setDeleteId(condition.id);
+
+    const handleSaved = () => setRecords(routingRepository.queryTimeConditions());
 
     const filtered = useMemo(() => {
         const needle = search.trim().toLowerCase();
@@ -50,7 +76,7 @@ export function TimeConditionsPage() {
             title="Time Conditions"
             subtitle="Route calls by date, time, and schedule."
             actions={
-                <Button size="sm" className="gap-1.5 text-xs">
+                <Button size="sm" className="gap-1.5 text-xs" onClick={openCreate}>
                     <RiAddLine className="size-4" />
                     Add Time Condition
                 </Button>
@@ -94,20 +120,47 @@ export function TimeConditionsPage() {
                         }
                         action={
                             records.length === 0 ? (
-                                <Button variant="outline" size="sm" className="text-xs">
+                                <Button variant="outline" size="sm" className="text-xs" onClick={openCreate}>
                                     Add Time Condition
                                 </Button>
                             ) : undefined
                         }
                     />
                 ) : (
-                    <TimeConditionTable records={filtered} onEdit={() => undefined} />
+                    <TimeConditionTable records={filtered} onView={openDetail} onEdit={openEdit} />
                 )}
 
                 <p className="text-[10px] text-flex-text-muted">
                     POC mock adapter — `RoutingRepository` boundary; replace with the real routing backend in rollout.
                 </p>
             </div>
+
+            <TimeConditionDetailSheet
+                condition={detailCondition}
+                onOpenChange={(open) => !open && setDetailId(undefined)}
+                onEdit={openEdit}
+                onDelete={openDelete}
+            />
+
+            <TimeConditionFormSheet
+                key={editingId ?? 'new'}
+                open={formOpen}
+                onOpenChange={(open) => {
+                    if (!open) {
+                        setEditingId(undefined);
+                    }
+
+                    setFormOpen(open);
+                }}
+                editing={editingCondition}
+                onSaved={handleSaved}
+            />
+
+            <TimeConditionDeleteDialog
+                condition={deleteCondition}
+                onOpenChange={(open) => !open && setDeleteId(undefined)}
+                onDeleted={handleSaved}
+            />
         </RoutingShell>
     );
 }

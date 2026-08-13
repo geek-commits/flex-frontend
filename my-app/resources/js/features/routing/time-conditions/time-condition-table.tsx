@@ -1,4 +1,4 @@
-import { RiPencilLine } from '@remixicon/react';
+import { RiEyeLine, RiPencilLine } from '@remixicon/react';
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import type { TimeConditionRecord } from '@/domain/routing-types';
@@ -8,11 +8,12 @@ import { resolveTimeGroup } from '@/features/routing/shared/time-group-resolver'
 
 export interface TimeConditionTableProps {
     records: TimeConditionRecord[];
+    onView: (condition: TimeConditionRecord) => void;
     onEdit: (condition: TimeConditionRecord) => void;
 }
 
 /** Dense Time Condition directory table showing the Time Group relationship. */
-export function TimeConditionTable({ records, onEdit }: TimeConditionTableProps) {
+export function TimeConditionTable({ records, onView, onEdit }: TimeConditionTableProps) {
     return (
         <div className="overflow-hidden rounded-lg border border-border bg-background">
             <div className="overflow-x-auto">
@@ -42,6 +43,9 @@ export function TimeConditionTable({ records, onEdit }: TimeConditionTableProps)
                                     <td className="px-4 py-2.5"><RoutingStatusBadge status={condition.status} /></td>
                                     <td className="px-4 py-2.5">
                                         <div className="flex items-center gap-0.5 justify-end">
+                                            <Button variant="ghost" size="icon-xs" title="View" aria-label={`View ${condition.name}`} onClick={() => onView(condition)}>
+                                                <RiEyeLine className="size-3.5" />
+                                            </Button>
                                             <Button variant="ghost" size="icon-xs" title="Edit" aria-label={`Edit ${condition.name}`} onClick={() => onEdit(condition)}>
                                                 <RiPencilLine className="size-3.5" />
                                             </Button>
