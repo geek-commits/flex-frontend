@@ -39,16 +39,21 @@ export interface UseVisibleModulesParams {
 }
 
 /**
- * Modules the current role can reach, filtered by search query.
+ * Permission-filtered module list and the search result set derived from it.
  *
  * Permission filtering runs FIRST so search can never surface a module the
  * role cannot see (permission → visible modules → search). Permissions are
  * synchronous (localStorage-backed), so there is no permission flicker.
+ * Returning both lists lets callers distinguish a permission-empty directory
+ * from a search-empty one without filtering the registry twice.
  */
-export function useVisibleModules({ modules, query, has }: UseVisibleModulesParams): ModuleEntry[] {
+export function useVisibleModules({ modules, query, has }: UseVisibleModulesParams): { permittedModules: ModuleEntry[]; visibleModules: ModuleEntry[] } {
     return useMemo(() => {
-        const permitted = filterModulesByPermission(modules, has);
+        const permittedModules = filterModulesByPermission(modules, has);
 
-        return filterModulesByQuery(permitted, query);
+        return {
+            permittedModules,
+            visibleModules: filterModulesByQuery(permittedModules, query),
+        };
     }, [modules, query, has]);
 }

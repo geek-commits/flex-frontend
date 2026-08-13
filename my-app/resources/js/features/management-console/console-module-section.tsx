@@ -7,6 +7,11 @@ export interface ConsoleModuleSectionProps {
     modules: ModuleEntry[];
 }
 
+/** Stable slug for the section's labelled-by anchor (lowercase, alphanumeric + dashes). */
+function sectionId(title: string): string {
+    return `console-section-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')}`;
+}
+
 /**
  * One administration group. Renders only when it contains at least one
  * visible module — an empty section heading is never shown.
@@ -17,8 +22,8 @@ export function ConsoleModuleSection({ title, modules }: ConsoleModuleSectionPro
     }
 
     return (
-        <section className="flex flex-col gap-2" aria-labelledby={`console-section-${title.toLowerCase().replace(/\s+/g, '-')}`}>
-            <h2 id={`console-section-${title.toLowerCase().replace(/\s+/g, '-')}`} className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+        <section className="flex flex-col gap-2" aria-labelledby={sectionId(title)}>
+            <h2 id={sectionId(title)} className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 {title}
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-2">
