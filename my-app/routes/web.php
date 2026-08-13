@@ -19,6 +19,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('admin/ai', 'admin/ai')->name('admin.ai');
     Route::inertia('admin/users', 'admin/users')->name('admin.users');
     Route::inertia('admin/roles', 'admin/roles')->name('admin.roles');
+    Route::inertia('admin/queues', 'admin/queues')->name('admin.queues');
+    Route::inertia('admin/ivr', 'admin/ivr')->name('admin.ivr');
+    Route::inertia('admin/time-groups', 'admin/time-groups')->name('admin.time-groups');
+    Route::inertia('admin/time-conditions', 'admin/time-conditions')->name('admin.time-conditions');
 
     // Entity detail pages
     Route::get('admin/cdr/{record}', fn (string $record) => Inertia::render('admin/cdr-detail', ['record' => $record]))->name('admin.cdr.show');

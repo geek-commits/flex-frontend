@@ -11,6 +11,7 @@ import {
     RiStackLine,
     RiFlowChart,
     RiDiscLine,
+    RiCalendarScheduleLine,
     RiTimeLine,
     RiRouterLine,
     RiShieldKeyholeLine,
@@ -53,6 +54,7 @@ export const CONSOLE_MODULES: ModuleEntry[] = [
     { id: 'call-campaigns', href: '/admin/campaigns', title: 'Call Campaigns', description: 'Outbound campaign management, schedules, and analytics.', icon: RiMegaphoneLine, category: 'Telephony & Operations', keywords: ['campaign', 'outbound', 'dialer', 'schedules'], capability: 'campaigns.view' },
     { id: 'queue', href: '/admin/queues', title: 'Queues & SLA', description: 'Configure inbound queues, wrap-up rules, and SLA targets.', icon: RiStackLine, category: 'Telephony & Operations', keywords: ['queue', 'acd', 'routing', 'wrap-up', 'sla', 'distribution'], capability: 'console.view' },
     { id: 'ivr', href: '/admin/ivr', title: 'IVR Trees', description: 'Build interactive voice response menus and keypress flows.', icon: RiFlowChart, category: 'Telephony & Operations', keywords: ['ivr', 'voice menu', 'routing', 'menu'], capability: 'console.view' },
+    { id: 'time-groups', href: '/admin/time-groups', title: 'Time Groups', description: 'Reusable schedule definitions for time-based routing.', icon: RiCalendarScheduleLine, category: 'Telephony & Operations', keywords: ['time group', 'schedule', 'hours', 'weekdays', 'routing'], capability: 'console.view' },
     { id: 'recordings', href: '/admin/recordings', title: 'Call Recordings', description: 'Manage call audio archives, retention, and playback.', icon: RiDiscLine, category: 'Telephony & Operations', keywords: ['recording', 'audio', 'prompts', 'archive'], capability: 'console.view' },
 
     // Analytics & Quality
@@ -71,9 +73,9 @@ export const CONSOLE_MODULES: ModuleEntry[] = [
 ];
 
 export const SETTINGS_MODULES: ModuleEntry[] = [
-    { id: 'ivr', href: '/admin/settings/ivr', title: 'IVR & Menu Flow', description: 'Interactive voice response routes, keypress menus, and audio prompts.', icon: RiFlowChart, category: 'Telephony Settings', capability: 'settings.manage' },
-    { id: 'queues', href: '/admin/settings/queues', title: 'Queues & Wrap-up', description: 'Queue strategies, max callers, music on hold, and post-call wrap-up timers.', icon: RiStackLine, category: 'Telephony Settings', capability: 'settings.manage' },
-    { id: 'time-conditions', href: '/admin/settings/time-conditions', title: 'Time Conditions', description: 'Working hour schedules, holidays, and automatic after-hours routing.', icon: RiTimeLine, category: 'Telephony Settings', capability: 'settings.manage' },
+    { id: 'ivr', href: '/admin/ivr', title: 'IVR & Menu Flow', description: 'Interactive voice response routes, keypress menus, and audio prompts.', icon: RiFlowChart, category: 'Telephony Settings', capability: 'settings.manage' },
+    { id: 'queues', href: '/admin/queues', title: 'Queues & Wrap-up', description: 'Queue strategies, max callers, music on hold, and post-call wrap-up timers.', icon: RiStackLine, category: 'Telephony Settings', capability: 'settings.manage' },
+    { id: 'time-conditions', href: '/admin/time-conditions', title: 'Time Conditions', description: 'Working hour schedules, holidays, and automatic after-hours routing.', icon: RiTimeLine, category: 'Telephony Settings', capability: 'settings.manage' },
     { id: 'inbound-routes', href: '/admin/settings/inbound-routes', title: 'Inbound Routes', description: 'DID pattern matching, trunk mapping, and entry point routing.', icon: RiRouterLine, category: 'Routing & Trunks', capability: 'settings.manage' },
     { id: 'outbound-routes', href: '/admin/settings/outbound-routes', title: 'Outbound Routes', description: 'Dial plan prefixes, trunk failover priorities, and rate limits.', icon: RiRouterLine, category: 'Routing & Trunks', capability: 'settings.manage' },
     { id: 'recordings', href: '/admin/settings/recordings', title: 'Recordings & Retention', description: 'Audio archive formats, retention policies, and cloud storage sinks.', icon: RiDiscLine, category: 'Media & Audio', capability: 'settings.manage' },
