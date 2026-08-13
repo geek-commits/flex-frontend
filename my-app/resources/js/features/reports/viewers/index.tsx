@@ -8,6 +8,8 @@ import { AgentStateLogViewer } from '@/features/reports/viewers/agent-state-log'
 import { ContactCenterPerformanceViewer } from '@/features/reports/viewers/contact-center-performance';
 import { CustomerEndToIVRViewer } from '@/features/reports/viewers/customer-end-to-ivr';
 import { IVRReportViewer } from '@/features/reports/viewers/ivr-report';
+import { OutgoingCallsViewer } from '@/features/reports/viewers/outgoing-calls';
+import { RecordingsViewer } from '@/features/reports/viewers/recordings';
 import { YearlyPerformanceViewer } from '@/features/reports/viewers/yearly-performance';
 
 /**
@@ -31,6 +33,10 @@ export function ReportViewerContent({ run }: { run: ReportRun; report: ReportDef
             return <IVRReportViewer run={run} />;
         case 'customer-end-to-ivr':
             return <CustomerEndToIVRViewer run={run} />;
+        case 'outgoing-calls':
+            return <OutgoingCallsViewer run={run} />;
+        case 'recordings':
+            return <RecordingsViewer run={run} />;
         default:
             return <ReportResults run={run} />;
     }
