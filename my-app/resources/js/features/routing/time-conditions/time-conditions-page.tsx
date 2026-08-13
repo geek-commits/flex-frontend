@@ -48,6 +48,7 @@ export function TimeConditionsPage() {
     };
 
     const openEdit = (condition: TimeConditionRecord) => {
+        setDetailId(undefined);
         setEditingId(condition.id);
         setFormOpen(true);
     };

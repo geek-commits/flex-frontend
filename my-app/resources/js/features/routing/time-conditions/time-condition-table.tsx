@@ -1,3 +1,4 @@
+import { Link } from '@inertiajs/react';
 import { RiEyeLine, RiPencilLine } from '@remixicon/react';
 import React from 'react';
 import { Button } from '@/components/ui/button';
@@ -35,8 +36,13 @@ export function TimeConditionTable({ records, onView, onEdit }: TimeConditionTab
                                 <tr key={condition.id} className="border-b border-border last:border-b-0 hover:bg-muted/30 transition-colors">
                                     <td className="px-4 py-2.5 text-xs font-semibold text-flex-text-primary whitespace-nowrap">{condition.name}</td>
                                     <td className="px-4 py-2.5 text-xs text-flex-text-primary whitespace-nowrap">
-                                        {group.description}
-                                        {group.missing && <span className="ml-1 text-[10px] text-destructive">(missing)</span>}
+                                        {group.missing ? (
+                                            <span className="text-destructive">{group.description}</span>
+                                        ) : (
+                                            <Link href="/admin/time-groups" className="text-primary hover:underline">
+                                                {group.description}
+                                            </Link>
+                                        )}
                                     </td>
                                     <td className="px-4 py-2.5 text-xs text-flex-text-primary whitespace-nowrap">{formatDestination(condition.matchDestination)}</td>
                                     <td className="px-4 py-2.5 text-xs text-flex-text-muted whitespace-nowrap">{formatDestination(condition.noMatchDestination)}</td>

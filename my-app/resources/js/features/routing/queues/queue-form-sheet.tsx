@@ -46,17 +46,20 @@ export interface QueueFormSheetProps {
 export function QueueFormSheet({ open, onOpenChange, editing, onSaved }: QueueFormSheetProps) {
     const [draft, setDraft] = useState<QueueDraft>(() => seedDraft(editing));
     const [nameError, setNameError] = useState<string>();
+    const [extensionError, setExtensionError] = useState<string>();
     const [saving, setSaving] = useState(false);
 
     const updateDraft = useCallback((patch: Partial<QueueDraft>) => {
         setDraft((d) => ({ ...d, ...patch }));
         setNameError(undefined);
+        setExtensionError(undefined);
     }, []);
 
     const handleOpenChange = (next: boolean) => {
         if (!next) {
             setDraft(seedDraft(editing));
             setNameError(undefined);
+            setExtensionError(undefined);
         }
 
         onOpenChange(next);
@@ -70,7 +73,7 @@ export function QueueFormSheet({ open, onOpenChange, editing, onSaved }: QueueFo
         }
 
         if (!draft.extension.trim()) {
-            setNameError('Queue extension is required.');
+            setExtensionError('Queue extension is required.');
 
             return;
         }
@@ -127,7 +130,9 @@ export function QueueFormSheet({ open, onOpenChange, editing, onSaved }: QueueFo
                                 value={draft.extension}
                                 onChange={(e) => updateDraft({ extension: e.target.value })}
                                 placeholder="e.g. 7001"
+                                aria-invalid={!!extensionError}
                             />
+                            {extensionError && <p className="text-xs text-destructive">{extensionError}</p>}
                         </div>
                         <div className="flex flex-col gap-1.5">
                             <Label htmlFor="queue-description" className="text-xs font-semibold">

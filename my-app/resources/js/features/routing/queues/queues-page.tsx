@@ -56,13 +56,17 @@ export function QueuesPage() {
     };
 
     const openEdit = (queue: QueueRecord) => {
+        setDetailId(undefined);
         setEditingId(queue.id);
         setFormOpen(true);
     };
 
     const openDetail = (queue: QueueRecord) => setDetailId(queue.id);
     const openDelete = (queue: QueueRecord) => setDeleteId(queue.id);
-    const openMembers = (queue: QueueRecord) => setMembersQueueId(queue.id);
+    const openMembers = (queue: QueueRecord) => {
+        setDetailId(undefined);
+        setMembersQueueId(queue.id);
+    };
 
     const handleSaved = () => setRecords(routingRepository.queryQueues());
 

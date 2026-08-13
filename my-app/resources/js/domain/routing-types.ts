@@ -21,6 +21,10 @@ export function formatDestination(destination: RoutingDestination | undefined): 
         return '—';
     }
 
+    if (destination.type === 'Hangup') {
+        return 'Hangup';
+    }
+
     return `${destination.type} · ${destination.value}`;
 }
 

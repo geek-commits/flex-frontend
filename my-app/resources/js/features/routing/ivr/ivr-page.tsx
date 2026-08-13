@@ -47,6 +47,7 @@ export function IVRPage() {
     };
 
     const openEdit = (ivr: IVRRecord) => {
+        setDetailId(undefined);
         setEditingId(ivr.id);
         setFormOpen(true);
     };
