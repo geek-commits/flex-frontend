@@ -12,6 +12,7 @@ import { accessRepository } from '@/domain/access-repository';
 import type { UserAccount, UserRoleFilter, UserStatusFilter } from '@/features/access-management/shared/types';
 import { UserDetailSheet } from '@/features/access-management/users/user-detail-sheet';
 import { UserFormSheet } from '@/features/access-management/users/user-form-sheet';
+import { UserResetPasswordDialog } from '@/features/access-management/users/user-reset-password-dialog';
 import { userColumns } from '@/features/access-management/users/users-columns';
 import { UsersTable } from '@/features/access-management/users/users-table';
 import { UsersToolbar } from '@/features/access-management/users/users-toolbar';
@@ -46,6 +47,7 @@ export function UsersPage() {
     const [detailId, setDetailId] = useState<string>();
     const [formOpen, setFormOpen] = useState(false);
     const [editingId, setEditingId] = useState<string>();
+    const [resetTargetId, setResetTargetId] = useState<string>();
 
     const refresh = useCallback(() => {
         setIsLoading(true);
@@ -84,6 +86,10 @@ export function UsersPage() {
     const openEdit = useCallback((user: UserAccount) => {
         setEditingId(user.id);
         setFormOpen(true);
+    }, []);
+
+    const openResetPassword = useCallback((user: UserAccount) => {
+        setResetTargetId(user.id);
     }, []);
 
     const columns = useMemo(
@@ -219,6 +225,12 @@ export function UsersPage() {
                 user={records.find((record) => record.id === detailId)}
                 onOpenChange={(open) => !open && setDetailId(undefined)}
                 onEdit={openEdit}
+                onResetPassword={openResetPassword}
+            />
+
+            <UserResetPasswordDialog
+                user={resetTargetId ? records.find((record) => record.id === resetTargetId) : undefined}
+                onOpenChange={(open) => !open && setResetTargetId(undefined)}
             />
 
             <UserFormSheet
