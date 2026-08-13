@@ -9,6 +9,7 @@ import { ReportLibrary } from '@/features/reports/report-library';
 import { getReportById, REPORTS } from '@/features/reports/report-registry';
 import type { ReportQuery } from '@/features/reports/report-types';
 import { ReportViewer } from '@/features/reports/report-viewer';
+import { ScheduleFormSheet } from '@/features/reports/scheduled/schedule-form-sheet';
 import { ScheduledReportsPage } from '@/features/reports/scheduled/scheduled-reports-page';
 import type { ScheduledReportRecord } from '@/features/reports/scheduled/scheduled-types';
 import { ReportViewerContent } from '@/features/reports/viewers';
@@ -44,6 +45,24 @@ export function ReportsPage() {
     const [scheduledRecords, setScheduledRecords] = useState<ScheduledReportRecord[]>(() =>
         scheduledReportsRepository.querySchedules()
     );
+    const [scheduleFormOpen, setScheduleFormOpen] = useState(false);
+    const [editingScheduleId, setEditingScheduleId] = useState<string>();
+
+    const editingSchedule = editingScheduleId ? scheduledRecords.find((record) => record.id === editingScheduleId) : undefined;
+
+    const refreshSchedules = useCallback(() => {
+        setScheduledRecords(scheduledReportsRepository.querySchedules());
+    }, []);
+
+    const openCreateSchedule = useCallback(() => {
+        setEditingScheduleId(undefined);
+        setScheduleFormOpen(true);
+    }, []);
+
+    const openEditSchedule = useCallback((schedule: ScheduledReportRecord) => {
+        setEditingScheduleId(schedule.id);
+        setScheduleFormOpen(true);
+    }, []);
 
     const permittedReports = useMemo(() => REPORTS.filter((report) => has(report.permission)), [has]);
 
@@ -94,12 +113,26 @@ export function ReportsPage() {
                 <ScheduledReportsPage
                     records={scheduledRecords}
                     onBackToLibrary={openLibrary}
-                    onCreate={() => undefined}
-                    onEdit={() => undefined}
+                    onCreate={openCreateSchedule}
+                    onEdit={openEditSchedule}
                     onViewLogs={() => undefined}
                     onRetry={() => undefined}
                 />
             )}
+
+            <ScheduleFormSheet
+                key={editingScheduleId ?? 'new'}
+                open={scheduleFormOpen}
+                onOpenChange={(open) => {
+                    if (!open) {
+                        setEditingScheduleId(undefined);
+                    }
+
+                    setScheduleFormOpen(open);
+                }}
+                editing={editingSchedule}
+                onSaved={refreshSchedules}
+            />
         </AdminShell>
     );
 }
