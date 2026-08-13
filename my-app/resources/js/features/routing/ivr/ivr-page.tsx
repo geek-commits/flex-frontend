@@ -7,6 +7,9 @@ import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { routingRepository } from '@/domain/routing-repository';
 import type { IVRRecord } from '@/domain/routing-types';
+import { IVRDeleteDialog } from '@/features/routing/ivr/ivr-delete-dialog';
+import { IVRDetailSheet } from '@/features/routing/ivr/ivr-detail-sheet';
+import { IVRFormSheet } from '@/features/routing/ivr/ivr-form-sheet';
 import { IVRTable } from '@/features/routing/ivr/ivr-table';
 import { RoutingShell } from '@/features/routing/routing-shell';
 
@@ -15,6 +18,14 @@ export function IVRPage() {
     const [search, setSearch] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string>();
+    const [detailId, setDetailId] = useState<string>();
+    const [formOpen, setFormOpen] = useState(false);
+    const [editingId, setEditingId] = useState<string>();
+    const [deleteId, setDeleteId] = useState<string>();
+
+    const detailIVR = detailId ? records.find((ivr) => ivr.id === detailId) : undefined;
+    const editingIVR = editingId ? records.find((ivr) => ivr.id === editingId) : undefined;
+    const deleteIVR = deleteId ? records.find((ivr) => ivr.id === deleteId) : undefined;
 
     const refresh = useCallback(() => {
         setIsLoading(true);
@@ -29,6 +40,21 @@ export function IVRPage() {
             setIsLoading(false);
         }, 350);
     }, []);
+
+    const openCreate = () => {
+        setEditingId(undefined);
+        setFormOpen(true);
+    };
+
+    const openEdit = (ivr: IVRRecord) => {
+        setEditingId(ivr.id);
+        setFormOpen(true);
+    };
+
+    const openDetail = (ivr: IVRRecord) => setDetailId(ivr.id);
+    const openDelete = (ivr: IVRRecord) => setDeleteId(ivr.id);
+
+    const handleSaved = () => setRecords(routingRepository.queryIVRs());
 
     const filtered = useMemo(() => {
         const needle = search.trim().toLowerCase();
@@ -47,7 +73,7 @@ export function IVRPage() {
             title="IVR"
             subtitle="Configure interactive voice response menus."
             actions={
-                <Button size="sm" className="gap-1.5 text-xs">
+                <Button size="sm" className="gap-1.5 text-xs" onClick={openCreate}>
                     <RiAddLine className="size-4" />
                     Add IVR
                 </Button>
@@ -91,20 +117,47 @@ export function IVRPage() {
                         }
                         action={
                             records.length === 0 ? (
-                                <Button variant="outline" size="sm" className="text-xs">
+                                <Button variant="outline" size="sm" className="text-xs" onClick={openCreate}>
                                     Add IVR
                                 </Button>
                             ) : undefined
                         }
                     />
                 ) : (
-                    <IVRTable records={filtered} onView={() => undefined} onEdit={() => undefined} />
+                    <IVRTable records={filtered} onView={openDetail} onEdit={openEdit} />
                 )}
 
                 <p className="text-[10px] text-flex-text-muted">
                     POC mock adapter — `RoutingRepository` boundary; replace with the real routing backend in rollout.
                 </p>
             </div>
+
+            <IVRDetailSheet
+                ivr={detailIVR}
+                onOpenChange={(open) => !open && setDetailId(undefined)}
+                onEdit={openEdit}
+                onDelete={openDelete}
+            />
+
+            <IVRFormSheet
+                key={editingId ?? 'new'}
+                open={formOpen}
+                onOpenChange={(open) => {
+                    if (!open) {
+                        setEditingId(undefined);
+                    }
+
+                    setFormOpen(open);
+                }}
+                editing={editingIVR}
+                onSaved={handleSaved}
+            />
+
+            <IVRDeleteDialog
+                ivr={deleteIVR}
+                onOpenChange={(open) => !open && setDeleteId(undefined)}
+                onDeleted={handleSaved}
+            />
         </RoutingShell>
     );
 }
