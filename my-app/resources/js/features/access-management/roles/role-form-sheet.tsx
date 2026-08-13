@@ -72,6 +72,12 @@ export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleForm
 
     const selectedCount = draft.permissions.length;
 
+    const unknownPermissions = useMemo(() => {
+        const knownIds = new Set(PERMISSIONS.map((permission) => permission.id));
+
+        return draft.permissions.filter((id) => !knownIds.has(id));
+    }, [draft.permissions]);
+
     const handleOpenChange = (next: boolean) => {
         if (!next) {
             setDraft(seedDraft(editing));
@@ -155,6 +161,13 @@ export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleForm
                                 className="pl-9 h-9 text-xs"
                             />
                         </div>
+
+                        {unknownPermissions.length > 0 && (
+                            <p className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-800">
+                                {unknownPermissions.length} additional permission{unknownPermissions.length === 1 ? '' : 's'} from the
+                                backend is being preserved and will not be removed on save.
+                            </p>
+                        )}
 
                         <div className="flex flex-col gap-3">
                             {filteredGroups.map((group) => (

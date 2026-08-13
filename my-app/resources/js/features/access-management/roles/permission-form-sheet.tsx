@@ -43,6 +43,16 @@ export function PermissionFormSheet({ open, onOpenChange, onSaved }: PermissionF
             return;
         }
 
+        const duplicate = accessRepository
+            .queryPermissions()
+            .some((permission) => permission.name.toLowerCase() === draft.name.trim().toLowerCase());
+
+        if (duplicate) {
+            setNameError('A permission with this name already exists.');
+
+            return;
+        }
+
         setSaving(true);
         setTimeout(() => {
             try {
