@@ -237,8 +237,8 @@ Treat as external/integration-owned. Do not redesign blindly (plan §7).
 | IVR (list/add/edit/delete, destination, prompt/ringtone/recording, entries) | YES | module entries | MANUAL_ONLY | `ADMIN-IVR-007` entries needs product/runtime clarification |
 | Time Groups & Time Conditions | YES | module entries (`/admin/time-conditions`, settings family) | MANUAL_ONLY | |
 | Recordings (list/upload/name/description/preview/edit/replace/delete; CDR dependency) | YES | module entries; CDR detail | MANUAL_ONLY | |
-| User Management (create/update/reset/deactivate/roles) | YES | module entries (`/admin/users`) | MANUAL_ONLY | |
-| Roles & Permissions (roles/permissions/module visibility/ops/role-permission map; tenant-restricted admin) | YES | `auth/capabilities.tsx`; module entries | CONFIRMED_FRONTEND | UI model exists; backend enforcement unverified |
+| User Management (create/update/reset/deactivate/roles) | YES | module entries (`/admin/users`) | MANUAL_ONLY → build (P0 baseline) | baseline 2026-08: runtime has NO users surface — `/admin/users` serves generic placeholder; no backend CRUD/soft-delete/reset endpoints (Fortify only) |
+| Roles & Permissions (roles/permissions/module visibility/ops/role-permission map; tenant-restricted admin) | YES | `auth/capabilities.tsx`; module entries | CONFIRMED_FRONTEND | UI model exists; backend enforcement unverified; `/admin/roles` serves generic placeholder at baseline |
 | Subscriptions (remaining days/reminders/expiry/payment/search) | YES | — | MANUAL_ONLY | 5-day reminder is manual claim — verify runtime config |
 | Mail Configuration (from/SMTP/port/encryption/user/status/test/send/active) | YES | — | MANUAL_ONLY | **never log secrets** |
 | Tenants / Super Admin (tenant mgmt, add/edit/enable/disable/config, switch/view/exit context) | YES | `domain/modules.ts` (`/admin/tenants`), Super Admin role | MANUAL_ONLY → CONFIRMED_FRONTEND | tenant-kind boundary; switch UX not implemented |
