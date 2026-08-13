@@ -46,7 +46,7 @@ export function RolesTab() {
 
     return (
         <div className="flex flex-col gap-[var(--flex-space-section)] w-full">
-            <div className="flex items-center justify-between gap-2">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <p className="text-xs text-flex-text-muted">
                     Roles define the permissions granted to users within this tenant.
                 </p>

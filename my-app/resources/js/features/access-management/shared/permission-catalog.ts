@@ -55,7 +55,7 @@ const MODULE_BY_PREFIX: Record<string, string> = {
     roles: 'Roles & Permissions',
     agent: 'Agent Workspace',
     call: 'Call Manager',
-    missed: 'Missed Calls',
+    'missed-calls': 'Missed Calls',
     troubleshooting: 'Troubleshooting',
     support: 'Support',
 };
@@ -75,6 +75,13 @@ export const PERMISSIONS: PermissionDefinition[] = (Object.keys(PERMISSION_LABEL
 
 /** Distinct permission types present in the real capability set. */
 export const PERMISSION_TYPES: string[] = Array.from(new Set(PERMISSIONS.map((permission) => permission.type))).sort();
+
+/** Human module label for a permission id (derived from the token prefix). */
+export function permissionModuleLabel(id: string): string {
+    const prefix = id.split('.')[0];
+
+    return MODULE_BY_PREFIX[prefix] ?? prefix;
+}
 
 export interface PermissionDraft {
     name: string;

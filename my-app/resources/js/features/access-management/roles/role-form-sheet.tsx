@@ -7,14 +7,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { accessRepository } from '@/domain/access-repository';
-import {
-    PERMISSIONS,
-    permissionGroups
-    
-    
-    
-} from '@/features/access-management/shared/permission-catalog';
-import type {PermissionDefinition, RoleDraft, RoleRecord} from '@/features/access-management/shared/permission-catalog';
+import type { PermissionDefinition, RoleDraft, RoleRecord } from '@/features/access-management/shared/permission-catalog';
+import { PERMISSIONS, permissionGroups } from '@/features/access-management/shared/permission-catalog';
 
 const EMPTY_DRAFT: RoleDraft = { name: '', permissions: [] };
 
@@ -145,6 +139,13 @@ export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleForm
                         />
                         {nameError && <p className="text-xs text-destructive">{nameError}</p>}
                     </div>
+
+                    {editing && editing.userCount > 0 && (
+                        <p className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-800">
+                            This role is assigned to {editing.userCount} user{editing.userCount === 1 ? '' : 's'}.
+                            Changes will affect their access.
+                        </p>
+                    )}
 
                     <div className="flex flex-col gap-3">
                         <div className="flex items-center justify-between gap-2">

@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import type { RoleRecord } from '@/features/access-management/shared/permission-catalog';
+import { permissionModuleLabel } from '@/features/access-management/shared/permission-catalog';
 
 export interface RolesTableProps {
     records: RoleRecord[];
@@ -53,8 +54,17 @@ export function RolesTable({ records, isLoading, emptyMessage, onEdit }: RolesTa
                                     <span className="inline-flex items-center rounded-full border border-border bg-muted px-2 py-0.5 text-[11px] font-semibold text-flex-text-primary">
                                         {role.permissions.length}
                                     </span>
-                                    <span className="text-xs text-flex-text-muted">
-                                        {role.permissions.length > 0 ? `${role.permissions.length} permissions assigned` : 'No permissions'}
+                                    <span
+                                        className="text-xs text-flex-text-muted truncate max-w-[180px]"
+                                        title={
+                                            role.permissions.length > 0
+                                                ? Array.from(new Set(role.permissions.map(permissionModuleLabel))).join(' · ')
+                                                : undefined
+                                        }
+                                    >
+                                        {role.permissions.length > 0
+                                            ? Array.from(new Set(role.permissions.map(permissionModuleLabel))).join(' · ')
+                                            : 'No permissions'}
                                     </span>
                                 </div>
                             </td>
