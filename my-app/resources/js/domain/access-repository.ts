@@ -1,5 +1,7 @@
 import type { Role } from '@/auth/capabilities';
 import { USERS_MOCK_RECORDS } from '@/data/users.mock';
+import { roleRecords   } from '@/features/access-management/shared/permission-catalog';
+import type {RoleDraft, RoleRecord} from '@/features/access-management/shared/permission-catalog';
 import type { UserAccount, UserDraft, UserQuery, UserUpdateDraft } from '@/features/access-management/shared/types';
 
 /**
@@ -20,9 +22,14 @@ export interface AccessRepository {
     deactivateUser(id: string): UserAccount | undefined;
     softDeleteUser(id: string): UserAccount | undefined;
     restoreUser(id: string): UserAccount | undefined;
+    queryRoles(): RoleRecord[];
+    createRole(draft: RoleDraft): RoleRecord;
+    updateRole(id: string, draft: RoleDraft): RoleRecord | undefined;
 }
 
 let records = [...USERS_MOCK_RECORDS];
+
+let roles = roleRecords({ 'super-admin': 0, admin: 0, agent: 0 });
 
 export const roleLabels: Record<Role, string> = {
     'super-admin': 'Super Administrator',
@@ -121,6 +128,50 @@ export const accessRepository: AccessRepository = {
             existing.status = 'active';
             existing.deletedAt = undefined;
         }
+
+        return existing;
+    },
+
+    queryRoles() {
+        const activeUsers = records.filter((user) => user.status !== 'deleted');
+        const userCounts: Record<Role, number> = {
+            'super-admin': 0,
+            admin: 0,
+            agent: 0,
+        };
+
+        for (const user of activeUsers) {
+            userCounts[user.role] += 1;
+        }
+
+        return roles.map((role) => ({
+            ...role,
+            userCount: role.id in userCounts ? userCounts[role.id as Role] : 0,
+        }));
+    },
+
+    createRole(draft: RoleDraft) {
+        const role: RoleRecord = {
+            id: `r${Date.now()}`,
+            name: draft.name,
+            permissions: draft.permissions,
+            userCount: 0,
+        };
+
+        roles = [...roles, role];
+
+        return role;
+    },
+
+    updateRole(id: string, draft: RoleDraft) {
+        const existing = roles.find((role) => role.id === id);
+
+        if (!existing) {
+            return undefined;
+        }
+
+        existing.name = draft.name;
+        existing.permissions = draft.permissions;
 
         return existing;
     },

@@ -69,7 +69,7 @@ export const PERMISSIONS: PermissionDefinition[] = (Object.keys(PERMISSION_LABEL
 });
 
 export interface RoleRecord {
-    id: Role;
+    id: string;
     name: string;
     permissions: Capability[];
     /** Count of POC users currently assigned this role. */
