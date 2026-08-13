@@ -11,7 +11,7 @@ export default function ManagementConsole() {
     return (
         <AdminShell
             title="Management Console"
-            subtitle="Central Directory for Contact Center Administration"
+            subtitle="Central administration for FLEX."
         >
             <Head title="Management Console — Flex Contact Center" />
             <ModuleDirectory
