@@ -5,9 +5,9 @@ import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
 import { ReportFilterBar } from '@/features/reports/report-filter-bar';
 import { ReportLibrary } from '@/features/reports/report-library';
 import { getReportById, REPORTS } from '@/features/reports/report-registry';
-import { ReportResults } from '@/features/reports/report-results';
-import type { ReportQuery, ReportRun } from '@/features/reports/report-types';
+import type { ReportQuery } from '@/features/reports/report-types';
 import { ReportViewer } from '@/features/reports/report-viewer';
+import { ReportViewerContent } from '@/features/reports/viewers';
 import { AdminShell } from '@/layouts/admin-shell';
 
 const reportsContextGroups: ContextSidebarGroup[] = [
@@ -75,7 +75,7 @@ export function ReportsPage() {
                     onQueryChange={setQuery}
                     onBack={openLibrary}
                     renderFilters={(q, change) => <ReportFilterBar report={activeReport} query={q} onQueryChange={change} />}
-                    renderResult={(run: ReportRun) => <ReportResults run={run} />}
+                    renderResult={(run) => <ReportViewerContent run={run} report={activeReport} query={query} />}
                 />
             )}
 
