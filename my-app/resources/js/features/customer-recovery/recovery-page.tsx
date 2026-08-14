@@ -13,19 +13,15 @@ import { AgentShell } from '@/layouts/agent-shell';
  * workspace store.
  */
 export function RecoveryPage() {
-    const { records, query, setQuery, isLoading, error, refresh, getById, mutate, currentAgent, summary, lastUpdated } = useRecoveryData();
+    const { records, allRecords, query, setQuery, isLoading, error, refresh, getById, mutate, currentAgent, summary, lastUpdated } = useRecoveryData();
     const [detailId, setDetailId] = useState<string>();
 
     const detailRecord = detailId ? getById(detailId) ?? records.find((record) => record.id === detailId) : undefined;
 
-    const queues = Array.from(new Set(records.map((record) => record.queueName))).sort();
+    const queues = Array.from(new Set(allRecords.map((record) => record.queueName))).sort();
 
     const handleRecordChanged = (record: RecoveryRecord) => {
         mutate(record);
-
-        if (detailId === record.id) {
-            setDetailId(undefined);
-        }
     };
 
     return (

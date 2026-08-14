@@ -44,7 +44,11 @@ export function RecoveryDetailSheet({ record, currentAgent, onOpenChange, onReco
                     <span className="font-mono">{record?.phoneNumber ?? '—'}</span>
                 </DetailRow>
                 <DetailRow label="Missed At">
-                    {record ? new Date(record.missedAt).toLocaleString() : '—'}
+                    {record
+                        ? Number.isNaN(new Date(record.missedAt).getTime())
+                            ? record.missedAt
+                            : new Date(record.missedAt).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })
+                        : '—'}
                 </DetailRow>
                 <DetailRow label="Queue">{record?.queueName ?? '—'}</DetailRow>
                 <DetailRow label="Category">{record?.category ?? '—'}</DetailRow>

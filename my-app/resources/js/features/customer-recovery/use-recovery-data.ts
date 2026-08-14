@@ -31,6 +31,13 @@ export function useRecoveryData() {
         [baseRecords, overrides]
     );
 
+    // Full unresolved workload for the summary, independent of active filters.
+    const allRecords = useMemo(() => {
+        void refreshKey;
+
+        return recoveryRepository.queryRecords({}).map((record) => overrides[record.id] ?? record);
+    }, [refreshKey, overrides]);
+
     // Stable error contract; the mock adapter does not fail, so this stays
     // undefined in normal operation (a real backend supplies errors).
     const error: string | undefined = undefined;
@@ -70,7 +77,10 @@ export function useRecoveryData() {
         };
     }, []);
 
-    const getById = useCallback((id: string) => recoveryRepository.getById(id), []);
+    const getById = useCallback(
+        (id: string) => overrides[id] ?? recoveryRepository.getById(id),
+        [overrides]
+    );
 
     // Merge an authoritative mutated record back into the list (and the repo).
     const mutate = useCallback((record: RecoveryRecord) => {
@@ -80,15 +90,16 @@ export function useRecoveryData() {
     }, []);
 
     const summary = useMemo(() => {
-        const unclaimedCount = records.filter((record) => !record.claimedBy && record.status !== 'resolved').length;
-        const claimedByMeCount = records.filter((record) => record.claimedBy?.id === CURRENT_AGENT.id).length;
-        const voicemailCount = records.filter((record) => record.voicemail.hasVoicemail).length;
+        const unclaimedCount = allRecords.filter((record) => !record.claimedBy && record.status !== 'resolved').length;
+        const claimedByMeCount = allRecords.filter((record) => record.claimedBy?.id === CURRENT_AGENT.id).length;
+        const voicemailCount = allRecords.filter((record) => record.voicemail.hasVoicemail).length;
 
         return { unclaimedCount, claimedByMeCount, voicemailCount };
-    }, [records]);
+    }, [allRecords]);
 
     return {
         records,
+        allRecords,
         query,
         setQuery,
         isLoading,

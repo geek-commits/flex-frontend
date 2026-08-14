@@ -69,16 +69,21 @@ export function CallbackAction({ record, currentAgent, onChanged }: CallbackActi
         ? 'No phone number'
         : record.status === 'resolved'
           ? 'Resolved'
-          : IN_CALL.has(callState)
-            ? 'Call already active'
-            : undefined;
+          : record.claimedBy && record.claimedBy.id !== currentAgent.id
+            ? `Claimed by ${record.claimedBy.name}`
+            : IN_CALL.has(callState)
+              ? 'Call already active'
+              : undefined;
 
     return (
         <Button
             size="sm"
             variant="outline"
             className="gap-1 text-xs text-primary"
-            onClick={handleCall}
+            onClick={(e) => {
+                e.stopPropagation();
+                handleCall();
+            }}
             disabled={!canCall || pending}
             title={reason}
             aria-label={`Call back ${record.customerName ?? record.phoneNumber}`}

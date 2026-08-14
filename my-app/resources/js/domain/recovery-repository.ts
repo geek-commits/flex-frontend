@@ -22,7 +22,7 @@ export interface RecoveryRepository {
     markAttended(id: string): RecoveryMutationResult;
 }
 
-let records = [...RECOVERY_MOCK_RECORDS];
+const records = [...RECOVERY_MOCK_RECORDS];
 
 function clone(record: RecoveryRecord): RecoveryRecord {
     return {

@@ -44,7 +44,15 @@ export function VoicemailPlayer({ voicemail, compact = false }: { voicemail: Voi
                 onError={() => setPlaying(false)}
                 className="hidden"
             />
-            <Button variant="outline" size="icon-xs" aria-label={playing ? 'Pause voicemail' : 'Play voicemail'} onClick={toggle}>
+            <Button
+                variant="outline"
+                size="icon-xs"
+                aria-label={playing ? 'Pause voicemail' : 'Play voicemail'}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    toggle();
+                }}
+            >
                 {playing ? <RiPauseFill className="size-3.5" /> : <RiPlayFill className="size-3.5 text-primary" />}
             </Button>
             <span className="text-xs tabular-nums text-flex-text-muted">{voicemail.duration ?? (loaded ? '0:00' : '—')}</span>
