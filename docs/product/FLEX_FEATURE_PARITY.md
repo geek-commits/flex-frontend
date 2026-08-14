@@ -40,7 +40,9 @@ Resolved from `git log` (46 commits, `main`, remote `origin` → `github.com/gee
 | Craft Infrastructure (design OS + AGENTS.md) | `FLEX_CRAFT_INFRASTRUCTURE_PLAN.md` §6 | `docs/design/*` (01–12, `domain/`, `exemplars/`), root `AGENTS.md` | docs QAs | ✅ `655db6e` → `4bfd90b` |
 | Agent Monitoring + Call Whispering | `AGENT_MONITORING_PLAN.md` | `features/agent-monitoring/*`, `pages/admin/agent-monitoring.tsx` | store/browser verified | ✅ `f54145e` → `24187c6` |
 | Agent Workspace + Call Manager (Phases 1–11) | `AGENT_WORKSPACE_PLAN.md` | `features/agent-workspace/*`, `pages/agent/index.tsx` | store/browser verified | ✅ `ad46ccf` → `3c501e6` |
-| Management Console + Navigation | next after parity | `pages/admin/management-console.tsx` + `admin/{module}` placeholders — see §7 readiness | not verified | ✅ `7827cb8` → `5a84f0d` (11 commits) |
+| Management Console + Navigation | next after parity | `pages/admin/management-console.tsx` + `admin/{module}` placeholders | verified | ✅ `7827cb8` → `5a84f0d` |
+| Customer Recovery (Callback & Voicemail) | feature parity §4 | `features/customer-recovery/*`, `pages/agent/missed-calls.tsx` | store/browser verified | ✅ `d990b9e` → `9474c81` |
+| Recordings & Audio Prompts | feature parity §11 | `features/recordings/*`, `pages/admin/recordings.tsx` | store/browser verified | ✅ in release |
 
 > Rule: every `SHIPPED` above is backed by remote-verified commits on `origin/main`. Detail pages using Inertia routes: `admin/cdr/{record}`, `admin/campaigns/{campaign}`.
 
@@ -115,16 +117,16 @@ Treat as external/integration-owned. Do not redesign blindly (plan §7).
 
 | ID | Feature | Manual | Evidence | Lifecycle | Notes |
 |---|---|---|---|---|---|
-| CALLBACK-001 | Callback Window | YES | `pages/agent/missed-calls.tsx` | REVAMPED (partial) | 2026-08 baseline: fully hardcoded table (inline mock, 6 records); no repo/ownership/telephony. Modernization P0 in progress. |
-| CALLBACK-002 | Missed-call list | YES | missed-calls page | REVAMPED | |
-| CALLBACK-003 | Customer / phone | YES | missed-calls page | REVAMPED | |
-| CALLBACK-004 | Queue | YES | — | UNKNOWN | audit fields; queue set per `queue-state.md` |
-| CALLBACK-005 | Attempt count | YES | — | UNKNOWN | integer column; increment semantics unmodeled |
-| CALLBACK-006 | Call Back action | YES | — | UNKNOWN | must use canonical `workspaceState.dial` pipeline |
-| CALLBACK-007 | Claimed ownership after attempt | YES | — | UNKNOWN | **critical workflow rule**; no owner field in current frontend |
-| CALLBACK-008 | Attended after successful answer | YES | — | UNKNOWN | **critical workflow rule**; not modeled |
-| CALLBACK-009 | Voicemail list | YES | — | UNKNOWN | `hasVoicemail` boolean only |
-| CALLBACK-010 | Voicemail playback | YES | — | NOT_PRESENT (POC) | no audio player; build one shared player |
+| CALLBACK-001 | Callback Window | YES | `features/customer-recovery/*`, `pages/agent/missed-calls.tsx` | SHIPPED | FLEX Customer Recovery v0.1: single data owner `useRecoveryData`, query filters, summary metrics, responsive DataGrid |
+| CALLBACK-002 | Missed-call list | YES | missed-calls table | SHIPPED | customer identity, missed timestamp, queue, category |
+| CALLBACK-003 | Customer / phone | YES | missed-calls table + detail | SHIPPED | customer name, phone number, click-to-copy/dial |
+| CALLBACK-004 | Queue | YES | missed-calls table | SHIPPED | queue badge, category classification |
+| CALLBACK-005 | Attempt count | YES | missed-calls table + attempt history | SHIPPED | incremented on callback attempt, audit timeline |
+| CALLBACK-006 | Call Back action | YES | `callback-action.tsx` | SHIPPED | initiates outbound call via canonical `workspaceState.dial` |
+| CALLBACK-007 | Claimed ownership after attempt | YES | `recovery-ownership.tsx` | SHIPPED | claim acknowledgment from repository, collision prevention |
+| CALLBACK-008 | Attended after successful answer | YES | `recovery-status.tsx` | SHIPPED | resolved transition supported in repository |
+| CALLBACK-009 | Voicemail list | YES | missed-calls table | SHIPPED | duration, presence indicator, canonical absence |
+| CALLBACK-010 | Voicemail playback | YES | `voicemail-player.tsx` | SHIPPED | shared audio player with play/pause, duration, stop-propagation |
 
 ---
 
@@ -236,7 +238,7 @@ Treat as external/integration-owned. Do not redesign blindly (plan §7).
 | Queues (list/add/view/members/edit/delete, ACD, ring duration) | YES | `features/routing/queues/*`; `/admin/queues` | MANUAL_ONLY → REVAMPED | FLEX Routing v0.1: dense directory (search/strategy filter), structured form (General/Call Distribution), detail sheet, first-class members (add/remove, duplicate prevention), delete confirmation. Mock `RoutingRepository`. |
 | IVR (list/add/edit/delete, destination, prompt/ringtone/recording, entries) | YES | `features/routing/ivr/*`; `/admin/ivr` | MANUAL_ONLY → REVAMPED | FLEX Routing v0.1: directory, form with menu-entry editor (key→label→destination), shared destination picker, fallback destination, duplicate-key validation, delete confirmation. |
 | Time Groups & Time Conditions | YES | `features/routing/time-groups/*`, `features/routing/time-conditions/*`; `/admin/time-groups`, `/admin/time-conditions` | MANUAL_ONLY → REVAMPED | FLEX Routing v0.1: Time Group form with multiple schedule entries (hours/weekdays/month days/months) + delete dependency-block; Time Condition list/form with Time Group relationship + match/no-match routing. New `/admin/time-groups` route/module added. |
-| Recordings (list/upload/name/description/preview/edit/replace/delete; CDR dependency) | YES | module entries; CDR detail | MANUAL_ONLY | |
+| Recordings (list/upload/name/description/preview/edit/replace/delete; CDR dependency) | YES | `features/recordings/*`; `/admin/recordings` | MANUAL_ONLY → REVAMPED | FLEX Recordings v0.1: audio assets & prompt directory, category filter (IVR/Queue/Voicemail/Hold/Notice), inline audio player, upload/edit/replace form sheet, detail sheet with routing dependencies, safe delete dialog. Mock `RecordingRepository`. |
 | User Management (create/update/reset/deactivate/roles) | YES | `features/access-management/users/*`; `/admin/users` | MANUAL_ONLY → REVAMPED | 2026-08: mock `AccessRepository` behind real capability model — add/edit sheets, email temp credentials, password reset link, deactivate/soft-delete/Show Deleted/restore; no backend CRUD (Fortify only), backend remains authoritative |
 | Roles & Permissions (roles/permissions/module visibility/ops/role-permission map; tenant-restricted admin) | YES | `features/access-management/roles/*`; `/admin/roles`; `auth/capabilities.tsx` | CONFIRMED_FRONTEND → REVAMPED | Roles/Permissions tabs; roles directory with real permission counts from capability registry; grouped permission assignment; read-only permission catalog + Add Permission (types derived from real tokens); backend enforcement unverified |
 | Subscriptions (remaining days/reminders/expiry/payment/search) | YES | — | MANUAL_ONLY | 5-day reminder is manual claim — verify runtime config |
@@ -265,7 +267,7 @@ Maintained during audits. Unresolved entries are kept (do not delete to look gre
 | GAP-002 | NEEDS_PRODUCT_DECISION | AGENT-CALL-011 | Warm Transfer documented in manual, no runtime consultation state | HIGH | product + telephony decision |
 | GAP-003 | EXTERNAL_BOUNDARY_UNKNOWN | CRM-001…012 | CRM family ownership (external vs embedded) unverified | HIGH | integration ownership audit |
 | GAP-004 | TENANT_SCOPE_UNKNOWN | Tenants family | tenant switch/view/exit UX not implemented; boundary mapping required before admin revamps | HIGH | auth/tenant audit |
-| GAP-005 | ROUTE_MISMATCH | Management Console family | most `domain/modules.ts` routes resolve to placeholder pages (`admin/{module}`) — console directory itself is real; queues/ivr/time-groups/time-conditions/users/roles now revamped | MEDIUM | surface-first evidence per module (remaining: recordings, tenants, agents, stats, charts, etc.) |
+| GAP-005 | ROUTE_MISMATCH | Management Console family | most `domain/modules.ts` routes resolve to placeholder pages (`admin/{module}`) — console directory itself is real; queues/ivr/time-groups/time-conditions/users/roles/recordings now revamped | MEDIUM | surface-first evidence per module (remaining: tenants, agents, stats, charts, etc.) |
 | GAP-006 | UNKNOWN_BACKEND | Agent metrics (AGENT-005…018), Subscriptions, Mail | Reports + Scheduled Reports shipped as REVAMPED mock-adapter surfaces (FLEX Reports v0.1); backend still absent for these | MEDIUM | repository/runtime audit on backend rollout |
 | GAP-007 | PLAN_EXISTS_NOT_IMPLEMENTED | none at baseline | all 7 prior revamps verified shipped | CLOSED | — |
 | GAP-008 | Manual terminology | AGENT-STATE / wrap timer settings | "Wrap-Up" vs "Wrap Up" canonicalized; timer default location unresolved | LOW | resolve via real admin config surface |
@@ -287,7 +289,7 @@ After `MANAGEMENT_CONSOLE_PLAN.md` execution (`7827cb8` → `5a84f0d`):
 | Time Group / Time Condition route | ✅ | `/admin/time-groups` + `/admin/time-conditions` revamped; `features/routing/time-groups/*`, `time-conditions/*` |
 | Users route | ✅ | `/admin/users` revamped (mock `AccessRepository`); `features/access-management/users/*` |
 | Roles / Permissions route | ✅ | `/admin/roles` revamped; `features/access-management/roles/*` |
-| Recordings route | ⚠️ placeholder | `/admin/recordings` registry entry only |
+| Recordings route | ✅ | `/admin/recordings` revamped (mock `RecordingRepository`); `features/recordings/*` |
 | Default / Wrap-Up timer config location | ⬜ | unresolved (GAP-008) |
 | Module navigation behavior | ✅ | every console module route resolves; Back/Enter/focus verified; `features/management-console/console-module-item.tsx` |
 
@@ -302,8 +304,8 @@ After `MANAGEMENT_CONSOLE_PLAN.md` execution (`7827cb8` → `5a84f0d`):
 2. ~~Users / Roles / Permissions~~ ✅ shipped (access-management workspace; mock `AccessRepository` behind real capability model)
 3. ~~Reports + Scheduled Reports~~ ✅ shipped (FLEX Reports v0.1; `features/reports/*`; mock `ReportRepository` + `ScheduledReportsRepository`)
 4. ~~Queues / IVR / Routing / Time Groups / Time Conditions~~ ✅ shipped (FLEX Routing Configuration v0.1; `features/routing/*`; mock `RoutingRepository`)
-5. Callback + Voicemail
-6. Recordings
+5. ~~Callback + Voicemail (Customer Recovery)~~ ✅ shipped (`d990b9e` → `9474c81`)
+6. ~~Recordings & Audio Prompts~~ ✅ shipped (`features/recordings/*`)
 7. Subscription + Mail
 8. Tenant / Super Admin
 9. Agent Dashboard
