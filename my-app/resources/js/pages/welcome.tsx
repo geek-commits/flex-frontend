@@ -10,7 +10,7 @@ export default function Welcome() {
             <div className="min-h-screen bg-background text-foreground flex flex-col">
                 <main className="flex-1 flex items-center justify-center px-6 py-16">
                     <div className="flex flex-col items-center gap-6 max-w-md text-center">
-                        <FlexBrandLogo className="w-48" variant="login" />
+                        <FlexBrandLogo width={196} variant="login" />
 
                         <div className="flex flex-col gap-2">
                             <h1 className="text-2xl font-semibold tracking-tight text-foreground">

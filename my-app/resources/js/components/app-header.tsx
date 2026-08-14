@@ -93,7 +93,7 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                                     Navigation menu
                                 </SheetTitle>
                                 <SheetHeader className="flex justify-start text-left">
-                                    <FlexBrandLogo className="w-32" decorative />
+                                    <FlexBrandLogo width={128} decorative />
                                 </SheetHeader>
                                 <div className="flex h-full flex-1 flex-col space-y-4 p-4">
                                     <div className="flex h-full flex-col justify-between text-sm">
@@ -139,7 +139,7 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                         prefetch
                         className="flex items-center space-x-2"
                     >
-                        <FlexBrandLogo className="w-32" decorative />
+                        <FlexBrandLogo width={132} decorative />
                     </Link>
 
                     {/* Desktop Navigation */}

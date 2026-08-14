@@ -10,6 +10,8 @@ export interface FlexBrandLogoProps {
     variant?: FlexBrandVariant;
     /** When false the logo renders static (completed) without construction. */
     animateOnMount?: boolean;
+    /** Display width in px. The wordmark aspect ratio (~2.27:1) sets the height. */
+    width?: number;
     style?: React.CSSProperties;
 }
 
@@ -29,6 +31,7 @@ export function FlexBrandLogo({
     decorative = false,
     variant = 'app',
     animateOnMount = true,
+    width = 160,
     style,
 }: FlexBrandLogoProps) {
     const durationScale = variant === 'login' ? 0.38 : 0.28;
@@ -36,7 +39,7 @@ export function FlexBrandLogo({
     return (
         <AnimatedFlexLogo
             className={className}
-            style={style}
+            style={{ width, ...style }}
             animateOnMount={animateOnMount}
             replayOnHover={false}
             loop={false}

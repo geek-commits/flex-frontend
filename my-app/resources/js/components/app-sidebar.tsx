@@ -58,7 +58,7 @@ export function AppSidebar() {
                         <SidebarMenuButton size="lg" asChild>
                             <Link href={dashboard()} prefetch>
                                 {expanded ? (
-                                    <FlexBrandLogo className="w-32" animateOnMount={animateOnMount} decorative />
+                                    <FlexBrandLogo width={100} animateOnMount={animateOnMount} decorative />
                                 ) : (
                                     <FlexBrandMark size={26} standalone={false} />
                                 )}
