@@ -24,6 +24,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('admin/time-groups', 'admin/time-groups')->name('admin.time-groups');
     Route::inertia('admin/time-conditions', 'admin/time-conditions')->name('admin.time-conditions');
     Route::inertia('admin/recordings', 'admin/recordings')->name('admin.recordings');
+    Route::inertia('admin/subscription', 'admin/subscription')->name('admin.subscription');
+    Route::inertia('admin/mail-config', 'admin/mail-config')->name('admin.mail-config');
 
     // Entity detail pages
     Route::get('admin/cdr/{record}', fn (string $record) => Inertia::render('admin/cdr-detail', ['record' => $record]))->name('admin.cdr.show');

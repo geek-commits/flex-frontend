@@ -42,7 +42,8 @@ Resolved from `git log` (46 commits, `main`, remote `origin` → `github.com/gee
 | Agent Workspace + Call Manager (Phases 1–11) | `AGENT_WORKSPACE_PLAN.md` | `features/agent-workspace/*`, `pages/agent/index.tsx` | store/browser verified | ✅ `ad46ccf` → `3c501e6` |
 | Management Console + Navigation | next after parity | `pages/admin/management-console.tsx` + `admin/{module}` placeholders | verified | ✅ `7827cb8` → `5a84f0d` |
 | Customer Recovery (Callback & Voicemail) | feature parity §4 | `features/customer-recovery/*`, `pages/agent/missed-calls.tsx` | store/browser verified | ✅ `d990b9e` → `9474c81` |
-| Recordings & Audio Prompts | feature parity §11 | `features/recordings/*`, `pages/admin/recordings.tsx` | store/browser verified | ✅ in release |
+| Recordings & Audio Prompts | feature parity §11 | `features/recordings/*`, `pages/admin/recordings.tsx` | store/browser verified | ✅ `07ac7a1` |
+| Subscriptions & Mail Configuration | feature parity §11 | `features/subscriptions/*`, `features/mail-config/*` | store/browser verified | ✅ in release |
 
 > Rule: every `SHIPPED` above is backed by remote-verified commits on `origin/main`. Detail pages using Inertia routes: `admin/cdr/{record}`, `admin/campaigns/{campaign}`.
 
@@ -241,8 +242,8 @@ Treat as external/integration-owned. Do not redesign blindly (plan §7).
 | Recordings (list/upload/name/description/preview/edit/replace/delete; CDR dependency) | YES | `features/recordings/*`; `/admin/recordings` | MANUAL_ONLY → REVAMPED | FLEX Recordings v0.1: audio assets & prompt directory, category filter (IVR/Queue/Voicemail/Hold/Notice), inline audio player, upload/edit/replace form sheet, detail sheet with routing dependencies, safe delete dialog. Mock `RecordingRepository`. |
 | User Management (create/update/reset/deactivate/roles) | YES | `features/access-management/users/*`; `/admin/users` | MANUAL_ONLY → REVAMPED | 2026-08: mock `AccessRepository` behind real capability model — add/edit sheets, email temp credentials, password reset link, deactivate/soft-delete/Show Deleted/restore; no backend CRUD (Fortify only), backend remains authoritative |
 | Roles & Permissions (roles/permissions/module visibility/ops/role-permission map; tenant-restricted admin) | YES | `features/access-management/roles/*`; `/admin/roles`; `auth/capabilities.tsx` | CONFIRMED_FRONTEND → REVAMPED | Roles/Permissions tabs; roles directory with real permission counts from capability registry; grouped permission assignment; read-only permission catalog + Add Permission (types derived from real tokens); backend enforcement unverified |
-| Subscriptions (remaining days/reminders/expiry/payment/search) | YES | — | MANUAL_ONLY | 5-day reminder is manual claim — verify runtime config |
-| Mail Configuration (from/SMTP/port/encryption/user/status/test/send/active) | YES | — | MANUAL_ONLY | **never log secrets** |
+| Subscriptions (remaining days/reminders/expiry/payment/search) | YES | `features/subscriptions/*`; `/admin/subscription` | MANUAL_ONLY → REVAMPED | FLEX Subscriptions v0.1: account directory with remaining days countdown, 5-day expiry warning, plan & seats breakdown, billing cycle tracking, manual reminder dispatch, term renewal dialog. Mock `SubscriptionRepository`. |
+| Mail Configuration (from/SMTP/port/encryption/user/status/test/send/active) | YES | `features/mail-config/*`; `/admin/mail-config` | MANUAL_ONLY → REVAMPED | FLEX Mail Configuration v0.1: SMTP host/port/encryption setup, write-only password security, live connection status banner, socket handshake test action, delivery test email action, operational cross-link with Subscriptions. Mock `MailRepository`. |
 | Tenants / Super Admin (tenant mgmt, add/edit/enable/disable/config, switch/view/exit context) | YES | `domain/modules.ts` (`/admin/tenants`), Super Admin role | MANUAL_ONLY → CONFIRMED_FRONTEND | tenant-kind boundary; switch UX not implemented |
 
 ---
@@ -267,8 +268,8 @@ Maintained during audits. Unresolved entries are kept (do not delete to look gre
 | GAP-002 | NEEDS_PRODUCT_DECISION | AGENT-CALL-011 | Warm Transfer documented in manual, no runtime consultation state | HIGH | product + telephony decision |
 | GAP-003 | EXTERNAL_BOUNDARY_UNKNOWN | CRM-001…012 | CRM family ownership (external vs embedded) unverified | HIGH | integration ownership audit |
 | GAP-004 | TENANT_SCOPE_UNKNOWN | Tenants family | tenant switch/view/exit UX not implemented; boundary mapping required before admin revamps | HIGH | auth/tenant audit |
-| GAP-005 | ROUTE_MISMATCH | Management Console family | most `domain/modules.ts` routes resolve to placeholder pages (`admin/{module}`) — console directory itself is real; queues/ivr/time-groups/time-conditions/users/roles/recordings now revamped | MEDIUM | surface-first evidence per module (remaining: tenants, agents, stats, charts, etc.) |
-| GAP-006 | UNKNOWN_BACKEND | Agent metrics (AGENT-005…018), Subscriptions, Mail | Reports + Scheduled Reports shipped as REVAMPED mock-adapter surfaces (FLEX Reports v0.1); backend still absent for these | MEDIUM | repository/runtime audit on backend rollout |
+| GAP-005 | ROUTE_MISMATCH | Management Console family | most `domain/modules.ts` routes resolve to placeholder pages (`admin/{module}`) — console directory itself is real; queues/ivr/time-groups/time-conditions/users/roles/recordings/subscriptions/mail-config now revamped | MEDIUM | surface-first evidence per module (remaining: tenants, agents, stats, charts, etc.) |
+| GAP-006 | UNKNOWN_BACKEND | Agent metrics (AGENT-005…018), Subscriptions, Mail | Reports + Scheduled Reports + Subscriptions + Mail shipped as REVAMPED mock-adapter surfaces; backend still absent for these | MEDIUM | repository/runtime audit on backend rollout |
 | GAP-007 | PLAN_EXISTS_NOT_IMPLEMENTED | none at baseline | all 7 prior revamps verified shipped | CLOSED | — |
 | GAP-008 | Manual terminology | AGENT-STATE / wrap timer settings | "Wrap-Up" vs "Wrap Up" canonicalized; timer default location unresolved | LOW | resolve via real admin config surface |
 
@@ -290,6 +291,8 @@ After `MANAGEMENT_CONSOLE_PLAN.md` execution (`7827cb8` → `5a84f0d`):
 | Users route | ✅ | `/admin/users` revamped (mock `AccessRepository`); `features/access-management/users/*` |
 | Roles / Permissions route | ✅ | `/admin/roles` revamped; `features/access-management/roles/*` |
 | Recordings route | ✅ | `/admin/recordings` revamped (mock `RecordingRepository`); `features/recordings/*` |
+| Subscriptions route | ✅ | `/admin/subscription` revamped (mock `SubscriptionRepository`); `features/subscriptions/*` |
+| Mail Configuration route | ✅ | `/admin/mail-config` revamped (mock `MailRepository`); `features/mail-config/*` |
 | Default / Wrap-Up timer config location | ⬜ | unresolved (GAP-008) |
 | Module navigation behavior | ✅ | every console module route resolves; Back/Enter/focus verified; `features/management-console/console-module-item.tsx` |
 
@@ -305,8 +308,8 @@ After `MANAGEMENT_CONSOLE_PLAN.md` execution (`7827cb8` → `5a84f0d`):
 3. ~~Reports + Scheduled Reports~~ ✅ shipped (FLEX Reports v0.1; `features/reports/*`; mock `ReportRepository` + `ScheduledReportsRepository`)
 4. ~~Queues / IVR / Routing / Time Groups / Time Conditions~~ ✅ shipped (FLEX Routing Configuration v0.1; `features/routing/*`; mock `RoutingRepository`)
 5. ~~Callback + Voicemail (Customer Recovery)~~ ✅ shipped (`d990b9e` → `9474c81`)
-6. ~~Recordings & Audio Prompts~~ ✅ shipped (`features/recordings/*`)
-7. Subscription + Mail
+6. ~~Recordings & Audio Prompts~~ ✅ shipped (`07ac7a1`)
+7. ~~Subscription + Mail Configuration~~ ✅ shipped (`features/subscriptions/*`, `features/mail-config/*`)
 8. Tenant / Super Admin
 9. Agent Dashboard
 10. Social / Omnichannel

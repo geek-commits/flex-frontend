@@ -23,6 +23,8 @@ import {
     RiMusic2Line,
     RiVolumeUpLine,
     RiFileSettingsLine,
+    RiBankCardLine,
+    RiMailSettingsLine,
 } from '@remixicon/react';
 import type { ComponentType } from 'react';
 import type { Capability } from '@/auth/capabilities';
@@ -48,6 +50,7 @@ export const CONSOLE_MODULES: ModuleEntry[] = [
     { id: 'agents', href: '/admin/agents', title: 'Agents & Proficiencies', description: 'Configure agent profiles, extension mapping, and skill routing.', icon: RiUserStarLine, category: 'Core Administration', keywords: ['agent', 'proficiency', 'skill', 'extension'], capability: 'console.view' },
     { id: 'users', href: '/admin/users', title: 'Users & Roles', description: 'Role-based access control, credentials, and security policies.', icon: RiUser3Line, category: 'Core Administration', keywords: ['users', 'accounts', 'access', 'password'], capability: 'roles.manage' },
     { id: 'roles', href: '/admin/roles', title: 'Roles & Permissions', description: 'Granular policy management for admin and supervisory roles.', icon: RiShieldUserLine, category: 'Core Administration', keywords: ['roles', 'permissions', 'policy', 'capability'], capability: 'roles.manage' },
+    { id: 'subscriptions', href: '/admin/subscription', title: 'Subscriptions', description: 'Track subscription status, remaining days, reminders, and renewal activity.', icon: RiBankCardLine, category: 'Core Administration', keywords: ['subscription', 'plan', 'billing', 'expiry', 'seats', 'renewal'], capability: 'roles.manage' },
 
     // Telephony & Operations
     { id: 'cdr', href: '/admin/cdr', title: 'Call Records (CDR)', description: 'Search, filter, and inspect granular telephony logs and recordings.', icon: RiPhoneFindLine, category: 'Telephony & Operations', keywords: ['cdr', 'call detail record', 'calls', 'telephony', 'log'], capability: 'cdr.view' },
@@ -67,6 +70,7 @@ export const CONSOLE_MODULES: ModuleEntry[] = [
     { id: 'inbound-routes', href: '/admin/inbound-routes', title: 'Inbound Routes', description: 'DID pattern routing, time conditions, and destination rules.', icon: RiRouterLine, category: 'System Configuration', keywords: ['inbound', 'route', 'did', 'destination', 'trunk'], capability: 'console.view' },
     { id: 'time-conditions', href: '/admin/time-conditions', title: 'Time Conditions', description: 'Schedule working hours, holidays, and off-hour routing.', icon: RiTimeLine, category: 'System Configuration', keywords: ['time', 'schedule', 'hours', 'holiday', 'condition'], capability: 'console.view' },
     { id: 'system-settings', href: '/admin/system', title: 'System & Infrastructure', description: 'Service health, server resources, backup status, and gateway connections.', icon: RiServerLine, category: 'System Configuration', keywords: ['system', 'infrastructure', 'health', 'backup', 'servers'], capability: 'system.view' },
+    { id: 'mail-config', href: '/admin/mail-config', title: 'Mail Configuration', description: 'Configure and test SMTP server settings for system alerts and notifications.', icon: RiMailSettingsLine, category: 'System Configuration', keywords: ['mail', 'smtp', 'email', 'notifications', 'host', 'port'], capability: 'system.view' },
     { id: 'security', href: '/admin/security', title: 'Security & Audit', description: 'IP access controls, firewall rules, and audit trail logs.', icon: RiShieldKeyholeLine, category: 'System Configuration', keywords: ['security', 'audit', 'ip', 'firewall', 'access'], capability: 'roles.manage' },
     { id: 'backups', href: '/admin/backups', title: 'Backups & Storage', description: 'Database snapshot archives, retention, and disaster recovery.', icon: RiDatabase2Line, category: 'System Configuration', keywords: ['backup', 'snapshot', 'storage', 'database'], capability: 'console.view' },
     { id: 'global-settings', href: '/settings/profile', title: 'Settings', description: 'Profile, account security, and application preferences.', icon: RiSettings3Line, category: 'System Configuration', keywords: ['settings', 'profile', 'preferences', 'account'], capability: 'settings.manage' },
