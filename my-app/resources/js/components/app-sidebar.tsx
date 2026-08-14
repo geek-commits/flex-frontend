@@ -5,7 +5,8 @@ import {
     RiMegaphoneLine,
     RiCustomerServiceLine,
 } from '@remixicon/react';
-import { FlexBrandMark } from '@/components/flex/brand';
+import { FlexBrandLogo, FlexBrandMark } from '@/components/flex/brand';
+import { useBrandIntroReplayGuard } from '@/components/flex/brand/use-brand-intro-replay-guard';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import {
@@ -16,6 +17,7 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
+    useSidebar,
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
 import type { NavItem } from '@/types';
@@ -44,6 +46,10 @@ const mainNavItems: NavItem[] = [
 ];
 
 export function AppSidebar() {
+    const { state, isMobile } = useSidebar();
+    const animateOnMount = useBrandIntroReplayGuard();
+    const expanded = state === 'expanded' && !isMobile;
+
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
@@ -51,8 +57,11 @@ export function AppSidebar() {
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
                             <Link href={dashboard()} prefetch>
-                                <FlexBrandMark size={26} standalone={false} />
-                                <span className="truncate font-semibold text-sm">Flex</span>
+                                {expanded ? (
+                                    <FlexBrandLogo className="w-32" animateOnMount={animateOnMount} decorative />
+                                ) : (
+                                    <FlexBrandMark size={26} standalone={false} />
+                                )}
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>

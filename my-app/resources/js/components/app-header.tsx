@@ -1,7 +1,7 @@
 import { Link, usePage } from '@inertiajs/react';
 import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-react';
 import { Breadcrumbs } from '@/components/breadcrumbs';
-import { FlexBrandMark } from '@/components/flex/brand';
+import { FlexBrandLogo } from '@/components/flex/brand';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -93,7 +93,7 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                                     Navigation menu
                                 </SheetTitle>
                                 <SheetHeader className="flex justify-start text-left">
-                                    <FlexBrandMark size={24} standalone />
+                                    <FlexBrandLogo className="w-32" decorative />
                                 </SheetHeader>
                                 <div className="flex h-full flex-1 flex-col space-y-4 p-4">
                                     <div className="flex h-full flex-col justify-between text-sm">
@@ -139,8 +139,7 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                         prefetch
                         className="flex items-center space-x-2"
                     >
-                        <FlexBrandMark size={26} standalone={false} />
-                        <span className="truncate font-semibold text-sm">{page.props.name as string}</span>
+                        <FlexBrandLogo className="w-32" decorative />
                     </Link>
 
                     {/* Desktop Navigation */}

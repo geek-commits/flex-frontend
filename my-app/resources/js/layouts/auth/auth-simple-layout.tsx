@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { FlexBrandMark } from '@/components/flex/brand';
+import { FlexBrandLogo } from '@/components/flex/brand';
 import { home } from '@/routes';
 import type { AuthLayoutProps } from '@/types';
 
@@ -17,8 +17,8 @@ export default function AuthSimpleLayout({
                             href={home()}
                             className="flex flex-col items-center gap-2 font-medium"
                         >
-                            <div className="mb-1 flex h-9 w-9 items-center justify-center rounded-md">
-                                <FlexBrandMark size={34} standalone={false} animateOnHover />
+                            <div className="mb-1 flex w-40 items-center justify-center">
+                                <FlexBrandLogo variant="login" decorative />
                             </div>
                             <span className="sr-only">{title}</span>
                         </Link>

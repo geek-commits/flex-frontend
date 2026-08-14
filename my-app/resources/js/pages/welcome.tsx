@@ -1,6 +1,6 @@
 import { Head, Link } from '@inertiajs/react';
 import { RiLoginBoxLine, RiUserAddLine } from '@remixicon/react';
-import { FlexBrandMark } from '@/components/flex/brand';
+import { FlexBrandLogo } from '@/components/flex/brand';
 import { Button } from '@/components/ui/button';
 
 export default function Welcome() {
@@ -10,7 +10,7 @@ export default function Welcome() {
             <div className="min-h-screen bg-background text-foreground flex flex-col">
                 <main className="flex-1 flex items-center justify-center px-6 py-16">
                     <div className="flex flex-col items-center gap-6 max-w-md text-center">
-                        <FlexBrandMark size={44} animateOnHover />
+                        <FlexBrandLogo className="w-48" variant="login" />
 
                         <div className="flex flex-col gap-2">
                             <h1 className="text-2xl font-semibold tracking-tight text-foreground">

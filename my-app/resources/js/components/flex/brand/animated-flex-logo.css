@@ -1,0 +1,12 @@
+.flex-logo {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+}
+
+.flex-logo__piece {
+    transform-box: fill-box;
+}

@@ -1,5 +1,5 @@
 import { Link, usePage } from '@inertiajs/react';
-import { FlexBrandMark } from '@/components/flex/brand';
+import { FlexBrandLogo } from '@/components/flex/brand';
 import { home } from '@/routes';
 import type { AuthLayoutProps } from '@/types';
 
@@ -18,7 +18,7 @@ export default function AuthSplitLayout({
                     href={home()}
                     className="relative z-20 flex items-center text-lg font-medium"
                 >
-                    <FlexBrandMark size={30} standalone={false} animateOnHover />
+                    <FlexBrandLogo className="w-40" variant="login" decorative />
                     {name}
                 </Link>
             </div>
@@ -28,7 +28,7 @@ export default function AuthSplitLayout({
                         href={home()}
                         className="relative z-20 flex items-center justify-center lg:hidden"
                     >
-                        <FlexBrandMark size={40} standalone animateOnHover />
+                        <FlexBrandLogo className="w-40" variant="login" />
                     </Link>
                     <div className="flex flex-col items-start gap-2 text-left sm:items-center sm:text-center">
                         <h1 className="text-xl font-medium">{title}</h1>

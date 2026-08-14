@@ -2,7 +2,8 @@ import { Link, usePage } from '@inertiajs/react';
 import { RiMenuLine } from '@remixicon/react';
 import React from 'react';
 import { useCapabilities } from '@/auth/capabilities';
-import { FlexBrandMark } from '@/components/flex/brand';
+import { FlexBrandLogo } from '@/components/flex/brand';
+import { useBrandIntroReplayGuard } from '@/components/flex/brand/use-brand-intro-replay-guard';
 import { GlobalSearchTrigger } from '@/components/flex/global-search';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
@@ -41,6 +42,7 @@ export function AgentOperationalHeader({
     const { url, props } = usePage();
     const { navEntries } = useCapabilities();
     const user = props.auth?.user as User | undefined;
+    const animateOnMount = useBrandIntroReplayGuard();
 
     return (
         <header className="h-14 bg-card border-b border-border px-4 flex items-center justify-between gap-3 sticky top-0 z-20 shrink-0 select-none">
@@ -55,7 +57,7 @@ export function AgentOperationalHeader({
                     <SheetContent side="left" className="w-64 p-4 flex flex-col gap-4">
                         <SheetHeader>
                             <SheetTitle className="text-left">
-                                <FlexBrandMark size={26} />
+                                <FlexBrandLogo className="w-40" animateOnMount={animateOnMount} decorative />
                             </SheetTitle>
                         </SheetHeader>
                         <nav className="flex flex-col gap-1 mt-2">

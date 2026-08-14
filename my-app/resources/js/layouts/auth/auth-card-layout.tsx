@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react';
 import type { PropsWithChildren } from 'react';
-import { FlexBrandMark } from '@/components/flex/brand';
+import { FlexBrandLogo } from '@/components/flex/brand';
 import {
     Card,
     CardContent,
@@ -26,8 +26,8 @@ export default function AuthCardLayout({
                     href={home()}
                     className="flex items-center gap-2 self-center font-medium"
                 >
-                    <div className="flex h-9 w-9 items-center justify-center">
-                        <FlexBrandMark size={34} standalone animateOnHover />
+                    <div className="flex w-40 items-center justify-center">
+                        <FlexBrandLogo variant="login" />
                     </div>
                 </Link>
 

@@ -1,7 +1,8 @@
 import { Link, usePage } from '@inertiajs/react';
 import { RiWifiLine, RiTimeLine, RiMenuLine, RiDashboard3Line, RiCustomerServiceLine, RiPhoneFindLine, RiMegaphoneLine, RiFileChartLine, RiRobotLine, RiServerLine, RiSettings4Line } from '@remixicon/react';
 import React, { useState, useEffect } from 'react';
-import { FlexBrandMark } from '@/components/flex/brand';
+import { FlexBrandLogo } from '@/components/flex/brand';
+import { useBrandIntroReplayGuard } from '@/components/flex/brand/use-brand-intro-replay-guard';
 import { GlobalSearchTrigger } from '@/components/flex/global-search';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -31,6 +32,7 @@ export function AppTopbar({
 }: AppTopbarProps) {
     const { url, props } = usePage();
     const user = props.auth?.user as User | undefined;
+    const animateOnMount = useBrandIntroReplayGuard();
     const [seconds, setSeconds] = useState(319); // 00:05:19 initial demonstration counter
 
     useEffect(() => {
@@ -83,7 +85,7 @@ export function AppTopbar({
                     <SheetContent side="left" className="w-64 p-4 flex flex-col gap-4">
                         <SheetHeader>
                             <SheetTitle className="text-left">
-                                <FlexBrandMark size={26} />
+                                <FlexBrandLogo className="w-40" animateOnMount={animateOnMount} decorative />
                             </SheetTitle>
                         </SheetHeader>
                         <nav className="flex flex-col gap-1 mt-2">
