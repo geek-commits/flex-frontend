@@ -1,4 +1,4 @@
-import { Link, usePage } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { FlexBrandLogo } from '@/components/flex/brand';
 import { home } from '@/routes';
 import type { AuthLayoutProps } from '@/types';
@@ -8,7 +8,6 @@ export default function AuthSplitLayout({
     title,
     description,
 }: AuthLayoutProps) {
-    const { name } = usePage().props;
 
     return (
         <div className="relative grid h-dvh flex-col items-center justify-center px-8 sm:px-0 lg:max-w-none lg:grid-cols-2 lg:px-0">
@@ -16,10 +15,9 @@ export default function AuthSplitLayout({
                 <div className="absolute inset-0 bg-zinc-900" />
                 <Link
                     href={home()}
-                    className="relative z-20 flex items-center text-lg font-medium"
+                    className="relative z-20 flex items-center"
                 >
-                    <FlexBrandLogo width={176} variant="login" decorative />
-                    {name}
+                    <FlexBrandLogo width={176} variant="login" />
                 </Link>
             </div>
             <div className="w-full lg:p-8">
