@@ -115,16 +115,16 @@ Treat as external/integration-owned. Do not redesign blindly (plan §7).
 
 | ID | Feature | Manual | Evidence | Lifecycle | Notes |
 |---|---|---|---|---|---|
-| CALLBACK-001 | Callback Window | YES | `pages/agent/missed-calls.tsx` | REVAMPED (partial) | dedicated revamp later |
+| CALLBACK-001 | Callback Window | YES | `pages/agent/missed-calls.tsx` | REVAMPED (partial) | 2026-08 baseline: fully hardcoded table (inline mock, 6 records); no repo/ownership/telephony. Modernization P0 in progress. |
 | CALLBACK-002 | Missed-call list | YES | missed-calls page | REVAMPED | |
 | CALLBACK-003 | Customer / phone | YES | missed-calls page | REVAMPED | |
-| CALLBACK-004 | Queue | YES | — | UNKNOWN | audit fields |
-| CALLBACK-005 | Attempt count | YES | — | UNKNOWN | |
-| CALLBACK-006 | Call Back action | YES | — | UNKNOWN | use canonical outbound pipeline |
-| CALLBACK-007 | Claimed ownership after attempt | YES | — | UNKNOWN | **critical workflow rule** |
-| CALLBACK-008 | Attended after successful answer | YES | — | UNKNOWN | **critical workflow rule** |
-| CALLBACK-009 | Voicemail list | YES | — | UNKNOWN | no voicemail surface found |
-| CALLBACK-010 | Voicemail playback | YES | — | NOT_PRESENT (POC) | backend dependency |
+| CALLBACK-004 | Queue | YES | — | UNKNOWN | audit fields; queue set per `queue-state.md` |
+| CALLBACK-005 | Attempt count | YES | — | UNKNOWN | integer column; increment semantics unmodeled |
+| CALLBACK-006 | Call Back action | YES | — | UNKNOWN | must use canonical `workspaceState.dial` pipeline |
+| CALLBACK-007 | Claimed ownership after attempt | YES | — | UNKNOWN | **critical workflow rule**; no owner field in current frontend |
+| CALLBACK-008 | Attended after successful answer | YES | — | UNKNOWN | **critical workflow rule**; not modeled |
+| CALLBACK-009 | Voicemail list | YES | — | UNKNOWN | `hasVoicemail` boolean only |
+| CALLBACK-010 | Voicemail playback | YES | — | NOT_PRESENT (POC) | no audio player; build one shared player |
 
 ---
 
