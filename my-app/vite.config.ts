@@ -6,8 +6,15 @@ import laravel from 'laravel-vite-plugin';
 import { bunny } from 'laravel-vite-plugin/fonts';
 import { defineConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
+import { fileURLToPath, URL } from 'node:url';
 
 export default defineConfig({
+    resolve: {
+        alias: {
+            '@': fileURLToPath(new URL('./resources/js', import.meta.url)),
+            '@assets': fileURLToPath(new URL('./resources/assets', import.meta.url)),
+        },
+    },
     plugins: [
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.tsx'],
@@ -26,9 +33,9 @@ export default defineConfig({
         }),
         tailwindcss(),
         svgr({
-            include: '**/flex/icons/**/*.svg',
+            include: '**/flex/icons/**/*.svg?react',
             svgrOptions: {
-                exportType: 'named',
+                exportType: 'default',
                 svgProps: {
                     'aria-hidden': true,
                     focusable: 'false',

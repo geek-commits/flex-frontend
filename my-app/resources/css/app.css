@@ -266,11 +266,14 @@
     --flex-focus-ring: var(--ring);
 
     /* Icon scale — glyph size, not interactive hit target */
-    --flex-icon-size-xs: 0.75rem;
-    --flex-icon-size-sm: 0.875rem;
-    --flex-icon-size-md: 1rem;
+    --flex-icon-size-xs: 0.875rem;
+    --flex-icon-size-sm: 1rem;
+    --flex-icon-size-md: 1.125rem;
     --flex-icon-size-lg: 1.25rem;
     --flex-icon-size-xl: 1.5rem;
+    --flex-icon-size-2xl: 2rem;
+    --flex-icon-size-3xl: 2.5rem;
+    --flex-icon-size-illustration: 4rem;
 
     /* Spacing rules (applied by shell/table components) */
     --flex-space-page-x: 1.5rem;
