@@ -1,5 +1,6 @@
-import { RiFileChartLine, RiHistoryLine, RiSearchLine } from '@remixicon/react';
+import { RiHistoryLine, RiSearchLine } from '@remixicon/react';
 import React, { useMemo, useState } from 'react';
+import { FlexIcon } from '@/components/flex/iconography';
 import { Input } from '@/components/ui/input';
 import { ReportLibraryItem } from '@/features/reports/report-library-item';
 import { REPORT_CATEGORIES  } from '@/features/reports/report-registry';
@@ -74,7 +75,7 @@ export function ReportLibrary({ reports, onOpen, onOpenScheduled }: ReportLibrar
                 {grouped.map(({ category, items }) => (
                     <section key={category.key} aria-labelledby={`report-category-${category.key}`}>
                         <div className="mb-2 flex items-center gap-2 min-w-0">
-                            <RiFileChartLine className="size-3.5 text-flex-text-muted shrink-0" />
+                            <FlexIcon name="reports" size="sm" className="text-flex-text-muted shrink-0" />
                             <h2 id={`report-category-${category.key}`} className="text-xs font-bold uppercase tracking-wider text-flex-text-muted shrink-0">
                                 {category.label}
                             </h2>
