@@ -42,6 +42,8 @@ docs/design/
 ├── 11-component-governance.md   ← layering, decision test, anti-patterns
 ├── 12-quality-gates.md          ← how FLEX UI work is tested and accepted
 ├── brand.md                     ← official FLEX monogram, canonical component, brand motion rules
+├── iconography.md               ← semantic icon system: families, sizes, color, freezes, a11y
+├── iconography-sources.md       ← icon source library, provenance, filename→semantic map
 ├── domain/
 │   ├── agent-state.md
 │   ├── agent-workspace.md
