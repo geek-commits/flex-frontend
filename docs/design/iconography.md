@@ -65,6 +65,27 @@ empty-state illustration      → 48–80px
 Do not use arbitrary sizes (17, 21, 27px) per route. Tune optical size, not CSS
 values — source viewBoxes differ, so perceived weight must be verified visually.
 
+## Empty states & illustrations
+
+Cartoon illustrations live in their own registry and render only for empty/setup/
+onboarding/help surfaces at illustration sizes (48–80px). They are secondary to
+title, explanation, and action.
+
+```tsx
+import { FlexIllustration } from '@/components/flex/iconography';
+// or via the shared empty state:
+<FlexEmptyState
+    title="No campaigns yet"
+    description="Create your first outbound campaign to get started."
+    illustration="empty-campaigns"
+    action={/* optional primary action */}
+/>
+```
+
+Do **not** attach an illustration to every empty table automatically. Use the
+compact line icon for filter-result empties and keep illustrations for genuine
+"nothing here yet / get started" states. See `docs/design/07-feedback-states.md`.
+
 ## Color
 
 Icons use `currentColor` and inherit FLEX design tokens. Do not hardcode fills.

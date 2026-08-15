@@ -249,6 +249,7 @@ export function CampaignsPage() {
                                         ? 'Create your first outbound campaign to get started.'
                                         : 'Try changing your search or filters.'
                                 }
+                                illustration={records.length === 0 ? 'empty-campaigns' : undefined}
                                 action={
                                     records.length === 0 ? (
                                         <Button variant="outline" size="sm" className="text-xs" onClick={openAdd}>

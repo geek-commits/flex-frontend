@@ -151,6 +151,7 @@ export function QueuesPage() {
                                 ? 'Create a queue to define call distribution.'
                                 : 'Try changing your search or filters.'
                         }
+                        illustration={records.length === 0 ? 'empty-queues' : undefined}
                         action={
                             records.length === 0 ? (
                                 <Button variant="outline" size="sm" className="text-xs" onClick={openCreate}>
