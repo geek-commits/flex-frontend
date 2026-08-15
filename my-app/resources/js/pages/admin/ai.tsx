@@ -1,13 +1,8 @@
 import { Head } from '@inertiajs/react';
-import {
-    RiRobotLine,
-    RiQuestionAnswerLine,
-    RiBookOpenLine,
-    RiBrainLine,
-    RiSparklingLine,
-    RiRefreshLine,
-} from '@remixicon/react';
+import { RiRefreshLine } from '@remixicon/react';
 import React from 'react';
+import { FlexIcon } from '@/components/flex/iconography';
+import type { FlexIconName } from '@/components/flex/iconography';
 import { MetricCard, MetricGroup } from '@/components/flex/metric-card';
 import { StatusBadge } from '@/components/flex/status-badge';
 import { Button } from '@/components/ui/button';
@@ -19,7 +14,7 @@ export interface AIFeatureCard {
     title: string;
     description: string;
     status: AIFeatureStatus;
-    icon: React.ComponentType<{ className?: string }>;
+    icon: FlexIconName;
 }
 
 export default function AICenterPage() {
@@ -28,25 +23,25 @@ export default function AICenterPage() {
             title: 'Global AI Gateway',
             description: 'Central LLM routing, token rate-limiting, and model fallback management.',
             status: 'enabled',
-            icon: RiRobotLine,
+            icon: 'ai-center',
         },
         {
             title: 'Agent Assist Co-Pilot',
             description: 'Real-time call transcription, auto-suggested answers, and instant CRM lookup.',
             status: 'enabled',
-            icon: RiQuestionAnswerLine,
+            icon: 'ai-copilot',
         },
         {
             title: 'Knowledge Base (RAG)',
             description: 'Vector embeddings database powering semantic search for agent response suggestions.',
             status: 'enabled',
-            icon: RiBookOpenLine,
+            icon: 'knowledge-base',
         },
         {
             title: 'Virtual Voice Assistants',
             description: 'Autonomous Conversational AI handling tier-1 inbound call inquiries.',
             status: 'configuration-required',
-            icon: RiBrainLine,
+            icon: 'voice-assistants',
         },
     ];
 
@@ -67,7 +62,7 @@ export default function AICenterPage() {
                 {/* 1. Today's AI Snapshot */}
                 <div className="flex flex-col gap-2.5">
                     <h2 className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
-                        <RiSparklingLine className="size-4 text-primary" />
+                        <FlexIcon name="ai-snapshot" className="text-primary" />
                         <span>Today&apos;s Usage Snapshot</span>
                     </h2>
 
@@ -104,15 +99,13 @@ export default function AICenterPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {aiFeatures.map((feat, idx) => {
-                            const Icon = feat.icon;
-
                             return (
                                 <Card key={idx} className="bg-card border-border shadow-2xs">
                                     <CardContent className="p-4 flex flex-col justify-between h-full gap-3">
                                         <div className="flex items-start justify-between gap-3">
                                             <div className="flex items-start gap-3">
                                                 <div className="p-2 rounded-lg bg-primary/10 text-primary shrink-0">
-                                                    <Icon className="size-5" />
+                                                    <FlexIcon name={feat.icon} size="lg" />
                                                 </div>
                                                 <div className="flex flex-col">
                                                     <h3 className="text-xs font-semibold text-foreground">{feat.title}</h3>
@@ -133,7 +126,7 @@ export default function AICenterPage() {
                     <CardHeader className="p-4 pb-2 border-b border-border">
                         <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center justify-between">
                             <span className="flex items-center gap-1.5">
-                                <RiBookOpenLine className="size-4 text-primary" />
+                                <FlexIcon name="knowledge-base" className="text-primary" />
                                 Knowledge Base Coverage
                             </span>
                             <span className="text-xs font-semibold text-status-live">98.2% Search Precision</span>

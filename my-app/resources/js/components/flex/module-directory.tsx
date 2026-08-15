@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react';
-import { RiSearchLine } from '@remixicon/react';
 import React, { useState } from 'react';
+import type { FlexIconName } from '@/components/flex/iconography';
+import { FlexIcon } from '@/components/flex/iconography';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 
@@ -9,7 +10,7 @@ export interface ModuleItem {
     title: string;
     description?: string;
     href: string;
-    icon: React.ComponentType<{ className?: string }>;
+    icon: FlexIconName;
     category?: string;
     badge?: string;
 }
@@ -43,7 +44,7 @@ export function ModuleDirectory({ title, description, modules }: ModuleDirectory
                 </div>
 
                 <div className="relative w-full sm:w-72">
-                    <RiSearchLine className="absolute left-2.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+                    <FlexIcon name="search" className="absolute left-2.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
                     <Input
                         placeholder="Search modules..."
                         value={search}
@@ -67,14 +68,12 @@ export function ModuleDirectory({ title, description, modules }: ModuleDirectory
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                             {categoryModules.map((mod) => {
-                                const Icon = mod.icon;
-
                                 return (
                                     <Link key={mod.id} href={mod.href} className="group">
                                         <Card className="h-full bg-card border-border hover:border-primary/40 hover:shadow-xs transition-all">
                                             <CardContent className="p-4 flex items-start gap-3">
                                                 <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors shrink-0">
-                                                    <Icon className="size-5" />
+                                                    <FlexIcon name={mod.icon} className="size-5" />
                                                 </div>
                                                 <div className="flex flex-col min-w-0 flex-1">
                                                     <div className="flex items-center justify-between gap-1">

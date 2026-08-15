@@ -1,7 +1,8 @@
 import { Head, Link, usePage } from '@inertiajs/react';
-import { RiArrowLeftLine, RiToolsLine } from '@remixicon/react';
+import { RiArrowLeftLine } from '@remixicon/react';
 import React from 'react';
 import { useCapabilities } from '@/auth/capabilities';
+import { FlexIcon } from '@/components/flex/iconography';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { MODULE_INDEX } from '@/domain/modules';
@@ -40,7 +41,7 @@ export default function ModulePlaceholderPage() {
                         {accessible && module ? (
                             <>
                                 <div className="p-3 rounded-lg bg-primary/10 text-primary">
-                                    <module.icon className="size-8" />
+                                    <FlexIcon name={module.icon} className="size-8" />
                                 </div>
                                 <div className="flex flex-col gap-1 max-w-md">
                                     <h2 className="text-base font-semibold text-foreground">Coming soon</h2>
@@ -54,7 +55,7 @@ export default function ModulePlaceholderPage() {
                         ) : (
                             <>
                                 <div className="p-3 rounded-lg bg-muted text-muted-foreground">
-                                    <RiToolsLine className="size-8" />
+                                    <FlexIcon name="module-placeholder" size="xl" />
                                 </div>
                                 <div className="flex flex-col gap-1 max-w-md">
                                     <h2 className="text-base font-semibold text-foreground">

@@ -1,17 +1,14 @@
 import { router } from '@inertiajs/react';
 import {
     RiSearchLine,
-    RiAddLine,
-    RiRouteLine,
-    RiBarChartBoxLine,
     RiAppsLine,
-    RiPhoneFindLine,
-    RiMegaphoneLine,
-    RiUserStarLine,
+
 } from '@remixicon/react';
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { NAVIGATION, useCapabilities  } from '@/auth/capabilities';
-import type {Role} from '@/auth/capabilities';
+import type { Role } from '@/auth/capabilities';
+import { FlexIcon } from '@/components/flex/iconography';
+import type { FlexIconName } from '@/components/flex/iconography';
 import { SearchHighlight } from '@/components/flex/search-highlight';
 import { Button } from '@/components/ui/button';
 import {
@@ -43,7 +40,7 @@ interface SearchRecord {
     subtitle?: string;
     href: string;
     group: string;
-    icon: React.ComponentType<{ className?: string }>;
+    icon: FlexIconName | React.ComponentType<{ className?: string }>;
 }
 
 const ROLE_OPTIONS: { value: Role; label: string }[] = [
@@ -65,7 +62,7 @@ function buildRecordIndex(): Omit<SearchRecord, 'group'>[] {
             title: cdr.customerPhone,
             subtitle: `CDR • ${cdr.agentName} • ${cdr.queueName}`,
             href: '/admin/cdr',
-            icon: RiPhoneFindLine,
+            icon: 'call-records',
         });
     }
 
@@ -75,7 +72,7 @@ function buildRecordIndex(): Omit<SearchRecord, 'group'>[] {
             title: campaign.title,
             subtitle: `Campaign • ${campaign.destination}`,
             href: '/admin/campaigns',
-            icon: RiMegaphoneLine,
+            icon: 'campaigns',
         });
     }
 
@@ -85,7 +82,7 @@ function buildRecordIndex(): Omit<SearchRecord, 'group'>[] {
             title: agent.name,
             subtitle: `Agent • ext ${agent.extension} • ${agent.queue}`,
             href: '/agent',
-            icon: RiUserStarLine,
+            icon: 'agents',
         });
     }
 
@@ -93,9 +90,9 @@ function buildRecordIndex(): Omit<SearchRecord, 'group'>[] {
 }
 
 const ACTION_INDEX: Omit<SearchRecord, 'group'>[] = [
-    { kind: 'action', title: 'New Campaign', subtitle: 'Create an outbound call campaign', href: '/admin/campaigns', icon: RiAddLine },
-    { kind: 'action', title: 'Manage Queues', subtitle: 'Queue strategies & SLA targets', href: '/admin/settings/queues', icon: RiRouteLine },
-    { kind: 'action', title: 'View Reports', subtitle: 'Reports & analytics engine', href: '/admin/reports', icon: RiBarChartBoxLine },
+    { kind: 'action', title: 'New Campaign', subtitle: 'Create an outbound call campaign', href: '/admin/campaigns', icon: 'campaigns' },
+    { kind: 'action', title: 'Manage Queues', subtitle: 'Queue strategies & SLA targets', href: '/admin/settings/queues', icon: 'routes' },
+    { kind: 'action', title: 'View Reports', subtitle: 'Reports & analytics engine', href: '/admin/reports', icon: 'reports' },
 ];
 
 export function GlobalSearchProvider({ children }: { children: React.ReactNode }) {
@@ -226,11 +223,9 @@ return false;
                 {grouped.navigation.length > 0 && (
                     <CommandGroup heading="Navigation">
                         {grouped.navigation.map((item) => {
-                            const Icon = item.icon;
-
                             return (
                                 <CommandItem key={item.href} value={`nav ${item.title}`} onSelect={() => run(item.href)}>
-                                    <Icon className="size-4 text-muted-foreground" />
+                                    <FlexIcon name={item.icon} className="size-4 text-muted-foreground" />
                                     <SearchHighlight text={item.title} query={query} />
                                     <span className="text-[10px] text-muted-foreground uppercase">{item.badge ?? item.workspace}</span>
                                 </CommandItem>
@@ -242,11 +237,9 @@ return false;
                 {grouped.modules.length > 0 && (
                     <CommandGroup heading="Modules">
                         {grouped.modules.map((item) => {
-                            const Icon = item.icon;
-
                             return (
                                 <CommandItem key={item.href} value={`module ${item.title}`} onSelect={() => run(item.href)}>
-                                    <Icon className="size-4 text-muted-foreground" />
+                                    <FlexIcon name={item.icon} className="size-4 text-muted-foreground" />
                                     <SearchHighlight text={item.title} query={query} />
                                     <span className="text-[10px] text-muted-foreground uppercase">{item.subtitle}</span>
                                 </CommandItem>
@@ -262,7 +255,7 @@ return false;
 
                             return (
                                 <CommandItem key={item.title} value={`action ${item.title}`} onSelect={() => run(item.href)}>
-                                    <Icon className="size-4 text-muted-foreground" />
+                                    {typeof Icon === 'string' ? <FlexIcon name={Icon} className="size-4 text-muted-foreground" /> : <Icon className="size-4 text-muted-foreground" />}
                                     <SearchHighlight text={item.title} query={query} />
                                 </CommandItem>
                             );
@@ -277,7 +270,7 @@ return false;
 
                             return (
                                 <CommandItem key={`record-${index}`} value={`record ${record.title} ${record.subtitle}`} onSelect={() => run(record.href)}>
-                                    <Icon className="size-4 text-muted-foreground" />
+                                    {typeof Icon === 'string' ? <FlexIcon name={Icon} className="size-4 text-muted-foreground" /> : <Icon className="size-4 text-muted-foreground" />}
                                     <div className="flex flex-col min-w-0">
                                         <span className="truncate">
                                             <SearchHighlight text={record.title} query={query} />

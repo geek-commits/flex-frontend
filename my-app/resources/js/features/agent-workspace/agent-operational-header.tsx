@@ -5,6 +5,7 @@ import { useCapabilities } from '@/auth/capabilities';
 import { FlexBrandLogo } from '@/components/flex/brand';
 import { useBrandIntroReplayGuard } from '@/components/flex/brand/use-brand-intro-replay-guard';
 import { GlobalSearchTrigger } from '@/components/flex/global-search';
+import { FlexIcon } from '@/components/flex/iconography';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import type { User } from '@/types';
@@ -63,7 +64,6 @@ export function AgentOperationalHeader({
                         <nav className="flex flex-col gap-1 mt-2">
                             {navEntries.map((item) => {
                                 const isActive = url.startsWith(item.href);
-                                const Icon = item.icon;
 
                                 return (
                                     <Link
@@ -75,7 +75,7 @@ export function AgentOperationalHeader({
                                                 : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                                         }`}
                                     >
-                                        <Icon className="size-4" />
+                                        <FlexIcon name={item.icon} className="size-4" />
                                         <span>{item.title}</span>
                                     </Link>
                                 );

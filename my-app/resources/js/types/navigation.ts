@@ -1,5 +1,6 @@
 import type { InertiaLinkProps } from '@inertiajs/react';
 import type { ComponentType } from 'react';
+import type { FlexIconName } from '@/components/flex/iconography';
 
 export type BreadcrumbItem = {
     title: string;
@@ -9,6 +10,6 @@ export type BreadcrumbItem = {
 export type NavItem = {
     title: string;
     href: NonNullable<InertiaLinkProps['href']>;
-    icon?: ComponentType<{ className?: string }> | null;
+    icon?: FlexIconName | ComponentType<{ className?: string }> | null;
     isActive?: boolean;
 };

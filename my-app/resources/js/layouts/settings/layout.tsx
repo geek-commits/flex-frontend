@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react';
 import type { PropsWithChildren } from 'react';
+import { FlexIcon } from '@/components/flex/iconography';
 import Heading from '@/components/heading';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -54,8 +55,10 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
                                     'bg-primary/10 text-primary font-semibold': isCurrentOrParentUrl(item.href),
                                 })}
                             >
-                                {item.icon && (
-                                    <item.icon className="h-4 w-4" />
+                                {typeof item.icon === 'string' ? (
+                                    <FlexIcon name={item.icon} className="h-4 w-4" />
+                                ) : (
+                                    item.icon && <item.icon className="h-4 w-4" />
                                 )}
                                 {item.title}
                             </Button>

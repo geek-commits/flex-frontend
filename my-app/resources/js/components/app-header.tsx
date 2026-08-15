@@ -1,7 +1,8 @@
 import { Link, usePage } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-react';
+import { BookOpen, Folder, Menu, Search } from 'lucide-react';
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import { FlexBrandLogo } from '@/components/flex/brand';
+import { FlexIcon } from '@/components/flex/iconography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -42,7 +43,7 @@ const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
         href: dashboard(),
-        icon: LayoutGrid,
+        icon: 'dashboard',
     },
 ];
 
@@ -104,9 +105,7 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                                                     href={item.href}
                                                     className="flex items-center space-x-2 font-medium"
                                                 >
-                                                    {item.icon && (
-                                                        <item.icon className="h-5 w-5" />
-                                                    )}
+                                                    {typeof item.icon === 'string' ? <FlexIcon name={item.icon} className="h-5 w-5" /> : item.icon && <item.icon className="h-5 w-5" />}
                                                     <span>{item.title}</span>
                                                 </Link>
                                             ))}
@@ -121,9 +120,7 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                                                     rel="noopener noreferrer"
                                                     className="flex items-center space-x-2 font-medium"
                                                 >
-                                                    {item.icon && (
-                                                        <item.icon className="h-5 w-5" />
-                                                    )}
+                                                    {typeof item.icon === 'string' ? <FlexIcon name={item.icon} className="h-5 w-5" /> : item.icon && <item.icon className="h-5 w-5" />}
                                                     <span>{item.title}</span>
                                                 </a>
                                             ))}
@@ -162,9 +159,7 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                                                 'h-9 cursor-pointer px-3',
                                             )}
                                         >
-                                            {item.icon && (
-                                                <item.icon className="mr-2 h-4 w-4" />
-                                            )}
+                                            {typeof item.icon === 'string' ? <FlexIcon name={item.icon} className="mr-2 h-4 w-4" /> : item.icon && <item.icon className="mr-2 h-4 w-4" />}
                                             {item.title}
                                         </Link>
                                         {isCurrentUrl(item.href) && (
@@ -199,9 +194,7 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                                                 <span className="sr-only">
                                                     {item.title}
                                                 </span>
-                                                {item.icon && (
-                                                    <item.icon className="size-5 opacity-80 group-hover:opacity-100" />
-                                                )}
+                                                {typeof item.icon === 'string' ? <FlexIcon name={item.icon} className="size-5 opacity-80 group-hover:opacity-100" /> : item.icon && <item.icon className="size-5 opacity-80 group-hover:opacity-100" />}
                                             </a>
                                         </TooltipTrigger>
                                         <TooltipContent>

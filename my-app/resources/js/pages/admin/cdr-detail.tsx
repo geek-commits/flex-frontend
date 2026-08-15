@@ -17,9 +17,9 @@ const cdrContextGroups: ContextSidebarGroup[] = [
     {
         groupTitle: 'Telephony',
         items: [
-            { title: 'Call Records (CDR)', href: '/admin/cdr', icon: RiPhoneLine, capability: 'cdr.view' },
-            { title: 'Call Campaigns', href: '/admin/campaigns', icon: RiExportLine, capability: 'campaigns.view' },
-            { title: 'Reports & Analytics', href: '/admin/reports', icon: RiDownload2Line, capability: 'reports.view' },
+            { title: 'Call Records (CDR)', href: '/admin/cdr', icon: 'call-records', capability: 'cdr.view' },
+            { title: 'Call Campaigns', href: '/admin/campaigns', icon: 'campaigns', capability: 'campaigns.view' },
+            { title: 'Reports & Analytics', href: '/admin/reports', icon: 'reports', capability: 'reports.view' },
         ],
     },
 ];

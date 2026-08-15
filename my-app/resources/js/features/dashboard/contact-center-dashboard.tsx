@@ -1,5 +1,5 @@
 import { Head } from '@inertiajs/react';
-import { RiRefreshLine, RiDashboardLine } from '@remixicon/react';
+import { RiRefreshLine } from '@remixicon/react';
 import React from 'react';
 import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
 import { Button } from '@/components/ui/button';
@@ -17,7 +17,7 @@ const dashboardContextGroups: ContextSidebarGroup[] = [
             {
                 title: 'Dashboard',
                 href: '/dashboard',
-                icon: RiDashboardLine,
+                icon: 'dashboard',
                 capability: 'dashboard.view',
             },
         ],

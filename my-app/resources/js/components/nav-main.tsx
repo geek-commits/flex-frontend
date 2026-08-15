@@ -1,4 +1,5 @@
 import { Link } from '@inertiajs/react';
+import { FlexIcon } from '@/components/flex/iconography';
 import {
     SidebarGroup,
     SidebarGroupLabel,
@@ -30,7 +31,11 @@ export function NavMain({
                             tooltip={{ children: item.title }}
                         >
                             <Link href={item.href} prefetch>
-                                {item.icon && <item.icon />}
+                                {typeof item.icon === 'string' ? (
+                                    <FlexIcon name={item.icon} />
+                                ) : (
+                                    item.icon && <item.icon />
+                                )}
                                 <span>{item.title}</span>
                             </Link>
                         </SidebarMenuButton>

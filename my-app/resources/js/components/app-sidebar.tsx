@@ -1,10 +1,5 @@
 import { Link } from '@inertiajs/react';
-import {
-    RiDashboard3Line,
-    RiPhoneFindLine,
-    RiMegaphoneLine,
-    RiCustomerServiceLine,
-} from '@remixicon/react';
+
 import { FlexBrandLogo, FlexBrandMark } from '@/components/flex/brand';
 import { useBrandIntroReplayGuard } from '@/components/flex/brand/use-brand-intro-replay-guard';
 import { NavMain } from '@/components/nav-main';
@@ -26,22 +21,22 @@ const mainNavItems: NavItem[] = [
     {
         title: 'Contact Center Dashboard',
         href: dashboard(),
-        icon: RiDashboard3Line,
+        icon: 'dashboard',
     },
     {
         title: 'Call Records (CDR)',
         href: '/admin/cdr',
-        icon: RiPhoneFindLine,
+        icon: 'call-records',
     },
     {
         title: 'Call Campaigns',
         href: '/admin/campaigns',
-        icon: RiMegaphoneLine,
+        icon: 'campaigns',
     },
     {
         title: 'Agent Workspace',
         href: '/agent',
-        icon: RiCustomerServiceLine,
+        icon: 'agent-workspace',
     },
 ];
 

@@ -1,21 +1,23 @@
 import { Head } from '@inertiajs/react';
 import {
-    RiDatabase2Line,
-    RiShieldCheckLine,
-    RiRouterLine,
-    RiMailLine,
-    RiSurveyLine,
+
+
+
+
+
     RiRefreshLine,
     RiCheckboxCircleLine,
     RiAlertLine,
     RiCloseCircleLine,
     RiServerLine,
-    RiCpuLine,
-    RiHardDriveLine,
-    RiWifiLine,
+
+
+
 } from '@remixicon/react';
 import React from 'react';
 import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
+import { FlexIcon } from '@/components/flex/iconography';
+import type { FlexIconName } from '@/components/flex/iconography';
 import { MetricCard, MetricGroup } from '@/components/flex/metric-card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -30,7 +32,7 @@ interface ServiceStatus {
     status: ServiceHealth;
     latencyMs?: number;
     lastChecked: string;
-    icon: React.ComponentType<{ className?: string }>;
+    icon: FlexIconName;
 }
 
 function HealthBadge({ status }: { status: ServiceHealth }) {
@@ -66,22 +68,22 @@ const systemContextGroups: ContextSidebarGroup[] = [
     {
         groupTitle: 'Operations',
         items: [
-            { title: 'System & Infrastructure', href: '/admin/system', icon: RiServerLine, capability: 'system.view' },
-            { title: 'Reports & Analytics', href: '/admin/reports', icon: RiDatabase2Line, capability: 'reports.view' },
-            { title: 'AI Center', href: '/admin/ai', icon: RiCpuLine, capability: 'ai.view' },
+            { title: 'System & Infrastructure', href: '/admin/system', icon: 'infrastructure', capability: 'system.view' },
+            { title: 'Reports & Analytics', href: '/admin/reports', icon: 'reports', capability: 'reports.view' },
+            { title: 'AI Center', href: '/admin/ai', icon: 'ai-center', capability: 'ai.view' },
         ],
     },
     {
         groupTitle: 'Administration',
         items: [
-            { title: 'Management Console', href: '/admin/console', icon: RiShieldCheckLine, capability: 'console.view' },
-            { title: 'Call Records (CDR)', href: '/admin/cdr', icon: RiHardDriveLine, capability: 'cdr.view' },
-            { title: 'Call Campaigns', href: '/admin/campaigns', icon: RiWifiLine, capability: 'campaigns.view' },
+            { title: 'Management Console', href: '/admin/console', icon: 'management-console', capability: 'console.view' },
+            { title: 'Call Records (CDR)', href: '/admin/cdr', icon: 'call-records', capability: 'cdr.view' },
+            { title: 'Call Campaigns', href: '/admin/campaigns', icon: 'campaigns', capability: 'campaigns.view' },
         ],
     },
     {
         groupTitle: 'Security',
-        items: [{ title: 'Account Security', href: '/settings/security', icon: RiShieldCheckLine, capability: 'settings.manage' }],
+        items: [{ title: 'Account Security', href: '/settings/security', icon: 'security', capability: 'settings.manage' }],
     },
 ];
 
@@ -93,7 +95,7 @@ export default function SystemPage() {
             status: 'operational',
             latencyMs: 12,
             lastChecked: '30s ago',
-            icon: RiRouterLine,
+            icon: 'routes',
         },
         {
             name: 'Secondary SIP Trunk — TTCL',
@@ -101,7 +103,7 @@ export default function SystemPage() {
             status: 'operational',
             latencyMs: 18,
             lastChecked: '30s ago',
-            icon: RiRouterLine,
+            icon: 'routes',
         },
         {
             name: 'WebRTC Media Server',
@@ -109,7 +111,7 @@ export default function SystemPage() {
             status: 'operational',
             latencyMs: 4,
             lastChecked: '30s ago',
-            icon: RiWifiLine,
+            icon: 'infrastructure',
         },
         {
             name: 'Database — MySQL Primary',
@@ -117,7 +119,7 @@ export default function SystemPage() {
             status: 'operational',
             latencyMs: 2,
             lastChecked: '30s ago',
-            icon: RiDatabase2Line,
+            icon: 'backups',
         },
         {
             name: 'Database — MySQL Replica',
@@ -125,7 +127,7 @@ export default function SystemPage() {
             status: 'degraded',
             latencyMs: 145,
             lastChecked: '30s ago',
-            icon: RiDatabase2Line,
+            icon: 'backups',
         },
         {
             name: 'SSL / TLS Certificate',
@@ -133,7 +135,7 @@ export default function SystemPage() {
             status: 'operational',
             latencyMs: undefined,
             lastChecked: '5m ago',
-            icon: RiShieldCheckLine,
+            icon: 'security',
         },
         {
             name: 'Mail Gateway (SMTP)',
@@ -141,7 +143,7 @@ export default function SystemPage() {
             status: 'operational',
             latencyMs: 35,
             lastChecked: '5m ago',
-            icon: RiMailLine,
+            icon: 'mail',
         },
         {
             name: 'Survey Monitoring Daemon',
@@ -149,7 +151,7 @@ export default function SystemPage() {
             status: 'operational',
             latencyMs: undefined,
             lastChecked: '2m ago',
-            icon: RiSurveyLine,
+            icon: 'surveys',
         },
     ];
 
@@ -177,7 +179,7 @@ export default function SystemPage() {
                 {/* 1. Infrastructure Health Overview */}
                 <div className="flex flex-col gap-2.5">
                     <h2 className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
-                        <RiServerLine className="size-4 text-primary" />
+                        <FlexIcon name="infrastructure" className="text-primary" />
                         <span>Infrastructure Health Overview</span>
                     </h2>
                     <MetricGroup>
@@ -213,7 +215,7 @@ export default function SystemPage() {
                     <Card className="bg-card border-border shadow-2xs">
                         <CardHeader className="p-4 pb-2 border-b border-border">
                             <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
-                                <RiCpuLine className="size-4 text-primary" />
+                                <FlexIcon name="server-resources" className="text-primary" />
                                 Server Resources
                             </CardTitle>
                         </CardHeader>
@@ -246,7 +248,7 @@ export default function SystemPage() {
                     <Card className="bg-card border-border shadow-2xs">
                         <CardHeader className="p-4 pb-2 border-b border-border">
                             <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
-                                <RiHardDriveLine className="size-4 text-primary" />
+                                <FlexIcon name="backup-status" className="text-primary" />
                                 Backup Status
                             </CardTitle>
                         </CardHeader>
@@ -274,7 +276,7 @@ export default function SystemPage() {
                 <Card className="bg-card border-border shadow-2xs">
                     <CardHeader className="p-4 pb-2 border-b border-border">
                         <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
-                            <RiWifiLine className="size-4 text-primary" />
+                            <FlexIcon name="service-health" className="text-primary" />
                             Service Health Matrix
                         </CardTitle>
                     </CardHeader>
@@ -290,14 +292,12 @@ export default function SystemPage() {
                             </thead>
                             <tbody className="divide-y divide-border">
                                 {services.map((svc) => {
-                                    const Icon = svc.icon;
-
                                     return (
                                         <tr key={svc.name} className="hover:bg-muted/30">
                                             <td className="py-3">
                                                 <div className="flex items-center gap-2">
                                                     <div className="p-1.5 rounded-md bg-muted/50 text-muted-foreground shrink-0">
-                                                        <Icon className="size-3.5" />
+                                                        <FlexIcon name={svc.icon} size="sm" />
                                                     </div>
                                                     <div>
                                                         <div className="font-semibold text-foreground">{svc.name}</div>

@@ -1,8 +1,8 @@
 import { Link, usePage } from '@inertiajs/react';
-import { RiMoonLine, RiSunLine } from '@remixicon/react';
 import React from 'react';
 import { NAVIGATION, useCapabilities } from '@/auth/capabilities';
 import { FlexBrandMark } from '@/components/flex/brand';
+import { FlexIcon } from '@/components/flex/iconography';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useAppearance } from '@/hooks/use-appearance';
 import type { User } from '@/types';
@@ -40,7 +40,6 @@ export function PrimaryRail({ currentPath, activeWorkspace = 'admin' }: PrimaryR
                     <nav className="flex flex-col items-center gap-1.5 w-full px-2">
                         {navItems.map((item) => {
                             const isActive = url.startsWith(item.href) || (item.href === '/dashboard' && url === '/');
-                            const Icon = item.icon;
 
                             return (
                                 <Tooltip key={item.href}>
@@ -54,7 +53,7 @@ export function PrimaryRail({ currentPath, activeWorkspace = 'admin' }: PrimaryR
                                                         : 'text-muted-foreground hover:text-foreground hover:bg-muted/70'
                                                 }`}
                                             >
-                                                <Icon className="size-5" />
+                                                <FlexIcon name={item.icon} className="size-5" />
                                                 {item.badge && (
                                                     <span className="absolute -top-1 -right-1 px-1 py-0.2 text-[9px] font-bold rounded-full bg-status-ready text-white">
                                                         {item.badge}
@@ -81,7 +80,7 @@ export function PrimaryRail({ currentPath, activeWorkspace = 'admin' }: PrimaryR
                                     onClick={toggleTheme}
                                     className="flex items-center justify-center size-10 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/70 transition-colors duration-flex-fast flex-focus-visible"
                                 >
-                                    {appearance === 'dark' ? <RiSunLine className="size-5" /> : <RiMoonLine className="size-5" />}
+                                    <FlexIcon name={appearance === 'dark' ? 'sun' : 'moon'} className="size-5" />
                                 </button>
                             }
                         />

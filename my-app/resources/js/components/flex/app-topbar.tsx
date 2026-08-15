@@ -1,9 +1,11 @@
 import { Link, usePage } from '@inertiajs/react';
-import { RiWifiLine, RiTimeLine, RiMenuLine, RiDashboard3Line, RiCustomerServiceLine, RiPhoneFindLine, RiMegaphoneLine, RiFileChartLine, RiRobotLine, RiServerLine, RiSettings4Line } from '@remixicon/react';
+import { RiWifiLine, RiTimeLine, RiMenuLine } from '@remixicon/react';
 import React, { useState, useEffect } from 'react';
+import { useCapabilities } from '@/auth/capabilities';
 import { FlexBrandLogo } from '@/components/flex/brand';
 import { useBrandIntroReplayGuard } from '@/components/flex/brand/use-brand-intro-replay-guard';
 import { GlobalSearchTrigger } from '@/components/flex/global-search';
+import { FlexIcon } from '@/components/flex/iconography';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
@@ -33,6 +35,7 @@ export function AppTopbar({
     const { url, props } = usePage();
     const user = props.auth?.user as User | undefined;
     const animateOnMount = useBrandIntroReplayGuard();
+    const { navEntries } = useCapabilities();
     const [seconds, setSeconds] = useState(319); // 00:05:19 initial demonstration counter
 
     useEffect(() => {
@@ -60,17 +63,7 @@ export function AppTopbar({
     const currentAgentConfig = agentStateMap[agentState];
     const connConfig = connectionStateMap[connectionState];
 
-    const mobileNavItems = [
-        { title: 'Agent Workspace', href: '/agent', icon: RiCustomerServiceLine },
-        { title: 'Contact Center Dashboard', href: '/dashboard', icon: RiDashboard3Line },
-        { title: 'Management Console', href: '/admin/console', icon: RiMegaphoneLine },
-        { title: 'Call Records (CDR)', href: '/admin/cdr', icon: RiPhoneFindLine },
-        { title: 'Call Campaigns', href: '/admin/campaigns', icon: RiMegaphoneLine },
-        { title: 'Reports & Analytics', href: '/admin/reports', icon: RiFileChartLine },
-        { title: 'AI Center', href: '/admin/ai', icon: RiRobotLine },
-        { title: 'System Infrastructure', href: '/admin/system', icon: RiServerLine },
-        { title: 'Settings', href: '/settings/profile', icon: RiSettings4Line },
-    ];
+    const mobileNavItems = navEntries;
 
     return (
         <header className="h-14 bg-card border-b border-border px-4 flex items-center justify-between sticky top-0 z-20 shrink-0 select-none">
@@ -91,7 +84,6 @@ export function AppTopbar({
                         <nav className="flex flex-col gap-1 mt-2">
                             {mobileNavItems.map((item) => {
                                 const isActive = url.startsWith(item.href);
-                                const Icon = item.icon;
 
                                 return (
                                     <Link
@@ -103,7 +95,7 @@ export function AppTopbar({
                                                 : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                                         }`}
                                     >
-                                        <Icon className="size-4" />
+                                        <FlexIcon name={item.icon} className="size-4" />
                                         <span>{item.title}</span>
                                     </Link>
                                 );

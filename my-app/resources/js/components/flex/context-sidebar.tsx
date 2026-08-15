@@ -1,14 +1,15 @@
 import { Link, usePage } from '@inertiajs/react';
-import { RiSearchLine } from '@remixicon/react';
 import React, { useMemo, useState } from 'react';
 import { useCapabilities  } from '@/auth/capabilities';
-import type {Capability} from '@/auth/capabilities';
+import type { Capability } from '@/auth/capabilities';
+import type { FlexIconName } from '@/components/flex/iconography';
+import { FlexIcon } from '@/components/flex/iconography';
 import { Input } from '@/components/ui/input';
 
 export interface ContextSidebarItem {
     title: string;
     href: string;
-    icon?: React.ComponentType<{ className?: string }>;
+    icon?: FlexIconName | React.ComponentType<{ className?: string }>;
     badge?: string | number;
     capability?: Capability;
 }
@@ -52,7 +53,7 @@ export function ContextSidebar({ title, subtitle, groups }: ContextSidebarProps)
             </div>
 
             <div className="relative mb-3 px-1">
-                <RiSearchLine className="absolute left-3.5 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground" />
+                <FlexIcon name="search" size="sm" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
                 <Input
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
@@ -85,7 +86,11 @@ export function ContextSidebar({ title, subtitle, groups }: ContextSidebarProps)
                                     }`}
                                 >
                                     <div className="flex items-center gap-2 truncate">
-                                        {Icon && <Icon className="size-4 shrink-0" />}
+                                        {typeof Icon === 'string' ? (
+                                            <FlexIcon name={Icon} size="md" className="shrink-0" />
+                                        ) : (
+                                            Icon && <Icon className="size-4 shrink-0" />
+                                        )}
                                         <span className="truncate">{item.title}</span>
                                     </div>
                                     {item.badge !== undefined && (

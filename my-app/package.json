@@ -10,7 +10,8 @@
         "format:check": "prettier --check resources/",
         "lint": "eslint . --fix",
         "lint:check": "eslint .",
-        "types:check": "tsc --noEmit"
+        "types:check": "tsc --noEmit",
+        "icons:audit": "python3 resources/assets/flex/brand/validate-svg-sources.py resources/assets/flex/brand"
     },
     "devDependencies": {
         "@eslint/js": "^9.19.0",

@@ -1,5 +1,5 @@
 import { Head } from '@inertiajs/react';
-import { RiDashboardLine } from '@remixicon/react';
+
 import React from 'react';
 import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
@@ -18,7 +18,7 @@ const monitoringContextGroups: ContextSidebarGroup[] = [
             {
                 title: 'Dashboard',
                 href: '/dashboard',
-                icon: RiDashboardLine,
+                icon: 'dashboard',
                 capability: 'dashboard.view',
             },
             {

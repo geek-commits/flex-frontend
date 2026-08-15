@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react';
 import { RiArrowRightSLine } from '@remixicon/react';
 import React from 'react';
+import { FlexIcon } from '@/components/flex/iconography';
 import type { ModuleEntry } from '@/domain/modules';
 
 export interface ConsoleModuleItemProps {
@@ -12,7 +13,6 @@ export interface ConsoleModuleItemProps {
  * The entire row is the link; destinations are internal FLEX routes.
  */
 export function ConsoleModuleItem({ module }: ConsoleModuleItemProps) {
-    const Icon = module.icon;
 
     return (
         <Link
@@ -23,7 +23,7 @@ export function ConsoleModuleItem({ module }: ConsoleModuleItemProps) {
                 className="flex size-8 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary transition-colors duration-flex-fast group-hover:bg-primary/15"
                 aria-hidden="true"
             >
-                <Icon className="size-[18px]" />
+                <FlexIcon name={module.icon} className="size-[18px]" />
             </span>
             <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                 <span className="text-[length:var(--flex-font-size-card-title)] font-semibold leading-tight text-foreground">
