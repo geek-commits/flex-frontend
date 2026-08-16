@@ -58,7 +58,7 @@ export function AgentOperationalHeader({
                     <SheetContent side="left" className="w-64 p-4 flex flex-col gap-4">
                         <SheetHeader>
                             <SheetTitle className="text-left">
-                                <FlexBrandLogo width={160} animateOnMount={animateOnMount} decorative />
+                                <FlexBrandLogo variant="sidebar" animateOnMount={animateOnMount} decorative />
                             </SheetTitle>
                         </SheetHeader>
                         <nav className="flex flex-col gap-1 mt-2">

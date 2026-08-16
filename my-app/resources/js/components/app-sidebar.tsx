@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react';
 
-import { FlexBrandLogo, FlexBrandMark } from '@/components/flex/brand';
+import { FlexBrandLogo } from '@/components/flex/brand';
 import { useBrandIntroReplayGuard } from '@/components/flex/brand/use-brand-intro-replay-guard';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
@@ -53,9 +53,9 @@ export function AppSidebar() {
                         <SidebarMenuButton size="lg" asChild>
                             <Link href={dashboard()} prefetch>
                                 {expanded ? (
-                                    <FlexBrandLogo width={100} animateOnMount={animateOnMount} decorative />
+                                    <FlexBrandLogo variant="sidebar" animateOnMount={animateOnMount} decorative />
                                 ) : (
-                                    <FlexBrandMark size={26} standalone={false} />
+                                    <FlexBrandLogo variant="collapsed" decorative />
                                 )}
                             </Link>
                         </SidebarMenuButton>

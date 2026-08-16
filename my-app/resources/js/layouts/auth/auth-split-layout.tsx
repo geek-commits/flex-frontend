@@ -17,7 +17,7 @@ export default function AuthSplitLayout({
                     href={home()}
                     className="relative z-20 flex items-center"
                 >
-                    <FlexBrandLogo width={176} variant="login" />
+                    <FlexBrandLogo variant="auth" />
                 </Link>
             </div>
             <div className="w-full lg:p-8">
@@ -26,7 +26,7 @@ export default function AuthSplitLayout({
                         href={home()}
                         className="relative z-20 flex items-center justify-center lg:hidden"
                     >
-                        <FlexBrandLogo width={176} variant="login" />
+<FlexBrandLogo variant="auth" />
                     </Link>
                     <div className="flex flex-col items-start gap-2 text-left sm:items-center sm:text-center">
                         <h1 className="text-xl font-medium">{title}</h1>

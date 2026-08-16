@@ -18,7 +18,7 @@ export default function AuthSimpleLayout({
                             className="flex flex-col items-center gap-2 font-medium"
                         >
                             <div className="mb-1 flex items-center justify-center">
-                                <FlexBrandLogo variant="login" width={176} decorative />
+                                <FlexBrandLogo variant="auth" decorative />
                             </div>
                             <span className="sr-only">{title}</span>
                         </Link>
