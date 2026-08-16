@@ -49,7 +49,7 @@ export function ConversationRow({ conversation, active, onSelect }: Conversation
             <div className="flex items-center gap-2">
                 {conversation.followUp && <FlexStatus tone="info">Follow-up</FlexStatus>}
                 {conversation.escalated && <FlexStatus tone="warning">Escalated</FlexStatus>}
-                <span className="text-[11px] text-muted-foreground ml-auto">{lastActivity}</span>
+                <span className="text-[11px] text-muted-foreground ml-auto whitespace-nowrap">{lastActivity}</span>
             </div>
         </button>
     );

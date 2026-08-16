@@ -135,13 +135,13 @@ Treat as external/integration-owned. Do not redesign blindly (plan §7).
 
 | ID | Feature | Manual | Evidence | Lifecycle | Notes |
 |---|---|---|---|---|---|
-| SOCIAL-001 | Flex Social Interface | YES | — | NOT_PRESENT (POC) | audit |
-| SOCIAL-002…004 | Instagram / Facebook / WhatsApp | YES | — | NOT_PRESENT (POC) | connected channels unverified |
-| SOCIAL-005 | Unified incoming messages | YES | — | NOT_PRESENT (POC) | |
-| SOCIAL-006 | Reply | YES | — | NOT_PRESENT (POC) | |
-| SOCIAL-007 | Tag/follow-up | YES | — | NOT_PRESENT (POC) | |
-| SOCIAL-008 | Escalate to supervisor | YES | — | NOT_PRESENT (POC) | |
-| SOCIAL-009 | Response templates | MANUAL TIP | — | NOT_PRESENT | not confirmed without code |
+| SOCIAL-001 | Flex Social Interface | YES | `/agent/social`, `features/social/social-workspace-page.tsx`, `social.view` capability | SHIPPED (POC) | Agent workspace unified inbox; AgentShell + AgentOperationalHeader; split view desktop / list→detail mobile |
+| SOCIAL-002…004 | Instagram / Facebook / WhatsApp | YES | `SOCIAL_CHANNELS` in `features/social/social-constants.ts`, `ChannelBadge` | SHIPPED (POC) | channel filters All/IG/FB/WA; provider identity by name, no provider behavior invented |
+| SOCIAL-005 | Unified incoming messages | YES | `features/social/social-repository.ts`, `data/social.mock.ts`, `MessageTimeline` | SHIPPED (POC) | deterministic 5-conversation mock; unified timeline; channel text visible, never color-only |
+| SOCIAL-006 | Reply | YES | `social-composer.tsx`, `socialRepository.sendReply` | SHIPPED (POC) | plain-text reply; pending/disabled guard; draft preserved; error surfaced |
+| SOCIAL-007 | Tag/follow-up | YES | `follow-up-controls.tsx`, `socialRepository.setFollowUp` | SHIPPED (POC) | follow-up flag toggled; shown in row + detail |
+| SOCIAL-008 | Escalate to supervisor | YES | `follow-up-controls.tsx`, `socialRepository.escalate` | SHIPPED (POC) | escalate sets escalated + clears follow-up; state shown in row + detail; button disables |
+| SOCIAL-009 | Response templates | MANUAL TIP | — | NOT_PRESENT | manual tip only, not a runtime feature |
 
 ---
 
