@@ -3,6 +3,7 @@ import { CapabilityProvider } from '@/auth/capabilities';
 import { GlobalSearchProvider } from '@/components/flex/global-search';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import { TenantContextProvider } from '@/features/tenants/tenant-context';
 import { initializeTheme } from '@/hooks/use-appearance';
 import AppLayout from '@/layouts/app-layout';
 import AuthLayout from '@/layouts/auth-layout';
@@ -32,8 +33,10 @@ createInertiaApp({
         return (
             <TooltipProvider delay={0}>
                 <CapabilityProvider>
-                    <GlobalSearchProvider>{app}</GlobalSearchProvider>
-                    <Toaster />
+                    <TenantContextProvider>
+                        <GlobalSearchProvider>{app}</GlobalSearchProvider>
+                        <Toaster />
+                    </TenantContextProvider>
                 </CapabilityProvider>
             </TooltipProvider>
         );

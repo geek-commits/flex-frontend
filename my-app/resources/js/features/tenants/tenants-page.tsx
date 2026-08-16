@@ -10,6 +10,7 @@ import { dataGridFeatures } from '@/components/reui/data-grid/data-grid';
 import { Button } from '@/components/ui/button';
 import { tenantRepository } from '@/domain/tenant-repository';
 import type { TenantRecord, TenantStatus, TenantStatusFilter } from '@/features/tenants/shared/types';
+import { useTenantContext } from '@/features/tenants/tenant-context';
 import { TenantDetailSheet } from '@/features/tenants/tenant-detail-sheet';
 import { TenantFormSheet } from '@/features/tenants/tenant-form-sheet';
 import { TenantStatusDialog } from '@/features/tenants/tenant-status-dialog';
@@ -40,6 +41,8 @@ export function TenantsPage() {
     const [formOpen, setFormOpen] = useState(false);
     const [editingId, setEditingId] = useState<string>();
     const [statusTarget, setStatusTarget] = useState<{ id: string; status: TenantStatus }>();
+
+    const { enterTenant } = useTenantContext();
 
     const refresh = useCallback(() => {
         setIsLoading(true);
@@ -85,14 +88,22 @@ export function TenantsPage() {
         setStatusTarget({ id: tenant.id, status });
     }, []);
 
+    const openEnter = useCallback(
+        (tenant: TenantRecord) => {
+            enterTenant(tenant);
+        },
+        [enterTenant]
+    );
+
     const columns = useMemo(
         () =>
             tenantColumns({
                 onView: openDetail,
                 onEdit: openEdit,
+                onEnter: openEnter,
                 onSetStatus: openSetStatus,
             }),
-        [openDetail, openEdit, openSetStatus]
+        [openDetail, openEdit, openEnter, openSetStatus]
     );
 
     const [columnOrder, setColumnOrder] = useState<string[]>(() => columns.map((column) => column.id as string));
@@ -218,6 +229,7 @@ export function TenantsPage() {
                 tenant={records.find((record) => record.id === detailId)}
                 onOpenChange={(open) => !open && setDetailId(undefined)}
                 onEdit={openEdit}
+                onEnter={openEnter}
             />
 
             <TenantStatusDialog

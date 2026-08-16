@@ -1,4 +1,4 @@
-import { RiEditLine } from '@remixicon/react';
+import { RiEditLine, RiLoginCircleLine } from '@remixicon/react';
 import React from 'react';
 import { FlexDetailSheet } from '@/components/flex/flex-detail-sheet';
 import { FlexStatus } from '@/components/flex/flex-status';
@@ -10,6 +10,7 @@ export interface TenantDetailSheetProps {
     tenant?: TenantRecord;
     onOpenChange: (open: boolean) => void;
     onEdit?: (tenant: TenantRecord) => void;
+    onEnter?: (tenant: TenantRecord) => void;
 }
 
 function DetailRow({ label, children }: { label: string; children: React.ReactNode }) {
@@ -21,7 +22,7 @@ function DetailRow({ label, children }: { label: string; children: React.ReactNo
     );
 }
 
-export function TenantDetailSheet({ tenant, onOpenChange, onEdit }: TenantDetailSheetProps) {
+export function TenantDetailSheet({ tenant, onOpenChange, onEdit, onEnter }: TenantDetailSheetProps) {
     return (
         <FlexDetailSheet
             open={!!tenant}
@@ -29,19 +30,37 @@ export function TenantDetailSheet({ tenant, onOpenChange, onEdit }: TenantDetail
             title={tenant?.name ?? 'Tenant'}
             meta={tenant ? `${tenant.domain} · ${formatTenantDate(tenant.createdAt)}` : undefined}
             footer={
-                tenant && onEdit ? (
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        className="gap-1.5 text-xs"
-                        onClick={() => {
-                            onEdit(tenant);
-                            onOpenChange(false);
-                        }}
-                    >
-                        <RiEditLine className="size-3.5" />
-                        Edit Tenant
-                    </Button>
+                tenant && (onEdit || onEnter) ? (
+                    <>
+                        {onEnter && (
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                className="gap-1.5 text-xs"
+                                onClick={() => {
+                                    onEnter(tenant);
+                                    onOpenChange(false);
+                                }}
+                            >
+                                <RiLoginCircleLine className="size-3.5" />
+                                Enter Tenant
+                            </Button>
+                        )}
+                        {onEdit && (
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                className="gap-1.5 text-xs"
+                                onClick={() => {
+                                    onEdit(tenant);
+                                    onOpenChange(false);
+                                }}
+                            >
+                                <RiEditLine className="size-3.5" />
+                                Edit Tenant
+                            </Button>
+                        )}
+                    </>
                 ) : undefined
             }
         >

@@ -9,6 +9,7 @@ import { FlexIcon } from '@/components/flex/iconography';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { TenantContextIndicator } from '@/features/tenants/tenant-context-indicator';
 import { agentStateMap, connectionStateMap } from '@/lib/status-styles';
 import type { User } from '@/types';
 import type { AgentState, ConnectionState } from '@/types/flex';
@@ -122,6 +123,8 @@ export function AppTopbar({
             {/* Right Controls */}
             <div className="flex items-center gap-3">
                 {actions}
+
+                {mode === 'admin' && <TenantContextIndicator />}
 
                 <GlobalSearchTrigger />
 

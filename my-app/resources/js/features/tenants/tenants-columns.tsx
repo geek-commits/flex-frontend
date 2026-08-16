@@ -1,4 +1,4 @@
-import { RiMore2Line, RiUserStarLine } from '@remixicon/react';
+import { RiLoginCircleLine, RiMore2Line, RiUserStarLine } from '@remixicon/react';
 import type { ColumnDef } from '@tanstack/react-table';
 import { FlexStatus } from '@/components/flex/flex-status';
 import { SearchHighlight } from '@/components/flex/search-highlight';
@@ -17,16 +17,17 @@ import { Skeleton } from '@/components/ui/skeleton';
 import type { TenantRecord, TenantStatus } from '@/features/tenants/shared/types';
 import { formatTenantDate, TENANT_STATUS_LABELS, TENANT_STATUS_TONE } from '@/features/tenants/tenant-status';
 
-export type TenantRowAction = 'edit' | 'view' | 'setStatus';
+export type TenantRowAction = 'enter' | 'edit' | 'view' | 'setStatus';
 
 export interface TenantRowHandlers {
     onView: (tenant: TenantRecord) => void;
     onEdit: (tenant: TenantRecord) => void;
+    onEnter: (tenant: TenantRecord) => void;
     onSetStatus: (tenant: TenantRecord, status: TenantStatus) => void;
 }
 
 export function tenantColumns(handlers: TenantRowHandlers): ColumnDef<DataGridFeatures, TenantRecord>[] {
-    const { onView, onEdit, onSetStatus } = handlers;
+    const { onView, onEdit, onEnter, onSetStatus } = handlers;
 
     return [
         {
@@ -124,6 +125,10 @@ export function tenantColumns(handlers: TenantRowHandlers): ColumnDef<DataGridFe
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem className="text-xs" onSelect={() => onEdit(tenant)}>
                                     Edit tenant
+                                </DropdownMenuItem>
+                                <DropdownMenuItem className="text-xs" onSelect={() => onEnter(tenant)}>
+                                    <RiLoginCircleLine className="size-3.5" />
+                                    Enter tenant
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
                                 {tenant.status === 'active' ? (
