@@ -72,7 +72,7 @@ export function SocialComposer({ disabled, disabledReason, sending, error, onSen
                 </Button>
             </div>
 
-            {error && <p className="text-xs text-status-disconnected">{error}</p>}
+            {error && <p className="text-xs text-status-disconnected" role="alert">{error}</p>}
         </div>
     );
 }

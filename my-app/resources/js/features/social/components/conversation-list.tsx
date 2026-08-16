@@ -28,7 +28,7 @@ export function ConversationList({
     const filtered = filter === 'all' ? conversations : conversations.filter((c) => c.channel === filter);
 
     return (
-        <div className="flex flex-col h-full min-w-0">
+        <section aria-label="Social conversations" className="flex flex-col h-full min-w-0">
             <div className="px-3 py-2 border-b border-border flex items-center gap-1 flex-wrap">
                 <button
                     type="button"
@@ -55,7 +55,7 @@ export function ConversationList({
                 ))}
             </div>
 
-            <div className="flex-1 overflow-y-auto p-2 flex flex-col gap-0.5">
+            <div className="flex-1 overflow-y-auto p-2 flex flex-col gap-0.5" role="list">
                 {filtered.length === 0 ? (
                     <FlexEmptyState
                         title={filter === 'all' ? 'No conversations yet' : `No ${SOCIAL_CHANNEL_META[filter].label} conversations`}
@@ -77,6 +77,6 @@ export function ConversationList({
                     ))
                 )}
             </div>
-        </div>
+        </section>
     );
 }

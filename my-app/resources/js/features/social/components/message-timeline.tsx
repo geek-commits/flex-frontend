@@ -52,7 +52,11 @@ export function MessageTimeline({ messages, loading, error, onRetry }: MessageTi
     }
 
     return (
-        <div className="flex flex-col gap-3 overflow-y-auto p-4 min-h-0">
+        <div
+            className="flex flex-col gap-3 overflow-y-auto p-4 min-h-0"
+            role="log"
+            aria-label="Conversation messages"
+        >
             {messages.map((message) => (
                 <MessageBubble key={message.id} message={message} />
             ))}
