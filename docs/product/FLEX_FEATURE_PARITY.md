@@ -244,7 +244,28 @@ Treat as external/integration-owned. Do not redesign blindly (plan §7).
 | Roles & Permissions (roles/permissions/module visibility/ops/role-permission map; tenant-restricted admin) | YES | `features/access-management/roles/*`; `/admin/roles`; `auth/capabilities.tsx` | CONFIRMED_FRONTEND → REVAMPED | Roles/Permissions tabs; roles directory with real permission counts from capability registry; grouped permission assignment; read-only permission catalog + Add Permission (types derived from real tokens); backend enforcement unverified |
 | Subscriptions (remaining days/reminders/expiry/payment/search) | YES | `features/subscriptions/*`; `/admin/subscription` | MANUAL_ONLY → REVAMPED | FLEX Subscriptions v0.1: account directory with remaining days countdown, 5-day expiry warning, plan & seats breakdown, billing cycle tracking, manual reminder dispatch, term renewal dialog. Mock `SubscriptionRepository`. |
 | Mail Configuration (from/SMTP/port/encryption/user/status/test/send/active) | YES | `features/mail-config/*`; `/admin/mail-config` | MANUAL_ONLY → REVAMPED | FLEX Mail Configuration v0.1: SMTP host/port/encryption setup, write-only password security, live connection status banner, socket handshake test action, delivery test email action, operational cross-link with Subscriptions. Mock `MailRepository`. |
-| Tenants / Super Admin (tenant mgmt, add/edit/enable/disable/config, switch/view/exit context) | YES | `domain/modules.ts` (`/admin/tenants`), Super Admin role | MANUAL_ONLY → CONFIRMED_FRONTEND | tenant-kind boundary; switch UX not implemented |
+| Tenants / Super Admin (tenant mgmt, add/edit/enable/disable/config, switch/view/exit context) | YES | `features/tenants/*`, `/admin/tenants`, `domain/tenant-repository.ts`, `data/tenants.mock.ts`, `auth/capabilities.tsx` | MANUAL_ONLY → REVAMPED (frontend POC) | FLEX Tenants + Super Admin v0.1: canonical platform directory (search/status filter/table/status/actions), add/edit sheets, detail sheet, consequence-aware enable/disable confirm, persistent platform/tenant context indicator + Enter/Return workflow. Mock `TenantRepository`; **no tenant backend** — real CRUD, status semantics, context switch and authorization are DEFERRED (backend authoritative in rollout). |
+
+---
+
+# 11b. PLATFORM / SUPER ADMIN PARITY (PLATFORM-001…009)
+
+Super Administrator platform scope and tenant management. Backend authorization and tenant
+isolation are **not yet implemented** (GAP-004); the frontend POC surface is built on a mock
+`TenantRepository` and the existing localStorage capability layer. `roles.manage` (super-admin
+only) gates the Tenants surface.
+
+| ID | Feature | Manual | Evidence | Lifecycle | Notes |
+|---|---|---|---|---|---|
+| PLATFORM-001 | Super Administrator role | YES | `auth/capabilities.tsx` (`super-admin` → ALL); `/admin/tenants` gated on `roles.manage` | CONFIRMED_FRONTEND → REVAMPED (POC) | role is frontend-only POC (localStorage `flex.poc.role`); **real backend super-admin authority DEFERRED** — backend remains authoritative |
+| PLATFORM-002 | Tenant Management | YES | `features/tenants/*`; `/admin/tenants` | MANUAL_ONLY → REVAMPED (frontend POC) | canonical platform directory: search/status filter/table/status/actions/loading/empty/error |
+| PLATFORM-003 | Add tenant | YES | `features/tenants/tenant-form-sheet.tsx` (`Create Tenant`) | REVAMPED (frontend POC) | schema is POC-defined (name/email/domain/contact/phone); **real backend schema DEFERRED** |
+| PLATFORM-004 | Edit tenant | YES | `features/tenants/tenant-form-sheet.tsx` (`Save Changes`) | REVAMPED (frontend POC) | authoritative row data; refresh directory after save |
+| PLATFORM-005 | Enable / disable tenant | YES | `features/tenants/tenant-status-dialog.tsx` | REVAMPED (frontend POC) | consequence-aware confirm; **exact backend consequences unknown (GAP-004)** |
+| PLATFORM-006 | Update tenant configuration | PARTIAL | — | NOT_PRESENT IN RUNTIME | no config surface or model exists; **DEFERRED** pending backend |
+| PLATFORM-007 | Switch tenant context | YES | `features/tenants/*` + context indicator (Enter / Return to Platform) | REVAMPED (frontend POC) | context is POC state only; **no server-side switch exists — real switch DEFERRED** |
+| PLATFORM-008 | View tenant context | YES | `features/tenants/tenant-detail-sheet.tsx` | REVAMPED (frontend POC) | read-only detail via `FlexDetailSheet` |
+| PLATFORM-009 | Exit tenant context | PARTIAL | Return to Platform affordance (context indicator) | CONFIRMED_FRONTEND (POC) | no backend exit endpoint; **DEFERRED** — POC restores Platform context locally |
 
 ---
 
@@ -267,7 +288,7 @@ Maintained during audits. Unresolved entries are kept (do not delete to look gre
 | GAP-001 | BACKEND_CAPABILITY_UNKNOWN | SUP-MON-007…010 | Call Whispering has no proven backend/telephony capability | HIGH | telephony audit before any whisper UI |
 | GAP-002 | NEEDS_PRODUCT_DECISION | AGENT-CALL-011 | Warm Transfer documented in manual, no runtime consultation state | HIGH | product + telephony decision |
 | GAP-003 | EXTERNAL_BOUNDARY_UNKNOWN | CRM-001…012 | CRM family ownership (external vs embedded) unverified | HIGH | integration ownership audit |
-| GAP-004 | TENANT_SCOPE_UNKNOWN | Tenants family | tenant switch/view/exit UX not implemented; boundary mapping required before admin revamps | HIGH | auth/tenant audit |
+| GAP-004 | TENANT_SCOPE_UNKNOWN | Tenants family | tenant switch/view/exit UX now a frontend POC (`features/tenants/*`, context indicator); **no tenant backend** — real switch, status semantics, authorization, isolation and telephony safety still unknown | HIGH | auth/tenant backend audit before real context switch |
 | GAP-005 | ROUTE_MISMATCH | Management Console family | most `domain/modules.ts` routes resolve to placeholder pages (`admin/{module}`) — console directory itself is real; queues/ivr/time-groups/time-conditions/users/roles/recordings/subscriptions/mail-config now revamped | MEDIUM | surface-first evidence per module (remaining: tenants, agents, stats, charts, etc.) |
 | GAP-006 | UNKNOWN_BACKEND | Agent metrics (AGENT-005…018), Subscriptions, Mail | Reports + Scheduled Reports + Subscriptions + Mail shipped as REVAMPED mock-adapter surfaces; backend still absent for these | MEDIUM | repository/runtime audit on backend rollout |
 | GAP-007 | PLAN_EXISTS_NOT_IMPLEMENTED | none at baseline | all 7 prior revamps verified shipped | CLOSED | — |
@@ -284,7 +305,8 @@ After `MANAGEMENT_CONSOLE_PLAN.md` execution (`7827cb8` → `5a84f0d`):
 | Console route/module registry | ✅ | `pages/admin/management-console.tsx`, `domain/modules.ts`, `features/management-console/*` |
 | Search behavior | ✅ | `features/management-console/console-search.tsx` + `use-visible-modules.ts` |
 | Module permission visibility | ⚠️ frontend only | `capabilities.tsx` Capability model; backend enforcement unverified |
-| Tenant context behavior | ⬜ | not implemented (GAP-004); document-only per Phase 6 |
+| Tenant context behavior | ⚠️ frontend POC | `features/tenants/*` + context indicator; no tenant backend — real switch/authority deferred (GAP-004) |
+| Tenants route | ✅ | `/admin/tenants` revamped (mock `TenantRepository`); `features/tenants/*` |
 | Queue route | ✅ | `/admin/queues` revamped (mock `RoutingRepository`); `features/routing/queues/*` |
 | IVR route | ✅ | `/admin/ivr` revamped; `features/routing/ivr/*` |
 | Time Group / Time Condition route | ✅ | `/admin/time-groups` + `/admin/time-conditions` revamped; `features/routing/time-groups/*`, `time-conditions/*` |
@@ -310,7 +332,7 @@ After `MANAGEMENT_CONSOLE_PLAN.md` execution (`7827cb8` → `5a84f0d`):
 5. ~~Callback + Voicemail (Customer Recovery)~~ ✅ shipped (`d990b9e` → `9474c81`)
 6. ~~Recordings & Audio Prompts~~ ✅ shipped (`07ac7a1`)
 7. ~~Subscription + Mail Configuration~~ ✅ shipped (`features/subscriptions/*`, `features/mail-config/*`)
-8. Tenant / Super Admin
+8. ~~Tenant / Super Admin~~ ✅ frontend POC shipped (`features/tenants/*`, mock `TenantRepository`); backend authority/switch DEFERRED (GAP-004)
 9. Agent Dashboard
 10. Social / Omnichannel
 11. AI Center / AI extensions
