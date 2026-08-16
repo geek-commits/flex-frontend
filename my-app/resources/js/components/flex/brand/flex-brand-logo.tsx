@@ -44,7 +44,6 @@ export function FlexBrandLogo({
             replayOnHover={false}
             loop={false}
             durationScale={durationScale}
-            viewBox="10 62 168 74"
             ariaLabel={decorative ? undefined : 'FLEX'}
             aria-hidden={decorative ? true : undefined}
         />
