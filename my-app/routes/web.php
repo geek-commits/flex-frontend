@@ -47,3 +47,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 require __DIR__.'/settings.php';
+
+// Dev-only surfaces — never registered in production.
+if (app()->environment(['local', 'testing'])) {
+    Route::inertia('dev/brand-preview', 'dev/brand-preview')->name('dev.brand-preview');
+}
