@@ -21,7 +21,6 @@ import {
     RiChatSmileLine,
     RiBookOpenLine,
     RiBrainLine,
-    RiSparklingLine,
     RiCpuLine,
     RiToolsLine,
 } from '@remixicon/react';
@@ -91,6 +90,10 @@ export type FlexIconName =
     | 'knowledge-base'
     | 'voice-assistants'
     | 'ai-snapshot'
+    | 'ai-overview'
+    | 'ai-audit'
+    | 'ai-providers'
+    | 'ai-usage'
     | 'server-resources'
     | 'backup-status'
     | 'service-health'
@@ -149,7 +152,11 @@ export const FLEX_ICON_REGISTRY: Record<FlexIconName, FlexIconComponent> = {
     'ai-copilot': AssistantAvatar,
     'knowledge-base': RiBookOpenLine,
     'voice-assistants': RiBrainLine,
-    'ai-snapshot': RiSparklingLine,
+    'ai-snapshot': RiFileChartLine,
+    'ai-overview': Bot,
+    'ai-audit': RiFileSettingsLine,
+    'ai-providers': RiCpuLine,
+    'ai-usage': RiFileChartLine,
     'server-resources': RiCpuLine,
     'backup-status': CloudBackup,
     'service-health': Gauge,

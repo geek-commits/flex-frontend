@@ -16,7 +16,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('admin/reports', 'admin/reports')->name('admin.reports');
     Route::inertia('admin/settings', 'admin/settings')->name('admin.settings');
     Route::inertia('admin/system', 'admin/system')->name('admin.system');
-    Route::inertia('admin/ai', 'admin/ai')->name('admin.ai');
+    Route::inertia('admin/ai', 'admin/ai/overview')->name('admin.ai');
+    Route::inertia('admin/ai/overview', 'admin/ai/overview')->name('admin.ai.overview');
+    Route::inertia('admin/ai/knowledge', 'admin/ai/knowledge')->name('admin.ai.knowledge');
+    Route::inertia('admin/ai/assist', 'admin/ai/assist')->name('admin.ai.assist');
+    Route::inertia('admin/ai/voice', 'admin/ai/voice')->name('admin.ai.voice');
+    Route::inertia('admin/ai/usage', 'admin/ai/usage')->name('admin.ai.usage');
+    Route::inertia('admin/ai/providers', 'admin/ai/providers')->name('admin.ai.providers');
+    Route::inertia('admin/ai/audit', 'admin/ai/audit')->name('admin.ai.audit');
+    Route::inertia('admin/ai/settings', 'admin/ai/settings')->name('admin.ai.settings');
     Route::inertia('admin/users', 'admin/users')->name('admin.users');
     Route::inertia('admin/roles', 'admin/roles')->name('admin.roles');
     Route::inertia('admin/queues', 'admin/queues')->name('admin.queues');

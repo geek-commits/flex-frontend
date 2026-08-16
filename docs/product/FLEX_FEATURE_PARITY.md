@@ -273,7 +273,7 @@ only) gates the Tenants surface.
 
 | ID | Feature | Manual | Evidence | Lifecycle | Notes |
 |---|---|---|---|---|---|
-| AI-001…005 | AI Center / Global AI Gateway / Knowledge Base / Agent Assist / Voice AI | PARTIAL | `pages/admin/ai.tsx` | CONFIRMED_FRONTEND | audit real capability |
+| AI-001…005 | AI Center / Global AI Gateway / Knowledge Base / Agent Assist / Voice AI | YES | `/admin/ai/*`, `features/ai/*`, `data/ai.mock.ts` | SHIPPED (POC) | AI Operations workspace with sub-route IA (Overview, Knowledge Base, Agent Assist, Virtual Assistants, Usage & Costs, Providers & Models, Audit, Settings); shared `AdminShell` context sidebar; existing `StatusBadge` reused; honest DEFERRED/configuration-required states — no invented metrics, provider names, pricing, token formulas, precision scores, or Voice AI capabilities |
 | SYS-001…004 | System & Infrastructure / Service Health / Server Resources / Backup Status | FAQ | `pages/admin/system.tsx` | CONFIRMED_FRONTEND | |
 | SUPPORT-001…002 | Quick Support / Troubleshooting-Diagnostics | general | `pages/agent/support.tsx`, `pages/agent/troubleshooting.tsx` | CONFIRMED_FRONTEND | |
 
