@@ -34,6 +34,7 @@ export const PERMISSION_LABELS: Record<Capability, string> = {
     'security.view': 'View Security',
     'roles.manage': 'Manage Roles & Permissions',
     'agent.workspace': 'Use Agent Workspace',
+    'agent.dashboard.view': 'View Agent Dashboard',
     'call.manager': 'Use Call Manager',
     'missed-calls.view': 'View Missed Calls',
     'troubleshooting.view': 'View Troubleshooting',

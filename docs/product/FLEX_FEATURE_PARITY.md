@@ -53,18 +53,18 @@ Resolved from `git log` (46 commits, `main`, remote `origin` → `github.com/gee
 
 | ID | Feature | Manual | Frontend evidence | Route | Source | Lifecycle | Notes |
 |---|---|---|---|---|---|---|---|
-| AGENT-001 | Agent Dashboard | YES | `pages/agent/index.tsx` | `/agent` | `features/agent-workspace/agent-workspace-page.tsx` | SHIPPED | `3c501e6` |
-| AGENT-002 | Agent Profile | YES | in workspace page | `/agent` | agent-workspace | SHIPPED | compact header fields |
-| AGENT-003 | Agent ID / Extension / Organization | YES | header | `/agent` | agent-workspace | SHIPPED | mock account |
-| AGENT-004 | Session Duration | YES | `SessionTimer` | `/agent` | `features/agent-workspace/session-timer.tsx` | SHIPPED | isolated 1 Hz timer |
-| AGENT-005 | Incoming Calls metric | PARTIAL | not a dedicated surface | — | — | UNKNOWN | dashboard family only |
-| AGENT-006 | Outgoing Calls metric | PARTIAL | not a dedicated surface | — | — | UNKNOWN | |
-| AGENT-007 | Calls per Hour | MANUAL | — | — | — | UNKNOWN | backend metric |
-| AGENT-008 | Call Answering Rate | MANUAL | — | — | — | UNKNOWN | |
-| AGENT-009 | Average Handling Time | MANUAL | — | — | — | UNKNOWN | |
-| AGENT-010 | Skills & Proficiency | MANUAL | module `agents` in registry | `/admin/agents` | placeholder | MANUAL_ONLY | needs real surface |
-| AGENT-011 | Queue Status | MANUAL | dashboard queue cards | `/dashboard` | `features/dashboard/queue-health.tsx` | REVAMPED | dash domain |
-| AGENT-012…AGENT-018 | Avg Wrap-Up / Wait, Abandoned, Calls in Queue, Provider Minutes, Calls Waiting, System Notices | MANUAL | — | — | — | UNKNOWN | backend metrics; system notices surfaced in agent surface where implemented |
+| AGENT-001 | Agent Dashboard | YES | `pages/agent/dashboard.tsx` | `/agent/dashboard` | `features/agent-dashboard/*` | REVAMPED | new awareness surface (`agent.dashboard.view`) |
+| AGENT-002 | Agent Profile | YES | status section | `/agent/dashboard` | agent-dashboard | SHIPPED | repo-backed profile |
+| AGENT-003 | Agent ID / Extension / Organization | YES | status section | `/agent/dashboard` | agent-dashboard | SHIPPED | mock profile |
+| AGENT-004 | Session Duration | YES | `SessionTimer` | `/agent` + `/agent/dashboard` | `agent-workspace/session-timer.tsx` | SHIPPED | isolated 1 Hz timer |
+| AGENT-005 | Incoming Calls metric | MANUAL | — | — | — | DEFERRED | needs backend call accounting |
+| AGENT-006 | Outgoing Calls metric | MANUAL | — | — | — | DEFERRED | |
+| AGENT-007 | Calls per Hour | MANUAL | — | — | — | DEFERRED | backend metric |
+| AGENT-008 | Call Answering Rate | MANUAL | — | — | — | DEFERRED | |
+| AGENT-009 | Average Handling Time | MANUAL | — | — | — | DEFERRED | |
+| AGENT-010 | Skills & Proficiency | MANUAL | empty state | `/agent/dashboard` | agent-dashboard | DEFERRED | needs real surface / backend skills |
+| AGENT-011 | Queue Status | MANUAL | queue-pressure section | `/agent/dashboard` | `features/agent-dashboard/sections/queue-pressure.tsx` | REVAMPED | real `QueueHealth` fields |
+| AGENT-012…AGENT-018 | Avg Wrap-Up / Wait, Abandoned, Calls in Queue, Provider Minutes, Calls Waiting, System Notices | MANUAL | empty states | `/agent/dashboard` | agent-dashboard | DEFERRED | backend metrics; notices/queue pressure surfaced where implemented |
 
 ## Agent State features
 
