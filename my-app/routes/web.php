@@ -35,6 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Agent Workspace Surfaces
     Route::inertia('agent', 'agent/index')->name('agent.index');
     Route::inertia('agent/dashboard', 'agent/dashboard')->name('agent.dashboard');
+    Route::inertia('agent/social', 'agent/social')->name('agent.social');
     Route::inertia('agent/missed-calls', 'agent/missed-calls')->name('agent.missed-calls');
     Route::inertia('agent/troubleshooting', 'agent/troubleshooting')->name('agent.troubleshooting');
     Route::inertia('agent/support', 'agent/support')->name('agent.support');

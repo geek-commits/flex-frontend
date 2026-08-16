@@ -17,6 +17,8 @@ import {
     RiFileSettingsLine,
     RiEqualizerLine,
     RiInboxLine,
+    RiMessage2Line,
+    RiChatSmileLine,
     RiBookOpenLine,
     RiBrainLine,
     RiSparklingLine,
@@ -92,6 +94,8 @@ export type FlexIconName =
     | 'server-resources'
     | 'backup-status'
     | 'service-health'
+    | 'social-inbox'
+    | 'social-list'
     | 'module-placeholder';
 
 export type FlexIconComponent = React.ComponentType<{ className?: string }>;
@@ -149,5 +153,7 @@ export const FLEX_ICON_REGISTRY: Record<FlexIconName, FlexIconComponent> = {
     'server-resources': RiCpuLine,
     'backup-status': CloudBackup,
     'service-health': Gauge,
+    'social-inbox': RiMessage2Line,
+    'social-list': RiChatSmileLine,
     'module-placeholder': RiToolsLine,
 };

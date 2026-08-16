@@ -29,6 +29,7 @@ export type Capability =
     | 'roles.manage'
     | 'agent.workspace'
     | 'agent.dashboard.view'
+    | 'social.view'
     | 'call.manager'
     | 'missed-calls.view'
     | 'troubleshooting.view'
@@ -49,6 +50,7 @@ const ALL: Capability[] = [
     'roles.manage',
     'agent.workspace',
     'agent.dashboard.view',
+    'social.view',
     'call.manager',
     'missed-calls.view',
     'troubleshooting.view',
@@ -72,6 +74,7 @@ export const ROLE_CAPABILITIES: Record<Role, Capability[]> = {
     agent: [
         'agent.workspace',
         'agent.dashboard.view',
+        'social.view',
         'call.manager',
         'missed-calls.view',
         'troubleshooting.view',
@@ -92,6 +95,7 @@ export interface NavEntry {
 export const NAVIGATION: NavEntry[] = [
     { title: 'Agent Workspace', href: '/agent', icon: 'agent-workspace', capability: 'agent.workspace', workspace: 'agent', badge: 'Live' },
     { title: 'Agent Dashboard', href: '/agent/dashboard', icon: 'dashboard', capability: 'agent.dashboard.view', workspace: 'agent' },
+    { title: 'Social Inbox', href: '/agent/social', icon: 'social-inbox', capability: 'social.view', workspace: 'agent' },
     { title: 'Contact Center Dashboard', href: '/dashboard', icon: 'dashboard', capability: 'dashboard.view', workspace: 'admin' },
     { title: 'Agent Monitoring', href: '/admin/monitoring', icon: 'monitoring', capability: 'monitor.view', workspace: 'admin' },
     { title: 'Management Console', href: '/admin/console', icon: 'management-console', capability: 'console.view', workspace: 'admin' },
