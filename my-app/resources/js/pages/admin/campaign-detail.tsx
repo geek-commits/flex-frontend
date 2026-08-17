@@ -7,7 +7,7 @@ import { MetricCard, MetricGroup } from '@/components/flex/metric-card';
 import { StatusBadge } from '@/components/flex/status-badge';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { campaignRepository } from '@/domain/campaign-repository';
 import type { CampaignRecord } from '@/domain/types';
 import { CampaignFormSheet } from '@/features/campaigns/campaign-form-sheet';
@@ -158,16 +158,16 @@ export default function CampaignDetailPage() {
                 </MetricGroup>
 
                 {/* Contacts list */}
-                <Card className="bg-card border-border shadow-2xs">
-                    <CardHeader className="p-4 pb-2 border-b border-border">
-                        <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
+                    <div className="border-b border-flex-workspace-divider p-4 pb-2">
+                        <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
                             Contacts ({contacts.length} shown)
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-0 overflow-x-auto">
+                        </h3>
+                    </div>
+                    <div className="p-0 overflow-x-auto">
                         <table className="w-full text-left text-xs">
                             <thead>
-                                <tr className="border-b border-border text-muted-foreground font-semibold uppercase text-[10px]">
+                                <tr className="border-b border-flex-workspace-divider text-muted-foreground font-semibold uppercase text-[10px]">
                                     <th className="px-4 py-2.5">Name</th>
                                     <th className="px-4 py-2.5">Phone</th>
                                     <th className="px-4 py-2.5">Status</th>
@@ -175,7 +175,7 @@ export default function CampaignDetailPage() {
                                     <th className="px-4 py-2.5">Duration</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-border">
+                            <tbody className="divide-y divide-flex-workspace-divider">
                                 {contacts.map((contact) => (
                                     <tr key={contact.id} className="hover:bg-muted/30">
                                         <td className="px-4 py-2.5 font-medium text-foreground">{contact.name}</td>
@@ -195,8 +195,8 @@ export default function CampaignDetailPage() {
                                 ))}
                             </tbody>
                         </table>
-                    </CardContent>
-                </Card>
+                    </div>
+                </div>
             </div>
 
             <CampaignFormSheet open={editOpen} onOpenChange={setEditOpen} editing={campaign} onSaved={() => window.location.reload()} />
