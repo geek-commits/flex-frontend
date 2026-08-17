@@ -10,7 +10,7 @@ const volumeConfig = {
 } satisfies ChartConfig;
 
 const slaConfig = {
-    withinSla: { label: 'Within SLA %', color: 'var(--status-live)' },
+    withinSla: { label: 'Within SLA %', color: 'var(--flex-chart-bar)' },
 } satisfies ChartConfig;
 
 export function CallVolumeChart() {

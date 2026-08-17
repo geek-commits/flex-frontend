@@ -37,7 +37,7 @@ export function ContactCenterPerformanceViewer({ run }: { run: ReportRun }) {
                             })()}
                             <span>{row.metric}</span>
                         </div>
-                        <p className="mt-2 text-2xl font-bold tabular-nums text-flex-text-primary">{row.value}</p>
+                        <p className="mt-2 flex-metric tabular-nums text-flex-text-primary">{row.value}</p>
                     </div>
                 ))}
             </div>

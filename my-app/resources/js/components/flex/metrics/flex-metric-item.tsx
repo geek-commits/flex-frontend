@@ -39,12 +39,12 @@ export function FlexMetricItem({
         <div className="flex flex-col gap-1 min-w-0">
             <div className="flex items-center gap-1.5">
                 {Icon && <Icon className="size-3.5 text-flex-text-muted shrink-0" aria-hidden="true" />}
-                <span className="text-[11px] font-medium uppercase tracking-wide text-flex-text-muted truncate">
+                <span className="flex-label uppercase tracking-wide text-flex-text-muted truncate">
                     {label}
                 </span>
             </div>
             <div className="flex items-baseline gap-2">
-                <span className="text-2xl font-bold tracking-tight text-flex-text-primary flex-numeric leading-none">
+                <span className="flex-metric text-flex-text-primary flex-numeric leading-none">
                     {formattedValue}
                 </span>
                 {trend && (
