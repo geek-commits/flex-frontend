@@ -141,7 +141,7 @@ export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleForm
                     </div>
 
                     {editing && editing.userCount > 0 && (
-                        <p className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-800">
+                        <p className="rounded-md border border-flex-status-warning-bg bg-flex-status-warning-bg px-3 py-2 text-xs text-flex-status-warning">
                             This role is assigned to {editing.userCount} user{editing.userCount === 1 ? '' : 's'}.
                             Changes will affect their access.
                         </p>
@@ -164,7 +164,7 @@ export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleForm
                         </div>
 
                         {unknownPermissions.length > 0 && (
-                            <p className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-800">
+                            <p className="rounded-md border border-flex-status-warning-bg bg-flex-status-warning-bg px-3 py-2 text-xs text-flex-status-warning">
                                 {unknownPermissions.length} additional permission{unknownPermissions.length === 1 ? '' : 's'} from the
                                 backend is being preserved and will not be removed on save.
                             </p>

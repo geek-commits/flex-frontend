@@ -204,7 +204,7 @@ export function UserFormSheet({ open, onOpenChange, editing, onSaved }: UserForm
                     </div>
 
                     {roleChanged && (
-                        <p className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-800">
+                        <p className="rounded-md border border-flex-status-warning-bg bg-flex-status-warning-bg px-3 py-2 text-xs text-flex-status-warning">
                             Role change from {roleLabels[editing!.role]} to {roleLabels[draft.role]} takes effect immediately
                             and may change what {draft.name.trim() || 'this user'} can access.
                         </p>
