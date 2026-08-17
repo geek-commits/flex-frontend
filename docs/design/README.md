@@ -42,6 +42,7 @@ docs/design/
 ├── 11-component-governance.md   ← layering, decision test, anti-patterns
 ├── 12-quality-gates.md          ← how FLEX UI work is tested and accepted
 ├── 13-visual-language.md        ← canonical design metrics: Inter, metric/label/filter/card/chart, text tokens
+├── 14-workspace-surfaces.md     ← canvas → work-surface → divider grammar, FlexWorkbenchShell, card-reduction policy
 ├── brand.md                     ← official FLEX monogram, canonical component, brand motion rules
 ├── iconography.md               ← semantic icon system: families, sizes, color, freezes, a11y
 ├── iconography-sources.md       ← icon source library, provenance, filename→semantic map
