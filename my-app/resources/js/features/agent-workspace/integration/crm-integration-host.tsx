@@ -1,7 +1,6 @@
 import { RiDatabase2Line, RiExternalLinkLine, RiRefreshLine, RiShieldKeyholeLine } from '@remixicon/react';
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { useCrmIntegrationState } from './crm-integration-state';
 
 export interface CrmIntegrationHostProps {
@@ -32,9 +31,9 @@ export function CrmIntegrationHost({
         (status === 'loading' || status === 'mock' || status === 'connected');
 
     return (
-        <Card className="flex flex-col h-full bg-card border-border overflow-hidden shadow-2xs relative">
+        <div className="flex flex-col h-full overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface shadow-2xs relative">
             {/* Embedded Boundary Header */}
-            <div className="h-10 px-3 border-b border-border bg-muted/30 flex items-center justify-between shrink-0 select-none text-xs">
+            <div className="h-10 px-3 border-b border-flex-workspace-divider bg-flex-workspace-surface-muted flex items-center justify-between shrink-0 select-none text-xs">
                 <div className="flex items-center gap-2 text-muted-foreground font-medium truncate">
                     <RiShieldKeyholeLine className="size-3.5 text-primary" />
                     <span className="truncate font-semibold text-foreground">{title}</span>
@@ -61,7 +60,7 @@ export function CrmIntegrationHost({
             </div>
 
             {/* Mock host state line */}
-            <div className="h-7 px-3 border-b border-border bg-muted/10 flex items-center gap-2 text-[10px] text-muted-foreground select-none overflow-hidden">
+            <div className="h-7 px-3 border-b border-flex-workspace-divider bg-flex-workspace-surface-muted flex items-center gap-2 text-[10px] text-muted-foreground select-none overflow-hidden">
                 <RiDatabase2Line className="size-3 shrink-0" />
                 <span className="truncate">
                     External CRM
@@ -151,6 +150,6 @@ export function CrmIntegrationHost({
                     />
                 )}
             </div>
-        </Card>
+        </div>
     );
 }
