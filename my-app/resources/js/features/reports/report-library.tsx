@@ -57,7 +57,8 @@ export function ReportLibrary({ reports, onOpen, onOpenScheduled }: ReportLibrar
                             onChange={(e) => setSearch(e.target.value)}
                             placeholder="Search reports..."
                             aria-label="Search reports"
-                            className="pl-9 h-9 text-xs"
+                            size="sm"
+                            className="pl-9"
                         />
                     </div>
                     <button

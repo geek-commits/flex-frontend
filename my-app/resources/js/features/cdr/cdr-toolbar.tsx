@@ -82,7 +82,7 @@ export function CdrToolbar({
                     value={search}
                     onChange={(e) => onSearchChange(e.target.value)}
                     placeholder="Search calls by phone, agent, queue..."
-                    className="h-9 pl-3 pr-3 text-xs"
+                    size="sm"
                     aria-label="Search calls"
                 />
             </div>

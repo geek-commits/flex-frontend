@@ -47,7 +47,8 @@ export function UsersToolbar({
                         onSearchChange(e.target.value);
                     }}
                     placeholder="Search users by name, email, or username..."
-                    className="pl-9 h-9 text-xs"
+                    size="sm"
+                    className="pl-9"
                     aria-label="Search users"
                 />
             </div>
@@ -78,7 +79,7 @@ export function UsersToolbar({
                     value={roleFilter}
                     onChange={(e) => onRoleFilterChange(e.target.value as UserRoleFilter)}
                     aria-label="Filter by role"
-                    className="h-9 rounded-lg border border-border bg-card px-2.5 text-xs font-medium text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                    className="h-7 rounded-[6px] border border-border bg-card px-2.5 text-[13px] font-medium text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                 >
                     {USER_ROLE_FILTERS.map((option) => (
                         <option key={option.value} value={option.value}>

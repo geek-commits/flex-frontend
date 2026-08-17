@@ -38,7 +38,8 @@ export function CampaignsToolbar({
                         onSearchChange(e.target.value);
                     }}
                     placeholder="Search campaigns by title or destination..."
-                    className="pl-9 h-9 text-xs"
+                    size="sm"
+                    className="pl-9"
                     aria-label="Search campaigns"
                 />
             </div>

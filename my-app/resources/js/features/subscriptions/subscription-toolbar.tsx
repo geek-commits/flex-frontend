@@ -50,7 +50,8 @@ export function SubscriptionToolbar({ query, onQueryChange }: SubscriptionToolba
                         placeholder="Search account, email, or plan..."
                         value={query.search ?? ''}
                         onChange={(e) => onQueryChange({ ...query, search: e.target.value || undefined })}
-                        className="pl-8.5 h-9 text-xs"
+                        size="sm"
+                        className="pl-8.5"
                     />
                 </div>
 
@@ -64,7 +65,7 @@ export function SubscriptionToolbar({ query, onQueryChange }: SubscriptionToolba
                         })
                     }
                 >
-                    <SelectTrigger className="w-[160px] h-9 text-xs">
+                    <SelectTrigger size="sm" className="w-[160px]">
                         <SelectValue placeholder="Status" />
                     </SelectTrigger>
                     <SelectContent>
@@ -86,7 +87,7 @@ export function SubscriptionToolbar({ query, onQueryChange }: SubscriptionToolba
                         })
                     }
                 >
-                    <SelectTrigger className="w-[140px] h-9 text-xs">
+                    <SelectTrigger size="sm" className="w-[140px]">
                         <SelectValue placeholder="Plan" />
                     </SelectTrigger>
                     <SelectContent>

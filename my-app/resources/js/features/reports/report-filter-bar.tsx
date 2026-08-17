@@ -59,7 +59,7 @@ export function ReportFilterBar({ report, query, onQueryChange }: ReportFilterBa
                             value={query.year || undefined}
                             onValueChange={(value) => onQueryChange({ ...query, year: value || undefined })}
                         >
-                            <SelectTrigger id="filter-year" className="w-32 h-9 text-xs">
+                            <SelectTrigger id="filter-year" size="sm" className="w-32">
                                 <SelectValue placeholder="All years" />
                             </SelectTrigger>
                             <SelectContent>
@@ -85,7 +85,7 @@ export function ReportFilterBar({ report, query, onQueryChange }: ReportFilterBa
                                 value={query.agent || undefined}
                                 onValueChange={(value) => onQueryChange({ ...query, agent: value || undefined })}
                             >
-                                <SelectTrigger id="filter-agent" className="w-48 h-9 text-xs">
+                                <SelectTrigger id="filter-agent" size="sm" className="w-48">
                                     <SelectValue placeholder="All agents" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -108,7 +108,7 @@ export function ReportFilterBar({ report, query, onQueryChange }: ReportFilterBa
                                 value={query.queue || undefined}
                                 onValueChange={(value) => onQueryChange({ ...query, queue: value || undefined })}
                             >
-                                <SelectTrigger id="filter-queue" className="w-40 h-9 text-xs">
+                                <SelectTrigger id="filter-queue" size="sm" className="w-40">
                                     <SelectValue placeholder="All queues" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -131,7 +131,7 @@ export function ReportFilterBar({ report, query, onQueryChange }: ReportFilterBa
                                 value={query.ivr || undefined}
                                 onValueChange={(value) => onQueryChange({ ...query, ivr: value || undefined })}
                             >
-                                <SelectTrigger id="filter-ivr" className="w-40 h-9 text-xs">
+                                <SelectTrigger id="filter-ivr" size="sm" className="w-40">
                                     <SelectValue placeholder="All IVRs" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -154,7 +154,7 @@ export function ReportFilterBar({ report, query, onQueryChange }: ReportFilterBa
                                 value={query.provider || undefined}
                                 onValueChange={(value) => onQueryChange({ ...query, provider: value || undefined })}
                             >
-                                <SelectTrigger id="filter-provider" className="w-40 h-9 text-xs">
+                                <SelectTrigger id="filter-provider" size="sm" className="w-40">
                                     <SelectValue placeholder="All providers" />
                                 </SelectTrigger>
                                 <SelectContent>

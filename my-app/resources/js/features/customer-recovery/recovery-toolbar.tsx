@@ -30,7 +30,8 @@ export function RecoveryToolbar({ query, queues, onQueryChange }: RecoveryToolba
                     onChange={(e) => onQueryChange({ ...query, search: e.target.value })}
                     placeholder="Search phone number or queue..."
                     aria-label="Search missed calls"
-                    className="pl-9 h-9 text-xs"
+                    size="sm"
+                    className="pl-9"
                 />
             </div>
 
@@ -40,7 +41,7 @@ export function RecoveryToolbar({ query, queues, onQueryChange }: RecoveryToolba
                         Status
                     </Label>
                     <Select value={query.status ?? 'all'} onValueChange={(value) => onQueryChange({ ...query, status: value as RecoveryStatus | 'all' })}>
-                        <SelectTrigger id="rec-status" className="w-40 h-9 text-xs">
+                        <SelectTrigger id="rec-status" size="sm" className="w-40">
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -58,7 +59,7 @@ export function RecoveryToolbar({ query, queues, onQueryChange }: RecoveryToolba
                         Queue
                     </Label>
                     <Select value={query.queue ?? 'all'} onValueChange={(value) => onQueryChange({ ...query, queue: value ?? 'all' })}>
-                        <SelectTrigger id="rec-queue" className="w-44 h-9 text-xs">
+                        <SelectTrigger id="rec-queue" size="sm" className="w-44">
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -77,7 +78,7 @@ export function RecoveryToolbar({ query, queues, onQueryChange }: RecoveryToolba
                         Ownership
                     </Label>
                     <Select value={query.ownership ?? 'all'} onValueChange={(value) => onQueryChange({ ...query, ownership: value as RecoveryQuery['ownership'] })}>
-                        <SelectTrigger id="rec-owner" className="w-36 h-9 text-xs">
+                        <SelectTrigger id="rec-owner" size="sm" className="w-36">
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -95,7 +96,7 @@ export function RecoveryToolbar({ query, queues, onQueryChange }: RecoveryToolba
                         Voicemail
                     </Label>
                     <Select value={query.voicemail ?? 'all'} onValueChange={(value) => onQueryChange({ ...query, voicemail: value as RecoveryQuery['voicemail'] })}>
-                        <SelectTrigger id="rec-vm" className="w-36 h-9 text-xs">
+                        <SelectTrigger id="rec-vm" size="sm" className="w-36">
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent>

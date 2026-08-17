@@ -49,7 +49,8 @@ export function RecordingToolbar({
                         onChange={(e) => onQueryChange({ ...query, search: e.target.value })}
                         placeholder="Search audio titles, files..."
                         aria-label="Search recordings"
-                        className="pl-9 h-9 text-xs"
+                        size="sm"
+                        className="pl-9"
                     />
                 </div>
 
@@ -61,7 +62,7 @@ export function RecordingToolbar({
                         value={query.category ?? 'all'}
                         onValueChange={(val) => onQueryChange({ ...query, category: val as RecordingCategory | 'all' })}
                     >
-                        <SelectTrigger id="rec-cat" className="w-44 h-9 text-xs">
+                        <SelectTrigger id="rec-cat" size="sm" className="w-44">
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -82,7 +83,7 @@ export function RecordingToolbar({
                         value={query.format ?? 'all'}
                         onValueChange={(val) => onQueryChange({ ...query, format: val as 'all' | 'WAV' | 'MP3' })}
                     >
-                        <SelectTrigger id="rec-format" className="w-32 h-9 text-xs">
+                        <SelectTrigger id="rec-format" size="sm" className="w-32">
                             <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
