@@ -1,138 +1,49 @@
 import { Head } from '@inertiajs/react';
 import {
-    RiWifiLine,
     RiMicLine,
-    RiSpeedUpLine,
     RiPulseLine,
-    RiCheckboxCircleLine,
-    RiAlertLine,
-    RiCloseCircleLine,
     RiRefreshLine,
     RiVolumeUpLine,
     RiPhoneLine,
-    RiRouterLine,
-    RiLockLine,
 } from '@remixicon/react';
 import React, { useState } from 'react';
 import { DiagnosticPanel } from '@/components/flex/diagnostic-panel';
-import { Badge } from '@/components/ui/badge';
+import { FlexStatus } from '@/components/flex/flex-status';
+import type { FlexStatusTone } from '@/components/flex/flex-status';
+import { FlexIcon } from '@/components/flex/iconography';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import type { DiagnosticResult } from '@/features/diagnostics/diagnostics-types';
+import { useDiagnostics } from '@/features/diagnostics/use-diagnostics';
 import { AgentShell } from '@/layouts/agent-shell';
 
-type DiagnosticResult = 'pass' | 'warn' | 'fail' | 'pending';
-
-interface DiagnosticCheck {
-    id: string;
-    label: string;
-    description: string;
-    icon: React.ComponentType<{ className?: string }>;
-    result: DiagnosticResult;
-    detail?: string;
-}
-
-function ResultBadge({ result }: { result: DiagnosticResult }) {
-    const map: Record<DiagnosticResult, { label: string; className: string; Icon: typeof RiCheckboxCircleLine }> = {
-        pass: { label: 'Pass', className: 'bg-status-live-bg text-status-live border-status-live/30', Icon: RiCheckboxCircleLine },
-        warn: { label: 'Warning', className: 'bg-status-stale-bg text-status-stale border-status-stale/30', Icon: RiAlertLine },
-        fail: { label: 'Fail', className: 'bg-status-disconnected-bg text-status-disconnected border-status-disconnected/30', Icon: RiCloseCircleLine },
-        pending: { label: 'Pending', className: 'bg-muted text-muted-foreground border-border', Icon: RiPulseLine },
-    };
-    const { label, className, Icon } = map[result];
-
-    return (
-        <Badge variant="outline" className={`flex items-center gap-1 text-[11px] ${className}`}>
-            <Icon className="size-3" />
-            {label}
-        </Badge>
-    );
-}
+const RESULT_TONE: Record<DiagnosticResult, FlexStatusTone> = {
+    pass: 'success',
+    warn: 'warning',
+    fail: 'danger',
+    pending: 'neutral',
+};
 
 export default function TroubleshootingPage() {
+    const { data, hasRun, runDiagnostics } = useDiagnostics();
     const [micDevice, setMicDevice] = useState('default');
     const [speakerDevice, setSpeakerDevice] = useState('default');
     const [isRunning, setIsRunning] = useState(false);
-    const [hasRun, setHasRun] = useState(true); // Show sample results by default
 
-    const diagnosticChecks: DiagnosticCheck[] = [
-        {
-            id: 'network-connectivity',
-            label: 'Network Connectivity',
-            description: 'TCP/IP reachability to Flex signaling server',
-            icon: RiWifiLine,
-            result: 'pass',
-            detail: 'RTT: 28ms — signaling.flex.internal:443 reachable',
-        },
-        {
-            id: 'webrtc-ice',
-            label: 'WebRTC ICE Candidates',
-            description: 'ICE STUN/TURN connectivity and candidate gathering',
-            icon: RiRouterLine,
-            result: 'pass',
-            detail: 'Host + SRFLX candidates gathered. TURN relay available.',
-        },
-        {
-            id: 'sip-registration',
-            label: 'SIP Registration',
-            description: 'Agent SIP account registration on PBX',
-            icon: RiPhoneLine,
-            result: 'pass',
-            detail: 'Registered as sip:1001@pbx.flex.internal — Expires in 3600s',
-        },
-        {
-            id: 'microphone-permission',
-            label: 'Microphone Permission',
-            description: 'Browser microphone access for audio input',
-            icon: RiMicLine,
-            result: 'pass',
-            detail: 'Permission: granted — Selected: Default Microphone',
-        },
-        {
-            id: 'audio-codec',
-            label: 'Audio Codec (OPUS)',
-            description: 'OPUS codec negotiation with remote endpoint',
-            icon: RiVolumeUpLine,
-            result: 'pass',
-            detail: 'OPUS 48kHz stereo — Packet loss: 0.0%',
-        },
-        {
-            id: 'bandwidth',
-            label: 'Bandwidth Adequacy',
-            description: 'Downlink speed for VoIP audio transmission',
-            icon: RiSpeedUpLine,
-            result: 'pass',
-            detail: 'Measured downlink: 45.2 Mbps — Minimum required: 0.1 Mbps',
-        },
-        {
-            id: 'tls-certificate',
-            label: 'TLS / DTLS Security',
-            description: 'Secure media transport (SRTP) and signaling (WSS)',
-            icon: RiLockLine,
-            result: 'pass',
-            detail: 'WSS TLS 1.3 — Certificate valid until 2027-01-15',
-        },
-        {
-            id: 'jitter-buffer',
-            label: 'Jitter & Packet Loss',
-            description: 'Audio jitter buffer health and packet loss measurement',
-            icon: RiPulseLine,
-            result: 'warn',
-            detail: 'Jitter: 12ms (threshold: 10ms) — Packet loss: 0.2%',
-        },
-    ];
+    const { checks } = data;
 
     const handleRunDiagnostic = () => {
         setIsRunning(true);
         setTimeout(() => {
             setIsRunning(false);
-            setHasRun(true);
-        }, 2000);
+            runDiagnostics();
+        }, 1500);
     };
 
-    const passCount = diagnosticChecks.filter((d) => d.result === 'pass').length;
-    const warnCount = diagnosticChecks.filter((d) => d.result === 'warn').length;
-    const failCount = diagnosticChecks.filter((d) => d.result === 'fail').length;
+    const passCount = checks.filter((d) => d.result === 'pass').length;
+    const warnCount = checks.filter((d) => d.result === 'warn').length;
+    const failCount = checks.filter((d) => d.result === 'fail').length;
 
     return (
         <AgentShell
@@ -223,33 +134,31 @@ export default function TroubleshootingPage() {
                     </CardHeader>
                     <CardContent className="p-4">
                         <div className="flex flex-col divide-y divide-border">
-                            {diagnosticChecks.map((check) => {
-                                const Icon = check.icon;
-
-                                return (
-                                    <div key={check.id} className="py-3 flex items-center justify-between gap-4">
-                                        <div className="flex items-center gap-3 min-w-0">
-                                            <div className="p-1.5 rounded-md bg-muted/50 text-muted-foreground shrink-0">
-                                                <Icon className="size-3.5" />
-                                            </div>
-                                            <div className="min-w-0">
-                                                <div className="text-xs font-semibold text-foreground">{check.label}</div>
-                                                <div className="text-[11px] text-muted-foreground">{check.description}</div>
-                                                {hasRun && check.detail && (
-                                                    <div className="text-[10px] font-mono text-muted-foreground/70 mt-0.5">{check.detail}</div>
-                                                )}
-                                            </div>
+                            {checks.map((check) => (
+                                <div key={check.id} className="py-3 flex items-center justify-between gap-4">
+                                    <div className="flex items-center gap-3 min-w-0">
+                                        <div className="p-1.5 rounded-md bg-muted/50 text-muted-foreground shrink-0">
+                                            <FlexIcon name={check.icon} size="sm" />
                                         </div>
-                                        <div className="shrink-0">
-                                            {hasRun ? (
-                                                <ResultBadge result={check.result} />
-                                            ) : (
-                                                <span className="text-[11px] text-muted-foreground italic">Not run</span>
+                                        <div className="min-w-0">
+                                            <div className="text-xs font-semibold text-foreground">{check.label}</div>
+                                            <div className="text-[11px] text-muted-foreground">{check.description}</div>
+                                            {hasRun && check.detail && (
+                                                <div className="text-[10px] font-mono text-muted-foreground/70 mt-0.5">{check.detail}</div>
                                             )}
                                         </div>
                                     </div>
-                                );
-                            })}
+                                    <div className="shrink-0">
+                                        {hasRun ? (
+                                            <FlexStatus tone={RESULT_TONE[check.result]} className="capitalize text-[11px]">
+                                                {check.result}
+                                            </FlexStatus>
+                                        ) : (
+                                            <span className="text-[11px] text-muted-foreground italic">Not run</span>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </CardContent>
                 </Card>
