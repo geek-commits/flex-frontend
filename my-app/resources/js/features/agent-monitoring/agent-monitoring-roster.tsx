@@ -35,7 +35,7 @@ function CurrentCallCell({ row }: { row: MonitoringAgentRow }) {
         <span className="flex items-center gap-1.5 text-flex-text-primary">
             <span className="capitalize text-flex-text-muted">{direction}</span>
             <span>{customer.name}</span>
-            <span className="text-[10px] text-flex-text-muted uppercase">{state}</span>
+            <span className="text-xs text-flex-text-muted uppercase">{state}</span>
         </span>
     );
 }

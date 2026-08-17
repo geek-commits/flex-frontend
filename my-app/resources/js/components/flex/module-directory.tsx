@@ -49,6 +49,7 @@ export function ModuleDirectory({ title, description, modules }: ModuleDirectory
                         placeholder="Search modules..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
+                        aria-label={`Search ${title}`}
                         className="pl-9 h-9 text-xs bg-card"
                     />
                 </div>

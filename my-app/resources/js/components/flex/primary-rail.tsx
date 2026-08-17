@@ -78,6 +78,7 @@ export function PrimaryRail({ currentPath, activeWorkspace = 'admin' }: PrimaryR
                             render={
                                 <button
                                     onClick={toggleTheme}
+                                    aria-label={appearance === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
                                     className="flex items-center justify-center size-10 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/70 transition-colors duration-flex-fast flex-focus-visible"
                                 >
                                     <FlexIcon name={appearance === 'dark' ? 'sun' : 'moon'} className="size-5" />
