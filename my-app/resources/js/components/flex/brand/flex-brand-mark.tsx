@@ -31,8 +31,8 @@ export interface FlexBrandMarkProps {
 
 interface BrandPart {
     el: SVGElement | null;
-    base: { opacity: string; transform: string };
-    final: { opacity: string; transform: string };
+    base: { opacity: string; scale?: string; translate?: string };
+    final: { opacity: string; scale?: string; translate?: string };
 }
 
 /**
@@ -79,23 +79,23 @@ export function FlexBrandMark({
         const parts: BrandPart[] = [
             {
                 el: find('foundation'),
-                base: { opacity: '0', transform: 'translate(0 0) scale(0.9)' },
-                final: { opacity: '1', transform: 'translate(0 0) scale(1)' },
+                base: { opacity: '0', scale: '0.9' },
+                final: { opacity: '1', scale: '1' },
             },
             {
                 el: find('top-arm'),
-                base: { opacity: '0', transform: 'translate(0 0) scaleX(0.08)' },
-                final: { opacity: '1', transform: 'translate(0 0) scaleX(1)' },
+                base: { opacity: '0', scale: '0.08 1' },
+                final: { opacity: '1', scale: '1' },
             },
             {
                 el: find('middle-arm'),
-                base: { opacity: '0', transform: 'translate(0 0) scaleX(0.08)' },
-                final: { opacity: '1', transform: 'translate(0 0) scaleX(1)' },
+                base: { opacity: '0', scale: '0.08 1' },
+                final: { opacity: '1', scale: '1' },
             },
             {
                 el: find('accent'),
-                base: { opacity: '0', transform: 'translate(2px -2px) scale(1.08)' },
-                final: { opacity: '1', transform: 'translate(0 0) scale(1)' },
+                base: { opacity: '0', scale: '1.08', translate: '2px -2px' },
+                final: { opacity: '1', scale: '1', translate: '0px 0px' },
             },
         ];
 
@@ -109,7 +109,14 @@ export function FlexBrandMark({
             }
 
             part.el.style.opacity = part[state].opacity;
-            part.el.style.transform = part[state].transform;
+
+            if (part[state].scale) {
+                part.el.style.scale = part[state].scale;
+            }
+
+            if (part[state].translate) {
+                part.el.style.translate = part[state].translate;
+            }
         });
     };
 
@@ -118,13 +125,26 @@ export function FlexBrandMark({
             return Promise.resolve();
         }
 
-        const animation = part.el.animate(
-            [
-                { opacity: part.base.opacity, transform: part.base.transform },
-                { opacity: part.final.opacity, transform: part.final.transform },
-            ],
-            { duration, easing, fill: 'forwards' }
-        );
+        const from: Record<string, string> = { opacity: part.base.opacity };
+        const to: Record<string, string> = { opacity: part.final.opacity };
+
+        if (part.base.scale) {
+            from.scale = part.base.scale;
+        }
+
+        if (part.final.scale) {
+            to.scale = part.final.scale;
+        }
+
+        if (part.base.translate) {
+            from.translate = part.base.translate;
+        }
+
+        if (part.final.translate) {
+            to.translate = part.final.translate;
+        }
+
+        const animation = part.el.animate([from, to], { duration, easing, fill: 'forwards' });
 
         animationsRef.current.push(animation);
 
