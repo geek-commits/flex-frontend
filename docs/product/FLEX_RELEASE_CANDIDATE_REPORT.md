@@ -141,9 +141,27 @@ vendored lint). No BLOCKER issues.
 
 ## 15. Release Decision
 
-**APPROVED FOR DEPLOYMENT.** No release-blocking known issues. Candidate
-identity: `main` @ `2a85e096ec6193f651dc04dadb4106f0836584ff`. No tag (no
-convention); branch + commit SHA is the candidate identity.
+Per RC plan sections #201–#204, the honest, plan-mandated status is:
+
+```text
+TECHNICAL ACCEPTANCE: READY
+RELEASE CANDIDATE: APPROVED FOR DEPLOYMENT
+DEPLOYMENT STATUS: NOT PERFORMED
+RELEASE: PENDING APPROVAL (if human/business approval is required)
+```
+
+- **Technical acceptance = READY** — code frozen, clean build, tests passed,
+  critical workflows passed, tenant/permission/telephony boundaries unchanged
+  and verified, secret checks passed, remote commit verified, release docs
+  complete.
+- **No unresolved release blocker.**
+- **Deployment not performed** — deployment is outside this workflow; no
+  `DEPLOYED` status is claimed.
+- **Human/business approval not invented** — if required by the project, the
+  release remains `PENDING APPROVAL` until that approval occurs.
+- Candidate identity: `main` @ `2a85e096ec6193f651dc04dadb4106f0836584ff` /
+  `712ed72` (final docs commit). No tag (no convention); branch + commit SHA is
+  the candidate identity.
 
 ## 16. Quality Gate Status
 
