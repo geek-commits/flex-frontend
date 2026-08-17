@@ -227,6 +227,13 @@
     --flex-border: var(--border);
     --flex-border-strong: oklch(0.87 0.004 247);
 
+    /* Workspace surfaces — neutral canvas + white work surface + structural dividers */
+    --flex-workspace-canvas: var(--background);
+    --flex-workspace-surface: var(--card);
+    --flex-workspace-surface-muted: oklch(0.986 0.001 250);
+    --flex-workspace-divider: oklch(0.926 0.003 250);
+    --flex-workspace-divider-strong: oklch(0.896 0.004 250);
+
     /* Text hierarchy */
     --flex-text-primary: var(--foreground);
     --flex-text-secondary: oklch(0.42 0.01 247);
@@ -423,6 +430,12 @@
     --flex-border-strong: oklch(1 0 0 / 0.16);
     --flex-text-secondary: oklch(0.80 0.01 247);
     --flex-text-disabled: oklch(0.48 0.01 247);
+    /* Workspace surfaces — dark-mode semantic equivalents */
+    --flex-workspace-canvas: var(--background);
+    --flex-workspace-surface: oklch(0.21 0.006 250);
+    --flex-workspace-surface-muted: oklch(0.25 0.007 250);
+    --flex-workspace-divider: oklch(1 0 0 / 0.12);
+    --flex-workspace-divider-strong: oklch(1 0 0 / 0.2);
     --flex-shadow-overlay: 0 8px 24px rgb(0 0 0 / 0.4);
     --flex-shadow-modal: 0 16px 48px rgb(0 0 0 / 0.6);
     /* Chart colors — dark-mode semantic equivalents */
@@ -558,6 +571,11 @@
     --color-flex-surface-muted: var(--flex-surface-muted);
     --color-flex-border: var(--flex-border);
     --color-flex-border-strong: var(--flex-border-strong);
+    --color-flex-workspace-canvas: var(--flex-workspace-canvas);
+    --color-flex-workspace-surface: var(--flex-workspace-surface);
+    --color-flex-workspace-surface-muted: var(--flex-workspace-surface-muted);
+    --color-flex-workspace-divider: var(--flex-workspace-divider);
+    --color-flex-workspace-divider-strong: var(--flex-workspace-divider-strong);
     --color-flex-text-primary: var(--flex-text-primary);
     --color-flex-text-secondary: var(--flex-text-secondary);
     --color-flex-text-muted: var(--flex-text-muted);
