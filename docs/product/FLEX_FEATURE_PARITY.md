@@ -274,8 +274,22 @@ only) gates the Tenants surface.
 | ID | Feature | Manual | Evidence | Lifecycle | Notes |
 |---|---|---|---|---|---|
 | AI-001…005 | AI Center / Global AI Gateway / Knowledge Base / Agent Assist / Voice AI | YES | `/admin/ai/*`, `features/ai/*`, `data/ai.mock.ts` | SHIPPED (POC) | AI Operations workspace with sub-route IA (Overview, Knowledge Base, Agent Assist, Virtual Assistants, Usage & Costs, Providers & Models, Audit, Settings); shared `AdminShell` context sidebar; existing `StatusBadge` reused; honest DEFERRED/configuration-required states — no invented metrics, provider names, pricing, token formulas, precision scores, or Voice AI capabilities |
-| SYS-001…004 | System & Infrastructure / Service Health / Server Resources / Backup Status | FAQ | `pages/admin/system.tsx` | CONFIRMED_FRONTEND | |
-| SUPPORT-001…002 | Quick Support / Troubleshooting-Diagnostics | general | `pages/agent/support.tsx`, `pages/agent/troubleshooting.tsx` | CONFIRMED_FRONTEND | |
+| SYS-001…004 | System & Infrastructure / Service Health / Server Resources / Backup Status | FAQ | `/admin/system`; `features/system/*`, `data/system.mock.ts` | CONFIRMED_FRONTEND → REVAMPED (POC) | refactored onto canonical feature boundary + `FlexStatus`/`FlexIcon`/`MetricCard`; honest DEFERRED states; no fabricated uptime/latency claims beyond mock; telephony routing untouched |
+| SUPPORT-001…002 | Quick Support / Troubleshooting-Diagnostics | general | `/agent/support`, `/agent/troubleshooting`; `features/support/*`, `features/diagnostics/*` | CONFIRMED_FRONTEND → REVAMPED (POC) | extracted to feature boundaries; `StatusBadge`/`FlexStatus`/`FlexEmptyState`; diagnostic thresholds are POC-defined, not runtime-verified |
+
+### 12b. Remaining module candidates — classification (Remaining Modules preflight)
+
+Result of the completeness audit. No build performed beyond the SYS/SUPPORT rows above; kept truthful in the registry.
+
+| Candidate (`domain/modules.ts`) | Classification | Rationale |
+|---|---|---|
+| `backups` → `/admin/backups` | ALIAS | Backup Status is covered by SYS-004 in `features/system/*`; no separate surface |
+| `global-settings` → `/settings/profile` | ALIAS | Covered by Settings directory (profile/security/appearance) |
+| `recordings` (settings) → `/admin/settings/recordings` | ALIAS | Covered by `/admin/recordings` feature |
+| `security` (settings) → `/admin/settings/security` | ALIAS | Covered by account security + console Security & Audit is NOT_PRESENT |
+| `cdr-config` → `/admin/settings/cdr-config` | ALIAS | Covered by `/admin/cdr` feature |
+| `agents`, `call-stats`, `charts`, `survey-monitoring`, `tones`, `agent-states`, `departments`, `survey`, `global-config`, `moh` | NOT PRESENT | no runtime or mock surface; placeholders only (honest empty state via `module-placeholder`) |
+| `inbound-routes`, `outbound-routes` | BLOCKED | telephony routing semantics — do not alter during visual modernization (plan §181) |
 
 ---
 

@@ -1,68 +1,28 @@
 import { Head } from '@inertiajs/react';
-import {
-
-
-
-
-
-    RiRefreshLine,
-    RiCheckboxCircleLine,
-    RiAlertLine,
-    RiCloseCircleLine,
-    RiServerLine,
-
-
-
-} from '@remixicon/react';
-import React from 'react';
+import { RiRefreshLine } from '@remixicon/react';
+import React, { useState } from 'react';
 import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
+import { FlexStatus } from '@/components/flex/flex-status';
+import type { FlexStatusTone } from '@/components/flex/flex-status';
 import { FlexIcon } from '@/components/flex/iconography';
-import type { FlexIconName } from '@/components/flex/iconography';
 import { MetricCard, MetricGroup } from '@/components/flex/metric-card';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import type { ServiceHealth } from '@/features/system/system-types';
+import { useSystem } from '@/features/system/use-system';
 import { AdminShell } from '@/layouts/admin-shell';
 
-type ServiceHealth = 'operational' | 'degraded' | 'down';
+const HEALTH_TONE: Record<ServiceHealth, FlexStatusTone> = {
+    operational: 'success',
+    degraded: 'warning',
+    down: 'danger',
+};
 
-interface ServiceStatus {
-    name: string;
-    description: string;
-    status: ServiceHealth;
-    latencyMs?: number;
-    lastChecked: string;
-    icon: FlexIconName;
-}
-
-function HealthBadge({ status }: { status: ServiceHealth }) {
-    const map: Record<ServiceHealth, { label: string; className: string; Icon: typeof RiCheckboxCircleLine }> = {
-        operational: {
-            label: 'Operational',
-            className: 'bg-status-live-bg text-status-live border-status-live/30',
-            Icon: RiCheckboxCircleLine,
-        },
-        degraded: {
-            label: 'Degraded',
-            className: 'bg-status-stale-bg text-status-stale border-status-stale/30',
-            Icon: RiAlertLine,
-        },
-        down: {
-            label: 'Down',
-            className: 'bg-status-disconnected-bg text-status-disconnected border-status-disconnected/30',
-            Icon: RiCloseCircleLine,
-        },
-    };
-
-    const { label, className, Icon } = map[status];
-
-    return (
-        <Badge variant="outline" className={`flex items-center gap-1 capitalize text-[11px] ${className}`}>
-            <Icon className="size-3" />
-            {label}
-        </Badge>
-    );
-}
+const RESOURCE_TONE: Record<string, string> = {
+    primary: 'bg-primary',
+    live: 'bg-status-live',
+    sky: 'bg-sky-500',
+};
 
 const systemContextGroups: ContextSidebarGroup[] = [
     {
@@ -88,76 +48,18 @@ const systemContextGroups: ContextSidebarGroup[] = [
 ];
 
 export default function SystemPage() {
-    const services: ServiceStatus[] = [
-        {
-            name: 'Primary SIP Trunk — Airtel TZ',
-            description: 'Inbound/outbound voice carrier registration',
-            status: 'operational',
-            latencyMs: 12,
-            lastChecked: '30s ago',
-            icon: 'routes',
-        },
-        {
-            name: 'Secondary SIP Trunk — TTCL',
-            description: 'Failover carrier registration',
-            status: 'operational',
-            latencyMs: 18,
-            lastChecked: '30s ago',
-            icon: 'routes',
-        },
-        {
-            name: 'WebRTC Media Server',
-            description: 'FreeSWITCH RTP / SRTP media relay',
-            status: 'operational',
-            latencyMs: 4,
-            lastChecked: '30s ago',
-            icon: 'infrastructure',
-        },
-        {
-            name: 'Database — MySQL Primary',
-            description: 'Read/write database server',
-            status: 'operational',
-            latencyMs: 2,
-            lastChecked: '30s ago',
-            icon: 'backups',
-        },
-        {
-            name: 'Database — MySQL Replica',
-            description: 'Read replica for analytics queries',
-            status: 'degraded',
-            latencyMs: 145,
-            lastChecked: '30s ago',
-            icon: 'backups',
-        },
-        {
-            name: 'SSL / TLS Certificate',
-            description: 'HTTPS & WebRTC certificate validity',
-            status: 'operational',
-            latencyMs: undefined,
-            lastChecked: '5m ago',
-            icon: 'security',
-        },
-        {
-            name: 'Mail Gateway (SMTP)',
-            description: 'Postfix relay for notification delivery',
-            status: 'operational',
-            latencyMs: 35,
-            lastChecked: '5m ago',
-            icon: 'mail',
-        },
-        {
-            name: 'Survey Monitoring Daemon',
-            description: 'CSAT / NPS background dispatch worker',
-            status: 'operational',
-            latencyMs: undefined,
-            lastChecked: '2m ago',
-            icon: 'surveys',
-        },
-    ];
+    const { data, refresh } = useSystem();
+    const [refreshing, setRefreshing] = useState(false);
+    const { services, serverResources, backups, summary } = data;
 
-    const operationalCount = services.filter((s) => s.status === 'operational').length;
-    const degradedCount = services.filter((s) => s.status === 'degraded').length;
-    const downCount = services.filter((s) => s.status === 'down').length;
+    const handleRefresh = () => {
+        setRefreshing(true);
+        refresh();
+        // POC: refresh re-reads the current synthetic snapshot; a real backend
+        // poll would replace this. Avoids a dead control while keeping honest
+        // semantics for the no-op refresh.
+        setTimeout(() => setRefreshing(false), 500);
+    };
 
     return (
         <AdminShell
@@ -167,9 +69,9 @@ export default function SystemPage() {
             contextSubtitle="Infrastructure administration"
             contextGroups={systemContextGroups}
             actions={
-                <Button variant="outline" size="sm" className="gap-1.5 text-xs">
-                    <RiRefreshLine className="size-3.5" />
-                    <span>Refresh Status</span>
+                <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={handleRefresh}>
+                    <RiRefreshLine className={`size-3.5 ${refreshing ? 'animate-spin' : ''}`} />
+                    <span>{refreshing ? 'Refreshing...' : 'Refresh Status'}</span>
                 </Button>
             }
         >
@@ -185,32 +87,28 @@ export default function SystemPage() {
                     <MetricGroup>
                         <MetricCard
                             title="Operational"
-                            value={operationalCount}
+                            value={summary.operationalCount}
                             description="Services fully functional"
-                            icon={RiCheckboxCircleLine}
                         />
                         <MetricCard
                             title="Degraded"
-                            value={degradedCount}
+                            value={summary.degradedCount}
                             description="Services with elevated latency"
-                            icon={RiAlertLine}
                         />
                         <MetricCard
                             title="Down"
-                            value={downCount}
+                            value={summary.downCount}
                             description="Services unreachable"
-                            icon={RiCloseCircleLine}
                         />
                         <MetricCard
                             title="Uptime (30d)"
-                            value="99.8%"
+                            value={summary.uptime30d}
                             description="Platform availability SLA"
-                            icon={RiServerLine}
                         />
                     </MetricGroup>
                 </div>
 
-                {/* 2. Server Resources */}
+                {/* 2. Server Resources + Backup Status */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <Card className="bg-card border-border shadow-2xs">
                         <CardHeader className="p-4 pb-2 border-b border-border">
@@ -220,12 +118,7 @@ export default function SystemPage() {
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="p-4 flex flex-col gap-4">
-                            {[
-                                { label: 'CPU Usage', value: 34, unit: '%', color: 'bg-primary' },
-                                { label: 'RAM Usage', value: 58, unit: '%', color: 'bg-primary' },
-                                { label: 'Disk I/O', value: 22, unit: '%', color: 'bg-status-live' },
-                                { label: 'Network Out', value: 41, unit: '%', color: 'bg-sky-500' },
-                            ].map((r) => (
+                            {serverResources.map((r) => (
                                 <div key={r.label} className="flex flex-col gap-1.5">
                                     <div className="flex items-center justify-between text-xs">
                                         <span className="font-medium text-foreground">{r.label}</span>
@@ -236,7 +129,7 @@ export default function SystemPage() {
                                     </div>
                                     <div className="h-1.5 rounded-full bg-muted/60 overflow-hidden">
                                         <div
-                                            className={`h-full rounded-full ${r.color} transition-all`}
+                                            className={`h-full rounded-full ${RESOURCE_TONE[r.tone]} transition-all`}
                                             style={{ width: `${r.value}%` }}
                                         />
                                     </div>
@@ -253,14 +146,7 @@ export default function SystemPage() {
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="p-4 flex flex-col gap-3">
-                            {[
-                                { label: 'Last Full Backup', value: 'Today 02:00 AM', ok: true },
-                                { label: 'Last Incremental', value: 'Today 08:00 AM', ok: true },
-                                { label: 'Backup Storage Used', value: '42.8 GB / 200 GB', ok: true },
-                                { label: 'Retention Policy', value: '30 days rolling', ok: true },
-                                { label: 'Offsite Replication', value: 'Enabled — Google Cloud Storage', ok: true },
-                                { label: 'Last Restore Test', value: '2026-07-15 — PASSED', ok: true },
-                            ].map((b) => (
+                            {backups.map((b) => (
                                 <div key={b.label} className="flex items-center justify-between text-xs">
                                     <span className="text-muted-foreground">{b.label}</span>
                                     <span className={`font-semibold ${b.ok ? 'text-foreground' : 'text-destructive'}`}>
@@ -293,7 +179,7 @@ export default function SystemPage() {
                             <tbody className="divide-y divide-border">
                                 {services.map((svc) => {
                                     return (
-                                        <tr key={svc.name} className="hover:bg-muted/30">
+                                        <tr key={svc.id} className="hover:bg-muted/30">
                                             <td className="py-3">
                                                 <div className="flex items-center gap-2">
                                                     <div className="p-1.5 rounded-md bg-muted/50 text-muted-foreground shrink-0">
@@ -308,7 +194,9 @@ export default function SystemPage() {
                                                 </div>
                                             </td>
                                             <td className="py-3">
-                                                <HealthBadge status={svc.status} />
+                                                <FlexStatus tone={HEALTH_TONE[svc.status]} className="capitalize text-[11px]">
+                                                    {svc.status}
+                                                </FlexStatus>
                                             </td>
                                             <td className="py-3 font-mono text-muted-foreground">
                                                 {svc.latencyMs !== undefined ? `${svc.latencyMs}ms` : '—'}
