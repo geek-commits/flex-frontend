@@ -2,6 +2,7 @@ import { RiAddLine, RiRefreshLine } from '@remixicon/react';
 import React, { useCallback, useState } from 'react';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexErrorState } from '@/components/flex/flex-error-state';
+import { FlexWorkbenchShell } from '@/components/flex/flex-workbench-shell';
 import { Button } from '@/components/ui/button';
 import { accessRepository } from '@/domain/access-repository';
 import { PermissionFormSheet } from '@/features/access-management/roles/permission-form-sheet';
@@ -62,21 +63,23 @@ export function PermissionsTab() {
                     }
                 />
             ) : (
-                <PermissionsTable
-                    records={records}
-                    isLoading={isLoading}
-                    emptyMessage={
-                        <FlexEmptyState
-                            title="No permissions yet"
-                            description="Add your first permission definition."
-                            action={
-                                <Button variant="outline" size="sm" className="text-xs" onClick={() => setFormOpen(true)}>
-                                    Add Permission
-                                </Button>
-                            }
-                        />
-                    }
-                />
+                <FlexWorkbenchShell>
+                    <PermissionsTable
+                        records={records}
+                        isLoading={isLoading}
+                        emptyMessage={
+                            <FlexEmptyState
+                                title="No permissions yet"
+                                description="Add your first permission definition."
+                                action={
+                                    <Button variant="outline" size="sm" className="text-xs" onClick={() => setFormOpen(true)}>
+                                        Add Permission
+                                    </Button>
+                                }
+                            />
+                        }
+                    />
+                </FlexWorkbenchShell>
             )}
 
             <p className="text-[10px] text-flex-text-muted">

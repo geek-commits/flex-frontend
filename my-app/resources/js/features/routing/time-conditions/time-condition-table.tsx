@@ -16,7 +16,7 @@ export interface TimeConditionTableProps {
 /** Dense Time Condition directory table showing the Time Group relationship. */
 export function TimeConditionTable({ records, onView, onEdit }: TimeConditionTableProps) {
     return (
-        <div className="overflow-hidden rounded-lg border border-border bg-background">
+        <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
             <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                     <thead>

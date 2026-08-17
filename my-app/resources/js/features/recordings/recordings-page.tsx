@@ -1,6 +1,7 @@
 import { Head } from '@inertiajs/react';
 import React, { useState } from 'react';
 import { toast } from 'sonner';
+import { FlexWorkbenchShell } from '@/components/flex/flex-workbench-shell';
 import { FlexMetricItem } from '@/components/flex/metrics/flex-metric-item';
 import { FlexMetricStrip } from '@/components/flex/metrics/flex-metric-strip';
 import type { RecordingDraft, RecordingRecord } from '@/domain/recording-types';
@@ -176,14 +177,16 @@ export function RecordingsPage() {
                 />
 
                 {/* Main Table */}
-                <RecordingsTable
-                    records={records}
-                    isLoading={isLoading}
-                    onRowClick={handleRowClick}
-                    onEdit={handleEdit}
-                    onReplace={handleReplace}
-                    onDelete={handleDeleteClick}
-                />
+                <FlexWorkbenchShell>
+                    <RecordingsTable
+                        records={records}
+                        isLoading={isLoading}
+                        onRowClick={handleRowClick}
+                        onEdit={handleEdit}
+                        onReplace={handleReplace}
+                        onDelete={handleDeleteClick}
+                    />
+                </FlexWorkbenchShell>
             </div>
 
             {/* Detail Sheet */}

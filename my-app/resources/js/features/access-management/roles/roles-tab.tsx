@@ -2,6 +2,7 @@ import { RiAddLine, RiRefreshLine } from '@remixicon/react';
 import React, { useCallback, useState } from 'react';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexErrorState } from '@/components/flex/flex-error-state';
+import { FlexWorkbenchShell } from '@/components/flex/flex-workbench-shell';
 import { Button } from '@/components/ui/button';
 import { accessRepository } from '@/domain/access-repository';
 import { RoleFormSheet } from '@/features/access-management/roles/role-form-sheet';
@@ -74,22 +75,24 @@ export function RolesTab() {
                     }
                 />
             ) : (
-                <RolesTable
-                    records={records}
-                    isLoading={isLoading}
-                    onEdit={openEdit}
-                    emptyMessage={
-                        <FlexEmptyState
-                            title="No roles yet"
-                            description="Add your first role to define access for users."
-                            action={
-                                <Button variant="outline" size="sm" className="text-xs" onClick={openAdd}>
-                                    Add Role
-                                </Button>
-                            }
-                        />
-                    }
-                />
+                <FlexWorkbenchShell>
+                    <RolesTable
+                        records={records}
+                        isLoading={isLoading}
+                        onEdit={openEdit}
+                        emptyMessage={
+                            <FlexEmptyState
+                                title="No roles yet"
+                                description="Add your first role to define access for users."
+                                action={
+                                    <Button variant="outline" size="sm" className="text-xs" onClick={openAdd}>
+                                        Add Role
+                                    </Button>
+                                }
+                            />
+                        }
+                    />
+                </FlexWorkbenchShell>
             )}
 
             <p className="text-[10px] text-flex-text-muted">

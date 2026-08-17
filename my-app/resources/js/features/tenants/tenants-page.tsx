@@ -6,6 +6,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexErrorState } from '@/components/flex/flex-error-state';
+import { FlexWorkbenchShell } from '@/components/flex/flex-workbench-shell';
 import { dataGridFeatures } from '@/components/reui/data-grid/data-grid';
 import { Button } from '@/components/ui/button';
 import { tenantRepository } from '@/domain/tenant-repository';
@@ -190,34 +191,36 @@ export function TenantsPage() {
                         }
                     />
                 ) : (
-                    <TenantsTable
-                        table={table}
-                        recordCount={filteredData?.length || 0}
-                        isLoading={isLoading}
-                        total={records.length}
-                        onRowClick={openDetail}
-                        emptyMessage={
-                            <FlexEmptyState
-                                title={records.length === 0 ? 'No tenants yet' : 'No tenants match these filters'}
-                                description={
-                                    records.length === 0
-                                        ? 'Add your first tenant organization to get started.'
-                                        : 'Try changing your search or filters.'
-                                }
-                                action={
-                                    records.length === 0 ? (
-                                        <Button variant="outline" size="sm" className="text-xs" onClick={() => setFormOpen(true)}>
-                                            Add Tenant
-                                        </Button>
-                                    ) : (
-                                        <Button variant="outline" size="sm" className="text-xs" onClick={clearAll}>
-                                            Clear filters
-                                        </Button>
-                                    )
-                                }
-                            />
-                        }
-                    />
+                    <FlexWorkbenchShell>
+                        <TenantsTable
+                            table={table}
+                            recordCount={filteredData?.length || 0}
+                            isLoading={isLoading}
+                            total={records.length}
+                            onRowClick={openDetail}
+                            emptyMessage={
+                                <FlexEmptyState
+                                    title={records.length === 0 ? 'No tenants yet' : 'No tenants match these filters'}
+                                    description={
+                                        records.length === 0
+                                            ? 'Add your first tenant organization to get started.'
+                                            : 'Try changing your search or filters.'
+                                    }
+                                    action={
+                                        records.length === 0 ? (
+                                            <Button variant="outline" size="sm" className="text-xs" onClick={() => setFormOpen(true)}>
+                                                Add Tenant
+                                            </Button>
+                                        ) : (
+                                            <Button variant="outline" size="sm" className="text-xs" onClick={clearAll}>
+                                                Clear filters
+                                            </Button>
+                                        )
+                                    }
+                                />
+                            }
+                        />
+                    </FlexWorkbenchShell>
                 )}
 
                 <p className="text-[10px] text-flex-text-muted">

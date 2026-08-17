@@ -1,6 +1,7 @@
 import { Head } from '@inertiajs/react';
 import React, { useState } from 'react';
 import { toast } from 'sonner';
+import { FlexWorkbenchShell } from '@/components/flex/flex-workbench-shell';
 import { FlexMetricItem } from '@/components/flex/metrics/flex-metric-item';
 import { FlexMetricStrip } from '@/components/flex/metrics/flex-metric-strip';
 import type { SubscriptionRecord } from '@/domain/subscription-types';
@@ -115,13 +116,15 @@ export function SubscriptionsPage() {
                 <SubscriptionToolbar query={query} onQueryChange={setQuery} />
 
                 {/* Main Table */}
-                <SubscriptionsTable
-                    records={records}
-                    isLoading={isLoading}
-                    onRowClick={handleRowClick}
-                    onTriggerReminder={handleTriggerReminder}
-                    onRenew={handleRenewClick}
-                />
+                <FlexWorkbenchShell>
+                    <SubscriptionsTable
+                        records={records}
+                        isLoading={isLoading}
+                        onRowClick={handleRowClick}
+                        onTriggerReminder={handleTriggerReminder}
+                        onRenew={handleRenewClick}
+                    />
+                </FlexWorkbenchShell>
             </div>
 
             {/* Detail Sheet */}
