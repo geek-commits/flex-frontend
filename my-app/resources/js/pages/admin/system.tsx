@@ -101,9 +101,9 @@ export default function SystemPage() {
                             description="Services unreachable"
                         />
                         <MetricCard
-                            title="Uptime (30d)"
+                            title="Uptime (30d) — Sample"
                             value={summary.uptime30d}
-                            description="Platform availability SLA"
+                            description="Sample / POC data — not live SLA telemetry."
                         />
                     </MetricGroup>
                 </div>
@@ -209,6 +209,10 @@ export default function SystemPage() {
                         </table>
                     </CardContent>
                 </Card>
+
+                <p className="text-[10px] text-flex-text-muted">
+                    POC mock data — sample service, resource and backup metrics; not live telephony or SLA telemetry.
+                </p>
             </div>
         </AdminShell>
     );
