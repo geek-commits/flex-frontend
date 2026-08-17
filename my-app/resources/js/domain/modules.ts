@@ -67,6 +67,18 @@ export const SETTINGS_MODULES: ModuleEntry[] = [
 
 export const ALL_MODULES: ModuleEntry[] = [...CONSOLE_MODULES, ...SETTINGS_MODULES];
 
+/**
+ * NOTE: a few modules intentionally appear in BOTH catalogs (ivr, queues,
+ * time-conditions, inbound-routes, recordings, security) because they are
+ * cross-listed from the Management Console and the Settings directory. This
+ * creates duplicate keys in `MODULE_INDEX` where the later (SETTINGS) entry
+ * wins. That is benign: `MODULE_INDEX` only feeds `module-placeholder` (these
+ * destinations are real pages) — do not "de-duplicate" them.
+ *
+ * Remaining-module classification (Remaining Modules preflight): entries that
+ * resolve only to `module-placeholder` are NOT_PRESENT / ALIAS / BLOCKED and
+ * are intentionally not built in this POC. See FLEX_FEATURE_PARITY.md §12b.
+ */
 export const MODULE_INDEX: Record<string, ModuleEntry> = Object.fromEntries(
     ALL_MODULES.map((module) => [module.href, module])
 );
