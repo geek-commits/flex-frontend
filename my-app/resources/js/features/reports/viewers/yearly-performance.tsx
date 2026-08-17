@@ -26,7 +26,7 @@ export function YearlyPerformanceViewer({ run }: { run: ReportRun }) {
                         <Tooltip
                             contentStyle={{ fontSize: 12, borderRadius: 8, border: '1px solid var(--flex-border)' }}
                         />
-                        <Line type="monotone" dataKey="totalCalls" stroke="var(--flex-primary)" strokeWidth={2} dot={false} name="Total Calls" />
+                        <Line type="monotone" dataKey="totalCalls" stroke="var(--flex-brand-primary)" strokeWidth={2} dot={false} name="Total Calls" />
                     </LineChart>
                 </ResponsiveContainer>
             </div>

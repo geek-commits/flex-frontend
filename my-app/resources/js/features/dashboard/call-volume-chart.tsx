@@ -16,8 +16,8 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useDashboardData } from '@/features/dashboard/use-dashboard-data';
 
 const volumeConfig = {
-    answered: { label: 'Answered', color: 'var(--flex-chart-1)' },
-    missed: { label: 'Missed', color: 'var(--flex-chart-2)' },
+    answered: { label: 'Answered', color: 'var(--status-live)' },
+    missed: { label: 'Missed', color: 'var(--status-disconnected)' },
 } satisfies ChartConfig;
 
 export function CallVolumeChart() {
@@ -86,12 +86,12 @@ export function CallVolumeChart() {
                         >
                             <stop
                                 offset="0%"
-                                stopColor="var(--flex-chart-1)"
+                                stopColor="var(--color-answered)"
                                 stopOpacity={0.25}
                             />
                             <stop
                                 offset="100%"
-                                stopColor="var(--flex-chart-1)"
+                                stopColor="var(--color-answered)"
                                 stopOpacity={0}
                             />
                         </linearGradient>
@@ -104,12 +104,12 @@ export function CallVolumeChart() {
                         >
                             <stop
                                 offset="0%"
-                                stopColor="var(--flex-chart-2)"
+                                stopColor="var(--color-missed)"
                                 stopOpacity={0.15}
                             />
                             <stop
                                 offset="100%"
-                                stopColor="var(--flex-chart-2)"
+                                stopColor="var(--color-missed)"
                                 stopOpacity={0}
                             />
                         </linearGradient>
@@ -117,7 +117,6 @@ export function CallVolumeChart() {
                     <CartesianGrid
                         vertical={false}
                         strokeDasharray="3 3"
-                        stroke="var(--flex-chart-grid)"
                     />
                     <XAxis
                         dataKey="day"
@@ -125,16 +124,12 @@ export function CallVolumeChart() {
                         axisLine={false}
                         tickMargin={8}
                         fontSize={11}
-                        stroke="var(--flex-chart-muted)"
-                        tick={{ fill: 'var(--flex-chart-muted)' }}
                     />
                     <YAxis
                         tickLine={false}
                         axisLine={false}
                         tickMargin={8}
                         fontSize={11}
-                        stroke="var(--flex-chart-muted)"
-                        tick={{ fill: 'var(--flex-chart-muted)' }}
                         domain={[0, 'dataMax + 20']}
                     />
                     <ChartTooltip content={<ChartTooltipContent />} />
@@ -142,14 +137,14 @@ export function CallVolumeChart() {
                         dataKey="answered"
                         type="monotone"
                         fill="url(#answered-gradient)"
-                        stroke="var(--flex-chart-1)"
+                        stroke="var(--color-answered)"
                         strokeWidth={2}
                     />
                     <Area
                         dataKey="missed"
                         type="monotone"
                         fill="url(#missed-gradient)"
-                        stroke="var(--flex-chart-2)"
+                        stroke="var(--color-missed)"
                         strokeWidth={2}
                     />
                 </AreaChart>

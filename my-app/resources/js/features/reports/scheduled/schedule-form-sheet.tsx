@@ -280,7 +280,7 @@ export function ScheduleFormSheet({ open, onOpenChange, editing, onSaved }: Sche
                                             type="checkbox"
                                             checked={checked}
                                             onChange={() => toggleRecipient(option)}
-                                            className="size-3.5 accent-[var(--flex-primary)]"
+                                            className="size-3.5 accent-[var(--flex-brand-primary)]"
                                         />
                                         <span className="text-flex-text-primary">{option}</span>
                                     </label>
