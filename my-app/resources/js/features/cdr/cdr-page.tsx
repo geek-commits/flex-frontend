@@ -7,6 +7,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexErrorState } from '@/components/flex/flex-error-state';
+import { FlexWorkbenchShell } from '@/components/flex/flex-workbench-shell';
 import { dataGridFeatures } from '@/components/reui/data-grid/data-grid';
 import type { Filter } from '@/components/reui/filters';
 import { Button } from '@/components/ui/button';
@@ -212,25 +213,27 @@ return false;
                         }
                     />
                 ) : (
-                    <CdrTable
-                        table={table}
-                        recordCount={filteredData?.length || 0}
-                        isLoading={isLoading}
-                        total={baseResults.length}
-                        quickFilter={quickFilter}
-                        onRowClick={openDetail}
-                        emptyMessage={
-                            <FlexEmptyState
-                                title="No call records found"
-                                description="Try changing your filters or date range."
-                                action={
-                                    <Button variant="outline" size="sm" className="text-xs" onClick={clearAll}>
-                                        Clear filters
-                                    </Button>
-                                }
-                            />
-                        }
-                    />
+                    <FlexWorkbenchShell>
+                        <CdrTable
+                            table={table}
+                            recordCount={filteredData?.length || 0}
+                            isLoading={isLoading}
+                            total={baseResults.length}
+                            quickFilter={quickFilter}
+                            onRowClick={openDetail}
+                            emptyMessage={
+                                <FlexEmptyState
+                                    title="No call records found"
+                                    description="Try changing your filters or date range."
+                                    action={
+                                        <Button variant="outline" size="sm" className="text-xs" onClick={clearAll}>
+                                            Clear filters
+                                        </Button>
+                                    }
+                                />
+                            }
+                        />
+                    </FlexWorkbenchShell>
                 )}
 
                 <p className="text-[10px] text-flex-text-muted">

@@ -20,7 +20,7 @@ export function FlexWorkbenchShell({ toolbar, children, className = '' }: FlexWo
     return (
         <div
             className={cn(
-                'flex h-full min-h-0 flex-col overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface',
+                'flex flex-col overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface',
                 className
             )}
         >
