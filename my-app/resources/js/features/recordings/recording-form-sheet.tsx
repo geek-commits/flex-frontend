@@ -154,28 +154,28 @@ function RecordingFormContent({
             {(mode === 'create' || mode === 'replace') && (
                 <div className="flex flex-col gap-1.5">
                     <Label className="text-xs font-semibold">Audio File (WAV / MP3)</Label>
-                    <div
+                    <label
+                        htmlFor="rec-file-input"
                         onDragOver={(e) => {
                             e.preventDefault();
                             setIsDragging(true);
                         }}
                         onDragLeave={() => setIsDragging(false)}
                         onDrop={handleDrop}
-                        className={`flex flex-col items-center justify-center p-6 border-2 border-dashed rounded-lg transition-colors cursor-pointer text-center ${
+                        className={`flex flex-col items-center justify-center p-6 border-2 border-dashed rounded-lg transition-colors cursor-pointer text-center focus-within:ring-2 focus-within:ring-ring ${
                             isDragging
                                 ? 'border-primary bg-primary/5'
                                 : filename
                                   ? 'border-border bg-muted/20'
                                   : 'border-muted hover:border-border'
                         }`}
-                        onClick={() => document.getElementById('rec-file-input')?.click()}
                     >
                         <input
                             id="rec-file-input"
                             type="file"
                             accept=".wav,.mp3,audio/wav,audio/mpeg"
                             onChange={handleFileChange}
-                            className="hidden"
+                            className="sr-only"
                         />
                         <RiUploadCloudLine className="size-8 text-flex-text-muted mb-2" />
                         {filename ? (
@@ -191,7 +191,7 @@ function RecordingFormContent({
                                 <span className="text-[11px] text-flex-text-muted">WAV or MP3 (max 20 MB)</span>
                             </div>
                         )}
-                    </div>
+                    </label>
                     {fileError && <p className="text-[11px] text-destructive">{fileError}</p>}
                 </div>
             )}
