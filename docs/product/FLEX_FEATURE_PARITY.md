@@ -1,7 +1,7 @@
 # FLEX CRM — MASTER FEATURE PARITY & REVAMP TRACKER
 
 **Canonical product-status document** (per `FLEX_MASTER_FEATURE_PARITY_PLAN.md` §5).
-**Status:** Baseline v1.0 — reconciled against repository Git history and frontend source on 2026-08-12.
+**Status:** Baseline v1.0 — reconciled against repository Git history and frontend source on 2026-08-12. Whole-product parity audit executed 2026-08-17 (see `FLEX_PARITY_AUDIT_REPORT.md`).
 **Governing plan:** `FLEX_MASTER_FEATURE_PARITY_PLAN.md`
 **Primary source:** `Flex CC User Manual`
 **Purpose:** One source of truth that keeps "documented" distinct from "implemented / verified / revamped / shipped".
@@ -93,10 +93,10 @@ Resolved from `git log` (46 commits, `main`, remote `origin` → `github.com/gee
 | AGENT-CALL-009 | Hold / Resume | YES | active surface | `/agent` | SHIPPED | |
 | AGENT-CALL-010 | Transfer | YES | transfer panel + `transfer-targets.ts` | `/agent` | SHIPPED | direct only |
 | AGENT-CALL-011 | Warm Transfer | YES | — | — | NEEDS_PRODUCT_DECISION | **NO runtime consultation state** — not offered (§43) |
-| AGENT-CALL-012 | Simple Call History | YES | `idle-call-surface.tsx` history tab | `/agent` | SHIPPED | lightweight, not CDR |
-| AGENT-CALL-013 | Recent calls | YES | history tabs | `/agent` | SHIPPED | |
-| AGENT-CALL-014 | Missed call tab/history | YES | history tabs | `/agent` | SHIPPED | distinct from callback workflow |
-| AGENT-CALL-015 | Outgoing history | YES | history tabs | `/agent` | SHIPPED | |
+| AGENT-CALL-012 | Simple Call History | YES | `idle-call-surface.tsx` history tab | `/agent` | SHIPPED | single flat "Call History" tab; search input uncontrolled (`idle-call-surface.tsx:33-106`) |
+| AGENT-CALL-013 | Recent calls | YES | history tab | `/agent` | FRONTEND_ONLY (partial) | **2026-08-17 audit:** no dedicated Recent/Missed/Outgoing sub-tabs — all outcomes in one flat list, distinguished only by outcome badge; not separate tabs as documented |
+| AGENT-CALL-014 | Missed call tab/history | YES | history tab | `/agent` | FRONTEND_ONLY (partial) | same single flat list; missed entries identifiable by outcome badge only (audit 2026-08-17) |
+| AGENT-CALL-015 | Outgoing history | YES | history tab | `/agent` | FRONTEND_ONLY (partial) | same single flat list; outgoing by outcome badge only (audit 2026-08-17) |
 
 ---
 
@@ -118,14 +118,14 @@ Treat as external/integration-owned. Do not redesign blindly (plan §7).
 
 | ID | Feature | Manual | Evidence | Lifecycle | Notes |
 |---|---|---|---|---|---|
-| CALLBACK-001 | Callback Window | YES | `features/customer-recovery/*`, `pages/agent/missed-calls.tsx` | SHIPPED | FLEX Customer Recovery v0.1: single data owner `useRecoveryData`, query filters, summary metrics, responsive DataGrid |
+| CALLBACK-001 | Callback Window | YES | `features/customer-recovery/*`, `pages/agent/missed-calls.tsx` | FRONTEND_ONLY (partial) | **2026-08-17 audit:** no literal callback time-window concept; tracker evidence is the recovery data layer (`useRecoveryData`, filters, summary, DataGrid) — those exist, the named window does not |
 | CALLBACK-002 | Missed-call list | YES | missed-calls table | SHIPPED | customer identity, missed timestamp, queue, category |
 | CALLBACK-003 | Customer / phone | YES | missed-calls table + detail | SHIPPED | customer name, phone number, click-to-copy/dial |
 | CALLBACK-004 | Queue | YES | missed-calls table | SHIPPED | queue badge, category classification |
 | CALLBACK-005 | Attempt count | YES | missed-calls table + attempt history | SHIPPED | incremented on callback attempt, audit timeline |
 | CALLBACK-006 | Call Back action | YES | `callback-action.tsx` | SHIPPED | initiates outbound call via canonical `workspaceState.dial` |
 | CALLBACK-007 | Claimed ownership after attempt | YES | `recovery-ownership.tsx` | SHIPPED | claim acknowledgment from repository, collision prevention |
-| CALLBACK-008 | Attended after successful answer | YES | `recovery-status.tsx` | SHIPPED | resolved transition supported in repository |
+| CALLBACK-008 | Attended after successful answer | YES | `recovery-status.tsx` | FRONTEND_ONLY (unreachable) | `markAttended` implemented in repo (`recovery-repository.ts:110-120`) but **no call site/UI** — resolved transition not attainable at runtime (audit 2026-08-17) |
 | CALLBACK-009 | Voicemail list | YES | missed-calls table | SHIPPED | duration, presence indicator, canonical absence |
 | CALLBACK-010 | Voicemail playback | YES | `voicemail-player.tsx` | SHIPPED | shared audio player with play/pause, duration, stop-propagation |
 
@@ -164,11 +164,11 @@ Treat as external/integration-owned. Do not redesign blindly (plan §7).
 | ID | Feature | Manual | Evidence | Route | Lifecycle | Notes |
 |---|---|---|---|---|---|---|
 | SUP-MON-001 | Agent Monitoring | YES | `features/agent-monitoring/*` | `/admin/monitoring` | SHIPPED | `24187c6` |
-| SUP-MON-002 | Realtime Agent Status | YES | monitoring use + pipeline | `/admin/monitoring` | SHIPPED | |
-| SUP-MON-003 | State Duration | YES | `use-state-timer` family | `/admin/monitoring` | SHIPPED | |
-| SUP-MON-004 | Summary by State | YES | `agent-state-summary.tsx` | `/admin/monitoring` | SHIPPED | |
-| SUP-MON-005 | Agent Performance Summary | YES | monitoring page | `/admin/monitoring` | REVAMPED | metrics secondary |
-| SUP-MON-006 | Current Call context | IMPLIED | monitoring page | `/admin/monitoring` | REVAMPED | privacy noted |
+| SUP-MON-002 | Realtime Agent Status | YES | `use-agent-monitoring.ts:45-61` | `/admin/monitoring` | FRONTEND_ONLY (computed, NOT rendered) | rows derived but page renders only summary + toolbar + "coming online" empty state — **no agent list/table surface** (2026-08-17 audit) |
+| SUP-MON-003 | State Duration | YES | `use-state-timer` (dashboard, not monitoring) | `/admin/monitoring` | FRONTEND_ONLY (computed, NOT rendered) | `stateSince` mapped (`use-agent-monitoring.ts:56`) but never displayed (2026-08-17 audit) |
+| SUP-MON-004 | Summary by State | YES | `agent-state-summary.tsx` | `/admin/monitoring` | SHIPPED | runtime-verified counts (Talking/Ready/Ringing/WrapUp/Break/NotReady/Offline) |
+| SUP-MON-005 | Agent Performance Summary | YES | `use-agent-monitoring.ts:17,58` | `/admin/monitoring` | FRONTEND_ONLY (computed, NOT rendered) | `aht`/`callsToday` mapped but never displayed (2026-08-17 audit) |
+| SUP-MON-006 | Current Call context | IMPLIED | `use-agent-monitoring.ts:59` | `/admin/monitoring` | FRONTEND_ONLY (computed, NOT rendered) | `call` mapped but never surfaced (2026-08-17 audit) |
 | SUP-MON-007 | Call Whispering | YES | — | — | NEEDS_PRODUCT_DECISION | **backend capability unproven** — must verify before UI |
 | SUP-MON-008…009…010 | Whisper start / active / stop | YES/IMPLIED | — | — | NEEDS_PRODUCT_DECISION | runtime state needed |
 
@@ -188,8 +188,8 @@ Treat as external/integration-owned. Do not redesign blindly (plan §7).
 | SUP-CDR-008 | Recording playback | YES | detail sheet | REVAMPED (playback in POC mock) | depends on storage/config — verify |
 | SUP-CDR-009 | Date filter | YES | `cdr-toolbar.tsx` | SHIPPED | |
 | SUP-CDR-010 | Agent filter | YES | cdr toolbar | SHIPPED | |
-| SUP-CDR-011 | Customer/number filter | YES | cdr toolbar | SHIPPED | |
-| SUP-CDR-012 | Export | YES | — | UNKNOWN | confirm current frontend |
+| SUP-CDR-011 | Customer/number filter | YES | cdr toolbar | FRONTEND_ONLY (partial) | no dedicated customer field — free-text search only (`cdr-toolbar.tsx:84`; audit 2026-08-17) |
+| SUP-CDR-012 | Export | YES | — | UNKNOWN | **non-functional affordance:** "Download Record"/"Export" buttons render with no handler (`cdr-columns.tsx:143-150`); audit 2026-08-17 |
 
 ---
 
@@ -197,7 +197,7 @@ Treat as external/integration-owned. Do not redesign blindly (plan §7).
 
 | ID | Feature | Manual | Evidence | Lifecycle | Notes |
 |---|---|---|---|---|---|
-| SUP-CAMP-001…015 | Campaigns list/create/form/name/purpose/schedule, manual entry, Excel upload, lifecycle (Draft/Scheduled/Active/Paused/Completed), pause/resume, progress, answer rate, delete | YES | `features/campaigns/*` → `/admin/campaigns` | SHIPPED | `a957e85`→`e5f8ec4`; pause/resume pending guard `f4b3415` |
+| SUP-CAMP-001…015 | Campaigns list/create/form/name/schedule, lifecycle (Draft/Scheduled/Active/Paused/Completed), pause/resume, progress, answer rate, delete | YES | `features/campaigns/*` → `/admin/campaigns` | SHIPPED (partial) | `a957e85`→`e5f8ec4`; pause/resume pending guard `f4b3415`. Form = Title/Destination/Schedule/Status + numeric Contacts/Dialed/Answered (`campaign-form-sheet.tsx`). **Audit deviations (2026-08-17):** SUP-CAMP-005 `purpose` field NOT_PRESENT; SUP-CAMP-007 manual contact-list entry absent (numeric counts only, contacts read-only mock); SUP-CAMP-008 Excel upload NOT_PRESENT |
 | SUP-CAMP-016 | Delete | YES | campaigns table | SHIPPED | confirm destructive action |
 
 ---
@@ -307,6 +307,11 @@ Maintained during audits. Unresolved entries are kept (do not delete to look gre
 | GAP-006 | UNKNOWN_BACKEND | Agent metrics (AGENT-005…018), Subscriptions, Mail | Reports + Scheduled Reports + Subscriptions + Mail shipped as REVAMPED mock-adapter surfaces; backend still absent for these | MEDIUM | repository/runtime audit on backend rollout |
 | GAP-007 | PLAN_EXISTS_NOT_IMPLEMENTED | none at baseline | all 7 prior revamps verified shipped | CLOSED | — |
 | GAP-008 | Manual terminology | AGENT-STATE / wrap timer settings | "Wrap-Up" vs "Wrap Up" canonicalized; timer default location unresolved | LOW | resolve via real admin config surface |
+| GAP-009 | COMPUTED_NOT_RENDERED | SUP-MON-002,003,005,006 | Agent Monitoring realtime rows (status/state-duration/performance/current-call) are computed in `use-agent-monitoring` but **no agent list/table surface renders them** — page shows only summary + "coming online" empty state | HIGH | surface the agent list in the monitoring page (domain plan) |
+| GAP-010 | FEATURE_NOT_PRESENT | SUP-CAMP-005,007,008 | Campaign `purpose` field, manual contact-list entry, and Excel upload are documented in manual but absent from runtime (numeric counts + read-only contacts only) | MEDIUM | domain decision: build or mark DEFERRED |
+| GAP-011 | TRACKER_OVERSTATE | AGENT-CALL-013,014,015 | Tracker claimed separate Recent/Missed/Outgoing history tabs; runtime has one flat Call History list (outcome badge only) | LOW | corrected to FRONTEND_ONLY (partial) 2026-08-17 |
+| GAP-012 | FEATURE_NOT_PRESENT | CALLBACK-001,008 | "Callback Window" time-window concept absent (recovery data layer only); `markAttended` implemented but unreachable (no call site) | MEDIUM | domain decision / wire attended transition |
+| GAP-013 | NON_FUNCTIONAL_AFFORDANCE | SUP-CDR-012, SUP-CDR-011 | CDR "Download Record"/"Export" buttons render with no handler; customer/number filter is free-text only (no dedicated field) | MEDIUM | wire export or hide; add customer filter |
 
 ---
 
@@ -351,11 +356,11 @@ After `MANAGEMENT_CONSOLE_PLAN.md` execution (`7827cb8` → `5a84f0d`):
 10. Social / Omnichannel
 11. AI Center / AI extensions
 12. Remaining confirmed modules
-13. Whole-product parity audit
+13. ~~Whole-product parity audit~~ ✅ executed 2026-08-17 — see `FLEX_PARITY_AUDIT_REPORT.md`; corrected tracker truth (SUP-MON-002/003/005/006 computed-not-rendered, SUP-CAMP-005/007/008 absent, AGENT-CALL history tabs, CALLBACK-001/008, SUP-CDR-011/012). Gaps GAP-009…013 opened.
 14. Whole-product quality sweep
 ```
 
-Resolve whisper (GAP-001) and warm transfer (GAP-002) before any surface is offered — manually documented ≠ implemented.
+Resolve whisper (GAP-001) and warm transfer (GAP-002) before any surface is offered — manually documented ≠ implemented. GAP-009 (Agent Monitoring list not rendered) is the highest-priority new finding and must be surfaced before Agent Monitoring is release-complete.
 
 ---
 
