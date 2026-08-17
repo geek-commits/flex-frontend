@@ -41,6 +41,7 @@ docs/design/
 ├── 10-admin-safety.md           ← safe configuration change management
 ├── 11-component-governance.md   ← layering, decision test, anti-patterns
 ├── 12-quality-gates.md          ← how FLEX UI work is tested and accepted
+├── 13-visual-language.md        ← canonical design metrics: Inter, metric/label/filter/card/chart, text tokens
 ├── brand.md                     ← official FLEX monogram, canonical component, brand motion rules
 ├── iconography.md               ← semantic icon system: families, sizes, color, freezes, a11y
 ├── iconography-sources.md       ← icon source library, provenance, filename→semantic map
