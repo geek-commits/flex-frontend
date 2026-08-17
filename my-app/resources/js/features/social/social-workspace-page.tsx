@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FlexWorkbenchShell } from '@/components/flex/flex-workbench-shell';
 import { AgentOperationalHeader } from '@/features/agent-workspace/agent-operational-header';
 import { useWorkspaceState } from '@/features/agent-workspace/state/use-workspace-state';
 import { AgentShell } from '@/layouts/agent-shell';
@@ -54,20 +55,42 @@ export function SocialWorkspacePage() {
                 />
             }
         >
-            <div className="h-full w-full flex flex-col">
-                {/* Desktop / Laptop: side-by-side split view */}
-                <div className="hidden lg:flex flex-1 min-h-0 overflow-hidden">
-                    <aside className="w-[360px] shrink-0 border-r border-border flex flex-col h-full">
-                        <ConversationList
-                            conversations={conversations}
-                            filter={filter}
-                            onFilterChange={setFilter}
-                            activeId={activeId}
-                            onSelect={setActiveId}
-                        />
-                    </aside>
+            <FlexWorkbenchShell>
+                <div className="flex h-full w-full flex-col">
+                    {/* Desktop / Laptop: side-by-side split view */}
+                    <div className="hidden lg:flex flex-1 min-h-0 overflow-hidden">
+                        <aside className="w-[360px] shrink-0 border-r border-flex-workspace-divider flex flex-col h-full">
+                            <ConversationList
+                                conversations={conversations}
+                                filter={filter}
+                                onFilterChange={setFilter}
+                                activeId={activeId}
+                                onSelect={setActiveId}
+                            />
+                        </aside>
 
-                    <div className="hidden lg:flex flex-1 flex-col min-w-0 border-l border-border">
+                        <div className="hidden lg:flex flex-1 flex-col min-w-0 border-l border-flex-workspace-divider">
+                            {activeConversation ? (
+                                <ConversationDetail
+                                    conversation={activeConversation}
+                                    messages={activeMessages}
+                                    onBack={() => setActiveId(null)}
+                                    onSend={handleSend}
+                                    onToggleFollowUp={() => activeConversation && setFollowUp(activeConversation.id, !activeConversation.followUp)}
+                                    onEscalate={() => activeConversation && escalate(activeConversation.id)}
+                                />
+                            ) : (
+                                <div className="flex-1 flex items-center justify-center p-4">
+                                    <p className="text-sm text-muted-foreground">
+                                        Select a conversation to view and reply.
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Mobile / Tablet: list → detail flow */}
+                    <div className="lg:hidden flex-1 min-h-0">
                         {activeConversation ? (
                             <ConversationDetail
                                 conversation={activeConversation}
@@ -78,37 +101,17 @@ export function SocialWorkspacePage() {
                                 onEscalate={() => activeConversation && escalate(activeConversation.id)}
                             />
                         ) : (
-                            <div className="flex-1 flex items-center justify-center p-4">
-                                <p className="text-sm text-muted-foreground">
-                                    Select a conversation to view and reply.
-                                </p>
-                            </div>
+                            <ConversationList
+                                conversations={conversations}
+                                filter={filter}
+                                onFilterChange={setFilter}
+                                activeId={activeId}
+                                onSelect={setActiveId}
+                            />
                         )}
                     </div>
                 </div>
-
-                {/* Mobile / Tablet: list → detail flow */}
-                <div className="lg:hidden flex-1 min-h-0">
-                    {activeConversation ? (
-                        <ConversationDetail
-                            conversation={activeConversation}
-                            messages={activeMessages}
-                            onBack={() => setActiveId(null)}
-                            onSend={handleSend}
-                            onToggleFollowUp={() => activeConversation && setFollowUp(activeConversation.id, !activeConversation.followUp)}
-                            onEscalate={() => activeConversation && escalate(activeConversation.id)}
-                        />
-                    ) : (
-                        <ConversationList
-                            conversations={conversations}
-                            filter={filter}
-                            onFilterChange={setFilter}
-                            activeId={activeId}
-                            onSelect={setActiveId}
-                        />
-                    )}
-                </div>
-            </div>
+            </FlexWorkbenchShell>
         </AgentShell>
     );
 }
