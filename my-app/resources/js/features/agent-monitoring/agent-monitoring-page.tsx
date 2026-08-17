@@ -3,8 +3,10 @@ import { Head } from '@inertiajs/react';
 import React from 'react';
 import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
+import { FlexErrorState } from '@/components/flex/flex-error-state';
 import { FlexLiveDataStatus } from '@/components/flex/flex-live-data-status';
 import { Button } from '@/components/ui/button';
+import { AgentMonitoringRoster } from '@/features/agent-monitoring/agent-monitoring-roster';
 import { AgentMonitoringToolbar } from '@/features/agent-monitoring/agent-monitoring-toolbar';
 import { AgentStateSummary } from '@/features/agent-monitoring/agent-state-summary';
 import { useAgentMonitoring } from '@/features/agent-monitoring/use-agent-monitoring';
@@ -65,9 +67,12 @@ function AgentMonitoringContent() {
         lastUpdated,
         isRefreshing,
         refresh,
+        isLoading,
+        error,
     } = useAgentMonitoring();
 
     const showFilteredEmpty = hasActiveFilters && filteredAgents.length === 0;
+    const showTrueEmpty = !isLoading && !error && agents.length === 0 && !hasActiveFilters;
 
     return (
         <div className="flex w-full flex-col gap-[var(--flex-space-section)]">
@@ -90,7 +95,17 @@ function AgentMonitoringContent() {
                 onClearFilters={clearFilters}
             />
 
-            {showFilteredEmpty ? (
+            {error ? (
+                <FlexErrorState
+                    title="Agent monitoring unavailable"
+                    description="Failed to load live agent activity."
+                    action={
+                        <Button variant="outline" size="sm" className="text-xs" onClick={refresh}>
+                            Retry
+                        </Button>
+                    }
+                />
+            ) : showFilteredEmpty ? (
                 <FlexEmptyState
                     title="No agents match your filters"
                     description="Try a different search or clear your filters."
@@ -100,15 +115,13 @@ function AgentMonitoringContent() {
                         </Button>
                     }
                 />
-            ) : hasActiveFilters ? (
-                <p className="text-xs text-flex-text-muted">
-                    {filteredAgents.length} of {agents.length} agents match
-                </p>
-            ) : (
+            ) : showTrueEmpty ? (
                 <FlexEmptyState
-                    title="Agent monitoring is coming online"
-                    description="Live agent activity will appear here."
+                    title="No agents online"
+                    description="Agent activity will appear here once agents come online."
                 />
+            ) : (
+                <AgentMonitoringRoster rows={filteredAgents} isLoading={isLoading} />
             )}
         </div>
     );

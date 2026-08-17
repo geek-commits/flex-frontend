@@ -164,11 +164,11 @@ Treat as external/integration-owned. Do not redesign blindly (plan §7).
 | ID | Feature | Manual | Evidence | Route | Lifecycle | Notes |
 |---|---|---|---|---|---|---|
 | SUP-MON-001 | Agent Monitoring | YES | `features/agent-monitoring/*` | `/admin/monitoring` | SHIPPED | `24187c6` |
-| SUP-MON-002 | Realtime Agent Status | YES | `use-agent-monitoring.ts:45-61` | `/admin/monitoring` | FRONTEND_ONLY (computed, NOT rendered) | rows derived but page renders only summary + toolbar + "coming online" empty state — **no agent list/table surface** (2026-08-17 audit) |
-| SUP-MON-003 | State Duration | YES | `use-state-timer` (dashboard, not monitoring) | `/admin/monitoring` | FRONTEND_ONLY (computed, NOT rendered) | `stateSince` mapped (`use-agent-monitoring.ts:56`) but never displayed (2026-08-17 audit) |
+| SUP-MON-002 | Realtime Agent Status | YES | `agent-monitoring-roster.tsx` + `use-agent-monitoring.ts` | `/admin/monitoring` | SHIPPED | roster renders `filteredAgents` (Agent/Ext/Queue/State/State Time/Current Call/Calls Today/AHT) — canonical wallboard grammar backed by monitoring runtime; browser-verified 2026-08-17 |
+| SUP-MON-003 | State Duration | YES | `useStateTimer` in `agent-monitoring-roster.tsx` | `/admin/monitoring` | SHIPPED | `stateSince` rendered + ticking timer; browser-verified 2026-08-17 |
 | SUP-MON-004 | Summary by State | YES | `agent-state-summary.tsx` | `/admin/monitoring` | SHIPPED | runtime-verified counts (Talking/Ready/Ringing/WrapUp/Break/NotReady/Offline) |
-| SUP-MON-005 | Agent Performance Summary | YES | `use-agent-monitoring.ts:17,58` | `/admin/monitoring` | FRONTEND_ONLY (computed, NOT rendered) | `aht`/`callsToday` mapped but never displayed (2026-08-17 audit) |
-| SUP-MON-006 | Current Call context | IMPLIED | `use-agent-monitoring.ts:59` | `/admin/monitoring` | FRONTEND_ONLY (computed, NOT rendered) | `call` mapped but never surfaced (2026-08-17 audit) |
+| SUP-MON-005 | Agent Performance Summary | YES | `agent-monitoring-roster.tsx` | `/admin/monitoring` | SHIPPED | Calls Today + AHT columns rendered per agent; browser-verified 2026-08-17 |
+| SUP-MON-006 | Current Call context | YES | `agent-monitoring-roster.tsx` `CurrentCallCell` | `/admin/monitoring` | SHIPPED | direction + customer + call state rendered when a call is active; browser-verified 2026-08-17 |
 | SUP-MON-007 | Call Whispering | YES | — | — | NEEDS_PRODUCT_DECISION | **backend capability unproven** — must verify before UI |
 | SUP-MON-008…009…010 | Whisper start / active / stop | YES/IMPLIED | — | — | NEEDS_PRODUCT_DECISION | runtime state needed |
 
@@ -307,7 +307,7 @@ Maintained during audits. Unresolved entries are kept (do not delete to look gre
 | GAP-006 | UNKNOWN_BACKEND | Agent metrics (AGENT-005…018), Subscriptions, Mail | Reports + Scheduled Reports + Subscriptions + Mail shipped as REVAMPED mock-adapter surfaces; backend still absent for these | MEDIUM | repository/runtime audit on backend rollout |
 | GAP-007 | PLAN_EXISTS_NOT_IMPLEMENTED | none at baseline | all 7 prior revamps verified shipped | CLOSED | — |
 | GAP-008 | Manual terminology | AGENT-STATE / wrap timer settings | "Wrap-Up" vs "Wrap Up" canonicalized; timer default location unresolved | LOW | resolve via real admin config surface |
-| GAP-009 | COMPUTED_NOT_RENDERED | SUP-MON-002,003,005,006 | Agent Monitoring realtime rows (status/state-duration/performance/current-call) are computed in `use-agent-monitoring` but **no agent list/table surface renders them** — page shows only summary + "coming online" empty state | HIGH | surface the agent list in the monitoring page (domain plan) |
+| GAP-009 | COMPUTED_NOT_RENDERED | SUP-MON-002,003,005,006 | Agent Monitoring realtime rows (status/state-duration/performance/current-call) are computed in `use-agent-monitoring` but **no agent list/table surface renders them** — page shows only summary + "coming online" empty state | HIGH | **CLOSED 2026-08-17** — `agent-monitoring-roster.tsx` renders `filteredAgents` (canonical wallboard grammar) |
 | GAP-010 | FEATURE_NOT_PRESENT | SUP-CAMP-005,007,008 | Campaign `purpose` field, manual contact-list entry, and Excel upload are documented in manual but absent from runtime (numeric counts + read-only contacts only) | MEDIUM | domain decision: build or mark DEFERRED |
 | GAP-011 | TRACKER_OVERSTATE | AGENT-CALL-013,014,015 | Tracker claimed separate Recent/Missed/Outgoing history tabs; runtime has one flat Call History list (outcome badge only) | LOW | corrected to FRONTEND_ONLY (partial) 2026-08-17 |
 | GAP-012 | FEATURE_NOT_PRESENT | CALLBACK-001,008 | "Callback Window" time-window concept absent (recovery data layer only); `markAttended` implemented but unreachable (no call site) | MEDIUM | domain decision / wire attended transition |
@@ -360,7 +360,7 @@ After `MANAGEMENT_CONSOLE_PLAN.md` execution (`7827cb8` → `5a84f0d`):
 14. Whole-product quality sweep
 ```
 
-Resolve whisper (GAP-001) and warm transfer (GAP-002) before any surface is offered — manually documented ≠ implemented. GAP-009 (Agent Monitoring list not rendered) is the highest-priority new finding and must be surfaced before Agent Monitoring is release-complete.
+Resolve whisper (GAP-001) and warm transfer (GAP-002) before any surface is offered — manually documented ≠ implemented. GAP-009 (Agent Monitoring list) was surfaced 2026-08-17 via `agent-monitoring-roster.tsx`.
 
 ---
 
