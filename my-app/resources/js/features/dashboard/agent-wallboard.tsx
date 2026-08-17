@@ -78,7 +78,7 @@ export function AgentWallboard() {
 
     if (error) {
         return (
-            <div className="flex flex-col gap-2 rounded-lg border border-border bg-card p-4">
+            <div className="flex flex-col gap-2 rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface p-4">
                 <p className="text-sm font-medium text-flex-text-primary">
                     Agent wallboard unavailable
                 </p>
@@ -100,8 +100,8 @@ export function AgentWallboard() {
 
     if (isLoading || !data) {
         return (
-            <div className="overflow-hidden rounded-lg border border-border bg-card">
-                <div className="border-b border-border p-4">
+            <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
+                <div className="border-b border-flex-workspace-divider p-4">
                     <h3 className="flex items-center gap-1.5 text-xs font-bold tracking-wider text-flex-text-muted uppercase">
                         Live Agent Wallboard
                     </h3>
@@ -109,7 +109,7 @@ export function AgentWallboard() {
                 <div className="overflow-x-auto">
                     <table className="w-full text-left text-xs">
                         <thead>
-                            <tr className="border-b border-border text-[10px] font-semibold text-flex-text-muted uppercase">
+                            <tr className="border-b border-flex-workspace-divider text-[10px] font-semibold text-flex-text-muted uppercase">
                                 <th className="pb-2">Agent</th>
                                 <th className="pb-2">Ext.</th>
                                 <th className="pb-2">Queue</th>
@@ -158,7 +158,7 @@ export function AgentWallboard() {
 
     if (agents.length === 0) {
         return (
-            <div className="flex flex-col items-center justify-center gap-2 rounded-lg border border-border bg-card p-8 text-center">
+            <div className="flex flex-col items-center justify-center gap-2 rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface p-8 text-center">
                 <p className="text-sm font-medium text-flex-text-primary">
                     No agents logged in
                 </p>
@@ -170,8 +170,8 @@ export function AgentWallboard() {
     }
 
     return (
-        <div className="overflow-hidden rounded-lg border border-border bg-card">
-            <div className="border-b border-border p-4">
+        <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
+            <div className="border-b border-flex-workspace-divider p-4">
                 <h3 className="flex items-center justify-between text-xs font-bold tracking-wider text-flex-text-muted uppercase">
                     <span>Live Agent Wallboard</span>
                     <span className="flex items-center gap-1.5">
@@ -190,7 +190,7 @@ export function AgentWallboard() {
             <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
                     <thead>
-                        <tr className="border-b border-border text-[10px] font-semibold text-flex-text-muted uppercase">
+                        <tr className="border-b border-flex-workspace-divider text-[10px] font-semibold text-flex-text-muted uppercase">
                             <th className="pb-2">Agent</th>
                             <th className="pb-2">Ext.</th>
                             <th className="pb-2">Queue</th>

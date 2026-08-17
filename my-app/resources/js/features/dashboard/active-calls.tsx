@@ -62,7 +62,7 @@ export function ActiveCalls() {
 
     if (error) {
         return (
-            <div className="flex flex-col gap-2 rounded-lg border border-border bg-card p-4">
+            <div className="flex flex-col gap-2 rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface p-4">
                 <p className="text-sm font-medium text-flex-text-primary">
                     Active calls unavailable
                 </p>
@@ -84,8 +84,8 @@ export function ActiveCalls() {
 
     if (isLoading || !data) {
         return (
-            <div className="overflow-hidden rounded-lg border border-border bg-card">
-                <div className="border-b border-border p-4">
+            <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
+                <div className="border-b border-flex-workspace-divider p-4">
                     <h3 className="flex items-center gap-1.5 text-xs font-bold tracking-wider text-flex-text-muted uppercase">
                         Active Calls & Traffic
                     </h3>
@@ -93,7 +93,7 @@ export function ActiveCalls() {
                 <div className="p-4">
                     <table className="w-full text-left text-xs">
                         <thead>
-                            <tr className="border-b border-border text-[10px] font-semibold text-flex-text-muted uppercase">
+                            <tr className="border-b border-flex-workspace-divider text-[10px] font-semibold text-flex-text-muted uppercase">
                                 <th className="pb-2">Customer</th>
                                 <th className="pb-2">Agent</th>
                                 <th className="pb-2">Queue</th>
@@ -134,7 +134,7 @@ export function ActiveCalls() {
 
     if (calls.length === 0) {
         return (
-            <div className="flex flex-col items-center justify-center gap-2 rounded-lg border border-border bg-card p-8 text-center">
+            <div className="flex flex-col items-center justify-center gap-2 rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface p-8 text-center">
                 <p className="text-sm font-medium text-flex-text-primary">
                     No active calls
                 </p>
@@ -146,8 +146,8 @@ export function ActiveCalls() {
     }
 
     return (
-        <div className="overflow-hidden rounded-lg border border-border bg-card">
-            <div className="border-b border-border p-4">
+        <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
+            <div className="border-b border-flex-workspace-divider p-4">
                 <h3 className="flex items-center gap-1.5 text-xs font-bold tracking-wider text-flex-text-muted uppercase">
                     Active Calls & Traffic
                 </h3>
@@ -155,7 +155,7 @@ export function ActiveCalls() {
             <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
                     <thead>
-                        <tr className="border-b border-border text-[10px] font-semibold text-flex-text-muted uppercase">
+                        <tr className="border-b border-flex-workspace-divider text-[10px] font-semibold text-flex-text-muted uppercase">
                             <th className="pb-2">Customer</th>
                             <th className="pb-2">Agent</th>
                             <th className="pb-2">Queue</th>

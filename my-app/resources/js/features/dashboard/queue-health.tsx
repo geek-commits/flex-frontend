@@ -28,7 +28,7 @@ export function QueueHealth() {
 
     if (error) {
         return (
-            <div className="flex flex-col gap-2 rounded-lg border border-border bg-card p-4">
+            <div className="flex flex-col gap-2 rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface p-4">
                 <p className="text-sm font-medium text-flex-text-primary">
                     Queue health unavailable
                 </p>
@@ -47,8 +47,8 @@ export function QueueHealth() {
     }
 
     return (
-        <div className="overflow-hidden rounded-lg border border-border bg-card">
-            <div className="border-b border-border p-4">
+        <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
+            <div className="border-b border-flex-workspace-divider p-4">
                 <h3 className="flex items-center gap-1.5 text-xs font-bold tracking-wider text-flex-text-muted uppercase">
                     Live Inbound Queues
                 </h3>
@@ -57,7 +57,7 @@ export function QueueHealth() {
             <div className="relative overflow-x-auto">
                 <table className="w-full text-left text-xs">
                     <thead>
-                        <tr className="border-b border-border text-[10px] font-semibold text-flex-text-muted uppercase">
+                        <tr className="border-b border-flex-workspace-divider text-[10px] font-semibold text-flex-text-muted uppercase">
                             {QUEUE_HEALTH_COLUMNS.map((col) => (
                                 <th key={col.key} style={{ width: col.width }}>
                                     {col.header}
