@@ -108,6 +108,19 @@ export function FlexProfileMenu() {
                                     onClick={cleanup}
                                 >
                                     <RiUserSettingsLine className="mr-2" />
+                                    View profile
+                                </Link>
+                            }
+                        />
+                        <DropdownMenuItem
+                            render={
+                                <Link
+                                    className="block w-full cursor-pointer"
+                                    href={edit()}
+                                    prefetch
+                                    onClick={cleanup}
+                                >
+                                    <RiSettings4Line className="mr-2" />
                                     Account settings
                                 </Link>
                             }
