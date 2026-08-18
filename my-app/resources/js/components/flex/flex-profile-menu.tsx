@@ -76,25 +76,27 @@ export function FlexProfileMenu() {
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent align="end" sideOffset={8} className="w-72">
-                    <DropdownMenuLabel className="p-0 font-normal">
-                        <div className="flex items-center gap-3 px-2 py-2">
-                            <Avatar size="lg">
-                                {user.avatar ? <AvatarImage src={user.avatar} alt={user.name} /> : null}
-                                <AvatarFallback>{initials}</AvatarFallback>
-                            </Avatar>
-                            <div className="min-w-0">
-                                <div className="truncate text-sm font-semibold text-foreground">
-                                    {user.name}
-                                </div>
-                                <div className="truncate text-xs text-muted-foreground">
-                                    {user.email}
-                                </div>
-                                <div className="truncate text-[11px] font-medium text-status-info mt-0.5">
-                                    {roleLabel(role)}
+                    <DropdownMenuGroup>
+                        <DropdownMenuLabel className="p-0 font-normal">
+                            <div className="flex items-center gap-3 px-2 py-2">
+                                <Avatar size="lg">
+                                    {user.avatar ? <AvatarImage src={user.avatar} alt={user.name} /> : null}
+                                    <AvatarFallback>{initials}</AvatarFallback>
+                                </Avatar>
+                                <div className="min-w-0">
+                                    <div className="truncate text-sm font-semibold text-foreground">
+                                        {user.name}
+                                    </div>
+                                    <div className="truncate text-xs text-muted-foreground">
+                                        {user.email}
+                                    </div>
+                                    <div className="truncate text-[11px] font-medium text-status-info mt-0.5">
+                                        {roleLabel(role)}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </DropdownMenuLabel>
+                        </DropdownMenuLabel>
+                    </DropdownMenuGroup>
 
                     <DropdownMenuSeparator />
 
@@ -169,21 +171,23 @@ export function FlexProfileMenu() {
 
                     {has('roles.manage') && <DropdownMenuSeparator />}
 
-                    <DropdownMenuItem
-                        variant="destructive"
-                        render={
-                            <Link
-                                className="block w-full cursor-pointer"
-                                href={logout()}
-                                as="button"
-                                onClick={handleLogout}
-                                data-test="topbar-logout-button"
-                            >
-                                <RiLogoutBoxRLine className="mr-2" />
-                                Sign out
-                            </Link>
-                        }
-                    />
+                    <DropdownMenuGroup>
+                        <DropdownMenuItem
+                            variant="destructive"
+                            render={
+                                <Link
+                                    className="block w-full cursor-pointer"
+                                    href={logout()}
+                                    as="button"
+                                    onClick={handleLogout}
+                                    data-test="topbar-logout-button"
+                                >
+                                    <RiLogoutBoxRLine className="mr-2" />
+                                    Sign out
+                                </Link>
+                            }
+                        />
+                    </DropdownMenuGroup>
                 </DropdownMenuContent>
             </DropdownMenu>
 
