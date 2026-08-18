@@ -5,7 +5,6 @@ import { FlexBrandMark } from '@/components/flex/brand';
 import { FlexIcon } from '@/components/flex/iconography';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useAppearance } from '@/hooks/use-appearance';
-import type { User } from '@/types';
 
 export interface PrimaryRailProps {
     currentPath?: string;
@@ -15,8 +14,7 @@ export interface PrimaryRailProps {
 export function PrimaryRail({ currentPath, activeWorkspace = 'admin' }: PrimaryRailProps) {
     void currentPath;
     void activeWorkspace;
-    const { url, props } = usePage();
-    const user = props.auth?.user as User | undefined;
+    const { url } = usePage();
     const { appearance, updateAppearance } = useAppearance();
     const { has } = useCapabilities();
 
@@ -71,7 +69,7 @@ export function PrimaryRail({ currentPath, activeWorkspace = 'admin' }: PrimaryR
                     </nav>
                 </div>
 
-                {/* Bottom Section: Theme & User Avatar */}
+                {/* Bottom Section: Theme */}
                 <div className="flex flex-col items-center gap-2 w-full px-2">
                     <Tooltip>
                         <TooltipTrigger
@@ -91,23 +89,6 @@ export function PrimaryRail({ currentPath, activeWorkspace = 'admin' }: PrimaryR
                     </Tooltip>
 
                     <div className="w-8 h-px bg-border my-0.5" />
-
-                    <Tooltip>
-                        <TooltipTrigger
-                            render={
-                                <Link
-                                    href="/settings/profile"
-                                    className="flex items-center justify-center size-9 rounded-full bg-primary/10 text-primary font-bold text-xs ring-2 ring-primary/20 hover:ring-primary/40 transition-all"
-                                >
-                                    {user?.name?.substring(0, 2).toUpperCase() || 'SA'}
-                                </Link>
-                            }
-                        />
-                        <TooltipContent side="right" className="text-xs font-medium">
-                            <div>{user?.name || 'Super Administrator'}</div>
-                            <div className="text-[10px] text-muted-foreground">{user?.email || 'admin@flex.com'}</div>
-                        </TooltipContent>
-                    </Tooltip>
                 </div>
             </aside>
         </TooltipProvider>

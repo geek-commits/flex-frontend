@@ -4,11 +4,11 @@ import React from 'react';
 import { useCapabilities } from '@/auth/capabilities';
 import { FlexBrandLogo } from '@/components/flex/brand';
 import { useBrandIntroReplayGuard } from '@/components/flex/brand/use-brand-intro-replay-guard';
+import { FlexProfileMenu } from '@/components/flex/flex-profile-menu';
 import { GlobalSearchTrigger } from '@/components/flex/global-search';
 import { FlexIcon } from '@/components/flex/iconography';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import type { User } from '@/types';
 import type { AgentState, ConnectionState } from '@/types/flex';
 import { AgentStateControl } from './agent-state-control';
 import { ConnectionStatus } from './connection-status';
@@ -40,9 +40,8 @@ export function AgentOperationalHeader({
     title = 'Agent Workspace',
     subtitle = 'External CRM & Central Call Manager',
 }: AgentOperationalHeaderProps) {
-    const { url, props } = usePage();
+    const { url } = usePage();
     const { navEntries } = useCapabilities();
-    const user = props.auth?.user as User | undefined;
     const animateOnMount = useBrandIntroReplayGuard();
 
     return (
@@ -110,17 +109,9 @@ export function AgentOperationalHeader({
 
                 <GlobalSearchTrigger />
 
-                {/* Account */}
+                {/* Profile / Account */}
                 <div className="flex items-center gap-2 pl-2 border-l border-border">
-                    <div className="text-right hidden lg:block">
-                        <div className="text-xs font-semibold text-foreground leading-none">
-                            {user?.name || 'Super Administrator'}
-                        </div>
-                        <div className="text-[10px] text-muted-foreground font-medium mt-0.5">
-                            {user?.email || 'admin@flex.com'}
-                        </div>
-                    </div>
-                    <span className="size-2 rounded-full bg-status-live" title="Authenticated" />
+                    <FlexProfileMenu />
                 </div>
             </div>
         </header>

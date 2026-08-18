@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useCapabilities } from '@/auth/capabilities';
 import { FlexBrandLogo } from '@/components/flex/brand';
 import { useBrandIntroReplayGuard } from '@/components/flex/brand/use-brand-intro-replay-guard';
+import { FlexProfileMenu } from '@/components/flex/flex-profile-menu';
 import { GlobalSearchTrigger } from '@/components/flex/global-search';
 import { FlexIcon } from '@/components/flex/iconography';
 import { Button } from '@/components/ui/button';
@@ -11,7 +12,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { TenantContextIndicator } from '@/features/tenants/tenant-context-indicator';
 import { agentStateMap, connectionStateMap } from '@/lib/status-styles';
-import type { User } from '@/types';
 import type { AgentState, ConnectionState } from '@/types/flex';
 
 export interface AppTopbarProps {
@@ -33,8 +33,7 @@ export function AppTopbar({
     connectionState = 'live',
     actions,
 }: AppTopbarProps) {
-    const { url, props } = usePage();
-    const user = props.auth?.user as User | undefined;
+    const { url } = usePage();
     const animateOnMount = useBrandIntroReplayGuard();
     const { navEntries } = useCapabilities();
     const [seconds, setSeconds] = useState(319); // 00:05:19 initial demonstration counter
@@ -124,8 +123,6 @@ export function AppTopbar({
             <div className="flex items-center gap-3">
                 {actions}
 
-                {mode === 'admin' && <TenantContextIndicator />}
-
                 <GlobalSearchTrigger />
 
                 {/* Agent Specific Toolbar Controls */}
@@ -175,17 +172,12 @@ export function AppTopbar({
                     <span>{connConfig.label}</span>
                 </div>
 
-                {/* User Role Badge */}
-                <div className="flex items-center gap-2 pl-2 border-l border-border">
-                    <div className="text-right hidden lg:block">
-                        <div className="text-xs font-semibold text-foreground leading-none">
-                            {user?.name || 'Super Administrator'}
-                        </div>
-                        <div className="text-[10px] text-muted-foreground font-medium mt-0.5">
-                            {user?.email || 'admin@flex.com'}
-                        </div>
-                    </div>
-                    <span className="size-2 rounded-full bg-status-live" title="Authenticated" />
+                {/* Tenant / Platform Context (admin only) — adjacent to profile */}
+                {mode === 'admin' && <TenantContextIndicator />}
+
+                {/* Profile / Account */}
+                <div className="pl-2 border-l border-border">
+                    <FlexProfileMenu />
                 </div>
             </div>
         </header>
