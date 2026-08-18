@@ -34,7 +34,7 @@ export function RolesTable({ records, isLoading, emptyMessage, onEdit }: RolesTa
 
     return (
         <div className="overflow-x-auto rounded-lg border border-border bg-background">
-            <table className="w-full text-sm">
+            <table className="flex-table-grid w-full text-sm">
                 <thead>
                     <tr className="border-b border-border bg-muted/40 text-left">
                         <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap">Role</th>

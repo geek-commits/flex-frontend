@@ -76,7 +76,7 @@ export function AgentMonitoringRoster({ rows, isLoading }: AgentMonitoringRoster
         return (
             <div className="overflow-hidden rounded-lg border border-border bg-card">
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left text-xs">
+                    <table className="flex-table-grid w-full text-left text-xs">
                         <thead>
                             <tr className="border-b border-border text-[10px] font-semibold text-flex-text-muted uppercase">
                                 <th className="pb-2">Agent</th>
@@ -112,7 +112,7 @@ export function AgentMonitoringRoster({ rows, isLoading }: AgentMonitoringRoster
     return (
         <div className="overflow-hidden rounded-lg border border-border bg-card">
             <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
+                <table className="flex-table-grid w-full text-left text-xs">
                     <thead>
                         <tr className="border-b border-border text-[10px] font-semibold text-flex-text-muted uppercase">
                             <th className="pb-2">Agent</th>

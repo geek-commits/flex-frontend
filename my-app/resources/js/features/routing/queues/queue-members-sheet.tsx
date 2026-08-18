@@ -92,7 +92,7 @@ export function QueueMembersSheet({ queue, onOpenChange, onChanged }: QueueMembe
                             </p>
                         ) : (
                             <div className="overflow-hidden rounded-lg border border-border bg-background">
-                                <table className="w-full text-sm">
+                                <table className="flex-table-grid w-full text-sm">
                                     <thead>
                                         <tr className="border-b border-border bg-muted/40 text-left">
                                             {['Agent', 'Extension', 'Department', 'Priority', ''].map((header, index) => (

@@ -58,7 +58,7 @@ export function IVRDetailSheet({ ivr, onOpenChange, onEdit, onDelete }: IVRDetai
                     <div className="mt-1 flex flex-col gap-1.5">
                         <p className="text-[11px] font-bold uppercase tracking-wider text-flex-text-muted">Menu Entries</p>
                         <div className="overflow-hidden rounded-md border border-border">
-                            <table className="w-full text-sm">
+                            <table className="flex-table-grid w-full text-sm">
                                 <thead>
                                     <tr className="border-b border-border bg-muted/40 text-left">
                                         {['Key', 'Label', 'Destination'].map((header) => (

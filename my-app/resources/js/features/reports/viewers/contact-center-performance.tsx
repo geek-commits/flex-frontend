@@ -46,7 +46,7 @@ export function ContactCenterPerformanceViewer({ run }: { run: ReportRun }) {
                 <div className="border-b border-border bg-muted/40 px-4 py-2.5">
                     <h3 className="text-xs font-bold uppercase tracking-wider text-flex-text-muted">Operational Metrics</h3>
                 </div>
-                <table className="w-full text-sm">
+                <table className="flex-table-grid w-full text-sm">
                     <tbody>
                         {secondary.map((row) => (
                             <tr key={row.metric} className="border-b border-border last:border-b-0">

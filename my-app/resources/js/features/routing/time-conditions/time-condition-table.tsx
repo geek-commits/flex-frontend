@@ -18,7 +18,7 @@ export function TimeConditionTable({ records, onView, onEdit }: TimeConditionTab
     return (
         <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
             <div className="overflow-x-auto">
-                <table className="w-full text-sm">
+                <table className="flex-table-grid w-full text-sm">
                     <thead>
                         <tr className="border-b border-border bg-muted/40 text-left">
                             {['Condition', 'Time Group', 'Match Destination', 'Fallback', 'Status', ''].map((header, index) => (

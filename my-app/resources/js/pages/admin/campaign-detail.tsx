@@ -165,7 +165,7 @@ export default function CampaignDetailPage() {
                         </h3>
                     </div>
                     <div className="p-0 overflow-x-auto">
-                        <table className="w-full text-left text-xs">
+                        <table className="flex-table-grid w-full text-left text-xs">
                             <thead>
                                 <tr className="border-b border-flex-workspace-divider text-muted-foreground font-semibold uppercase text-[10px]">
                                     <th className="px-4 py-2.5">Name</th>

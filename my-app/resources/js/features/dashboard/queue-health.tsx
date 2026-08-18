@@ -55,7 +55,7 @@ export function QueueHealth() {
             </div>
 
             <div className="relative overflow-x-auto">
-                <table className="w-full text-left text-xs">
+                <table className="flex-table-grid w-full text-left text-xs">
                     <thead>
                         <tr className="border-b border-flex-workspace-divider text-[10px] font-semibold text-flex-text-muted uppercase">
                             {QUEUE_HEALTH_COLUMNS.map((col) => (

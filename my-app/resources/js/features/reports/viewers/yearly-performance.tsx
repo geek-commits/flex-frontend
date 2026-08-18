@@ -33,7 +33,7 @@ export function YearlyPerformanceViewer({ run }: { run: ReportRun }) {
 
             <div className="overflow-hidden rounded-lg border border-border bg-background">
                 <div className="overflow-x-auto">
-                    <table className="w-full text-sm">
+                    <table className="flex-table-grid w-full text-sm">
                         <thead>
                             <tr className="border-b border-border bg-muted/40 text-left">
                                 {['Month', 'Total Calls', 'Incoming Calls', 'Calls to Agent', 'Answered Calls', 'Answer Rate', 'Abandoned Rate'].map((header) => (

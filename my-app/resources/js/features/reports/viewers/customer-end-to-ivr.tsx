@@ -12,7 +12,7 @@ export function CustomerEndToIVRViewer({ run }: { run: ReportRun }) {
     return (
         <div className="overflow-hidden rounded-lg border border-border bg-background">
             <div className="overflow-x-auto">
-                <table className="w-full text-sm">
+                <table className="flex-table-grid w-full text-sm">
                     <thead>
                         <tr className="border-b border-border bg-muted/40 text-left">
                             {['Date & Time', 'Customer', 'IVR Duration'].map((header) => (

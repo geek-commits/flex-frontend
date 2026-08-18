@@ -16,7 +16,7 @@ export function IVRTable({ records, onView, onEdit }: IVRTableProps) {
     return (
         <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
             <div className="overflow-x-auto">
-                <table className="w-full text-sm">
+                <table className="flex-table-grid w-full text-sm">
                     <thead>
                         <tr className="border-b border-border bg-muted/40 text-left">
                             {['IVR', 'Prompt', 'Entries', 'Default Destination', 'Status', ''].map((header, index) => (

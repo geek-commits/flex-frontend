@@ -91,7 +91,7 @@ export function ActiveCalls() {
                     </h3>
                 </div>
                 <div className="p-4">
-                    <table className="w-full text-left text-xs">
+                    <table className="flex-table-grid w-full text-left text-xs">
                         <thead>
                             <tr className="border-b border-flex-workspace-divider text-[10px] font-semibold text-flex-text-muted uppercase">
                                 <th className="pb-2">Customer</th>
@@ -153,7 +153,7 @@ export function ActiveCalls() {
                 </h3>
             </div>
             <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
+                <table className="flex-table-grid w-full text-left text-xs">
                     <thead>
                         <tr className="border-b border-flex-workspace-divider text-[10px] font-semibold text-flex-text-muted uppercase">
                             <th className="pb-2">Customer</th>

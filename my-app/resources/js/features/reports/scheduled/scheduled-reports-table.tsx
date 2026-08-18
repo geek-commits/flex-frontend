@@ -25,7 +25,7 @@ export function ScheduledReportsTable({ records, onViewLogs, onEdit, onRetry, on
     return (
         <div className="overflow-hidden rounded-lg border border-border bg-background">
             <div className="overflow-x-auto">
-                <table className="w-full text-sm">
+                <table className="flex-table-grid w-full text-sm">
                     <thead>
                         <tr className="border-b border-border bg-muted/40 text-left">
                             {['Report Name', 'Schedule', 'Target', 'Format', 'Last Run', 'Next Run', 'State', 'Status', ''].map((header, index) => (

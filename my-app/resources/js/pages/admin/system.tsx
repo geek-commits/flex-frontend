@@ -167,7 +167,7 @@ export default function SystemPage() {
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="p-4 overflow-x-auto">
-                        <table className="w-full text-left text-xs">
+                        <table className="flex-table-grid w-full text-left text-xs">
                             <thead>
                                 <tr className="border-b border-border text-muted-foreground font-semibold uppercase text-[10px]">
                                     <th className="pb-2">Service</th>

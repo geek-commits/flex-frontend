@@ -628,6 +628,11 @@
         line-height: 16px;
         font-weight: 500;
     }
+    .flex-table-grid {
+        > :is(thead, tbody, tfoot) > tr > :is(th, td):not(:last-child) {
+            border-inline-end: 1px solid var(--flex-table-grid);
+        }
+    }
 }
 
 /* Respect reduced motion — core functionality never depends on animation */

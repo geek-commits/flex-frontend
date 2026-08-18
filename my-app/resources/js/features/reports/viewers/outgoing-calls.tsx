@@ -13,7 +13,7 @@ export function OutgoingCallsViewer({ run }: { run: ReportRun }) {
     return (
         <div className="flex flex-col gap-[var(--flex-space-section)] w-full">
             <Section title="Outcome Summary">
-                <table className="w-full text-sm">
+                <table className="flex-table-grid w-full text-sm">
                     <thead>
                         <tr className="border-b border-border bg-muted/40 text-left">
                             {['Disposition', 'Count', 'Percentage'].map((header) => (
@@ -36,7 +36,7 @@ export function OutgoingCallsViewer({ run }: { run: ReportRun }) {
             </Section>
 
             <Section title="Provider Minutes">
-                <table className="w-full text-sm">
+                <table className="flex-table-grid w-full text-sm">
                     <thead>
                         <tr className="border-b border-border bg-muted/40 text-left">
                             {['Provider', 'Duration', 'Calls'].map((header) => (
@@ -60,7 +60,7 @@ export function OutgoingCallsViewer({ run }: { run: ReportRun }) {
 
             <Section title="Detailed Calls">
                 <div className="overflow-x-auto">
-                    <table className="w-full text-sm">
+                    <table className="flex-table-grid w-full text-sm">
                         <thead>
                             <tr className="border-b border-border bg-muted/40 text-left">
                                 {['Date & Time', 'Destination', 'Agent', 'Status', 'Duration', 'Provider'].map((header) => (
