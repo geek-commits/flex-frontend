@@ -479,7 +479,7 @@ function DataGrid<TFeatures extends TableFeatures, TData extends object>({
     loadingMode: "skeleton",
     tableLayout: {
       dense: false,
-      cellBorder: false,
+      cellBorder: true,
       rowBorder: true,
       rowRounded: false,
       stripped: false,

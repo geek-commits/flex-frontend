@@ -862,7 +862,7 @@ function DataGridTableHeadRowCell<TData extends object>({
         "text-foreground relative h-10 text-left align-middle font-medium rtl:text-right [&:has([role=checkbox])]:pe-0",
         headerCellSpacing,
         props.tableLayout?.headerBackground && "bg-muted",
-        props.tableLayout?.cellBorder && "border-e",
+        props.tableLayout?.cellBorder && "border-e border-flex-table-grid",
         props.tableLayout?.columnsResizable &&
           column.getCanResize() &&
           (isPinned ? "overflow-hidden" : "overflow-visible"),
@@ -874,7 +874,7 @@ function DataGridTableHeadRowCell<TData extends object>({
           column.getCanPin() &&
           cn(
             "data-pinned:bg-muted data-outer-pinned-col:bg-clip-padding data-pinned:isolate",
-            "[&[data-pinned=end]:last-child_div.cursor-col-resize:last-child]:opacity-0 [&[data-pinned=end][data-last-col=end]]:shadow-[inset_1px_0_0_0_var(--border)] [&[data-pinned=start][data-last-col=start]]:shadow-[inset_-1px_0_0_0_var(--border)]",
+            "[&[data-pinned=end]:last-child_div.cursor-col-resize:last-child]:opacity-0 [&[data-pinned=end][data-last-col=end]]:shadow-[inset_1px_0_0_0_var(--flex-table-grid)] [&[data-pinned=start][data-last-col=start]]:shadow-[inset_-1px_0_0_0_var(--flex-table-grid)]",
             "[&:not([data-pinned]):has(+[data-pinned])_div.cursor-col-resize:last-child]:opacity-0 [&[data-last-col=start]_div.cursor-col-resize:last-child]:opacity-0"
           ),
         header.column.columnDef.meta?.headerClassName,
@@ -1190,7 +1190,7 @@ function DataGridTableFootRowCell({
         "text-secondary-foreground/80 align-middle font-medium",
         spacing,
         props.tableLayout?.footerBackground && "bg-muted/40 dark:bg-background",
-        props.tableLayout?.cellBorder && "border-e",
+        props.tableLayout?.cellBorder && "border-e border-flex-table-grid",
         className
       )}
     >
@@ -1244,14 +1244,14 @@ function DataGridTableBodyRowSkeletonCell<TData extends object>({
       className={cn(
         "align-middle",
         bodyCellSpacing,
-        props.tableLayout?.cellBorder && "border-e",
+        props.tableLayout?.cellBorder && "border-e border-flex-table-grid",
         props.tableLayout?.columnsResizable &&
           column.getCanResize() &&
           "truncate",
         column.columnDef.meta?.cellClassName,
         props.tableLayout?.columnsPinnable &&
           column.getCanPin() &&
-          "data-pinned:bg-background data-pinned:isolate [&[data-pinned=end][data-last-col=end]]:shadow-[inset_1px_0_0_0_var(--border)] [&[data-pinned=start][data-last-col=start]]:shadow-[inset_-1px_0_0_0_var(--border)]",
+          "data-pinned:bg-background data-pinned:isolate [&[data-pinned=end][data-last-col=end]]:shadow-[inset_1px_0_0_0_var(--flex-table-grid)] [&[data-pinned=start][data-last-col=start]]:shadow-[inset_-1px_0_0_0_var(--flex-table-grid)]",
         column.getIndex() === 0 ||
           column.getIndex() === table.getVisibleLeafColumns().length - 1
           ? props.tableClassNames?.edgeCell
@@ -1413,7 +1413,7 @@ function DataGridTableBodyRowCell<TData extends object>({
       className={cn(
         "align-middle",
         bodyCellSpacing,
-        props.tableLayout?.cellBorder && "border-e",
+        props.tableLayout?.cellBorder && "border-e border-flex-table-grid",
         props.tableLayout?.columnsResizable &&
           column.getCanResize() &&
           "truncate",
@@ -1422,8 +1422,8 @@ function DataGridTableBodyRowCell<TData extends object>({
           column.getCanPin() &&
           cn(
             "data-pinned:bg-background data-pinned:isolate",
-            "[&[data-pinned=start][data-last-col=start]]:shadow-[inset_-1px_0_0_0_var(--border)]",
-            "[&[data-pinned=end][data-last-col=end]]:shadow-[inset_1px_0_0_0_var(--border)]"
+            "[&[data-pinned=start][data-last-col=start]]:shadow-[inset_-1px_0_0_0_var(--flex-table-grid)]",
+            "[&[data-pinned=end][data-last-col=end]]:shadow-[inset_1px_0_0_0_var(--flex-table-grid)]"
           ),
         column.getIndex() === 0 ||
           column.getIndex() === row.getVisibleCells().length - 1
