@@ -77,10 +77,11 @@ OPERATIONS     CDR · Campaigns · Reports
 3. **Global shell consistent.** The topbar/rail chrome stays consistent across pages within a workspace so orientation does not reset on navigation.
 4. **Agent mode prioritizes telephony state above generic navigation.** In the agent workspace, call state and availability may occupy the space generic admin navigation occupies elsewhere.
 5. **Super Admin tenant context always visible.** When tenant context exists, the current tenant is shown explicitly, not tucked into an avatar menu alone.
-6. **Canonical labels only.** Use `Call Records (CDR)`, `Call Campaigns`, `Contact Center Dashboard` — never rename modules per page (`CDR Logs`, `Campaign Tool`, etc.).
-7. **Icon-only navigation has a tooltip/accessibility name.** Every icon-only target must expose its label (tooltip + accessible name).
-8. **Keyboard navigation remains possible.** Rail, sidebar, and menus are reachable and operable by keyboard (see `08-accessibility.md`).
-9. **A future command palette must use the same permission model.** Global search already filters by capability; any palette keeps that behavior.
+6. **Identity is a single top-right control.** A canonical avatar + dropdown (`FlexProfileMenu`) owns account identity and access everywhere; the avatar never duplicates to the rail or sidebar footer. The menu separates identity (avatar, name, role) from role & access inspection and from tenant/platform context, which stays as an adjacent visible trigger (rule 5).
+7. **Canonical labels only.** Use `Call Records (CDR)`, `Call Campaigns`, `Contact Center Dashboard` — never rename modules per page (`CDR Logs`, `Campaign Tool`, etc.).
+8. **Icon-only navigation has a tooltip/accessibility name.** Every icon-only target must expose its label (tooltip + accessible name).
+9. **Keyboard navigation remains possible.** Rail, sidebar, and menus are reachable and operable by keyboard (see `08-accessibility.md`).
+10. **A future command palette must use the same permission model.** Global search already filters by capability; any palette keeps that behavior.
 
 ## Route stability
 
