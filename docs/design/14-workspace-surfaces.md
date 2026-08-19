@@ -76,7 +76,7 @@ Rules:
 - The toolbar uses `bg-flex-workspace-surface-muted` and the shell's bottom divider (already provided by `FlexWorkbenchShell`).
 - Each page passes the live `Table` instance into its toolbar so column-visibility and actions share one source of truth.
 - On narrow widths the groups stack (scope left, then search/actions) via responsive utilities; there is no separate filter card.
-- Realtime raw tables (e.g. Agent Monitoring, recovery triage) keep their native controls — do not force them into this toolbar, and never duplicate realtime controls or polling.
+- Realtime DataGrid surfaces (e.g. Agent Monitoring) use the same integrated toolbar but without pagination, and with `loadingMode="spinner"` (the skeleton path requires `pagination.pageSize`). Realtime raw tables that keep native controls (e.g. recovery triage) are not forced into this toolbar — never duplicate realtime controls or polling.
 
 ## 4. Semantic column alignment
 
