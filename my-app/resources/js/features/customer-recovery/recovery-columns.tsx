@@ -92,7 +92,13 @@ export function recoveryColumns(
         {
             id: 'voicemail',
             header: 'Voicemail',
-            cell: ({ row }) => <VoicemailPlayer voicemail={row.original.voicemail} compact />,
+            cell: ({ row }) => (
+                <VoicemailPlayer
+                    voicemail={row.original.voicemail}
+                    compact
+                    callerLabel={row.original.customerName ?? row.original.phoneNumber}
+                />
+            ),
             size: 160,
             meta: { kind: 'icon', align: 'start' },
         },

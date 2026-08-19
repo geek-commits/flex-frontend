@@ -8,7 +8,7 @@ import type { VoicemailInfo } from '@/features/customer-recovery/recovery-types'
  * This is the canonical recovery audio control, reused in the table and detail.
  * A real backend supplies an authorized, short-lived URL.
  */
-export function VoicemailPlayer({ voicemail, compact = false }: { voicemail: VoicemailInfo; compact?: boolean }) {
+export function VoicemailPlayer({ voicemail, compact = false, callerLabel }: { voicemail: VoicemailInfo; compact?: boolean; callerLabel?: string }) {
     const audioRef = useRef<HTMLAudioElement>(null);
     const [playing, setPlaying] = useState(false);
     const [loaded, setLoaded] = useState(false);
@@ -16,6 +16,8 @@ export function VoicemailPlayer({ voicemail, compact = false }: { voicemail: Voi
     if (!voicemail.hasVoicemail || !voicemail.url) {
         return <span className="text-xs text-flex-text-muted">—</span>;
     }
+
+    const label = callerLabel ? ` for ${callerLabel}` : '';
 
     const toggle = () => {
         const audio = audioRef.current;
@@ -47,7 +49,8 @@ export function VoicemailPlayer({ voicemail, compact = false }: { voicemail: Voi
             <Button
                 variant="outline"
                 size="icon-xs"
-                aria-label={playing ? 'Pause voicemail' : 'Play voicemail'}
+                className="size-7"
+                aria-label={playing ? `Pause voicemail${label}` : `Play voicemail${label}`}
                 onClick={(e) => {
                     e.stopPropagation();
                     toggle();
