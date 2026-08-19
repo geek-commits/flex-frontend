@@ -13,6 +13,18 @@ export interface TimeConditionTableProps {
     onEdit: (condition: TimeConditionRecord) => void;
 }
 
+const alignClass = (a: 'start' | 'end' | 'center' | undefined) =>
+    a === 'end' ? 'text-end' : a === 'center' ? 'text-center' : 'text-start';
+
+const headers: { label: string; align: 'start' | 'end' | 'center' }[] = [
+    { label: 'Condition', align: 'start' },
+    { label: 'Time Group', align: 'start' },
+    { label: 'Match Destination', align: 'start' },
+    { label: 'Fallback', align: 'start' },
+    { label: 'Status', align: 'start' },
+    { label: '', align: 'center' },
+];
+
 /** Dense Time Condition directory table showing the Time Group relationship. */
 export function TimeConditionTable({ records, onView, onEdit }: TimeConditionTableProps) {
     return (
@@ -21,9 +33,9 @@ export function TimeConditionTable({ records, onView, onEdit }: TimeConditionTab
                 <table className="flex-table-grid w-full text-sm">
                     <thead>
                         <tr className="border-b border-border bg-muted/40 text-left">
-                            {['Condition', 'Time Group', 'Match Destination', 'Fallback', 'Status', ''].map((header, index) => (
-                                <th key={index} className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap">
-                                    {header}
+                            {headers.map((header, index) => (
+                                <th key={index} className={`px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap ${alignClass(header.align)}`}>
+                                    {header.label}
                                 </th>
                             ))}
                         </tr>
@@ -34,8 +46,8 @@ export function TimeConditionTable({ records, onView, onEdit }: TimeConditionTab
 
                             return (
                                 <tr key={condition.id} className="border-b border-border last:border-b-0 hover:bg-muted/30 transition-colors">
-                                    <td className="px-4 py-2.5 text-xs font-semibold text-flex-text-primary whitespace-nowrap">{condition.name}</td>
-                                    <td className="px-4 py-2.5 text-xs text-flex-text-primary whitespace-nowrap">
+                                    <td className="px-4 py-2.5 text-xs font-semibold text-flex-text-primary whitespace-nowrap text-start">{condition.name}</td>
+                                    <td className="px-4 py-2.5 text-xs text-flex-text-primary whitespace-nowrap text-start">
                                         {group.missing ? (
                                             <span className="text-destructive">{group.description}</span>
                                         ) : (
@@ -44,11 +56,11 @@ export function TimeConditionTable({ records, onView, onEdit }: TimeConditionTab
                                             </Link>
                                         )}
                                     </td>
-                                    <td className="px-4 py-2.5 text-xs text-flex-text-primary whitespace-nowrap">{formatDestination(condition.matchDestination)}</td>
-                                    <td className="px-4 py-2.5 text-xs text-flex-text-muted whitespace-nowrap">{formatDestination(condition.noMatchDestination)}</td>
-                                    <td className="px-4 py-2.5"><RoutingStatusBadge status={condition.status} /></td>
-                                    <td className="px-4 py-2.5">
-                                        <div className="flex items-center gap-0.5 justify-end">
+                                    <td className="px-4 py-2.5 text-xs text-flex-text-primary whitespace-nowrap text-start">{formatDestination(condition.matchDestination)}</td>
+                                    <td className="px-4 py-2.5 text-xs text-flex-text-muted whitespace-nowrap text-start">{formatDestination(condition.noMatchDestination)}</td>
+                                    <td className="px-4 py-2.5 text-start"><RoutingStatusBadge status={condition.status} /></td>
+                                    <td className="px-4 py-2.5 text-center">
+                                        <div className="flex items-center gap-0.5 justify-center">
                                             <Button variant="ghost" size="icon-xs" title="View" aria-label={`View ${condition.name}`} onClick={() => onView(condition)}>
                                                 <RiEyeLine className="size-3.5" />
                                             </Button>

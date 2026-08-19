@@ -30,7 +30,7 @@ function ActiveCallRow({ call }: { call: ActiveCall }) {
 
     return (
         <tr key={call.id} className="hover:bg-muted/30">
-            <td className="py-2.5">
+            <td className="py-2.5 text-start">
                 <div className="flex flex-col">
                     <span className="font-semibold text-flex-text-primary">
                         {call.customer.name}
@@ -40,15 +40,15 @@ function ActiveCallRow({ call }: { call: ActiveCall }) {
                     </span>
                 </div>
             </td>
-            <td className="py-2.5 text-flex-text-primary">{call.agent.name}</td>
-            <td className="py-2.5 text-flex-text-muted">{call.queue}</td>
-            <td className="py-2.5 font-mono text-flex-text-muted capitalize">
+            <td className="py-2.5 text-flex-text-primary text-start">{call.agent.name}</td>
+            <td className="py-2.5 text-flex-text-muted text-start">{call.queue}</td>
+            <td className="py-2.5 font-mono text-flex-text-muted capitalize text-start">
                 {call.direction}
             </td>
-            <td className="flex-numeric py-2.5 font-mono text-flex-text-primary">
+            <td className="flex-numeric py-2.5 font-mono tabular-nums text-flex-text-primary text-end">
                 {duration}
             </td>
-            <td className="py-2.5">
+            <td className="py-2.5 text-start">
                 <FlexStatus tone={tone} className="capitalize">
                     {call.state}
                 </FlexStatus>
@@ -94,12 +94,12 @@ export function ActiveCalls() {
                     <table className="flex-table-grid w-full text-left text-xs">
                         <thead>
                             <tr className="border-b border-flex-workspace-divider text-[10px] font-semibold text-flex-text-muted uppercase">
-                                <th className="pb-2">Customer</th>
-                                <th className="pb-2">Agent</th>
-                                <th className="pb-2">Queue</th>
-                                <th className="pb-2">Dir.</th>
-                                <th className="pb-2">Duration</th>
-                                <th className="pb-2">State</th>
+                                <th className="pb-2 text-start">Customer</th>
+                                <th className="pb-2 text-start">Agent</th>
+                                <th className="pb-2 text-start">Queue</th>
+                                <th className="pb-2 text-start">Dir.</th>
+                                <th className="pb-2 text-end">Duration</th>
+                                <th className="pb-2 text-start">State</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-border">
@@ -156,12 +156,12 @@ export function ActiveCalls() {
                 <table className="flex-table-grid w-full text-left text-xs">
                     <thead>
                         <tr className="border-b border-flex-workspace-divider text-[10px] font-semibold text-flex-text-muted uppercase">
-                            <th className="pb-2">Customer</th>
-                            <th className="pb-2">Agent</th>
-                            <th className="pb-2">Queue</th>
-                            <th className="pb-2">Dir.</th>
-                            <th className="pb-2">Duration</th>
-                            <th className="pb-2">State</th>
+                            <th className="pb-2 text-start">Customer</th>
+                            <th className="pb-2 text-start">Agent</th>
+                            <th className="pb-2 text-start">Queue</th>
+                            <th className="pb-2 text-start">Dir.</th>
+                            <th className="pb-2 text-end">Duration</th>
+                            <th className="pb-2 text-start">State</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-border">

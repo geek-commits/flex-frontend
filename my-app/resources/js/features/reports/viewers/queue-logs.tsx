@@ -89,9 +89,16 @@ export function QueueLogsViewer({ run }: { run: ReportRun }) {
                     <table className="flex-table-grid w-full text-sm">
                         <thead>
                             <tr className="border-b border-border bg-muted/40 text-left">
-                                {['Date', 'Agent', 'Customer', 'Queue', 'Event', 'Duration'].map((header) => (
-                                    <th key={header} className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap">
-                                        {header}
+                                {[
+                                    { label: 'Date', align: 'start' },
+                                    { label: 'Agent', align: 'start' },
+                                    { label: 'Customer', align: 'start' },
+                                    { label: 'Queue', align: 'start' },
+                                    { label: 'Event', align: 'start' },
+                                    { label: 'Duration', align: 'end' },
+                                ].map((header) => (
+                                    <th key={header.label} className={`px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap ${header.align === 'end' ? 'text-end' : 'text-start'}`}>
+                                        {header.label}
                                     </th>
                                 ))}
                             </tr>
@@ -99,12 +106,12 @@ export function QueueLogsViewer({ run }: { run: ReportRun }) {
                         <tbody>
                             {filtered.map((row, index) => (
                                 <tr key={index} className="border-b border-border last:border-b-0 hover:bg-muted/30 transition-colors">
-                                    <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-muted whitespace-nowrap">{row.date}</td>
-                                    <td className="px-4 py-2.5 text-xs text-flex-text-primary whitespace-nowrap">{row.agent}</td>
-                                    <td className="px-4 py-2.5 font-mono text-xs text-flex-text-primary whitespace-nowrap">{row.customer}</td>
-                                    <td className="px-4 py-2.5 text-xs text-flex-text-primary whitespace-nowrap">{row.queue}</td>
-                                    <td className="px-4 py-2.5"><QueueEventBadge event={row.event} /></td>
-                                    <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary whitespace-nowrap">{row.duration}</td>
+                                    <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-muted whitespace-nowrap text-start">{row.date}</td>
+                                    <td className="px-4 py-2.5 text-xs text-flex-text-primary whitespace-nowrap text-start">{row.agent}</td>
+                                    <td className="px-4 py-2.5 font-mono text-xs text-flex-text-primary whitespace-nowrap text-start">{row.customer}</td>
+                                    <td className="px-4 py-2.5 text-xs text-flex-text-primary whitespace-nowrap text-start">{row.queue}</td>
+                                    <td className="px-4 py-2.5 text-start"><QueueEventBadge event={row.event} /></td>
+                                    <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary whitespace-nowrap text-end">{row.duration}</td>
                                 </tr>
                             ))}
                         </tbody>

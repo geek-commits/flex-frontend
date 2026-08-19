@@ -50,7 +50,7 @@ export function tenantColumns(handlers: TenantRowHandlers): ColumnDef<DataGridFe
             },
             size: 240,
             enableSorting: true,
-            meta: { skeleton: <Skeleton className="h-4 w-28" /> },
+            meta: { kind: 'identity', align: 'start', skeleton: <Skeleton className="h-4 w-28" /> },
         },
         {
             accessorKey: 'contact',
@@ -66,7 +66,7 @@ export function tenantColumns(handlers: TenantRowHandlers): ColumnDef<DataGridFe
             ),
             size: 200,
             enableSorting: true,
-            meta: { skeleton: <Skeleton className="h-4 w-24" /> },
+            meta: { kind: 'text', align: 'start', skeleton: <Skeleton className="h-4 w-24" /> },
         },
         {
             accessorKey: 'phone',
@@ -75,7 +75,7 @@ export function tenantColumns(handlers: TenantRowHandlers): ColumnDef<DataGridFe
             cell: ({ getValue }) => <span className="font-mono text-xs text-flex-text-muted">{getValue() as string}</span>,
             size: 160,
             enableSorting: true,
-            meta: { skeleton: <Skeleton className="h-4 w-24" /> },
+            meta: { kind: 'text', align: 'start', skeleton: <Skeleton className="h-4 w-24" /> },
         },
         {
             accessorKey: 'status',
@@ -88,7 +88,7 @@ export function tenantColumns(handlers: TenantRowHandlers): ColumnDef<DataGridFe
             ),
             size: 120,
             enableSorting: true,
-            meta: { skeleton: <Skeleton className="h-4 w-16 rounded-full" /> },
+            meta: { kind: 'status', align: 'start', skeleton: <Skeleton className="h-4 w-16 rounded-full" /> },
         },
         {
             accessorKey: 'createdAt',
@@ -99,7 +99,7 @@ export function tenantColumns(handlers: TenantRowHandlers): ColumnDef<DataGridFe
             ),
             size: 120,
             enableSorting: true,
-            meta: { skeleton: <Skeleton className="h-4 w-20" /> },
+            meta: { kind: 'date', align: 'start', skeleton: <Skeleton className="h-4 w-20" /> },
         },
         {
             id: 'actions',
@@ -148,6 +148,7 @@ export function tenantColumns(handlers: TenantRowHandlers): ColumnDef<DataGridFe
             size: 80,
             enableSorting: false,
             enableHiding: false,
+            meta: { kind: 'action', align: 'center' },
         },
     ];
 }

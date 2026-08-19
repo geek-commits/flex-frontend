@@ -46,22 +46,22 @@ function MonitoringRosterRow({ row }: { row: MonitoringAgentRow }) {
 
     return (
         <tr className="hover:bg-muted/30">
-            <td className="py-2.5 font-semibold text-flex-text-primary">{row.name}</td>
-            <td className="py-2.5 font-mono text-flex-text-muted">{row.extension}</td>
-            <td className="py-2.5 text-flex-text-muted">{row.queue}</td>
-            <td className="py-2.5">
+            <td className="py-2.5 text-start font-semibold text-flex-text-primary">{row.name}</td>
+            <td className="py-2.5 text-start font-mono text-flex-text-muted">{row.extension}</td>
+            <td className="py-2.5 text-start text-flex-text-muted">{row.queue}</td>
+            <td className="py-2.5 text-start">
                 <FlexStatus tone={AGENT_STATE_TONES[row.state]} className="capitalize">
                     {statusConfig.label}
                 </FlexStatus>
             </td>
-            <td className="flex-numeric py-2.5 font-mono text-flex-text-primary">
+            <td className="flex-numeric py-2.5 text-end font-mono text-flex-text-primary">
                 {stateTime}
             </td>
-            <td className="py-2.5">
+            <td className="py-2.5 text-start">
                 <CurrentCallCell row={row} />
             </td>
-            <td className="py-2.5 font-bold text-flex-text-primary">{row.callsToday}</td>
-            <td className="py-2.5 font-mono text-flex-text-muted">{row.aht}</td>
+            <td className="py-2.5 text-end font-bold text-flex-text-primary">{row.callsToday}</td>
+            <td className="py-2.5 text-end font-mono text-flex-text-muted">{row.aht}</td>
         </tr>
     );
 }
@@ -78,16 +78,16 @@ export function AgentMonitoringRoster({ rows, isLoading }: AgentMonitoringRoster
                 <div className="overflow-x-auto">
                     <table className="flex-table-grid w-full text-left text-xs">
                         <thead>
-                            <tr className="border-b border-border text-[10px] font-semibold text-flex-text-muted uppercase">
-                                <th className="pb-2">Agent</th>
-                                <th className="pb-2">Ext.</th>
-                                <th className="pb-2">Queue</th>
-                                <th className="pb-2">State</th>
-                                <th className="pb-2">State Time</th>
-                                <th className="pb-2">Current Call</th>
-                                <th className="pb-2">Calls Today</th>
-                                <th className="pb-2">AHT</th>
-                            </tr>
+                <tr className="border-b border-border text-[10px] font-semibold text-flex-text-muted uppercase">
+                    <th className="pb-2 text-start">Agent</th>
+                    <th className="pb-2 text-start">Ext.</th>
+                    <th className="pb-2 text-start">Queue</th>
+                    <th className="pb-2 text-start">State</th>
+                    <th className="pb-2 text-end">State Time</th>
+                    <th className="pb-2 text-start">Current Call</th>
+                    <th className="pb-2 text-end">Calls Today</th>
+                    <th className="pb-2 text-end">AHT</th>
+                </tr>
                         </thead>
                         <tbody className="divide-y divide-border">
                             {[1, 2, 3, 4].map((i) => (
@@ -115,14 +115,14 @@ export function AgentMonitoringRoster({ rows, isLoading }: AgentMonitoringRoster
                 <table className="flex-table-grid w-full text-left text-xs">
                     <thead>
                         <tr className="border-b border-border text-[10px] font-semibold text-flex-text-muted uppercase">
-                            <th className="pb-2">Agent</th>
-                            <th className="pb-2">Ext.</th>
-                            <th className="pb-2">Queue</th>
-                            <th className="pb-2">State</th>
-                            <th className="pb-2">State Time</th>
-                            <th className="pb-2">Current Call</th>
-                            <th className="pb-2">Calls Today</th>
-                            <th className="pb-2">AHT</th>
+                            <th className="pb-2 text-start">Agent</th>
+                            <th className="pb-2 text-start">Ext.</th>
+                            <th className="pb-2 text-start">Queue</th>
+                            <th className="pb-2 text-start">State</th>
+                            <th className="pb-2 text-end">State Time</th>
+                            <th className="pb-2 text-start">Current Call</th>
+                            <th className="pb-2 text-end">Calls Today</th>
+                            <th className="pb-2 text-end">AHT</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-border">

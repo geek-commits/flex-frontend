@@ -43,7 +43,7 @@ export function campaignColumns(handlers: CampaignRowHandlers): ColumnDef<DataGr
             },
             size: 260,
             enableSorting: true,
-            meta: { skeleton: <Skeleton className="h-4 w-28" /> },
+            meta: { kind: 'identity', align: 'start', skeleton: <Skeleton className="h-4 w-28" /> },
         },
         {
             accessorKey: 'scheduleTime',
@@ -52,7 +52,7 @@ export function campaignColumns(handlers: CampaignRowHandlers): ColumnDef<DataGr
             cell: ({ getValue }) => <span className="font-mono text-flex-text-muted">{getValue() as string}</span>,
             size: 150,
             enableSorting: true,
-            meta: { skeleton: <Skeleton className="h-4 w-20" /> },
+            meta: { kind: 'date', align: 'start', skeleton: <Skeleton className="h-4 w-20" /> },
         },
         {
             accessorKey: 'totalContacts',
@@ -63,7 +63,7 @@ export function campaignColumns(handlers: CampaignRowHandlers): ColumnDef<DataGr
             ),
             size: 150,
             enableSorting: false,
-            meta: { skeleton: <Skeleton className="h-4 w-24" /> },
+            meta: { kind: 'numeric', align: 'start', skeleton: <Skeleton className="h-4 w-24" /> },
         },
         {
             accessorKey: 'answeredCount',
@@ -76,7 +76,7 @@ export function campaignColumns(handlers: CampaignRowHandlers): ColumnDef<DataGr
             },
             size: 110,
             enableSorting: true,
-            meta: { skeleton: <Skeleton className="h-4 w-10" /> },
+            meta: { kind: 'percentage', align: 'end', skeleton: <Skeleton className="h-4 w-10" /> },
         },
         {
             accessorKey: 'status',
@@ -89,7 +89,7 @@ export function campaignColumns(handlers: CampaignRowHandlers): ColumnDef<DataGr
             ),
             size: 120,
             enableSorting: true,
-            meta: { skeleton: <Skeleton className="h-4 w-16 rounded-full" /> },
+            meta: { kind: 'status', align: 'start', skeleton: <Skeleton className="h-4 w-16 rounded-full" /> },
         },
         {
             id: 'actions',
@@ -153,6 +153,7 @@ export function campaignColumns(handlers: CampaignRowHandlers): ColumnDef<DataGr
             size: 150,
             enableSorting: false,
             enableHiding: false,
+            meta: { kind: 'action', align: 'center' },
         },
     ];
 }

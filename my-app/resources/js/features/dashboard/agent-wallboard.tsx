@@ -40,14 +40,14 @@ function AgentWallboardRow({ agent }: { agent: AgentRosterEntry }) {
 
     return (
         <tr className="hover:bg-muted/30">
-            <td className="py-2.5 font-semibold text-flex-text-primary">
+            <td className="py-2.5 font-semibold text-flex-text-primary text-start">
                 {agent.name}
             </td>
-            <td className="py-2.5 font-mono text-flex-text-muted">
+            <td className="py-2.5 font-mono text-flex-text-muted text-start">
                 {agent.extension}
             </td>
-            <td className="py-2.5 text-flex-text-muted">{agent.queue}</td>
-            <td className="py-2.5">
+            <td className="py-2.5 text-flex-text-muted text-start">{agent.queue}</td>
+            <td className="py-2.5 text-start">
                 <FlexStatus
                     tone={AGENT_STATE_TONES[agent.state]}
                     className="capitalize"
@@ -55,18 +55,18 @@ function AgentWallboardRow({ agent }: { agent: AgentRosterEntry }) {
                     {agent.state}
                 </FlexStatus>
             </td>
-            <td className="flex-numeric py-2.5 font-mono text-flex-text-primary">
+            <td className="flex-numeric py-2.5 font-mono tabular-nums text-flex-text-primary text-end">
                 {stateTime}
             </td>
-            <td className="py-2.5 font-mono text-flex-text-primary">
+            <td className="py-2.5 font-mono text-flex-text-primary text-start">
                 {agent.callDuration ?? (
                     <span className="text-flex-text-muted">—</span>
                 )}
             </td>
-            <td className="py-2.5 font-bold text-flex-text-primary">
+            <td className="py-2.5 font-bold tabular-nums text-flex-text-primary text-end">
                 {agent.callsToday}
             </td>
-            <td className="py-2.5 font-mono text-flex-text-muted">
+            <td className="py-2.5 font-mono tabular-nums text-flex-text-muted text-end">
                 {agent.aht}
             </td>
         </tr>
@@ -110,14 +110,14 @@ export function AgentWallboard() {
                     <table className="flex-table-grid w-full text-left text-xs">
                         <thead>
                             <tr className="border-b border-flex-workspace-divider text-[10px] font-semibold text-flex-text-muted uppercase">
-                                <th className="pb-2">Agent</th>
-                                <th className="pb-2">Ext.</th>
-                                <th className="pb-2">Queue</th>
-                                <th className="pb-2">State</th>
-                                <th className="pb-2">State Time</th>
-                                <th className="pb-2">Current Call</th>
-                                <th className="pb-2">Calls Today</th>
-                                <th className="pb-2">AHT</th>
+                                <th className="pb-2 text-start">Agent</th>
+                                <th className="pb-2 text-start">Ext.</th>
+                                <th className="pb-2 text-start">Queue</th>
+                                <th className="pb-2 text-start">State</th>
+                                <th className="pb-2 text-end">State Time</th>
+                                <th className="pb-2 text-start">Current Call</th>
+                                <th className="pb-2 text-end">Calls Today</th>
+                                <th className="pb-2 text-end">AHT</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-border">
@@ -191,14 +191,14 @@ export function AgentWallboard() {
                 <table className="flex-table-grid w-full text-left text-xs">
                     <thead>
                         <tr className="border-b border-flex-workspace-divider text-[10px] font-semibold text-flex-text-muted uppercase">
-                            <th className="pb-2">Agent</th>
-                            <th className="pb-2">Ext.</th>
-                            <th className="pb-2">Queue</th>
-                            <th className="pb-2">State</th>
-                            <th className="pb-2">State Time</th>
-                            <th className="pb-2">Current Call</th>
-                            <th className="pb-2">Calls Today</th>
-                            <th className="pb-2">AHT</th>
+                            <th className="pb-2 text-start">Agent</th>
+                            <th className="pb-2 text-start">Ext.</th>
+                            <th className="pb-2 text-start">Queue</th>
+                            <th className="pb-2 text-start">State</th>
+                            <th className="pb-2 text-end">State Time</th>
+                            <th className="pb-2 text-start">Current Call</th>
+                            <th className="pb-2 text-end">Calls Today</th>
+                            <th className="pb-2 text-end">AHT</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-border">

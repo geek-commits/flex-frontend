@@ -38,7 +38,7 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
             ),
             size: 168,
             enableSorting: true,
-            meta: { skeleton: <Skeleton className="h-4 w-28" /> },
+            meta: { kind: 'date', align: 'start', skeleton: <Skeleton className="h-4 w-28" /> },
         },
         {
             accessorKey: 'customerPhone',
@@ -55,7 +55,7 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
             },
             size: 170,
             enableSorting: true,
-            meta: { skeleton: <Skeleton className="h-4 w-20" /> },
+            meta: { kind: 'identity', align: 'start', skeleton: <Skeleton className="h-4 w-20" /> },
         },
         {
             accessorKey: 'agentName',
@@ -68,7 +68,7 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
             },
             size: 150,
             enableSorting: true,
-            meta: { skeleton: <Skeleton className="h-4 w-24" /> },
+            meta: { kind: 'text', align: 'start', skeleton: <Skeleton className="h-4 w-24" /> },
         },
         {
             accessorKey: 'queueName',
@@ -81,7 +81,7 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
             },
             size: 190,
             enableSorting: true,
-            meta: { skeleton: <Skeleton className="h-4 w-32" /> },
+            meta: { kind: 'text', align: 'start', skeleton: <Skeleton className="h-4 w-32" /> },
         },
         {
             accessorKey: 'durationSeconds',
@@ -92,7 +92,7 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
             ),
             size: 96,
             enableSorting: true,
-            meta: { skeleton: <Skeleton className="h-4 w-10" /> },
+            meta: { kind: 'duration', align: 'end', skeleton: <Skeleton className="h-4 w-10" /> },
         },
         {
             accessorKey: 'status',
@@ -105,7 +105,7 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
             ),
             size: 120,
             enableSorting: true,
-            meta: { skeleton: <Skeleton className="h-4 w-16 rounded-full" /> },
+            meta: { kind: 'status', align: 'start', skeleton: <Skeleton className="h-4 w-16 rounded-full" /> },
         },
         {
             accessorKey: 'hasRecording',
@@ -121,6 +121,7 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
                 ),
             size: 100,
             enableSorting: false,
+            meta: { kind: 'icon', align: 'center' },
         },
         {
             id: 'actions',
@@ -153,6 +154,7 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
             size: 96,
             enableSorting: false,
             enableHiding: false,
+            meta: { kind: 'action', align: 'center' },
         },
     ];
 }

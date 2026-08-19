@@ -79,6 +79,7 @@ export function RecordingsTable({
                 ),
                 size: 220,
                 enableSorting: true,
+                meta: { kind: 'identity', align: 'start' },
             },
             {
                 accessorKey: 'category',
@@ -95,6 +96,7 @@ export function RecordingsTable({
                 },
                 size: 130,
                 enableSorting: true,
+                meta: { kind: 'status', align: 'start' },
             },
             {
                 accessorKey: 'duration',
@@ -109,6 +111,7 @@ export function RecordingsTable({
                     />
                 ),
                 size: 130,
+                meta: { kind: 'duration', align: 'start' },
             },
             {
                 accessorKey: 'format',
@@ -120,6 +123,7 @@ export function RecordingsTable({
                     </span>
                 ),
                 size: 130,
+                meta: { kind: 'text', align: 'start' },
             },
             {
                 accessorKey: 'usages',
@@ -144,6 +148,7 @@ export function RecordingsTable({
                     );
                 },
                 size: 160,
+                meta: { kind: 'text', align: 'start' },
             },
             {
                 accessorKey: 'updatedAt',
@@ -162,6 +167,7 @@ export function RecordingsTable({
                 },
                 size: 120,
                 enableSorting: true,
+                meta: { kind: 'date', align: 'start' },
             },
             {
                 id: 'actions',
@@ -210,6 +216,7 @@ export function RecordingsTable({
                 size: 140,
                 enableHiding: false,
                 enableSorting: false,
+                meta: { kind: 'action', align: 'center' },
             },
         ],
         [onRowClick, onEdit, onReplace, onDelete]

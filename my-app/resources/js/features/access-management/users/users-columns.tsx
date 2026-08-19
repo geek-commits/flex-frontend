@@ -39,7 +39,7 @@ export function userColumns(handlers: UserRowHandlers): ColumnDef<DataGridFeatur
             },
             size: 240,
             enableSorting: true,
-            meta: { skeleton: <Skeleton className="h-4 w-28" /> },
+            meta: { kind: 'identity', align: 'start', skeleton: <Skeleton className="h-4 w-28" /> },
         },
         {
             accessorKey: 'username',
@@ -48,7 +48,7 @@ export function userColumns(handlers: UserRowHandlers): ColumnDef<DataGridFeatur
             cell: ({ getValue }) => <span className="font-mono text-xs text-flex-text-muted">{getValue() as string}</span>,
             size: 150,
             enableSorting: true,
-            meta: { skeleton: <Skeleton className="h-4 w-20" /> },
+            meta: { kind: 'text', align: 'start', skeleton: <Skeleton className="h-4 w-20" /> },
         },
         {
             accessorKey: 'role',
@@ -57,7 +57,7 @@ export function userColumns(handlers: UserRowHandlers): ColumnDef<DataGridFeatur
             cell: ({ row }) => <span className="text-xs text-flex-text-primary">{roleLabels[row.original.role]}</span>,
             size: 150,
             enableSorting: true,
-            meta: { skeleton: <Skeleton className="h-4 w-16" /> },
+            meta: { kind: 'text', align: 'start', skeleton: <Skeleton className="h-4 w-16" /> },
         },
         {
             accessorKey: 'organization',
@@ -66,7 +66,7 @@ export function userColumns(handlers: UserRowHandlers): ColumnDef<DataGridFeatur
             cell: ({ getValue }) => <span className="text-xs text-flex-text-primary">{getValue() as string}</span>,
             size: 160,
             enableSorting: true,
-            meta: { skeleton: <Skeleton className="h-4 w-24" /> },
+            meta: { kind: 'text', align: 'start', skeleton: <Skeleton className="h-4 w-24" /> },
         },
         {
             accessorKey: 'status',
@@ -79,7 +79,7 @@ export function userColumns(handlers: UserRowHandlers): ColumnDef<DataGridFeatur
             ),
             size: 110,
             enableSorting: true,
-            meta: { skeleton: <Skeleton className="h-4 w-16 rounded-full" /> },
+            meta: { kind: 'status', align: 'start', skeleton: <Skeleton className="h-4 w-16 rounded-full" /> },
         },
         {
             accessorKey: 'lastActivity',
@@ -90,7 +90,7 @@ export function userColumns(handlers: UserRowHandlers): ColumnDef<DataGridFeatur
             ),
             size: 170,
             enableSorting: true,
-            meta: { skeleton: <Skeleton className="h-4 w-24" /> },
+            meta: { kind: 'date', align: 'start', skeleton: <Skeleton className="h-4 w-24" /> },
         },
         {
             id: 'actions',
@@ -124,6 +124,7 @@ export function userColumns(handlers: UserRowHandlers): ColumnDef<DataGridFeatur
             size: 90,
             enableSorting: false,
             enableHiding: false,
+            meta: { kind: 'action', align: 'center' },
         },
     ];
 }

@@ -36,9 +36,17 @@ export function YearlyPerformanceViewer({ run }: { run: ReportRun }) {
                     <table className="flex-table-grid w-full text-sm">
                         <thead>
                             <tr className="border-b border-border bg-muted/40 text-left">
-                                {['Month', 'Total Calls', 'Incoming Calls', 'Calls to Agent', 'Answered Calls', 'Answer Rate', 'Abandoned Rate'].map((header) => (
-                                    <th key={header} className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap">
-                                        {header}
+                                {[
+                                    { label: 'Month', align: 'start' },
+                                    { label: 'Total Calls', align: 'end' },
+                                    { label: 'Incoming Calls', align: 'end' },
+                                    { label: 'Calls to Agent', align: 'end' },
+                                    { label: 'Answered Calls', align: 'end' },
+                                    { label: 'Answer Rate', align: 'end' },
+                                    { label: 'Abandoned Rate', align: 'end' },
+                                ].map((header) => (
+                                    <th key={header.label} className={`px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap ${header.align === 'end' ? 'text-end' : 'text-start'}`}>
+                                        {header.label}
                                     </th>
                                 ))}
                             </tr>
@@ -46,13 +54,13 @@ export function YearlyPerformanceViewer({ run }: { run: ReportRun }) {
                         <tbody>
                             {rows.map((row) => (
                                 <tr key={row.month} className="border-b border-border last:border-b-0 hover:bg-muted/30 transition-colors">
-                                    <td className="px-4 py-2.5 text-xs font-semibold text-flex-text-primary">{row.month}</td>
-                                    <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary">{row.totalCalls.toLocaleString()}</td>
-                                    <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary">{row.incomingCalls.toLocaleString()}</td>
-                                    <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary">{row.callsToAgent.toLocaleString()}</td>
-                                    <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary">{row.answeredCalls.toLocaleString()}</td>
-                                    <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary">{row.answerRate.toFixed(1)}%</td>
-                                    <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary">{row.abandonedRate.toFixed(1)}%</td>
+                                    <td className="px-4 py-2.5 text-xs font-semibold text-flex-text-primary text-start">{row.month}</td>
+                                    <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary text-end">{row.totalCalls.toLocaleString()}</td>
+                                    <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary text-end">{row.incomingCalls.toLocaleString()}</td>
+                                    <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary text-end">{row.callsToAgent.toLocaleString()}</td>
+                                    <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary text-end">{row.answeredCalls.toLocaleString()}</td>
+                                    <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary text-end">{row.answerRate.toFixed(1)}%</td>
+                                    <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary text-end">{row.abandonedRate.toFixed(1)}%</td>
                                 </tr>
                             ))}
                         </tbody>

@@ -16,9 +16,13 @@ export function OutgoingCallsViewer({ run }: { run: ReportRun }) {
                 <table className="flex-table-grid w-full text-sm">
                     <thead>
                         <tr className="border-b border-border bg-muted/40 text-left">
-                            {['Disposition', 'Count', 'Percentage'].map((header) => (
-                                <th key={header} className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap">
-                                    {header}
+                            {[
+                                { label: 'Disposition', align: 'start' },
+                                { label: 'Count', align: 'end' },
+                                { label: 'Percentage', align: 'end' },
+                            ].map((header) => (
+                                <th key={header.label} className={`px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap ${header.align === 'end' ? 'text-end' : 'text-start'}`}>
+                                    {header.label}
                                 </th>
                             ))}
                         </tr>
@@ -26,9 +30,9 @@ export function OutgoingCallsViewer({ run }: { run: ReportRun }) {
                     <tbody>
                         {summary.map((row) => (
                             <tr key={row.disposition} className="border-b border-border last:border-b-0">
-                                <td className="px-4 py-2.5 text-xs text-flex-text-primary">{row.disposition}</td>
-                                <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary">{row.count}</td>
-                                <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary">{row.percentage.toFixed(1)}%</td>
+                                <td className="px-4 py-2.5 text-xs text-flex-text-primary text-start">{row.disposition}</td>
+                                <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary text-end">{row.count}</td>
+                                <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary text-end">{row.percentage.toFixed(1)}%</td>
                             </tr>
                         ))}
                     </tbody>
@@ -39,9 +43,13 @@ export function OutgoingCallsViewer({ run }: { run: ReportRun }) {
                 <table className="flex-table-grid w-full text-sm">
                     <thead>
                         <tr className="border-b border-border bg-muted/40 text-left">
-                            {['Provider', 'Duration', 'Calls'].map((header) => (
-                                <th key={header} className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap">
-                                    {header}
+                            {[
+                                { label: 'Provider', align: 'start' },
+                                { label: 'Duration', align: 'end' },
+                                { label: 'Calls', align: 'end' },
+                            ].map((header) => (
+                                <th key={header.label} className={`px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap ${header.align === 'end' ? 'text-end' : 'text-start'}`}>
+                                    {header.label}
                                 </th>
                             ))}
                         </tr>
@@ -49,9 +57,9 @@ export function OutgoingCallsViewer({ run }: { run: ReportRun }) {
                     <tbody>
                         {providerMinutes.map((row) => (
                             <tr key={row.provider} className="border-b border-border last:border-b-0">
-                                <td className="px-4 py-2.5 text-xs text-flex-text-primary">{row.provider}</td>
-                                <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary">{row.duration}</td>
-                                <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary">{row.calls}</td>
+                                <td className="px-4 py-2.5 text-xs text-flex-text-primary text-start">{row.provider}</td>
+                                <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary text-end">{row.duration}</td>
+                                <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary text-end">{row.calls}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -63,9 +71,16 @@ export function OutgoingCallsViewer({ run }: { run: ReportRun }) {
                     <table className="flex-table-grid w-full text-sm">
                         <thead>
                             <tr className="border-b border-border bg-muted/40 text-left">
-                                {['Date & Time', 'Destination', 'Agent', 'Status', 'Duration', 'Provider'].map((header) => (
-                                    <th key={header} className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap">
-                                        {header}
+                                {[
+                                    { label: 'Date & Time', align: 'start' },
+                                    { label: 'Destination', align: 'start' },
+                                    { label: 'Agent', align: 'start' },
+                                    { label: 'Status', align: 'start' },
+                                    { label: 'Duration', align: 'end' },
+                                    { label: 'Provider', align: 'start' },
+                                ].map((header) => (
+                                    <th key={header.label} className={`px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap ${header.align === 'end' ? 'text-end' : 'text-start'}`}>
+                                        {header.label}
                                     </th>
                                 ))}
                             </tr>
@@ -73,12 +88,12 @@ export function OutgoingCallsViewer({ run }: { run: ReportRun }) {
                         <tbody>
                             {detailedCalls.map((row, index) => (
                                 <tr key={index} className="border-b border-border last:border-b-0 hover:bg-muted/30 transition-colors">
-                                    <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-muted whitespace-nowrap">{row.dateTime}</td>
-                                    <td className="px-4 py-2.5 font-mono text-xs text-flex-text-primary whitespace-nowrap">{row.destination}</td>
-                                    <td className="px-4 py-2.5 text-xs text-flex-text-primary whitespace-nowrap">{row.agent}</td>
-                                    <td className="px-4 py-2.5 text-xs text-flex-text-primary whitespace-nowrap">{row.status}</td>
-                                    <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary whitespace-nowrap">{row.duration}</td>
-                                    <td className="px-4 py-2.5 text-xs text-flex-text-primary whitespace-nowrap">{row.provider}</td>
+                                    <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-muted whitespace-nowrap text-start">{row.dateTime}</td>
+                                    <td className="px-4 py-2.5 font-mono text-xs text-flex-text-primary whitespace-nowrap text-start">{row.destination}</td>
+                                    <td className="px-4 py-2.5 text-xs text-flex-text-primary whitespace-nowrap text-start">{row.agent}</td>
+                                    <td className="px-4 py-2.5 text-xs text-flex-text-primary whitespace-nowrap text-start">{row.status}</td>
+                                    <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary whitespace-nowrap text-end">{row.duration}</td>
+                                    <td className="px-4 py-2.5 text-xs text-flex-text-primary whitespace-nowrap text-start">{row.provider}</td>
                                 </tr>
                             ))}
                         </tbody>

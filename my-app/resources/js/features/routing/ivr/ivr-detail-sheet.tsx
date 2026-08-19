@@ -62,7 +62,7 @@ export function IVRDetailSheet({ ivr, onOpenChange, onEdit, onDelete }: IVRDetai
                                 <thead>
                                     <tr className="border-b border-border bg-muted/40 text-left">
                                         {['Key', 'Label', 'Destination'].map((header) => (
-                                            <th key={header} className="px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-flex-text-muted">
+                                            <th key={header} className="px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-flex-text-muted text-start">
                                                 {header}
                                             </th>
                                         ))}
@@ -71,9 +71,9 @@ export function IVRDetailSheet({ ivr, onOpenChange, onEdit, onDelete }: IVRDetai
                                 <tbody>
                                     {ivr.entries.map((entry, index) => (
                                         <tr key={index} className="border-b border-border last:border-b-0">
-                                            <td className="px-3 py-1.5 font-mono text-xs text-flex-text-primary">{entry.key}</td>
-                                            <td className="px-3 py-1.5 text-xs text-flex-text-primary">{entry.label}</td>
-                                            <td className="px-3 py-1.5 text-right"><DestinationCrossLink destination={entry.destination} /></td>
+                                            <td className="px-3 py-1.5 font-mono text-xs text-flex-text-primary text-start">{entry.key}</td>
+                                            <td className="px-3 py-1.5 text-xs text-flex-text-primary text-start">{entry.label}</td>
+                                            <td className="px-3 py-1.5 text-start"><DestinationCrossLink destination={entry.destination} /></td>
                                         </tr>
                                     ))}
                                 </tbody>

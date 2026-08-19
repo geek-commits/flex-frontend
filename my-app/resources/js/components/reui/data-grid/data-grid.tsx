@@ -51,6 +51,63 @@ import { cn } from "@/lib/utils"
  * installing the data grid no longer widens `ColumnMeta` for every other
  * table in the consuming app.
  */
+/** Semantic column kind → default horizontal alignment. */
+export type DataGridColumnKind =
+  | "identity"
+  | "text"
+  | "status"
+  | "numeric"
+  | "currency"
+  | "percentage"
+  | "date"
+  | "time"
+  | "duration"
+  | "selection"
+  | "action"
+  | "icon"
+
+export type DataGridColumnAlign = "start" | "end" | "center"
+
+/**
+ * Shared resolver: kind → default alignment → classes. Explicit `align`
+ * wins; missing metadata defaults to `start` (never center).
+ */
+export function resolveColumnAlignment<TData extends object>(
+  meta?: DataGridColumnMeta<TData>
+): DataGridColumnAlign {
+  if (meta?.align === "start" || meta?.align === "end" || meta?.align === "center") {
+    return meta.align
+  }
+
+  switch (meta?.kind) {
+    case "numeric":
+    case "currency":
+    case "percentage":
+    case "duration":
+      return "end"
+    case "selection":
+    case "action":
+    case "icon":
+      return "center"
+    default:
+      return "start"
+  }
+}
+
+/** Logical horizontal alignment classes for the column grid cell. */
+export function getColumnAlignmentClass<TData extends object>(
+  meta?: DataGridColumnMeta<TData>
+): string {
+  switch (resolveColumnAlignment(meta)) {
+    case "end":
+      return "text-end justify-end"
+    case "center":
+      return "text-center justify-center"
+    default:
+      return "text-start justify-start"
+  }
+}
+
 export interface DataGridColumnMeta<TData> {
   headerTitle?: string
   headerClassName?: string
@@ -58,6 +115,10 @@ export interface DataGridColumnMeta<TData> {
   skeleton?: ReactNode
   expandedContent?: (row: TData) => ReactNode
   autoSize?: boolean
+  /** Explicit horizontal alignment; overrides `kind` default. */
+  align?: DataGridColumnAlign
+  /** Semantic column type → default alignment. */
+  kind?: DataGridColumnKind
 }
 
 /**

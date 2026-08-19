@@ -95,9 +95,15 @@ export function QueueMembersSheet({ queue, onOpenChange, onChanged }: QueueMembe
                                 <table className="flex-table-grid w-full text-sm">
                                     <thead>
                                         <tr className="border-b border-border bg-muted/40 text-left">
-                                            {['Agent', 'Extension', 'Department', 'Priority', ''].map((header, index) => (
-                                                <th key={index} className="px-3 py-2 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap">
-                                                    {header}
+                                            {[
+                                                { label: 'Agent', align: 'start' },
+                                                { label: 'Extension', align: 'start' },
+                                                { label: 'Department', align: 'start' },
+                                                { label: 'Priority', align: 'end' },
+                                                { label: '', align: 'center' },
+                                            ].map((header, index) => (
+                                                <th key={index} className={`px-3 py-2 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap ${header.align === 'end' ? 'text-end' : header.align === 'center' ? 'text-center' : 'text-start'}`}>
+                                                    {header.label}
                                                 </th>
                                             ))}
                                         </tr>
@@ -105,11 +111,11 @@ export function QueueMembersSheet({ queue, onOpenChange, onChanged }: QueueMembe
                                     <tbody>
                                         {members.map((member) => (
                                             <tr key={member.agentId} className="border-b border-border last:border-b-0">
-                                                <td className="px-3 py-2 text-xs font-semibold text-flex-text-primary">{member.name}</td>
-                                                <td className="px-3 py-2 font-mono text-xs text-flex-text-muted">{member.extension}</td>
-                                                <td className="px-3 py-2 text-xs text-flex-text-primary">{member.department}</td>
-                                                <td className="px-3 py-2 text-xs tabular-nums text-flex-text-primary">{member.priority}</td>
-                                                <td className="px-3 py-2 text-right">
+                                                <td className="px-3 py-2 text-xs font-semibold text-flex-text-primary text-start">{member.name}</td>
+                                                <td className="px-3 py-2 font-mono text-xs text-flex-text-muted text-start">{member.extension}</td>
+                                                <td className="px-3 py-2 text-xs text-flex-text-primary text-start">{member.department}</td>
+                                                <td className="px-3 py-2 text-xs tabular-nums text-flex-text-primary text-end">{member.priority}</td>
+                                                <td className="px-3 py-2 text-center">
                                                     <Button variant="ghost" size="icon-xs" title={`Remove ${member.name}`} aria-label={`Remove ${member.name}`} onClick={() => removeMember(member)}>
                                                         <RiCloseLine className="size-3.5" />
                                                     </Button>

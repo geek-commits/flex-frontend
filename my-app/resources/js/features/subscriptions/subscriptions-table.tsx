@@ -62,6 +62,7 @@ export function SubscriptionsTable({
                 ),
                 size: 220,
                 enableSorting: true,
+                meta: { kind: 'identity', align: 'start' },
             },
             {
                 accessorKey: 'plan',
@@ -74,6 +75,7 @@ export function SubscriptionsTable({
                 ),
                 size: 140,
                 enableSorting: true,
+                meta: { kind: 'text', align: 'start' },
             },
             {
                 accessorKey: 'amount',
@@ -90,6 +92,7 @@ export function SubscriptionsTable({
                 ),
                 size: 130,
                 enableSorting: true,
+                meta: { kind: 'currency', align: 'end' },
             },
             {
                 accessorKey: 'expiresAt',
@@ -107,6 +110,7 @@ export function SubscriptionsTable({
                 },
                 size: 120,
                 enableSorting: true,
+                meta: { kind: 'date', align: 'start' },
             },
             {
                 accessorKey: 'remainingDays',
@@ -132,6 +136,7 @@ export function SubscriptionsTable({
                 },
                 size: 130,
                 enableSorting: true,
+                meta: { kind: 'numeric', align: 'end' },
             },
             {
                 accessorKey: 'status',
@@ -144,6 +149,7 @@ export function SubscriptionsTable({
                 ),
                 size: 120,
                 enableSorting: true,
+                meta: { kind: 'status', align: 'start' },
             },
             {
                 id: 'notifications',
@@ -168,6 +174,7 @@ export function SubscriptionsTable({
                 },
                 size: 130,
                 enableSorting: false,
+                meta: { kind: 'text', align: 'start' },
             },
             {
                 id: 'actions',
@@ -206,6 +213,7 @@ export function SubscriptionsTable({
                 size: 110,
                 enableHiding: false,
                 enableSorting: false,
+                meta: { kind: 'action', align: 'center' },
             },
         ],
         [onRowClick, onTriggerReminder, onRenew]

@@ -16,6 +16,7 @@ import type {
   RefObject,
 } from "react"
 import { useDataGrid } from "@/components/reui/data-grid/data-grid"
+import { getColumnAlignmentClass } from "@/components/reui/data-grid/data-grid"
 import type {
   DataGridFeatures,
   DataGridTableInstance,
@@ -859,7 +860,8 @@ function DataGridTableHeadRowCell<TData extends object>({
         isLastStartPinned ? "start" : isFirstEndPinned ? "end" : undefined
       }
       className={cn(
-        "text-foreground relative h-10 text-left align-middle font-medium rtl:text-right [&:has([role=checkbox])]:pe-0",
+        "text-foreground relative h-10 align-middle font-medium [&:has([role=checkbox])]:pe-0",
+        getColumnAlignmentClass(column.columnDef.meta),
         headerCellSpacing,
         props.tableLayout?.headerBackground && "bg-muted",
         props.tableLayout?.cellBorder && "border-e border-flex-table-grid",
@@ -1243,6 +1245,7 @@ function DataGridTableBodyRowSkeletonCell<TData extends object>({
       }
       className={cn(
         "align-middle",
+        getColumnAlignmentClass(column.columnDef.meta),
         bodyCellSpacing,
         props.tableLayout?.cellBorder && "border-e border-flex-table-grid",
         props.tableLayout?.columnsResizable &&
@@ -1412,6 +1415,7 @@ function DataGridTableBodyRowCell<TData extends object>({
       }
       className={cn(
         "align-middle",
+        getColumnAlignmentClass(cell.column.columnDef.meta),
         bodyCellSpacing,
         props.tableLayout?.cellBorder && "border-e border-flex-table-grid",
         props.tableLayout?.columnsResizable &&

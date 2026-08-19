@@ -50,8 +50,8 @@ export function ContactCenterPerformanceViewer({ run }: { run: ReportRun }) {
                     <tbody>
                         {secondary.map((row) => (
                             <tr key={row.metric} className="border-b border-border last:border-b-0">
-                                <td className="px-4 py-2.5 text-xs text-flex-text-muted">{row.metric}</td>
-                                <td className="px-4 py-2.5 text-right text-xs font-semibold tabular-nums text-flex-text-primary">
+                                <td className="px-4 py-2.5 text-xs text-flex-text-muted text-start">{row.metric}</td>
+                                <td className="px-4 py-2.5 text-end text-xs font-semibold tabular-nums text-flex-text-primary">
                                     {row.value}
                                 </td>
                             </tr>

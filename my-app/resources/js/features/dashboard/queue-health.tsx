@@ -4,13 +4,16 @@ import { SLA_TARGET } from '@/features/dashboard/constants';
 import { useDashboardData } from '@/features/dashboard/use-dashboard-data';
 
 const QUEUE_HEALTH_COLUMNS = [
-    { key: 'queue', header: 'Queue', width: '220px' },
-    { key: 'waiting', header: 'Waiting', width: '90px' },
-    { key: 'longestWait', header: 'Longest Wait', width: '120px' },
-    { key: 'availableAgents', header: 'Available', width: '100px' },
-    { key: 'sla', header: 'SLA', width: '90px' },
-    { key: 'status', header: 'Status', width: '100px' },
+    { key: 'queue', header: 'Queue', width: '220px', align: 'start' },
+    { key: 'waiting', header: 'Waiting', width: '90px', align: 'end' },
+    { key: 'longestWait', header: 'Longest Wait', width: '120px', align: 'end' },
+    { key: 'availableAgents', header: 'Available', width: '100px', align: 'end' },
+    { key: 'sla', header: 'SLA', width: '90px', align: 'end' },
+    { key: 'status', header: 'Status', width: '100px', align: 'start' },
 ] as const;
+
+const alignClass = (a: string) =>
+    a === 'end' ? 'text-end' : a === 'center' ? 'text-center' : 'text-start';
 
 function formatWait(seconds: number): string {
     if (seconds <= 0) {
@@ -59,7 +62,7 @@ export function QueueHealth() {
                     <thead>
                         <tr className="border-b border-flex-workspace-divider text-[10px] font-semibold text-flex-text-muted uppercase">
                             {QUEUE_HEALTH_COLUMNS.map((col) => (
-                                <th key={col.key} style={{ width: col.width }}>
+                                <th key={col.key} style={{ width: col.width }} className={alignClass(col.align)}>
                                     {col.header}
                                 </th>
                             ))}
@@ -69,32 +72,32 @@ export function QueueHealth() {
                         {data?.queueHealth.map((queue) => (
                             <tr key={queue.queue} className="hover:bg-muted/30">
                                 <td
-                                    className="py-2.5 font-semibold text-flex-text-primary"
+                                    className="py-2.5 font-semibold text-flex-text-primary text-start"
                                     style={{ width: '220px' }}
                                 >
                                     {queue.queue}
                                 </td>
                                 <td
-                                    className="py-2.5 font-bold text-flex-text-primary"
+                                    className="py-2.5 font-bold tabular-nums text-flex-text-primary text-end"
                                     style={{ width: '90px' }}
                                 >
                                     {queue.waiting}
                                 </td>
                                 <td
-                                    className="py-2.5 font-mono text-flex-text-muted"
+                                    className="py-2.5 font-mono tabular-nums text-flex-text-muted text-end"
                                     style={{ width: '120px' }}
                                 >
                                     {formatWait(queue.longestWait)}
                                 </td>
                                 <td
-                                    className="py-2.5 text-flex-text-primary"
+                                    className="py-2.5 tabular-nums text-flex-text-primary text-end"
                                     style={{ width: '100px' }}
                                 >
                                     {queue.availableAgents} /{' '}
                                     {queue.totalAgents}
                                 </td>
                                 <td
-                                    className="py-2.5 font-bold"
+                                    className="py-2.5 font-bold tabular-nums text-end"
                                     style={{ width: '90px' }}
                                 >
                                     <FlexStatus
@@ -109,7 +112,7 @@ export function QueueHealth() {
                                     </FlexStatus>
                                 </td>
                                 <td
-                                    className="py-2.5"
+                                    className="py-2.5 text-start"
                                     style={{ width: '100px' }}
                                 >
                                     {queue.waiting === 0 ? (

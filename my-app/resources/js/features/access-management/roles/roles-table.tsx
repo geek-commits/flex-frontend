@@ -37,21 +37,21 @@ export function RolesTable({ records, isLoading, emptyMessage, onEdit }: RolesTa
             <table className="flex-table-grid w-full text-sm">
                 <thead>
                     <tr className="border-b border-border bg-muted/40 text-left">
-                        <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap">Role</th>
-                        <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap">Permissions</th>
-                        <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap">Users</th>
-                        <th className="px-4 py-2.5 text-right text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap">Actions</th>
+                        <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap text-start">Role</th>
+                        <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap text-end">Permissions</th>
+                        <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap text-end">Users</th>
+                        <th className="px-4 py-2.5 text-center text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {records.map((role) => (
                         <tr key={role.id} className="border-b border-border last:border-b-0 hover:bg-muted/30 transition-colors">
-                            <td className="px-4 py-3">
+                            <td className="px-4 py-3 text-start">
                                 <span className="font-semibold text-flex-text-primary">{role.name}</span>
                             </td>
-                            <td className="px-4 py-3">
-                                <div className="flex items-center gap-2">
-                                    <span className="inline-flex items-center rounded-full border border-border bg-muted px-2 py-0.5 text-[11px] font-semibold text-flex-text-primary">
+                            <td className="px-4 py-3 text-end">
+                                <div className="flex items-center gap-2 justify-end">
+                                    <span className="inline-flex items-center rounded-full border border-border bg-muted px-2 py-0.5 text-[11px] font-semibold tabular-nums text-flex-text-primary">
                                         {role.permissions.length}
                                     </span>
                                     <span
@@ -68,10 +68,10 @@ export function RolesTable({ records, isLoading, emptyMessage, onEdit }: RolesTa
                                     </span>
                                 </div>
                             </td>
-                            <td className="px-4 py-3">
-                                <span className="text-xs text-flex-text-primary">{role.userCount}</span>
+                            <td className="px-4 py-3 text-end">
+                                <span className="text-xs tabular-nums text-flex-text-primary">{role.userCount}</span>
                             </td>
-                            <td className="px-4 py-3 text-right">
+                            <td className="px-4 py-3 text-center">
                                 <Button
                                     variant="ghost"
                                     size="icon-xs"

@@ -84,6 +84,7 @@ export function RecoveryTable({
                 ),
                 size: 190,
                 enableSorting: true,
+                meta: { kind: 'identity', align: 'start' },
             },
             {
                 accessorKey: 'missedAt',
@@ -94,6 +95,7 @@ export function RecoveryTable({
                 ),
                 size: 150,
                 enableSorting: true,
+                meta: { kind: 'date', align: 'start' },
             },
             {
                 accessorKey: 'queueName',
@@ -102,6 +104,7 @@ export function RecoveryTable({
                 cell: ({ getValue }) => <span className="text-xs text-flex-text-primary">{getValue() as string}</span>,
                 size: 170,
                 enableSorting: true,
+                meta: { kind: 'text', align: 'start' },
             },
             {
                 accessorKey: 'category',
@@ -109,6 +112,7 @@ export function RecoveryTable({
                 header: 'Category',
                 cell: ({ getValue }) => <span className="text-xs text-flex-text-primary">{getValue() as string}</span>,
                 size: 140,
+                meta: { kind: 'text', align: 'start' },
             },
             {
                 accessorKey: 'attempts',
@@ -116,18 +120,21 @@ export function RecoveryTable({
                 header: 'Attempts',
                 cell: ({ getValue }) => <span className="text-xs tabular-nums text-flex-text-primary">{getValue() as number}</span>,
                 size: 70,
+                meta: { kind: 'numeric', align: 'end' },
             },
             {
                 id: 'voicemail',
                 header: 'Voicemail',
                 cell: ({ row }) => <VoicemailPlayer voicemail={row.original.voicemail} compact />,
                 size: 120,
+                meta: { kind: 'icon', align: 'start' },
             },
             {
                 id: 'ownership',
                 header: 'Ownership',
                 cell: ({ row }) => <RecoveryOwnership record={row.original} currentAgentId={currentAgent.id} />,
                 size: 150,
+                meta: { kind: 'text', align: 'start' },
             },
             {
                 accessorKey: 'status',
@@ -136,6 +143,7 @@ export function RecoveryTable({
                 cell: ({ row }) => <RecoveryStatus status={row.original.status} />,
                 size: 140,
                 enableSorting: true,
+                meta: { kind: 'status', align: 'start' },
             },
             {
                 id: 'action',
@@ -150,6 +158,7 @@ export function RecoveryTable({
                 size: 120,
                 enableHiding: false,
                 enableSorting: false,
+                meta: { kind: 'action', align: 'center' },
             },
         ],
         [currentAgent, onRecordChanged]
