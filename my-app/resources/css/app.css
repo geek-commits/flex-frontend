@@ -310,6 +310,48 @@
     --flex-font-size-table-body: 0.8125rem;
     --flex-font-size-numeric: 0.8125rem;
     --flex-font-numeric: tabular-nums;
+    --chart-background:
+        var(--flex-workspace-surface);
+    --chart-foreground:
+        var(--flex-text-primary);
+    --chart-foreground-muted:
+        var(--flex-text-muted);
+    --chart-line-primary:
+        var(--flex-chart-bar);
+    --chart-line-secondary:
+        var(--status-disconnected);
+    --chart-crosshair:
+        var(--flex-workspace-divider-strong);
+    --chart-grid:
+        var(--flex-workspace-divider);
+    --chart-brush-border:
+        var(--chart-grid);
+    --chart-tooltip-background:
+        var(--flex-workspace-surface);
+    --chart-tooltip-foreground:
+        var(--flex-text-primary);
+    --chart-tooltip-muted:
+        var(--flex-text-muted);
+    --chart-marker-background:
+        var(--flex-workspace-surface-muted);
+    --chart-marker-border:
+        var(--flex-workspace-divider);
+    --chart-marker-foreground:
+        var(--flex-text-primary);
+    --chart-label:
+        var(--flex-text-muted);
+    --chart-scale-01:
+        oklch(0.98 0.003 106);
+    --chart-scale-02:
+        oklch(0.92 0.008 106);
+    --chart-scale-03:
+        oklch(0.82 0.015 106);
+    --chart-scale-04:
+        oklch(0.68 0.02 106);
+    --chart-scale-05:
+        oklch(0.55 0.025 106);
+    --chart-scale-pattern-color:
+        oklch(0.96 0.005 106);
 }
 
 .dark {
@@ -443,6 +485,38 @@
     /* Chart colors — dark-mode semantic equivalents */
     --flex-chart-line: oklch(0.72 0.15 250);
     --flex-chart-bar: oklch(0.62 0.2 250);
+    --chart-background:
+        var(--flex-workspace-surface);
+    --chart-foreground:
+        var(--flex-text-primary);
+    --chart-foreground-muted:
+        var(--flex-text-muted);
+    --chart-crosshair:
+        var(--flex-workspace-divider-strong);
+    --chart-grid:
+        var(--flex-workspace-divider);
+    --chart-brush-border:
+        var(--chart-grid);
+    --chart-marker-background:
+        var(--flex-workspace-surface-muted);
+    --chart-marker-border:
+        var(--flex-workspace-divider);
+    --chart-marker-foreground:
+        var(--flex-text-primary);
+    --chart-label:
+        var(--flex-text-muted);
+    --chart-scale-01:
+        oklch(0.28 0.03 270);
+    --chart-scale-02:
+        oklch(0.38 0.04 270);
+    --chart-scale-03:
+        oklch(0.48 0.05 270);
+    --chart-scale-04:
+        oklch(0.58 0.06 270);
+    --chart-scale-05:
+        oklch(0.68 0.07 270);
+    --chart-scale-pattern-color:
+        oklch(0.145 0 0);
 }
 
 @layer base {
@@ -604,6 +678,69 @@
     --duration-flex-overlay: var(--flex-duration-overlay);
 
     --ease-flex: var(--flex-ease);
+
+    --color-chart-scale-pattern-color:
+        var(--chart-scale-pattern-color);
+
+    --color-chart-scale-05:
+        var(--chart-scale-05);
+
+    --color-chart-scale-04:
+        var(--chart-scale-04);
+
+    --color-chart-scale-03:
+        var(--chart-scale-03);
+
+    --color-chart-scale-02:
+        var(--chart-scale-02);
+
+    --color-chart-scale-01:
+        var(--chart-scale-01);
+
+    --color-chart-label:
+        var(--chart-label);
+
+    --color-chart-marker-foreground:
+        var(--chart-marker-foreground);
+
+    --color-chart-marker-border:
+        var(--chart-marker-border);
+
+    --color-chart-marker-background:
+        var(--chart-marker-background);
+
+    --color-chart-tooltip-muted:
+        var(--chart-tooltip-muted);
+
+    --color-chart-tooltip-foreground:
+        var(--chart-tooltip-foreground);
+
+    --color-chart-tooltip-background:
+        var(--chart-tooltip-background);
+
+    --chart-brush-border:
+        var(--chart-brush-border);
+
+    --color-chart-grid:
+        var(--chart-grid);
+
+    --color-chart-crosshair:
+        var(--chart-crosshair);
+
+    --chart-line-secondary:
+        var(--chart-line-secondary);
+
+    --chart-line-primary:
+        var(--chart-line-primary);
+
+    --color-chart-foreground-muted:
+        var(--chart-foreground-muted);
+
+    --color-chart-foreground:
+        var(--chart-foreground);
+
+    --color-chart-background:
+        var(--chart-background);
 }
 
 /* Shared focus ring for interactive FLEX controls */
