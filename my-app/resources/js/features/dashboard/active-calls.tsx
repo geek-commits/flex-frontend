@@ -1,176 +1,84 @@
-import { FlexStatus } from '@/components/flex/flex-status';
-import { Skeleton } from '@/components/ui/skeleton';
-import { useCallTimer } from '@/features/dashboard/use-call-timer';
+import { useTable } from '@tanstack/react-table';
+import { useMemo } from 'react';
+import { FlexEmptyState } from '@/components/flex/flex-empty-state';
+import { FlexErrorState } from '@/components/flex/flex-error-state';
+import {
+    DataGrid,
+    DataGridContainer,
+    dataGridFeatures,
+} from '@/components/reui/data-grid/data-grid';
+import { DataGridScrollArea } from '@/components/reui/data-grid/data-grid-scroll-area';
+import { DataGridTable } from '@/components/reui/data-grid/data-grid-table';
+import { Button } from '@/components/ui/button';
+import { activeCallColumns } from '@/features/dashboard/dashboard-active-calls-columns';
+import type { ActiveCall } from '@/features/dashboard/dashboard-types';
 import { useDashboardData } from '@/features/dashboard/use-dashboard-data';
-
-const CALL_STATE_TONES: Record<
-    ActiveCall['state'],
-    'info' | 'success' | 'warning'
-> = {
-    ringing: 'info',
-    connected: 'success',
-    hold: 'warning',
-    transferring: 'info',
-};
-
-interface ActiveCall {
-    id: string;
-    customer: { name: string; phone: string };
-    agent: { id: string; name: string };
-    queue: string;
-    direction: 'inbound' | 'outbound';
-    state: 'ringing' | 'connected' | 'hold' | 'transferring';
-    durationSeconds: number;
-    startedAt: string;
-}
-
-function ActiveCallRow({ call }: { call: ActiveCall }) {
-    const duration = useCallTimer(call.startedAt);
-    const tone = CALL_STATE_TONES[call.state];
-
-    return (
-        <tr key={call.id} className="hover:bg-muted/30">
-            <td className="py-2.5 text-start">
-                <div className="flex flex-col">
-                    <span className="font-semibold text-flex-text-primary">
-                        {call.customer.name}
-                    </span>
-                    <span className="font-mono text-[10px] text-flex-text-muted">
-                        {call.customer.phone}
-                    </span>
-                </div>
-            </td>
-            <td className="py-2.5 text-flex-text-primary text-start">{call.agent.name}</td>
-            <td className="py-2.5 text-flex-text-muted text-start">{call.queue}</td>
-            <td className="py-2.5 font-mono text-flex-text-muted capitalize text-start">
-                {call.direction}
-            </td>
-            <td className="flex-numeric py-2.5 font-mono tabular-nums text-flex-text-primary text-end">
-                {duration}
-            </td>
-            <td className="py-2.5 text-start">
-                <FlexStatus tone={tone} className="capitalize">
-                    {call.state}
-                </FlexStatus>
-            </td>
-        </tr>
-    );
-}
 
 export function ActiveCalls() {
     const { data, isLoading, error } = useDashboardData();
 
+    const rows = useMemo(() => data?.activeCalls ?? [], [data]);
+    const columns = useMemo(() => activeCallColumns(), []);
+    const table = useTable({
+        features: dataGridFeatures,
+        columns,
+        data: rows,
+        getRowId: (row: ActiveCall) => row.id,
+        state: {},
+        enableSorting: false,
+    });
+
     if (error) {
         return (
-            <div className="flex flex-col gap-2 rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface p-4">
-                <p className="text-sm font-medium text-flex-text-primary">
-                    Active calls unavailable
-                </p>
-                <p className="text-xs text-flex-text-muted">
-                    Failed to load active calls
-                </p>
-                <button
-                    type="button"
-                    className="rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:bg-primary/90"
-                    onClick={() => window.location.reload()}
-                >
-                    Retry
-                </button>
+            <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
+                <FlexErrorState
+                    title="Active calls unavailable"
+                    description="Failed to load active calls"
+                    action={
+                        <Button onClick={() => window.location.reload()} size="sm">
+                            Retry
+                        </Button>
+                    }
+                />
             </div>
         );
     }
 
-    const calls = data?.activeCalls || [];
-
-    if (isLoading || !data) {
+    if (!isLoading && !error && rows.length === 0) {
         return (
             <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
-                <div className="border-b border-flex-workspace-divider p-4">
-                    <h3 className="flex items-center gap-1.5 text-xs font-bold tracking-wider text-flex-text-muted uppercase">
-                        Active Calls & Traffic
-                    </h3>
-                </div>
-                <div className="p-4">
-                    <table className="flex-table-grid w-full text-left text-xs">
-                        <thead>
-                            <tr className="border-b border-flex-workspace-divider text-[10px] font-semibold text-flex-text-muted uppercase">
-                                <th className="pb-2 text-start">Customer</th>
-                                <th className="pb-2 text-start">Agent</th>
-                                <th className="pb-2 text-start">Queue</th>
-                                <th className="pb-2 text-start">Dir.</th>
-                                <th className="pb-2 text-end">Duration</th>
-                                <th className="pb-2 text-start">State</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-border">
-                            {[1, 2, 3].map((i) => (
-                                <tr key={i} className="hover:bg-muted/30">
-                                    <td className="py-2.5">
-                                        <Skeleton className="h-4 w-32" />
-                                    </td>
-                                    <td className="py-2.5">
-                                        <Skeleton className="h-4 w-24" />
-                                    </td>
-                                    <td className="py-2.5">
-                                        <Skeleton className="h-4 w-20" />
-                                    </td>
-                                    <td className="py-2.5">
-                                        <Skeleton className="h-4 w-16" />
-                                    </td>
-                                    <td className="py-2.5">
-                                        <Skeleton className="h-4 w-16" />
-                                    </td>
-                                    <td className="py-2.5">
-                                        <Skeleton className="h-4 w-16 rounded-full" />
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        );
-    }
-
-    if (calls.length === 0) {
-        return (
-            <div className="flex flex-col items-center justify-center gap-2 rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface p-8 text-center">
-                <p className="text-sm font-medium text-flex-text-primary">
-                    No active calls
-                </p>
-                <p className="text-xs text-flex-text-muted">
-                    All lines are currently clear
-                </p>
+                <FlexEmptyState
+                    title="No active calls"
+                    description="All lines are currently clear"
+                />
             </div>
         );
     }
 
     return (
         <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
-            <div className="border-b border-flex-workspace-divider p-4">
-                <h3 className="flex items-center gap-1.5 text-xs font-bold tracking-wider text-flex-text-muted uppercase">
+            <div className="border-b border-flex-workspace-divider px-4 py-3">
+                <h3 className="text-sm font-semibold text-flex-text-primary">
                     Active Calls & Traffic
                 </h3>
             </div>
-            <div className="overflow-x-auto">
-                <table className="flex-table-grid w-full text-left text-xs">
-                    <thead>
-                        <tr className="border-b border-flex-workspace-divider text-[10px] font-semibold text-flex-text-muted uppercase">
-                            <th className="pb-2 text-start">Customer</th>
-                            <th className="pb-2 text-start">Agent</th>
-                            <th className="pb-2 text-start">Queue</th>
-                            <th className="pb-2 text-start">Dir.</th>
-                            <th className="pb-2 text-end">Duration</th>
-                            <th className="pb-2 text-start">State</th>
-                        </tr>
-                    </thead>
-                    <tbody className="divide-y divide-border">
-                        {calls.map((call: ActiveCall) => (
-                            <ActiveCallRow key={call.id} call={call} />
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+
+            <DataGrid
+                table={table}
+                recordCount={rows.length}
+                isLoading={isLoading}
+                loadingMode="spinner"
+                emptyMessage="No active calls"
+                tableLayout={{
+                    columnsMovable: false,
+                }}
+            >
+                <DataGridContainer>
+                    <DataGridScrollArea>
+                        <DataGridTable />
+                    </DataGridScrollArea>
+                </DataGridContainer>
+            </DataGrid>
         </div>
     );
 }
