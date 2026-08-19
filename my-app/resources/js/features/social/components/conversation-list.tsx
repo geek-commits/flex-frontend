@@ -1,9 +1,10 @@
 import React from 'react';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
-import { SOCIAL_CHANNELS, SOCIAL_CHANNEL_META  } from '../social-constants';
-import type {SocialChannelFilter} from '../social-constants';
+import { SOCIAL_CHANNEL_META } from '../social-constants';
+import type { SocialChannelFilter } from '../social-constants';
 import type { SocialConversation } from '../social-types';
 import { ConversationRow } from './conversation-row';
+import { SocialChannelFilter as SocialChannelFilterControl } from './social-channel-filter';
 
 export interface ConversationListProps {
     conversations: SocialConversation[];
@@ -29,30 +30,11 @@ export function ConversationList({
 
     return (
         <section aria-label="Social conversations" className="flex flex-col h-full min-w-0">
-            <div className="px-3 py-2 border-b border-border flex items-center gap-1 flex-wrap">
-                <button
-                    type="button"
-                    onClick={() => onFilterChange('all')}
-                    className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-colors ${
-                        filter === 'all' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-muted'
-                    }`}
-                >
-                    All
-                </button>
-                {SOCIAL_CHANNELS.map((channel) => (
-                    <button
-                        key={channel}
-                        type="button"
-                        onClick={() => onFilterChange(channel)}
-                        className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-colors ${
-                            filter === channel
-                                ? 'bg-primary text-primary-foreground'
-                                : 'text-muted-foreground hover:bg-muted'
-                        }`}
-                    >
-                        {SOCIAL_CHANNEL_META[channel].label}
-                    </button>
-                ))}
+            <div className="border-b border-flex-workspace-divider px-3 py-2">
+                <div className="mb-2 flex items-center justify-between">
+                    <h2 className="text-sm font-semibold text-flex-text-primary">Inbox</h2>
+                </div>
+                <SocialChannelFilterControl value={filter} onChange={onFilterChange} />
             </div>
 
             <div className="flex-1 overflow-y-auto p-2 flex flex-col gap-0.5" role="list">
