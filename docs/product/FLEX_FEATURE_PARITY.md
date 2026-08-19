@@ -135,13 +135,14 @@ Treat as external/integration-owned. Do not redesign blindly (plan §7).
 
 | ID | Feature | Manual | Evidence | Lifecycle | Notes |
 |---|---|---|---|---|---|
-| SOCIAL-001 | Flex Social Interface | YES | `/agent/social`, `features/social/social-workspace-page.tsx`, `social.view` capability | SHIPPED (POC) | Agent workspace unified inbox; AgentShell + AgentOperationalHeader; split view desktop / list→detail mobile |
-| SOCIAL-002…004 | Instagram / Facebook / WhatsApp | YES | `SOCIAL_CHANNELS` in `features/social/social-constants.ts`, `ChannelBadge` | SHIPPED (POC) | channel filters All/IG/FB/WA; provider identity by name, no provider behavior invented |
-| SOCIAL-005 | Unified incoming messages | YES | `features/social/social-repository.ts`, `data/social.mock.ts`, `MessageTimeline` | SHIPPED (POC) | deterministic 5-conversation mock; unified timeline; channel text visible, never color-only |
-| SOCIAL-006 | Reply | YES | `social-composer.tsx`, `socialRepository.sendReply` | SHIPPED (POC) | plain-text reply; pending/disabled guard; draft preserved; error surfaced |
-| SOCIAL-007 | Tag/follow-up | YES | `follow-up-controls.tsx`, `socialRepository.setFollowUp` | SHIPPED (POC) | follow-up flag toggled; shown in row + detail |
-| SOCIAL-008 | Escalate to supervisor | YES | `follow-up-controls.tsx`, `socialRepository.escalate` | SHIPPED (POC) | escalate sets escalated + clears follow-up; state shown in row + detail; button disables |
+| SOCIAL-001 | Flex Social Interface | YES | `/agent/social`, `features/social/social-workspace-page.tsx`, `social.view` capability | SHIPPED (POC) | Agent workspace unified inbox; AgentShell + AgentOperationalHeader; three-pane inline ≥1280 (inbox / conversation / context), list→detail + context sheet below; committed `5c8f2c8` |
+| SOCIAL-002…004 | Instagram / Facebook / WhatsApp | YES | `SOCIAL_CHANNELS` in `features/social/social-constants.ts`, `components/flex/social/social-channel-icon.tsx`, `assets/flex/icons/social/*.svg` | SHIPPED (POC) | channel filters All/IG/FB/WA; approved provider vector icons (FB/WA svgrepo, IG clean 726-byte vector); avatar badge; no provider behavior invented |
+| SOCIAL-005 | Unified incoming messages | YES | `features/social/social-repository.ts`, `data/social.mock.ts`, `message-timeline.tsx`, `message-bubble.tsx` | SHIPPED (POC) | deterministic 5-conversation mock; clean incoming-left/outgoing-right rhythm; FLEX primary outgoing; avatar only on same-sender run start; no INCOMING/OUTGOING labels; channel text visible, never color-only |
+| SOCIAL-006 | Reply | YES | `social-composer.tsx`, `socialRepository.sendReply` | SHIPPED (POC) | compact persistent composer; single-line auto-expanding; semantic border + focus ring; FLEX primary Send; plain-text reply; pending/disabled guard; draft preserved; error surfaced; Enter sends / Shift+Enter newline |
+| SOCIAL-007 | Tag/follow-up | YES | `follow-up-controls.tsx`, `socialRepository.setFollowUp`, `social-context-pane.tsx` | SHIPPED (POC) | follow-up flag toggled (aria-pressed); shown in row + detail header + context pane |
+| SOCIAL-008 | Escalate to supervisor | YES | `follow-up-controls.tsx`, `socialRepository.escalate` | SHIPPED (POC) | escalate sets escalated + clears follow-up; state shown in row + detail + context pane; button disables |
 | SOCIAL-009 | Response templates | MANUAL TIP | — | NOT_PRESENT | manual tip only, not a runtime feature |
+| SOCIAL-010 | Conversation context | YES | `components/social-context-pane.tsx` | SHIPPED (POC) | real runtime-backed rail: Contact/Channel/Follow-up/Escalation/Started/Last activity; inline ≥1280, `FlexDetailSheet` below; no AI, no fabricated history, no customer-record link (no route) |
 
 ---
 
