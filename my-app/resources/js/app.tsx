@@ -1,5 +1,6 @@
 import { createInertiaApp } from '@inertiajs/react';
 import { CapabilityProvider } from '@/auth/capabilities';
+import { FlexCallIsland } from '@/components/flex/flex-call-island';
 import { GlobalSearchProvider } from '@/components/flex/global-search';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -36,6 +37,7 @@ createInertiaApp({
                     <TenantContextProvider>
                         <GlobalSearchProvider>{app}</GlobalSearchProvider>
                         <Toaster />
+                        <FlexCallIsland />
                     </TenantContextProvider>
                 </CapabilityProvider>
             </TooltipProvider>

@@ -253,6 +253,11 @@
     --flex-status-neutral: var(--status-notready);
     --flex-status-neutral-subtle: var(--status-notready-bg);
 
+    /* Call island — persistent dark telephony surface (same in light + dark) */
+    --flex-call-island: oklch(0.15 0.02 258);
+    --flex-call-island-text: oklch(0.985 0.002 258);
+    --flex-call-island-muted: oklch(0.87 0.012 258);
+
     /* Chart colors — primary/neutral series only; semantic series keep status colors */
     --flex-chart-line: #519DFA;
     --flex-chart-bar: #0077E6;
@@ -669,6 +674,10 @@
     --color-flex-status-neutral-bg: var(--flex-status-neutral-subtle);
     --color-flex-chart-line: var(--flex-chart-line);
     --color-flex-chart-bar: var(--flex-chart-bar);
+
+    --color-flex-call-island: var(--flex-call-island);
+    --color-flex-call-island-text: var(--flex-call-island-text);
+    --color-flex-call-island-muted: var(--flex-call-island-muted);
 
     --shadow-flex-overlay: var(--flex-shadow-overlay);
     --shadow-flex-modal: var(--flex-shadow-modal);
