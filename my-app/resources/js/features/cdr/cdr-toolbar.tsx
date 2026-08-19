@@ -1,9 +1,13 @@
-import { RiFilter3Line, RiFilterOffLine } from '@remixicon/react';
+import { RiFilter3Line, RiFilterOffLine, RiRefreshLine, RiSearchLine } from '@remixicon/react';
+import type { Table } from '@tanstack/react-table';
 import { DateRangeSelect } from '@/components/flex/date-range-select';
+import type { DataGridFeatures } from '@/components/reui/data-grid/data-grid';
+import { DataGridColumnVisibility } from '@/components/reui/data-grid/data-grid-column-visibility';
 import { Filters   } from '@/components/reui/filters';
 import type {Filter, FilterFieldConfig} from '@/components/reui/filters';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import type { CDRRecord } from '@/domain/types';
 
 export type QuickFilter = 'all' | 'today' | 'answered' | 'missed' | 'voicemail' | 'transferred';
 
@@ -49,6 +53,7 @@ export const CDR_FILTER_FIELDS: FilterFieldConfig[] = [
 ];
 
 export interface CdrToolbarProps {
+    table: Table<DataGridFeatures, CDRRecord>;
     search: string;
     onSearchChange: (value: string) => void;
     quickFilter: QuickFilter;
@@ -60,9 +65,12 @@ export interface CdrToolbarProps {
     onFiltersChange: (filters: Filter[]) => void;
     hasActiveAdvanced: boolean;
     onClearFilters: () => void;
+    onRefresh: () => void;
+    isRefreshing?: boolean;
 }
 
 export function CdrToolbar({
+    table,
     search,
     onSearchChange,
     quickFilter,
@@ -74,23 +82,15 @@ export function CdrToolbar({
     onFiltersChange,
     hasActiveAdvanced,
     onClearFilters,
+    onRefresh,
+    isRefreshing,
 }: CdrToolbarProps) {
     return (
-        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
-            <div className="relative w-full lg:max-w-sm">
-                <Input
-                    value={search}
-                    onChange={(e) => onSearchChange(e.target.value)}
-                    placeholder="Search calls by phone, agent, queue..."
-                    size="sm"
-                    aria-label="Search calls"
-                />
-            </div>
-
+        <div className="flex flex-col gap-3 px-3 py-2.5 lg:flex-row lg:items-center lg:justify-between">
+            {/* Left group — scope & filters */}
             <div className="flex items-center gap-2 flex-wrap">
-                {/* Quick filters */}
                 <div
-                    className="flex items-center gap-1 rounded-lg border border-border bg-card p-1"
+                    className="flex items-center gap-1 rounded-md border border-border bg-card p-1"
                     role="group"
                     aria-label="Quick filters"
                 >
@@ -99,7 +99,7 @@ export function CdrToolbar({
                             key={option.value}
                             type="button"
                             onClick={() => onQuickFilterChange(option.value)}
-                            className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-colors duration-flex-fast flex-focus-visible ${
+                            className={`px-2.5 py-1 rounded-[6px] text-xs font-medium transition-colors duration-flex-fast flex-focus-visible ${
                                 quickFilter === option.value
                                     ? 'bg-primary/10 text-primary'
                                     : 'text-muted-foreground hover:text-foreground hover:bg-muted/70'
@@ -131,6 +131,37 @@ export function CdrToolbar({
                         Clear
                     </Button>
                 )}
+            </div>
+
+            {/* Right group — search, columns, actions */}
+            <div className="flex items-center gap-2 flex-wrap">
+                <div className="relative w-full lg:w-64">
+                    <RiSearchLine className="absolute left-2.5 top-1/2 -translate-y-1/2 size-3.5 text-flex-text-muted" />
+                    <Input
+                        value={search}
+                        onChange={(e) => onSearchChange(e.target.value)}
+                        placeholder="Search calls by phone, agent, queue..."
+                        size="sm"
+                        className="pl-8"
+                        aria-label="Search calls"
+                    />
+                </div>
+
+                <DataGridColumnVisibility
+                    table={table}
+                    trigger={<Button variant="outline" size="sm" className="gap-1.5 text-xs">Columns</Button>}
+                />
+
+                <Button
+                    variant="outline"
+                    size="sm"
+                    className="gap-1.5 text-xs"
+                    onClick={onRefresh}
+                    disabled={isRefreshing}
+                >
+                    <RiRefreshLine className="size-3.5" />
+                    Refresh
+                </Button>
             </div>
         </div>
     );

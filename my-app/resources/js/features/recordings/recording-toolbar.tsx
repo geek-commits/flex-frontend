@@ -1,12 +1,16 @@
 import { RiFilterOffLine, RiSearchLine, RiUploadCloudLine } from '@remixicon/react';
+import type { Table } from '@tanstack/react-table';
 import React from 'react';
+import type { DataGridFeatures } from '@/components/reui/data-grid/data-grid';
+import { DataGridColumnVisibility } from '@/components/reui/data-grid/data-grid-column-visibility';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import type { RecordingCategory, RecordingQuery } from '@/domain/recording-types';
+import type { RecordingCategory, RecordingQuery, RecordingRecord } from '@/domain/recording-types';
 
 export interface RecordingToolbarProps {
+    table: Table<DataGridFeatures, RecordingRecord>;
     query: RecordingQuery;
     onQueryChange: (query: RecordingQuery) => void;
     onUploadClick: () => void;
@@ -28,6 +32,7 @@ const FORMATS: { value: 'all' | 'WAV' | 'MP3'; label: string }[] = [
 ];
 
 export function RecordingToolbar({
+    table,
     query,
     onQueryChange,
     onUploadClick,
@@ -40,20 +45,9 @@ export function RecordingToolbar({
     const clearFilters = () => onQueryChange({});
 
     return (
-        <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:flex-wrap flex-1">
-                <div className="relative w-full sm:w-64">
-                    <RiSearchLine className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-flex-text-muted" />
-                    <Input
-                        value={query.search ?? ''}
-                        onChange={(e) => onQueryChange({ ...query, search: e.target.value })}
-                        placeholder="Search audio titles, files..."
-                        aria-label="Search recordings"
-                        size="sm"
-                        className="pl-9"
-                    />
-                </div>
-
+        <div className="flex flex-col gap-3 px-3 py-2.5 lg:flex-row lg:items-center lg:justify-between">
+            {/* Left group — scope & filters */}
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:flex-wrap">
                 <div className="flex items-center gap-2">
                     <Label htmlFor="rec-cat" className="text-xs font-semibold text-flex-text-muted shrink-0">
                         Category
@@ -97,17 +91,37 @@ export function RecordingToolbar({
                 </div>
 
                 {hasFilters && (
-                    <Button variant="outline" size="sm" className="gap-1.5 text-xs h-9" onClick={clearFilters}>
+                    <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={clearFilters}>
                         <RiFilterOffLine className="size-3.5" />
                         Clear filters
                     </Button>
                 )}
             </div>
 
-            <Button size="sm" className="gap-1.5 text-xs self-start lg:self-auto shrink-0" onClick={onUploadClick}>
-                <RiUploadCloudLine className="size-3.5" />
-                Upload Recording
-            </Button>
+            {/* Right group — search, columns, actions */}
+            <div className="flex items-center gap-2 flex-wrap">
+                <div className="relative w-full lg:w-64">
+                    <RiSearchLine className="absolute left-2.5 top-1/2 -translate-y-1/2 size-3.5 text-flex-text-muted" />
+                    <Input
+                        value={query.search ?? ''}
+                        onChange={(e) => onQueryChange({ ...query, search: e.target.value })}
+                        placeholder="Search audio titles, files..."
+                        aria-label="Search recordings"
+                        size="sm"
+                        className="pl-8"
+                    />
+                </div>
+
+                <DataGridColumnVisibility
+                    table={table}
+                    trigger={<Button variant="outline" size="sm" className="gap-1.5 text-xs">Columns</Button>}
+                />
+
+                <Button size="sm" className="gap-1.5 text-xs" onClick={onUploadClick}>
+                    <RiUploadCloudLine className="size-3.5" />
+                    Upload Recording
+                </Button>
+            </div>
         </div>
     );
 }

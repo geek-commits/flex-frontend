@@ -1,6 +1,7 @@
-import { RiAddLine, RiArrowLeftLine, RiSearchLine } from '@remixicon/react';
+import { RiAddLine, RiArrowLeftLine, RiFilterOffLine, RiSearchLine } from '@remixicon/react';
 import React, { useMemo, useState } from 'react';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
+import { FlexWorkbenchShell } from '@/components/flex/flex-workbench-shell';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -75,55 +76,6 @@ export function ScheduledReportsPage({
                 </div>
             </div>
 
-            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:flex-wrap">
-                <div className="relative w-full lg:w-72">
-                    <RiSearchLine className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-flex-text-muted" />
-                    <Input
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        placeholder="Search schedules..."
-                        aria-label="Search schedules"
-                        className="pl-9 h-9 text-xs"
-                    />
-                </div>
-
-                <div className="flex items-center gap-2">
-                    <Label htmlFor="sched-status" className="text-xs font-semibold text-flex-text-muted">
-                        Status
-                    </Label>
-                    <Select value={statusFilter} onValueChange={(value) => setStatusFilter((value as ScheduleStatus | 'all') ?? 'all')}>
-                        <SelectTrigger id="sched-status" className="w-32 h-9 text-xs">
-                            <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {STATUS_FILTERS.map((status) => (
-                                <SelectItem key={status} value={status} className="text-xs capitalize">
-                                    {status === 'all' ? 'All' : status}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                </div>
-
-                <div className="flex items-center gap-2">
-                    <Label htmlFor="sched-state" className="text-xs font-semibold text-flex-text-muted">
-                        State
-                    </Label>
-                    <Select value={stateFilter} onValueChange={(value) => setStateFilter((value as ExecutionState | 'all') ?? 'all')}>
-                        <SelectTrigger id="sched-state" className="w-36 h-9 text-xs">
-                            <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {STATE_FILTERS.map((state) => (
-                                <SelectItem key={state} value={state} className="text-xs capitalize">
-                                    {state === 'all' ? 'All states' : state}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                </div>
-            </div>
-
             {filtered.length === 0 ? (
                 <FlexEmptyState
                     title={records.length === 0 ? 'No scheduled reports yet' : 'No schedules match these filters'}
@@ -150,7 +102,70 @@ export function ScheduledReportsPage({
                     }
                 />
             ) : (
-                <ScheduledReportsTable records={filtered} onViewLogs={onViewLogs} onEdit={onEdit} onRetry={onRetry} onDelete={onDelete} />
+                <FlexWorkbenchShell
+                    toolbar={
+                        <div className="flex flex-col gap-3 px-3 py-2.5 lg:flex-row lg:items-center lg:justify-between">
+                            <div className="flex items-center gap-2 flex-wrap">
+                                <div className="flex items-center gap-2">
+                                    <Label htmlFor="sched-status" className="text-xs font-semibold text-flex-text-muted shrink-0">
+                                        Status
+                                    </Label>
+                                    <Select value={statusFilter} onValueChange={(value) => setStatusFilter((value as ScheduleStatus | 'all') ?? 'all')}>
+                                        <SelectTrigger id="sched-status" className="w-32 text-xs">
+                                            <SelectValue />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {STATUS_FILTERS.map((status) => (
+                                                <SelectItem key={status} value={status} className="text-xs capitalize">
+                                                    {status === 'all' ? 'All' : status}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+
+                                <div className="flex items-center gap-2">
+                                    <Label htmlFor="sched-state" className="text-xs font-semibold text-flex-text-muted shrink-0">
+                                        State
+                                    </Label>
+                                    <Select value={stateFilter} onValueChange={(value) => setStateFilter((value as ExecutionState | 'all') ?? 'all')}>
+                                        <SelectTrigger id="sched-state" className="w-36 text-xs">
+                                            <SelectValue />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {STATE_FILTERS.map((state) => (
+                                                <SelectItem key={state} value={state} className="text-xs capitalize">
+                                                    {state === 'all' ? 'All states' : state}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+
+                                {hasFilters && (
+                                    <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={clearAll}>
+                                        <RiFilterOffLine className="size-3.5" />
+                                        Clear
+                                    </Button>
+                                )}
+                            </div>
+
+                            <div className="relative w-full lg:w-72">
+                                <RiSearchLine className="absolute left-2.5 top-1/2 -translate-y-1/2 size-3.5 text-flex-text-muted" />
+                                <Input
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)}
+                                    placeholder="Search schedules..."
+                                    aria-label="Search schedules"
+                                    size="sm"
+                                    className="pl-8"
+                                />
+                            </div>
+                        </div>
+                    }
+                >
+                    <ScheduledReportsTable records={filtered} onViewLogs={onViewLogs} onEdit={onEdit} onRetry={onRetry} onDelete={onDelete} />
+                </FlexWorkbenchShell>
             )}
         </div>
     );

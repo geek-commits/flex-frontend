@@ -1,7 +1,5 @@
 import type { Table } from '@tanstack/react-table';
 import type { DataGridFeatures } from '@/components/reui/data-grid/data-grid';
-import { DataGridColumnVisibility } from '@/components/reui/data-grid/data-grid-column-visibility';
-import { Button } from '@/components/ui/button';
 import type { CDRRecord } from '@/domain/types';
 import { QUICK_FILTERS  } from '@/features/cdr/cdr-toolbar';
 import type {QuickFilter} from '@/features/cdr/cdr-toolbar';
@@ -13,7 +11,7 @@ export interface CdrResultMetaProps {
     quickFilter: QuickFilter;
 }
 
-export function CdrResultMeta({ table, shown, total, quickFilter }: CdrResultMetaProps) {
+export function CdrResultMeta({ shown, total, quickFilter }: CdrResultMetaProps) {
     return (
         <div className="flex items-center justify-between gap-2">
             <span className="text-xs text-flex-text-muted">
@@ -24,10 +22,6 @@ export function CdrResultMeta({ table, shown, total, quickFilter }: CdrResultMet
                     </span>
                 )}
             </span>
-            <DataGridColumnVisibility
-                table={table}
-                trigger={<Button variant="outline" size="sm" className="gap-1.5 text-xs">Columns</Button>}
-            />
         </div>
     );
 }

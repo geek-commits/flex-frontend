@@ -32,7 +32,7 @@ export function TenantsTable({ table, recordCount, isLoading, emptyMessage, onRo
             onRowClick={onRowClick}
         >
             <div className="w-full space-y-2.5">
-                <TenantsResultMeta table={table} shown={recordCount} total={total} />
+                <TenantsResultMeta shown={recordCount} total={total} />
                 <DataGridContainer>
                     <DataGridScrollArea>
                         <DataGridTable />

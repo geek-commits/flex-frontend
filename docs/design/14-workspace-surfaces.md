@@ -56,7 +56,39 @@ Tailwind utilities are exposed as `bg-flex-workspace-canvas`, `bg-flex-workspace
 - Configuration form grids (keep content-section cards).
 - Auth pages, highly specialized telephony control surfaces.
 
-## 4. Split panes
+### Integrated table toolbar
+
+For DataGrid workspaces, the table toolbar is rendered **inside** the shell via the `toolbar` slot, so the toolbar and the table are one bounded surface (a single `rounded-lg` frame, not a stack of floating cards). See section 5 for the card-reduction rationale.
+
+```text
+<FlexWorkbenchShell toolbar={<DataWorkspaceToolbar … />}>
+  <DataTable … />
+</FlexWorkbenchShell>
+```
+
+The toolbar groups controls by intent:
+
+- **Left group — scope & filters:** quick-filter segmented control (e.g. status/All/Active), `DateRangeSelect`, Filters, and a contextual `Clear` only when a filter is active.
+- **Right group — search, columns, actions:** a compact search input, the `DataGridColumnVisibility` Columns control, and real per-route actions (Refresh, Add/New) — never invented create/export buttons.
+
+Rules:
+
+- The toolbar uses `bg-flex-workspace-surface-muted` and the shell's bottom divider (already provided by `FlexWorkbenchShell`).
+- Each page passes the live `Table` instance into its toolbar so column-visibility and actions share one source of truth.
+- On narrow widths the groups stack (scope left, then search/actions) via responsive utilities; there is no separate filter card.
+- Realtime raw tables (e.g. Agent Monitoring, recovery triage) keep their native controls — do not force them into this toolbar, and never duplicate realtime controls or polling.
+
+## 4. Semantic column alignment
+
+Align table columns by data kind, not by guessing. Column meta declares an alignment and the grid resolves it consistently across header and body cells.
+
+- `DataGridColumnMeta` carries `kind` (identity, text, status, numeric, currency, percentage, date, time, duration, selection, action, icon) and an optional explicit `align` (`start` | `end` | `center`).
+- Explicit `align` wins; otherwise the kind implies a default (`start` unless the kind is a numeric/currency/percentage/duration, which are right-aligned).
+- Alignment is applied through a single resolver shared by the header and both body-cell render paths, so a column never reads left-aligned in one state and right-aligned in another.
+- Raw `flex-table-grid` tables use a matching `alignClass('start' | 'end' | 'center')` helper over their `{ label, align }` header arrays.
+- Never center-align by default; actions and icons use `center`, text/identity/status use `start`.
+
+## 5. Split panes
 
 Split-pane workspaces use flat panes separated by the divider token:
 
@@ -73,7 +105,7 @@ Split-pane workspaces use flat panes separated by the divider token:
 - Mobile/tablet flow collapses to list → detail (single pane) via responsive `lg:` utilities.
 - Do not invent a pane the runtime does not support (e.g. an AI context panel).
 
-## 5. Card-reduction policy
+## 6. Card-reduction policy
 
 Classify every surface:
 
@@ -95,7 +127,7 @@ Concretely:
 - Toolbars on the canvas keep compact segmented control groups (fine as small clusters).
 - Detail pages: entity header and section blocks are content sections — flatten a table-in-card to a bare surface.
 
-## 6. Divider consistency
+## 7. Divider consistency
 
 All structural boundaries use semantic divider tokens:
 
@@ -107,7 +139,7 @@ All structural boundaries use semantic divider tokens:
 
 `border-border` (→ `--flex-border`) remains valid for non-structural borders and true cards; structural dividers inside a work surface use `border-flex-workspace-divider`.
 
-## 7. Quality gates
+## 8. Quality gates
 
 Apply this document when building or refactoring an operational surface:
 
@@ -115,6 +147,8 @@ Apply this document when building or refactoring an operational surface:
 - [ ] Surface height is opt-in (`h-full` only for full-height workspaces).
 - [ ] No nested card frames inside a work surface.
 - [ ] Dividers use semantic divider tokens.
+- [ ] DataGrid toolbar renders inside the shell slot, scope/filters left + search/columns/actions right.
+- [ ] Columns are aligned by kind via the shared resolver (header mirrors body).
 - [ ] True semantic cards (KPI clusters, summaries, alerts) are preserved.
 - [ ] No hardcoded light hexes in dark mode.
 - [ ] Routes, behavior, permissions, tenant scope, APIs, iframe boundary, and telephony are unchanged.

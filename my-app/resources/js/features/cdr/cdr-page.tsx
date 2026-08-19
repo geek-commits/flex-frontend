@@ -165,42 +165,10 @@ return false;
             contextTitle="Telephony"
             contextSubtitle="Search & navigate call records"
             contextGroups={cdrContextGroups}
-            actions={
-                <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={refresh} disabled={isLoading}>
-                    <RiRefreshLine className="size-3.5" />
-                    Refresh
-                </Button>
-            }
-        >
+            >
             <Head title="CDR — Flex Contact Center" />
 
             <div className="flex flex-col gap-4 w-full">
-                <CdrToolbar
-                    search={search}
-                    onSearchChange={(value) => {
-                        setSearch(value);
-                        setPagination((prev) => ({ ...prev, pageIndex: 0 }));
-                    }}
-                    quickFilter={quickFilter}
-                    onQuickFilterChange={(value) => {
-                        setQuickFilter(value);
-                        setPagination((prev) => ({ ...prev, pageIndex: 0 }));
-                    }}
-                    dateFrom={dateFrom}
-                    dateTo={dateTo}
-                    onRangeChange={(from, to) => {
-                        setDateFrom(from);
-                        setDateTo(to);
-                    }}
-                    filters={filters}
-                    onFiltersChange={(next) => {
-                        setFilters(next);
-                        setPagination((prev) => ({ ...prev, pageIndex: 0 }));
-                    }}
-                    hasActiveAdvanced={hasActiveAdvanced}
-                    onClearFilters={() => setFilters([])}
-                />
-
                 {loadError ? (
                     <FlexErrorState
                         title="Couldn't load call records"
@@ -213,7 +181,38 @@ return false;
                         }
                     />
                 ) : (
-                    <FlexWorkbenchShell>
+                    <FlexWorkbenchShell
+                        toolbar={
+                            <CdrToolbar
+                                table={table}
+                                search={search}
+                                onSearchChange={(value) => {
+                                    setSearch(value);
+                                    setPagination((prev) => ({ ...prev, pageIndex: 0 }));
+                                }}
+                                quickFilter={quickFilter}
+                                onQuickFilterChange={(value) => {
+                                    setQuickFilter(value);
+                                    setPagination((prev) => ({ ...prev, pageIndex: 0 }));
+                                }}
+                                dateFrom={dateFrom}
+                                dateTo={dateTo}
+                                onRangeChange={(from, to) => {
+                                    setDateFrom(from);
+                                    setDateTo(to);
+                                }}
+                                filters={filters}
+                                onFiltersChange={(next) => {
+                                    setFilters(next);
+                                    setPagination((prev) => ({ ...prev, pageIndex: 0 }));
+                                }}
+                                hasActiveAdvanced={hasActiveAdvanced}
+                                onClearFilters={() => setFilters([])}
+                                onRefresh={refresh}
+                                isRefreshing={isLoading}
+                            />
+                        }
+                    >
                         <CdrTable
                             table={table}
                             recordCount={filteredData?.length || 0}

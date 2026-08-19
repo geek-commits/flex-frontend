@@ -36,7 +36,7 @@ export function UsersTable({ table, recordCount, isLoading, emptyMessage, onRowC
             onRowClick={onRowClick}
         >
             <div className="w-full space-y-2.5">
-                <UsersResultMeta table={table} shown={recordCount} total={total} />
+                <UsersResultMeta shown={recordCount} total={total} />
                 <DataGridContainer>
                     <DataGridScrollArea>
                         <DataGridTable />

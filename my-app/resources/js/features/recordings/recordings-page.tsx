@@ -1,15 +1,19 @@
 import { Head } from '@inertiajs/react';
-import React, { useState } from 'react';
+import type { ColumnDef, PaginationState, SortingState } from '@tanstack/react-table';
+import { useTable } from '@tanstack/react-table';
+import React, { useCallback, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 import { FlexWorkbenchShell } from '@/components/flex/flex-workbench-shell';
 import { FlexMetricItem } from '@/components/flex/metrics/flex-metric-item';
 import { FlexMetricStrip } from '@/components/flex/metrics/flex-metric-strip';
+import type { DataGridFeatures } from '@/components/reui/data-grid/data-grid';
+import { dataGridFeatures } from '@/components/reui/data-grid/data-grid';
 import type { RecordingDraft, RecordingRecord } from '@/domain/recording-types';
 import { RecordingDeleteDialog } from '@/features/recordings/recording-delete-dialog';
 import { RecordingDetailSheet } from '@/features/recordings/recording-detail-sheet';
 import { RecordingFormSheet } from '@/features/recordings/recording-form-sheet';
 import { RecordingToolbar } from '@/features/recordings/recording-toolbar';
-import { RecordingsTable } from '@/features/recordings/recordings-table';
+import { buildRecordingsColumns, RecordingsTable } from '@/features/recordings/recordings-table';
 import { useRecordingsData } from '@/features/recordings/use-recordings-data';
 import { AdminShell } from '@/layouts/admin-shell';
 
@@ -49,27 +53,27 @@ export function RecordingsPage() {
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [deletingRecord, setDeletingRecord] = useState<RecordingRecord>();
 
-    const handleRowClick = (record: RecordingRecord) => {
+    const handleRowClick = useCallback((record: RecordingRecord) => {
         setSelectedRecord(record);
         setDetailOpen(true);
-    };
+    }, []);
 
-    const handleEdit = (record: RecordingRecord) => {
+    const handleEdit = useCallback((record: RecordingRecord) => {
         setEditingRecord(record);
         setFormMode('edit');
         setFormOpen(true);
-    };
+    }, []);
 
-    const handleReplace = (record: RecordingRecord) => {
+    const handleReplace = useCallback((record: RecordingRecord) => {
         setEditingRecord(record);
         setFormMode('replace');
         setFormOpen(true);
-    };
+    }, []);
 
-    const handleDeleteClick = (record: RecordingRecord) => {
+    const handleDeleteClick = useCallback((record: RecordingRecord) => {
         setDeletingRecord(record);
         setDeleteOpen(true);
-    };
+    }, []);
 
     const handleSaveDraft = (draft: RecordingDraft): boolean => {
         if (formMode === 'create') {
@@ -140,6 +144,34 @@ export function RecordingsPage() {
         }
     };
 
+    const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
+    const [sorting, setSorting] = useState<SortingState>([{ id: 'name', desc: false }]);
+
+    const columns = useMemo<ColumnDef<DataGridFeatures, RecordingRecord>[]>(
+        () =>
+            buildRecordingsColumns({
+                onRowClick: handleRowClick,
+                onEdit: handleEdit,
+                onReplace: handleReplace,
+                onDelete: handleDeleteClick,
+            }),
+        [handleRowClick, handleEdit, handleReplace, handleDeleteClick]
+    );
+
+    const [columnOrder, setColumnOrder] = useState<string[]>(() => columns.map((column) => column.id as string));
+
+    const table = useTable({
+        features: dataGridFeatures,
+        columns,
+        data: records,
+        pageCount: Math.ceil((records?.length || 0) / pagination.pageSize),
+        getRowId: (row: RecordingRecord) => row.id,
+        state: { pagination, sorting, columnOrder },
+        onColumnOrderChange: setColumnOrder,
+        onPaginationChange: setPagination,
+        onSortingChange: setSorting,
+    });
+
     return (
         <AdminShell
             title="Call Recordings & Audio Prompts"
@@ -165,20 +197,23 @@ export function RecordingsPage() {
                     </span>
                 </div>
 
-                {/* Toolbar */}
-                <RecordingToolbar
-                    query={query}
-                    onQueryChange={setQuery}
-                    onUploadClick={() => {
-                        setEditingRecord(undefined);
-                        setFormMode('create');
-                        setFormOpen(true);
-                    }}
-                />
-
-                {/* Main Table */}
-                <FlexWorkbenchShell>
+                {/* Toolbar + Main Table */}
+                <FlexWorkbenchShell
+                    toolbar={
+                        <RecordingToolbar
+                            table={table}
+                            query={query}
+                            onQueryChange={setQuery}
+                            onUploadClick={() => {
+                                setEditingRecord(undefined);
+                                setFormMode('create');
+                                setFormOpen(true);
+                            }}
+                        />
+                    }
+                >
                     <RecordingsTable
+                        table={table}
                         records={records}
                         isLoading={isLoading}
                         onRowClick={handleRowClick}

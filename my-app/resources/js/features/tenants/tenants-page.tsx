@@ -1,5 +1,5 @@
 import { Head } from '@inertiajs/react';
-import { RiAddLine, RiRefreshLine } from '@remixicon/react';
+import { RiRefreshLine } from '@remixicon/react';
 import type { PaginationState, SortingState } from '@tanstack/react-table';
 import { useTable } from '@tanstack/react-table';
 import React, { useCallback, useMemo, useState } from 'react';
@@ -148,37 +148,10 @@ export function TenantsPage() {
             contextTitle="Platform"
             contextSubtitle="Tenants & multi-org administration"
             contextGroups={tenantsContextGroups}
-            actions={
-                <div className="flex items-center gap-2">
-                    <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={refresh} disabled={isLoading}>
-                        <RiRefreshLine className="size-3.5" />
-                        <span>Refresh</span>
-                    </Button>
-                    <Button size="sm" className="gap-1.5 text-xs" onClick={() => setFormOpen(true)}>
-                        <RiAddLine className="size-4" />
-                        <span>Add Tenant</span>
-                    </Button>
-                </div>
-            }
         >
             <Head title="Tenants — Flex Contact Center" />
 
             <div className="flex flex-col gap-[var(--flex-space-section)] w-full">
-                <TenantsToolbar
-                    search={search}
-                    onSearchChange={(value) => {
-                        setSearch(value);
-                        setPagination((prev) => ({ ...prev, pageIndex: 0 }));
-                    }}
-                    statusFilter={statusFilter}
-                    onStatusFilterChange={(value) => {
-                        setStatusFilter(value);
-                        setPagination((prev) => ({ ...prev, pageIndex: 0 }));
-                    }}
-                    hasActiveFilters={hasActiveFilters}
-                    onClearFilters={clearAll}
-                />
-
                 {error ? (
                     <FlexErrorState
                         title="Couldn't load tenants"
@@ -191,7 +164,28 @@ export function TenantsPage() {
                         }
                     />
                 ) : (
-                    <FlexWorkbenchShell>
+                    <FlexWorkbenchShell
+                        toolbar={
+                            <TenantsToolbar
+                                table={table}
+                                search={search}
+                                onSearchChange={(value) => {
+                                    setSearch(value);
+                                    setPagination((prev) => ({ ...prev, pageIndex: 0 }));
+                                }}
+                                statusFilter={statusFilter}
+                                onStatusFilterChange={(value) => {
+                                    setStatusFilter(value);
+                                    setPagination((prev) => ({ ...prev, pageIndex: 0 }));
+                                }}
+                                hasActiveFilters={hasActiveFilters}
+                                onClearFilters={clearAll}
+                                onRefresh={refresh}
+                                isRefreshing={isLoading}
+                                onAdd={() => setFormOpen(true)}
+                            />
+                        }
+                    >
                         <TenantsTable
                             table={table}
                             recordCount={filteredData?.length || 0}

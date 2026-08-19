@@ -1,5 +1,5 @@
 import { Head } from '@inertiajs/react';
-import { RiAddLine, RiRefreshLine } from '@remixicon/react';
+import { RiRefreshLine } from '@remixicon/react';
 import type { PaginationState, SortingState } from '@tanstack/react-table';
 import { useTable } from '@tanstack/react-table';
 import React, { useCallback, useMemo, useState } from 'react';
@@ -191,38 +191,11 @@ export function CampaignsPage() {
             contextTitle="Telephony"
             contextSubtitle="Campaigns & operations"
             contextGroups={campaignsContextGroups}
-            actions={
-                <div className="flex items-center gap-2">
-                    <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={refresh} disabled={isLoading}>
-                        <RiRefreshLine className="size-3.5" />
-                        <span>Refresh</span>
-                    </Button>
-                    <Button size="sm" className="gap-1.5 text-xs" onClick={openAdd}>
-                        <RiAddLine className="size-4" />
-                        <span>New Campaign</span>
-                    </Button>
-                </div>
-            }
         >
             <Head title="Call Campaigns — Flex Contact Center" />
 
             <div className="flex flex-col gap-[var(--flex-space-section)] w-full">
                 <CampaignSummary records={records} loading={isLoading} />
-
-                <CampaignsToolbar
-                    search={search}
-                    onSearchChange={(value) => {
-                        setSearch(value);
-                        setPagination((prev) => ({ ...prev, pageIndex: 0 }));
-                    }}
-                    statusFilter={statusFilter}
-                    onStatusFilterChange={(value) => {
-                        setStatusFilter(value);
-                        setPagination((prev) => ({ ...prev, pageIndex: 0 }));
-                    }}
-                    hasActiveFilters={hasActiveFilters}
-                    onClearFilters={clearAll}
-                />
 
                 {error ? (
                     <FlexErrorState
@@ -236,7 +209,28 @@ export function CampaignsPage() {
                         }
                     />
                 ) : (
-                    <FlexWorkbenchShell>
+                    <FlexWorkbenchShell
+                        toolbar={
+                            <CampaignsToolbar
+                                table={table}
+                                search={search}
+                                onSearchChange={(value) => {
+                                    setSearch(value);
+                                    setPagination((prev) => ({ ...prev, pageIndex: 0 }));
+                                }}
+                                statusFilter={statusFilter}
+                                onStatusFilterChange={(value) => {
+                                    setStatusFilter(value);
+                                    setPagination((prev) => ({ ...prev, pageIndex: 0 }));
+                                }}
+                                hasActiveFilters={hasActiveFilters}
+                                onClearFilters={clearAll}
+                                onRefresh={refresh}
+                                isRefreshing={isLoading}
+                                onAdd={openAdd}
+                            />
+                        }
+                    >
                         <CampaignsTable
                             table={table}
                             recordCount={filteredData?.length || 0}
