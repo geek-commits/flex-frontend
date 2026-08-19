@@ -1,21 +1,50 @@
 import React from 'react';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
-import type { SocialMessage } from '../social-types';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import type { SocialConversation, SocialMessage } from '../social-types';
+import { ConversationAvatar } from './conversation-avatar';
 import { MessageBubble } from './message-bubble';
 
 export interface MessageTimelineProps {
+    conversation: SocialConversation;
     messages: SocialMessage[];
+    /** Logged-in agent display name (outgoing avatar fallback = initials). */
+    agentName?: string;
     loading?: boolean;
     error?: string | null;
     onRetry?: () => void;
 }
 
+function AgentAvatar({ name }: { name: string }) {
+    const initials = name
+        .split(/\s+/)
+        .filter(Boolean)
+        .map((p) => p[0])
+        .join('')
+        .slice(0, 2)
+        .toUpperCase();
+
+    return (
+        <Avatar size="sm" className="mt-1 size-6">
+            <AvatarFallback>{initials}</AvatarFallback>
+        </Avatar>
+    );
+}
+
 /**
- * Message timeline — readable reading order, incoming/outgoing separated.
- * Preserves viewport position on history load; only appends inbound messages
- * for the active conversation (plan §47). Safe fallback for empty/error.
+ * Message timeline — clean incoming-left / outgoing-right rhythm, avatars shown
+ * only on the first message of a consecutive same-sender run (§55). Preserves
+ * viewport position on history load; only appends inbound messages for the
+ * active conversation.
  */
-export function MessageTimeline({ messages, loading, error, onRetry }: MessageTimelineProps) {
+export function MessageTimeline({
+    conversation,
+    messages,
+    agentName = 'Agent',
+    loading,
+    error,
+    onRetry,
+}: MessageTimelineProps) {
     if (error) {
         return (
             <FlexEmptyState
@@ -57,9 +86,30 @@ export function MessageTimeline({ messages, loading, error, onRetry }: MessageTi
             role="log"
             aria-label="Conversation messages"
         >
-            {messages.map((message) => (
-                <MessageBubble key={message.id} message={message} />
-            ))}
+            {messages.map((message, index) => {
+                const previous = messages[index - 1];
+                const isFirstOfRun =
+                    !previous || previous.direction !== message.direction;
+
+                return (
+                    <MessageBubble
+                        key={message.id}
+                        message={message}
+                        showAvatar={isFirstOfRun}
+                        avatar={
+                            message.direction === 'inbound' ? (
+                                <ConversationAvatar
+                                    conversation={conversation}
+                                    size="sm"
+                                    className="mt-1 size-6"
+                                />
+                            ) : (
+                                <AgentAvatar name={agentName} />
+                            )
+                        }
+                    />
+                );
+            })}
         </div>
     );
 }

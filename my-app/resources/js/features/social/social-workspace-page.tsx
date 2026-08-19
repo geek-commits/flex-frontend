@@ -1,3 +1,4 @@
+import { usePage } from '@inertiajs/react';
 import React, { useState } from 'react';
 import { FlexWorkbenchShell } from '@/components/flex/flex-workbench-shell';
 import { AgentOperationalHeader } from '@/features/agent-workspace/agent-operational-header';
@@ -19,6 +20,8 @@ import { useSocialWorkspace } from './use-social-workspace';
  * owner; conversation data from the social repository.
  */
 export function SocialWorkspacePage() {
+    const { auth } = usePage().props;
+    const agentName = (auth as { user?: { name?: string } } | undefined)?.user?.name ?? 'Agent';
     const { agentState, agentStatePending, connection, sessionStartedAt, setAgentState } =
         useWorkspaceState();
     const { conversations, getMessages, sendReply, setFollowUp, escalate } = useSocialWorkspace();
@@ -74,6 +77,7 @@ export function SocialWorkspacePage() {
                                 <ConversationDetail
                                     conversation={activeConversation}
                                     messages={activeMessages}
+                                    agentName={agentName}
                                     onBack={() => setActiveId(null)}
                                     onSend={handleSend}
                                     onToggleFollowUp={() => activeConversation && setFollowUp(activeConversation.id, !activeConversation.followUp)}
@@ -95,6 +99,7 @@ export function SocialWorkspacePage() {
                             <ConversationDetail
                                 conversation={activeConversation}
                                 messages={activeMessages}
+                                agentName={agentName}
                                 onBack={() => setActiveId(null)}
                                 onSend={handleSend}
                                 onToggleFollowUp={() => activeConversation && setFollowUp(activeConversation.id, !activeConversation.followUp)}

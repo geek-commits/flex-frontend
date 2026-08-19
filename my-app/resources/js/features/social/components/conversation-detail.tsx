@@ -13,6 +13,7 @@ import { SocialComposer } from './social-composer';
 export interface ConversationDetailProps {
     conversation: SocialConversation;
     messages: SocialMessage[];
+    agentName?: string;
     onBack: () => void;
     onSend: (body: string) => void;
     onToggleFollowUp: () => void;
@@ -28,6 +29,7 @@ export interface ConversationDetailProps {
 export function ConversationDetail({
     conversation,
     messages,
+    agentName,
     onBack,
     onSend,
     onToggleFollowUp,
@@ -72,7 +74,7 @@ export function ConversationDetail({
                 />
             </div>
 
-            <MessageTimeline messages={messages} />
+            <MessageTimeline conversation={conversation} messages={messages} agentName={agentName} />
 
             <SocialComposer onSend={onSend} />
         </div>
