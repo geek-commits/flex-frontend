@@ -20,6 +20,12 @@ export interface SocialConversation {
     channel: SocialChannel;
     /** Provider-facing participant identity (never merged across channels). */
     participant: string;
+    /** Real display name when known (source-of-truth: runtime). */
+    displayName?: string;
+    /** Social handle or phone when distinct from displayName. */
+    handle?: string;
+    /** Real customer/profile image URL when runtime provides one (none today). */
+    avatarUrl?: string | null;
     /** Short latest-message preview shown in the list row. */
     latestPreview: string;
     lastActivityAt: string;
