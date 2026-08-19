@@ -1,43 +1,38 @@
-import { RiFilterOffLine, RiSearchLine } from '@remixicon/react';
+import { RiFilterOffLine, RiRefreshLine, RiSearchLine } from '@remixicon/react';
+import type { Table } from '@tanstack/react-table';
 import React from 'react';
+import type { DataGridFeatures } from '@/components/reui/data-grid/data-grid';
+import { DataGridColumnVisibility } from '@/components/reui/data-grid/data-grid-column-visibility';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import type { RecoveryQuery, RecoveryStatus } from '@/features/customer-recovery/recovery-types';
+import type { RecoveryQuery, RecoveryRecord, RecoveryStatus } from '@/features/customer-recovery/recovery-types';
 
 const STATUS_FILTERS: (RecoveryStatus | 'all')[] = ['all', 'unhandled', 'callback-scheduled', 'resolved'];
 const OWNERSHIP_FILTERS: RecoveryQuery['ownership'][] = ['all', 'unclaimed', 'me'];
 const VOICEMAIL_FILTERS: RecoveryQuery['voicemail'][] = ['all', 'with', 'without'];
 
 export interface RecoveryToolbarProps {
+    table: Table<DataGridFeatures, RecoveryRecord>;
     query: RecoveryQuery;
     queues: string[];
     onQueryChange: (query: RecoveryQuery) => void;
+    onRefresh: () => void;
+    isRefreshing?: boolean;
 }
 
-export function RecoveryToolbar({ query, queues, onQueryChange }: RecoveryToolbarProps) {
+export function RecoveryToolbar({ table, query, queues, onQueryChange, onRefresh, isRefreshing }: RecoveryToolbarProps) {
     const hasFilters = Boolean(query.search) || (query.status ?? 'all') !== 'all' || (query.queue ?? 'all') !== 'all' || (query.ownership ?? 'all') !== 'all' || (query.voicemail ?? 'all') !== 'all';
 
     const clearFilters = () => onQueryChange({});
 
     return (
-        <div className="flex flex-col gap-3">
-            <div className="relative w-full lg:w-72">
-                <RiSearchLine className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-flex-text-muted" />
-                <Input
-                    value={query.search ?? ''}
-                    onChange={(e) => onQueryChange({ ...query, search: e.target.value })}
-                    placeholder="Search phone number or queue..."
-                    aria-label="Search missed calls"
-                    size="sm"
-                    className="pl-9"
-                />
-            </div>
-
-            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:flex-wrap">
+        <div className="flex flex-col gap-3 px-3 py-2.5 lg:flex-row lg:items-center lg:justify-between">
+            {/* Left group — record filters */}
+            <div className="flex flex-wrap items-center gap-2">
                 <div className="flex items-center gap-2">
-                    <Label htmlFor="rec-status" className="text-xs font-semibold text-flex-text-muted">
+                    <Label htmlFor="rec-status" className="text-xs font-medium text-flex-text-muted">
                         Status
                     </Label>
                     <Select value={query.status ?? 'all'} onValueChange={(value) => onQueryChange({ ...query, status: value as RecoveryStatus | 'all' })}>
@@ -55,7 +50,7 @@ export function RecoveryToolbar({ query, queues, onQueryChange }: RecoveryToolba
                 </div>
 
                 <div className="flex items-center gap-2">
-                    <Label htmlFor="rec-queue" className="text-xs font-semibold text-flex-text-muted">
+                    <Label htmlFor="rec-queue" className="text-xs font-medium text-flex-text-muted">
                         Queue
                     </Label>
                     <Select value={query.queue ?? 'all'} onValueChange={(value) => onQueryChange({ ...query, queue: value ?? 'all' })}>
@@ -74,7 +69,7 @@ export function RecoveryToolbar({ query, queues, onQueryChange }: RecoveryToolba
                 </div>
 
                 <div className="flex items-center gap-2">
-                    <Label htmlFor="rec-owner" className="text-xs font-semibold text-flex-text-muted">
+                    <Label htmlFor="rec-owner" className="text-xs font-medium text-flex-text-muted">
                         Ownership
                     </Label>
                     <Select value={query.ownership ?? 'all'} onValueChange={(value) => onQueryChange({ ...query, ownership: value as RecoveryQuery['ownership'] })}>
@@ -92,7 +87,7 @@ export function RecoveryToolbar({ query, queues, onQueryChange }: RecoveryToolba
                 </div>
 
                 <div className="flex items-center gap-2">
-                    <Label htmlFor="rec-vm" className="text-xs font-semibold text-flex-text-muted">
+                    <Label htmlFor="rec-vm" className="text-xs font-medium text-flex-text-muted">
                         Voicemail
                     </Label>
                     <Select value={query.voicemail ?? 'all'} onValueChange={(value) => onQueryChange({ ...query, voicemail: value as RecoveryQuery['voicemail'] })}>
@@ -112,9 +107,40 @@ export function RecoveryToolbar({ query, queues, onQueryChange }: RecoveryToolba
                 {hasFilters && (
                     <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={clearFilters}>
                         <RiFilterOffLine className="size-3.5" />
-                        Clear filters
+                        Clear
                     </Button>
                 )}
+            </div>
+
+            {/* Right group — search, columns, actions */}
+            <div className="flex flex-wrap items-center gap-2">
+                <div className="relative w-full lg:w-64">
+                    <RiSearchLine className="absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-flex-text-muted" />
+                    <Input
+                        value={query.search ?? ''}
+                        onChange={(e) => onQueryChange({ ...query, search: e.target.value })}
+                        placeholder="Search phone number or queue..."
+                        aria-label="Search missed calls"
+                        size="sm"
+                        className="pl-8"
+                    />
+                </div>
+
+                <DataGridColumnVisibility
+                    table={table}
+                    trigger={<Button variant="outline" size="sm" className="text-xs">Columns</Button>}
+                />
+
+                <Button
+                    variant="outline"
+                    size="sm"
+                    className="gap-1.5 text-xs"
+                    onClick={onRefresh}
+                    disabled={isRefreshing}
+                >
+                    <RiRefreshLine className="size-3.5" />
+                    Refresh
+                </Button>
             </div>
         </div>
     );
