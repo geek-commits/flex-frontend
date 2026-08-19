@@ -1,12 +1,16 @@
 import { usePage } from '@inertiajs/react';
 import React, { useState } from 'react';
+import { FlexDetailSheet } from '@/components/flex/flex-detail-sheet';
 import { FlexWorkbenchShell } from '@/components/flex/flex-workbench-shell';
 import { AgentOperationalHeader } from '@/features/agent-workspace/agent-operational-header';
 import { useWorkspaceState } from '@/features/agent-workspace/state/use-workspace-state';
 import { AgentShell } from '@/layouts/agent-shell';
 import { ConversationDetail } from './components/conversation-detail';
 import { ConversationList } from './components/conversation-list';
-import type { SocialChannelFilter } from './social-constants';
+import { SocialContextPane } from './components/social-context-pane';
+import { SOCIAL_CHANNEL_META  } from './social-constants';
+import type {SocialChannelFilter} from './social-constants';
+import { getContactName } from './social-identity';
 import { useSocialWorkspace } from './use-social-workspace';
 
 /**
@@ -28,6 +32,7 @@ export function SocialWorkspacePage() {
 
     const [filter, setFilter] = useState<SocialChannelFilter>('all');
     const [activeId, setActiveId] = useState<string | null>(null);
+    const [contextOpen, setContextOpen] = useState(false);
 
     // The active conversation is derived against the current filter so a
     // filtered-out selection is treated as inactive rather than cleared via
@@ -82,6 +87,7 @@ export function SocialWorkspacePage() {
                                     onSend={handleSend}
                                     onToggleFollowUp={() => activeConversation && setFollowUp(activeConversation.id, !activeConversation.followUp)}
                                     onEscalate={() => activeConversation && escalate(activeConversation.id)}
+                                    onOpenContext={() => setContextOpen(true)}
                                 />
                             ) : (
                                 <div className="flex-1 flex items-center justify-center p-4">
@@ -90,6 +96,15 @@ export function SocialWorkspacePage() {
                                     </p>
                                 </div>
                             )}
+                        </div>
+
+                        <div className="hidden xl:flex w-[320px] shrink-0 flex-col border-l border-flex-workspace-divider">
+                            {activeConversation ? (
+                                <SocialContextPane
+                                    conversation={activeConversation}
+                                    messages={activeMessages}
+                                />
+                            ) : null}
                         </div>
                     </div>
 
@@ -104,6 +119,7 @@ export function SocialWorkspacePage() {
                                 onSend={handleSend}
                                 onToggleFollowUp={() => activeConversation && setFollowUp(activeConversation.id, !activeConversation.followUp)}
                                 onEscalate={() => activeConversation && escalate(activeConversation.id)}
+                                onOpenContext={() => setContextOpen(true)}
                             />
                         ) : (
                             <ConversationList
@@ -116,6 +132,21 @@ export function SocialWorkspacePage() {
                         )}
                     </div>
                 </div>
+
+                {activeConversation && (
+                    <FlexDetailSheet
+                        open={contextOpen}
+                        onOpenChange={setContextOpen}
+                        title="Conversation Context"
+                        meta={`${getContactName(activeConversation)} · ${SOCIAL_CHANNEL_META[activeConversation.channel].label}`}
+                        widthClass="sm:max-w-sm"
+                    >
+                        <SocialContextPane
+                            conversation={activeConversation}
+                            messages={activeMessages}
+                        />
+                    </FlexDetailSheet>
+                )}
             </FlexWorkbenchShell>
         </AgentShell>
     );

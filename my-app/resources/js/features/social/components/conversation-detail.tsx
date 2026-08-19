@@ -1,4 +1,4 @@
-import { RiArrowLeftLine } from '@remixicon/react';
+import { RiArrowLeftLine, RiFileList3Line } from '@remixicon/react';
 import React from 'react';
 import { SocialChannelIcon } from '@/components/flex/social/social-channel-icon';
 import { Button } from '@/components/ui/button';
@@ -18,6 +18,7 @@ export interface ConversationDetailProps {
     onSend: (body: string) => void;
     onToggleFollowUp: () => void;
     onEscalate: () => void;
+    onOpenContext?: () => void;
 }
 
 /**
@@ -34,6 +35,7 @@ export function ConversationDetail({
     onSend,
     onToggleFollowUp,
     onEscalate,
+    onOpenContext,
 }: ConversationDetailProps) {
     const name = getContactName(conversation);
     const handle = getContactHandle(conversation);
@@ -72,6 +74,19 @@ export function ConversationDetail({
                     onToggleFollowUp={onToggleFollowUp}
                     onEscalate={onEscalate}
                 />
+
+                {onOpenContext && (
+                    <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon-sm"
+                        onClick={onOpenContext}
+                        className="xl:hidden"
+                        aria-label="View conversation context"
+                    >
+                        <RiFileList3Line className="size-4" />
+                    </Button>
+                )}
             </div>
 
             <MessageTimeline conversation={conversation} messages={messages} agentName={agentName} />
