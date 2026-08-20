@@ -1,9 +1,5 @@
-import {
-    
-    
-    CALL_ISLAND_VIEWPORT_MARGIN
-} from './anchor';
-import type {CallIslandAnchor, CallIslandSafeAreaInsets} from './anchor';
+import { CALL_ISLAND_VIEWPORT_MARGIN } from './anchor';
+import type { CallIslandAnchor, CallIslandSafeAreaInsets } from './anchor';
 
 /**
  * One resolver computes a semantic anchor's pixel position. No offsets are
@@ -84,14 +80,20 @@ export function resolveCallIslandPosition(params: {
         horizontal === 'left'
             ? leftInset
             : horizontal === 'right'
-              ? Math.max(leftInset, viewport.width - islandSize.width - rightInset)
+              ? Math.max(
+                    leftInset,
+                    viewport.width - islandSize.width - rightInset,
+                )
               : Math.max(leftInset, (viewport.width - islandSize.width) / 2);
 
     const y =
         vertical === 'top'
             ? topInset
             : vertical === 'bottom'
-              ? Math.max(topInset, viewport.height - islandSize.height - bottomInset)
+              ? Math.max(
+                    topInset,
+                    viewport.height - islandSize.height - bottomInset,
+                )
               : Math.max(topInset, (viewport.height - islandSize.height) / 2);
 
     return { x, y };

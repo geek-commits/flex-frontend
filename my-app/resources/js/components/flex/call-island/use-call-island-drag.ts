@@ -1,23 +1,30 @@
 import { animate, useMotionValue, useReducedMotion } from 'motion/react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import {
-    DEFAULT_CALL_ISLAND_ANCHOR,
-    
-    
-    
-    validCallIslandAnchors
+import { DEFAULT_CALL_ISLAND_ANCHOR, validCallIslandAnchors } from './anchor';
+import type {
+    CallIslandAnchor,
+    CallIslandRect,
+    CallIslandSafeAreaInsets,
 } from './anchor';
-import type {CallIslandAnchor, CallIslandRect, CallIslandSafeAreaInsets} from './anchor';
+import { resolveCallIslandPosition } from './resolve-anchor';
+import type { CallIslandSize, CallIslandViewport } from './resolve-anchor';
 import {
-    resolveCallIslandPosition
-    
-    
-} from './resolve-anchor';
-import type {CallIslandSize, CallIslandViewport} from './resolve-anchor';
-import { getCallIslandAnchor, setCallIslandAnchor } from './use-call-island-anchor';
+    getCallIslandAnchor,
+    setCallIslandAnchor,
+} from './use-call-island-anchor';
 
-/** Snap travel duration (ms). Restrained — no bounce or overshoot. */
-const SNAP_DURATION_MS = 200;
+/**
+ * Snap spring: critically damped (no bounce/overshoot) with a ~0.4s settle,
+ * matching apple-design's move/reposition timing. The release velocity is
+ * handed off on drag-end so the drag→snap seam stays continuous.
+ */
+const SNAP_SPRING = { type: 'spring', bounce: 0, duration: 0.4 } as const;
+
+/** Release velocity (px/s) captured at drag-end, applied as spring initial velocity. */
+interface DragEndVelocity {
+    x: number;
+    y: number;
+}
 
 export interface CallIslandDragOptions {
     /** Whether the island is currently allowed to be dragged (compact only). */
@@ -43,7 +50,10 @@ export interface CallIslandDragController {
 }
 
 const intersects = (a: CallIslandRect, b: CallIslandRect): boolean =>
-    a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+    a.left < b.right &&
+    a.right > b.left &&
+    a.top < b.bottom &&
+    a.bottom > b.top;
 
 function rectForPosition(
     position: { x: number; y: number },
@@ -142,17 +152,24 @@ function safeAnchorFor(
     return nearestAnchorFromPoint(centerX, centerY, opts);
 }
 
-export function useCallIslandDrag(options: CallIslandDragOptions): CallIslandDragController {
+export function useCallIslandDrag(
+    options: CallIslandDragOptions,
+): CallIslandDragController {
     const { enabled, viewport, islandSize, safeArea, safeZones } = options;
     const shouldReduceMotion = useReducedMotion();
 
     const x = useMotionValue(0);
     const y = useMotionValue(0);
     const [isDragging, setIsDragging] = useState(false);
-    const [anchor, setAnchor] = useState<CallIslandAnchor>(() => getCallIslandAnchor());
+    const [anchor, setAnchor] = useState<CallIslandAnchor>(() =>
+        getCallIslandAnchor(),
+    );
 
-const initializedRef = useRef(false);
-    const prevSizeRef = useRef({ width: islandSize.width, height: islandSize.height });
+    const initializedRef = useRef(false);
+    const prevSizeRef = useRef({
+        width: islandSize.width,
+        height: islandSize.height,
+    });
     const didDragRef = useRef(false);
 
     const anchorRef = useRef(anchor);
@@ -163,9 +180,23 @@ const initializedRef = useRef(false);
 
     /** Move x/y to the given anchor's resolved (safe) position. */
     const applyAnchor = useCallback(
-        (target: CallIslandAnchor, animateMotion: boolean) => {
-            const effective = safeAnchorFor(target, { viewport, islandSize, safeArea, safeZones });
-            const position = positionForAnchor(effective, { viewport, islandSize, safeArea, safeZones });
+        (
+            target: CallIslandAnchor,
+            animateMotion: boolean,
+            velocity?: DragEndVelocity,
+        ) => {
+            const effective = safeAnchorFor(target, {
+                viewport,
+                islandSize,
+                safeArea,
+                safeZones,
+            });
+            const position = positionForAnchor(effective, {
+                viewport,
+                islandSize,
+                safeArea,
+                safeZones,
+            });
 
             if (!animateMotion || shouldReduceMotion) {
                 x.set(position.x);
@@ -174,8 +205,14 @@ const initializedRef = useRef(false);
                 return;
             }
 
-            animate(x, position.x, { duration: SNAP_DURATION_MS / 1000, ease: 'easeOut' });
-            animate(y, position.y, { duration: SNAP_DURATION_MS / 1000, ease: 'easeOut' });
+            animate(x, position.x, {
+                ...SNAP_SPRING,
+                velocity: velocity?.x,
+            });
+            animate(y, position.y, {
+                ...SNAP_SPRING,
+                velocity: velocity?.y,
+            });
         },
         [viewport, islandSize, safeArea, safeZones, shouldReduceMotion, x, y],
     );
@@ -186,7 +223,10 @@ const initializedRef = useRef(false);
         const sizeChanged =
             prevSizeRef.current.width !== islandSize.width ||
             prevSizeRef.current.height !== islandSize.height;
-        prevSizeRef.current = { width: islandSize.width, height: islandSize.height };
+        prevSizeRef.current = {
+            width: islandSize.width,
+            height: islandSize.height,
+        };
 
         if (!initializedRef.current) {
             initializedRef.current = true;
@@ -194,7 +234,14 @@ const initializedRef = useRef(false);
         } else {
             applyAnchor(anchorRef.current, sizeChanged);
         }
-    }, [viewport.width, viewport.height, islandSize.width, islandSize.height, safeArea, applyAnchor]);
+    }, [
+        viewport.width,
+        viewport.height,
+        islandSize.width,
+        islandSize.height,
+        safeArea,
+        applyAnchor,
+    ]);
 
     const clampDrag = useCallback(
         (currentX: number, currentY: number): { x: number; y: number } => {
@@ -204,9 +251,15 @@ const initializedRef = useRef(false);
             const left = 12 + safeArea.left;
 
             const minX = left;
-            const maxX = Math.max(left, viewport.width - islandSize.width - right);
+            const maxX = Math.max(
+                left,
+                viewport.width - islandSize.width - right,
+            );
             const minY = m;
-            const maxY = Math.max(m, viewport.height - islandSize.height - bottom);
+            const maxY = Math.max(
+                m,
+                viewport.height - islandSize.height - bottom,
+            );
 
             return {
                 x: Math.min(Math.max(currentX, minX), maxX),
@@ -225,35 +278,44 @@ const initializedRef = useRef(false);
         const clamped = clampDrag(x.get(), y.get());
 
         if (clamped.x !== x.get()) {
-x.set(clamped.x);
-}
+            x.set(clamped.x);
+        }
 
         if (clamped.y !== y.get()) {
-y.set(clamped.y);
-}
+            y.set(clamped.y);
+        }
     }, [clampDrag, x, y]);
 
-    const handleDragEnd = useCallback(() => {
-        didDragRef.current = false;
-        setIsDragging(false);
+    const handleDragEnd = useCallback(
+        (_event: unknown, info: { velocity: DragEndVelocity }) => {
+            didDragRef.current = false;
+            setIsDragging(false);
 
-        const pill = rectForPosition({ x: x.get(), y: y.get() }, islandSize);
-        const centerX = pill.left + islandSize.width / 2;
-        const centerY = pill.top + islandSize.height / 2;
+            const pill = rectForPosition(
+                { x: x.get(), y: y.get() },
+                islandSize,
+            );
+            const centerX = pill.left + islandSize.width / 2;
+            const centerY = pill.top + islandSize.height / 2;
 
-        const nearest = nearestAnchorFromPoint(centerX, centerY, {
-            viewport,
-            islandSize,
-            safeArea,
-            safeZones,
-        });
+            const nearest = nearestAnchorFromPoint(centerX, centerY, {
+                viewport,
+                islandSize,
+                safeArea,
+                safeZones,
+            });
 
-        setAnchor(nearest);
-        setCallIslandAnchor(nearest);
-        applyAnchor(nearest, true);
-    }, [viewport, islandSize, safeArea, safeZones, applyAnchor, x, y]);
+            setAnchor(nearest);
+            setCallIslandAnchor(nearest);
+            applyAnchor(nearest, true, {
+                x: info.velocity.x,
+                y: info.velocity.y,
+            });
+        },
+        [viewport, islandSize, safeArea, safeZones, applyAnchor, x, y],
+    );
 
-const dragProps = useMemo(
+    const dragProps = useMemo(
         () => ({
             drag: enabled,
             dragMomentum: false,

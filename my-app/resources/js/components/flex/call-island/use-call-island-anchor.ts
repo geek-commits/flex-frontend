@@ -1,10 +1,6 @@
 import { useSyncExternalStore } from 'react';
-import {
-    DEFAULT_CALL_ISLAND_ANCHOR,
-    isCallIslandAnchor
-    
-} from './anchor';
-import type {CallIslandAnchor} from './anchor';
+import { DEFAULT_CALL_ISLAND_ANCHOR, isCallIslandAnchor } from './anchor';
+import type { CallIslandAnchor } from './anchor';
 
 /**
  * Semantic-anchor preference for the active-call island.

@@ -31,7 +31,12 @@ function measureZones(): void {
             return;
         }
 
-        rects.push({ left: rect.left, top: rect.top, right: rect.right, bottom: rect.bottom });
+        rects.push({
+            left: rect.left,
+            top: rect.top,
+            right: rect.right,
+            bottom: rect.bottom,
+        });
     });
 
     currentZones = rects;

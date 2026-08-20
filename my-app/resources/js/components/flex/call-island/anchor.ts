@@ -51,12 +51,17 @@ export const CALL_ISLAND_MOBILE_BREAKPOINT = 768;
 /** Anchors valid for the given viewport width. */
 export function validCallIslandAnchors(width: number): CallIslandAnchor[] {
     return width < CALL_ISLAND_MOBILE_BREAKPOINT
-        ? CALL_ISLAND_ANCHORS.filter((anchor) => MOBILE_CALL_ISLAND_ANCHORS.has(anchor))
+        ? CALL_ISLAND_ANCHORS.filter((anchor) =>
+              MOBILE_CALL_ISLAND_ANCHORS.has(anchor),
+          )
         : [...CALL_ISLAND_ANCHORS];
 }
 
 export function isCallIslandAnchor(value: unknown): value is CallIslandAnchor {
-    return typeof value === 'string' && (CALL_ISLAND_ANCHORS as readonly string[]).includes(value);
+    return (
+        typeof value === 'string' &&
+        (CALL_ISLAND_ANCHORS as readonly string[]).includes(value)
+    );
 }
 
 export interface CallIslandSafeAreaInsets {
@@ -66,7 +71,12 @@ export interface CallIslandSafeAreaInsets {
     left: number;
 }
 
-export const EMPTY_SAFE_AREA: CallIslandSafeAreaInsets = { top: 0, right: 0, bottom: 0, left: 0 };
+export const EMPTY_SAFE_AREA: CallIslandSafeAreaInsets = {
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+};
 
 export interface CallIslandRect {
     left: number;
@@ -82,7 +92,9 @@ export interface CallIslandRect {
  */
 export type CallIslandExpandDirection = 'down' | 'up' | 'right' | 'left';
 
-export function expandDirectionForAnchor(anchor: CallIslandAnchor): CallIslandExpandDirection {
+export function expandDirectionForAnchor(
+    anchor: CallIslandAnchor,
+): CallIslandExpandDirection {
     switch (anchor) {
         case 'top-left':
         case 'top-center':

@@ -1,9 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import {
-    EMPTY_SAFE_AREA
-    
-} from './anchor';
-import type {CallIslandSafeAreaInsets} from './anchor';
+import { EMPTY_SAFE_AREA } from './anchor';
+import type { CallIslandSafeAreaInsets } from './anchor';
 import type { CallIslandSize, CallIslandViewport } from './resolve-anchor';
 
 /**
@@ -22,13 +19,20 @@ export function useCallIslandMetrics(): {
         width: window.innerWidth,
         height: window.innerHeight,
     }));
-    const [safeArea, setSafeArea] = useState<CallIslandSafeAreaInsets>(EMPTY_SAFE_AREA);
+    const [safeArea, setSafeArea] =
+        useState<CallIslandSafeAreaInsets>(EMPTY_SAFE_AREA);
     const islandRef = useRef<HTMLDivElement | null>(null);
-    const [islandSize, setIslandSize] = useState<CallIslandSize>({ width: 0, height: 0 });
+    const [islandSize, setIslandSize] = useState<CallIslandSize>({
+        width: 0,
+        height: 0,
+    });
 
     useEffect(() => {
         const read = () =>
-            setViewport({ width: window.innerWidth, height: window.innerHeight });
+            setViewport({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
 
         window.addEventListener('resize', read);
         window.addEventListener('orientationchange', read);
@@ -47,7 +51,10 @@ export function useCallIslandMetrics(): {
         }
 
         const measure = () =>
-            setIslandSize({ width: element.offsetWidth, height: element.offsetHeight });
+            setIslandSize({
+                width: element.offsetWidth,
+                height: element.offsetHeight,
+            });
 
         measure();
 
