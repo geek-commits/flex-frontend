@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { AppProviders } from '@/components/flex/app-providers';
 import { AppTopbar } from '@/components/flex/app-topbar';
-import { ContextSidebar  } from '@/components/flex/context-sidebar';
-import type {ContextSidebarGroup} from '@/components/flex/context-sidebar';
+import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
 import { FlexPageContent } from '@/components/flex/flex-page-content';
 import { FlexPageHeader } from '@/components/flex/flex-page-header';
 import { PrimaryRail } from '@/components/flex/primary-rail';
+
+const ContextSidebar = lazy(() =>
+    import('@/components/flex/context-sidebar').then((m) => ({ default: m.ContextSidebar })),
+);
 
 export interface AdminShellProps {
     title: string;
@@ -42,7 +45,16 @@ export function AdminShell({
 
                 {/* Optional Contextual Sidebar */}
                 {contextTitle && contextGroups && (
-                    <ContextSidebar title={contextTitle} subtitle={contextSubtitle} groups={contextGroups} />
+                    <Suspense
+                        fallback={
+                            <aside
+                                className="w-56 bg-card/60 border-r border-border h-screen sticky top-0 shrink-0 hidden md:flex"
+                                aria-hidden="true"
+                            />
+                        }
+                    >
+                        <ContextSidebar title={contextTitle} subtitle={contextSubtitle} groups={contextGroups} />
+                    </Suspense>
                 )}
 
                 {/* Main Area */}
