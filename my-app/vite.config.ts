@@ -33,7 +33,7 @@ export default defineConfig({
         }),
         tailwindcss(),
         svgr({
-            include: '**/flex/icons/**/*.svg?react',
+            include: ['**/flex/icons/**/*.svg?react', '**/assets/social/**/*.svg?react'],
             svgrOptions: {
                 exportType: 'default',
                 svgProps: {
