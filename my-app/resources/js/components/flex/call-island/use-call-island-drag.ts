@@ -115,6 +115,27 @@ function positionForAnchor(
     });
 }
 
+/**
+ * Resolve the anchor to actually use: the requested anchor unless it collides
+ * with an active safe zone, in which case fall back to the nearest safe anchor
+ * (temporary — the saved preference is never overwritten).
+ */
+function safeAnchorFor(
+    anchor: CallIslandAnchor,
+    opts: Omit<CallIslandDragOptions, 'enabled'>,
+): CallIslandAnchor {
+    const position = positionForAnchor(anchor, opts);
+
+    if (!collidesWithSafeZones(position, opts.islandSize, opts.safeZones)) {
+        return anchor;
+    }
+
+    const centerX = position.x + opts.islandSize.width / 2;
+    const centerY = position.y + opts.islandSize.height / 2;
+
+    return nearestAnchorFromPoint(centerX, centerY, opts);
+}
+
 export function useCallIslandDrag(options: CallIslandDragOptions): CallIslandDragController {
     const { enabled, viewport, islandSize, safeArea, safeZones } = options;
     const shouldReduceMotion = useReducedMotion();
@@ -134,15 +155,11 @@ const initializedRef = useRef(false);
         anchorRef.current = anchor;
     }, [anchor]);
 
-    /** Move x/y to the given anchor's resolved position. */
+    /** Move x/y to the given anchor's resolved (safe) position. */
     const applyAnchor = useCallback(
         (target: CallIslandAnchor, animateMotion: boolean) => {
-            const position = positionForAnchor(target, {
-                viewport,
-                islandSize,
-                safeArea,
-                safeZones,
-            });
+            const effective = safeAnchorFor(target, { viewport, islandSize, safeArea, safeZones });
+            const position = positionForAnchor(effective, { viewport, islandSize, safeArea, safeZones });
 
             if (!animateMotion || shouldReduceMotion) {
                 x.set(position.x);

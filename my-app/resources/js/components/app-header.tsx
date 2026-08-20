@@ -204,31 +204,33 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                                 ))}
                             </div>
                         </div>
-                        <DropdownMenu>
-                            <DropdownMenuTrigger
-                                render={
-                                    <Button
-                                        variant="ghost"
-                                        className="size-10 rounded-full p-1"
-                                    >
-                                        <Avatar className="size-8 overflow-hidden rounded-full">
-                                            <AvatarImage
-                                                src={auth.user?.avatar}
-                                                alt={auth.user?.name}
-                                            />
-                                            <AvatarFallback className="rounded-full bg-muted text-muted-foreground">
-                                                {getInitials(auth.user?.name ?? '')}
-                                            </AvatarFallback>
-                                        </Avatar>
-                                    </Button>
-                                }
-                            />
-                            <DropdownMenuContent className="w-56" align="end">
-                                {auth.user && (
-                                    <UserMenuContent user={auth.user} />
-                                )}
-                            </DropdownMenuContent>
-                        </DropdownMenu>
+                        <div data-call-island-zone="profile-tenant" className="relative inline-flex">
+                            <DropdownMenu>
+                                <DropdownMenuTrigger
+                                    render={
+                                        <Button
+                                            variant="ghost"
+                                            className="size-10 rounded-full p-1"
+                                        >
+                                            <Avatar className="size-8 overflow-hidden rounded-full">
+                                                <AvatarImage
+                                                    src={auth.user?.avatar}
+                                                    alt={auth.user?.name}
+                                                />
+                                                <AvatarFallback className="rounded-full bg-muted text-muted-foreground">
+                                                    {getInitials(auth.user?.name ?? '')}
+                                                </AvatarFallback>
+                                            </Avatar>
+                                        </Button>
+                                    }
+                                />
+                                <DropdownMenuContent className="w-56" align="end">
+                                    {auth.user && (
+                                        <UserMenuContent user={auth.user} />
+                                    )}
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        </div>
                     </div>
                 </div>
             </div>

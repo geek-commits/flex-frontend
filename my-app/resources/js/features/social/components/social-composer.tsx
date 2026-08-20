@@ -35,7 +35,10 @@ export function SocialComposer({ disabled, disabledReason, sending, error, onSen
     };
 
     return (
-        <div className="border-t border-flex-workspace-divider p-3 flex flex-col gap-2">
+        <div
+            data-call-island-zone="social-composer"
+            className="border-t border-flex-workspace-divider p-3 flex flex-col gap-2"
+        >
             {disabled && disabledReason && (
                 <p className="text-xs text-flex-text-muted">{disabledReason}</p>
             )}

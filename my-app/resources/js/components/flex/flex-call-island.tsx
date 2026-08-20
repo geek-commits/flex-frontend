@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import React, { useCallback, useState } from 'react';
 import { useCallIslandDrag } from '@/components/flex/call-island/use-call-island-drag';
 import { useCallIslandMetrics } from '@/components/flex/call-island/use-call-island-metrics';
+import { useCallIslandSafeZones } from '@/components/flex/call-island/use-call-island-safe-zones';
 import { DynamicIsland } from '@/components/smoothui/dynamic-island';
 import {
     useActiveCallPresentation,
@@ -53,12 +54,13 @@ function FlexCallIslandSurface({ call }: { call: ActiveCallPresentation }) {
     const [expanded, setExpanded] = useState(false);
     const duration = useCallTimer(call.connectedAt);
     const { viewport, safeArea, islandRef, islandSize } = useCallIslandMetrics();
+    const safeZones = useCallIslandSafeZones();
     const drag = useCallIslandDrag({
         enabled: !expanded,
         viewport,
         islandSize,
         safeArea,
-        safeZones: [],
+        safeZones,
     });
 
     const displayName = call.displayName || call.phoneNumber || 'Active call';

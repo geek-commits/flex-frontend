@@ -173,11 +173,13 @@ export function AppTopbar({
                 </div>
 
                 {/* Tenant / Platform Context (admin only) — adjacent to profile */}
-                {mode === 'admin' && <TenantContextIndicator />}
+                <div data-call-island-zone="profile-tenant" className="flex items-center gap-3">
+                    {mode === 'admin' && <TenantContextIndicator />}
 
-                {/* Profile / Account */}
-                <div className="pl-2 border-l border-border">
-                    <FlexProfileMenu />
+                    {/* Profile / Account */}
+                    <div className="pl-2 border-l border-border">
+                        <FlexProfileMenu />
+                    </div>
                 </div>
             </div>
         </header>

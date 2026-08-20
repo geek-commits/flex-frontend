@@ -48,7 +48,10 @@ export function AgentShell({
 
                         {/* Optional Right Call Manager Panel */}
                         {callManagerPanel && (
-                            <aside className="w-80 md:w-96 border-l border-border bg-card flex flex-col h-full shrink-0">
+                            <aside
+                                data-call-island-zone="call-manager"
+                                className="w-80 md:w-96 border-l border-border bg-card flex flex-col h-full shrink-0"
+                            >
                                 {callManagerPanel}
                             </aside>
                         )}

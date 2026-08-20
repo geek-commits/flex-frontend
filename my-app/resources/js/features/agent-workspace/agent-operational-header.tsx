@@ -110,7 +110,7 @@ export function AgentOperationalHeader({
                 <GlobalSearchTrigger />
 
                 {/* Profile / Account */}
-                <div className="flex items-center gap-2 pl-2 border-l border-border">
+                <div data-call-island-zone="profile-tenant" className="flex items-center gap-2 pl-2 border-l border-border">
                     <FlexProfileMenu />
                 </div>
             </div>
