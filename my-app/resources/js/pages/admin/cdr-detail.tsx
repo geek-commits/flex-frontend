@@ -1,5 +1,6 @@
 import { Head, usePage } from '@inertiajs/react';
 import { RiDownload2Line, RiPhoneLine, RiExportLine, RiPlayFill, RiPauseLine } from '@remixicon/react';
+import { motion, useReducedMotion } from 'motion/react';
 import React, { useState } from 'react';
 import { BackLink } from '@/components/flex/back-link';
 import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
@@ -42,6 +43,7 @@ export default function CdrDetailPage() {
     const recordId = (usePage().props as { record?: string }).record ?? '';
     const record = cdrRepository.getById(recordId);
     const [playing, setPlaying] = useState(false);
+    const reduced = useReducedMotion();
 
     const status = record ? STATUS_META[record.status] : undefined;
 
@@ -138,7 +140,15 @@ export default function CdrDetailPage() {
                                         title={playing ? 'Pause' : 'Play'}
                                         onClick={() => setPlaying((p) => !p)}
                                     >
-                                        {playing ? <RiPauseLine className="size-4" /> : <RiPlayFill className="size-4 text-primary" />}
+                                        {playing ? (
+                                            <motion.span key="pause" className="inline-flex" initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: reduced ? 0 : 0.15, ease: 'easeOut' }}>
+                                                <RiPauseLine className="size-4" />
+                                            </motion.span>
+                                        ) : (
+                                            <motion.span key="play" className="inline-flex" initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: reduced ? 0 : 0.15, ease: 'easeOut' }}>
+                                                <RiPlayFill className="size-4 text-primary" />
+                                            </motion.span>
+                                        )}
                                     </Button>
                                     <div className="flex-1 h-2 rounded-full bg-muted overflow-hidden">
                                         <div className={`h-full bg-primary rounded-full transition-all ${playing ? 'w-2/3' : 'w-0'}`} />

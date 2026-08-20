@@ -11,6 +11,7 @@ import {
     RiTeamLine,
     RiUserLine,
 } from '@remixicon/react';
+import { motion, useReducedMotion } from 'motion/react';
 import React, { useMemo, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -80,6 +81,7 @@ export function ActiveCallSurface({
     const canToggleMedia = callState === 'connected' || callState === 'hold';
     const transferring = callState === 'transferring';
     const transferFailed = !transferring && transfer?.status === 'failed';
+    const reduced = useReducedMotion();
 
     return (
         <div className="flex min-h-0 flex-1 flex-col">
@@ -169,9 +171,31 @@ export function ActiveCallSurface({
                             className="gap-1.5 font-semibold"
                         >
                             {isMuted ? (
-                                <RiMicOffLine className="size-3.5" />
+                                <motion.span
+                                    key="mic-off"
+                                    className="inline-flex"
+                                    initial={{ opacity: 0, scale: 0.92 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{
+                                        duration: reduced ? 0 : 0.15,
+                                        ease: 'easeOut',
+                                    }}
+                                >
+                                    <RiMicOffLine className="size-3.5" />
+                                </motion.span>
                             ) : (
-                                <RiMicLine className="size-3.5" />
+                                <motion.span
+                                    key="mic-on"
+                                    className="inline-flex"
+                                    initial={{ opacity: 0, scale: 0.92 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{
+                                        duration: reduced ? 0 : 0.15,
+                                        ease: 'easeOut',
+                                    }}
+                                >
+                                    <RiMicLine className="size-3.5" />
+                                </motion.span>
                             )}
                             <span>{isMuted ? 'Unmute' : 'Mute'}</span>
                         </Button>
@@ -183,9 +207,31 @@ export function ActiveCallSurface({
                             className="gap-1.5 font-semibold"
                         >
                             {isOnHold ? (
-                                <RiPlayLine className="size-3.5" />
+                                <motion.span
+                                    key="resume"
+                                    className="inline-flex"
+                                    initial={{ opacity: 0, scale: 0.92 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{
+                                        duration: reduced ? 0 : 0.15,
+                                        ease: 'easeOut',
+                                    }}
+                                >
+                                    <RiPlayLine className="size-3.5" />
+                                </motion.span>
                             ) : (
-                                <RiPauseLine className="size-3.5" />
+                                <motion.span
+                                    key="hold"
+                                    className="inline-flex"
+                                    initial={{ opacity: 0, scale: 0.92 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{
+                                        duration: reduced ? 0 : 0.15,
+                                        ease: 'easeOut',
+                                    }}
+                                >
+                                    <RiPauseLine className="size-3.5" />
+                                </motion.span>
                             )}
                             <span>{isOnHold ? 'Resume' : 'Hold'}</span>
                         </Button>
