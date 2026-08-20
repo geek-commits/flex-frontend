@@ -41,7 +41,7 @@ export function ConversationDetail({
     const handle = getContactHandle(conversation);
 
     return (
-        <div className="flex flex-col h-full min-w-0">
+        <div className="flex h-full min-w-0 flex-col">
             <div className="flex items-center gap-3 border-b border-flex-workspace-divider px-4 py-2.5">
                 <Button
                     type="button"
@@ -54,16 +54,26 @@ export function ConversationDetail({
                     <RiArrowLeftLine className="size-4" />
                 </Button>
 
-                <ConversationAvatar conversation={conversation} size="lg" className="size-9" />
+                <ConversationAvatar
+                    conversation={conversation}
+                    size="lg"
+                    className="size-9"
+                />
 
                 <div className="min-w-0 flex-1">
                     <div className="truncate text-sm font-semibold text-flex-text-primary">
                         {name}
                     </div>
                     <div className="flex items-center gap-1.5 text-xs text-flex-text-muted">
-                        <SocialChannelIcon channel={conversation.channel} className="size-3.5" />
+                        <SocialChannelIcon
+                            channel={conversation.channel}
+                            className="size-4"
+                        />
                         <span className="truncate">
-                            {handle ? `${handle} / ${SOCIAL_CHANNEL_META[conversation.channel].label}` : SOCIAL_CHANNEL_META[conversation.channel].label}
+                            {handle
+                                ? `${handle} / ${SOCIAL_CHANNEL_META[conversation.channel].label}`
+                                : SOCIAL_CHANNEL_META[conversation.channel]
+                                      .label}
                         </span>
                     </div>
                 </div>
@@ -89,7 +99,11 @@ export function ConversationDetail({
                 )}
             </div>
 
-            <MessageTimeline conversation={conversation} messages={messages} agentName={agentName} />
+            <MessageTimeline
+                conversation={conversation}
+                messages={messages}
+                agentName={agentName}
+            />
 
             <SocialComposer onSend={onSend} />
         </div>

@@ -40,8 +40,11 @@ export function ConversationAvatar({
 
             <AvatarFallback>{getContactInitials(conversation)}</AvatarFallback>
 
-            <AvatarBadge>
-                <SocialChannelIcon channel={conversation.channel} className="size-full" />
+            <AvatarBadge className="group-data-[size=default]/avatar:size-4 group-data-[size=lg]/avatar:size-4 group-data-[size=default]/avatar:[&>svg]:size-3.5 group-data-[size=lg]/avatar:[&>svg]:size-3.5">
+                <SocialChannelIcon
+                    channel={conversation.channel}
+                    className="size-full"
+                />
             </AvatarBadge>
         </Avatar>
     );

@@ -19,7 +19,10 @@ const CHIP_CLASSES =
  * unselected is quiet neutral/white. Provider brand colors stay inside the
  * provider icons (§29) — never as filter backgrounds.
  */
-export function SocialChannelFilter({ value, onChange }: SocialChannelFilterProps) {
+export function SocialChannelFilter({
+    value,
+    onChange,
+}: SocialChannelFilterProps) {
     const chip = (active: boolean) =>
         cn(
             CHIP_CLASSES,
@@ -48,6 +51,7 @@ export function SocialChannelFilter({ value, onChange }: SocialChannelFilterProp
                     type="button"
                     onClick={() => onChange(channel)}
                     aria-pressed={value === channel}
+                    aria-label={SOCIAL_CHANNEL_META[channel].label}
                     className={chip(value === channel)}
                 >
                     <SocialChannelIcon channel={channel} className="size-4" />
