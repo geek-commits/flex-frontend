@@ -1,4 +1,5 @@
 import { usePage } from '@inertiajs/react';
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import React, { useState } from 'react';
 import { FlexDetailSheet } from '@/components/flex/flex-detail-sheet';
 import { FlexWorkbenchShell } from '@/components/flex/flex-workbench-shell';
@@ -42,6 +43,14 @@ export function SocialWorkspacePage() {
             (c) => c.id === activeId && (filter === 'all' || c.channel === filter),
         ) ?? null;
     const activeMessages = activeConversation ? getMessages(activeConversation.id) : [];
+
+    // Mobile list <-> detail transition. Directional: detail enters from the
+    // right, list returns from the left (8px slide + fade). AnimatePresence
+    // initial={false} suppresses the animation on first paint/hydration.
+    // Suppressed entirely under prefers-reduced-motion. Desktop split panes
+    // (above) are untouched.
+    const reduced = useReducedMotion();
+    const surfaceTransition = { duration: reduced ? 0 : 0.2, ease: 'easeOut' as const };
 
     const handleSend = (body: string) => {
         if (activeId) {
@@ -110,26 +119,32 @@ export function SocialWorkspacePage() {
 
                     {/* Mobile / Tablet: list → detail flow */}
                     <div className="lg:hidden flex-1 min-h-0">
-                        {activeConversation ? (
-                            <ConversationDetail
-                                conversation={activeConversation}
-                                messages={activeMessages}
-                                agentName={agentName}
-                                onBack={() => setActiveId(null)}
-                                onSend={handleSend}
-                                onToggleFollowUp={() => activeConversation && setFollowUp(activeConversation.id, !activeConversation.followUp)}
-                                onEscalate={() => activeConversation && escalate(activeConversation.id)}
-                                onOpenContext={() => setContextOpen(true)}
-                            />
-                        ) : (
-                            <ConversationList
-                                conversations={conversations}
-                                filter={filter}
-                                onFilterChange={setFilter}
-                                activeId={activeId}
-                                onSelect={setActiveId}
-                            />
-                        )}
+                        <AnimatePresence initial={false} mode="wait">
+                            {activeConversation ? (
+                                <motion.div key="detail" className="h-full min-h-0" initial={{ opacity: 0, x: 8 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 8 }} transition={surfaceTransition}>
+                                    <ConversationDetail
+                                        conversation={activeConversation}
+                                        messages={activeMessages}
+                                        agentName={agentName}
+                                        onBack={() => setActiveId(null)}
+                                        onSend={handleSend}
+                                        onToggleFollowUp={() => activeConversation && setFollowUp(activeConversation.id, !activeConversation.followUp)}
+                                        onEscalate={() => activeConversation && escalate(activeConversation.id)}
+                                        onOpenContext={() => setContextOpen(true)}
+                                    />
+                                </motion.div>
+                            ) : (
+                                <motion.div key="list" className="h-full min-h-0" initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -8 }} transition={surfaceTransition}>
+                                    <ConversationList
+                                        conversations={conversations}
+                                        filter={filter}
+                                        onFilterChange={setFilter}
+                                        activeId={activeId}
+                                        onSelect={setActiveId}
+                                    />
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
                 </div>
 
