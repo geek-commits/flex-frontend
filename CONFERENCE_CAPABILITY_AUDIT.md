@@ -1,5 +1,7 @@
 # CONFERENCE CAPABILITY AUDIT
 
+> **SUPERSEDED.** See `CONFERENCE_IMPLEMENTATION_AUDIT.md` — the call-scoped modernization plan reclassified Conference as **documented but MISSING PARITY** (parity defect → NEEDS_PRODUCT_DECISION), rather than "unsupported/hypothetical". Outcome is unchanged (no Conference UI), but the framing is now parity-defect. This file is retained for history only.
+
 Audit performed against the current FLEX frontend POC + Laravel backend. Outcome: **UNSUPPORTED**.
 
 ## Supported

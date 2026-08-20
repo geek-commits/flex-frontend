@@ -1,5 +1,7 @@
 # AGENT ASSIST PREFLIGHT
 
+> **SUPERSEDED.** See `AGENT_ASSIST_RUNTIME_AUDIT.md` — the call-scoped modernization plan reclassified Assist as call-scoped (gated on `callState`, not a permanent panel) and the "Waiting / Unavailable" two-state model below no longer applies. This file is retained for history only.
+
 Preflight audit of the current Agent Assist runtime, per the modernization plan §95. This records the **truth** of what exists today so UI work never fabricates unsupported behavior.
 
 ## Agent Assist component
