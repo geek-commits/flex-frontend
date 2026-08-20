@@ -234,7 +234,7 @@ export function UserFormSheet({ open, onOpenChange, editing, onSaved }: UserForm
 
                     {!editing && (
                         <div className="rounded-md border border-border bg-flex-surface-muted/50 px-3 py-2.5">
-                            <p className="text-xs text-flex-text-strong font-semibold">Temporary credentials</p>
+                            <p className="text-xs text-flex-text-secondary font-semibold">Temporary credentials</p>
                             <p className="mt-0.5 text-xs text-flex-text-muted">
                                 Temporary login instructions will be sent to the user&apos;s email. They must change the
                                 temporary password on first login.

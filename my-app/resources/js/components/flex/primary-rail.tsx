@@ -45,6 +45,7 @@ export function PrimaryRail({ currentPath, activeWorkspace = 'admin' }: PrimaryR
                                         render={
                                             <Link
                                                 href={item.href}
+                                                aria-label={item.title}
                                                 className={`relative flex items-center justify-center size-10 rounded-lg transition-all duration-flex-fast flex-focus-visible ${
                                                     isActive
                                                         ? 'bg-primary text-primary-foreground shadow-xs font-semibold'

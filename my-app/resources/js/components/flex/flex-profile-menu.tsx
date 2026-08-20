@@ -84,10 +84,10 @@ export function FlexProfileMenu() {
                                     <AvatarFallback>{initials}</AvatarFallback>
                                 </Avatar>
                                 <div className="min-w-0">
-                                    <div className="truncate text-sm font-semibold text-foreground">
+                                    <div className="truncate text-sm font-semibold text-foreground" title={user.name}>
                                         {user.name}
                                     </div>
-                                    <div className="truncate text-xs text-muted-foreground">
+                                    <div className="truncate text-xs text-muted-foreground" title={user.email}>
                                         {user.email}
                                     </div>
                                     <div className="truncate text-[11px] font-medium text-status-info mt-0.5">
@@ -149,7 +149,7 @@ export function FlexProfileMenu() {
                                         onClick={cleanup}
                                     >
                                         <RiShieldUserLine className="mr-2" />
-                                        Manage roles &amp; permissions
+                                        Roles &amp; permissions
                                     </Link>
                                 }
                             />

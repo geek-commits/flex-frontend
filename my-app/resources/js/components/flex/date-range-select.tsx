@@ -28,23 +28,27 @@ export function DateRangeSelect({ from, to, onRangeChange }: DateRangeSelectProp
 
     return (
         <Popover>
-            <PopoverTrigger
-                render={
-                    <Button variant="outline" size="sm" className="gap-1.5 text-xs">
-                        <RiCalendarCheckLine className="size-3.5" />
-                        {from || to ? `${from ?? '…'} → ${to ?? '…'}` : 'Date range'}
-                        {(from || to) && (
-                            <RiCloseLine
-                                className="size-3.5 text-muted-foreground"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    onRangeChange(undefined, undefined);
-                                }}
-                            />
-                        )}
+            <div className="inline-flex items-stretch">
+                <PopoverTrigger
+                    render={
+                        <Button variant="outline" size="sm" className="gap-1.5 text-xs rounded-r-none border-r-0">
+                            <RiCalendarCheckLine className="size-3.5" />
+                            {from || to ? `${from ?? '…'} → ${to ?? '…'}` : 'Date range'}
+                        </Button>
+                    }
+                />
+                {from || to ? (
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        aria-label="Clear date range"
+                        onClick={() => onRangeChange(undefined, undefined)}
+                        className="rounded-l-none px-2 text-muted-foreground"
+                    >
+                        <RiCloseLine className="size-3.5" />
                     </Button>
-                }
-            />
+                ) : null}
+            </div>
             <PopoverContent className="w-auto p-3">
                 <DateSelector
                     presetMode="between"

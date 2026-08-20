@@ -764,14 +764,15 @@
     .flex-metric {
         font-family: var(--font-sans);
         font-size: 18px;
-        line-height: 24px;
+        line-height: 1.33;
         font-weight: 600;
         letter-spacing: -0.1px;
+        font-variant-numeric: var(--flex-font-numeric);
     }
     .flex-label {
         font-family: var(--font-sans);
         font-size: 12px;
-        line-height: 16px;
+        line-height: 1.33;
         font-weight: 500;
     }
     .flex-table-grid {

@@ -71,7 +71,7 @@ export function AppTopbar({
             <div className="flex items-center gap-2.5">
                 <Sheet>
                     <SheetTrigger asChild>
-                        <Button variant="ghost" size="icon-sm" className="md:hidden">
+                        <Button variant="ghost" size="icon-sm" className="md:hidden" aria-label="Open navigation">
                             <RiMenuLine className="size-4" />
                         </Button>
                     </SheetTrigger>

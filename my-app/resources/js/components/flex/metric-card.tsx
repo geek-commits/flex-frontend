@@ -42,7 +42,7 @@ export function MetricCard({
         <Card className={`bg-card border-border shadow-2xs hover:border-primary/30 transition-all ${className}`}>
             <CardContent className="p-4 flex flex-col justify-between h-full">
                 <div className="flex items-center justify-between gap-2">
-                    <span className="flex-label text-muted-foreground uppercase tracking-wide truncate">
+                    <span className="flex-label text-muted-foreground uppercase tracking-wide truncate" title={title}>
                         {title}
                     </span>
                     {Icon && (
@@ -76,7 +76,7 @@ export function MetricCard({
                     )}
                 </div>
 
-                {description && <p className="text-[11px] text-muted-foreground mt-0.5 truncate">{description}</p>}
+                {description && <p className="text-[11px] text-muted-foreground mt-0.5 truncate" title={description}>{description}</p>}
             </CardContent>
         </Card>
     );

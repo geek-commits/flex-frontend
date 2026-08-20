@@ -272,11 +272,11 @@ return false;
                                 <CommandItem key={`record-${index}`} value={`record ${record.title} ${record.subtitle}`} onSelect={() => run(record.href)}>
                                     {typeof Icon === 'string' ? <FlexIcon name={Icon} className="size-4 text-muted-foreground" /> : <Icon className="size-4 text-muted-foreground" />}
                                     <div className="flex flex-col min-w-0">
-                                        <span className="truncate">
+                                        <span className="truncate" title={record.title}>
                                             <SearchHighlight text={record.title} query={query} />
                                         </span>
                                         {record.subtitle && (
-                                            <span className="text-xs text-muted-foreground truncate">
+                                            <span className="text-xs text-muted-foreground truncate" title={record.subtitle}>
                                                 <SearchHighlight text={record.subtitle} query={query} />
                                             </span>
                                         )}
