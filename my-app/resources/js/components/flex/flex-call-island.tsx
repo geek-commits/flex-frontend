@@ -1,12 +1,14 @@
 import { router } from '@inertiajs/react';
 import { RiPhoneLine, RiArrowRightLine } from '@remixicon/react';
+import { motion } from 'motion/react';
 import React, { useCallback, useState } from 'react';
+import { useCallIslandDrag } from '@/components/flex/call-island/use-call-island-drag';
+import { useCallIslandMetrics } from '@/components/flex/call-island/use-call-island-metrics';
 import { DynamicIsland } from '@/components/smoothui/dynamic-island';
 import {
-    useActiveCallPresentation
-    
+    useActiveCallPresentation,
 } from '@/features/agent-workspace/state/use-active-call-presentation';
-import type {ActiveCallPresentation} from '@/features/agent-workspace/state/use-active-call-presentation';
+import type { ActiveCallPresentation } from '@/features/agent-workspace/state/use-active-call-presentation';
 import { useCallTimer } from '@/features/dashboard/use-call-timer';
 
 const STATE_LABEL: Record<string, string> = {
@@ -32,6 +34,10 @@ const STATE_DOT_COLOR: Record<string, string> = {
  * Owns call presentation, FLEX styling, compact/expanded content, navigation,
  * and accessibility. It never owns the call — it reflects the canonical
  * workspace state and disappears as soon as the call is no longer live.
+ *
+ * The compact island is freely draggable; on release it magnetically snaps to
+ * the nearest safe semantic anchor. The expanded island stays stationary at its
+ * current anchor. The preferred anchor is persisted as a semantic value.
  */
 export function FlexCallIsland() {
     const call = useActiveCallPresentation();
@@ -46,12 +52,27 @@ export function FlexCallIsland() {
 function FlexCallIslandSurface({ call }: { call: ActiveCallPresentation }) {
     const [expanded, setExpanded] = useState(false);
     const duration = useCallTimer(call.connectedAt);
+    const { viewport, safeArea, islandRef, islandSize } = useCallIslandMetrics();
+    const drag = useCallIslandDrag({
+        enabled: !expanded,
+        viewport,
+        islandSize,
+        safeArea,
+        safeZones: [],
+    });
 
     const displayName = call.displayName || call.phoneNumber || 'Active call';
     const stateLabel = STATE_LABEL[call.state] ?? call.state;
     const metaParts = [call.queueName, call.direction ? DIRECTION_LABEL[call.direction] : null].filter(Boolean);
+    const { didDrag } = drag;
 
-    const handleToggle = useCallback(() => setExpanded((value) => !value), []);
+    const handleToggle = useCallback(() => {
+        if (didDrag()) {
+            return;
+        }
+
+        setExpanded((value) => !value);
+    }, [didDrag]);
 
     const handleKeyDown = useCallback(
         (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -72,15 +93,18 @@ function FlexCallIslandSurface({ call }: { call: ActiveCallPresentation }) {
     }, []);
 
     return (
-        <div className="pointer-events-none fixed inset-x-0 top-3 z-40 flex justify-center px-4">
-            <div
+        <div className="pointer-events-none fixed inset-0 z-40">
+            <motion.div
+                ref={islandRef}
+                style={{ x: drag.x, y: drag.y }}
                 role="button"
                 tabIndex={0}
                 aria-label={`Active call with ${displayName}. ${expanded ? 'Close call details.' : 'Open call details.'}`}
                 aria-expanded={expanded}
-                className="pointer-events-auto cursor-pointer rounded-[32px] bg-flex-call-island text-flex-call-island-text shadow-flex-overlay outline-none focus-visible:ring-2 focus-visible:ring-flex-brand"
+                className="pointer-events-auto absolute left-0 top-0 cursor-grab rounded-[32px] bg-flex-call-island text-flex-call-island-text shadow-flex-overlay outline-none focus-visible:ring-2 focus-visible:ring-flex-brand active:cursor-grabbing"
                 onClick={handleToggle}
                 onKeyDown={handleKeyDown}
+                {...drag.dragProps}
             >
                 <DynamicIsland
                     view={expanded ? 'expanded' : 'compact'}
@@ -123,7 +147,7 @@ function FlexCallIslandSurface({ call }: { call: ActiveCallPresentation }) {
                         </div>
                     }
                 />
-            </div>
+            </motion.div>
         </div>
     );
 }
