@@ -63,9 +63,9 @@ export function AgentWallboard() {
     return (
         <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
             <div className="flex items-center justify-between border-b border-flex-workspace-divider px-4 py-3">
-                <h3 className="text-sm font-semibold text-flex-text-primary">
+                <h2 className="text-sm font-semibold text-flex-text-primary">
                     Live Agent Wallboard
-                </h3>
+                </h2>
                 <span className="flex items-center gap-1.5">
                     <span
                         className="size-1.5 rounded-full bg-status-live"

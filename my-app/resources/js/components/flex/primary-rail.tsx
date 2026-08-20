@@ -54,9 +54,7 @@ export function PrimaryRail({ currentPath, activeWorkspace = 'admin' }: PrimaryR
                                             >
                                                 <FlexIcon name={item.icon} className="size-5" />
                                                 {item.badge && (
-                                                    <span className="absolute -top-1 -right-1 px-1 py-0.2 text-[9px] font-bold rounded-full bg-status-ready text-white">
-                                                        {item.badge}
-                                                    </span>
+                                                    <span aria-hidden="true" className="absolute -top-0.5 -right-0.5 size-2 rounded-full bg-status-ready ring-2 ring-card" title={item.badge} />
                                                 )}
                                             </Link>
                                         }

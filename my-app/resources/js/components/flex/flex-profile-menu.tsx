@@ -58,10 +58,9 @@ export function FlexProfileMenu() {
             <DropdownMenu>
                 <DropdownMenuTrigger
                     className="flex items-center gap-2 rounded-full p-0.5 pr-1.5 pl-0.5 outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring hover:bg-muted/60"
-                    aria-label={`Account menu for ${user.name}`}
                 >
                     <Avatar size="default" className="size-9">
-                        {user.avatar ? <AvatarImage src={user.avatar} alt={user.name} /> : null}
+                        {user.avatar ? <AvatarImage src={user.avatar} alt="" /> : null}
                         <AvatarFallback>{initials}</AvatarFallback>
                     </Avatar>
                     <span className="hidden lg:block text-left">

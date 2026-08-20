@@ -1,4 +1,5 @@
 import React from 'react';
+import { AppProviders } from '@/components/flex/app-providers';
 import { AppTopbar } from '@/components/flex/app-topbar';
 import { ContextSidebar  } from '@/components/flex/context-sidebar';
 import type {ContextSidebarGroup} from '@/components/flex/context-sidebar';
@@ -34,26 +35,28 @@ export function AdminShell({
     children,
 }: AdminShellProps) {
     return (
-        <div className="flex min-h-screen bg-background text-foreground font-sans antialiased">
-            {/* Primary Rail */}
-            <PrimaryRail activeWorkspace="admin" />
+        <AppProviders>
+            <div className="flex min-h-screen bg-background text-foreground font-sans antialiased">
+                {/* Primary Rail */}
+                <PrimaryRail activeWorkspace="admin" />
 
-            {/* Optional Contextual Sidebar */}
-            {contextTitle && contextGroups && (
-                <ContextSidebar title={contextTitle} subtitle={contextSubtitle} groups={contextGroups} />
-            )}
+                {/* Optional Contextual Sidebar */}
+                {contextTitle && contextGroups && (
+                    <ContextSidebar title={contextTitle} subtitle={contextSubtitle} groups={contextGroups} />
+                )}
 
-            {/* Main Area */}
-            <div className="flex-1 flex flex-col min-w-0">
-                <AppTopbar mode="admin" />
+                {/* Main Area */}
+                <div className="flex-1 flex flex-col min-w-0">
+                    <AppTopbar mode="admin" />
 
-                <main className="flex-1 overflow-y-auto min-w-0">
-                    <FlexPageContent className="flex flex-col gap-[var(--flex-space-section)]">
-                        <FlexPageHeader title={title} description={subtitle} eyebrow={eyebrow} meta={meta} actions={actions} />
-                        {children}
-                    </FlexPageContent>
-                </main>
+                    <main className="flex-1 overflow-y-auto min-w-0">
+                        <FlexPageContent className="flex flex-col gap-[var(--flex-space-section)]">
+                            <FlexPageHeader title={title} description={subtitle} eyebrow={eyebrow} meta={meta} actions={actions} />
+                            {children}
+                        </FlexPageContent>
+                    </main>
+                </div>
             </div>
-        </div>
+        </AppProviders>
     );
 }

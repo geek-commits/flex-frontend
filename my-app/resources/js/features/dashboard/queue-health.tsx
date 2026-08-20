@@ -46,9 +46,9 @@ export function QueueHealth() {
     return (
         <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
             <div className="border-b border-flex-workspace-divider px-4 py-3">
-                <h3 className="text-sm font-semibold text-flex-text-primary">
+                <h2 className="text-sm font-semibold text-flex-text-primary">
                     Live Inbound Queues
-                </h3>
+                </h2>
             </div>
 
             <DataGrid

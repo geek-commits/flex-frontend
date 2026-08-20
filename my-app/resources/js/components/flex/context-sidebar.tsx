@@ -81,7 +81,7 @@ export function ContextSidebar({ title, subtitle, groups }: ContextSidebarProps)
                                     href={item.href}
                                     className={`flex items-center justify-between px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors duration-flex-fast flex-focus-visible ${
                                         isActive
-                                            ? 'bg-primary/10 text-primary font-semibold'
+                                            ? 'bg-primary text-primary-foreground font-semibold'
                                             : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
                                     }`}
                                 >

@@ -1,14 +1,14 @@
 import { createInertiaApp } from '@inertiajs/react';
+import { lazy } from 'react';
 import { CapabilityProvider } from '@/auth/capabilities';
-import { FlexCallIsland } from '@/components/flex/flex-call-island';
-import { GlobalSearchProvider } from '@/components/flex/global-search';
-import { Toaster } from '@/components/ui/sonner';
-import { TooltipProvider } from '@/components/ui/tooltip';
 import { TenantContextProvider } from '@/features/tenants/tenant-context';
 import { initializeTheme } from '@/hooks/use-appearance';
-import AppLayout from '@/layouts/app-layout';
-import AuthLayout from '@/layouts/auth-layout';
-import SettingsLayout from '@/layouts/settings/layout';
+
+// Auth and app layouts are code-split so a public/auth page never downloads
+// the full application shell (sidebar, user menu, mobile navigation).
+const AppLayout = lazy(() => import('@/layouts/app-layout').then((m) => ({ default: m.default })));
+const AuthLayout = lazy(() => import('@/layouts/auth-layout').then((m) => ({ default: m.default })));
+const SettingsLayout = lazy(() => import('@/layouts/settings/layout').then((m) => ({ default: m.default })));
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -32,15 +32,9 @@ createInertiaApp({
     strictMode: true,
     withApp(app) {
         return (
-            <TooltipProvider delay={0}>
-                <CapabilityProvider>
-                    <TenantContextProvider>
-                        <GlobalSearchProvider>{app}</GlobalSearchProvider>
-                        <Toaster />
-                        <FlexCallIsland />
-                    </TenantContextProvider>
-                </CapabilityProvider>
-            </TooltipProvider>
+            <CapabilityProvider>
+                <TenantContextProvider>{app}</TenantContextProvider>
+            </CapabilityProvider>
         );
     },
     progress: {

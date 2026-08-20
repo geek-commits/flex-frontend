@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Flex Contact Center — real-time operational analytics, telephony monitoring, and contact center management.">
 
         {{-- Inline script to detect system dark mode preference and apply it immediately --}}
         <script>

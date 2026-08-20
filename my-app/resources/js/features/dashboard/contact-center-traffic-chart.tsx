@@ -54,9 +54,9 @@ export function ContactCenterTrafficChart() {
         <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
             <div className="flex items-center justify-between border-b border-flex-workspace-divider px-4 py-3">
                 <div>
-                    <h3 className="text-sm font-semibold text-flex-text-primary">
+                    <h2 className="text-sm font-semibold text-flex-text-primary">
                         Call Traffic
-                    </h3>
+                    </h2>
                     <p className="text-xs text-flex-text-muted">
                         Answered and missed calls over the current period
                     </p>
@@ -66,7 +66,7 @@ export function ContactCenterTrafficChart() {
 
             <div className="px-4 py-4">
                 {isLoading || !data ? (
-                    <div className="flex h-[300px] w-full items-center justify-center">
+                    <div className="flex aspect-[3/1] w-full items-center justify-center">
                         <Skeleton className="h-full w-full" />
                     </div>
                 ) : hasData ? (

@@ -326,10 +326,9 @@ export function GlobalSearchTrigger() {
             size="sm"
             className="gap-2 text-xs text-muted-foreground justify-start w-40"
             onClick={() => setOpen(true)}
-            aria-label="Search Flex"
         >
             <RiSearchLine className="size-3.5" />
-            <span className="truncate">Search Flex...</span>
+            <span className="truncate">Search Flex</span>
             <kbd className="ml-auto hidden lg:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1 py-0.5 text-[9px] font-semibold">
                 ⌘K
             </kbd>
