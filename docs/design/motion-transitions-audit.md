@@ -47,3 +47,24 @@ Per `docs/design/05-motion.md` and the transitions.dev priority matrix (§21): n
 3. Social mobile list ↔ detail
 
 Deferred to a later pass: sheet/dialog/modal timing, select/popover/nav-menu alignment, tooltip tuning.
+
+## Phase 2 outcome (pilots shipped)
+
+All three ADOPT pilots landed and were verified in-browser (mobile viewport, reduced-motion, console clean).
+
+| Pilot | Change | Commits | Verified |
+|---|---|---|---|
+| Dropdown | Removed `backdrop-blur-2xl`/`backdrop-saturate-150` → solid `bg-popover`; open `duration-[var(--flex-duration-default)]`, close `duration-[var(--flex-duration-fast)]`. Also fixed a pre-existing Base UI crash (error #31: `MenuGroupContext is missing` — `user-menu-content.tsx` rendered `DropdownMenuLabel` outside any `DropdownMenuGroup`; wrapped in a Group) | `2bf1afe`, `af4def6` | Opens without crash, closes cleanly, `backdropFilter:none`, solid surface |
+| Telephony icon swaps | `active-call-surface.tsx` Mute/Hold + `cdr-detail.tsx` Voicemail Play/Pause use keyed `motion.span` crossfade (opacity 0→1, scale 0.92→1, 0.15s, reduced-motion→0). Presentation-only; command fires immediately | `4beb635` | Icon animates 0.92→1.0 frames; no errors |
+| Social mobile list ↔ detail | `social-workspace-page.tsx` wraps the `lg:hidden` block in `AnimatePresence initial={false} mode="wait"`: detail enters from right (x+8), list returns from left (x−8), 0.2s easeOut, `useReducedMotion`→0. Desktop split panes untouched | `46b5da7` | List→detail slides; back reverses; reduced-motion instant; no hydration animation |
+
+`motion/react` was already a runtime dependency; no new dependency was added.
+
+### New findings (discovered during pilots — apply to future motion work)
+
+1. **`--duration-flex-*` theme tokens do not generate utilities** in Tailwind 4.3.3 (`resources/css/app.css` `@theme inline`). Built CSS contains zero `duration-flex`, so existing `duration-flex-fast` usages (primary rail, cdr toolbar, etc.) silently fall back to the browser default — a latent app-wide issue. **Use the proven arbitrary form `duration-[var(--flex-duration-*)]`** (as in `social-channel-filter.tsx`, `conversation-row.tsx`, and the dropdown fix above).
+2. **`animate-none!` defeats tw-animate enter/exit.** `components/ui/dropdown-menu.tsx`'s class list ends with `animate-none!` (important), which cancels the `data-open:animate-in` / `data-closed:animate-out` — the dropdown enter/exit animation never ran (pre-existing). Left in place (risky with base-ui Positioner); the token-correct durations are in but currently no-op for the animation itself.
+
+### Phase 2 gate (re-audit)
+
+No new ADOPT candidates surfaced during pilots. Deferred set (sheet/dialog/modal timing, select/popover/nav-menu alignment, tooltip tuning) remains deferred. Decision: **hold further rollout pending explicit scope request** — current motion already covers the three highest-value surfaces without adding perceived latency to operational flows.
