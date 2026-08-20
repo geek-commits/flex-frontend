@@ -116,20 +116,26 @@ function positionForAnchor(
 }
 
 /**
- * Resolve the anchor to actually use: the requested anchor unless it collides
- * with an active safe zone, in which case fall back to the nearest safe anchor
- * (temporary — the saved preference is never overwritten).
+ * Resolve the anchor to actually use: the requested anchor unless it is
+ * invalid for the current breakpoint or collides with an active safe zone,
+ * in which case fall back to the nearest valid, safe anchor (temporary —
+ * the saved preference is never overwritten).
  */
 function safeAnchorFor(
     anchor: CallIslandAnchor,
     opts: Omit<CallIslandDragOptions, 'enabled'>,
 ): CallIslandAnchor {
-    const position = positionForAnchor(anchor, opts);
+    const valid = validCallIslandAnchors(opts.viewport.width);
 
-    if (!collidesWithSafeZones(position, opts.islandSize, opts.safeZones)) {
-        return anchor;
+    if (valid.includes(anchor)) {
+        const position = positionForAnchor(anchor, opts);
+
+        if (!collidesWithSafeZones(position, opts.islandSize, opts.safeZones)) {
+            return anchor;
+        }
     }
 
+    const position = positionForAnchor(anchor, opts);
     const centerX = position.x + opts.islandSize.width / 2;
     const centerY = position.y + opts.islandSize.height / 2;
 
