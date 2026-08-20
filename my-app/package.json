@@ -3,14 +3,15 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "vite build",
-        "build:ssr": "vite build && vite build --ssr",
+        "build": "vite build && node scripts/precompress.mjs",
+        "build:ssr": "vite build && vite build --ssr && node scripts/precompress.mjs",
         "dev": "vite",
         "format": "prettier --write resources/",
         "format:check": "prettier --check resources/",
         "lint": "eslint . --fix",
         "lint:check": "eslint .",
         "types:check": "tsc --noEmit",
+        "perf:audit": "node scripts/perf-audit.mjs",
         "icons:audit": "python3 resources/assets/flex/brand/validate-svg-sources.py resources/assets/flex/brand && python3 resources/assets/flex/icons/validate-flex-icons.py resources/assets/flex/icons"
     },
     "devDependencies": {
