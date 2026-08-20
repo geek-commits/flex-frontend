@@ -10,7 +10,13 @@ import { IdleCallSurface } from './idle-call-surface';
 import { IncomingCallSurface } from './incoming-call-surface';
 import { WrapUpSurface } from './wrap-up-surface';
 
-const IN_CALL_STATES = new Set(['dialing', 'connecting', 'connected', 'hold', 'transferring']);
+const IN_CALL_STATES = new Set([
+    'dialing',
+    'connecting',
+    'connected',
+    'hold',
+    'transferring',
+]);
 
 /**
  * State-driven Call Manager (AGENT_WORKSPACE_PLAN §23, §50).
@@ -20,7 +26,7 @@ const IN_CALL_STATES = new Set(['dialing', 'connecting', 'connected', 'hold', 't
  * transitions come from the canonical workspace owner — the component never
  * schedules fake transitions.
  */
-export function CallManager() {
+export function CallManager({ onOpenAssist }: { onOpenAssist?: () => void }) {
     const ws = useWorkspaceState();
     const [dialNumber, setDialNumber] = useState('');
     const [activeTab, setActiveTab] = useState<'dialer' | 'history'>('dialer');
@@ -57,7 +63,10 @@ export function CallManager() {
                 onDecline={ws.decline}
             />
         );
-    } else if (callState === 'connecting' && ws.activeCall?.direction === 'inbound') {
+    } else if (
+        callState === 'connecting' &&
+        ws.activeCall?.direction === 'inbound'
+    ) {
         surface = (
             <IncomingCallSurface
                 call={ws.activeCall}
@@ -81,6 +90,7 @@ export function CallManager() {
                 onConfirmTransfer={ws.completeTransfer}
                 onCancelTransfer={ws.cancelTransfer}
                 onDismissTransferFailure={ws.dismissTransferFailure}
+                onOpenAssist={() => onOpenAssist?.()}
                 onEnd={ws.endCall}
             />
         );
@@ -99,18 +109,21 @@ export function CallManager() {
     }
 
     return (
-        <div className="flex flex-col h-full bg-card select-none text-xs">
-            <div className="p-3 border-b border-border flex items-center justify-between shrink-0">
+        <div className="flex h-full flex-col bg-card text-xs select-none">
+            <div className="flex shrink-0 items-center justify-between border-b border-border p-3">
                 <div className="flex items-center gap-2 font-bold text-foreground">
                     <RiPhoneLine className="size-4 text-primary" />
                     <span>Call Manager</span>
                 </div>
-                <Badge variant="outline" className={`capitalize font-semibold text-[10px] ${stateCfg.badgeClass}`}>
+                <Badge
+                    variant="outline"
+                    className={`text-[10px] font-semibold capitalize ${stateCfg.badgeClass}`}
+                >
                     {stateCfg.label}
                 </Badge>
             </div>
 
-            <div className="flex-1 flex flex-col min-h-0">{surface}</div>
+            <div className="flex min-h-0 flex-1 flex-col">{surface}</div>
         </div>
     );
 }

@@ -29,8 +29,6 @@ export interface AgentOperationalHeaderProps {
     sessionStartedAt?: string;
     title?: string;
     subtitle?: string;
-    /** Optional Agent Assist toggle control, rendered before the profile cluster. */
-    assistSlot?: React.ReactNode;
 }
 
 /**
@@ -47,7 +45,6 @@ export function AgentOperationalHeader({
     sessionStartedAt,
     title = 'Agent Workspace',
     subtitle = 'External CRM & Central Call Manager',
-    assistSlot,
 }: AgentOperationalHeaderProps) {
     const { url } = usePage();
     const { navEntries } = useCapabilities();
@@ -133,8 +130,6 @@ export function AgentOperationalHeader({
                 <SessionTimer startedAt={sessionStartedAt} />
 
                 <GlobalSearchTrigger />
-
-                {assistSlot}
 
                 {/* Profile / Account */}
                 <div

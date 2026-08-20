@@ -7,6 +7,7 @@ import {
     RiPauseLine,
     RiPlayLine,
     RiSearchLine,
+    RiSparklingLine,
     RiTeamLine,
     RiUserLine,
 } from '@remixicon/react';
@@ -16,9 +17,16 @@ import { Input } from '@/components/ui/input';
 import { useCallTimer } from '@/features/dashboard/use-call-timer';
 import { cn } from '@/lib/utils';
 import type { CallState } from '@/types/flex';
-import { buildTransferTargets, filterTransferTargets } from '../state/transfer-targets';
+import {
+    buildTransferTargets,
+    filterTransferTargets,
+} from '../state/transfer-targets';
 import type { TransferTargetOption } from '../state/transfer-targets';
-import type { ActiveCall, CallTarget, TransferState } from '../state/workspace-types';
+import type {
+    ActiveCall,
+    CallTarget,
+    TransferState,
+} from '../state/workspace-types';
 
 export interface ActiveCallSurfaceProps {
     call: ActiveCall | null;
@@ -33,6 +41,7 @@ export interface ActiveCallSurfaceProps {
     onConfirmTransfer: () => void;
     onCancelTransfer: () => void;
     onDismissTransferFailure: () => void;
+    onOpenAssist: () => void;
     onEnd: () => void;
 }
 
@@ -63,49 +72,61 @@ export function ActiveCallSurface({
     onConfirmTransfer,
     onCancelTransfer,
     onDismissTransferFailure,
+    onOpenAssist,
     onEnd,
 }: ActiveCallSurfaceProps) {
-    const showTimer = DURATION_STATES.includes(callState) && Boolean(call?.connectedAt);
+    const showTimer =
+        DURATION_STATES.includes(callState) && Boolean(call?.connectedAt);
     const canToggleMedia = callState === 'connected' || callState === 'hold';
     const transferring = callState === 'transferring';
     const transferFailed = !transferring && transfer?.status === 'failed';
 
     return (
-        <div className="flex-1 flex flex-col min-h-0">
-            <div className="p-3 bg-primary/5 border-b border-border flex flex-col gap-3">
+        <div className="flex min-h-0 flex-1 flex-col">
+            <div className="flex flex-col gap-3 border-b border-border bg-primary/5 p-3">
                 <div className="flex items-center justify-between gap-2">
-                    <div className="flex flex-col min-w-0">
-                        <span className="text-sm font-bold text-foreground truncate">
+                    <div className="flex min-w-0 flex-col">
+                        <span className="truncate text-sm font-bold text-foreground">
                             {call?.target.label ?? 'Unknown'}
                         </span>
                         {call?.target.phone && (
-                            <span className="font-mono text-xs text-muted-foreground truncate">
+                            <span className="truncate font-mono text-xs text-muted-foreground">
                                 {call.target.phone}
                             </span>
                         )}
                         {call?.queueLabel && (
-                            <span className="text-[10px] text-muted-foreground mt-0.5">
+                            <span className="mt-0.5 text-[10px] text-muted-foreground">
                                 Inbound Queue: {call.queueLabel}
                             </span>
                         )}
                     </div>
 
-                    <div className="flex flex-col items-end gap-0.5 shrink-0">
+                    <div className="flex shrink-0 flex-col items-end gap-0.5">
                         {callState === 'dialing' && (
-                            <span className="font-mono text-xs font-bold text-status-stale">Calling…</span>
+                            <span className="font-mono text-xs font-bold text-status-stale">
+                                Calling…
+                            </span>
                         )}
                         {callState === 'connecting' && (
-                            <span className="font-mono text-xs font-bold text-status-stale">Connecting…</span>
+                            <span className="font-mono text-xs font-bold text-status-stale">
+                                Connecting…
+                            </span>
                         )}
-                        {(callState === 'connected' || callState === 'hold' || callState === 'transferring') &&
-                            showTimer && <CallDuration connectedAt={call?.connectedAt} />}
+                        {(callState === 'connected' ||
+                            callState === 'hold' ||
+                            callState === 'transferring') &&
+                            showTimer && (
+                                <CallDuration connectedAt={call?.connectedAt} />
+                            )}
                         {isOnHold && (
-                            <span className="text-[10px] font-bold uppercase text-status-notready">
+                            <span className="text-[10px] font-bold text-status-notready uppercase">
                                 On Hold
                             </span>
                         )}
                         {isMuted && (
-                            <span className="text-[10px] font-bold uppercase text-status-notready">Muted</span>
+                            <span className="text-[10px] font-bold text-status-notready uppercase">
+                                Muted
+                            </span>
                         )}
                     </div>
                 </div>
@@ -114,10 +135,17 @@ export function ActiveCallSurface({
             {transferFailed && (
                 <div
                     role="status"
-                    className="px-3 py-2 bg-status-disconnected-bg/40 border-b border-border text-[11px] text-status-disconnected flex items-center justify-between gap-2"
+                    className="flex items-center justify-between gap-2 border-b border-border bg-status-disconnected-bg/40 px-3 py-2 text-[11px] text-status-disconnected"
                 >
-                    <span className="font-semibold">Transfer failed — you're still connected to the customer.</span>
-                    <Button variant="ghost" size="xs" onClick={onDismissTransferFailure}>
+                    <span className="font-semibold">
+                        Transfer failed — you're still connected to the
+                        customer.
+                    </span>
+                    <Button
+                        variant="ghost"
+                        size="xs"
+                        onClick={onDismissTransferFailure}
+                    >
                         Dismiss
                     </Button>
                 </div>
@@ -132,7 +160,7 @@ export function ActiveCallSurface({
                     onCancel={onCancelTransfer}
                 />
             ) : (
-                <div className="flex-1 overflow-y-auto p-3 flex flex-col gap-2">
+                <div className="flex flex-1 flex-col gap-2 overflow-y-auto p-3">
                     <div className="grid grid-cols-2 gap-2">
                         <Button
                             variant={isMuted ? 'secondary' : 'outline'}
@@ -140,7 +168,11 @@ export function ActiveCallSurface({
                             disabled={!canToggleMedia}
                             className="gap-1.5 font-semibold"
                         >
-                            {isMuted ? <RiMicOffLine className="size-3.5" /> : <RiMicLine className="size-3.5" />}
+                            {isMuted ? (
+                                <RiMicOffLine className="size-3.5" />
+                            ) : (
+                                <RiMicLine className="size-3.5" />
+                            )}
                             <span>{isMuted ? 'Unmute' : 'Mute'}</span>
                         </Button>
 
@@ -150,25 +182,43 @@ export function ActiveCallSurface({
                             disabled={!canToggleMedia}
                             className="gap-1.5 font-semibold"
                         >
-                            {isOnHold ? <RiPlayLine className="size-3.5" /> : <RiPauseLine className="size-3.5" />}
+                            {isOnHold ? (
+                                <RiPlayLine className="size-3.5" />
+                            ) : (
+                                <RiPauseLine className="size-3.5" />
+                            )}
                             <span>{isOnHold ? 'Resume' : 'Hold'}</span>
                         </Button>
-                    </div>
 
-                    <Button
-                        variant="outline"
-                        onClick={onTransfer}
-                        disabled={callState !== 'connected'}
-                        title={callState === 'hold' ? 'Resume the call to transfer' : undefined}
-                        className="gap-1.5 font-semibold"
-                    >
-                        <RiArrowRightLine className="size-3.5" />
-                        <span>Transfer</span>
-                    </Button>
+                        <Button
+                            variant="outline"
+                            onClick={onTransfer}
+                            disabled={callState !== 'connected'}
+                            title={
+                                callState === 'hold'
+                                    ? 'Resume the call to transfer'
+                                    : undefined
+                            }
+                            className="gap-1.5 font-semibold"
+                        >
+                            <RiArrowRightLine className="size-3.5" />
+                            <span>Transfer</span>
+                        </Button>
+
+                        <Button
+                            variant="outline"
+                            onClick={onOpenAssist}
+                            disabled={!canToggleMedia}
+                            className="gap-1.5 font-semibold"
+                        >
+                            <RiSparklingLine className="size-3.5" />
+                            <span>Assist</span>
+                        </Button>
+                    </div>
                 </div>
             )}
 
-            <div className="p-3 border-t border-border">
+            <div className="border-t border-border p-3">
                 <Button
                     variant="destructive"
                     onClick={onEnd}
@@ -191,18 +241,28 @@ interface TransferPanelProps {
     onCancel: () => void;
 }
 
-function TransferPanel({ transfer, customerLabel, onSelectTarget, onConfirm, onCancel }: TransferPanelProps) {
+function TransferPanel({
+    transfer,
+    customerLabel,
+    onSelectTarget,
+    onConfirm,
+    onCancel,
+}: TransferPanelProps) {
     if (transfer.status === 'pending') {
         return (
             <div
                 role="status"
-                className="flex-1 flex flex-col items-center justify-center gap-3 p-4 text-center"
+                className="flex flex-1 flex-col items-center justify-center gap-3 p-4 text-center"
             >
                 <div className="flex items-center gap-2 rounded-md bg-status-stale-bg px-3 py-2 text-[11px] text-status-stale">
                     <RiArrowRightLine className="size-3.5" />
-                    <span className="font-semibold">Transferring to {transfer.target?.label}…</span>
+                    <span className="font-semibold">
+                        Transferring to {transfer.target?.label}…
+                    </span>
                 </div>
-                <p className="text-xs text-muted-foreground">Your call will disconnect once the transfer completes.</p>
+                <p className="text-xs text-muted-foreground">
+                    Your call will disconnect once the transfer completes.
+                </p>
                 <Button variant="outline" size="sm" onClick={onCancel}>
                     Cancel Transfer
                 </Button>
@@ -237,12 +297,15 @@ function TransferTargetPicker({
     onCancel,
 }: TransferTargetPickerProps) {
     const [query, setQuery] = useState('');
-    const filtered = useMemo(() => filterTransferTargets(TRANSFER_TARGETS, query), [query]);
+    const filtered = useMemo(
+        () => filterTransferTargets(TRANSFER_TARGETS, query),
+        [query],
+    );
     const selected = transfer.target;
 
     return (
-        <div className="flex-1 flex flex-col min-h-0">
-            <div className="p-3 border-b border-border flex flex-col gap-2 shrink-0">
+        <div className="flex min-h-0 flex-1 flex-col">
+            <div className="flex shrink-0 flex-col gap-2 border-b border-border p-3">
                 <label
                     htmlFor="transfer-target-search"
                     className="text-[11px] font-semibold text-muted-foreground"
@@ -250,7 +313,7 @@ function TransferTargetPicker({
                     Transfer to
                 </label>
                 <div className="relative">
-                    <RiSearchLine className="pointer-events-none absolute left-2.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" />
+                    <RiSearchLine className="pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-muted-foreground" />
                     <Input
                         id="transfer-target-search"
                         type="search"
@@ -263,15 +326,18 @@ function TransferTargetPicker({
             </div>
 
             <div className="flex-1 overflow-y-auto p-2">
-                {filtered.agents.length === 0 && filtered.queues.length === 0 ? (
-                    <p className="p-3 text-xs text-muted-foreground">No matching agents or queues.</p>
+                {filtered.agents.length === 0 &&
+                filtered.queues.length === 0 ? (
+                    <p className="p-3 text-xs text-muted-foreground">
+                        No matching agents or queues.
+                    </p>
                 ) : (
                     <div className="flex flex-col gap-3">
                         {filtered.agents.length > 0 && (
                             <section aria-labelledby="transfer-target-agents">
                                 <h3
                                     id="transfer-target-agents"
-                                    className="px-2 pb-1 text-[10px] font-bold uppercase tracking-wide text-muted-foreground"
+                                    className="px-2 pb-1 text-[10px] font-bold tracking-wide text-muted-foreground uppercase"
                                 >
                                     Agents
                                 </h3>
@@ -280,8 +346,15 @@ function TransferTargetPicker({
                                         <li key={option.target.id}>
                                             <TargetRow
                                                 option={option}
-                                                selected={selected?.id === option.target.id}
-                                                onSelect={() => onSelectTarget(option.target)}
+                                                selected={
+                                                    selected?.id ===
+                                                    option.target.id
+                                                }
+                                                onSelect={() =>
+                                                    onSelectTarget(
+                                                        option.target,
+                                                    )
+                                                }
                                             />
                                         </li>
                                     ))}
@@ -292,7 +365,7 @@ function TransferTargetPicker({
                             <section aria-labelledby="transfer-target-queues">
                                 <h3
                                     id="transfer-target-queues"
-                                    className="px-2 pb-1 text-[10px] font-bold uppercase tracking-wide text-muted-foreground"
+                                    className="px-2 pb-1 text-[10px] font-bold tracking-wide text-muted-foreground uppercase"
                                 >
                                     Queues
                                 </h3>
@@ -301,8 +374,15 @@ function TransferTargetPicker({
                                         <li key={option.target.id}>
                                             <TargetRow
                                                 option={option}
-                                                selected={selected?.id === option.target.id}
-                                                onSelect={() => onSelectTarget(option.target)}
+                                                selected={
+                                                    selected?.id ===
+                                                    option.target.id
+                                                }
+                                                onSelect={() =>
+                                                    onSelectTarget(
+                                                        option.target,
+                                                    )
+                                                }
                                             />
                                         </li>
                                     ))}
@@ -313,7 +393,7 @@ function TransferTargetPicker({
                 )}
             </div>
 
-            <div className="p-3 border-t border-border flex flex-col gap-2 shrink-0">
+            <div className="flex shrink-0 flex-col gap-2 border-t border-border p-3">
                 <p className="text-[10px] leading-snug text-muted-foreground">
                     {selected
                         ? `Direct transfer to ${selected.label} will end your call with ${
@@ -322,10 +402,20 @@ function TransferTargetPicker({
                         : 'Select an agent or queue, then confirm the transfer.'}
                 </p>
                 <div className="flex gap-2">
-                    <Button variant="outline" size="sm" className="flex-1" onClick={onCancel}>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        className="flex-1"
+                        onClick={onCancel}
+                    >
                         Cancel
                     </Button>
-                    <Button size="sm" className="flex-1" onClick={onConfirm} disabled={!selected}>
+                    <Button
+                        size="sm"
+                        className="flex-1"
+                        onClick={onConfirm}
+                        disabled={!selected}
+                    >
                         Transfer
                     </Button>
                 </div>
@@ -355,7 +445,9 @@ function TargetRow({
                 'flex w-full items-center justify-between gap-2 rounded-md px-2 py-1.5 text-left text-xs transition-colors outline-none',
                 'focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30',
                 'disabled:pointer-events-none disabled:opacity-50',
-                selected ? 'bg-primary/10 text-foreground' : 'text-foreground hover:bg-muted',
+                selected
+                    ? 'bg-primary/10 text-foreground'
+                    : 'text-foreground hover:bg-muted',
             )}
         >
             <span className="flex min-w-0 items-center gap-2">
@@ -364,16 +456,24 @@ function TargetRow({
                 ) : (
                     <RiTeamLine className="size-3.5 shrink-0 text-muted-foreground" />
                 )}
-                <span className="truncate font-semibold">{option.target.label}</span>
+                <span className="truncate font-semibold">
+                    {option.target.label}
+                </span>
                 {isAgent && option.extension && (
-                    <span className="font-mono text-[10px] text-muted-foreground">{option.extension}</span>
+                    <span className="font-mono text-[10px] text-muted-foreground">
+                        {option.extension}
+                    </span>
                 )}
             </span>
             <span className="flex shrink-0 items-center gap-2">
                 {isAgent && option.queue && (
-                    <span className="max-w-28 truncate text-[10px] text-muted-foreground">{option.queue}</span>
+                    <span className="max-w-28 truncate text-[10px] text-muted-foreground">
+                        {option.queue}
+                    </span>
                 )}
-                {option.reachable && selected && <RiCheckLine className="size-3.5 text-primary" />}
+                {option.reachable && selected && (
+                    <RiCheckLine className="size-3.5 text-primary" />
+                )}
                 {!option.reachable && (
                     <span className="text-[10px] font-semibold text-status-notready">
                         {option.stateLabel ?? 'Unavailable'}
@@ -387,5 +487,9 @@ function TargetRow({
 function CallDuration({ connectedAt }: { connectedAt?: string }) {
     const duration = useCallTimer(connectedAt ?? new Date().toISOString());
 
-    return <span className="font-mono text-xs font-bold text-primary">{duration}</span>;
+    return (
+        <span className="font-mono text-xs font-bold text-primary">
+            {duration}
+        </span>
+    );
 }

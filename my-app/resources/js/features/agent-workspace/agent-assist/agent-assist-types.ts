@@ -1,12 +1,13 @@
 /**
- * Agent Assist presentation states.
+ * Agent Assist presentation state.
  *
- * Only states that can be truthfully mapped from the current runtime are
- * modeled here (see AGENT_ASSIST_PREFLIGHT.md). There is no assist session,
- * transcript, or suggestion runtime in the POC, so "Starting / Listening /
- * Live / Ended" have no source and are intentionally absent.
+ * Agent Assist is configuration-only in this POC — there is no transcript,
+ * session, or suggestion runtime (see AGENT_ASSIST_RUNTIME_AUDIT.md). The
+ * panel is call-scoped and renders a single truthful "not modeled" state.
+ * States like Starting / Listening / Live / Ended have no runtime source and
+ * are intentionally absent.
  */
-export type AssistPanelState = 'waiting' | 'unavailable';
+export type AssistPanelState = 'notModeled';
 
 export interface AssistPanelMeta {
     /** Compact textual status shown in the panel header. */
@@ -18,14 +19,10 @@ export interface AssistPanelMeta {
 }
 
 export const ASSIST_PANEL_META: Record<AssistPanelState, AssistPanelMeta> = {
-    waiting: {
-        status: 'Waiting',
-        title: 'No assisted call is active',
-        description: 'Agent Assist will start when an eligible call begins.',
-    },
-    unavailable: {
-        status: 'Unavailable',
-        title: 'Agent Assist is unavailable',
-        description: 'Agent Assist is disabled in Administration → AI Center.',
+    notModeled: {
+        status: 'Not modeled',
+        title: "Agent Assist isn't available for this call",
+        description:
+            'Agent Assist is configuration-only in this POC — the transcript and suggestions runtime is not modeled.',
     },
 };

@@ -10,29 +10,25 @@ import {
 import { useIsDesktop } from '@/hooks/use-is-desktop';
 import { cn } from '@/lib/utils';
 import { ASSIST_PANEL_META } from './agent-assist-types';
-import { useAgentAssistState } from './use-agent-assist-state';
 
 export interface AgentAssistPanelProps {
-    /** Whether the panel is open (sheet) / visible (docked aside). */
-    open: boolean;
-    /** Close the panel. Hides the panel only — no assist session exists to stop. */
+    /** Close the panel. Only the panel closes — no assist session exists to stop. */
     onClose: () => void;
 }
 
 /**
- * Honest Agent Assist companion panel.
+ * Honest, call-scoped Agent Assist companion panel.
  *
- * Docked right-side panel on desktop (left of the Call Manager), right-side
- * sheet below 1024px. Reflects only real runtime state — the calm Waiting /
- * Unavailable empty state, with no transcript, suggestions, or problem cards
- * the runtime cannot back (AGENT_ASSIST_PREFLIGHT.md). No pulsing status dot,
- * no glow, no invented timer.
+ * Mounted only while an active call exists (see agent-workspace-page). Docked
+ * left of the Call Manager on desktop (>=1024px), right-side sheet below. It
+ * renders a single truthful state — Agent Assist is configuration-only in this
+ * POC, with no transcript/session runtime (AGENT_ASSIST_RUNTIME_AUDIT.md). No
+ * pulsing status dot, no glow, no invented timer or suggestions.
  */
-export function AgentAssistPanel({ open, onClose }: AgentAssistPanelProps) {
-    const state = useAgentAssistState();
+export function AgentAssistPanel({ onClose }: AgentAssistPanelProps) {
     const isDesktop = useIsDesktop();
     const headingId = useId();
-    const meta = ASSIST_PANEL_META[state];
+    const meta = ASSIST_PANEL_META.notModeled;
 
     const header = (
         <div
@@ -88,10 +84,7 @@ export function AgentAssistPanel({ open, onClose }: AgentAssistPanelProps) {
         return (
             <aside
                 aria-labelledby={headingId}
-                className={cn(
-                    'hidden h-full w-[360px] shrink-0 flex-col border-l border-flex-workspace-divider bg-flex-workspace-surface lg:flex',
-                    !open && 'hidden',
-                )}
+                className="flex h-full w-[360px] shrink-0 flex-col border-l border-flex-workspace-divider bg-flex-workspace-surface lg:flex"
             >
                 {header}
                 {body}
@@ -100,7 +93,7 @@ export function AgentAssistPanel({ open, onClose }: AgentAssistPanelProps) {
     }
 
     return (
-        <Sheet open={open} onOpenChange={(next) => !next && onClose()}>
+        <Sheet open onOpenChange={(next) => !next && onClose()}>
             <SheetContent side="right" className="flex flex-col gap-0 p-0">
                 <SheetHeader className="sr-only">
                     <SheetTitle>Agent Assist</SheetTitle>

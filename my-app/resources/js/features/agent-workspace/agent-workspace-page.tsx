@@ -1,8 +1,5 @@
-import { RiSparklingLine } from '@remixicon/react';
 import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
 import { AgentShell } from '@/layouts/agent-shell';
-import { cn } from '@/lib/utils';
 import { AgentAssistPanel } from './agent-assist/agent-assist-panel';
 import { AgentOperationalHeader } from './agent-operational-header';
 import { CallManager } from './call-manager/call-manager';
@@ -13,11 +10,15 @@ import { useWorkspaceState } from './state/use-workspace-state';
  * Canonical FLEX Agent transaction workspace.
  *
  * Composes the Agent shell, the frozen external CRM integration boundary,
- * the Call Manager panel, and the optional Agent Assist companion panel.
+ * the Call Manager panel, and the call-scoped Agent Assist companion panel.
  * FLEX owns the shell, operational header, agent state, connection state,
  * and Call Manager — never the CRM contents. Agent state, telephony
  * connection, and call state all come from the canonical workspace owner
  * (AGENT_WORKSPACE_PLAN §50).
+ *
+ * Agent Assist is call-scoped: it renders only while an active call exists
+ * and the agent has opened it (AGENT_ASSIST_RUNTIME_AUDIT.md). On call end it
+ * resets closed, so there is never an Assist UI with no call.
  */
 export function AgentWorkspacePage() {
     const {
@@ -26,17 +27,27 @@ export function AgentWorkspacePage() {
         connection,
         sessionStartedAt,
         setAgentState,
+        callState,
     } = useWorkspaceState();
     const [assistOpen, setAssistOpen] = useState(false);
 
+    const hasActiveCall = callState !== 'idle';
+
+    // Keep Assist call-scoped: reset closed whenever the call ends. Adjusted
+    // during render (the documented pattern) so no effect schedules a cascade.
+    if (!hasActiveCall && assistOpen) {
+        setAssistOpen(false);
+    }
+
     return (
         <AgentShell
-            callManagerPanel={<CallManager />}
+            callManagerPanel={
+                <CallManager onOpenAssist={() => setAssistOpen(true)} />
+            }
             assistPanel={
-                <AgentAssistPanel
-                    open={assistOpen}
-                    onClose={() => setAssistOpen(false)}
-                />
+                hasActiveCall && assistOpen ? (
+                    <AgentAssistPanel onClose={() => setAssistOpen(false)} />
+                ) : null
             }
             topbar={
                 <AgentOperationalHeader
@@ -45,24 +56,6 @@ export function AgentWorkspacePage() {
                     pendingState={agentStatePending}
                     connectionState={connection}
                     sessionStartedAt={sessionStartedAt}
-                    assistSlot={
-                        <Button
-                            type="button"
-                            variant="ghost"
-                            onClick={() => setAssistOpen((open) => !open)}
-                            aria-pressed={assistOpen}
-                            aria-label="Toggle Agent Assist"
-                            className={cn(
-                                'gap-1.5',
-                                assistOpen && 'bg-muted text-foreground',
-                            )}
-                        >
-                            <RiSparklingLine className="size-4" />
-                            <span className="hidden sm:inline">
-                                Agent Assist
-                            </span>
-                        </Button>
-                    }
                 />
             }
         >
