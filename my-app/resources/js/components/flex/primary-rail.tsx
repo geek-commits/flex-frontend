@@ -46,7 +46,7 @@ export function PrimaryRail({ currentPath, activeWorkspace = 'admin' }: PrimaryR
                                             <Link
                                                 href={item.href}
                                                 aria-label={item.title}
-                                                className={`relative flex items-center justify-center size-10 rounded-lg transition-all duration-flex-fast flex-focus-visible ${
+                                                className={`relative flex items-center justify-center size-10 rounded-lg transition-all duration-[var(--flex-duration-fast)] flex-focus-visible ${
                                                     isActive
                                                         ? 'bg-primary text-primary-foreground shadow-xs font-semibold'
                                                         : 'text-muted-foreground hover:text-foreground hover:bg-muted/70'
@@ -76,7 +76,7 @@ export function PrimaryRail({ currentPath, activeWorkspace = 'admin' }: PrimaryR
                                 <button
                                     onClick={toggleTheme}
                                     aria-label={appearance === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-                                    className="flex items-center justify-center size-10 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/70 transition-colors duration-flex-fast flex-focus-visible"
+                                    className="flex items-center justify-center size-10 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/70 transition-colors duration-[var(--flex-duration-fast)] flex-focus-visible"
                                 >
                                     <FlexIcon name={appearance === 'dark' ? 'sun' : 'moon'} className="size-5" />
                                 </button>

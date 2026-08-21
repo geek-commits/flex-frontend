@@ -17,10 +17,10 @@ export function ConsoleModuleItem({ module }: ConsoleModuleItemProps) {
     return (
         <Link
             href={module.href}
-            className="group flex flex-focus-visible items-center gap-3 rounded-md border border-border bg-card px-3 py-2.5 transition-colors duration-flex-fast hover:border-primary/40 hover:bg-muted/40 active:bg-muted/60"
+            className="group flex flex-focus-visible items-center gap-3 rounded-md border border-border bg-card px-3 py-2.5 transition-colors duration-[var(--flex-duration-fast)] hover:border-primary/40 hover:bg-muted/40 active:bg-muted/60"
         >
             <span
-                className="flex size-8 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary transition-colors duration-flex-fast group-hover:bg-primary/15"
+                className="flex size-8 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary transition-colors duration-[var(--flex-duration-fast)] group-hover:bg-primary/15"
                 aria-hidden="true"
             >
                 <FlexIcon name={module.icon} className="size-[18px]" />
@@ -34,7 +34,7 @@ export function ConsoleModuleItem({ module }: ConsoleModuleItemProps) {
                 </span>
             </span>
             <RiArrowRightSLine
-                className="size-4 shrink-0 text-muted-foreground/70 transition-colors duration-flex-fast group-hover:text-primary"
+                className="size-4 shrink-0 text-muted-foreground/70 transition-colors duration-[var(--flex-duration-fast)] group-hover:text-primary"
                 aria-hidden="true"
             />
         </Link>

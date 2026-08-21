@@ -1,5 +1,7 @@
 import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
 import type { TenantRecord } from '@/features/tenants/shared/types';
+import { emitObservability } from '@/lib/observability';
+import { invalidateOnTenantChange } from './tenant-invalidation';
 
 /**
  * Active operating context for the FLEX POC surface.
@@ -28,10 +30,14 @@ export function TenantContextProvider({ children }: { children: React.ReactNode 
 
     const enterTenant = useCallback((tenant: TenantRecord) => {
         setContext({ mode: 'tenant', tenant });
+        invalidateOnTenantChange({ tenantId: tenant.id });
+        emitObservability({ event_name: 'tenant_switch', feature: 'tenant', severity: 'info', route: window.location.pathname, status: 'entered', tenant_id: tenant.id });
     }, []);
 
     const returnToPlatform = useCallback(() => {
         setContext({ mode: 'platform' });
+        invalidateOnTenantChange({ tenantId: null });
+        emitObservability({ event_name: 'tenant_switch', feature: 'tenant', severity: 'info', route: window.location.pathname, status: 'platform' });
     }, []);
 
     const value = useMemo(

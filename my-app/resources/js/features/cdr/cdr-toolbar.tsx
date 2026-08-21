@@ -99,7 +99,7 @@ export function CdrToolbar({
                             key={option.value}
                             type="button"
                             onClick={() => onQuickFilterChange(option.value)}
-                            className={`px-2.5 py-1 rounded-[6px] text-xs font-medium transition-colors duration-flex-fast flex-focus-visible ${
+                            className={`px-2.5 py-1 rounded-[6px] text-xs font-medium transition-colors duration-[var(--flex-duration-fast)] flex-focus-visible ${
                                 quickFilter === option.value
                                     ? 'bg-primary/10 text-primary'
                                     : 'text-muted-foreground hover:text-foreground hover:bg-muted/70'
