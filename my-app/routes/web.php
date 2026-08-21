@@ -40,6 +40,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('admin/cdr/{record}', fn (string $record) => Inertia::render('admin/cdr-detail', ['record' => $record]))->name('admin.cdr.show');
     Route::get('admin/campaigns/{campaign}', fn (string $campaign) => Inertia::render('admin/campaign-detail', ['campaign' => $campaign]))->name('admin.campaigns.show');
     Route::get('customers/{customer}', fn (string $customer) => Inertia::render('customers/show', ['customer' => $customer]))->name('customers.show');
+    Route::inertia('supervision/exceptions', 'supervision/exceptions')->name('supervision.exceptions');
+    Route::inertia('admin/health', 'admin/health')->name('admin.health');
 
     // Agent Workspace Surfaces
     Route::inertia('agent', 'agent/index')->name('agent.index');
