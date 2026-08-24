@@ -39,17 +39,6 @@ export const CDR_FILTER_FIELDS: FilterFieldConfig[] = [
         className: 'w-44',
         placeholder: 'Search agent...',
     },
-    {
-        key: 'recording',
-        label: 'Recording',
-        type: 'select',
-        searchable: false,
-        className: 'w-[140px]',
-        options: [
-            { value: 'has', label: 'Has recording' },
-            { value: 'none', label: 'No recording' },
-        ],
-    },
 ];
 
 export interface CdrToolbarProps {

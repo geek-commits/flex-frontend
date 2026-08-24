@@ -1,4 +1,4 @@
-import { RiDownload2Line, RiEyeLine, RiPlayFill } from '@remixicon/react';
+import { RiEyeLine, RiPlayFill } from '@remixicon/react';
 import type { ColumnDef } from '@tanstack/react-table';
 import { FlexStatus  } from '@/components/flex/flex-status';
 import type {FlexStatusTone} from '@/components/flex/flex-status';
@@ -127,7 +127,7 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
             id: 'actions',
             header: 'Actions',
             cell: ({ row }) => (
-                <div className="flex items-center gap-1">
+                <div className="flex items-center justify-center">
                     {onViewRecord && (
                         <Button
                             variant="ghost"
@@ -141,17 +141,9 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
                             <RiEyeLine className="size-3.5" />
                         </Button>
                     )}
-                    <Button
-                        variant="ghost"
-                        size="icon-xs"
-                        title="Download Record"
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <RiDownload2Line className="size-3.5" />
-                    </Button>
                 </div>
             ),
-            size: 96,
+            size: 64,
             enableSorting: false,
             enableHiding: false,
             meta: { kind: 'action', align: 'center' },

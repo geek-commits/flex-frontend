@@ -1,5 +1,5 @@
 import { router } from '@inertiajs/react';
-import { RiDownload2Line, RiExternalLinkLine, RiPlayFill, RiPauseLine } from '@remixicon/react';
+import { RiExternalLinkLine, RiPlayFill, RiPauseLine } from '@remixicon/react';
 import { useState } from 'react';
 import { FlexDetailSheet } from '@/components/flex/flex-detail-sheet';
 import { FlexStatus } from '@/components/flex/flex-status';
@@ -46,13 +46,6 @@ export function CdrDetailSheet({ recordId, onOpenChange }: CdrDetailSheetProps) 
             }
             footer={
                 <>
-                    <Button variant="outline" size="sm" className="gap-1.5 text-xs">
-                        <RiDownload2Line className="size-3.5" />
-                        Recording
-                    </Button>
-                    <Button size="sm" className="gap-1.5 text-xs">
-                        Call Back
-                    </Button>
                     {record && (
                         <Button
                             variant="ghost"

@@ -1,5 +1,5 @@
 import { Head, usePage } from '@inertiajs/react';
-import { RiDownload2Line, RiPhoneLine, RiExportLine, RiPlayFill, RiPauseLine } from '@remixicon/react';
+import { RiPlayFill, RiPauseLine } from '@remixicon/react';
 import { motion, useReducedMotion } from 'motion/react';
 import React, { useState } from 'react';
 import { BackLink } from '@/components/flex/back-link';
@@ -54,12 +54,7 @@ export default function CdrDetailPage() {
             contextTitle="Telephony"
             contextSubtitle="Call records & operations"
             contextGroups={cdrContextGroups}
-            actions={
-                <Button variant="outline" size="sm" className="gap-1.5 text-xs">
-                    <RiExportLine className="size-3.5" />
-                    Export
-                </Button>
-            }
+            actions={undefined}
         >
             <Head title={`Call Detail ${recordId} — Flex Contact Center`} />
 
@@ -93,14 +88,7 @@ export default function CdrDetailPage() {
                                     </div>
 
                                     <div className="flex items-center gap-2 flex-wrap">
-                                        <Button variant="outline" size="sm" className="gap-1.5 text-xs">
-                                            <RiDownload2Line className="size-3.5" />
-                                            Download Recording
-                                        </Button>
-                                        <Button size="sm" className="gap-1.5 text-xs">
-                                            <RiPhoneLine className="size-3.5" />
-                                            Call Back
-                                        </Button>
+                                        {/* Download/Call Back actions hidden — no backend handler, retain truthful Recording tile */}
                                     </div>
                                 </div>
 
