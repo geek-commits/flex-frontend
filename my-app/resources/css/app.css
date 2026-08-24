@@ -222,6 +222,12 @@
     --flex-surface: var(--card);
     --flex-surface-subtle: oklch(0.985 0.002 247);
     --flex-surface-muted: var(--muted);
+    /* Layers — Plane pivot vocabulary (Phase 00 aliases, reuse existing values) */
+    --flex-layer: var(--card);
+    --flex-layer-hover: var(--flex-surface-subtle);
+    --flex-layer-active: var(--muted);
+    --flex-layer-selected: var(--accent);
+    --flex-text-tertiary: var(--flex-text-muted);
 
     /* Borders */
     --flex-border: var(--border);
