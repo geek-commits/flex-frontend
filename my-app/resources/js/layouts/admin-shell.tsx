@@ -1,9 +1,8 @@
+import { RiLayoutRightLine } from '@remixicon/react';
 import React, { Suspense, lazy } from 'react';
-import { RiLayoutLeftLine, RiLayoutRightLine } from '@remixicon/react';
 import { AppProviders } from '@/components/flex/app-providers';
 import { AppTopbar } from '@/components/flex/app-topbar';
 import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
-import { Button } from '@/components/ui/button';
 import { FlexPageContent } from '@/components/flex/flex-page-content';
 import { FlexPageHeader } from '@/components/flex/flex-page-header';
 import { PrimaryRail } from '@/components/flex/primary-rail';
@@ -48,6 +47,21 @@ function AdminShellInner({
             {/* Primary Rail — always visible on desktop */}
             <PrimaryRail activeWorkspace="admin" />
 
+            {/* Contextual Sidebar boundary — collapse affordance lives in the sidebar header */}
+            {hasContext && !contextSidebarOpen && (
+                <div className="hidden md:flex w-9 shrink-0 h-screen sticky top-0 flex-col items-center pt-3 border-r border-flex-workspace-divider bg-flex-workspace-surface">
+                    <button
+                        type="button"
+                        onClick={toggleContextSidebar}
+                        aria-label="Show sidebar"
+                        title="Show sidebar"
+                        className="flex size-7 items-center justify-center rounded-md bg-transparent text-flex-text-tertiary transition-colors duration-[var(--flex-duration-fast)] hover:bg-flex-layer-hover hover:text-flex-text-primary flex-focus-visible"
+                    >
+                        <RiLayoutRightLine className="size-4" />
+                    </button>
+                </div>
+            )}
+
             {/* Optional Contextual Sidebar — collapsible focus mode */}
             {hasContext && (
                 <div
@@ -71,21 +85,6 @@ function AdminShellInner({
 
             {/* Main Area — gains width when context collapses, page padding stable */}
             <div className="flex-1 flex flex-col min-w-0">
-                <div className="flex items-center gap-2 px-3 py-1 border-b border-flex-workspace-divider bg-flex-workspace-surface">
-                    {hasContext && (
-                        <Button
-                            variant="ghost"
-                            size="icon-xs"
-                            aria-label={contextSidebarOpen ? 'Collapse contextual navigation' : 'Expand contextual navigation'}
-                            onClick={toggleContextSidebar}
-                            className="shrink-0"
-                            title={contextSidebarOpen ? 'Collapse sidebar (focus mode)' : 'Expand sidebar'}
-                        >
-                            {contextSidebarOpen ? <RiLayoutLeftLine className="size-4" /> : <RiLayoutRightLine className="size-4" />}
-                        </Button>
-                    )}
-                    <span className="text-xs text-flex-text-tertiary truncate">Focus mode keeps rail visible — workspace gains width, filters and scroll preserved</span>
-                </div>
                 <AppTopbar mode="admin" />
 
                 <main className="flex-1 overflow-y-auto min-w-0">

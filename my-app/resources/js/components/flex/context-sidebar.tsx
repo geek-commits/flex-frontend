@@ -1,10 +1,12 @@
 import { Link, usePage } from '@inertiajs/react';
+import { RiLayoutLeftLine } from '@remixicon/react';
 import React, { useMemo, useState } from 'react';
 import { useCapabilities  } from '@/auth/capabilities';
 import type { Capability } from '@/auth/capabilities';
 import type { FlexIconName } from '@/components/flex/iconography';
 import { FlexIcon } from '@/components/flex/iconography';
 import { Input } from '@/components/ui/input';
+import { useShell } from '@/components/flex/shell-context';
 
 export interface ContextSidebarItem {
     title: string;
@@ -28,6 +30,7 @@ export interface ContextSidebarProps {
 export function ContextSidebar({ title, subtitle, groups }: ContextSidebarProps) {
     const { url } = usePage();
     const { has } = useCapabilities();
+    const { toggleContextSidebar } = useShell();
     const [search, setSearch] = useState('');
 
     const needle = search.trim().toLocaleLowerCase();
@@ -47,9 +50,20 @@ export function ContextSidebar({ title, subtitle, groups }: ContextSidebarProps)
 
     return (
         <aside className="w-56 bg-card border-r border-border h-screen sticky top-0 shrink-0 overflow-y-auto hidden md:flex flex-col py-4 px-3 select-none">
-            <div className="mb-3 px-2">
-                <h2 className="text-[13px] font-semibold tracking-tight text-flex-text-primary">{title}</h2>
-                {subtitle && <p className="text-xs text-flex-text-tertiary mt-0.5">{subtitle}</p>}
+            <div className="mb-3 px-2 flex items-start justify-between gap-2">
+                <div className="min-w-0">
+                    <h2 className="text-[13px] font-semibold tracking-tight text-flex-text-primary">{title}</h2>
+                    {subtitle && <p className="text-xs text-flex-text-tertiary mt-0.5">{subtitle}</p>}
+                </div>
+                <button
+                    type="button"
+                    onClick={toggleContextSidebar}
+                    aria-label="Hide sidebar"
+                    title="Hide sidebar"
+                    className="flex size-7 shrink-0 items-center justify-center rounded-md bg-transparent text-flex-text-tertiary transition-colors duration-[var(--flex-duration-fast)] hover:bg-flex-layer-hover hover:text-flex-text-primary flex-focus-visible"
+                >
+                    <RiLayoutLeftLine className="size-4" />
+                </button>
             </div>
 
             <div className="relative mb-3 px-1">
