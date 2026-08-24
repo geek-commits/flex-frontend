@@ -148,7 +148,7 @@ export function QueueMembersSheet({ queue, onOpenChange, onChanged }: QueueMembe
                             ) : (
                                 <ul className="divide-y divide-border">
                                     {available.map((agent) => (
-                                        <li key={agent.agentId} className="flex items-center justify-between gap-3 px-3 py-2 hover:bg-muted/30 transition-colors">
+                                        <li key={agent.agentId} className="flex items-center justify-between gap-3 px-3 py-2 hover:bg-flex-layer-hover transition-colors">
                                             <div className="flex flex-col min-w-0">
                                                 <span className="text-xs font-semibold text-flex-text-primary truncate">{agent.name}</span>
                                                 <span className="text-[11px] text-flex-text-muted truncate">

@@ -42,7 +42,7 @@ export function TimeGroupTable({ records, onEdit, onDelete }: TimeGroupTableProp
                             const usage = routingRepository.timeGroupUsage(group.id);
 
                             return (
-                                <tr key={group.id} className="border-b border-border last:border-b-0 hover:bg-muted/30 transition-colors">
+                                <tr key={group.id} className="border-b border-border last:border-b-0 hover:bg-flex-layer-hover transition-colors">
                                     <td className="px-4 py-2.5 text-xs font-semibold text-flex-text-primary whitespace-nowrap text-start">{group.description}</td>
                                     <td className="px-4 py-2.5 text-xs text-flex-text-primary whitespace-nowrap text-start">
                                         {formatTimeGroupSummary(group.entries)}

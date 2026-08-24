@@ -45,7 +45,7 @@ export function QueueTable({ records, onView, onEdit, onMembers }: QueueTablePro
                     </thead>
                     <tbody>
                         {records.map((queue) => (
-                            <tr key={queue.id} className="border-b border-border last:border-b-0 hover:bg-muted/30 transition-colors">
+                            <tr key={queue.id} className="border-b border-border last:border-b-0 hover:bg-flex-layer-hover transition-colors">
                                 <td className="px-4 py-2.5 text-start">
                                     <span className="block text-xs font-semibold text-flex-text-primary whitespace-nowrap">{queue.name}</span>
                                     {queue.description && (

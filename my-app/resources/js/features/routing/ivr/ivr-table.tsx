@@ -40,7 +40,7 @@ export function IVRTable({ records, onView, onEdit }: IVRTableProps) {
                     </thead>
                     <tbody>
                         {records.map((ivr) => (
-                            <tr key={ivr.id} className="border-b border-border last:border-b-0 hover:bg-muted/30 transition-colors">
+                            <tr key={ivr.id} className="border-b border-border last:border-b-0 hover:bg-flex-layer-hover transition-colors">
                                 <td className="px-4 py-2.5 text-xs font-semibold text-flex-text-primary whitespace-nowrap text-start">{ivr.name}</td>
                                 <td className="px-4 py-2.5 font-mono text-xs text-flex-text-muted text-start">{ivr.prompt}</td>
                                 <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary text-end">{ivr.entries.length}</td>
