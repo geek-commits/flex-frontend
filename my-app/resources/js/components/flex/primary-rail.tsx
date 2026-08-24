@@ -26,14 +26,14 @@ export function PrimaryRail({ currentPath, activeWorkspace = 'admin' }: PrimaryR
 
     return (
         <TooltipProvider delay={150}>
-            <aside className="w-16 hidden md:flex flex-col items-center justify-between py-3 bg-card border-r border-border h-screen sticky top-0 shrink-0 z-30 select-none">
+            <aside className="w-14 hidden md:flex flex-col items-center justify-between py-3 bg-flex-workspace-surface border-r border-flex-workspace-divider h-screen sticky top-0 shrink-0 z-30 select-none">
                 {/* Top Section: Logo & primary navigation */}
-                <div className="flex flex-col items-center gap-5 w-full">
+                <div className="flex flex-col items-center gap-4 w-full">
                     <Link href="/dashboard" className="p-1 hover:opacity-90 transition-opacity" title="Flex Contact Center">
-                        <FlexBrandMark size={28} standalone />
+                        <FlexBrandMark size={24} standalone />
                     </Link>
 
-                    <div className="w-8 h-px bg-border my-0.5" />
+                    <div className="w-8 h-px bg-flex-workspace-divider my-0.5" />
 
                     <nav className="flex flex-col items-center gap-1.5 w-full px-2">
                         {navItems.map((item) => {
