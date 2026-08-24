@@ -1,6 +1,6 @@
 import { Link, usePage } from '@inertiajs/react';
-import { RiWifiLine, RiTimeLine, RiMenuLine } from '@remixicon/react';
-import React, { useState, useEffect } from 'react';
+import { RiWifiLine, RiMenuLine } from '@remixicon/react';
+import React from 'react';
 import { useCapabilities } from '@/auth/capabilities';
 import { FlexBrandLogo } from '@/components/flex/brand';
 import { useBrandIntroReplayGuard } from '@/components/flex/brand/use-brand-intro-replay-guard';
@@ -36,29 +36,6 @@ export function AppTopbar({
     const { url } = usePage();
     const animateOnMount = useBrandIntroReplayGuard();
     const { navEntries } = useCapabilities();
-    const [seconds, setSeconds] = useState(319); // 00:05:19 initial demonstration counter
-
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setSeconds((prev) => prev + 1);
-        }, 1000);
-
-        return () => clearInterval(timer);
-    }, []);
-
-    const formatTimer = (totalSec: number) => {
-        const hrs = Math.floor(totalSec / 3600);
-        const mins = Math.floor((totalSec % 3600) / 60);
-        const secs = totalSec % 60;
-
-        return [
-            hrs > 0 ? String(hrs).padStart(2, '0') : null,
-            String(mins).padStart(2, '0'),
-            String(secs).padStart(2, '0'),
-        ]
-            .filter(Boolean)
-            .join(':');
-    };
 
     const currentAgentConfig = agentStateMap[agentState];
     const connConfig = connectionStateMap[connectionState];
@@ -125,52 +102,46 @@ export function AppTopbar({
 
                 <GlobalSearchTrigger />
 
-                {/* Agent Specific Toolbar Controls */}
+                {/* Agent State — compact ghost selector (transparent default, subtle hover) */}
                 {mode === 'agent' && (
-                    <div className="flex items-center gap-2 bg-muted/50 p-1 rounded-lg border border-border">
-                        {/* Agent Presence Selector */}
-                        <Select
-                            value={agentState}
-                            onValueChange={(val) => onAgentStateChange?.(val as AgentState)}
+                    <Select
+                        value={agentState}
+                        onValueChange={(val) => onAgentStateChange?.(val as AgentState)}
+                    >
+                        <SelectTrigger
+                            className="h-8 w-32 gap-1.5 rounded-md border border-transparent bg-transparent px-2.5 text-[13px] font-medium text-flex-text-primary shadow-none hover:bg-flex-layer-hover data-[state=open]:bg-flex-layer-active focus-visible:ring-2 focus-visible:ring-ring"
+                            aria-label="Agent availability state"
                         >
-                            <SelectTrigger className="h-8 text-xs font-semibold px-2.5 bg-card border-border w-32">
-                                <div className="flex items-center gap-1.5 truncate">
-                                    <span className={`size-2 rounded-full ${currentAgentConfig.dotClass}`} />
-                                    <SelectValue>{currentAgentConfig.label}</SelectValue>
-                                </div>
-                            </SelectTrigger>
-                            <SelectContent align="end">
-                                {(Object.keys(agentStateMap) as AgentState[]).map((key) => {
-                                    const cfg = agentStateMap[key];
+                            <span className="flex items-center gap-1.5 truncate">
+                                <span className={`size-2 rounded-full ${currentAgentConfig.dotClass}`} aria-hidden="true" />
+                                <SelectValue>{currentAgentConfig.label}</SelectValue>
+                            </span>
+                        </SelectTrigger>
+                        <SelectContent align="end">
+                            {(Object.keys(agentStateMap) as AgentState[]).map((key) => {
+                                const cfg = agentStateMap[key];
 
-                                    return (
-                                        <SelectItem key={key} value={key} className="text-xs">
-                                            <div className="flex items-center gap-2">
-                                                <span className={`size-2 rounded-full ${cfg.dotClass}`} />
-                                                <span>{cfg.label}</span>
-                                            </div>
-                                        </SelectItem>
-                                    );
-                                })}
-                            </SelectContent>
-                        </Select>
-
-                        {/* Session Timer */}
-                        <div className="flex items-center gap-1 px-2.5 py-1 text-xs font-mono font-semibold text-foreground bg-card rounded-md border border-border">
-                            <RiTimeLine className="size-3.5 text-muted-foreground" />
-                            <span>{formatTimer(seconds)}</span>
-                        </div>
-                    </div>
+                                return (
+                                    <SelectItem key={key} value={key} className="text-xs">
+                                        <span className={`size-2 rounded-full ${cfg.dotClass}`} aria-hidden="true" />
+                                        <span>{cfg.label}</span>
+                                    </SelectItem>
+                                );
+                            })}
+                        </SelectContent>
+                    </Select>
                 )}
 
-                {/* Connection Status Badge */}
-                <div
-                    className={`hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium border ${connConfig.bgClass} ${connConfig.textClass} ${connConfig.borderClass}`}
-                >
-                    <RiWifiLine className="size-3.5" />
-                    <span className={`size-1.5 rounded-full ${connConfig.dotClass}`} />
-                    <span>{connConfig.label}</span>
-                </div>
+                {/* Connection Status Badge — hidden when healthy (§25 show nothing if live) */}
+                {connectionState !== 'live' && (
+                    <div
+                        className={`hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium border ${connConfig.bgClass} ${connConfig.textClass} ${connConfig.borderClass}`}
+                    >
+                        <RiWifiLine className="size-3.5" />
+                        <span className={`size-1.5 rounded-full ${connConfig.dotClass}`} />
+                        <span>{connConfig.label}</span>
+                    </div>
+                )}
 
                 {/* Tenant / Platform Context (admin only) — adjacent to profile */}
                 <div data-call-island-zone="profile-tenant" className="flex items-center gap-3">

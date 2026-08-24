@@ -51,7 +51,7 @@ export function AgentOperationalHeader({
     const animateOnMount = useBrandIntroReplayGuard();
 
     return (
-        <header className="sticky top-0 z-20 flex min-h-14 shrink-0 select-none flex-col gap-2 border-b border-border bg-card px-3 py-2 md:h-14 md:flex-row md:items-center md:justify-between md:gap-3 md:px-4 md:py-0">
+        <header className="sticky top-0 z-20 flex h-11 shrink-0 select-none items-center justify-between gap-3 border-b border-flex-workspace-divider bg-flex-workspace-surface px-3 md:px-4">
             {/* Title / Mobile Drawer */}
             <div className="flex min-w-0 items-center gap-2.5">
                 <Sheet>
@@ -104,15 +104,7 @@ export function AgentOperationalHeader({
                 </Sheet>
 
                 <div className="min-w-0">
-                    <h1 className="flex items-center gap-2 text-sm font-semibold tracking-tight text-foreground">
-                        {title}
-                        <span className="rounded-full border border-primary/20 bg-primary/10 px-2 py-0.5 text-[10px] font-bold text-primary uppercase">
-                            Agent Mode
-                        </span>
-                    </h1>
-                    <p className="truncate text-xs text-muted-foreground">
-                        {subtitle}
-                    </p>
+                    <h1 className="truncate text-sm font-semibold tracking-tight text-flex-text-primary">{title}</h1>
                 </div>
             </div>
 

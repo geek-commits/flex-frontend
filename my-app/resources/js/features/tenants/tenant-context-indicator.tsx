@@ -16,11 +16,7 @@ export function TenantContextIndicator() {
 
     return (
         <div
-            className={`hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium border ${
-                inTenant
-                    ? 'bg-primary/10 text-primary border-primary/20'
-                    : 'bg-muted/50 text-muted-foreground border-border'
-            }`}
+            className={`hidden sm:flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-medium transition-colors hover:bg-flex-layer-hover ${inTenant ? 'text-primary' : 'text-flex-text-tertiary hover:text-flex-text-primary'}`}
             title={inTenant ? `Operating inside ${context.tenant.name}` : 'Operating across all tenants'}
         >
             {inTenant ? <RiStore3Line className="size-3.5" /> : <RiGlobalLine className="size-3.5" />}

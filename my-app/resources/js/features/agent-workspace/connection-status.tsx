@@ -13,6 +13,10 @@ export interface ConnectionStatusProps {
  * (docs/design/domain/agent-state.md §19 — Ready is not the same as Connected).
  */
 export function ConnectionStatus({ state, className }: ConnectionStatusProps) {
+    if (state === 'live') {
+        return null;
+    }
+
     const cfg = connectionStateMap[state];
 
     return (

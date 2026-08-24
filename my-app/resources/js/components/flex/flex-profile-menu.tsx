@@ -57,21 +57,13 @@ export function FlexProfileMenu() {
         <>
             <DropdownMenu>
                 <DropdownMenuTrigger
-                    className="flex items-center gap-2 rounded-full p-0.5 pr-1.5 pl-0.5 outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring hover:bg-muted/60"
+                    className="flex items-center justify-center size-8 rounded-full bg-transparent p-0 outline-none transition-colors hover:bg-flex-layer-hover focus-visible:ring-2 focus-visible:ring-ring"
+                    aria-label="Open profile menu"
                 >
-                    <Avatar size="default" className="size-9">
+                    <Avatar size="default" className="size-8">
                         {user.avatar ? <AvatarImage src={user.avatar} alt="" /> : null}
                         <AvatarFallback>{initials}</AvatarFallback>
                     </Avatar>
-                    <span className="hidden lg:block text-left">
-                        <span className="block text-xs font-semibold text-foreground leading-none">
-                            {user.name}
-                        </span>
-                        <span className="block text-[10px] text-muted-foreground font-medium mt-0.5">
-                            {roleLabel(role)}
-                        </span>
-                    </span>
-                    <RiSettings4Line className="hidden lg:block size-3.5 text-muted-foreground" />
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent align="end" sideOffset={8} className="w-72">

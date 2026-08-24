@@ -45,22 +45,21 @@ export function AgentStateControl({
             data-call-island-zone="agent-state"
             className={`flex items-center gap-1.5 ${className ?? ''}`}
         >
-            <div className="flex items-center gap-2 bg-muted/50 p-1 rounded-lg border border-border">
-                <Select
-                    value={state}
-                    onValueChange={(val) => onSelect(val as AgentState)}
-                    disabled={isPending}
+            <Select
+                value={state}
+                onValueChange={(val) => onSelect(val as AgentState)}
+                disabled={isPending}
+            >
+                <SelectTrigger
+                    size="sm"
+                    className="h-8 w-32 gap-1.5 rounded-md border border-transparent bg-transparent px-2.5 text-[13px] font-medium text-flex-text-primary shadow-none hover:bg-flex-layer-hover data-[state=open]:bg-flex-layer-active focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0"
+                    aria-label="Agent availability state"
                 >
-                    <SelectTrigger
-                        size="sm"
-                        className="w-32 bg-card border-border text-xs font-semibold px-2.5"
-                        aria-label="Agent availability state"
-                    >
-                        <div className="flex items-center gap-1.5 truncate">
-                            <span className={`size-2 rounded-full ${current.dotClass}`} />
-                            <SelectValue>{current.label}</SelectValue>
-                        </div>
-                    </SelectTrigger>
+                    <span className="flex items-center gap-1.5 truncate">
+                        <span className={`size-2 rounded-full ${current.dotClass}`} aria-hidden="true" />
+                        <SelectValue>{current.label}</SelectValue>
+                    </span>
+                </SelectTrigger>
                     <SelectContent align="end">
                         {SELECTABLE_AGENT_STATES.map((key) => {
                             const cfg = agentStateMap[key];
@@ -84,7 +83,6 @@ export function AgentStateControl({
                         Updating…
                     </span>
                 )}
-            </div>
 
             {error && (
                 <span
