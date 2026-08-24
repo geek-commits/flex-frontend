@@ -63,7 +63,6 @@ export function SocialWorkspacePage() {
             topbar={
                 <AgentOperationalHeader
                     title="Social Inbox"
-                    subtitle="Unified customer conversations across connected channels"
                     agentState={agentState}
                     onAgentStateChange={setAgentState}
                     pendingState={agentStatePending}

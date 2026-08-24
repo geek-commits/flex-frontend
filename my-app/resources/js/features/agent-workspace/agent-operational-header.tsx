@@ -28,7 +28,6 @@ export interface AgentOperationalHeaderProps {
     connectionState: ConnectionState;
     sessionStartedAt?: string;
     title?: string;
-    subtitle?: string;
 }
 
 /**
@@ -44,7 +43,6 @@ export function AgentOperationalHeader({
     connectionState,
     sessionStartedAt,
     title = 'Agent Workspace',
-    subtitle = 'External CRM & Central Call Manager',
 }: AgentOperationalHeaderProps) {
     const { url } = usePage();
     const { navEntries } = useCapabilities();
