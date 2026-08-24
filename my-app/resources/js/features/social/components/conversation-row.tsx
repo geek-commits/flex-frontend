@@ -30,10 +30,10 @@ export function ConversationRow({ conversation, active, onSelect }: Conversation
             aria-current={active ? 'true' : undefined}
             role="listitem"
             className={cn(
-                'flex w-full items-start gap-3 rounded-md px-3 py-2.5 text-left transition-colors duration-[var(--flex-duration-fast)]',
+                'flex w-full items-start gap-3 rounded-md border px-3 py-2.5 text-left transition-colors duration-[var(--flex-duration-fast)]',
                 active
-                    ? 'bg-primary/[0.06]'
-                    : 'hover:bg-flex-workspace-surface-muted',
+                    ? 'bg-flex-layer-selected border-flex-workspace-divider-strong'
+                    : 'border-transparent hover:bg-flex-layer-hover hover:border-flex-workspace-divider',
             )}
         >
             <ConversationAvatar conversation={conversation} size="default" className="mt-0.5 size-8" />
