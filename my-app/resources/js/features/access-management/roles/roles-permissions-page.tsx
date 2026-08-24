@@ -36,7 +36,7 @@ export function RolesPermissionsPage() {
             <Head title="Roles & Permissions — Flex Contact Center" />
 
             <Tabs value={tab} onValueChange={(value) => setTab((value as 'roles' | 'permissions') ?? 'roles')}>
-                <TabsList className="mb-4">
+                <TabsList variant="line" className="mb-4">
                     <TabsTrigger value="roles">Roles</TabsTrigger>
                     <TabsTrigger value="permissions">Permissions</TabsTrigger>
                 </TabsList>
