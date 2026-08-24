@@ -46,10 +46,10 @@ export function ContextSidebar({ title, subtitle, groups }: ContextSidebarProps)
     );
 
     return (
-        <aside className="w-56 bg-card/60 border-r border-border h-screen sticky top-0 shrink-0 overflow-y-auto hidden md:flex flex-col py-4 px-3 select-none">
+        <aside className="w-56 bg-card border-r border-border h-screen sticky top-0 shrink-0 overflow-y-auto hidden md:flex flex-col py-4 px-3 select-none">
             <div className="mb-3 px-2">
-                <h2 className="text-sm font-semibold tracking-tight text-foreground">{title}</h2>
-                {subtitle && <p className="text-xs text-muted-foreground mt-0.5">{subtitle}</p>}
+                <h2 className="text-[13px] font-semibold tracking-tight text-flex-text-primary">{title}</h2>
+                {subtitle && <p className="text-xs text-flex-text-tertiary mt-0.5">{subtitle}</p>}
             </div>
 
             <div className="relative mb-3 px-1">
@@ -67,7 +67,7 @@ export function ContextSidebar({ title, subtitle, groups }: ContextSidebarProps)
                 {filteredGroups.map((group, groupIdx) => (
                     <div key={groupIdx} className="flex flex-col gap-1">
                         {group.groupTitle && (
-                            <h3 className="px-2 text-[11px] font-semibold tracking-wider text-muted-foreground uppercase mb-1">
+                            <h3 className="px-2 text-[11px] font-semibold tracking-wider text-flex-text-tertiary uppercase mb-1">
                                 {group.groupTitle}
                             </h3>
                         )}
@@ -79,10 +79,10 @@ export function ContextSidebar({ title, subtitle, groups }: ContextSidebarProps)
                                 <Link
                                     key={item.href}
                                     href={item.href}
-                                    className={`flex items-center justify-between px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors duration-[var(--flex-duration-fast)] flex-focus-visible ${
+                                    className={`flex items-center justify-between px-2.5 h-8 rounded-md text-[13px] font-medium transition-colors duration-[var(--flex-duration-fast)] flex-focus-visible ${
                                         isActive
-                                            ? 'bg-primary text-primary-foreground font-semibold'
-                                            : 'text-muted-foreground hover:text-foreground hover:bg-muted/60'
+                                            ? 'bg-flex-layer-selected border border-flex-workspace-divider-strong text-flex-text-primary'
+                                            : 'text-flex-text-tertiary hover:text-flex-text-primary hover:bg-flex-layer-hover border border-transparent'
                                     }`}
                                 >
                                     <div className="flex items-center gap-2 truncate">

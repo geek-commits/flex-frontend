@@ -89,10 +89,10 @@ export function AppTopbar({
                                     <Link
                                         key={item.href}
                                         href={item.href}
-                                        className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
+                                        className={`flex items-center gap-2.5 px-3 h-8 rounded-md text-[13px] font-medium transition-colors ${
                                             isActive
-                                                ? 'bg-primary text-primary-foreground'
-                                                : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                                                ? 'bg-flex-layer-selected border border-flex-workspace-divider-strong text-flex-text-primary'
+                                                : 'text-flex-text-tertiary hover:bg-flex-layer-hover hover:text-flex-text-primary border border-transparent'
                                         }`}
                                     >
                                         <FlexIcon name={item.icon} className="size-4" />

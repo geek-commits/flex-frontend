@@ -46,13 +46,13 @@ export function PrimaryRail({ currentPath, activeWorkspace = 'admin' }: PrimaryR
                                             <Link
                                                 href={item.href}
                                                 aria-label={item.title}
-                                                className={`relative flex items-center justify-center size-10 rounded-lg transition-all duration-[var(--flex-duration-fast)] flex-focus-visible ${
+                                                className={`relative flex items-center justify-center size-8 rounded-md transition-colors duration-[var(--flex-duration-fast)] flex-focus-visible ${
                                                     isActive
-                                                        ? 'bg-primary text-primary-foreground shadow-xs font-semibold'
-                                                        : 'text-muted-foreground hover:text-foreground hover:bg-muted/70'
+                                                        ? 'bg-flex-layer-selected border border-flex-workspace-divider-strong text-flex-text-primary shadow-none'
+                                                        : 'text-flex-text-tertiary hover:text-flex-text-primary hover:bg-flex-layer-hover'
                                                 }`}
                                             >
-                                                <FlexIcon name={item.icon} className="size-5" />
+                                                <FlexIcon name={item.icon} className="size-4" />
                                                 {item.badge && (
                                                     <span aria-hidden="true" className="absolute -top-0.5 -right-0.5 size-2 rounded-full bg-status-ready ring-2 ring-card" title={item.badge} />
                                                 )}
@@ -76,9 +76,9 @@ export function PrimaryRail({ currentPath, activeWorkspace = 'admin' }: PrimaryR
                                 <button
                                     onClick={toggleTheme}
                                     aria-label={appearance === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-                                    className="flex items-center justify-center size-10 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/70 transition-colors duration-[var(--flex-duration-fast)] flex-focus-visible"
+                                    className="flex items-center justify-center size-8 rounded-md text-flex-text-tertiary hover:text-flex-text-primary hover:bg-flex-layer-hover transition-colors duration-[var(--flex-duration-fast)] flex-focus-visible"
                                 >
-                                    <FlexIcon name={appearance === 'dark' ? 'sun' : 'moon'} className="size-5" />
+                                    <FlexIcon name={appearance === 'dark' ? 'sun' : 'moon'} className="size-4" />
                                 </button>
                             }
                         />
