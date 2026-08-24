@@ -102,7 +102,7 @@ export function ScheduledReportsPage({
                     }
                 />
             ) : (
-                <FlexWorkbenchShell
+                <FlexWorkbenchShell variant="primary"
                     toolbar={
                         <div className="flex flex-col gap-3 px-3 py-2.5 lg:flex-row lg:items-center lg:justify-between">
                             <div className="flex items-center gap-2 flex-wrap">

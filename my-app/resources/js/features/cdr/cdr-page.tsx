@@ -181,7 +181,7 @@ return false;
                         }
                     />
                 ) : (
-                    <FlexWorkbenchShell
+                    <FlexWorkbenchShell variant="primary"
                         toolbar={
                             <CdrToolbar
                                 table={table}

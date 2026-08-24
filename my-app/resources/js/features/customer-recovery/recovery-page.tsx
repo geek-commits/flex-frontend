@@ -73,7 +73,7 @@ export function RecoveryPage() {
                     </span>
                 </div>
 
-                <FlexWorkbenchShell
+                <FlexWorkbenchShell variant="primary"
                     toolbar={
                         <RecoveryToolbar
                             table={table}

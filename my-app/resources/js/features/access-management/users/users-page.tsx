@@ -165,7 +165,7 @@ export function UsersPage() {
                         }
                     />
                 ) : (
-                    <FlexWorkbenchShell
+                    <FlexWorkbenchShell variant="primary"
                         toolbar={
                             <UsersToolbar
                                 table={table}

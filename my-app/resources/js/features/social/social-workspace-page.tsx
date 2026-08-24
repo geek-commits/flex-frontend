@@ -72,7 +72,7 @@ export function SocialWorkspacePage() {
                 />
             }
         >
-            <FlexWorkbenchShell className="h-full min-h-0">
+            <FlexWorkbenchShell variant="primary" className="h-full min-h-0">
                 <div className="flex h-full w-full flex-col">
                     {/* Desktop / Laptop: side-by-side split view */}
                     <div className="hidden lg:flex flex-1 min-h-0 overflow-hidden">

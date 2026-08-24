@@ -2,6 +2,8 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 
 export interface FlexWorkbenchShellProps {
+    /** Surface variant — primary is the page-level continuous workbench (rounded-none border-0), contained is for embedded secondary contexts. */
+    variant?: 'primary' | 'contained';
     /** Optional toolbar/header slot rendered above the content with a bottom divider. */
     toolbar?: React.ReactNode;
     /** Main workspace content (panes, lists, tables, detail). */
@@ -16,11 +18,15 @@ export interface FlexWorkbenchShellProps {
  * Neutral canvas → white work surface → 1px structural dividers. The shell must
  * not own domain data or realtime behavior; it is a pure layout frame.
  */
-export function FlexWorkbenchShell({ toolbar, children, className = '' }: FlexWorkbenchShellProps) {
+export function FlexWorkbenchShell({ toolbar, children, className = '', variant = 'contained' }: FlexWorkbenchShellProps) {
+    const isPrimary = variant === 'primary';
+
     return (
         <div
             className={cn(
-                'flex flex-col overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface',
+                isPrimary
+                    ? 'flex flex-col overflow-hidden rounded-none border-0 bg-flex-workspace-surface shadow-none'
+                    : 'flex flex-col overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface',
                 className
             )}
         >

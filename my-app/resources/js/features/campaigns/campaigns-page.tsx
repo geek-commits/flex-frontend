@@ -209,7 +209,7 @@ export function CampaignsPage() {
                         }
                     />
                 ) : (
-                    <FlexWorkbenchShell
+                    <FlexWorkbenchShell variant="primary"
                         toolbar={
                             <CampaignsToolbar
                                 table={table}

@@ -116,7 +116,7 @@ export function SubscriptionsPage() {
                 <SubscriptionToolbar query={query} onQueryChange={setQuery} />
 
                 {/* Main Table */}
-                <FlexWorkbenchShell>
+                <FlexWorkbenchShell variant="primary">
                     <SubscriptionsTable
                         records={records}
                         isLoading={isLoading}

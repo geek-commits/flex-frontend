@@ -131,7 +131,7 @@ function AgentMonitoringContent() {
                     description="Agent activity will appear here once agents come online."
                 />
             ) : (
-                <FlexWorkbenchShell
+                <FlexWorkbenchShell variant="primary"
                     toolbar={
                         <AgentMonitoringToolbar
                             table={table}

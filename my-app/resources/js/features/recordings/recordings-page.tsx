@@ -198,7 +198,7 @@ export function RecordingsPage() {
                 </div>
 
                 {/* Toolbar + Main Table */}
-                <FlexWorkbenchShell
+                <FlexWorkbenchShell variant="primary"
                     toolbar={
                         <RecordingToolbar
                             table={table}

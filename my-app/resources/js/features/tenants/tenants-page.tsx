@@ -164,7 +164,7 @@ export function TenantsPage() {
                         }
                     />
                 ) : (
-                    <FlexWorkbenchShell
+                    <FlexWorkbenchShell variant="primary"
                         toolbar={
                             <TenantsToolbar
                                 table={table}
