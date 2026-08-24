@@ -1,6 +1,18 @@
-import { RiDatabase2Line, RiExternalLinkLine, RiRefreshLine, RiShieldKeyholeLine } from '@remixicon/react';
+import {
+    RiExternalLinkLine,
+    RiInformationLine,
+    RiRefreshLine,
+    RiShieldKeyholeLine,
+} from '@remixicon/react';
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import {
+    Popover,
+    PopoverContent,
+    PopoverDescription,
+    PopoverTitle,
+    PopoverTrigger,
+} from '@/components/ui/popover';
 import { useCrmIntegrationState } from './crm-integration-state';
 
 export interface CrmIntegrationHostProps {
@@ -26,23 +38,73 @@ export function CrmIntegrationHost({
     const effectiveSrc = config?.iframeConfig?.src ?? null;
     const chip =
         status === 'mock' ? 'Mock integration' : status === 'connected' ? 'Connected' : null;
+    const metadata = [
+        { label: 'Integration ID', value: config?.integrationId, mono: true },
+        { label: 'Version', value: config?.version, mono: true },
+        { label: 'Vendor', value: config?.vendor, mono: false },
+    ].filter((item): item is { label: string; value: string; mono: boolean } => Boolean(item.value));
     const showFrame =
         config !== null &&
         (status === 'loading' || status === 'mock' || status === 'connected');
 
     return (
-        <div className="flex flex-col h-full overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface shadow-2xs relative">
+        <div className="relative flex h-full flex-col overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
             {/* Embedded Boundary Header */}
-            <div className="h-10 px-3 border-b border-flex-workspace-divider bg-flex-workspace-surface-muted flex items-center justify-between shrink-0 select-none text-xs">
+            <div className="flex h-11 shrink-0 items-center justify-between gap-2 border-b border-flex-workspace-divider bg-flex-workspace-surface-muted px-3 text-xs select-none">
                 <div className="flex items-center gap-2 text-muted-foreground font-medium truncate">
                     <RiShieldKeyholeLine className="size-3.5 text-primary" />
                     <span className="truncate font-semibold text-foreground">{title}</span>
+                    {chip && (
+                        <span className="shrink-0 rounded bg-muted px-1 py-px text-[10px] font-semibold uppercase text-muted-foreground">
+                            {chip}
+                        </span>
+                    )}
                     <span className="px-1.5 py-px text-[9px] font-bold uppercase rounded-full bg-primary/10 text-primary border border-primary/20 shrink-0">
                         Integration Boundary
                     </span>
                 </div>
 
                 <div className="flex items-center gap-1 shrink-0">
+                    {metadata.length > 0 && (
+                        <Popover>
+                            <PopoverTrigger
+                                render={
+                                    <Button
+                                        variant="ghost"
+                                        size="icon-xs"
+                                        aria-label="Integration details"
+                                    >
+                                        <RiInformationLine className="size-3.5" />
+                                    </Button>
+                                }
+                            />
+                            <PopoverContent align="end" className="w-64 gap-2 p-3 text-xs">
+                                <PopoverTitle className="text-sm font-semibold">
+                                    Integration boundary
+                                </PopoverTitle>
+                                <PopoverDescription>
+                                    FLEX owns the boundary. CRM content remains external and
+                                    isolated.
+                                </PopoverDescription>
+
+                                <dl className="grid grid-cols-[88px_minmax(0,1fr)] gap-x-2 gap-y-1 pt-1">
+                                    {metadata.map((item) => (
+                                        <React.Fragment key={item.label}>
+                                            <dt className="font-medium uppercase text-muted-foreground">
+                                                {item.label}
+                                            </dt>
+                                            <dd
+                                                className={`min-w-0 truncate ${item.mono ? 'font-mono' : ''} text-foreground`}
+                                            >
+                                                {item.value}
+                                            </dd>
+                                        </React.Fragment>
+                                    ))}
+                                </dl>
+                            </PopoverContent>
+                        </Popover>
+                    )}
+
                     {effectiveSrc && (
                         <Button
                             variant="ghost"
@@ -53,40 +115,15 @@ export function CrmIntegrationHost({
                             <RiExternalLinkLine className="size-3.5" />
                         </Button>
                     )}
+
                     <Button variant="ghost" size="icon-xs" title="Reload Frame" onClick={retry}>
                         <RiRefreshLine className="size-3.5" />
                     </Button>
                 </div>
             </div>
 
-            {/* Mock host state line */}
-            <div className="h-7 px-3 border-b border-flex-workspace-divider bg-flex-workspace-surface-muted flex items-center gap-2 text-[10px] text-muted-foreground select-none overflow-hidden">
-                <RiDatabase2Line className="size-3 shrink-0" />
-                <span className="truncate">
-                    External CRM
-                    {config?.integrationId && (
-                        <span className="ml-1 font-mono text-muted-foreground/60">
-                            {config.integrationId}
-                        </span>
-                    )}
-                </span>
-                {chip && (
-                    <span className="px-1 py-px rounded bg-muted text-muted-foreground uppercase font-semibold shrink-0">
-                        {chip}
-                    </span>
-                )}
-                {config?.version && (
-                    <span className="hidden sm:inline font-mono text-muted-foreground/60">
-                        v{config.version}
-                    </span>
-                )}
-                <span className="ml-auto hidden lg:inline truncate text-muted-foreground/70">
-                    {config?.vendor}
-                </span>
-            </div>
-
             {/* Iframe Viewport Area */}
-            <div className="flex-1 relative bg-background min-h-[400px]">
+            <div className="relative min-h-[400px] flex-1 bg-flex-workspace-surface-muted">
                 {(status === 'loading' || status === 'retrying') && (
                     <div
                         role="status"

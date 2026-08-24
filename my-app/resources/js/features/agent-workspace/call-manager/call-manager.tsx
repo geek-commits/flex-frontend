@@ -1,6 +1,13 @@
-import { RiPhoneLine } from '@remixicon/react';
+import {
+    RiArrowUpLine,
+    RiCloseLine,
+    RiPhoneLine,
+} from '@remixicon/react';
 import React, { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { useIsMobile } from '@/hooks/use-mobile';
+import type { CallState } from '@/types/flex';
 import { WORKSPACE_TIMINGS } from '../state/mock-workspace-state';
 import { useWorkspaceState } from '../state/use-workspace-state';
 import type { CallTarget } from '../state/workspace-types';
@@ -30,10 +37,17 @@ export function CallManager({ onOpenAssist }: { onOpenAssist?: () => void }) {
     const ws = useWorkspaceState();
     const [dialNumber, setDialNumber] = useState('');
     const [activeTab, setActiveTab] = useState<'dialer' | 'history'>('dialer');
+    const isMobile = useIsMobile();
+    const [collapsedCallState, setCollapsedCallState] = useState<CallState | null>('idle');
 
     const { callState } = ws;
     const stateCfg = callStateMap[callState];
     const inCall = IN_CALL_STATES.has(callState);
+    const canCollapse = callState === 'idle' || callState === 'wrap-up' || callState === 'ended';
+
+    // A collapse decision belongs only to the state visible when the agent
+    // acted. Any later call-state change reopens the sheet automatically.
+    const mobileOpen = !isMobile || collapsedCallState !== callState;
 
     const handleDial = (target: CallTarget) => {
         setDialNumber('');
@@ -105,6 +119,70 @@ export function CallManager({ onOpenAssist }: { onOpenAssist?: () => void }) {
                 onDial={handleDial}
                 onCallFromHistory={handleCallFromHistory}
             />
+        );
+    }
+
+    if (isMobile) {
+        return (
+            <div className="flex min-h-0 flex-1 flex-col">
+                {!mobileOpen && (
+                    <button
+                        type="button"
+                        onClick={() => setCollapsedCallState(null)}
+                        aria-label={`Call Manager: ${stateCfg.label}. Open call controls`}
+                        className="flex h-14 shrink-0 items-center gap-2 border-t border-border bg-card px-3 text-left text-xs select-none"
+                    >
+                        <RiPhoneLine className="size-4 shrink-0 text-primary" />
+                        <span className="shrink-0 font-bold text-foreground">
+                            Call Manager
+                        </span>
+                        <span
+                            className={`shrink-0 rounded-full px-1.5 py-0.5 text-[10px] font-semibold capitalize ${stateCfg.badgeClass}`}
+                        >
+                            {stateCfg.label}
+                        </span>
+                        {ws.activeCall && (
+                            <span className="min-w-0 flex-1 truncate font-medium text-muted-foreground">
+                                {ws.activeCall.target.label}
+                            </span>
+                        )}
+                        <RiArrowUpLine className="ml-auto size-4 shrink-0 text-muted-foreground" />
+                    </button>
+                )}
+
+                {mobileOpen && (
+                    <>
+                        <div className="flex shrink-0 items-center justify-between gap-2 border-b border-border p-3 select-none">
+                            <div className="flex min-w-0 items-center gap-2 font-bold text-foreground">
+                                <RiPhoneLine className="size-4 shrink-0 text-primary" />
+                                <span className="truncate">Call Manager</span>
+                            </div>
+
+                            <div className="flex shrink-0 items-center gap-2">
+                                <Badge
+                                    variant="outline"
+                                    className={`text-[10px] font-semibold capitalize ${stateCfg.badgeClass}`}
+                                >
+                                    {stateCfg.label}
+                                </Badge>
+
+                                {canCollapse && (
+                                    <Button
+                                        variant="ghost"
+                                        size="icon-sm"
+                                        aria-label="Collapse Call Manager"
+                                        onClick={() => setCollapsedCallState(callState)}
+                                    >
+                                        <RiCloseLine className="size-4" />
+                                    </Button>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className="flex min-h-0 flex-1 flex-col">{surface}</div>
+                    </>
+                )}
+            </div>
         );
     }
 

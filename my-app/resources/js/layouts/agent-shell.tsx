@@ -45,7 +45,7 @@ export function AgentShell({
 
                     {/* Workspace Grid Layout: Central Workspace + Optional Call Manager */}
                     <div className="flex min-h-0 flex-1 overflow-hidden">
-                        <main className="min-w-0 flex-1 overflow-y-auto p-4 md:p-5">
+                        <main className="min-w-0 flex-1 overflow-y-auto p-4 pb-24 md:p-5 md:pb-5">
                             {children}
                         </main>
 
@@ -56,7 +56,7 @@ export function AgentShell({
                         {callManagerPanel && (
                             <aside
                                 data-call-island-zone="call-manager"
-                                className="flex h-full w-80 shrink-0 flex-col border-l border-border bg-card md:w-96"
+                                className="fixed inset-x-0 bottom-0 z-40 flex max-h-[85dvh] flex-col rounded-t-xl border-t bg-card shadow-flex-overlay md:static md:z-auto md:h-full md:max-h-none md:w-80 md:rounded-none md:border-l md:border-t-0 md:shadow-none lg:w-96"
                             >
                                 {callManagerPanel}
                             </aside>

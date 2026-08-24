@@ -51,7 +51,7 @@ export function AgentOperationalHeader({
     const animateOnMount = useBrandIntroReplayGuard();
 
     return (
-        <header className="sticky top-0 z-20 flex h-14 shrink-0 items-center justify-between gap-3 border-b border-border bg-card px-4 select-none">
+        <header className="sticky top-0 z-20 flex min-h-14 shrink-0 select-none flex-col gap-2 border-b border-border bg-card px-3 py-2 md:h-14 md:flex-row md:items-center md:justify-between md:gap-3 md:px-4 md:py-0">
             {/* Title / Mobile Drawer */}
             <div className="flex min-w-0 items-center gap-2.5">
                 <Sheet>
@@ -117,26 +117,29 @@ export function AgentOperationalHeader({
             </div>
 
             {/* Operational Controls */}
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2 md:flex-nowrap md:justify-end md:gap-3">
                 <AgentStateControl
                     state={agentState}
                     onSelect={onAgentStateChange}
                     pendingState={pendingState}
                     error={stateError}
+                    className="min-w-28"
                 />
 
                 <ConnectionStatus state={connectionState} />
 
                 <SessionTimer startedAt={sessionStartedAt} />
 
-                <GlobalSearchTrigger />
+                <div className="ml-auto flex items-center gap-1 border-l border-border pl-1 md:ml-0 md:pl-2">
+                    <GlobalSearchTrigger />
 
-                {/* Profile / Account */}
-                <div
-                    data-call-island-zone="profile-tenant"
-                    className="flex items-center gap-2 border-l border-border pl-2"
-                >
-                    <FlexProfileMenu />
+                    {/* Profile / Account */}
+                    <div
+                        data-call-island-zone="profile-tenant"
+                        className="flex items-center"
+                    >
+                        <FlexProfileMenu />
+                    </div>
                 </div>
             </div>
         </header>

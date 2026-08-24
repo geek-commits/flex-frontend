@@ -324,11 +324,12 @@ export function GlobalSearchTrigger() {
         <Button
             variant="outline"
             size="sm"
-            className="gap-2 text-xs text-muted-foreground justify-start w-40"
+            aria-label="Search Flex"
+            className="w-9 justify-center px-0 text-xs text-muted-foreground md:w-40 md:justify-start md:px-3"
             onClick={() => setOpen(true)}
         >
             <RiSearchLine className="size-3.5" />
-            <span className="truncate">Search Flex</span>
+            <span className="hidden truncate md:inline">Search Flex</span>
             <kbd className="ml-auto hidden lg:inline-flex items-center gap-0.5 rounded border border-border bg-muted px-1 py-0.5 text-[9px] font-semibold">
                 ⌘K
             </kbd>
