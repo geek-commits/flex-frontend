@@ -8,7 +8,7 @@ This repository contains the FLEX Contact Center frontend POC (under `my-app/`).
 
 Feature work is tracked as GitHub issues cut per phase; consult `docs/product/FLEX_FEATURE_PARITY.md` for the canonical feature-completion tracker before any revamp.
 
-POC-specific rules and Laravel Boost guidelines live in `my-app/AGENTS.md` and apply to work under `my-app/`.
+Frontend development uses Bun (`bun install`, `bun run dev`, `bun run build`) inside `my-app/`; backend uses Composer + Artisan.
 
 ## Workspaces
 
