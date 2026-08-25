@@ -237,9 +237,9 @@
     --flex-workspace-canvas: var(--background);
     --flex-workspace-surface: var(--card);
     --flex-workspace-surface-muted: oklch(0.986 0.001 250);
-    --flex-workspace-divider: oklch(0.926 0.003 250);
+    --flex-workspace-divider: oklch(0.935 0.003 250);
     --flex-workspace-divider-strong: oklch(0.896 0.004 250);
-    --flex-table-grid: oklch(0.926 0.003 250);
+    --flex-table-grid: oklch(0.91 0.003 250);
 
     /* Text hierarchy */
     --flex-text-primary: var(--foreground);
@@ -300,6 +300,7 @@
 
     /* Spacing rules (applied by shell/table components) */
     --flex-space-page-x: 1.5rem;
+    --flex-space-list-x: 1rem;
     --flex-space-page-y: 1.5rem;
     --flex-space-section: 1.5rem;
     --flex-space-toolbar: 0.625rem;
@@ -488,9 +489,9 @@
     --flex-workspace-canvas: var(--background);
     --flex-workspace-surface: oklch(0.21 0.006 250);
     --flex-workspace-surface-muted: oklch(0.25 0.007 250);
-    --flex-workspace-divider: oklch(1 0 0 / 0.12);
+    --flex-workspace-divider: oklch(1 0 0 / 0.1);
     --flex-workspace-divider-strong: oklch(1 0 0 / 0.2);
-    --flex-table-grid: oklch(1 0 0 / 0.12);
+    --flex-table-grid: oklch(1 0 0 / 0.15);
     --flex-shadow-overlay: 0 8px 24px rgb(0 0 0 / 0.4);
     --flex-shadow-modal: 0 16px 48px rgb(0 0 0 / 0.6);
     /* Chart colors — dark-mode semantic equivalents */
