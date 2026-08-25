@@ -25,5 +25,5 @@ Agent Assist is `CALL-SCOPED PRESENTATION` in parity (`FLEX_FEATURE_PARITY.md:AG
 
 ## Verification
 
-* Parity audits `AGENT_ASSIST_PREFLIGHT.md`, `AGENT_ASSIST_RUNTIME_AUDIT.md`, `CALL_MANAGER_PARITY_MAP.md` confirm no runtime Voice AI bot builder (telephony-safe config required).
+* Parity audits confirmed no runtime Voice AI bot builder and no call-scoped Assist runtime at audit time (telephony-safe configuration only).
 * Regression matrix §18 is the acceptance suite (no-call→no-Assist, eligible→spins up, minimize/restore, call-end teardown).

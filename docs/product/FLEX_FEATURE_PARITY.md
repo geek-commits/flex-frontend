@@ -93,10 +93,10 @@ Resolved from `git log` (46 commits, `main`, remote `origin` → `github.com/gee
 | AGENT-CALL-009 | Hold / Resume | YES | active surface | `/agent` | SHIPPED | |
 | AGENT-CALL-010 | Transfer | YES | transfer panel + `transfer-targets.ts` | `/agent` | SHIPPED | direct only |
 | AGENT-CALL-011 | Warm Transfer | YES | — | — | NEEDS_PRODUCT_DECISION | **NO runtime consultation state** — not offered (§43) |
-| AGENT-CALL-016 | Conference Call | YES | — | — | MISSING PARITY | documented (`Flex CC User Manual`) but no SDK/backend/merge state — see `CONFERENCE_IMPLEMENTATION_AUDIT.md`; no Conference UI shipped |
+| AGENT-CALL-016 | Conference Call | YES | — | — | MISSING PARITY | documented (`Flex CC User Manual`) but no SDK/backend/consultation/merge state; no Conference UI shipped |
 | AGENT-CALL-017 | Show Key Pad (in-call DTMF) | YES | — | — | MISSING PARITY | Dialer is outbound-initiation only; no in-call DTMF pad |
 | AGENT-CALL-018 | Call Settings | YES | — | — | MISSING PARITY | no call/softphone settings surface |
-| AGENT-CALL-019 | Assist (Call Manager control) | YES | `active-call-surface.tsx` + `agent-assist/` | `/agent` | CALL-SCOPED PRESENTATION | no assist runtime — panel shows config-only honest state; see `AGENT_ASSIST_RUNTIME_AUDIT.md` |
+| AGENT-CALL-019 | Assist (Call Manager control) | YES | `active-call-surface.tsx` + `agent-assist/` | `/agent` | CALL-SCOPED PRESENTATION | no assist runtime — panel shows config-only honest state |
 | AGENT-CALL-012 | Simple Call History | YES | `idle-call-surface.tsx` history tab | `/agent` | SHIPPED | single flat "Call History" tab; search input uncontrolled (`idle-call-surface.tsx:33-106`) |
 | AGENT-CALL-013 | Recent calls | YES | history tab | `/agent` | FRONTEND_ONLY (partial) | **2026-08-17 audit:** no dedicated Recent/Missed/Outgoing sub-tabs — all outcomes in one flat list, distinguished only by outcome badge; not separate tabs as documented |
 | AGENT-CALL-014 | Missed call tab/history | YES | history tab | `/agent` | FRONTEND_ONLY (partial) | same single flat list; missed entries identifiable by outcome badge only (audit 2026-08-17) |
