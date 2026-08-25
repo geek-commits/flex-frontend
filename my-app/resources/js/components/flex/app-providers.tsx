@@ -13,10 +13,7 @@ const Toaster = lazy(() =>
     import('@/components/ui/sonner').then((m) => ({ default: m.Toaster }))
 );
 import { AgentAssistSessionProvider } from '@/features/agent-workspace/agent-assist/agent-assist-session-context';
-
-const FlexCallIsland = lazy(() =>
-    import('@/components/flex/flex-call-island').then((m) => ({ default: m.FlexCallIsland }))
-);
+import { FlexCallIsland } from '@/components/flex/flex-call-island';
 
 export function AppProviders({ children }: { children: ReactNode }) {
     return (

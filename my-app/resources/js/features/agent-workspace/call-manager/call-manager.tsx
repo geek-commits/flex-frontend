@@ -36,7 +36,7 @@ const IN_CALL_STATES = new Set([
  * transitions come from the canonical workspace owner — the component never
  * schedules fake transitions.
  */
-export function CallManager({ onOpenAssist }: { onOpenAssist?: () => void }) {
+export function CallManager() {
     const ws = useWorkspaceState();
     const assist = useAgentAssistSessionOptional();
     const [dialNumber, setDialNumber] = useState('');
@@ -62,6 +62,17 @@ export function CallManager({ onOpenAssist }: { onOpenAssist?: () => void }) {
     }, [callState]);
 
     const assistLive = !!assist && assist.sessionState !== 'idle' && assist.sessionState !== 'ended';
+
+    const handleToggleAssist = () => {
+        if (!assist) {
+            return;
+        }
+        if (assist.isOpen) {
+            assist.minimizeAssist();
+        } else {
+            assist.openAssist();
+        }
+    };
 
     const handleDial = (target: CallTarget) => {
         setDialNumber('');
@@ -118,7 +129,7 @@ export function CallManager({ onOpenAssist }: { onOpenAssist?: () => void }) {
                 onConfirmTransfer={ws.completeTransfer}
                 onCancelTransfer={ws.cancelTransfer}
                 onDismissTransferFailure={ws.dismissTransferFailure}
-                onOpenAssist={() => onOpenAssist?.()}
+                onOpenAssist={handleToggleAssist}
                 onEnd={ws.endCall}
             />
         );
@@ -169,8 +180,12 @@ export function CallManager({ onOpenAssist }: { onOpenAssist?: () => void }) {
         const handleAssistFromCall = () => {
             if (isMobile && showAssistToggle) {
                 setMobileAssistMode(true);
+                // Ensure session is open so transcript streams (if not, open)
+                if (assist && !assist.isOpen) {
+                    assist.openAssist();
+                }
             } else {
-                onOpenAssist?.();
+                handleToggleAssist();
             }
         };
 

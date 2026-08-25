@@ -1,9 +1,7 @@
 import { RiCloseLine, RiSubtractLine } from '@remixicon/react';
 import { useId } from 'react';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { ThinkingState } from '@/components/vendor/aicss/thinking-state';
-import { useIsDesktop } from '@/hooks/use-is-desktop';
 import { cn } from '@/lib/utils';
 import { AgentAssistStatus } from './agent-assist-status';
 import { AgentAssistSuggestions } from './agent-assist-suggestions';
@@ -22,17 +20,11 @@ export interface AgentAssistDockProps {
  * call manager unified surface (returns null — mobile surface renders there).
  */
 export function AgentAssistDock({ onMinimize, onClose }: AgentAssistDockProps) {
-    const isDesktop = useIsDesktop();
     const headingId = useId();
     const session = useAgentAssistSession();
-    const { language, transportState, segments, suggestions, isOpen, isMinimized, error } = session;
+    const { language, transportState, segments, suggestions, isOpen, error } = session;
 
     if (!isOpen) {
-        return null;
-    }
-
-    // On mobile, dock is rendered inside the unified Call Manager sheet — skip floating dock
-    if (!isDesktop) {
         return null;
     }
 
@@ -96,22 +88,18 @@ export function AgentAssistDock({ onMinimize, onClose }: AgentAssistDockProps) {
         </div>
     );
 
-    // Fixed floating dock — offset left of Call Manager (w-80 → 320px + gap)
+    // Compact dock — 360 preferred (320–400) · 50vh max · not full-height column
     return (
-        <div
+        <aside
             role="complementary"
             aria-labelledby={headingId}
             className={cn(
-                'fixed bottom-4 z-30 flex flex-col overflow-hidden rounded-xl border border-flex-workspace-divider bg-card shadow-xl',
-                'w-[360px] max-h-[50vh]',
-                // Right offset: Call Manager is fixed bottom on mobile / static w-80/96 on desktop
-                // On 1440: rail 56 + sidebar 248 + gap → dock at bottom-right above main content
-                'right-[332px] lg:right-[396px]',
+                'flex w-[360px] max-h-[50vh] shrink-0 flex-col overflow-hidden border-l border-flex-workspace-divider bg-card',
             )}
         >
             {header}
-            {body}
-        </div>
+            <div className="flex min-h-0 flex-1 flex-col overflow-hidden">{body}</div>
+        </aside>
     );
 }
 
