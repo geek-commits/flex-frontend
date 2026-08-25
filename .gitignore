@@ -1,0 +1,6 @@
+.DS_Store
+.gstack/
+deep-dive/
+.playwright-mcp/
+plans/
+*.local
