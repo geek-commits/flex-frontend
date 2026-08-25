@@ -43,7 +43,7 @@ export function ContextSidebar({ title, subtitle, groups }: ContextSidebarProps)
     );
 
     return (
-        <aside className="w-56 bg-card border-r border-border h-screen sticky top-0 shrink-0 overflow-y-auto hidden md:flex flex-col py-4 px-3 select-none">
+        <aside className="w-[248px] bg-card border-r border-border h-screen sticky top-0 shrink-0 overflow-y-auto hidden md:flex flex-col py-4 px-3 select-none">
             <div className="mb-3 px-2 flex items-start justify-between gap-2">
                 <div className="min-w-0">
                     <h2 className="text-[13px] font-semibold tracking-tight text-flex-text-primary">{title}</h2>
@@ -64,7 +64,7 @@ export function ContextSidebar({ title, subtitle, groups }: ContextSidebarProps)
                 {filteredGroups.map((group, groupIdx) => (
                     <div key={groupIdx} className="flex flex-col gap-1">
                         {group.groupTitle && (
-                            <h3 className="px-2 text-[11px] font-semibold tracking-wider text-flex-text-tertiary uppercase mb-1">
+                            <h3 className="px-2 text-[12px] font-medium text-flex-text-tertiary mb-1">
                                 {group.groupTitle}
                             </h3>
                         )}
@@ -78,7 +78,7 @@ export function ContextSidebar({ title, subtitle, groups }: ContextSidebarProps)
                                     href={item.href}
                                     className={`flex items-center justify-between px-2.5 h-8 rounded-md text-[13px] font-medium transition-colors duration-[var(--flex-duration-fast)] flex-focus-visible ${
                                         isActive
-                                            ? 'bg-flex-layer-selected border border-flex-workspace-divider-strong text-flex-text-primary'
+                                            ? 'bg-flex-layer-selected text-flex-text-primary'
                                             : 'text-flex-text-tertiary hover:text-flex-text-primary hover:bg-flex-layer-hover border border-transparent'
                                     }`}
                                 >

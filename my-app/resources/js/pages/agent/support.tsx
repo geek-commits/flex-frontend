@@ -36,7 +36,7 @@ export default function SupportPage() {
     };
 
     return (
-        <AgentShell title="Flex Quick Support" subtitle="Submit Technical Support & Helpdesk Tickets">
+        <AgentShell title="Flex Quick Support">
             <Head title="Quick Support — Flex Contact Center" />
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">

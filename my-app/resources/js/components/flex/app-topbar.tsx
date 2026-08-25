@@ -16,22 +16,18 @@ import type { AgentState, ConnectionState } from '@/types/flex';
 
 export interface AppTopbarProps {
     title?: string;
-    subtitle?: string;
     mode?: 'admin' | 'agent';
     agentState?: AgentState;
     onAgentStateChange?: (state: AgentState) => void;
     connectionState?: ConnectionState;
-    actions?: React.ReactNode;
 }
 
 export function AppTopbar({
     title,
-    subtitle,
     mode = 'admin',
     agentState = 'ready',
     onAgentStateChange,
     connectionState = 'live',
-    actions,
 }: AppTopbarProps) {
     const { url } = usePage();
     const animateOnMount = useBrandIntroReplayGuard();
@@ -43,9 +39,9 @@ export function AppTopbar({
     const mobileNavItems = navEntries;
 
     return (
-        <header className="h-14 bg-card border-b border-border px-4 flex items-center justify-between sticky top-0 z-20 shrink-0 select-none">
-            {/* Title / Mobile Drawer Trigger */}
-            <div className="flex items-center gap-2.5">
+        <header className="h-11 bg-flex-workspace-surface border-b border-flex-workspace-divider px-3 md:px-4 grid grid-cols-[1fr_auto_1fr] items-center sticky top-0 z-20 shrink-0 select-none">
+            {/* Left slot — mobile drawer trigger (layout-balancing column on desktop) */}
+            <div className="flex items-center gap-2.5 justify-self-start">
                 <Sheet>
                     <SheetTrigger asChild>
                         <Button variant="ghost" size="icon-sm" className="md:hidden" aria-label="Open navigation">
@@ -68,7 +64,7 @@ export function AppTopbar({
                                         href={item.href}
                                         className={`flex items-center gap-2.5 px-3 h-8 rounded-md text-[13px] font-medium transition-colors ${
                                             isActive
-                                                ? 'bg-flex-layer-selected border border-flex-workspace-divider-strong text-flex-text-primary'
+                                                ? 'bg-flex-layer-selected text-flex-text-primary'
                                                 : 'text-flex-text-tertiary hover:bg-flex-layer-hover hover:text-flex-text-primary border border-transparent'
                                         }`}
                                     >
@@ -83,19 +79,20 @@ export function AppTopbar({
 
                 <div>
                     {title && (
-                        <h1 className="text-sm font-semibold text-foreground tracking-tight">
+                        <h1 className="hidden lg:block text-sm font-semibold text-flex-text-primary tracking-tight">
                             {title}
                         </h1>
                     )}
-                    {subtitle && <p className="text-xs text-muted-foreground">{subtitle}</p>}
                 </div>
             </div>
 
-            {/* Right Controls */}
-            <div className="flex items-center gap-3">
-                {actions}
-
+            {/* Centered global search — centers within main-area width on desktop */}
+            <div className="justify-self-center">
                 <GlobalSearchTrigger />
+            </div>
+
+            {/* Right Controls */}
+            <div className="flex items-center gap-2 md:gap-3 justify-self-end">
 
                 {/* Agent State — compact ghost selector (transparent default, subtle hover) */}
                 {mode === 'agent' && (
@@ -139,11 +136,11 @@ export function AppTopbar({
                 )}
 
                 {/* Tenant / Platform Context (admin only) — adjacent to profile */}
-                <div data-call-island-zone="profile-tenant" className="flex items-center gap-3">
+                <div data-call-island-zone="profile-tenant" className="flex items-center gap-2 md:gap-3">
                     {mode === 'admin' && <TenantContextIndicator />}
 
                     {/* Profile / Account */}
-                    <div className="pl-2 border-l border-border">
+                    <div className="pl-2 border-l border-flex-workspace-divider">
                         <FlexProfileMenu />
                     </div>
                 </div>

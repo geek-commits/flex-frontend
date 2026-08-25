@@ -6,7 +6,6 @@ import type { AgentState } from '@/types/flex';
 
 export interface AgentShellProps {
     title?: string;
-    subtitle?: string;
     children: React.ReactNode;
     callManagerPanel?: React.ReactNode;
     /** Optional Agent Assist companion panel, rendered left of the Call Manager. */
@@ -17,7 +16,6 @@ export interface AgentShellProps {
 
 export function AgentShell({
     title = 'Agent Workspace',
-    subtitle = 'Active Operational Session',
     children,
     callManagerPanel,
     assistPanel,
@@ -36,7 +34,6 @@ export function AgentShell({
                     {topbar ?? (
                         <AppTopbar
                             title={title}
-                            subtitle={subtitle}
                             mode="agent"
                             agentState={agentState}
                             onAgentStateChange={setAgentState}

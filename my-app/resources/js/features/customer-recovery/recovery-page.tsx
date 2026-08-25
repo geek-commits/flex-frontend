@@ -54,7 +54,7 @@ export function RecoveryPage() {
     });
 
     return (
-        <AgentShell title="Missed Calls & Voicemail" subtitle="Recover missed customer interactions and review voicemail.">
+        <AgentShell title="Missed Calls & Voicemail">
             <Head title="Missed Calls & Voicemail — Flex Contact Center" />
 
             <div className="flex w-full flex-col gap-[var(--flex-space-section)]">

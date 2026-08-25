@@ -48,7 +48,6 @@ export default function TroubleshootingPage() {
     return (
         <AgentShell
             title="Troubleshooting & Diagnostics"
-            subtitle="Network Health, WebRTC Audio & Device Permissions"
         >
             <Head title="Troubleshooting — Flex Contact Center" />
 
