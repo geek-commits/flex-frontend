@@ -23,6 +23,7 @@ import type { User } from '@/types';
 const ROLE_LABELS: Record<string, string> = {
     'super-admin': 'Super Administrator',
     admin: 'Administrator',
+    supervisor: 'Supervisor',
     agent: 'Agent',
 };
 

@@ -46,6 +46,7 @@ interface SearchRecord {
 const ROLE_OPTIONS: { value: Role; label: string }[] = [
     { value: 'super-admin', label: 'SuperAdmin' },
     { value: 'admin', label: 'Admin' },
+    { value: 'supervisor', label: 'Supervisor' },
     { value: 'agent', label: 'Agent' },
 ];
 

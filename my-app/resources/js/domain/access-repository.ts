@@ -38,13 +38,14 @@ export interface AccessRepository {
 
 let records = [...USERS_MOCK_RECORDS];
 
-let roles = roleRecords({ 'super-admin': 0, admin: 0, agent: 0 });
+let roles = roleRecords({ 'super-admin': 0, admin: 0, supervisor: 0, agent: 0 });
 
 let permissions = [...PERMISSIONS];
 
 export const roleLabels: Record<Role, string> = {
     'super-admin': 'Super Administrator',
     admin: 'Administrator',
+    supervisor: 'Supervisor',
     agent: 'Agent',
 };
 
@@ -148,6 +149,7 @@ export const accessRepository: AccessRepository = {
         const userCounts: Record<Role, number> = {
             'super-admin': 0,
             admin: 0,
+            supervisor: 0,
             agent: 0,
         };
 

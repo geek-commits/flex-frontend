@@ -12,7 +12,7 @@ import type { FlexIconName } from '@/components/flex/iconography';
  * purely for demonstrating role-aware UI and does not grant or restrict access.
  */
 
-export type Role = 'super-admin' | 'admin' | 'agent';
+export type Role = 'super-admin' | 'admin' | 'supervisor' | 'agent';
 
 export type Capability =
     | 'dashboard.view'
@@ -27,6 +27,7 @@ export type Capability =
     | 'settings.manage'
     | 'security.view'
     | 'roles.manage'
+    | 'tenants.manage'
     | 'agent.workspace'
     | 'agent.dashboard.view'
     | 'social.view'
@@ -48,6 +49,7 @@ const ALL: Capability[] = [
     'settings.manage',
     'security.view',
     'roles.manage',
+    'tenants.manage',
     'agent.workspace',
     'agent.dashboard.view',
     'social.view',
@@ -57,9 +59,19 @@ const ALL: Capability[] = [
     'support.view',
 ];
 
-/** Verified capability sets per role (mirrors INSTRUCTIONS §7 role boundaries). */
+/** Verified capability sets per role (manual-backed, INSTRUCTIONS §7). */
 export const ROLE_CAPABILITIES: Record<Role, Capability[]> = {
     'super-admin': ALL,
+    supervisor: [
+        'dashboard.view',
+        'monitor.view',
+        'console.view',
+        'cdr.view',
+        'campaigns.view',
+        'campaigns.manage',
+        'reports.view',
+        'support.view',
+    ],
     admin: [
         'dashboard.view',
         'monitor.view',
@@ -68,7 +80,10 @@ export const ROLE_CAPABILITIES: Record<Role, Capability[]> = {
         'campaigns.view',
         'campaigns.manage',
         'reports.view',
+        'ai.view',
+        'system.view',
         'settings.manage',
+        'roles.manage',
         'support.view',
     ],
     agent: [

@@ -18,9 +18,9 @@ export interface ModuleEntry {
 
 export const CONSOLE_MODULES: ModuleEntry[] = [
     // Core Administration
-    { id: 'tenants', href: '/admin/tenants', title: 'Tenants & Multi-Org', description: 'Manage tenant accounts, organizations, and domain isolation.', icon: 'organizations', category: 'Core Administration', keywords: ['tenant', 'multi-org', 'organization', 'domain', 'account'], capability: 'roles.manage' },
+    { id: 'tenants', href: '/admin/tenants', title: 'Tenants & Multi-Org', description: 'Manage tenant accounts, organizations, and domain isolation.', icon: 'organizations', category: 'Core Administration', keywords: ['tenant', 'multi-org', 'organization', 'domain', 'account'], capability: 'tenants.manage' },
     { id: 'agents', href: '/admin/agents', title: 'Agents & Proficiencies', description: 'Configure agent profiles, extension mapping, and skill routing.', icon: 'agents', category: 'Core Administration', keywords: ['agent', 'proficiency', 'skill', 'extension'], capability: 'console.view' },
-    { id: 'users', href: '/admin/users', title: 'Users & Roles', description: 'Role-based access control, credentials, and security policies.', icon: 'users', category: 'Core Administration', keywords: ['users', 'accounts', 'access', 'password'], capability: 'roles.manage' },
+    { id: 'users', href: '/admin/users', title: 'Users & Roles', description: 'Role-based access control, credentials, and security policies.', icon: 'users', category: 'Core Administration', keywords: ['users', 'accounts', 'access', 'password'], capability: 'console.view' },
     { id: 'roles', href: '/admin/roles', title: 'Roles & Permissions', description: 'Granular policy management for admin and supervisory roles.', icon: 'roles', category: 'Core Administration', keywords: ['roles', 'permissions', 'policy', 'capability'], capability: 'roles.manage' },
     { id: 'subscriptions', href: '/admin/subscription', title: 'Subscriptions', description: 'Track subscription status, remaining days, reminders, and renewal activity.', icon: 'subscriptions', category: 'Core Administration', keywords: ['subscription', 'plan', 'billing', 'expiry', 'seats', 'renewal'], capability: 'roles.manage' },
 

@@ -45,13 +45,18 @@ export function PrimaryRail({ currentPath, activeWorkspace = 'admin' }: PrimaryR
                     <nav className="flex flex-col items-center gap-1.5 w-full px-2" aria-label="FLEX product domains">
                         {domains.map((domain) => {
                             const isActive = activeDomain === domain.id;
+                            const effectiveHref =
+                                domain.groups
+                                    .flatMap((group) => group.items)
+                                    .find((item) => !item.capability || has(item.capability))?.href ??
+                                domain.landingHref;
 
                             return (
                                 <Tooltip key={domain.id}>
                                     <TooltipTrigger
                                         render={
                                             <Link
-                                                href={domain.landingHref}
+                                                href={effectiveHref}
                                                 aria-label={domain.label}
                                                 aria-current={isActive ? 'page' : undefined}
                                                 className={`relative flex items-center justify-center size-8 rounded-md transition-colors duration-[var(--flex-duration-fast)] flex-focus-visible ${

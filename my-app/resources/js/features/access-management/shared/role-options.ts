@@ -7,11 +7,13 @@ import type { Role } from '@/auth/capabilities';
 export const ROLE_OPTIONS: { value: Role; label: string }[] = [
     { value: 'super-admin', label: 'Super Administrator' },
     { value: 'admin', label: 'Administrator' },
+    { value: 'supervisor', label: 'Supervisor' },
     { value: 'agent', label: 'Agent' },
 ];
 
 export const ROLE_TONE: Record<Role, 'primary' | 'neutral' | 'muted'> = {
     'super-admin': 'primary',
     admin: 'neutral',
+    supervisor: 'neutral',
     agent: 'muted',
 };

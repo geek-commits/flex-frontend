@@ -5,8 +5,8 @@ import { ROLE_CAPABILITIES } from '@/auth/capabilities';
  * Roles & Permissions POC contracts.
  *
  * Permission vocabulary derives from the real capability registry
- * (`auth/capabilities.tsx`) — no invented taxonomy. Roles are the three
- * canonical runtime roles. The mock adapter (`domain/access-repository.ts`)
+ * (`auth/capabilities.tsx`) — no invented taxonomy. Roles are the four
+ * canonical POC roles. The mock adapter (`domain/access-repository.ts`)
  * must be replaced by the real backend in rollout; the backend remains
  * authoritative for authorization.
  */
@@ -33,6 +33,7 @@ export const PERMISSION_LABELS: Record<Capability, string> = {
     'settings.manage': 'Manage Settings',
     'security.view': 'View Security',
     'roles.manage': 'Manage Roles & Permissions',
+    'tenants.manage': 'Manage Tenants & Platform',
     'agent.workspace': 'Use Agent Workspace',
     'agent.dashboard.view': 'View Agent Dashboard',
     'social.view': 'View Social Inbox',
@@ -55,6 +56,7 @@ const MODULE_BY_PREFIX: Record<string, string> = {
     settings: 'Settings',
     security: 'Security',
     roles: 'Roles & Permissions',
+    tenants: 'Platform',
     agent: 'Agent Workspace',
     call: 'Call Manager',
     social: 'Social Inbox',
@@ -102,7 +104,7 @@ export interface RoleRecord {
 export function roleRecords(userCounts: Record<Role, number>): RoleRecord[] {
     return (Object.keys(ROLE_CAPABILITIES) as Role[]).map((id) => ({
         id,
-        name: id === 'super-admin' ? 'Super Administrator' : id === 'admin' ? 'Administrator' : 'Agent',
+        name: id === 'super-admin' ? 'Super Administrator' : id === 'admin' ? 'Administrator' : id === 'supervisor' ? 'Supervisor' : 'Agent',
         permissions: [...ROLE_CAPABILITIES[id]],
         userCount: userCounts[id] ?? 0,
     }));

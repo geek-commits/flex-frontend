@@ -1,10 +1,12 @@
 import {
+    RiArrowDownSLine,
+    RiArrowRightSLine,
     RiExternalLinkLine,
     RiInformationLine,
     RiRefreshLine,
     RiShieldKeyholeLine,
 } from '@remixicon/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
     Popover,
@@ -33,6 +35,7 @@ export function CrmIntegrationHost({
     title = 'Customer Workspace',
     mockConfigPath = '/mocks/integrations/crm-primary.json',
 }: CrmIntegrationHostProps) {
+    const [servicesOpen, setServicesOpen] = useState(false);
     const { status, config, frameKey, retry, handleFrameLoad, handleFrameError } =
         useCrmIntegrationState(mockConfigPath);
     const effectiveSrc = config?.iframeConfig?.src ?? null;
@@ -120,6 +123,42 @@ export function CrmIntegrationHost({
                         <RiRefreshLine className="size-3.5" />
                     </Button>
                 </div>
+            </div>
+
+            {/* External CRM services — collapsible, informational only (Agent manual parity) */}
+            <div className="border-b border-flex-workspace-divider bg-flex-workspace-surface">
+                <button
+                    type="button"
+                    onClick={() => setServicesOpen((open) => !open)}
+                    className="flex w-full items-center justify-between px-3 py-2 text-left transition-colors hover:bg-flex-layer-hover"
+                    aria-expanded={servicesOpen}
+                >
+                    <span className="text-xs font-semibold text-flex-text-primary">External CRM services</span>
+                    <span className="flex items-center gap-1.5">
+                        <span className="text-[10px] font-medium text-flex-text-tertiary">4 services</span>
+                        {servicesOpen ? <RiArrowDownSLine className="size-3.5 text-flex-text-tertiary" /> : <RiArrowRightSLine className="size-3.5 text-flex-text-tertiary" />}
+                    </span>
+                </button>
+                {servicesOpen && (
+                    <div className="px-3 pb-2">
+                        <ul className="flex flex-col divide-y divide-border rounded-md border border-border bg-card">
+                            {[
+                                { label: 'Customers', hint: 'Customer directory' },
+                                { label: 'Tasks', hint: 'Task management' },
+                                { label: 'Analytics & Reports', hint: 'CRM analytics' },
+                                { label: 'Feedbacks', hint: 'Feedback inbox' },
+                            ].map((item) => (
+                                <li key={item.label} className="flex items-center justify-between px-3 py-2">
+                                    <div className="min-w-0">
+                                        <div className="text-xs font-medium text-flex-text-primary">{item.label}</div>
+                                        <div className="text-[11px] text-flex-text-tertiary">{item.hint}</div>
+                                    </div>
+                                    <span className="shrink-0 rounded bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">External CRM</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
             </div>
 
             {/* Iframe Viewport Area */}

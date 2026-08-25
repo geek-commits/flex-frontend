@@ -130,13 +130,13 @@ export const FLEX_DOMAINS: FlexDomain[] = [
         id: 'platform',
         label: 'Platform',
         icon: 'organizations',
-        capability: 'roles.manage',
+        capability: 'tenants.manage',
         landingHref: '/admin/tenants',
         hrefPrefixes: ['/admin/tenants'],
         groups: [
             {
                 items: [
-                    { title: 'Tenant Management', href: '/admin/tenants', icon: 'organizations', capability: 'roles.manage' },
+                    { title: 'Tenant Management', href: '/admin/tenants', icon: 'organizations', capability: 'tenants.manage' },
                 ],
             },
         ],

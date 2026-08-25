@@ -13,7 +13,7 @@ ADMINISTRATION  Configure how the contact center behaves.
 PLATFORM        Operate the multi-tenant FLEX platform.
 ```
 
-These map to the user roles in the *Flex CC User Manual* (Agent, Supervisor, Administrator, Super Administrator) and to the runtime capability model in `resources/js/auth/capabilities.tsx` (`super-admin | admin | agent`).
+These map to the user roles in the *Flex CC User Manual* (super-admin | admin | supervisor | agent).
 
 ### Runtime mapping
 

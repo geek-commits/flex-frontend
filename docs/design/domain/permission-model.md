@@ -4,7 +4,7 @@ Defines the UI implications of the current permission implementation. Do not inv
 
 ## Current runtime
 
-- Roles: `super-admin | admin | agent` (`resources/js/auth/capabilities.tsx`).
+- Roles: `super-admin | admin | supervisor | agent` (`resources/js/auth/capabilities.tsx`).
 - Capabilities: a fixed set of `*.view` / `*.manage` tokens (`dashboard.view`, `cdr.view`, `campaigns.view`, `campaigns.manage`, `reports.view`, `console.view`, `settings.manage`, `roles.manage`, `system.view`, `security.view`, `ai.view`, `agent.workspace`, `call.manager`, `missed-calls.view`, `troubleshooting.view`, `support.view`).
 - `ROLE_CAPABILITIES` maps each role to its capability set; `NAVIGATION` filters by capability.
 - The role switcher (Global Search footer) is a POC demo control — it changes visible UI only and grants/restricts nothing.

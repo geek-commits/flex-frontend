@@ -22,4 +22,5 @@ export const USERS_MOCK_RECORDS: UserAccount[] = [
     { id: 'u12', name: 'Mary Chebet', email: 'mary.chebet@flexco.com', username: 'm.chebet', role: 'agent', status: 'deleted', organization: 'Sales & Inquiries', lastActivity: '2026-04-11T13:15:00Z', createdAt: '2025-07-03T08:00:00Z', deletedAt: '2026-08-01T09:30:00Z' },
     { id: 'u13', name: 'Samuel Kimani', email: 'samuel.kimani@flexco.com', username: 's.kimani', role: 'admin', status: 'active', organization: 'Nairobi Central', lastActivity: '2026-08-13T06:58:00Z', createdAt: '2025-09-14T08:00:00Z' },
     { id: 'u14', name: 'Esther Njeri', email: 'esther.njeri@flexco.com', username: 'e.njeri', role: 'agent', status: 'active', organization: 'Technical Escalations', lastActivity: '2026-08-12T20:05:00Z', createdAt: '2025-11-21T08:00:00Z' },
+    { id: 'u15', name: 'David Ouma', email: 'supervisor@flex.com', username: 'd.ouma', role: 'supervisor', status: 'active', organization: 'Customer Support', lastActivity: '2026-08-13T08:22:00Z', createdAt: '2025-12-01T08:00:00Z' },
 ];

@@ -14,6 +14,7 @@ import { useTenantContext } from '@/features/tenants/tenant-context';
 const ROLE_LABELS: Record<string, string> = {
     'super-admin': 'Super Administrator',
     admin: 'Administrator',
+    supervisor: 'Supervisor',
     agent: 'Agent',
 };
 
@@ -30,6 +31,7 @@ const CAPABILITY_LABELS: Record<string, string> = {
     'settings.manage': 'Settings & Profile',
     'security.view': 'Security',
     'roles.manage': 'Roles & Permissions',
+    'tenants.manage': 'Tenant Management',
     'agent.workspace': 'Agent Workspace',
     'agent.dashboard.view': 'Agent Dashboard',
     'social.view': 'Social Inbox',
@@ -52,6 +54,7 @@ const CAPABILITY_ORDER: Capability[] = [
     'settings.manage',
     'security.view',
     'roles.manage',
+    'tenants.manage',
     'agent.workspace',
     'agent.dashboard.view',
     'social.view',
