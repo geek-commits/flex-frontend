@@ -120,4 +120,4 @@ python3 resources/assets/flex/icons/validate-flex-icons.py resources/assets/flex
 
 Checks: safe markup (no `<script>`, external `href`, inline event handlers,
 `foreignObject`), `currentColor` inheritance, `<svg>` root, and `viewBox`.
-Wired into `npm run icons:audit`.
+Wired into `bun run icons:audit`.

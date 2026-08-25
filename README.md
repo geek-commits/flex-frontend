@@ -185,23 +185,24 @@ to light-mode values. See `docs/design/` for theme and motion guidance.
 
 ## Development
 
-Requirements: PHP (project targets PHP 8.5), Composer, Node.js, and a database
-configured for the application.
+Requirements: PHP (project targets PHP 8.5), Composer, [Bun](https://bun.sh), and a
+database configured for the application.
 
 ```bash
-# Install dependencies and configure the environment
+# Install dependencies and configure the environment (backend)
 composer run setup
 
 # Run the application (dev server)
 composer run dev
 ```
 
-For frontend-only work, `my-app/` provides the Vite tooling:
+For frontend-only work, `my-app/` provides the Vite tooling. Bun is the canonical
+JavaScript package manager:
 
 ```bash
 cd my-app
-npm install
-npm run dev
+bun install
+bun run dev
 ```
 
 ## Environment Configuration
@@ -215,9 +216,10 @@ provider tokens, or private keys.
 Under `my-app/`:
 
 ```bash
-npm run lint:check
-npm run types:check
-npm run build
+bun run lint:check
+bun run types:check
+bun run test
+bun run build
 ```
 
 Backend tests use Pest:

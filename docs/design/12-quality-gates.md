@@ -45,7 +45,7 @@ Every feature implementation includes:
 
 ## Tooling note
 
-The frontend has no JS test framework. Gates rely on `npm run lint:check`, `npm run types:check`, and `npm run build` (under `my-app/`), plus browser verification (console errors included). The Laravel backend uses Pest (`php artisan test --compact`). Only claim checks that were actually run.
+Vitest is the frontend test runner (`bun run test`). Gates rely on `bun run lint:check`, `bun run types:check`, and `bun run build` (under `my-app/`), plus browser verification (console errors included). The Laravel backend uses Pest (`php artisan test --compact`). Only claim checks that were actually run.
 
 ## Commit rules
 
