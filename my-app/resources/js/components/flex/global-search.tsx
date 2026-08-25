@@ -1,12 +1,13 @@
-import { router } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import {
     RiSearchLine,
     RiAppsLine,
 
 } from '@remixicon/react';
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { NAVIGATION, useCapabilities  } from '@/auth/capabilities';
+import { NAVIGATION, useCapabilities } from '@/auth/capabilities';
 import type { Role } from '@/auth/capabilities';
+import { FLEX_DOMAINS } from '@/auth/nav-domains';
 import { FlexIcon } from '@/components/flex/iconography';
 import type { FlexIconName } from '@/components/flex/iconography';
 import { SearchHighlight } from '@/components/flex/search-highlight';
@@ -26,6 +27,7 @@ import { CAMPAIGN_MOCK_RECORDS } from '@/data/campaigns.mock';
 import { CDR_MOCK_RECORDS } from '@/data/cdr.mock';
 import { CONSOLE_MODULES } from '@/domain/modules';
 import { filterModulesByPermission, filterModulesByQuery } from '@/features/management-console/use-visible-modules';
+import { getSafeLandingForRole, isRouteAccessibleForRole } from '@/lib/role-routing';
 
 interface GlobalSearchContextValue {
     open: boolean;
@@ -49,6 +51,17 @@ const ROLE_OPTIONS: { value: Role; label: string }[] = [
     { value: 'supervisor', label: 'Supervisor' },
     { value: 'agent', label: 'Agent' },
 ];
+
+const NAV_SUBTITLE_BY_HREF = new Map<string, string>([
+    ...FLEX_DOMAINS.flatMap((domain) =>
+        domain.groups.flatMap((group) =>
+            group.items.map(
+                (item) => [item.href, group.groupTitle ? `${domain.label} · ${group.groupTitle}` : domain.label] as const,
+            ),
+        ),
+    ),
+    ['/settings/profile', 'System'],
+]);
 
 function matches(text: string, query: string) {
     return text.toLocaleLowerCase().includes(query.toLocaleLowerCase());
@@ -133,6 +146,7 @@ throw new Error('useGlobalSearch must be used within a GlobalSearchProvider');
 
 function GlobalSearchDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
     const { has, role, setRole } = useCapabilities();
+    const { url } = usePage();
     const [query, setQuery] = useState('');
 
     const handleOpenChange = (next: boolean) => {
@@ -165,7 +179,11 @@ return true;
 return true;
 }
 
-            if (record.href.startsWith('/admin') && !has('cdr.view') && !has('campaigns.view')) {
+            if (record.href === '/admin/cdr' && !has('cdr.view')) {
+return false;
+}
+
+            if (record.href === '/admin/campaigns' && !has('campaigns.view')) {
 return false;
 }
 
@@ -180,6 +198,7 @@ return false;
     const grouped = {
         navigation: visibleNavigation.map((entry) => ({
             ...entry,
+            subtitle: NAV_SUBTITLE_BY_HREF.get(entry.href),
             group: 'Navigation',
             kind: 'navigation' as const,
         })),
@@ -227,8 +246,12 @@ return false;
                             return (
                                 <CommandItem key={item.href} value={`nav ${item.title}`} onSelect={() => run(item.href)}>
                                     <FlexIcon name={item.icon} className="size-4 text-muted-foreground" />
-                                    <SearchHighlight text={item.title} query={query} />
-                                    <span className="text-[10px] text-muted-foreground uppercase">{item.badge ?? item.workspace}</span>
+                                    <div className="flex min-w-0 flex-col">
+                                        <SearchHighlight text={item.title} query={query} />
+                                        {item.subtitle && (
+                                            <span className="text-xs text-muted-foreground truncate">{item.subtitle}</span>
+                                        )}
+                                    </div>
                                 </CommandItem>
                             );
                         })}
@@ -299,7 +322,15 @@ return false;
                                 <button
                                     key={option.value}
                                     type="button"
-                                    onClick={() => setRole(option.value)}
+                                    onClick={() => {
+                                        const next = option.value;
+                                        const accessible = isRouteAccessibleForRole(url, next);
+                                        setRole(next);
+
+                                        if (!accessible) {
+                                            router.visit(getSafeLandingForRole(next));
+                                        }
+                                    }}
                                     className={`px-1.5 py-0.5 rounded text-[10px] font-semibold transition-colors ${
                                         role === option.value
                                             ? 'bg-primary text-primary-foreground'

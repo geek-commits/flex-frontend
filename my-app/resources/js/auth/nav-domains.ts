@@ -54,7 +54,7 @@ export const FLEX_DOMAINS: FlexDomain[] = [
                 groupTitle: 'Engagement',
                 items: [
                     { title: 'Social Inbox', href: '/agent/social', icon: 'social-inbox', capability: 'social.view' },
-                    { title: 'Missed Calls', href: '/agent/missed-calls', icon: 'missed-calls', capability: 'missed-calls.view' },
+                    { title: 'Callback & Voicemail', href: '/agent/missed-calls', icon: 'missed-calls', capability: 'missed-calls.view' },
                 ],
             },
             {
@@ -99,6 +99,12 @@ export const FLEX_DOMAINS: FlexDomain[] = [
         hrefPrefixes: ['/admin/console', '/admin/users', '/admin/roles', '/admin/queues', '/admin/ivr', '/admin/time-groups', '/admin/time-conditions', '/admin/recordings', '/admin/mail-config', '/admin/subscription', '/admin/system', '/admin/ai', '/settings'],
         groups: [
             {
+                groupTitle: 'Overview',
+                items: [
+                    { title: 'Management Console', href: '/admin/console', icon: 'management-console', capability: 'console.view' },
+                ],
+            },
+            {
                 groupTitle: 'People',
                 items: [
                     { title: 'Users', href: '/admin/users', icon: 'users', capability: 'console.view' },
@@ -115,11 +121,16 @@ export const FLEX_DOMAINS: FlexDomain[] = [
                 ],
             },
             {
-                groupTitle: 'System',
+                groupTitle: 'Media',
                 items: [
                     { title: 'Recordings', href: '/admin/recordings', icon: 'recordings', capability: 'console.view' },
-                    { title: 'Mail Configuration', href: '/admin/mail-config', icon: 'mail', capability: 'console.view' },
-                    { title: 'Subscriptions', href: '/admin/subscription', icon: 'subscriptions', capability: 'console.view' },
+                ],
+            },
+            {
+                groupTitle: 'System',
+                items: [
+                    { title: 'Subscriptions', href: '/admin/subscription', icon: 'subscriptions', capability: 'settings.manage' },
+                    { title: 'Mail Configuration', href: '/admin/mail-config', icon: 'mail', capability: 'settings.manage' },
                     { title: 'System & Infrastructure', href: '/admin/system', icon: 'infrastructure', capability: 'system.view' },
                     { title: 'AI Center', href: '/admin/ai', icon: 'ai-center', capability: 'ai.view' },
                 ],
@@ -143,12 +154,22 @@ export const FLEX_DOMAINS: FlexDomain[] = [
     },
 ];
 
+/** Boundary-aware active-route check: exact match or prefix with slash boundary. */
+export function isActiveRoute(currentUrl: string, href: string): boolean {
+    const path = currentUrl.split(/[?#]/)[0] ?? currentUrl;
+
+    return path === href || path.startsWith(`${href}/`);
+}
+
 /** Derive the active major domain from the current URL using the domain map. */
 export function deriveActiveDomain(url: string): FlexDomainId | null {
+    const path = url.split(/[?#]/)[0] ?? url;
+
     for (const domain of FLEX_DOMAINS) {
-        if (domain.hrefPrefixes.some((prefix) => url === prefix || url.startsWith(`${prefix}/`) || url.startsWith(prefix))) {
+        if (domain.hrefPrefixes.some((prefix) => path === prefix || path.startsWith(`${prefix}/`))) {
             return domain.id;
         }
     }
+
     return null;
 }

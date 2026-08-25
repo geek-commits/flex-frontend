@@ -1,7 +1,8 @@
 import { Link, usePage } from '@inertiajs/react';
 import { RiWifiLine, RiMenuLine } from '@remixicon/react';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useCapabilities } from '@/auth/capabilities';
+import { FLEX_DOMAINS, isActiveRoute } from '@/auth/nav-domains';
 import { FlexBrandLogo } from '@/components/flex/brand';
 import { useBrandIntroReplayGuard } from '@/components/flex/brand/use-brand-intro-replay-guard';
 import { FlexProfileMenu } from '@/components/flex/flex-profile-menu';
@@ -31,12 +32,24 @@ export function AppTopbar({
 }: AppTopbarProps) {
     const { url } = usePage();
     const animateOnMount = useBrandIntroReplayGuard();
-    const { navEntries } = useCapabilities();
+    const { has } = useCapabilities();
 
     const currentAgentConfig = agentStateMap[agentState];
     const connConfig = connectionStateMap[connectionState];
 
-    const mobileNavItems = navEntries;
+    const visibleMobileDomains = useMemo(() => {
+        return FLEX_DOMAINS.filter((domain) => has(domain.capability))
+            .map((domain) => ({
+                ...domain,
+                groups: domain.groups
+                    .map((group) => ({
+                        ...group,
+                        items: group.items.filter((item) => !item.capability || has(item.capability)),
+                    }))
+                    .filter((group) => group.items.length > 0),
+            }))
+            .filter((domain) => domain.groups.length > 0);
+    }, [has]);
 
     return (
         <header className="h-11 bg-flex-workspace-surface border-b border-flex-workspace-divider px-3 md:px-4 grid grid-cols-[1fr_auto_1fr] items-center sticky top-0 z-20 shrink-0 select-none">
@@ -54,25 +67,42 @@ export function AppTopbar({
                                 <FlexBrandLogo variant="sidebar" animateOnMount={animateOnMount} decorative />
                             </SheetTitle>
                         </SheetHeader>
-                        <nav className="flex flex-col gap-1 mt-2">
-                            {mobileNavItems.map((item) => {
-                                const isActive = url.startsWith(item.href);
+                        <nav className="flex flex-col gap-1 mt-2 overflow-y-auto">
+                            {visibleMobileDomains.map((domain) => (
+                                <div key={domain.id} className="flex flex-col gap-1">
+                                    <p className="px-3 pt-2 text-[11px] font-semibold uppercase tracking-wider text-flex-text-tertiary">
+                                        {domain.label}
+                                    </p>
+                                    {domain.groups.map((group, gi) => (
+                                        <div key={`${domain.id}-${gi}`} className="flex flex-col gap-1">
+                                            {group.groupTitle && (
+                                                <p className="px-3 pt-1 text-[11px] font-medium text-flex-text-tertiary">
+                                                    {group.groupTitle}
+                                                </p>
+                                            )}
+                                            {group.items.map((item) => {
+                                                const isActive = isActiveRoute(url, item.href);
 
-                                return (
-                                    <Link
-                                        key={item.href}
-                                        href={item.href}
-                                        className={`flex items-center gap-2.5 px-3 h-8 rounded-md text-[13px] font-medium transition-colors ${
-                                            isActive
-                                                ? 'bg-flex-layer-selected text-flex-text-primary'
-                                                : 'text-flex-text-tertiary hover:bg-flex-layer-hover hover:text-flex-text-primary border border-transparent'
-                                        }`}
-                                    >
-                                        <FlexIcon name={item.icon} className="size-4" />
-                                        <span>{item.title}</span>
-                                    </Link>
-                                );
-                            })}
+                                                return (
+                                                    <Link
+                                                        key={item.href}
+                                                        href={item.href}
+                                                        aria-current={isActive ? 'page' : undefined}
+                                                        className={`flex items-center gap-2.5 px-3 h-8 rounded-md text-[13px] font-medium transition-colors ${
+                                                            isActive
+                                                                ? 'bg-flex-layer-selected text-flex-text-primary'
+                                                                : 'text-flex-text-tertiary hover:bg-flex-layer-hover hover:text-flex-text-primary border border-transparent'
+                                                        }`}
+                                                    >
+                                                        <FlexIcon name={item.icon} className="size-4" />
+                                                        <span>{item.title}</span>
+                                                    </Link>
+                                                );
+                                            })}
+                                        </div>
+                                    ))}
+                                </div>
+                            ))}
                         </nav>
                     </SheetContent>
                 </Sheet>

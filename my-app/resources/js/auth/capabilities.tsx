@@ -1,4 +1,5 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { FLEX_DOMAINS } from '@/auth/nav-domains';
 import type { FlexIconName } from '@/components/flex/iconography';
 
 /**
@@ -106,24 +107,47 @@ export interface NavEntry {
     badge?: string;
 }
 
-/** Single navigation model consumed by PrimaryRail, ContextSidebar and Global Search. */
-export const NAVIGATION: NavEntry[] = [
-    { title: 'Agent Workspace', href: '/agent', icon: 'agent-workspace', capability: 'agent.workspace', workspace: 'agent', badge: 'Live' },
-    { title: 'Agent Dashboard', href: '/agent/dashboard', icon: 'dashboard', capability: 'agent.dashboard.view', workspace: 'agent' },
-    { title: 'Social Inbox', href: '/agent/social', icon: 'social-inbox', capability: 'social.view', workspace: 'agent' },
-    { title: 'Contact Center Dashboard', href: '/dashboard', icon: 'dashboard', capability: 'dashboard.view', workspace: 'admin' },
-    { title: 'Agent Monitoring', href: '/admin/monitoring', icon: 'monitoring', capability: 'monitor.view', workspace: 'admin' },
-    { title: 'Management Console', href: '/admin/console', icon: 'management-console', capability: 'console.view', workspace: 'admin' },
-    { title: 'Call Records (CDR)', href: '/admin/cdr', icon: 'call-records', capability: 'cdr.view', workspace: 'admin' },
-    { title: 'Call Campaigns', href: '/admin/campaigns', icon: 'campaigns', capability: 'campaigns.view', workspace: 'admin' },
-    { title: 'Reports & Analytics', href: '/admin/reports', icon: 'reports', capability: 'reports.view', workspace: 'admin' },
-    { title: 'AI Center', href: '/admin/ai', icon: 'ai-center', capability: 'ai.view', workspace: 'admin' },
-    { title: 'System & Infrastructure', href: '/admin/system', icon: 'infrastructure', capability: 'system.view', workspace: 'admin' },
-    { title: 'Missed Calls', href: '/agent/missed-calls', icon: 'missed-calls', capability: 'missed-calls.view', workspace: 'agent' },
-    { title: 'Troubleshooting', href: '/agent/troubleshooting', icon: 'troubleshooting', capability: 'troubleshooting.view', workspace: 'agent' },
-    { title: 'Quick Support', href: '/agent/support', icon: 'support', capability: 'support.view', workspace: 'agent' },
-    { title: 'Settings', href: '/settings/profile', icon: 'settings', capability: 'settings.manage', workspace: 'shared' },
-];
+/**
+ * Derived flat navigation — single metadata source lives in `FLEX_DOMAINS`
+ * (`auth/nav-domains.ts`). NAVIGATION is re-derived for consumers that need a
+ * flat list (Global Search, mobile). Do not hand-maintain entries here.
+ */
+
+function deriveNavigation(): NavEntry[] {
+    const domainWorkspace: Record<string, NavEntry['workspace']> = {
+        agent: 'agent',
+        supervision: 'admin',
+        administration: 'admin',
+        platform: 'admin',
+    };
+
+    const flat: NavEntry[] = FLEX_DOMAINS.flatMap((domain) =>
+        domain.groups.flatMap((group) =>
+            group.items.map(
+                (item): NavEntry => ({
+                    title: item.title,
+                    href: item.href,
+                    icon: item.icon,
+                    capability: item.capability as Capability,
+                    workspace: domainWorkspace[domain.id] ?? 'admin',
+                }),
+            ),
+        ),
+    );
+
+    // Shared non-domain route (Settings/Profile) — not part of the main domain tree (§24).
+    flat.push({
+        title: 'Settings',
+        href: '/settings/profile',
+        icon: 'settings',
+        capability: 'settings.manage',
+        workspace: 'shared',
+    });
+
+    return flat;
+}
+
+export const NAVIGATION: NavEntry[] = deriveNavigation();
 
 const ROLE_STORAGE_KEY = 'flex.poc.role';
 
