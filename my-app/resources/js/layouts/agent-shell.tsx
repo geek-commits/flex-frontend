@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { AppProviders } from '@/components/flex/app-providers';
 import { AppTopbar } from '@/components/flex/app-topbar';
-import { PrimaryRail } from '@/components/flex/primary-rail';
+import { FlexAppShell } from '@/components/flex/flex-app-shell';
 import type { AgentState } from '@/types/flex';
 
 export interface AgentShellProps {
@@ -23,44 +22,19 @@ export function AgentShell({
 }: AgentShellProps) {
     const [agentState, setAgentState] = useState<AgentState>('ready');
 
+    const resolvedTopbar =
+        topbar ?? (
+            <AppTopbar title={title} mode="agent" agentState={agentState} onAgentStateChange={setAgentState} />
+        );
+
     return (
-        <AppProviders>
-            <div className="flex min-h-screen overflow-hidden bg-background font-sans text-foreground antialiased">
-                {/* Primary Rail */}
-                <PrimaryRail activeWorkspace="agent" />
-
-                {/* Main Content & Toolbar */}
-                <div className="flex h-screen min-w-0 flex-1 flex-col overflow-hidden">
-                    {topbar ?? (
-                        <AppTopbar
-                            title={title}
-                            mode="agent"
-                            agentState={agentState}
-                            onAgentStateChange={setAgentState}
-                        />
-                    )}
-
-                    {/* Workspace Grid Layout: Central Workspace + Optional Call Manager */}
-                    <div className="flex min-h-0 flex-1 overflow-hidden">
-                        <main className="min-w-0 flex-1 overflow-y-auto p-4 pb-24 md:p-5 md:pb-5">
-                            {children}
-                        </main>
-
-                        {/* Optional Agent Assist companion panel */}
-                        {assistPanel}
-
-                        {/* Optional Right Call Manager Panel */}
-                        {callManagerPanel && (
-                            <aside
-                                data-call-island-zone="call-manager"
-                                className="fixed inset-x-0 bottom-0 z-40 flex max-h-[85dvh] flex-col rounded-t-xl border-t bg-card shadow-flex-overlay md:static md:z-auto md:h-full md:max-h-none md:w-80 md:rounded-none md:border-l md:border-t-0 md:shadow-none lg:w-96"
-                            >
-                                {callManagerPanel}
-                            </aside>
-                        )}
-                    </div>
-                </div>
-            </div>
-        </AppProviders>
+        <FlexAppShell
+            mode="agent"
+            topbar={resolvedTopbar}
+            assistPanel={assistPanel}
+            rightPanel={callManagerPanel}
+        >
+            {children}
+        </FlexAppShell>
     );
 }

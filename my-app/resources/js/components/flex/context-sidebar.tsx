@@ -3,6 +3,7 @@ import { RiLayoutLeftLine } from '@remixicon/react';
 import React, { useMemo } from 'react';
 import { useCapabilities  } from '@/auth/capabilities';
 import type { Capability } from '@/auth/capabilities';
+import { isActiveRoute } from '@/auth/nav-domains';
 import type { FlexIconName } from '@/components/flex/iconography';
 import { FlexIcon } from '@/components/flex/iconography';
 import { useShell } from '@/components/flex/shell-context';
@@ -69,7 +70,7 @@ export function ContextSidebar({ title, subtitle, groups }: ContextSidebarProps)
                             </h3>
                         )}
                         {group.items.map((item) => {
-                            const isActive = url.startsWith(item.href);
+                            const isActive = isActiveRoute(url, item.href);
                             const Icon = item.icon;
 
                             return (
