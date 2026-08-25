@@ -18,7 +18,6 @@ import {
 import type { AgentState, ConnectionState } from '@/types/flex';
 import { AgentStateControl } from './agent-state-control';
 import { ConnectionStatus } from './connection-status';
-import { SessionTimer } from './session-timer';
 
 export interface AgentOperationalHeaderProps {
     agentState: AgentState;
@@ -26,7 +25,6 @@ export interface AgentOperationalHeaderProps {
     pendingState?: AgentState | null;
     stateError?: string | null;
     connectionState: ConnectionState;
-    sessionStartedAt?: string;
     title?: string;
 }
 
@@ -41,7 +39,6 @@ export function AgentOperationalHeader({
     pendingState,
     stateError,
     connectionState,
-    sessionStartedAt,
     title = 'Agent Workspace',
 }: AgentOperationalHeaderProps) {
     const { url } = usePage();
@@ -117,8 +114,6 @@ export function AgentOperationalHeader({
                 />
 
                 <ConnectionStatus state={connectionState} />
-
-                <SessionTimer startedAt={sessionStartedAt} />
 
                 <div className="ml-auto flex items-center gap-1 border-l border-border pl-1 md:ml-0 md:pl-2">
                     <GlobalSearchTrigger />

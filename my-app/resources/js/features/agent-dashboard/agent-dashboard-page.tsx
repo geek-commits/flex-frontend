@@ -17,7 +17,7 @@ import { QueuePressureSection } from './sections/queue-pressure';
  * and session come from the single canonical workspace owner.
  */
 export function AgentDashboardPage() {
-    const { agentState, agentStatePending, connection, sessionStartedAt, setAgentState } =
+    const { agentState, agentStatePending, connection, setAgentState } =
         useWorkspaceState();
     const data = agentDashboardRepository.getDashboardData();
 
@@ -29,7 +29,6 @@ export function AgentDashboardPage() {
                     onAgentStateChange={setAgentState}
                     pendingState={agentStatePending}
                     connectionState={connection}
-                    sessionStartedAt={sessionStartedAt}
                 />
             }
         >

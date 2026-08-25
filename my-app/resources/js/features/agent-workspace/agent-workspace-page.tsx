@@ -25,7 +25,6 @@ export function AgentWorkspacePage() {
         agentState,
         agentStatePending,
         connection,
-        sessionStartedAt,
         setAgentState,
         callState,
     } = useWorkspaceState();
@@ -55,7 +54,6 @@ export function AgentWorkspacePage() {
                     onAgentStateChange={setAgentState}
                     pendingState={agentStatePending}
                     connectionState={connection}
-                    sessionStartedAt={sessionStartedAt}
                 />
             }
         >

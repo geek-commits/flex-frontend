@@ -27,7 +27,7 @@ import { useSocialWorkspace } from './use-social-workspace';
 export function SocialWorkspacePage() {
     const { auth } = usePage().props;
     const agentName = (auth as { user?: { name?: string } } | undefined)?.user?.name ?? 'Agent';
-    const { agentState, agentStatePending, connection, sessionStartedAt, setAgentState } =
+    const { agentState, agentStatePending, connection, setAgentState } =
         useWorkspaceState();
     const { conversations, getMessages, sendReply, setFollowUp, escalate } = useSocialWorkspace();
 
@@ -67,7 +67,6 @@ export function SocialWorkspacePage() {
                     onAgentStateChange={setAgentState}
                     pendingState={agentStatePending}
                     connectionState={connection}
-                    sessionStartedAt={sessionStartedAt}
                 />
             }
         >

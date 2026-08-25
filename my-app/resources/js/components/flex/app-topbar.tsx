@@ -83,13 +83,8 @@ export function AppTopbar({
 
                 <div>
                     {title && (
-                        <h1 className="text-sm font-semibold text-foreground tracking-tight flex items-center gap-2">
+                        <h1 className="text-sm font-semibold text-foreground tracking-tight">
                             {title}
-                            {mode === 'agent' && (
-                                <span className="px-2 py-0.5 text-[10px] font-bold uppercase rounded-full bg-primary/10 text-primary border border-primary/20">
-                                    Agent Mode
-                                </span>
-                            )}
                         </h1>
                     )}
                     {subtitle && <p className="text-xs text-muted-foreground">{subtitle}</p>}
