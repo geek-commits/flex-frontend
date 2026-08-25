@@ -16,13 +16,15 @@ Navigation is not a hard-coded list of routes. It is the intersection of the sig
 
 ## Runtime model
 
-The frontend has a single navigation source of truth — `NAVIGATION` in `resources/js/auth/capabilities.tsx` — consumed consistently by:
+The frontend has a single navigation source of truth — `FLEX_DOMAINS` in `resources/js/auth/nav-domains.ts` — a domain-tree owning label, icon, landingHref, hrefPrefixes, groups and per-item `capability`. Consumers derive from it consistently:
 
-- `PrimaryRail` (workspace rail; `activeWorkspace: 'admin' | 'agent'`);
-- `ContextSidebar` (contextual groups, each item carries a `capability`);
-- `GlobalSearch` (filters `NAVIGATION` by `has(capability)`).
+- `PrimaryRail` — visible domains filtered by `has(domain.capability)`;
+- `ContextSidebar` — active domain's groups filtered by item capability;
+- `GlobalSearch` — navigation index derived from the domain tree with `Domain · Group` muted subtitles (no LIVE/AGENT suffix clutter);
+- Mobile Sheet — domain/group/route hierarchy identical to desktop (not a flat list);
+- `FlexAppShell` (`resources/js/components/flex/flex-app-shell.tsx`) — shared structural shell (rabast rail + contextual sidebar + collapse affordance + topbar boundary) reused by both `AgentShell` and `AdminShell`.
 
-Every nav entry declares `title`, `href`, `icon`, `capability`, and `workspace`. Visibility is derived via `ROLE_CAPABILITIES[role]`; the backend has no roles/permissions yet (see `domain/permission-model.md`).
+`NAVIGATION` in `resources/js/auth/capabilities.tsx` is now derived flat from `FLEX_DOMAINS` (plus a small explicit shared route for Settings) for consumers that need a list — manual entries are not maintained. Every entry still declares `title`, `href`, `icon`, and `capability`; visibility is derived via `ROLE_CAPABILITIES[role]`; the backend has no roles/permissions yet (see `domain/permission-model.md`). Boundary-aware matching (`isActiveRoute`) is used for active state (exact or slash-boundary) — broad `startsWith` is prohibited.
 
 > Tenant context is **not implemented** in the current runtime, so navigation is not yet tenant-aware. The model below documents the intended design; tenant-aware navigation ships only when the backend provides tenant context (see `domain/tenant-context.md`).
 
@@ -63,11 +65,14 @@ Tenants
 Global Settings
 ```
 
-Actual visibility always depends on existing permissions. The current runtime ships the two canonical contextual groups on supervision surfaces:
+Actual visibility always depends on existing permissions. The current runtime ships these contextual groups derived from the domain tree:
 
 ```text
-SUPERVISION    Dashboard · Agent Monitoring
-OPERATIONS     CDR · Campaigns · Reports
+Agent          Overview (Agent Dashboard, Agent Workspace) · Engagement (Social Inbox, Callback & Voicemail) · Support (Troubleshooting, Quick Support)
+Supervision    (Overview: Contact Center Dashboard, Agent Monitoring) · Operations (CDR, Campaigns, Reports)
+Administration Overview (Management Console) · People (Users, Roles & Permissions*) · Routing (Queues, IVR, Time Groups, Time Conditions) · Media (Recordings) · System (Subscriptions*, Mail Configuration*, System & Infrastructure*, AI Center*)
+Platform       Tenant Management*
+* capability-gated; Administration System and Platform domain discriminate Supervisor vs Administrator vs Super Administrator
 ```
 
 ## Navigation rules
@@ -90,3 +95,4 @@ Do not rename or move routes simply to make navigation grouping prettier.
 - Route path and navigation grouping are separate concerns; regrouping can be done without touching routes.
 - Renaming a route breaks bookmarks, stored links, and integration boundaries.
 - When a route must change, keep the old path resolving (redirect or alias) and flag the change for product review.
+- Renaming a display label (e.g. route `/agent/missed-calls` displaying as **Callback & Voicemail**) is permitted without changing the path — labels are presentation, routes are integration boundaries.

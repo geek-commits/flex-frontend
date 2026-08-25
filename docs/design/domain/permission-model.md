@@ -6,8 +6,10 @@ Defines the UI implications of the current permission implementation. Do not inv
 
 - Roles: `super-admin | admin | supervisor | agent` (`resources/js/auth/capabilities.tsx`).
 - Capabilities: a fixed set of `*.view` / `*.manage` tokens (`dashboard.view`, `cdr.view`, `campaigns.view`, `campaigns.manage`, `reports.view`, `console.view`, `settings.manage`, `roles.manage`, `system.view`, `security.view`, `ai.view`, `agent.workspace`, `call.manager`, `missed-calls.view`, `troubleshooting.view`, `support.view`).
-- `ROLE_CAPABILITIES` maps each role to its capability set; `NAVIGATION` filters by capability.
-- The role switcher (Global Search footer) is a POC demo control — it changes visible UI only and grants/restricts nothing.
+- `ROLE_CAPABILITIES` maps each role to its capability set; `FLEX_DOMAINS` (and the derived `NAVIGATION` / mobile / search indices) filter by capability.
+- Administration route gates: `console.view` (Management Console, Users, Queues, IVR, Time Groups, Time Conditions, Recordings) vs `roles.manage` (Roles & Permissions) vs `settings.manage` (Subscriptions, Mail Configuration) vs `system.view` (System & Infrastructure) vs `ai.view` (AI Center) vs `tenants.manage` (Platform/Tenant Management) — this separation discriminates Supervisor from Administrator.
+- `CONSOLE_MODULES` in `domain/modules.ts` uses the same capability vocabulary as navigation; `Settings` remains a shared non-domain route (`settings.manage`).
+- The role switcher (Global Search footer) is a POC demo control — it changes visible UI only and grants/restricts nothing; on switch, if the current route becomes inaccessible, the POC redirects via Inertia to the role's safe landing (`agent → /agent/dashboard`, `supervisor → /dashboard`, `admin → /admin/console`, `super-admin → /admin/tenants`); if still accessible, it stays (see `lib/role-routing.ts`).
 
 > **Backend reality:** the backend currently uses Fortify session auth with **no roles/permissions model**. The capability registry is a frontend-only proof-of-concept. Server-side authorization is deferred and must be enforced at the data source in a later rollout. The backend remains authoritative for actual access.
 
