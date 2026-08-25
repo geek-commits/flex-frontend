@@ -109,15 +109,7 @@ export class AgentAssistMockTransport implements AgentAssistTransport {
         };
         this.sessions.set(sessionId, session);
 
-        // If defaultMode is error, fail immediately
-        if (this.defaultMode === 'error') {
-            queueMicrotask(() => {
-                for (const h of session.handlers) {
-                    h.onTransportState?.('offline');
-                    h.onError?.({ code: 'assist_session_start_failed', message: 'Assist unavailable for this call.' });
-                }
-            });
-        }
+        // Error failure is emitted on subscribe/pump, not here
 
         return { sessionId };
     }
@@ -155,6 +147,15 @@ export class AgentAssistMockTransport implements AgentAssistTransport {
     private pumpSession(session: ActiveSession) {
         const fixture = FIXTURES[session.mode];
 
+        // Handle error mode — emit offline/error without connecting flow
+        if (session.mode === 'error') {
+            this.emitForSession(session, (h) => h.onTransportState?.('offline'));
+            this.emitForSession(session, (h) =>
+                h.onError?.({ code: 'assist_session_start_failed', message: 'Assist unavailable for this call.' }),
+            );
+            return;
+        }
+
         // Transport state: connecting → streaming
         this.emitForSession(session, (h) => h.onTransportState?.('connecting'));
         this.schedule(session, 300, () => {
@@ -168,11 +169,6 @@ export class AgentAssistMockTransport implements AgentAssistTransport {
         this.schedule(session, 900, () => {
             this.emitForSession(session, (h) => h.onLanguage?.(fixture.language));
         });
-
-        // Handle error mode — already emitted, no segments
-        if (session.mode === 'error') {
-            return;
-        }
 
         // Handle stalled mode — emit interim then stall marker
         if (session.mode === 'stalled') {
