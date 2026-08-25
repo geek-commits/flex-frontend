@@ -1,4 +1,4 @@
-import { router } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import { RiPhoneLine, RiArrowRightLine } from '@remixicon/react';
 import { motion } from 'motion/react';
 import React, { useCallback, useState } from 'react';
@@ -40,8 +40,10 @@ const STATE_DOT_COLOR: Record<string, string> = {
  */
 export function FlexCallIsland() {
     const call = useActiveCallPresentation();
+    const { url } = usePage();
+    const pathname = url.split(/[?#]/)[0].replace(/\/+$/, '') || '/';
 
-    if (!call) {
+    if (!call || pathname === '/agent') {
         return null;
     }
 
