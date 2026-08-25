@@ -1,38 +1,13 @@
 import { Head } from '@inertiajs/react';
 
 import React from 'react';
-import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
 
 import { ModuleDirectory } from '@/components/flex/module-directory';
 import type { ModuleItem } from '@/components/flex/module-directory';
 import { SETTINGS_MODULES } from '@/domain/modules';
 import { AdminShell } from '@/layouts/admin-shell';
 
-const settingsContextGroups: ContextSidebarGroup[] = [
-    {
-        groupTitle: 'Account',
-        items: [
-            { title: 'Profile', href: '/settings/profile', icon: 'agents', capability: 'settings.manage' },
-            { title: 'Security', href: '/settings/security', icon: 'security', capability: 'settings.manage' },
-            { title: 'Appearance', href: '/settings/appearance', icon: 'settings', capability: 'settings.manage' },
-        ],
-    },
-    {
-        groupTitle: 'Telephony Operations',
-        items: [
-            { title: 'Call Records (CDR)', href: '/admin/cdr', icon: 'cdr-configuration', capability: 'cdr.view' },
-            { title: 'Call Campaigns', href: '/admin/campaigns', icon: 'surveys', capability: 'campaigns.view' },
-            { title: 'Reports & Analytics', href: '/admin/reports', icon: 'global-config', capability: 'reports.view' },
-        ],
-    },
-    {
-        groupTitle: 'Platform',
-        items: [
-            { title: 'System & Infrastructure', href: '/admin/system', icon: 'routes', capability: 'system.view' },
-            { title: 'AI Center', href: '/admin/ai', icon: 'organizations', capability: 'ai.view' },
-        ],
-    },
-];
+
 
 export default function SettingsDirectoryPage() {
     const modules: ModuleItem[] = SETTINGS_MODULES;
@@ -41,9 +16,7 @@ export default function SettingsDirectoryPage() {
         <AdminShell
             title="System Settings"
             subtitle="Configure Telephony Engine, Media, Security & Routing Parameters"
-            contextTitle="Settings"
-            contextSubtitle="Search & navigate settings"
-            contextGroups={settingsContextGroups}
+            
         >
             <Head title="System Settings — Flex Contact Center" />
             <ModuleDirectory

@@ -19,9 +19,7 @@ export function AiSubPage({ title, subtitle, actions, children }: AiSubPageProps
         <AdminShell
             title={title}
             subtitle={subtitle}
-            contextTitle="AI Center"
-            contextSubtitle="AI operations"
-            contextGroups={AI_CONTEXT_GROUPS}
+            
             actions={actions}
         >
             <Head title={`${title} — Flex Contact Center`} />

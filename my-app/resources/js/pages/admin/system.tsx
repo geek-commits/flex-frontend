@@ -1,7 +1,6 @@
 import { Head } from '@inertiajs/react';
 import { RiRefreshLine } from '@remixicon/react';
 import React, { useState } from 'react';
-import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
 import { FlexStatus } from '@/components/flex/flex-status';
 import type { FlexStatusTone } from '@/components/flex/flex-status';
 import { FlexIcon } from '@/components/flex/iconography';
@@ -24,28 +23,7 @@ const RESOURCE_TONE: Record<string, string> = {
     sky: 'bg-sky-500',
 };
 
-const systemContextGroups: ContextSidebarGroup[] = [
-    {
-        groupTitle: 'Operations',
-        items: [
-            { title: 'System & Infrastructure', href: '/admin/system', icon: 'infrastructure', capability: 'system.view' },
-            { title: 'Reports & Analytics', href: '/admin/reports', icon: 'reports', capability: 'reports.view' },
-            { title: 'AI Center', href: '/admin/ai', icon: 'ai-center', capability: 'ai.view' },
-        ],
-    },
-    {
-        groupTitle: 'Administration',
-        items: [
-            { title: 'Management Console', href: '/admin/console', icon: 'management-console', capability: 'console.view' },
-            { title: 'Call Records (CDR)', href: '/admin/cdr', icon: 'call-records', capability: 'cdr.view' },
-            { title: 'Call Campaigns', href: '/admin/campaigns', icon: 'campaigns', capability: 'campaigns.view' },
-        ],
-    },
-    {
-        groupTitle: 'Security',
-        items: [{ title: 'Account Security', href: '/settings/security', icon: 'security', capability: 'settings.manage' }],
-    },
-];
+
 
 export default function SystemPage() {
     const { data, refresh } = useSystem();
@@ -65,9 +43,7 @@ export default function SystemPage() {
         <AdminShell
             title="System & Infrastructure"
             subtitle="Platform Health, Backups, TLS Certificates & Gateway Connections"
-            contextTitle="System"
-            contextSubtitle="Infrastructure administration"
-            contextGroups={systemContextGroups}
+            
             actions={
                 <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={handleRefresh}>
                     <RiRefreshLine className={`size-3.5 ${refreshing ? 'animate-spin' : ''}`} />

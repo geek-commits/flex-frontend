@@ -1,11 +1,10 @@
 import { Link, usePage } from '@inertiajs/react';
 import { RiLayoutLeftLine } from '@remixicon/react';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { useCapabilities  } from '@/auth/capabilities';
 import type { Capability } from '@/auth/capabilities';
 import type { FlexIconName } from '@/components/flex/iconography';
 import { FlexIcon } from '@/components/flex/iconography';
-import { Input } from '@/components/ui/input';
 import { useShell } from '@/components/flex/shell-context';
 
 export interface ContextSidebarItem {
@@ -31,21 +30,16 @@ export function ContextSidebar({ title, subtitle, groups }: ContextSidebarProps)
     const { url } = usePage();
     const { has } = useCapabilities();
     const { toggleContextSidebar } = useShell();
-    const [search, setSearch] = useState('');
-
-    const needle = search.trim().toLocaleLowerCase();
 
     const filteredGroups = useMemo(
         () =>
             groups
                 .map((group) => ({
                     ...group,
-                    items: group.items
-                        .filter((item) => !item.capability || has(item.capability))
-                        .filter((item) => !needle || item.title.toLocaleLowerCase().includes(needle)),
+                    items: group.items.filter((item) => !item.capability || has(item.capability)),
                 }))
                 .filter((group) => group.items.length > 0),
-        [groups, has, needle]
+        [groups, has]
     );
 
     return (
@@ -64,17 +58,6 @@ export function ContextSidebar({ title, subtitle, groups }: ContextSidebarProps)
                 >
                     <RiLayoutLeftLine className="size-4" />
                 </button>
-            </div>
-
-            <div className="relative mb-3 px-1">
-                <FlexIcon name="search" size="sm" className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
-                <Input
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    placeholder={`Search ${title.toLowerCase()}...`}
-                    aria-label={`Search ${title}`}
-                    className="pl-8 h-8 text-xs bg-card border-border"
-                />
             </div>
 
             <nav className="flex flex-col gap-4" aria-label={title}>
@@ -120,9 +103,7 @@ export function ContextSidebar({ title, subtitle, groups }: ContextSidebarProps)
 
                 {filteredGroups.length === 0 && (
                     <p className="px-2 py-4 text-xs text-muted-foreground">
-                        {needle
-                            ? `No ${title.toLowerCase()} match "${search}".`
-                            : `No accessible ${title.toLowerCase()} options for your role.`}
+                        {`No accessible ${title.toLowerCase()} options for your role.`}
                     </p>
                 )}
             </nav>

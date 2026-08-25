@@ -3,7 +3,6 @@ import { RiPlayFill, RiPauseLine } from '@remixicon/react';
 import { motion, useReducedMotion } from 'motion/react';
 import React, { useState } from 'react';
 import { BackLink } from '@/components/flex/back-link';
-import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
 import { FlexStatus  } from '@/components/flex/flex-status';
 import type {FlexStatusTone} from '@/components/flex/flex-status';
 import { Button } from '@/components/ui/button';
@@ -14,16 +13,7 @@ import type { CDRRecord } from '@/domain/types';
 import { AdminShell } from '@/layouts/admin-shell';
 import { statusToneClasses } from '@/lib/status-styles';
 
-const cdrContextGroups: ContextSidebarGroup[] = [
-    {
-        groupTitle: 'Telephony',
-        items: [
-            { title: 'Call Records (CDR)', href: '/admin/cdr', icon: 'call-records', capability: 'cdr.view' },
-            { title: 'Call Campaigns', href: '/admin/campaigns', icon: 'campaigns', capability: 'campaigns.view' },
-            { title: 'Reports & Analytics', href: '/admin/reports', icon: 'reports', capability: 'reports.view' },
-        ],
-    },
-];
+
 
 const STATUS_META: Record<CDRRecord['status'], { label: string; tone: FlexStatusTone }> = {
     answered: { label: 'Answered', tone: 'success' },
@@ -51,9 +41,7 @@ export default function CdrDetailPage() {
         <AdminShell
             title="Call Detail Record"
             subtitle={record ? record.id : 'Record not found'}
-            contextTitle="Telephony"
-            contextSubtitle="Call records & operations"
-            contextGroups={cdrContextGroups}
+            
             actions={undefined}
         >
             <Head title={`Call Detail ${recordId} — Flex Contact Center`} />

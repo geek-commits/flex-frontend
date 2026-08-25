@@ -4,7 +4,6 @@ import type { PaginationState, SortingState } from '@tanstack/react-table';
 import { useTable } from '@tanstack/react-table';
 import React, { useCallback, useMemo, useState } from 'react';
 import { toast } from 'sonner';
-import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexErrorState } from '@/components/flex/flex-error-state';
 import { FlexWorkbenchShell } from '@/components/flex/flex-workbench-shell';
@@ -23,22 +22,7 @@ import type { CampaignStatusFilter } from '@/features/campaigns/campaigns-toolba
 import { AdminShell } from '@/layouts/admin-shell';
 import type { CampaignStatus } from '@/types/flex';
 
-const campaignsContextGroups: ContextSidebarGroup[] = [
-    {
-        groupTitle: 'Supervision',
-        items: [
-            { title: 'Dashboard', href: '/dashboard', capability: 'dashboard.view' },
-        ],
-    },
-    {
-        groupTitle: 'Operations',
-        items: [
-            { title: 'Call Records (CDR)', href: '/admin/cdr', capability: 'cdr.view' },
-            { title: 'Call Campaigns', href: '/admin/campaigns', capability: 'campaigns.view' },
-            { title: 'Reports & Analytics', href: '/admin/reports', capability: 'reports.view' },
-        ],
-    },
-];
+
 
 export function CampaignsPage() {
     const [search, setSearch] = useState('');
@@ -188,9 +172,7 @@ export function CampaignsPage() {
         <AdminShell
             title="Call Campaigns"
             subtitle="Manage outbound dialer & automated campaign schedules"
-            contextTitle="Telephony"
-            contextSubtitle="Campaigns & operations"
-            contextGroups={campaignsContextGroups}
+            
         >
             <Head title="Call Campaigns — Flex Contact Center" />
 

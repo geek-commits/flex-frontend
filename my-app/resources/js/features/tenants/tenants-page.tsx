@@ -3,7 +3,6 @@ import { RiRefreshLine } from '@remixicon/react';
 import type { PaginationState, SortingState } from '@tanstack/react-table';
 import { useTable } from '@tanstack/react-table';
 import React, { useCallback, useMemo, useState } from 'react';
-import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexErrorState } from '@/components/flex/flex-error-state';
 import { FlexWorkbenchShell } from '@/components/flex/flex-workbench-shell';
@@ -20,14 +19,7 @@ import { TenantsTable } from '@/features/tenants/tenants-table';
 import { TenantsToolbar } from '@/features/tenants/tenants-toolbar';
 import { AdminShell } from '@/layouts/admin-shell';
 
-const tenantsContextGroups: ContextSidebarGroup[] = [
-    {
-        groupTitle: 'Platform',
-        items: [
-            { title: 'Tenants & Multi-Org', href: '/admin/tenants', capability: 'roles.manage' },
-        ],
-    },
-];
+
 
 export function TenantsPage() {
     const [search, setSearch] = useState('');
@@ -145,9 +137,7 @@ export function TenantsPage() {
         <AdminShell
             title="Tenants"
             subtitle="Manage tenant organizations and their status."
-            contextTitle="Platform"
-            contextSubtitle="Tenants & multi-org administration"
-            contextGroups={tenantsContextGroups}
+            
         >
             <Head title="Tenants — Flex Contact Center" />
 

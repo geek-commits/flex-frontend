@@ -1,8 +1,9 @@
 import { RiLayoutRightLine } from '@remixicon/react';
 import React, { Suspense, lazy } from 'react';
+import { usePage } from '@inertiajs/react';
 import { AppProviders } from '@/components/flex/app-providers';
 import { AppTopbar } from '@/components/flex/app-topbar';
-import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
+import { deriveActiveDomain, FLEX_DOMAINS } from '@/auth/nav-domains';
 import { FlexPageContent } from '@/components/flex/flex-page-content';
 import { FlexPageHeader } from '@/components/flex/flex-page-header';
 import { PrimaryRail } from '@/components/flex/primary-rail';
@@ -17,30 +18,31 @@ export interface AdminShellProps {
     subtitle?: string;
     eyebrow?: React.ReactNode;
     meta?: React.ReactNode;
-    contextTitle?: string;
-    contextSubtitle?: string;
-    contextGroups?: ContextSidebarGroup[];
     actions?: React.ReactNode;
     children: React.ReactNode;
 }
 
 /**
- * Canonical FLEX admin shell: PrimaryRail + optional ContextSidebar + TopBar
- * (global chrome) + in-content FlexPageHeader + FlexPageContent.
+ * Canonical FLEX admin shell: PrimaryRail + domain-driven ContextSidebar +
+ * TopBar (global chrome) + in-content FlexPageHeader + FlexPageContent.
+ *
+ * The contextual sidebar derives its routes from the active major domain
+ * (`auth/nav-domains.ts`) — pages do not redefine domain navigation.
  */
 function AdminShellInner({
     title,
     subtitle,
     eyebrow,
     meta,
-    contextTitle,
-    contextSubtitle,
-    contextGroups,
     actions,
     children,
 }: AdminShellProps) {
+    const { url } = usePage();
     const { contextSidebarOpen, toggleContextSidebar } = useShell();
-    const hasContext = !!(contextTitle && contextGroups);
+
+    const activeDomain = deriveActiveDomain(url);
+    const domainConfig = FLEX_DOMAINS.find((domain) => domain.id === activeDomain);
+    const hasContext = !!domainConfig;
 
     return (
         <div className="flex min-h-screen bg-background text-foreground font-sans antialiased">
@@ -62,8 +64,8 @@ function AdminShellInner({
                 </div>
             )}
 
-            {/* Optional Contextual Sidebar — collapsible focus mode */}
-            {hasContext && (
+            {/* Domain-driven Contextual Sidebar — collapsible focus mode */}
+            {hasContext && domainConfig && (
                 <div
                     className={`hidden md:flex shrink-0 overflow-hidden transition-[width] duration-[180ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${contextSidebarOpen ? 'w-56' : 'w-0'}`}
                     aria-hidden={!contextSidebarOpen}
@@ -77,7 +79,11 @@ function AdminShellInner({
                                 />
                             }
                         >
-                            <ContextSidebar title={contextTitle!} subtitle={contextSubtitle} groups={contextGroups!} />
+                            <ContextSidebar
+                                key={domainConfig.id}
+                                title={domainConfig.label}
+                                groups={domainConfig.groups}
+                            />
                         </Suspense>
                     </div>
                 </div>

@@ -80,8 +80,6 @@ export default function CampaignDetailPage() {
         <AdminShell
             title={campaign.title}
             subtitle={campaign.destination}
-            contextTitle="Telephony"
-            contextSubtitle="Campaigns & operations"
             actions={
                 <div className="flex items-center gap-2">
                     {campaign.status === 'active' || campaign.status === 'paused' ? (

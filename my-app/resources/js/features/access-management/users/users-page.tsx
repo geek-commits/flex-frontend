@@ -3,7 +3,6 @@ import { RiRefreshLine } from '@remixicon/react';
 import type { PaginationState, SortingState } from '@tanstack/react-table';
 import { useTable } from '@tanstack/react-table';
 import React, { useCallback, useMemo, useState } from 'react';
-import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexErrorState } from '@/components/flex/flex-error-state';
 import { FlexWorkbenchShell } from '@/components/flex/flex-workbench-shell';
@@ -21,21 +20,7 @@ import { UsersTable } from '@/features/access-management/users/users-table';
 import { UsersToolbar } from '@/features/access-management/users/users-toolbar';
 import { AdminShell } from '@/layouts/admin-shell';
 
-const usersContextGroups: ContextSidebarGroup[] = [
-    {
-        groupTitle: 'People & Access',
-        items: [
-            { title: 'Users', href: '/admin/users', capability: 'roles.manage' },
-            { title: 'Roles & Permissions', href: '/admin/roles', capability: 'roles.manage' },
-        ],
-    },
-    {
-        groupTitle: 'Administration',
-        items: [
-            { title: 'Management Console', href: '/admin/console', capability: 'console.view' },
-        ],
-    },
-];
+
 
 export function UsersPage() {
     const [search, setSearch] = useState('');
@@ -146,9 +131,7 @@ export function UsersPage() {
         <AdminShell
             title="Users"
             subtitle="Manage user accounts and access."
-            contextTitle="People & Access"
-            contextSubtitle="Users, roles & permissions"
-            contextGroups={usersContextGroups}
+            
         >
             <Head title="Users — Flex Contact Center" />
 

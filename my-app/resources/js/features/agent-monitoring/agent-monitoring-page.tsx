@@ -3,7 +3,6 @@ import type { SortingState } from '@tanstack/react-table';
 import { useTable } from '@tanstack/react-table';
 
 import React, { useMemo, useState } from 'react';
-import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexErrorState } from '@/components/flex/flex-error-state';
 import { FlexLiveDataStatus } from '@/components/flex/flex-live-data-status';
@@ -19,44 +18,7 @@ import type { MonitoringAgentRow } from '@/features/agent-monitoring/use-agent-m
 import { DashboardProvider } from '@/features/dashboard/dashboard-context';
 import { AdminShell } from '@/layouts/admin-shell';
 
-const monitoringContextGroups: ContextSidebarGroup[] = [
-    {
-        groupTitle: 'Supervision',
-        items: [
-            {
-                title: 'Dashboard',
-                href: '/dashboard',
-                icon: 'dashboard',
-                capability: 'dashboard.view',
-            },
-            {
-                title: 'Agent Monitoring',
-                href: '/admin/monitoring',
-                capability: 'monitor.view',
-            },
-        ],
-    },
-    {
-        groupTitle: 'Operations',
-        items: [
-            {
-                title: 'Call Records (CDR)',
-                href: '/admin/cdr',
-                capability: 'cdr.view',
-            },
-            {
-                title: 'Call Campaigns',
-                href: '/admin/campaigns',
-                capability: 'campaigns.view',
-            },
-            {
-                title: 'Reports & Analytics',
-                href: '/admin/reports',
-                capability: 'reports.view',
-            },
-        ],
-    },
-];
+
 
 function AgentMonitoringContent() {
     const {
@@ -158,9 +120,7 @@ export function AgentMonitoringPage() {
             <AdminShell
                 title="Agent Monitoring"
                 subtitle="Live agent activity and supervisor intervention."
-                contextTitle="Supervision"
-                contextSubtitle="Realtime workforce monitoring"
-                contextGroups={monitoringContextGroups}
+                
             >
                 <Head title="Agent Monitoring — Flex Contact Center" />
 

@@ -4,7 +4,6 @@ import type { PaginationState, SortingState } from '@tanstack/react-table';
 import { useTable } from '@tanstack/react-table';
 import { format } from 'date-fns';
 import React, { useCallback, useMemo, useState } from 'react';
-import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexErrorState } from '@/components/flex/flex-error-state';
 import { FlexWorkbenchShell } from '@/components/flex/flex-workbench-shell';
@@ -21,22 +20,7 @@ import { CdrToolbar  } from '@/features/cdr/cdr-toolbar';
 import type {QuickFilter} from '@/features/cdr/cdr-toolbar';
 import { AdminShell } from '@/layouts/admin-shell';
 
-const cdrContextGroups: ContextSidebarGroup[] = [
-    {
-        groupTitle: 'Supervision',
-        items: [
-            { title: 'Dashboard', href: '/dashboard', capability: 'dashboard.view' },
-        ],
-    },
-    {
-        groupTitle: 'Operations',
-        items: [
-            { title: 'Call Records (CDR)', href: '/admin/cdr', capability: 'cdr.view' },
-            { title: 'Call Campaigns', href: '/admin/campaigns', capability: 'campaigns.view' },
-            { title: 'Reports & Analytics', href: '/admin/reports', capability: 'reports.view' },
-        ],
-    },
-];
+
 
 const toDateInput = (date: Date) => format(date, 'yyyy-MM-dd');
 
@@ -162,9 +146,7 @@ return false;
         <AdminShell
             title="Call Detail Records (CDR)"
             subtitle="Search, filter & inspect telephony logs"
-            contextTitle="Telephony"
-            contextSubtitle="Search & navigate call records"
-            contextGroups={cdrContextGroups}
+            
             >
             <Head title="CDR — Flex Contact Center" />
 

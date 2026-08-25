@@ -2,7 +2,6 @@ import { Head } from '@inertiajs/react';
 import React, { useCallback, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 import { useCapabilities } from '@/auth/capabilities';
-import type { ContextSidebarGroup } from '@/components/flex/context-sidebar';
 import { scheduledReportsRepository } from '@/domain/scheduled-reports-repository';
 import { ReportExportMenu } from '@/features/reports/report-export-menu';
 import { ReportFilterBar } from '@/features/reports/report-filter-bar';
@@ -18,23 +17,7 @@ import type { ScheduledReportRecord } from '@/features/reports/scheduled/schedul
 import { ReportViewerContent } from '@/features/reports/viewers';
 import { AdminShell } from '@/layouts/admin-shell';
 
-const reportsContextGroups: ContextSidebarGroup[] = [
-    {
-        groupTitle: 'Analytics & Reporting',
-        items: [
-            { title: 'Reports & Analytics', href: '/admin/reports', capability: 'reports.view' },
-            { title: 'Call Statistics', href: '/admin/stats', capability: 'reports.view' },
-            { title: 'Flex Charts', href: '/admin/charts', capability: 'reports.view' },
-            { title: 'Survey Monitoring', href: '/admin/surveys', capability: 'reports.view' },
-        ],
-    },
-    {
-        groupTitle: 'Administration',
-        items: [
-            { title: 'Management Console', href: '/admin/console', capability: 'console.view' },
-        ],
-    },
-];
+
 
 const DEFAULT_QUERY: ReportQuery = {};
 
@@ -108,9 +91,7 @@ export function ReportsPage() {
         <AdminShell
             title="Reports & Analytics"
             subtitle="Operational and historical reporting across FLEX."
-            contextTitle="Analytics & Reporting"
-            contextSubtitle="Reports, charts & analytics"
-            contextGroups={reportsContextGroups}
+            
         >
             <Head title="Reports & Analytics — Flex Contact Center" />
 
