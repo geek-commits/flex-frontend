@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
 import { AgentShell } from '@/layouts/agent-shell';
-import { AgentAssistPanel } from './agent-assist/agent-assist-panel';
+import { AgentAssistDock } from './agent-assist/agent-assist-dock';
+import { useAgentAssistSessionOptional } from './agent-assist/agent-assist-session-context';
 import { AgentOperationalHeader } from './agent-operational-header';
 import { CallManager } from './call-manager/call-manager';
 import { CrmIntegrationHost } from './integration/crm-integration-host';
@@ -10,44 +10,30 @@ import { useWorkspaceState } from './state/use-workspace-state';
  * Canonical FLEX Agent transaction workspace.
  *
  * Composes the Agent shell, the frozen external CRM integration boundary,
- * the Call Manager panel, and the call-scoped Agent Assist companion panel.
- * FLEX owns the shell, operational header, agent state, connection state,
- * and Call Manager — never the CRM contents. Agent state, telephony
- * connection, and call state all come from the canonical workspace owner
- * (AGENT_WORKSPACE_PLAN §50).
- *
- * Agent Assist is call-scoped: it renders only while an active call exists
- * and the agent has opened it (AGENT_ASSIST_RUNTIME_AUDIT.md). On call end it
- * resets closed, so there is never an Assist UI with no call.
+ * the Call Manager panel, and the call-scoped Agent Assist companion.
+ * Assist is owned by the active call (connected/hold/transferring) via
+ * AgentAssistSessionProvider and rendered as a compact floating dock
+ * on desktop; on mobile Assist is another mode of the unified Call
+ * Manager sheet (see CallManager).
  */
 export function AgentWorkspacePage() {
-    const {
-        agentState,
-        agentStatePending,
-        connection,
-        setAgentState,
-        callState,
-    } = useWorkspaceState();
-    const [assistOpen, setAssistOpen] = useState(false);
+    const { agentState, agentStatePending, connection, setAgentState } = useWorkspaceState();
+    const assist = useAgentAssistSessionOptional();
 
-    const hasActiveCall = callState !== 'idle';
-
-    // Keep Assist call-scoped: reset closed whenever the call ends. Adjusted
-    // during render (the documented pattern) so no effect schedules a cascade.
-    if (!hasActiveCall && assistOpen) {
-        setAssistOpen(false);
-    }
+    const handleToggleAssist = () => {
+        if (!assist) {
+            return;
+        }
+        if (assist.isOpen) {
+            assist.minimizeAssist();
+        } else {
+            assist.openAssist();
+        }
+    };
 
     return (
         <AgentShell
-            callManagerPanel={
-                <CallManager onOpenAssist={() => setAssistOpen(true)} />
-            }
-            assistPanel={
-                hasActiveCall && assistOpen ? (
-                    <AgentAssistPanel onClose={() => setAssistOpen(false)} />
-                ) : null
-            }
+            callManagerPanel={<CallManager onOpenAssist={handleToggleAssist} />}
             topbar={
                 <AgentOperationalHeader
                     agentState={agentState}
@@ -58,11 +44,9 @@ export function AgentWorkspacePage() {
             }
         >
             {/* Central Workspace: Frozen Iframe Integration Boundary */}
-            <div className="flex h-full w-full flex-col">
-                <CrmIntegrationHost
-                    title="Customer Workspace"
-                    mockConfigPath="/mocks/integrations/crm-primary.json"
-                />
+            <div className="relative flex h-full w-full flex-col">
+                <CrmIntegrationHost title="Customer Workspace" mockConfigPath="/mocks/integrations/crm-primary.json" />
+                {assist?.isOpen && <AgentAssistDock />}
             </div>
         </AgentShell>
     );

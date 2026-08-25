@@ -13,6 +13,7 @@ import {
 } from '@remixicon/react';
 import { motion, useReducedMotion } from 'motion/react';
 import React, { useMemo, useState } from 'react';
+import { useAgentAssistSessionOptional } from '../agent-assist/agent-assist-session-context';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useCallTimer } from '@/features/dashboard/use-call-timer';
@@ -82,6 +83,8 @@ export function ActiveCallSurface({
     const transferring = callState === 'transferring';
     const transferFailed = !transferring && transfer?.status === 'failed';
     const reduced = useReducedMotion();
+    const assistSession = useAgentAssistSessionOptional();
+    const isAssistOpen = !!assistSession?.isOpen;
 
     return (
         <div className="flex min-h-0 flex-1 flex-col">
@@ -252,13 +255,15 @@ export function ActiveCallSurface({
                         </Button>
 
                         <Button
-                            variant="outline"
+                            variant={isAssistOpen ? 'secondary' : 'outline'}
                             onClick={onOpenAssist}
                             disabled={!canToggleMedia}
                             className="gap-1.5 font-semibold"
+                            aria-pressed={isAssistOpen}
+                            aria-label={isAssistOpen ? 'Minimize Assist' : 'Open Assist'}
                         >
                             <RiSparklingLine className="size-3.5" />
-                            <span>Assist</span>
+                            <span>{isAssistOpen ? 'Hide Assist' : 'Assist'}</span>
                         </Button>
                     </div>
                 </div>

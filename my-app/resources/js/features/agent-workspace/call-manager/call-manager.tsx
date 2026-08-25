@@ -2,8 +2,11 @@ import {
     RiArrowUpLine,
     RiCloseLine,
     RiPhoneLine,
+    RiSparklingLine,
 } from '@remixicon/react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { AgentAssistMobileView } from '../agent-assist/agent-assist-dock';
+import { useAgentAssistSessionOptional } from '../agent-assist/agent-assist-session-context';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -35,10 +38,12 @@ const IN_CALL_STATES = new Set([
  */
 export function CallManager({ onOpenAssist }: { onOpenAssist?: () => void }) {
     const ws = useWorkspaceState();
+    const assist = useAgentAssistSessionOptional();
     const [dialNumber, setDialNumber] = useState('');
     const [activeTab, setActiveTab] = useState<'dialer' | 'history'>('dialer');
     const isMobile = useIsMobile();
     const [collapsedCallState, setCollapsedCallState] = useState<CallState | null>('idle');
+    const [mobileAssistMode, setMobileAssistMode] = useState(false);
 
     const { callState } = ws;
     const stateCfg = callStateMap[callState];
@@ -48,6 +53,15 @@ export function CallManager({ onOpenAssist }: { onOpenAssist?: () => void }) {
     // A collapse decision belongs only to the state visible when the agent
     // acted. Any later call-state change reopens the sheet automatically.
     const mobileOpen = !isMobile || collapsedCallState !== callState;
+
+    // Reset mobile Assist mode when call ends
+    useEffect(() => {
+        if (callState === 'idle' || callState === 'ringing') {
+            setMobileAssistMode(false);
+        }
+    }, [callState]);
+
+    const assistLive = !!assist && assist.sessionState !== 'idle' && assist.sessionState !== 'ended';
 
     const handleDial = (target: CallTarget) => {
         setDialNumber('');
@@ -123,6 +137,49 @@ export function CallManager({ onOpenAssist }: { onOpenAssist?: () => void }) {
     }
 
     if (isMobile) {
+        // Unified mobile surface — single Sheet with Call/Assist modes (locked decision §5)
+        const showAssistToggle =
+            callState === 'connected' || callState === 'hold' || callState === 'transferring';
+        const mobileContent = showAssistToggle && mobileAssistMode ? (
+            <div className="flex min-h-0 flex-1 flex-col">
+                <div className="flex shrink-0 items-center justify-between gap-2 border-b border-border bg-flex-workspace-surface-muted px-3 py-2">
+                    <span className="flex items-center gap-1.5 text-xs text-flex-text-muted">
+                        <span className="size-1.5 rounded-full bg-emerald-500" aria-hidden />
+                        Connected
+                        {ws.activeCall?.connectedAt && (
+                            <span className="ml-1 font-mono text-[11px]">{ws.activeCall.target.label}</span>
+                        )}
+                    </span>
+                    <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setMobileAssistMode(false)}
+                        className="h-7 text-xs"
+                    >
+                        Call controls
+                    </Button>
+                </div>
+                <AgentAssistMobileView />
+            </div>
+        ) : (
+            surface
+        );
+
+        const handleAssistFromCall = () => {
+            if (isMobile && showAssistToggle) {
+                setMobileAssistMode(true);
+            } else {
+                onOpenAssist?.();
+            }
+        };
+
+        // Patch ActiveCallSurface's onOpenAssist for mobile unified mode
+        const patchedSurface =
+            inCall && showAssistToggle && !mobileAssistMode
+                ? React.cloneElement(surface as React.ReactElement, { onOpenAssist: handleAssistFromCall } as never)
+                : mobileContent;
+
         return (
             <div className="flex min-h-0 flex-1 flex-col">
                 {!mobileOpen && (
@@ -154,11 +211,44 @@ export function CallManager({ onOpenAssist }: { onOpenAssist?: () => void }) {
                     <>
                         <div className="flex shrink-0 items-center justify-between gap-2 border-b border-border p-3 select-none">
                             <div className="flex min-w-0 items-center gap-2 font-bold text-foreground">
-                                <RiPhoneLine className="size-4 shrink-0 text-primary" />
-                                <span className="truncate">Call Manager</span>
+                                {showAssistToggle && mobileAssistMode ? (
+                                    <>
+                                        <RiSparklingLine className="size-4 shrink-0 text-primary" />
+                                        <span className="truncate">Agent Assist</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <RiPhoneLine className="size-4 shrink-0 text-primary" />
+                                        <span className="truncate">Call Manager</span>
+                                    </>
+                                )}
                             </div>
 
                             <div className="flex shrink-0 items-center gap-2">
+                                {showAssistToggle && !mobileAssistMode && assistLive && (
+                                    <Button
+                                        type="button"
+                                        variant="ghost"
+                                        size="sm"
+                                        onClick={() => setMobileAssistMode(true)}
+                                        className="h-7 gap-1 text-xs"
+                                        aria-label="Open Assist transcript"
+                                    >
+                                        <RiSparklingLine className="size-3.5" />
+                                        Assist
+                                    </Button>
+                                )}
+                                {showAssistToggle && mobileAssistMode && (
+                                    <Button
+                                        type="button"
+                                        variant="ghost"
+                                        size="sm"
+                                        onClick={() => setMobileAssistMode(false)}
+                                        className="h-7 text-xs"
+                                    >
+                                        Call
+                                    </Button>
+                                )}
                                 <Badge
                                     variant="outline"
                                     className={`text-[10px] font-semibold capitalize ${stateCfg.badgeClass}`}
@@ -179,7 +269,7 @@ export function CallManager({ onOpenAssist }: { onOpenAssist?: () => void }) {
                             </div>
                         </div>
 
-                        <div className="flex min-h-0 flex-1 flex-col">{surface}</div>
+                        <div className="flex min-h-0 flex-1 flex-col">{patchedSurface}</div>
                     </>
                 )}
             </div>

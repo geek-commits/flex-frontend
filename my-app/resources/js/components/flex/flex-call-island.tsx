@@ -1,13 +1,14 @@
 import { router, usePage } from '@inertiajs/react';
-import { RiPhoneLine, RiArrowRightLine } from '@remixicon/react';
+import { RiPhoneLine, RiArrowRightLine, RiSparklingLine } from '@remixicon/react';
 import { motion } from 'motion/react';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useCallIslandDrag } from '@/components/flex/call-island/use-call-island-drag';
 import { useCallIslandMetrics } from '@/components/flex/call-island/use-call-island-metrics';
 import { useCallIslandSafeZones } from '@/components/flex/call-island/use-call-island-safe-zones';
 import { DynamicIsland } from '@/components/smoothui/dynamic-island';
 import { useActiveCallPresentation } from '@/features/agent-workspace/state/use-active-call-presentation';
 import type { ActiveCallPresentation } from '@/features/agent-workspace/state/use-active-call-presentation';
+import { useAgentAssistSessionOptional } from '@/features/agent-workspace/agent-assist/agent-assist-session-context';
 import { useCallTimer } from '@/features/dashboard/use-call-timer';
 
 const STATE_LABEL: Record<string, string> = {
@@ -53,8 +54,7 @@ export function FlexCallIsland() {
 function FlexCallIslandSurface({ call }: { call: ActiveCallPresentation }) {
     const [expanded, setExpanded] = useState(false);
     const duration = useCallTimer(call.connectedAt);
-    const { viewport, safeArea, islandRef, islandSize } =
-        useCallIslandMetrics();
+    const { viewport, safeArea, islandRef, islandSize } = useCallIslandMetrics();
     const safeZones = useCallIslandSafeZones();
     const drag = useCallIslandDrag({
         enabled: !expanded,
@@ -63,6 +63,18 @@ function FlexCallIslandSurface({ call }: { call: ActiveCallPresentation }) {
         safeArea,
         safeZones,
     });
+    const assist = useAgentAssistSessionOptional();
+
+    const assistLive = !!assist && assist.sessionState !== 'idle' && assist.sessionState !== 'ended';
+    const assistLanguage = assist?.language;
+    const latestFinal = useMemo(() => {
+        if (!assist?.segments.length) {
+            return null;
+        }
+
+        const finals = assist.segments.filter((s) => s.status === 'final');
+        return finals.length ? finals[finals.length - 1] : null;
+    }, [assist?.segments]);
 
     const displayName = call.displayName || call.phoneNumber || 'Active call';
     const stateLabel = STATE_LABEL[call.state] ?? call.state;
@@ -101,6 +113,17 @@ function FlexCallIslandSurface({ call }: { call: ActiveCallPresentation }) {
         [],
     );
 
+    const handleOpenAssist = useCallback(
+        (event: React.MouseEvent<HTMLButtonElement>) => {
+            event.stopPropagation();
+            try {
+                assist?.openAssist();
+            } catch {}
+            router.visit('/agent');
+        },
+        [assist],
+    );
+
     return (
         <div className="pointer-events-none fixed inset-0 z-40">
             <motion.div
@@ -120,12 +143,15 @@ function FlexCallIslandSurface({ call }: { call: ActiveCallPresentation }) {
                     compactContent={
                         <div className="flex min-w-0 items-center gap-2.5 px-4 py-2.5">
                             <RiPhoneLine className="size-4 shrink-0" />
-                            <span className="min-w-0 truncate text-sm font-medium">
-                                {displayName}
-                            </span>
-                            <span className="shrink-0 text-xs font-medium tabular-nums opacity-80">
-                                {duration}
-                            </span>
+                            <span className="min-w-0 truncate text-sm font-medium">{displayName}</span>
+                            {assistLive && (
+                                <RiSparklingLine
+                                    className="size-3.5 shrink-0 text-amber-300"
+                                    aria-label="Assist live"
+                                    aria-hidden={false}
+                                />
+                            )}
+                            <span className="shrink-0 text-xs font-medium tabular-nums opacity-80">{duration}</span>
                         </div>
                     }
                     expandedContent={
@@ -148,6 +174,23 @@ function FlexCallIslandSurface({ call }: { call: ActiveCallPresentation }) {
                                     {metaParts.join(' · ')}
                                 </div>
                             ) : null}
+                            {assistLive && (
+                                <div className="mt-3 border-t border-white/10 pt-3 space-y-1.5">
+                                    <div className="flex items-center gap-1.5 text-xs text-white/80">
+                                        <RiSparklingLine className="size-3.5 shrink-0" aria-hidden />
+                                        <span className="font-medium">Assist live</span>
+                                        {assistLanguage && !assistLanguage.isDetecting && (
+                                            <span className="opacity-70">· {assistLanguage.label}</span>
+                                        )}
+                                        {assistLanguage?.isDetecting && <span className="opacity-70">· Detecting language…</span>}
+                                    </div>
+                                    {latestFinal && (
+                                        <p className="line-clamp-2 text-xs leading-relaxed text-white/85">
+                                            “{latestFinal.text}”
+                                        </p>
+                                    )}
+                                </div>
+                            )}
                             <div className="mt-3 flex items-center justify-between gap-3 border-t border-white/10 pt-3">
                                 <span className="flex items-center gap-1.5 text-xs font-medium">
                                     <span
@@ -156,14 +199,25 @@ function FlexCallIslandSurface({ call }: { call: ActiveCallPresentation }) {
                                     />
                                     {stateLabel}
                                 </span>
-                                <button
-                                    type="button"
-                                    onClick={handleOpenCall}
-                                    className="inline-flex items-center gap-1.5 rounded-lg bg-flex-brand px-2.5 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-flex-brand-hover focus-visible:ring-2 focus-visible:ring-flex-brand focus-visible:outline-none"
-                                >
-                                    Open Call
-                                    <RiArrowRightLine className="size-3.5" />
-                                </button>
+                                <span className="inline-flex items-center gap-1.5">
+                                    {assistLive && (
+                                        <button
+                                            type="button"
+                                            onClick={handleOpenAssist}
+                                            className="inline-flex items-center gap-1 rounded-lg bg-white/15 px-2.5 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-white/20 focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:outline-none"
+                                        >
+                                            Open Assist
+                                        </button>
+                                    )}
+                                    <button
+                                        type="button"
+                                        onClick={handleOpenCall}
+                                        className="inline-flex items-center gap-1.5 rounded-lg bg-flex-brand px-2.5 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-flex-brand-hover focus-visible:ring-2 focus-visible:ring-flex-brand focus-visible:outline-none"
+                                    >
+                                        Open Call
+                                        <RiArrowRightLine className="size-3.5" />
+                                    </button>
+                                </span>
                             </div>
                         </div>
                     }
