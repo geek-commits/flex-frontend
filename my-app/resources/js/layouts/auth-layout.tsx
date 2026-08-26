@@ -1,17 +1,29 @@
-import AuthLayoutTemplate from '@/layouts/auth/auth-simple-layout';
+import AuthSimpleLayout from '@/layouts/auth/auth-simple-layout';
+import AuthSplitLayout from '@/layouts/auth/auth-split-layout';
+import type { AuthLayoutProps } from '@/types';
 
 export default function AuthLayout({
     title = '',
     description = '',
+    visual,
     children,
-}: {
-    title?: string;
-    description?: string;
-    children: React.ReactNode;
-}) {
+}: AuthLayoutProps) {
+    if (visual) {
+        return (
+            <AuthSplitLayout
+                title={title}
+                description={description}
+                visual={visual}
+            >
+                {children}
+            </AuthSplitLayout>
+        );
+    }
+
     return (
-        <AuthLayoutTemplate title={title} description={description}>
+        <AuthSimpleLayout title={title} description={description}>
             {children}
-        </AuthLayoutTemplate>
+        </AuthSimpleLayout>
     );
 }
+

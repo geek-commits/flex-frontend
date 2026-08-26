@@ -1,0 +1,43 @@
+{
+  "status": {
+    "ready": "Tayari",
+    "notReady": "Haitayari",
+    "break": "Mapumziko",
+    "wrapUp": "Kuhitimisha",
+    "offline": "Nje ya mtandao",
+    "busy": "Kwenye shughuli",
+    "inCall": "Kwenye simu"
+  },
+  "callState": {
+    "live": "Moja kwa moja",
+    "calling": "Inapiga...",
+    "ringing": "Inalia...",
+    "connected": "Imeunganishwa",
+    "held": "Imesimamishwa",
+    "transferring": "Inahamisha...",
+    "ended": "Simu imeisha"
+  },
+  "callManager": {
+    "title": "Kidhibiti Simu",
+    "mute": "Zima sauti",
+    "unmute": "Washa sauti",
+    "hold": "Simamisha simu",
+    "resume": "Endelea na simu",
+    "transfer": "Hamisha simu",
+    "warmTransfer": "Uhamisho wa moja kwa moja",
+    "conference": "Mkutano wa simu",
+    "keypad": "Vitufe",
+    "endCall": "Kata simu",
+    "answer": "Pokea",
+    "decline": "Kataa",
+    "duration": "Muda",
+    "queue": "Foleni",
+    "customer": "Mteja"
+  },
+  "dialpad": {
+    "title": "Kibodi ya Simu",
+    "enterNumber": "Weka nambari ya simu au kiendelezi",
+    "call": "Piga simu",
+    "clear": "Futa"
+  }
+}

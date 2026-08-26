@@ -1,0 +1,58 @@
+{
+  "search": {
+    "placeholder": "Rechercher dans FLEX",
+    "dialogTitle": "Recherche globale",
+    "dialogDescription": "Recherchez des pages, des actions et des fonctionnalités dans FLEX",
+    "noResults": "Aucun résultat trouvé"
+  },
+  "domains": {
+    "agent": "Agent",
+    "supervision": "Supervision",
+    "administration": "Administration",
+    "platform": "Plateforme"
+  },
+  "groups": {
+    "engagement": "Engagement",
+    "support": "Assistance",
+    "operations": "Opérations",
+    "overview": "Aperçu",
+    "people": "Utilisateurs",
+    "routing": "Routage",
+    "media": "Médias",
+    "system": "Système"
+  },
+  "items": {
+    "agentDashboard": "Tableau de bord agent",
+    "agentWorkspace": "Espace de travail agent",
+    "socialInbox": "Boîte de réception sociale",
+    "missedCalls": "Rappels et messagerie vocale",
+    "troubleshooting": "Dépannage",
+    "quickSupport": "Assistance rapide",
+    "contactCenterDashboard": "Tableau de bord centre de contact",
+    "agentMonitoring": "Surveillance des agents",
+    "cdr": "Historique des appels (CDR)",
+    "campaigns": "Campagnes d'appels",
+    "reports": "Rapports et analyses",
+    "managementConsole": "Console de gestion",
+    "users": "Utilisateurs",
+    "roles": "Rôles et autorisations",
+    "queues": "Files d'attente",
+    "ivr": "SVI",
+    "timeGroups": "Groupes d'heures",
+    "timeConditions": "Conditions horaires",
+    "recordings": "Enregistrements",
+    "subscriptions": "Abonnements",
+    "mailConfig": "Configuration des e-mails",
+    "infrastructure": "Système et infrastructure",
+    "aiCenter": "Centre d'IA",
+    "tenantManagement": "Gestion des organisations"
+  },
+  "profile": {
+    "myAccount": "Mon compte",
+    "profileSettings": "Paramètres du profil",
+    "appearance": "Apparence",
+    "security": "Sécurité",
+    "switchTenant": "Changer d'organisation",
+    "logOut": "Se déconnecter"
+  }
+}

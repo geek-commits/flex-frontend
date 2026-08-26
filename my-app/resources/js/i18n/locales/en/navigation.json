@@ -1,0 +1,58 @@
+{
+  "search": {
+    "placeholder": "Search FLEX",
+    "dialogTitle": "Global Search",
+    "dialogDescription": "Search pages, actions, and features across FLEX",
+    "noResults": "No results found"
+  },
+  "domains": {
+    "agent": "Agent",
+    "supervision": "Supervision",
+    "administration": "Administration",
+    "platform": "Platform"
+  },
+  "groups": {
+    "engagement": "Engagement",
+    "support": "Support",
+    "operations": "Operations",
+    "overview": "Overview",
+    "people": "People",
+    "routing": "Routing",
+    "media": "Media",
+    "system": "System"
+  },
+  "items": {
+    "agentDashboard": "Agent Dashboard",
+    "agentWorkspace": "Agent Workspace",
+    "socialInbox": "Social Inbox",
+    "missedCalls": "Callback & Voicemail",
+    "troubleshooting": "Troubleshooting",
+    "quickSupport": "Quick Support",
+    "contactCenterDashboard": "Contact Center Dashboard",
+    "agentMonitoring": "Agent Monitoring",
+    "cdr": "Call Records (CDR)",
+    "campaigns": "Call Campaigns",
+    "reports": "Reports & Analytics",
+    "managementConsole": "Management Console",
+    "users": "Users",
+    "roles": "Roles & Permissions",
+    "queues": "Queues",
+    "ivr": "IVR",
+    "timeGroups": "Time Groups",
+    "timeConditions": "Time Conditions",
+    "recordings": "Recordings",
+    "subscriptions": "Subscriptions",
+    "mailConfig": "Mail Configuration",
+    "infrastructure": "System & Infrastructure",
+    "aiCenter": "AI Center",
+    "tenantManagement": "Tenant Management"
+  },
+  "profile": {
+    "myAccount": "My Account",
+    "profileSettings": "Profile settings",
+    "appearance": "Appearance",
+    "security": "Security",
+    "switchTenant": "Switch Tenant",
+    "logOut": "Log out"
+  }
+}

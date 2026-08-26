@@ -1,0 +1,43 @@
+{
+  "actions": {
+    "save": "Hifadhi",
+    "cancel": "Ghairi",
+    "close": "Funga",
+    "delete": "Futa",
+    "edit": "Hariri",
+    "create": "Unda",
+    "search": "Tafuta",
+    "filter": "Chuja",
+    "clear": "Futa",
+    "apply": "Tumia",
+    "reset": "Weka upya",
+    "open": "Fungua",
+    "view": "Tazama",
+    "retry": "Jaribu tena",
+    "refresh": "Onyesha upya",
+    "back": "Nyuma",
+    "next": "Mbele",
+    "confirm": "Thibitisha",
+    "dismiss": "Ondoa"
+  },
+  "status": {
+    "loading": "Inapakia...",
+    "noResults": "Hakuna matokeo yaliyopatikana",
+    "error": "Hitilafu",
+    "success": "Imefanikiwa",
+    "active": "Inafanya kazi",
+    "inactive": "Haifanyi kazi",
+    "connected": "Imeunganishwa",
+    "disconnected": "Imetenganishwa",
+    "yes": "Ndiyo",
+    "no": "Hapana",
+    "all": "Yote",
+    "none": "Hakuna"
+  },
+  "languages": {
+    "language": "Lugha",
+    "en": "English",
+    "sw": "Kiswahili",
+    "fr": "Français"
+  }
+}

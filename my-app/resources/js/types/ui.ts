@@ -13,9 +13,17 @@ export type FlashToast = {
     message: string;
 };
 
+export type AuthVisualProps = {
+    src: string;
+    alt?: string;
+    headline?: string;
+    description?: string;
+};
+
 export type AuthLayoutProps = {
     children?: ReactNode;
     name?: string;
     title?: string;
     description?: string;
+    visual?: AuthVisualProps;
 };

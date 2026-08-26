@@ -1,0 +1,43 @@
+{
+  "status": {
+    "ready": "Prêt",
+    "notReady": "Non prêt",
+    "break": "Pause",
+    "wrapUp": "Clôture",
+    "offline": "Hors ligne",
+    "busy": "Occupé",
+    "inCall": "En appel"
+  },
+  "callState": {
+    "live": "En direct",
+    "calling": "Appel en cours...",
+    "ringing": "Sonnerie...",
+    "connected": "Connecté",
+    "held": "En attente",
+    "transferring": "Transfert en cours...",
+    "ended": "Appel terminé"
+  },
+  "callManager": {
+    "title": "Gestionnaire d'appels",
+    "mute": "Muet",
+    "unmute": "Activer le micro",
+    "hold": "Mettre en attente",
+    "resume": "Reprendre",
+    "transfer": "Transférer",
+    "warmTransfer": "Transfert accompagné",
+    "conference": "Conférence",
+    "keypad": "Clavier",
+    "endCall": "Raccrocher",
+    "answer": "Répondre",
+    "decline": "Refuser",
+    "duration": "Durée",
+    "queue": "File d'attente",
+    "customer": "Client"
+  },
+  "dialpad": {
+    "title": "Clavier téléphonique",
+    "enterNumber": "Saisir un numéro ou un poste",
+    "call": "Appeler",
+    "clear": "Effacer"
+  }
+}

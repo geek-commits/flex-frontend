@@ -1,0 +1,43 @@
+{
+  "actions": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "create": "Créer",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "clear": "Effacer",
+    "apply": "Appliquer",
+    "reset": "Réinitialiser",
+    "open": "Ouvrir",
+    "view": "Afficher",
+    "retry": "Réessayer",
+    "refresh": "Actualiser",
+    "back": "Retour",
+    "next": "Suivant",
+    "confirm": "Confirmer",
+    "dismiss": "Ignorer"
+  },
+  "status": {
+    "loading": "Chargement...",
+    "noResults": "Aucun résultat trouvé",
+    "error": "Erreur",
+    "success": "Succès",
+    "active": "Actif",
+    "inactive": "Inactif",
+    "connected": "Connecté",
+    "disconnected": "Déconnecté",
+    "yes": "Oui",
+    "no": "Non",
+    "all": "Tous",
+    "none": "Aucun"
+  },
+  "languages": {
+    "language": "Langue",
+    "en": "English",
+    "sw": "Kiswahili",
+    "fr": "Français"
+  }
+}

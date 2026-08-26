@@ -1,0 +1,58 @@
+{
+  "search": {
+    "placeholder": "Tafuta FLEX",
+    "dialogTitle": "Utafutaji wa Kimataifa",
+    "dialogDescription": "Tafuta kurasa, vitendo, na vipengele katika FLEX",
+    "noResults": "Hakuna matokeo yaliyopatikana"
+  },
+  "domains": {
+    "agent": "Wakala",
+    "supervision": "Usimamizi",
+    "administration": "Utawala",
+    "platform": "Jukwaa"
+  },
+  "groups": {
+    "engagement": "Uhusiano",
+    "support": "Msaada",
+    "operations": "Uendeshaji",
+    "overview": "Muhtasari",
+    "people": "Watu",
+    "routing": "Uelekezaji",
+    "media": "Vyombo vya habari",
+    "system": "Mfumo"
+  },
+  "items": {
+    "agentDashboard": "Dashibodi ya Wakala",
+    "agentWorkspace": "Eneo la Kazi la Wakala",
+    "socialInbox": "Kikasha cha Mitandao",
+    "missedCalls": "Piga tena na Barua ya Sauti",
+    "troubleshooting": "Utatuzi wa Matatizo",
+    "quickSupport": "Msaada wa Haraka",
+    "contactCenterDashboard": "Dashibodi ya Kituo cha Mawasiliano",
+    "agentMonitoring": "Ufuatiliaji wa Mawakala",
+    "cdr": "Kumbukumbu za Simu (CDR)",
+    "campaigns": "Kampeni za Simu",
+    "reports": "Ripoti na Uchambuzi",
+    "managementConsole": "Dashibodi ya Usimamizi",
+    "users": "Watumiaji",
+    "roles": "Majukumu na Ruhusa",
+    "queues": "Foleni",
+    "ivr": "IVR",
+    "timeGroups": "Vikundi vya Muda",
+    "timeConditions": "Masharti ya Muda",
+    "recordings": "Rekodi",
+    "subscriptions": "Usajili",
+    "mailConfig": "Usanidi wa Barua Pepe",
+    "infrastructure": "Mfumo na Miundombinu",
+    "aiCenter": "Kituo cha AI",
+    "tenantManagement": "Usimamizi wa Wapangaji"
+  },
+  "profile": {
+    "myAccount": "Akaunti Yangu",
+    "profileSettings": "Mipangilio ya Wasifu",
+    "appearance": "Mwonekano",
+    "security": "Usalama",
+    "switchTenant": "Badilisha Mpangaji",
+    "logOut": "Ondoka"
+  }
+}

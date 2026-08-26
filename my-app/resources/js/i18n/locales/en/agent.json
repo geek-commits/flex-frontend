@@ -1,0 +1,43 @@
+{
+  "status": {
+    "ready": "Ready",
+    "notReady": "Not Ready",
+    "break": "Break",
+    "wrapUp": "Wrap Up",
+    "offline": "Offline",
+    "busy": "Busy",
+    "inCall": "In Call"
+  },
+  "callState": {
+    "live": "Live",
+    "calling": "Calling...",
+    "ringing": "Ringing...",
+    "connected": "Connected",
+    "held": "On Hold",
+    "transferring": "Transferring...",
+    "ended": "Call Ended"
+  },
+  "callManager": {
+    "title": "Call Manager",
+    "mute": "Mute",
+    "unmute": "Unmute",
+    "hold": "Hold",
+    "resume": "Resume",
+    "transfer": "Transfer",
+    "warmTransfer": "Warm Transfer",
+    "conference": "Conference",
+    "keypad": "Keypad",
+    "endCall": "End Call",
+    "answer": "Answer",
+    "decline": "Decline",
+    "duration": "Duration",
+    "queue": "Queue",
+    "customer": "Customer"
+  },
+  "dialpad": {
+    "title": "Dialpad",
+    "enterNumber": "Enter phone number or extension",
+    "call": "Call",
+    "clear": "Clear"
+  }
+}
