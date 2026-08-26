@@ -171,6 +171,8 @@ export function ActiveCallSurface({
                             variant={isMuted ? 'secondary' : 'outline'}
                             onClick={onToggleMute}
                             disabled={!canToggleMedia}
+                            aria-pressed={isMuted}
+                            aria-label={isMuted ? 'Unmute microphone' : 'Mute microphone'}
                             className="gap-1.5 font-semibold"
                         >
                             {isMuted ? (
@@ -207,6 +209,8 @@ export function ActiveCallSurface({
                             variant={isOnHold ? 'secondary' : 'outline'}
                             onClick={onToggleHold}
                             disabled={!canToggleMedia}
+                            aria-pressed={isOnHold}
+                            aria-label={isOnHold ? 'Resume call' : 'Hold call'}
                             className="gap-1.5 font-semibold"
                         >
                             {isOnHold ? (
