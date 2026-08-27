@@ -2,7 +2,6 @@ import { createInertiaApp } from '@inertiajs/react';
 import { lazy } from 'react';
 import { CapabilityProvider } from '@/auth/capabilities';
 import { TenantContextProvider } from '@/features/tenants/tenant-context';
-import { AppProviders } from '@/components/flex/app-providers';
 import { initializeTheme } from '@/hooks/use-appearance';
 import '@/i18n';
 import { bootLoader } from '@/boot/boot-loader';
@@ -12,6 +11,7 @@ import { bootLoader } from '@/boot/boot-loader';
 const AppLayout = lazy(() => import('@/layouts/app-layout').then((m) => ({ default: m.default })));
 const AuthLayout = lazy(() => import('@/layouts/auth-layout').then((m) => ({ default: m.default })));
 const SettingsLayout = lazy(() => import('@/layouts/settings/layout').then((m) => ({ default: m.default })));
+const WorkspaceProvidersLayout = lazy(() => import('@/layouts/workspace-providers-layout').then((m) => ({ default: m.default })));
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -24,10 +24,10 @@ createInertiaApp({
             case name.startsWith('auth/'):
                 return AuthLayout;
             case name.startsWith('settings/'):
-                return [AppLayout, SettingsLayout];
+                return [WorkspaceProvidersLayout, AppLayout, SettingsLayout];
             case name.startsWith('admin/'):
             case name.startsWith('agent/'):
-                return null;
+                return WorkspaceProvidersLayout;
             default:
                 return AppLayout;
         }
@@ -36,9 +36,7 @@ createInertiaApp({
     withApp(app) {
         return (
             <CapabilityProvider>
-                <TenantContextProvider>
-                    <AppProviders>{app}</AppProviders>
-                </TenantContextProvider>
+                <TenantContextProvider>{app}</TenantContextProvider>
             </CapabilityProvider>
         );
     },
