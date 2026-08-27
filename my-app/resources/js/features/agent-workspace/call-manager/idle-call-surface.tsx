@@ -1,4 +1,4 @@
-import { RiSearchLine } from '@remixicon/react';
+import { RiPhoneLine, RiSearchLine } from '@remixicon/react';
 import React from 'react';
 import { Input } from '@/components/ui/input';
 import type { CallHistoryEntry, CallTarget } from '../state/workspace-types';
@@ -67,10 +67,10 @@ export function IdleCallSurface({
                 ) : (
                     <div className="flex flex-col gap-2">
                         <div className="relative mb-1">
-                            <RiSearchLine className="absolute left-2.5 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground" />
+                            <RiSearchLine className="absolute left-2.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
                             <Input
-                                placeholder="Filter call history..."
-                                className="pl-8 h-8 text-xs bg-background"
+                                placeholder="Search contacts or numbers…"
+                                className="pl-10 h-9 text-[13px] bg-background rounded-[6px]"
                                 aria-label="Filter call history"
                             />
                         </div>
@@ -87,19 +87,26 @@ export function IdleCallSurface({
                                     onClick={() =>
                                         log.target.kind === 'phone' && onCallFromHistory(log.target)
                                     }
-                                    className="p-2 rounded-md bg-muted/40 hover:bg-muted border border-border flex items-center justify-between text-left transition-colors disabled:opacity-60"
+                                    className="min-h-[56px] p-2.5 rounded-md bg-card hover:bg-muted border border-border flex items-center gap-3 text-left transition-colors disabled:opacity-60"
                                     disabled={log.target.kind !== 'phone'}
+                                    aria-label={`Call ${log.target.label}`}
                                 >
-                                    <div className="flex flex-col min-w-0">
-                                        <span className="font-semibold font-mono text-foreground truncate">
+                                    <div className="size-9 shrink-0 rounded-full bg-muted flex items-center justify-center text-[11px] font-semibold text-muted-foreground">
+                                        {log.target.label.slice(0, 2).toUpperCase()}
+                                    </div>
+                                    <div className="flex flex-1 flex-col min-w-0">
+                                        <span className="font-semibold text-[13px] text-foreground truncate">
                                             {log.target.label}
                                         </span>
-                                        <span className="text-[10px] text-muted-foreground">
+                                        <span className="text-[11px] text-muted-foreground">
                                             {formatTime(log.startedAt)} • {log.direction} • {log.outcome}
                                         </span>
                                     </div>
                                     <span className="font-mono text-[11px] text-muted-foreground shrink-0 ml-2">
                                         {log.durationSeconds > 0 ? formatDuration(log.durationSeconds) : '—'}
+                                    </span>
+                                    <span className="size-8 shrink-0 rounded-[6px] bg-muted flex items-center justify-center text-primary ml-2" aria-hidden="true">
+                                        <RiPhoneLine className="size-3.5" />
                                     </span>
                                 </button>
                             ))
