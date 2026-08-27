@@ -1,0 +1,13 @@
+{
+  "integrationId": "crm-primary",
+  "type": "crm",
+  "vendor": "FLEX CRM",
+  "version": "1.0",
+  "mode": "external",
+  "connection": "connected",
+  "iframeConfig": {
+    "src": "https://demo-crm.flex.co.tz/login",
+    "sandbox": "allow-same-origin allow-scripts allow-forms allow-popups",
+    "referrerPolicy": "strict-origin-when-cross-origin"
+  }
+}

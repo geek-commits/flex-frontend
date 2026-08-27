@@ -1,8 +1,8 @@
 import { AgentShell } from '@/layouts/agent-shell';
+import { ExternalWorkspaceHost } from '@/features/integrations/external-workspace-host';
 import { AgentAssistDock } from './agent-assist/agent-assist-dock';
 import { AgentOperationalHeader } from './agent-operational-header';
 import { CallManager } from './call-manager/call-manager';
-import { CrmIntegrationHost } from './integration/crm-integration-host';
 import { useWorkspaceState } from './state/use-workspace-state';
 
 /**
@@ -31,7 +31,7 @@ export function AgentWorkspacePage() {
                 />
             }
         >
-            <CrmIntegrationHost title="Customer Workspace" mockConfigPath="/mocks/integrations/crm-primary.json" />
+            <ExternalWorkspaceHost title="Customer Workspace" configPath="/integrations/crm-primary.json" />
         </AgentShell>
     );
 }
