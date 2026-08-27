@@ -3,7 +3,6 @@ import { RiLayoutRightLine } from '@remixicon/react';
 import React, { Suspense, lazy } from 'react';
 import { useTranslation } from 'react-i18next';
 import { deriveActiveDomain, FLEX_DOMAINS } from '@/auth/nav-domains';
-import { AppProviders } from '@/components/flex/app-providers';
 import { AppTopbar } from '@/components/flex/app-topbar';
 import { PrimaryRail } from '@/components/flex/primary-rail';
 import { ShellProvider, useShell } from '@/components/flex/shell-context';
@@ -130,10 +129,8 @@ function FlexAppShellInner({
 
 export function FlexAppShell(props: FlexAppShellProps) {
     return (
-        <AppProviders>
-            <ShellProvider>
-                <FlexAppShellInner {...props} />
-            </ShellProvider>
-        </AppProviders>
+        <ShellProvider>
+            <FlexAppShellInner {...props} />
+        </ShellProvider>
     );
 }

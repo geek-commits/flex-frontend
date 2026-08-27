@@ -2,6 +2,7 @@ import { createInertiaApp } from '@inertiajs/react';
 import { lazy } from 'react';
 import { CapabilityProvider } from '@/auth/capabilities';
 import { TenantContextProvider } from '@/features/tenants/tenant-context';
+import { AppProviders } from '@/components/flex/app-providers';
 import { initializeTheme } from '@/hooks/use-appearance';
 import '@/i18n';
 import { bootLoader } from '@/boot/boot-loader';
@@ -35,7 +36,9 @@ createInertiaApp({
     withApp(app) {
         return (
             <CapabilityProvider>
-                <TenantContextProvider>{app}</TenantContextProvider>
+                <TenantContextProvider>
+                    <AppProviders>{app}</AppProviders>
+                </TenantContextProvider>
             </CapabilityProvider>
         );
     },
