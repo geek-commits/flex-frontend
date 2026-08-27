@@ -19,7 +19,7 @@ export function QueueHealth() {
     const { data, isLoading, error } = useDashboardData();
 
     const rows = useMemo(() => data?.queueHealth ?? [], [data]);
-    const columns = useMemo(() => queueColumns(), [t]);
+    const columns = queueColumns(t);
     const table = useTable({
         features: dataGridFeatures,
         columns,
@@ -54,6 +54,7 @@ export function QueueHealth() {
             </div>
 
             <DataGrid
+                key={t('queue.columns.queue')}
                 table={table}
                 recordCount={rows.length}
                 isLoading={isLoading}
