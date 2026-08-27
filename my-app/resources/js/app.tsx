@@ -4,6 +4,7 @@ import { CapabilityProvider } from '@/auth/capabilities';
 import { TenantContextProvider } from '@/features/tenants/tenant-context';
 import { initializeTheme } from '@/hooks/use-appearance';
 import '@/i18n';
+import { bootLoader } from '@/boot/boot-loader';
 
 // Auth and app layouts are code-split so a public/auth page never downloads
 // the full application shell (sidebar, user menu, mobile navigation).
@@ -45,3 +46,14 @@ createInertiaApp({
 
 // This will set light / dark mode on load...
 initializeTheme();
+
+// Signal boot readiness on next frame — real app mounted, locale resolved via i18n import above.
+// Avoid artificial delay for branding; fast loads avoid flash via boot-loader threshold.
+if (typeof window !== 'undefined') {
+    requestAnimationFrame(() => {
+        // allow first paint of meaningful UI before removing white-first loader
+        requestAnimationFrame(() => bootLoader.ready());
+    });
+    window.addEventListener('error', () => bootLoader.fail(), { once: true });
+    window.addEventListener('unhandledrejection', () => bootLoader.fail(), { once: true });
+}
