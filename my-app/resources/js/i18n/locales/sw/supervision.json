@@ -87,5 +87,37 @@
     "completed": "Imekamilika",
     "failed": "Imeshindwa",
     "retrying": "Inajaribu tena"
+  },
+  "queue": {
+    "columns": {
+      "queue": "Foleni",
+      "waiting": "Wanasubiri",
+      "longestWait": "Muda Mrefu Zaidi",
+      "available": "Wanaopatikana",
+      "sla": "SLA",
+      "status": "Hali"
+    },
+    "healthy": "Imara",
+    "degraded": "Dhaifu",
+    "noAgents": "Hakuna wakala",
+    "noCalls": "Hakuna simu"
+  },
+  "activeCalls": {
+    "title": "Active Calls",
+    "columns": {
+      "customer": "Mteja",
+      "agent": "Wakala",
+      "queue": "Foleni",
+      "direction": "Mwelekeo",
+      "duration": "Muda",
+      "state": "Hali"
+    }
+  },
+  "wallboard": {
+    "columns": {
+      "agent": "Wakala",
+      "queue": "Foleni",
+      "state": "Hali"
+    }
   }
 }

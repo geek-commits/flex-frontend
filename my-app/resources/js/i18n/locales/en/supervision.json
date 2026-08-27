@@ -87,5 +87,37 @@
     "completed": "Completed",
     "failed": "Failed",
     "retrying": "Retrying"
+  },
+  "queue": {
+    "columns": {
+      "queue": "Queue",
+      "waiting": "Waiting",
+      "longestWait": "Longest Wait",
+      "available": "Available",
+      "sla": "SLA",
+      "status": "Status"
+    },
+    "healthy": "Healthy",
+    "degraded": "Degraded",
+    "noAgents": "No agents",
+    "noCalls": "No calls"
+  },
+  "activeCalls": {
+    "title": "Active Calls",
+    "columns": {
+      "customer": "Customer",
+      "agent": "Agent",
+      "queue": "Queue",
+      "direction": "Dir.",
+      "duration": "Duration",
+      "state": "State"
+    }
+  },
+  "wallboard": {
+    "columns": {
+      "agent": "Agent",
+      "queue": "Queue",
+      "state": "State"
+    }
   }
 }

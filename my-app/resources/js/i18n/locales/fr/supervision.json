@@ -87,5 +87,37 @@
     "completed": "Terminé",
     "failed": "Échoué",
     "retrying": "Nouvelle tentative"
+  },
+  "queue": {
+    "columns": {
+      "queue": "File d'attente",
+      "waiting": "En attente",
+      "longestWait": "Attente la plus longue",
+      "available": "Disponible",
+      "sla": "SLA",
+      "status": "Statut"
+    },
+    "healthy": "Sain",
+    "degraded": "Dégradé",
+    "noAgents": "Aucun agent",
+    "noCalls": "Aucun appel"
+  },
+  "activeCalls": {
+    "title": "Active Calls",
+    "columns": {
+      "customer": "Client",
+      "agent": "Agent",
+      "queue": "File",
+      "direction": "Dir.",
+      "duration": "Durée",
+      "state": "État"
+    }
+  },
+  "wallboard": {
+    "columns": {
+      "agent": "Agent",
+      "queue": "File",
+      "state": "État"
+    }
   }
 }
