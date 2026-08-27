@@ -3,6 +3,7 @@ import { lazy } from 'react';
 import { CapabilityProvider } from '@/auth/capabilities';
 import { TenantContextProvider } from '@/features/tenants/tenant-context';
 import { initializeTheme } from '@/hooks/use-appearance';
+import '@/i18n';
 
 // Auth and app layouts are code-split so a public/auth page never downloads
 // the full application shell (sidebar, user menu, mobile navigation).
