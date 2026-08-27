@@ -19,18 +19,18 @@ function formatWait(seconds: number): string {
 
 function QueueStatusCell({ queue, t }: { queue: QueueHealth; t: (k: string, fallback?: string) => string }) {
     if (queue.waiting === 0) {
-        return <span className="text-flex-text-muted">{t('supervision:queue.noCalls', 'No calls')}</span>;
+        return <span className="text-flex-text-muted">{t('queue.noCalls', 'No calls')}</span>;
     }
 
     if (queue.sla < SLA_TARGET) {
-        return <FlexStatus tone="warning">{t('supervision:queue.degraded', 'Degraded')}</FlexStatus>;
+        return <FlexStatus tone="warning">{t('queue.degraded', 'Degraded')}</FlexStatus>;
     }
 
     if (queue.availableAgents === 0) {
-        return <FlexStatus tone="warning">{t('supervision:queue.noAgents', 'No agents')}</FlexStatus>;
+        return <FlexStatus tone="warning">{t('queue.noAgents', 'No agents')}</FlexStatus>;
     }
 
-    return <FlexStatus tone="success">{t('supervision:queue.healthy', 'Healthy')}</FlexStatus>;
+    return <FlexStatus tone="success">{t('queue.healthy', 'Healthy')}</FlexStatus>;
 }
 
 export function queueColumns(t?: (k: string, fallback?: string) => string): ColumnDef<DataGridFeatures, QueueHealth>[] {
@@ -39,7 +39,7 @@ export function queueColumns(t?: (k: string, fallback?: string) => string): Colu
         {
             accessorKey: 'queue',
             id: 'queue',
-            header: ({ column }) => <DataGridColumnHeader title={tr('supervision:queue.columns.queue', 'Queue')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={tr('queue.columns.queue', 'Queue')} column={column} />,
             cell: ({ row }) => (
                 <span className="font-medium text-flex-text-primary">{row.original.queue}</span>
             ),
@@ -50,7 +50,7 @@ export function queueColumns(t?: (k: string, fallback?: string) => string): Colu
         {
             accessorKey: 'waiting',
             id: 'waiting',
-            header: ({ column }) => <DataGridColumnHeader title={tr('supervision:queue.columns.waiting', 'Waiting')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={tr('queue.columns.waiting', 'Waiting')} column={column} />,
             cell: ({ row }) => (
                 <span className="tabular-nums text-flex-text-primary">{row.original.waiting}</span>
             ),
@@ -61,7 +61,7 @@ export function queueColumns(t?: (k: string, fallback?: string) => string): Colu
         {
             accessorKey: 'longestWait',
             id: 'longestWait',
-            header: ({ column }) => <DataGridColumnHeader title={tr('supervision:queue.columns.longestWait', 'Longest Wait')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={tr('queue.columns.longestWait', 'Longest Wait')} column={column} />,
             cell: ({ row }) => (
                 <span className="tabular-nums text-flex-text-muted">{formatWait(row.original.longestWait)}</span>
             ),
@@ -72,7 +72,7 @@ export function queueColumns(t?: (k: string, fallback?: string) => string): Colu
         {
             accessorKey: 'availableAgents',
             id: 'available',
-            header: ({ column }) => <DataGridColumnHeader title={tr('supervision:queue.columns.available', 'Available')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={tr('queue.columns.available', 'Available')} column={column} />,
             cell: ({ row }) => (
                 <span className="tabular-nums text-flex-text-primary">
                     {row.original.availableAgents} / {row.original.totalAgents}
@@ -85,7 +85,7 @@ export function queueColumns(t?: (k: string, fallback?: string) => string): Colu
         {
             accessorKey: 'sla',
             id: 'sla',
-            header: ({ column }) => <DataGridColumnHeader title={tr('supervision:queue.columns.sla', 'SLA')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={tr('queue.columns.sla', 'SLA')} column={column} />,
             cell: ({ row }) => (
                 <span className="tabular-nums text-flex-text-primary">{row.original.sla}%</span>
             ),
@@ -96,7 +96,7 @@ export function queueColumns(t?: (k: string, fallback?: string) => string): Colu
         {
             accessorKey: 'status',
             id: 'status',
-            header: ({ column }) => <DataGridColumnHeader title={tr('supervision:queue.columns.status', 'Status')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={tr('queue.columns.status', 'Status')} column={column} />,
             cell: ({ row }) => <QueueStatusCell queue={row.original} t={tr} />,
             size: 160,
             enableSorting: false,
