@@ -5,6 +5,7 @@ import {
 
 } from '@remixicon/react';
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { NAVIGATION, useCapabilities } from '@/auth/capabilities';
 import type { Role } from '@/auth/capabilities';
 import { FLEX_DOMAINS } from '@/auth/nav-domains';
@@ -52,16 +53,28 @@ const ROLE_OPTIONS: { value: Role; label: string }[] = [
     { value: 'agent', label: 'Agent' },
 ];
 
-const NAV_SUBTITLE_BY_HREF = new Map<string, string>([
-    ...FLEX_DOMAINS.flatMap((domain) =>
-        domain.groups.flatMap((group) =>
-            group.items.map(
-                (item) => [item.href, group.groupTitle ? `${domain.label} · ${group.groupTitle}` : domain.label] as const,
-            ),
-        ),
-    ),
-    ['/settings/profile', 'System'],
-]);
+function useNavSubtitle(t: (k: string) => string): Map<string, string> {
+    return useMemo(
+        () =>
+            new Map<string, string>([
+                ...FLEX_DOMAINS.flatMap((domain) =>
+                    domain.groups.flatMap((group) =>
+                        group.items.map(
+                            (item) =>
+                                [
+                                    item.href,
+                                    group.groupTitleKey
+                                        ? `${t(domain.labelKey)} · ${t(group.groupTitleKey)}`
+                                        : t(domain.labelKey),
+                                ] as const,
+                        ),
+                    ),
+                ),
+                ['/settings/profile', t('navigation:groups.system')],
+            ]),
+        [t],
+    );
+}
 
 function matches(text: string, query: string) {
     return text.toLocaleLowerCase().includes(query.toLocaleLowerCase());
@@ -147,6 +160,8 @@ throw new Error('useGlobalSearch must be used within a GlobalSearchProvider');
 function GlobalSearchDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
     const { has, role, setRole } = useCapabilities();
     const { url } = usePage();
+    const { t } = useTranslation('navigation');
+    const navSubtitleByHref = useNavSubtitle(t);
     const [query, setQuery] = useState('');
 
     const handleOpenChange = (next: boolean) => {
@@ -157,7 +172,15 @@ function GlobalSearchDialog({ open, onOpenChange }: { open: boolean; onOpenChang
         onOpenChange(next);
     };
 
-    const visibleNavigation = NAVIGATION.filter((entry) => has(entry.capability));
+    const visibleNavigation = useMemo(
+        () =>
+            NAVIGATION.filter((entry) => has(entry.capability)).map((entry) => ({
+                ...entry,
+                title: t(entry.titleKey),
+                subtitle: navSubtitleByHref.get(entry.href),
+            })),
+        [has, t, navSubtitleByHref],
+    );
     const recordIndex = useMemo(() => buildRecordIndex(), []);
     const moduleIndex = useMemo(() => {
         const navigationHrefs = new Set(visibleNavigation.map((entry) => entry.href));
@@ -198,7 +221,6 @@ return false;
     const grouped = {
         navigation: visibleNavigation.map((entry) => ({
             ...entry,
-            subtitle: NAV_SUBTITLE_BY_HREF.get(entry.href),
             group: 'Navigation',
             kind: 'navigation' as const,
         })),
@@ -234,11 +256,11 @@ return false;
     };
 
     return (
-        <CommandDialog open={open} onOpenChange={handleOpenChange} title="Search Flex" description="Search Flex modules, actions and records">
+        <CommandDialog open={open} onOpenChange={handleOpenChange} title={t('search.dialogTitle')} description={t('search.dialogDescription')}>
             <Command>
-                <CommandInput placeholder="Search Flex..." value={query} onValueChange={setQuery} autoFocus />
+                <CommandInput placeholder={t('search.placeholder')} value={query} onValueChange={setQuery} autoFocus />
                 <CommandList>
-                <CommandEmpty>No results found for &quot;{query}&quot;.</CommandEmpty>
+                <CommandEmpty>{t('search.noResults')} &quot;{query}&quot;.</CommandEmpty>
 
                 {grouped.navigation.length > 0 && (
                     <CommandGroup heading="Navigation">
@@ -351,17 +373,18 @@ return false;
 
 export function GlobalSearchTrigger() {
     const { setOpen } = useGlobalSearch();
+    const { t } = useTranslation('navigation');
 
     return (
         <Button
             variant="outline"
             size="sm"
-            aria-label="Search Flex"
+            aria-label={t('search.placeholder')}
             className="w-9 justify-center px-0 h-7 rounded-lg border-flex-workspace-divider bg-flex-workspace-surface-muted text-xs text-muted-foreground shadow-none sm:w-48 lg:w-[364px] lg:justify-start lg:px-3"
             onClick={() => setOpen(true)}
         >
             <RiSearchLine className="size-3.5" />
-            <span className="hidden truncate sm:inline">Search Flex</span>
+            <span className="hidden truncate sm:inline">{t('search.placeholder')}</span>
             <kbd className="ml-auto hidden lg:inline-flex items-center gap-0.5 rounded border border-flex-workspace-divider bg-card px-1 py-0.5 text-[9px] font-semibold">
                 ⌘K
             </kbd>

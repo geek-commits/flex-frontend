@@ -1,5 +1,6 @@
 import { Link, usePage } from '@inertiajs/react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useCapabilities } from '@/auth/capabilities';
 import { deriveActiveDomain, FLEX_DOMAINS } from '@/auth/nav-domains';
 import { FlexBrandMark } from '@/components/flex/brand';
@@ -23,6 +24,7 @@ export function PrimaryRail({ currentPath, activeWorkspace = 'admin' }: PrimaryR
     const { url } = usePage();
     const { appearance, updateAppearance } = useAppearance();
     const { has } = useCapabilities();
+    const { t } = useTranslation('navigation');
 
     const domains = FLEX_DOMAINS.filter((domain) => has(domain.capability));
     const activeDomain = deriveActiveDomain(url);
@@ -57,7 +59,7 @@ export function PrimaryRail({ currentPath, activeWorkspace = 'admin' }: PrimaryR
                                         render={
                                             <Link
                                                 href={effectiveHref}
-                                                aria-label={domain.label}
+                                                aria-label={t(domain.labelKey)}
                                                 aria-current={isActive ? 'page' : undefined}
                                                 className={`relative flex items-center justify-center size-8 rounded-md transition-colors duration-[var(--flex-duration-fast)] flex-focus-visible ${
                                                     isActive
@@ -70,7 +72,7 @@ export function PrimaryRail({ currentPath, activeWorkspace = 'admin' }: PrimaryR
                                         }
                                     />
                                     <TooltipContent side="right" className="font-medium text-xs">
-                                        {domain.label}
+                                        {t(domain.labelKey)}
                                     </TooltipContent>
                                 </Tooltip>
                             );

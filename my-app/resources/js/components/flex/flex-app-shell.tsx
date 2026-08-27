@@ -1,6 +1,7 @@
 import { usePage } from '@inertiajs/react';
 import { RiLayoutRightLine } from '@remixicon/react';
 import React, { Suspense, lazy } from 'react';
+import { useTranslation } from 'react-i18next';
 import { deriveActiveDomain, FLEX_DOMAINS } from '@/auth/nav-domains';
 import { AppProviders } from '@/components/flex/app-providers';
 import { AppTopbar } from '@/components/flex/app-topbar';
@@ -33,6 +34,7 @@ function FlexAppShellInner({
 }: FlexAppShellProps) {
     const { url } = usePage();
     const { contextSidebarOpen, toggleContextSidebar } = useShell();
+    const { t } = useTranslation('navigation');
 
     const activeDomain = deriveActiveDomain(url);
     const domainConfig = FLEX_DOMAINS.find((domain) => domain.id === activeDomain);
@@ -76,8 +78,11 @@ function FlexAppShellInner({
                         >
                             <ContextSidebar
                                 key={domainConfig.id}
-                                title={domainConfig.label}
-                                groups={domainConfig.groups}
+                                title={t(domainConfig.labelKey)}
+                                groups={domainConfig.groups.map((g) => ({
+                                    groupTitle: g.groupTitleKey ? t(g.groupTitleKey) : g.groupTitle,
+                                    items: g.items.map((it) => ({ ...it, title: t(it.titleKey) })),
+                                }))}
                             />
                         </Suspense>
                     </div>

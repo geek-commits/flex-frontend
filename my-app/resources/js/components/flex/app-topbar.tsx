@@ -15,6 +15,7 @@ import { LanguageSwitcher } from '@/components/language-switcher';
 import { TenantContextIndicator } from '@/features/tenants/tenant-context-indicator';
 import { agentStateMap, connectionStateMap } from '@/lib/status-styles';
 import type { AgentState, ConnectionState } from '@/types/flex';
+import { useTranslation } from 'react-i18next';
 
 export interface AppTopbarProps {
     title?: string;
@@ -34,6 +35,7 @@ export function AppTopbar({
     const { url } = usePage();
     const animateOnMount = useBrandIntroReplayGuard();
     const { has } = useCapabilities();
+    const { t } = useTranslation('navigation');
 
     const currentAgentConfig = agentStateMap[agentState];
     const connConfig = connectionStateMap[connectionState];
@@ -72,13 +74,13 @@ export function AppTopbar({
                             {visibleMobileDomains.map((domain) => (
                                 <div key={domain.id} className="flex flex-col gap-1">
                                     <p className="px-3 pt-2 text-[11px] font-semibold uppercase tracking-wider text-flex-text-tertiary">
-                                        {domain.label}
+                                        {t(domain.labelKey)}
                                     </p>
                                     {domain.groups.map((group, gi) => (
                                         <div key={`${domain.id}-${gi}`} className="flex flex-col gap-1">
-                                            {group.groupTitle && (
+                                            {(group.groupTitleKey || group.groupTitle) && (
                                                 <p className="px-3 pt-1 text-[11px] font-medium text-flex-text-tertiary">
-                                                    {group.groupTitle}
+                                                    {group.groupTitleKey ? t(group.groupTitleKey) : group.groupTitle}
                                                 </p>
                                             )}
                                             {group.items.map((item) => {
@@ -96,7 +98,7 @@ export function AppTopbar({
                                                         }`}
                                                     >
                                                         <FlexIcon name={item.icon} className="size-4" />
-                                                        <span>{item.title}</span>
+                                                        <span>{t(item.titleKey)}</span>
                                                     </Link>
                                                 );
                                             })}

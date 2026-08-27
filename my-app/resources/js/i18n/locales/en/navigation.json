@@ -45,7 +45,8 @@
     "mailConfig": "Mail Configuration",
     "infrastructure": "System & Infrastructure",
     "aiCenter": "AI Center",
-    "tenantManagement": "Tenant Management"
+    "tenantManagement": "Tenant Management",
+    "settings": "Settings"
   },
   "profile": {
     "myAccount": "My Account",

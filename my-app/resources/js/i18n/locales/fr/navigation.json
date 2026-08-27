@@ -45,7 +45,8 @@
     "mailConfig": "Configuration des e-mails",
     "infrastructure": "Système et infrastructure",
     "aiCenter": "Centre d'IA",
-    "tenantManagement": "Gestion des organisations"
+    "tenantManagement": "Gestion des organisations",
+    "settings": "Paramètres"
   },
   "profile": {
     "myAccount": "Mon compte",

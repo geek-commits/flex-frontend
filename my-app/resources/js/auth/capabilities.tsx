@@ -100,6 +100,7 @@ export const ROLE_CAPABILITIES: Record<Role, Capability[]> = {
 
 export interface NavEntry {
     title: string;
+    titleKey: string;
     href: string;
     icon: FlexIconName;
     capability: Capability;
@@ -126,6 +127,7 @@ function deriveNavigation(): NavEntry[] {
             group.items.map(
                 (item): NavEntry => ({
                     title: item.title,
+                    titleKey: item.titleKey,
                     href: item.href,
                     icon: item.icon,
                     capability: item.capability as Capability,
@@ -138,6 +140,7 @@ function deriveNavigation(): NavEntry[] {
     // Shared non-domain route (Settings/Profile) — not part of the main domain tree (§24).
     flat.push({
         title: 'Settings',
+        titleKey: 'navigation:items.settings',
         href: '/settings/profile',
         icon: 'settings',
         capability: 'settings.manage',

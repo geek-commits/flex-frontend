@@ -12,6 +12,7 @@ export type FlexDomainId = 'agent' | 'supervision' | 'administration' | 'platfor
 
 export interface FlexNavRoute {
     title: string;
+    titleKey: string;
     href: string;
     icon: FlexIconName;
     capability?: Capability;
@@ -19,12 +20,14 @@ export interface FlexNavRoute {
 
 export interface FlexDomainRouteGroup {
     groupTitle?: string;
+    groupTitleKey?: string;
     items: FlexNavRoute[];
 }
 
 export interface FlexDomain {
     id: FlexDomainId;
     label: string;
+    labelKey: string;
     icon: FlexIconName;
     /** Capability gating visibility of the whole domain on the rail. */
     capability: Capability;
@@ -39,6 +42,7 @@ export const FLEX_DOMAINS: FlexDomain[] = [
     {
         id: 'agent',
         label: 'Agent',
+        labelKey: 'navigation:domains.agent',
         icon: 'agent-workspace',
         capability: 'agent.workspace',
         landingHref: '/agent/dashboard',
@@ -46,22 +50,24 @@ export const FLEX_DOMAINS: FlexDomain[] = [
         groups: [
             {
                 items: [
-                    { title: 'Agent Dashboard', href: '/agent/dashboard', icon: 'dashboard', capability: 'agent.dashboard.view' },
-                    { title: 'Agent Workspace', href: '/agent', icon: 'agent-workspace', capability: 'agent.workspace' },
+                    { title: 'Agent Dashboard', titleKey: 'navigation:items.agentDashboard', href: '/agent/dashboard', icon: 'dashboard', capability: 'agent.dashboard.view' },
+                    { title: 'Agent Workspace', titleKey: 'navigation:items.agentWorkspace', href: '/agent', icon: 'agent-workspace', capability: 'agent.workspace' },
                 ],
             },
             {
                 groupTitle: 'Engagement',
+                groupTitleKey: 'navigation:groups.engagement',
                 items: [
-                    { title: 'Social Inbox', href: '/agent/social', icon: 'social-inbox', capability: 'social.view' },
-                    { title: 'Callback & Voicemail', href: '/agent/missed-calls', icon: 'missed-calls', capability: 'missed-calls.view' },
+                    { title: 'Social Inbox', titleKey: 'navigation:items.socialInbox', href: '/agent/social', icon: 'social-inbox', capability: 'social.view' },
+                    { title: 'Callback & Voicemail', titleKey: 'navigation:items.missedCalls', href: '/agent/missed-calls', icon: 'missed-calls', capability: 'missed-calls.view' },
                 ],
             },
             {
                 groupTitle: 'Support',
+                groupTitleKey: 'navigation:groups.support',
                 items: [
-                    { title: 'Troubleshooting', href: '/agent/troubleshooting', icon: 'troubleshooting', capability: 'troubleshooting.view' },
-                    { title: 'Quick Support', href: '/agent/support', icon: 'support', capability: 'support.view' },
+                    { title: 'Troubleshooting', titleKey: 'navigation:items.troubleshooting', href: '/agent/troubleshooting', icon: 'troubleshooting', capability: 'troubleshooting.view' },
+                    { title: 'Quick Support', titleKey: 'navigation:items.quickSupport', href: '/agent/support', icon: 'support', capability: 'support.view' },
                 ],
             },
         ],
@@ -69,6 +75,7 @@ export const FLEX_DOMAINS: FlexDomain[] = [
     {
         id: 'supervision',
         label: 'Supervision',
+        labelKey: 'navigation:domains.supervision',
         icon: 'monitoring',
         capability: 'dashboard.view',
         landingHref: '/dashboard',
@@ -76,16 +83,17 @@ export const FLEX_DOMAINS: FlexDomain[] = [
         groups: [
             {
                 items: [
-                    { title: 'Contact Center Dashboard', href: '/dashboard', icon: 'dashboard', capability: 'dashboard.view' },
-                    { title: 'Agent Monitoring', href: '/admin/monitoring', icon: 'monitoring', capability: 'monitor.view' },
+                    { title: 'Contact Center Dashboard', titleKey: 'navigation:items.contactCenterDashboard', href: '/dashboard', icon: 'dashboard', capability: 'dashboard.view' },
+                    { title: 'Agent Monitoring', titleKey: 'navigation:items.agentMonitoring', href: '/admin/monitoring', icon: 'monitoring', capability: 'monitor.view' },
                 ],
             },
             {
                 groupTitle: 'Operations',
+                groupTitleKey: 'navigation:groups.operations',
                 items: [
-                    { title: 'Call Records (CDR)', href: '/admin/cdr', icon: 'call-records', capability: 'cdr.view' },
-                    { title: 'Call Campaigns', href: '/admin/campaigns', icon: 'campaigns', capability: 'campaigns.view' },
-                    { title: 'Reports & Analytics', href: '/admin/reports', icon: 'reports', capability: 'reports.view' },
+                    { title: 'Call Records (CDR)', titleKey: 'navigation:items.cdr', href: '/admin/cdr', icon: 'call-records', capability: 'cdr.view' },
+                    { title: 'Call Campaigns', titleKey: 'navigation:items.campaigns', href: '/admin/campaigns', icon: 'campaigns', capability: 'campaigns.view' },
+                    { title: 'Reports & Analytics', titleKey: 'navigation:items.reports', href: '/admin/reports', icon: 'reports', capability: 'reports.view' },
                 ],
             },
         ],
@@ -93,6 +101,7 @@ export const FLEX_DOMAINS: FlexDomain[] = [
     {
         id: 'administration',
         label: 'Administration',
+        labelKey: 'navigation:domains.administration',
         icon: 'management-console',
         capability: 'console.view',
         landingHref: '/admin/console',
@@ -100,39 +109,44 @@ export const FLEX_DOMAINS: FlexDomain[] = [
         groups: [
             {
                 groupTitle: 'Overview',
+                groupTitleKey: 'navigation:groups.overview',
                 items: [
-                    { title: 'Management Console', href: '/admin/console', icon: 'management-console', capability: 'console.view' },
+                    { title: 'Management Console', titleKey: 'navigation:items.managementConsole', href: '/admin/console', icon: 'management-console', capability: 'console.view' },
                 ],
             },
             {
                 groupTitle: 'People',
+                groupTitleKey: 'navigation:groups.people',
                 items: [
-                    { title: 'Users', href: '/admin/users', icon: 'users', capability: 'console.view' },
-                    { title: 'Roles & Permissions', href: '/admin/roles', icon: 'roles', capability: 'roles.manage' },
+                    { title: 'Users', titleKey: 'navigation:items.users', href: '/admin/users', icon: 'users', capability: 'console.view' },
+                    { title: 'Roles & Permissions', titleKey: 'navigation:items.roles', href: '/admin/roles', icon: 'roles', capability: 'roles.manage' },
                 ],
             },
             {
                 groupTitle: 'Routing',
+                groupTitleKey: 'navigation:groups.routing',
                 items: [
-                    { title: 'Queues', href: '/admin/queues', icon: 'queues', capability: 'console.view' },
-                    { title: 'IVR', href: '/admin/ivr', icon: 'ivr', capability: 'console.view' },
-                    { title: 'Time Groups', href: '/admin/time-groups', icon: 'schedules', capability: 'console.view' },
-                    { title: 'Time Conditions', href: '/admin/time-conditions', icon: 'time-conditions', capability: 'console.view' },
+                    { title: 'Queues', titleKey: 'navigation:items.queues', href: '/admin/queues', icon: 'queues', capability: 'console.view' },
+                    { title: 'IVR', titleKey: 'navigation:items.ivr', href: '/admin/ivr', icon: 'ivr', capability: 'console.view' },
+                    { title: 'Time Groups', titleKey: 'navigation:items.timeGroups', href: '/admin/time-groups', icon: 'schedules', capability: 'console.view' },
+                    { title: 'Time Conditions', titleKey: 'navigation:items.timeConditions', href: '/admin/time-conditions', icon: 'time-conditions', capability: 'console.view' },
                 ],
             },
             {
                 groupTitle: 'Media',
+                groupTitleKey: 'navigation:groups.media',
                 items: [
-                    { title: 'Recordings', href: '/admin/recordings', icon: 'recordings', capability: 'console.view' },
+                    { title: 'Recordings', titleKey: 'navigation:items.recordings', href: '/admin/recordings', icon: 'recordings', capability: 'console.view' },
                 ],
             },
             {
                 groupTitle: 'System',
+                groupTitleKey: 'navigation:groups.system',
                 items: [
-                    { title: 'Subscriptions', href: '/admin/subscription', icon: 'subscriptions', capability: 'settings.manage' },
-                    { title: 'Mail Configuration', href: '/admin/mail-config', icon: 'mail', capability: 'settings.manage' },
-                    { title: 'System & Infrastructure', href: '/admin/system', icon: 'infrastructure', capability: 'system.view' },
-                    { title: 'AI Center', href: '/admin/ai', icon: 'ai-center', capability: 'ai.view' },
+                    { title: 'Subscriptions', titleKey: 'navigation:items.subscriptions', href: '/admin/subscription', icon: 'subscriptions', capability: 'settings.manage' },
+                    { title: 'Mail Configuration', titleKey: 'navigation:items.mailConfig', href: '/admin/mail-config', icon: 'mail', capability: 'settings.manage' },
+                    { title: 'System & Infrastructure', titleKey: 'navigation:items.infrastructure', href: '/admin/system', icon: 'infrastructure', capability: 'system.view' },
+                    { title: 'AI Center', titleKey: 'navigation:items.aiCenter', href: '/admin/ai', icon: 'ai-center', capability: 'ai.view' },
                 ],
             },
         ],
@@ -140,6 +154,7 @@ export const FLEX_DOMAINS: FlexDomain[] = [
     {
         id: 'platform',
         label: 'Platform',
+        labelKey: 'navigation:domains.platform',
         icon: 'organizations',
         capability: 'tenants.manage',
         landingHref: '/admin/tenants',
@@ -147,7 +162,7 @@ export const FLEX_DOMAINS: FlexDomain[] = [
         groups: [
             {
                 items: [
-                    { title: 'Tenant Management', href: '/admin/tenants', icon: 'organizations', capability: 'tenants.manage' },
+                    { title: 'Tenant Management', titleKey: 'navigation:items.tenantManagement', href: '/admin/tenants', icon: 'organizations', capability: 'tenants.manage' },
                 ],
             },
         ],
