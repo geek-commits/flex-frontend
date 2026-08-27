@@ -1,6 +1,7 @@
 import { Head } from '@inertiajs/react';
 import { RiRefreshLine } from '@remixicon/react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import {
     DashboardProvider,
@@ -20,12 +21,13 @@ export function ContactCenterDashboard() {
 }
 
 function ContactCenterDashboardInner() {
+    const { t } = useTranslation('supervision');
     const { isRefreshing, refresh } = useDashboardData();
 
     return (
         <AdminShell
-            title="Contact Center Dashboard"
-            subtitle="Real-Time Operational Analytics & Telephony Monitoring"
+            title={t('dashboard.title')}
+            subtitle={t('dashboard.description')}
             
             actions={
                 <Button
@@ -37,16 +39,16 @@ function ContactCenterDashboardInner() {
                     aria-busy={isRefreshing}
                 >
                     <RiRefreshLine className="size-3.5" />
-                    <span>Refresh Live Data</span>
+                    <span>{t('dashboard.refresh')}</span>
                     {isRefreshing && (
                         <span className="text-[10px] text-muted-foreground">
-                            Updating…
+                            {t('dashboard.live.updating', { defaultValue: 'Updating…' })}
                         </span>
                     )}
                 </Button>
             }
         >
-            <Head title="Contact Center Dashboard — Flex Contact Center" />
+            <Head title={`${t('dashboard.title')} — Flex Contact Center`} />
             <ContactCenterDashboardContent />
         </AdminShell>
     );
