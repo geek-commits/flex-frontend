@@ -1,0 +1,14 @@
+{
+  "console": "Console de gestion",
+  "users": "Utilisateurs",
+  "roles": "Rôles et autorisations",
+  "queues": "Files d'attente",
+  "ivr": "SVI",
+  "timeGroups": "Groupes d'heures",
+  "timeConditions": "Conditions horaires",
+  "recordings": "Enregistrements",
+  "mail": "E-mails",
+  "subscriptions": "Abonnements",
+  "system": "Système",
+  "ai": "Centre d'IA"
+}

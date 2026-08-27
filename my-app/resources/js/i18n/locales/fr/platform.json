@@ -1,0 +1,9 @@
+{
+  "tenantManagement": "Gestion des organisations",
+  "tenantSelector": "Organisation",
+  "status": {
+    "active": "Actif",
+    "inactive": "Inactif"
+  },
+  "health": "État du système"
+}

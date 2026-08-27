@@ -1,0 +1,14 @@
+{
+  "title": "Assistance agent",
+  "openAssist": "Ouvrir l'assistance",
+  "minimize": "Réduire",
+  "restore": "Restaurer",
+  "suggestedResponse": "Réponse suggérée",
+  "guidance": "Conseils",
+  "notes": "Notes",
+  "summary": "Résumé",
+  "loading": "Chargement...",
+  "unavailable": "Assistance indisponible",
+  "sessionActive": "Session active",
+  "sessionEnded": "Session terminée"
+}

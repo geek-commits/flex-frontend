@@ -1,0 +1,9 @@
+{
+  "tenantManagement": "Tenant Management",
+  "tenantSelector": "Tenant",
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+  "health": "System Health"
+}

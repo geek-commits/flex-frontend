@@ -1,0 +1,14 @@
+{
+  "console": "Management Console",
+  "users": "Users",
+  "roles": "Roles & Permissions",
+  "queues": "Queues",
+  "ivr": "IVR",
+  "timeGroups": "Time Groups",
+  "timeConditions": "Time Conditions",
+  "recordings": "Recordings",
+  "mail": "Mail",
+  "subscriptions": "Subscriptions",
+  "system": "System",
+  "ai": "AI Center"
+}

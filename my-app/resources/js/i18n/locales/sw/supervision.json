@@ -1,0 +1,33 @@
+{
+  "dashboard": "Dashibodi ya Kituo cha Mawasiliano",
+  "monitoring": "Ufuatiliaji wa Mawakala",
+  "cdr": {
+    "title": "Kumbukumbu za Simu",
+    "columns": {
+      "direction": "Mwelekeo",
+      "duration": "Muda",
+      "queue": "Foleni",
+      "agent": "Wakala",
+      "outcome": "Matokeo"
+    },
+    "filters": "Vichujio",
+    "noRecords": "Hakuna kumbukumbu"
+  },
+  "campaigns": {
+    "title": "Kampeni",
+    "status": {
+      "active": "Amilifu",
+      "paused": "Imesitishwa",
+      "completed": "Imekamilika"
+    },
+    "actions": "Vitendo"
+  },
+  "reports": {
+    "title": "Ripoti",
+    "scheduled": "Imepangwa",
+    "running": "Inaendeshwa",
+    "completed": "Imekamilika",
+    "failed": "Imeshindwa",
+    "retrying": "Inajaribu tena"
+  }
+}

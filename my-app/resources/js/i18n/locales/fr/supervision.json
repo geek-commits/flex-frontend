@@ -1,0 +1,33 @@
+{
+  "dashboard": "Tableau de bord centre de contact",
+  "monitoring": "Surveillance des agents",
+  "cdr": {
+    "title": "Historique des appels",
+    "columns": {
+      "direction": "Direction",
+      "duration": "Durée",
+      "queue": "File",
+      "agent": "Agent",
+      "outcome": "Résultat"
+    },
+    "filters": "Filtres",
+    "noRecords": "Aucun enregistrement"
+  },
+  "campaigns": {
+    "title": "Campagnes",
+    "status": {
+      "active": "Active",
+      "paused": "En pause",
+      "completed": "Terminée"
+    },
+    "actions": "Actions"
+  },
+  "reports": {
+    "title": "Rapports",
+    "scheduled": "Planifié",
+    "running": "En cours",
+    "completed": "Terminé",
+    "failed": "Échoué",
+    "retrying": "Nouvelle tentative"
+  }
+}

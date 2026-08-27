@@ -1,0 +1,14 @@
+{
+  "title": "Agent Assist",
+  "openAssist": "Open Assist",
+  "minimize": "Minimize",
+  "restore": "Restore",
+  "suggestedResponse": "Suggested response",
+  "guidance": "Guidance",
+  "notes": "Notes",
+  "summary": "Summary",
+  "loading": "Loading...",
+  "unavailable": "Assist unavailable",
+  "sessionActive": "Session active",
+  "sessionEnded": "Session ended"
+}

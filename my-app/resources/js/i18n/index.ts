@@ -3,40 +3,70 @@ import { initReactI18next } from 'react-i18next';
 import { DEFAULT_LOCALE, getInitialLocale } from './locale';
 
 import enAgent from './locales/en/agent.json';
+import enAssist from './locales/en/assist.json';
 import enAuth from './locales/en/auth.json';
 import enCommon from './locales/en/common.json';
 import enNavigation from './locales/en/navigation.json';
+import enPlatform from './locales/en/platform.json';
+import enSupervision from './locales/en/supervision.json';
+import enAdministration from './locales/en/administration.json';
+import enValidation from './locales/en/validation.json';
 
 import frAgent from './locales/fr/agent.json';
+import frAssist from './locales/fr/assist.json';
 import frAuth from './locales/fr/auth.json';
 import frCommon from './locales/fr/common.json';
 import frNavigation from './locales/fr/navigation.json';
+import frPlatform from './locales/fr/platform.json';
+import frSupervision from './locales/fr/supervision.json';
+import frAdministration from './locales/fr/administration.json';
+import frValidation from './locales/fr/validation.json';
 
 import swAgent from './locales/sw/agent.json';
+import swAssist from './locales/sw/assist.json';
 import swAuth from './locales/sw/auth.json';
 import swCommon from './locales/sw/common.json';
 import swNavigation from './locales/sw/navigation.json';
+import swPlatform from './locales/sw/platform.json';
+import swSupervision from './locales/sw/supervision.json';
+import swAdministration from './locales/sw/administration.json';
+import swValidation from './locales/sw/validation.json';
 
 export const defaultNS = 'common';
 
 export const resources = {
     en: {
         agent: enAgent,
+        assist: enAssist,
         auth: enAuth,
         common: enCommon,
         navigation: enNavigation,
+        platform: enPlatform,
+        supervision: enSupervision,
+        administration: enAdministration,
+        validation: enValidation,
     },
     fr: {
         agent: frAgent,
+        assist: frAssist,
         auth: frAuth,
         common: frCommon,
         navigation: frNavigation,
+        platform: frPlatform,
+        supervision: frSupervision,
+        administration: frAdministration,
+        validation: frValidation,
     },
     sw: {
         agent: swAgent,
+        assist: swAssist,
         auth: swAuth,
         common: swCommon,
         navigation: swNavigation,
+        platform: swPlatform,
+        supervision: swSupervision,
+        administration: swAdministration,
+        validation: swValidation,
     },
 } as const;
 

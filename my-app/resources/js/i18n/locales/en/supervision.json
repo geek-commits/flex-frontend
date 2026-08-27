@@ -1,0 +1,33 @@
+{
+  "dashboard": "Contact Center Dashboard",
+  "monitoring": "Agent Monitoring",
+  "cdr": {
+    "title": "Call Detail Records",
+    "columns": {
+      "direction": "Direction",
+      "duration": "Duration",
+      "queue": "Queue",
+      "agent": "Agent",
+      "outcome": "Outcome"
+    },
+    "filters": "Filters",
+    "noRecords": "No records"
+  },
+  "campaigns": {
+    "title": "Campaigns",
+    "status": {
+      "active": "Active",
+      "paused": "Paused",
+      "completed": "Completed"
+    },
+    "actions": "Actions"
+  },
+  "reports": {
+    "title": "Reports",
+    "scheduled": "Scheduled",
+    "running": "Running",
+    "completed": "Completed",
+    "failed": "Failed",
+    "retrying": "Retrying"
+  }
+}

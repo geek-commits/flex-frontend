@@ -1,0 +1,9 @@
+{
+  "tenantManagement": "Usimamizi wa Wapangaji",
+  "tenantSelector": "Mpangaji",
+  "status": {
+    "active": "Amilifu",
+    "inactive": "Hana shughuli"
+  },
+  "health": "Afya ya Mfumo"
+}
