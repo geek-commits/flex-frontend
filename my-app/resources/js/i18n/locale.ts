@@ -123,6 +123,7 @@ return;
 
     // 1. Update i18next — lazy import to avoid circular init TDZ with i18n/index.ts
     const { default: i18n } = await import('@/i18n');
+    await i18n.changeLanguage(locale);
 
     // 2. Update localStorage
     if (typeof localStorage !== 'undefined') {
