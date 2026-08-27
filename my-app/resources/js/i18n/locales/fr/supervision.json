@@ -1,5 +1,63 @@
 {
-  "dashboard": "Tableau de bord centre de contact",
+  "dashboard": {
+    "title": "Tableau de bord centre de contact",
+    "description": "Analytique opérationnelle en temps réel et supervision téléphonique",
+    "titleShort": "Centre de contact",
+    "descriptionShort": "Opérations en temps réel et performance des files",
+    "refresh": "Actualiser les données en direct",
+    "live": {
+      "live": "En direct",
+      "stale": "Obsolète",
+      "reconnecting": "Reconnexion",
+      "error": "Erreur",
+      "retry": "Réessayer",
+      "updated": "Mis à jour {{time}}"
+    },
+    "metrics": {
+      "talking": {
+        "label": "En communication",
+        "description": "Agents en appel"
+      },
+      "ready": {
+        "label": "Disponible",
+        "description": "Disponible pour les appels entrants"
+      },
+      "waiting": {
+        "label": "En attente",
+        "description": "Appels en file"
+      },
+      "sla": {
+        "label": "SLA",
+        "description": "Objectif {{value}}%"
+      },
+      "queueHealth": {
+        "title": "État des files",
+        "description": "Charge des files en temps réel"
+      },
+      "activeCalls": {
+        "title": "Appels actifs",
+        "empty": "Aucun appel actif"
+      },
+      "agentWallboard": {
+        "title": "Tableau des agents",
+        "empty": "Aucun agent en ligne"
+      }
+    },
+    "traffic": {
+      "title": "Trafic d'appels",
+      "description": "Appels répondus et manqués sur la période",
+      "answered": "Répondus",
+      "missed": "Manqués",
+      "unavailable": "Volume indisponible",
+      "failed": "Échec du chargement",
+      "noData": "Aucune donnée",
+      "noTrend": "Aucune tendance disponible"
+    },
+    "alert": {
+      "queueWaiting_one": "{{queue}} : {{count}} appel en attente sans agent disponible",
+      "queueWaiting_other": "{{queue}} : {{count}} appels en attente sans agent disponible"
+    }
+  },
   "monitoring": "Surveillance des agents",
   "cdr": {
     "title": "Historique des appels",

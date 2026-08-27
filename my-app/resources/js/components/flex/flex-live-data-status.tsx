@@ -1,5 +1,8 @@
 import { formatDistanceToNow } from 'date-fns';
+import { enUS, fr } from 'date-fns/locale';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useFlexLocale } from '@/i18n/locale';
 import { connectionStateMap } from '@/lib/status-styles';
 
 export type FlexLiveConnectionState = 'live' | 'stale' | 'reconnecting' | 'error';
@@ -21,7 +24,16 @@ export function FlexLiveDataStatus({
     title,
     description,
 }: FlexLiveDataStatusProps) {
+    const { t } = useTranslation('supervision');
+    const { locale } = useFlexLocale();
     const tone = connectionStateMap[connectionState];
+    const label = tone.labelKey ? t(tone.labelKey as string, tone.label) : tone.label;
+
+    const getDateFnsLocale = () => {
+        if (locale === 'fr') return fr;
+        if (locale === 'en') return enUS;
+        return undefined; // sw fallback to Intl via date-fns default (en) — documented
+    };
 
     return (
         <div className="flex flex-wrap items-center justify-between gap-3 px-1">
@@ -47,14 +59,17 @@ export function FlexLiveDataStatus({
                             className={`size-1.5 rounded-full ${tone.dotClass}`}
                             aria-hidden="true"
                         />
-                        {tone.label}
+                        {label}
                     </span>
 
                     {lastUpdated && !isRefreshing && (
                         <span className="text-xs text-flex-text-muted">
-                            Updated{' '}
-                            {formatDistanceToNow(lastUpdated, {
-                                addSuffix: true,
+                            {t('dashboard.live.updated', {
+                                time: formatDistanceToNow(lastUpdated, {
+                                    addSuffix: true,
+                                    locale: getDateFnsLocale(),
+                                }),
+                                defaultValue: `Updated ${formatDistanceToNow(lastUpdated, { addSuffix: true, locale: getDateFnsLocale() })}`,
                             })}
                         </span>
                     )}
@@ -66,7 +81,7 @@ export function FlexLiveDataStatus({
                         onClick={onRefresh}
                         className="rounded-md bg-primary px-2.5 py-1.5 text-xs font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
                     >
-                        Retry
+                        {t('dashboard.live.retry')}
                     </button>
                 )}
             </div>

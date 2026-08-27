@@ -6,7 +6,8 @@
     "wrapUp": "Kuhitimisha",
     "offline": "Nje ya mtandao",
     "busy": "Kwenye shughuli",
-    "inCall": "Kwenye simu"
+    "inCall": "Kwenye simu",
+    "ringing": "Inalia"
   },
   "callState": {
     "live": "Moja kwa moja",

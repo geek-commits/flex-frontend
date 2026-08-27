@@ -1,5 +1,63 @@
 {
-  "dashboard": "Contact Center Dashboard",
+  "dashboard": {
+    "title": "Contact Center Dashboard",
+    "description": "Real-Time Operational Analytics & Telephony Monitoring",
+    "titleShort": "Contact Center",
+    "descriptionShort": "Real-time operations and queue performance",
+    "refresh": "Refresh Live Data",
+    "live": {
+      "live": "Live",
+      "stale": "Stale",
+      "reconnecting": "Reconnecting",
+      "error": "Error",
+      "retry": "Retry",
+      "updated": "Updated {{time}}"
+    },
+    "metrics": {
+      "talking": {
+        "label": "Talking",
+        "description": "Agents on active call"
+      },
+      "ready": {
+        "label": "Ready",
+        "description": "Available for incoming calls"
+      },
+      "waiting": {
+        "label": "Waiting",
+        "description": "Calls in queue"
+      },
+      "sla": {
+        "label": "SLA",
+        "description": "Target {{value}}%"
+      },
+      "queueHealth": {
+        "title": "Queue Health",
+        "description": "Real-time queue load"
+      },
+      "activeCalls": {
+        "title": "Active Calls",
+        "empty": "No active calls"
+      },
+      "agentWallboard": {
+        "title": "Agent Wallboard",
+        "empty": "No agents online"
+      }
+    },
+    "traffic": {
+      "title": "Call Traffic",
+      "description": "Answered and missed calls over the current period",
+      "answered": "Answered",
+      "missed": "Missed",
+      "unavailable": "Call volume unavailable",
+      "failed": "Failed to load trend data",
+      "noData": "No call volume data",
+      "noTrend": "No trend data available for the selected period"
+    },
+    "alert": {
+      "queueWaiting_one": "{{queue}}: {{count}} call waiting with no available agents",
+      "queueWaiting_other": "{{queue}}: {{count}} calls waiting with no available agents"
+    }
+  },
   "monitoring": "Agent Monitoring",
   "cdr": {
     "title": "Call Detail Records",

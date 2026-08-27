@@ -2,6 +2,7 @@ import type { AgentState, ConnectionState, CampaignStatus, AIFeatureStatus } fro
 
 export interface StatusConfig {
     label: string;
+    labelKey?: string;
     bgClass: string;
     textClass: string;
     borderClass: string;
@@ -47,35 +48,35 @@ export type StatusTone = keyof typeof status;
 export const statusToneClasses = status;
 
 export const agentStateMap: Record<AgentState, StatusConfig> = {
-    ready: { label: 'Ready', ...status.live },
-    talking: { label: 'Talking', ...status.talking },
-    ringing: { label: 'Ringing', ...status.stale, dotClass: 'bg-status-stale' },
-    'wrap-up': { label: 'Wrap Up', ...status.neutral },
-    break: { label: 'Break', ...status.stale },
-    'not-ready': { label: 'Not Ready', ...status.neutral },
-    offline: { label: 'Offline', ...status.disconnected },
+    ready: { label: 'Ready', labelKey: 'agent:status.ready', ...status.live },
+    talking: { label: 'Talking', labelKey: 'agent:status.talking', ...status.talking },
+    ringing: { label: 'Ringing', labelKey: 'agent:status.ringing', ...status.stale, dotClass: 'bg-status-stale' },
+    'wrap-up': { label: 'Wrap Up', labelKey: 'agent:status.wrapUp', ...status.neutral },
+    break: { label: 'Break', labelKey: 'agent:status.break', ...status.stale },
+    'not-ready': { label: 'Not Ready', labelKey: 'agent:status.notReady', ...status.neutral },
+    offline: { label: 'Offline', labelKey: 'agent:status.offline', ...status.disconnected },
 };
 
 export const connectionStateMap: Record<ConnectionState, StatusConfig> = {
-    live: { label: 'Live', ...status.live },
-    connecting: { label: 'Connecting...', ...status.talking },
-    stale: { label: 'Stale Data', ...status.stale },
-    reconnecting: { label: 'Reconnecting...', ...status.stale },
-    disconnected: { label: 'Disconnected', ...status.disconnected },
-    error: { label: 'Connection Error', ...status.disconnected },
+    live: { label: 'Live', labelKey: 'supervision:dashboard.live.live', ...status.live },
+    connecting: { label: 'Connecting...', labelKey: 'supervision:dashboard.live.reconnecting', ...status.talking },
+    stale: { label: 'Stale Data', labelKey: 'supervision:dashboard.live.stale', ...status.stale },
+    reconnecting: { label: 'Reconnecting...', labelKey: 'supervision:dashboard.live.reconnecting', ...status.stale },
+    disconnected: { label: 'Disconnected', labelKey: 'supervision:dashboard.live.error', ...status.disconnected },
+    error: { label: 'Connection Error', labelKey: 'supervision:dashboard.live.error', ...status.disconnected },
 };
 
 export const campaignStatusMap: Record<CampaignStatus, StatusConfig> = {
-    active: { label: 'Active', ...status.live },
-    paused: { label: 'Paused', ...status.stale },
-    scheduled: { label: 'Scheduled', ...status.talking },
-    completed: { label: 'Completed', ...status.neutral },
-    draft: { label: 'Draft', ...status.neutral },
+    active: { label: 'Active', labelKey: 'supervision:campaigns.status.active', ...status.live },
+    paused: { label: 'Paused', labelKey: 'supervision:campaigns.status.paused', ...status.stale },
+    scheduled: { label: 'Scheduled', labelKey: 'supervision:campaigns.status.scheduled', ...status.talking },
+    completed: { label: 'Completed', labelKey: 'supervision:campaigns.status.completed', ...status.neutral },
+    draft: { label: 'Draft', labelKey: 'supervision:campaigns.status.draft', ...status.neutral },
 };
 
 export const aiFeatureStatusMap: Record<AIFeatureStatus, StatusConfig> = {
-    enabled: { label: 'Enabled', ...status.live },
-    disabled: { label: 'Disabled', ...status.neutral },
-    degraded: { label: 'Degraded Performance', ...status.stale },
-    'configuration-required': { label: 'Configuration Required', ...status.talking },
+    enabled: { label: 'Enabled', labelKey: 'administration:ai.enabled', ...status.live },
+    disabled: { label: 'Disabled', labelKey: 'administration:ai.disabled', ...status.neutral },
+    degraded: { label: 'Degraded Performance', labelKey: 'administration:ai.degraded', ...status.stale },
+    'configuration-required': { label: 'Configuration Required', labelKey: 'administration:ai.configurationRequired', ...status.talking },
 };

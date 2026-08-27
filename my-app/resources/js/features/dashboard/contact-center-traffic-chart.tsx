@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexBarChart } from '@/components/flex/charts/flex-bar-chart';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
@@ -8,6 +9,7 @@ import {
 import { useDashboardData } from '@/features/dashboard/use-dashboard-data';
 
 function TrafficLegend() {
+    const { t } = useTranslation('supervision');
     return (
         <div className="flex items-center gap-4">
             {TRAFFIC_SERIES.map((s) => (
@@ -17,7 +19,7 @@ function TrafficLegend() {
                         style={{ backgroundColor: s.color }}
                         aria-hidden="true"
                     />
-                    {s.label}
+                    {s.labelKey ? t(s.labelKey) : s.label}
                 </span>
             ))}
         </div>
@@ -25,6 +27,7 @@ function TrafficLegend() {
 }
 
 export function ContactCenterTrafficChart() {
+    const { t } = useTranslation('supervision');
     const { data, isLoading, error } = useDashboardData();
 
     const chartData = useMemo(() => toTrafficData(data?.callVolume14d), [data]);
@@ -34,17 +37,17 @@ export function ContactCenterTrafficChart() {
         return (
             <div className="flex flex-col items-center justify-center gap-2 rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface p-4 text-center">
                 <p className="text-sm font-medium text-flex-text-primary">
-                    Call volume unavailable
+                    {t('dashboard.traffic.unavailable')}
                 </p>
                 <p className="text-xs text-flex-text-muted">
-                    Failed to load trend data
+                    {t('dashboard.traffic.failed')}
                 </p>
                 <button
                     type="button"
                     className="rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:bg-primary/90"
                     onClick={() => window.location.reload()}
                 >
-                    Retry
+                    {t('dashboard.live.retry')}
                 </button>
             </div>
         );
@@ -55,10 +58,10 @@ export function ContactCenterTrafficChart() {
             <div className="flex items-center justify-between border-b border-flex-workspace-divider px-4 py-3">
                 <div>
                     <h2 className="text-sm font-semibold text-flex-text-primary">
-                        Call Traffic
+                        {t('dashboard.traffic.title')}
                     </h2>
                     <p className="text-xs text-flex-text-muted">
-                        Answered and missed calls over the current period
+                        {t('dashboard.traffic.description')}
                     </p>
                 </div>
                 <TrafficLegend />
@@ -80,10 +83,10 @@ export function ContactCenterTrafficChart() {
                 ) : (
                     <div className="flex flex-col items-center justify-center gap-2 py-10 text-center">
                         <p className="text-sm font-medium text-flex-text-primary">
-                            No call volume data
+                            {t('dashboard.traffic.noData')}
                         </p>
                         <p className="text-xs text-flex-text-muted">
-                            No trend data available for the selected period
+                            {t('dashboard.traffic.noTrend')}
                         </p>
                     </div>
                 )}

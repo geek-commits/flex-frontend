@@ -6,7 +6,8 @@
     "wrapUp": "Clôture",
     "offline": "Hors ligne",
     "busy": "Occupé",
-    "inCall": "En appel"
+    "inCall": "En appel",
+    "ringing": "Sonnerie"
   },
   "callState": {
     "live": "En direct",

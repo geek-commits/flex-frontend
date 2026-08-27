@@ -13,9 +13,9 @@ export interface ContactCenterTrafficDatum {
 }
 
 /** Series labels shown in legend/tooltip — never raw API keys. */
-export const TRAFFIC_SERIES: FlexBarSeries[] = [
-    { dataKey: 'answered', label: 'Answered', color: 'var(--flex-chart-bar)' },
-    { dataKey: 'missed', label: 'Missed', color: 'var(--status-disconnected)' },
+export const TRAFFIC_SERIES: (FlexBarSeries & { labelKey?: string })[] = [
+    { dataKey: 'answered', label: 'Answered', labelKey: 'supervision:dashboard.traffic.answered', color: 'var(--flex-chart-bar)' },
+    { dataKey: 'missed', label: 'Missed', labelKey: 'supervision:dashboard.traffic.missed', color: 'var(--status-disconnected)' },
 ];
 
 export function toTrafficData(volume: DailyCallVolume[] | undefined): ContactCenterTrafficDatum[] {

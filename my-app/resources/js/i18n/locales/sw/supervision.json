@@ -1,5 +1,63 @@
 {
-  "dashboard": "Dashibodi ya Kituo cha Mawasiliano",
+  "dashboard": {
+    "title": "Dashibodi ya Kituo cha Mawasiliano",
+    "description": "Uchambuzi wa Uendeshaji wa Wakati Halisi na Ufuatiliaji wa Simu",
+    "titleShort": "Kituo cha Mawasiliano",
+    "descriptionShort": "Uendeshaji wa wakati halisi na utendaji wa foleni",
+    "refresh": "Onyesha Upya Data ya Moja kwa Moja",
+    "live": {
+      "live": "Moja kwa moja",
+      "stale": "Iliyopitwa",
+      "reconnecting": "Inaunganisha tena",
+      "error": "Hitilafu",
+      "retry": "Jaribu tena",
+      "updated": "Imeboreshwa {{time}}"
+    },
+    "metrics": {
+      "talking": {
+        "label": "Wanazungumza",
+        "description": "Mawakala kwenye simu"
+      },
+      "ready": {
+        "label": "Tayari",
+        "description": "Tayari kwa simu zinazoingia"
+      },
+      "waiting": {
+        "label": "Wanasubiri",
+        "description": "Simu kwenye foleni"
+      },
+      "sla": {
+        "label": "SLA",
+        "description": "Lengo {{value}}%"
+      },
+      "queueHealth": {
+        "title": "Afya ya Foleni",
+        "description": "Msongamano wa foleni kwa wakati halisi"
+      },
+      "activeCalls": {
+        "title": "Simu Zinazoendelea",
+        "empty": "Hakuna simu zinazoendelea"
+      },
+      "agentWallboard": {
+        "title": "Ubao wa Mawakala",
+        "empty": "Hakuna wakala mtandaoni"
+      }
+    },
+    "traffic": {
+      "title": "Msongamano wa Simu",
+      "description": "Simu zilizojibiwa na zilizokosekana",
+      "answered": "Zilizojibiwa",
+      "missed": "Zilizokosekana",
+      "unavailable": "Msongamano haupatikani",
+      "failed": "Imeshindwa kupakia data",
+      "noData": "Hakuna data",
+      "noTrend": "Hakuna data ya mwenendo"
+    },
+    "alert": {
+      "queueWaiting_one": "{{queue}}: simu {{count}} inasubiri bila wakala",
+      "queueWaiting_other": "{{queue}}: simu {{count}} zinasubiri bila wakala"
+    }
+  },
   "monitoring": "Ufuatiliaji wa Mawakala",
   "cdr": {
     "title": "Kumbukumbu za Simu",

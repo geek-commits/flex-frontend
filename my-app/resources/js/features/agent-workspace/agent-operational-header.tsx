@@ -1,6 +1,7 @@
 import { Link, usePage } from '@inertiajs/react';
 import { RiMenuLine } from '@remixicon/react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useCapabilities } from '@/auth/capabilities';
 import { FlexBrandLogo } from '@/components/flex/brand';
 import { useBrandIntroReplayGuard } from '@/components/flex/brand/use-brand-intro-replay-guard';
@@ -15,6 +16,7 @@ import {
     SheetTitle,
     SheetTrigger,
 } from '@/components/ui/sheet';
+import { LanguageSwitcher } from '@/components/language-switcher';
 import type { AgentState, ConnectionState } from '@/types/flex';
 import { AgentStateControl } from './agent-state-control';
 import { ConnectionStatus } from './connection-status';
@@ -43,6 +45,7 @@ export function AgentOperationalHeader({
 }: AgentOperationalHeaderProps) {
     const { url } = usePage();
     const { navEntries } = useCapabilities();
+    const { t } = useTranslation('navigation');
     const animateOnMount = useBrandIntroReplayGuard();
 
     return (
@@ -72,7 +75,7 @@ export function AgentOperationalHeader({
                                 />
                             </SheetTitle>
                         </SheetHeader>
-                        <nav className="mt-2 flex flex-col gap-1">
+                         <nav className="mt-2 flex flex-col gap-1">
                             {navEntries.map((item) => {
                                 const isActive = url.startsWith(item.href);
 
@@ -90,11 +93,14 @@ export function AgentOperationalHeader({
                                             name={item.icon}
                                             className="size-4"
                                         />
-                                        <span>{item.title}</span>
+                                        <span>{t(item.titleKey as string)}</span>
                                     </Link>
                                 );
                             })}
                         </nav>
+                        <div className="mt-4 border-t border-border pt-4">
+                            <LanguageSwitcher />
+                        </div>
                     </SheetContent>
                 </Sheet>
 
@@ -115,6 +121,7 @@ export function AgentOperationalHeader({
 
                 <ConnectionStatus state={connectionState} />
 
+                <LanguageSwitcher variant="compact" className="hidden sm:flex" />
                 <div className="ml-auto flex items-center gap-1 border-l border-border pl-1 md:ml-0 md:pl-2">
                     <GlobalSearchTrigger />
 

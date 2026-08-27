@@ -1,4 +1,5 @@
 import React, { Suspense, lazy } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexLiveDataStatus } from '@/components/flex/flex-live-data-status';
 import { Skeleton } from '@/components/ui/skeleton';
 import { OperationalException } from '@/features/dashboard/operational-exception';
@@ -35,6 +36,7 @@ function CardSkeleton({ bodyClassName }: { bodyClassName: string }) {
 }
 
 export function ContactCenterDashboardContent() {
+    const { t } = useTranslation('supervision');
     const { connectionState, lastUpdated, isRefreshing, refresh } =
         useDashboardData();
 
@@ -45,8 +47,8 @@ export function ContactCenterDashboardContent() {
                 lastUpdated={lastUpdated}
                 isRefreshing={isRefreshing}
                 onRefresh={refresh}
-                title="Contact Center"
-                description="Real-time operations and queue performance"
+                title={t('dashboard.titleShort')}
+                description={t('dashboard.descriptionShort')}
             />
 
             <OperationalException />

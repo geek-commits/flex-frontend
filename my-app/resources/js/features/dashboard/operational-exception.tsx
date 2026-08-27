@@ -1,8 +1,10 @@
 import { RiAlertLine, RiCheckLine } from '@remixicon/react';
+import { useTranslation } from 'react-i18next';
 import { SLA_TARGET } from '@/features/dashboard/constants';
 import { useDashboardData } from '@/features/dashboard/use-dashboard-data';
 
 export function OperationalException() {
+    const { t } = useTranslation('supervision');
     const { data } = useDashboardData();
 
     if (!data) {
@@ -20,7 +22,7 @@ export function OperationalException() {
             exceptions.push({
                 id: `sla-${q.queue}`,
                 tone: 'warning',
-                message: `${q.queue} SLA ${q.sla}% (target ${SLA_TARGET}%) — ${q.waiting} waiting, ${q.availableAgents} available`,
+                message: t('dashboard.alert.slaBelow', { queue: q.queue, sla: q.sla, target: SLA_TARGET, waiting: q.waiting, available: q.availableAgents, defaultValue: `${q.queue} SLA ${q.sla}% (target ${SLA_TARGET}%) — ${q.waiting} waiting, ${q.availableAgents} available` }),
             });
         }
 
@@ -28,7 +30,7 @@ export function OperationalException() {
             exceptions.push({
                 id: `no-agents-${q.queue}`,
                 tone: 'warning',
-                message: `${q.queue}: ${q.waiting} calls waiting with no available agents`,
+                message: t('dashboard.alert.queueWaiting', { queue: q.queue, count: q.waiting }),
             });
         }
     });
@@ -41,7 +43,7 @@ export function OperationalException() {
                 aria-live="polite"
             >
                 <RiCheckLine className="size-3.5 text-status-live" />
-                <span>All queues operating within targets</span>
+                <span>{t('dashboard.allQueuesOk', { defaultValue: 'All queues operating within targets' })}</span>
             </div>
         );
     }

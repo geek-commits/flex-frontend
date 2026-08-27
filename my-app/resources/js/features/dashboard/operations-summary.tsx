@@ -4,34 +4,36 @@ import {
     RiTimeLine,
     RiShieldCheckLine,
 } from '@remixicon/react';
+import { useTranslation } from 'react-i18next';
 import { FlexMetricItem } from '@/components/flex/metrics/flex-metric-item';
 import { FlexMetricStrip } from '@/components/flex/metrics/flex-metric-strip';
 import { SLA_TARGET } from '@/features/dashboard/constants';
 import { useDashboardData } from '@/features/dashboard/use-dashboard-data';
 
 export function OperationsSummary() {
+    const { t, i18n } = useTranslation('supervision');
     const { data, isLoading } = useDashboardData();
 
     if (!data) {
         return (
             <FlexMetricStrip>
                 <FlexMetricItem
-                    label="Talking"
+                    label={t('dashboard.metrics.talking.label')}
                     value={isLoading ? undefined : 0}
                     loading={isLoading}
                 />
                 <FlexMetricItem
-                    label="Ready"
+                    label={t('dashboard.metrics.ready.label')}
                     value={isLoading ? undefined : 0}
                     loading={isLoading}
                 />
                 <FlexMetricItem
-                    label="Waiting"
+                    label={t('dashboard.metrics.waiting.label')}
                     value={isLoading ? undefined : 0}
                     loading={isLoading}
                 />
                 <FlexMetricItem
-                    label="SLA"
+                    label={t('dashboard.metrics.sla.label')}
                     value={isLoading ? undefined : 0}
                     loading={isLoading}
                 />
@@ -65,36 +67,36 @@ export function OperationsSummary() {
     return (
         <FlexMetricStrip>
             <FlexMetricItem
-                label="Talking"
+                label={t('dashboard.metrics.talking.label')}
                 value={talking}
-                description="Agents on active call"
+                description={t('dashboard.metrics.talking.description')}
                 icon={RiCustomerServiceLine}
             />
             <FlexMetricItem
-                label="Ready"
+                label={t('dashboard.metrics.ready.label')}
                 value={ready}
-                description="Available for incoming calls"
+                description={t('dashboard.metrics.ready.description')}
                 icon={RiCheckLine}
             />
             <FlexMetricItem
-                label="Waiting"
+                label={t('dashboard.metrics.waiting.label')}
                 value={waiting}
-                description="Calls in queue"
+                description={t('dashboard.metrics.waiting.description')}
                 icon={RiTimeLine}
             />
             <FlexMetricItem
-                label="SLA"
-                value={`${sla}%`}
+                label={t('dashboard.metrics.sla.label')}
+                value={new Intl.NumberFormat(i18n.language).format(sla) + '%'}
                 description={
                     slaBelowTarget && offendingQueue
-                        ? `${offendingQueue.queue} below target`
-                        : `Target ${SLA_TARGET}%`
+                        ? t('dashboard.alert.queueWaiting', { queue: offendingQueue.queue, count: offendingQueue.waiting })
+                        : t('dashboard.metrics.sla.description', { value: SLA_TARGET })
                 }
                 icon={RiShieldCheckLine}
                 trend={
                     slaBelowTarget
                         ? {
-                              value: `${SLA_TARGET - sla}% below`,
+                              value: t('dashboard.metrics.sla.below', { value: SLA_TARGET - sla, defaultValue: `${SLA_TARGET - sla}% below` }),
                               positive: false,
                           }
                         : undefined

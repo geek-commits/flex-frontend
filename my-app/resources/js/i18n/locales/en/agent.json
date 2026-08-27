@@ -6,7 +6,8 @@
     "wrapUp": "Wrap Up",
     "offline": "Offline",
     "busy": "Busy",
-    "inCall": "In Call"
+    "inCall": "In Call",
+    "ringing": "Ringing"
   },
   "callState": {
     "live": "Live",
