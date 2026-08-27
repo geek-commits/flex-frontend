@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react';
 import { FlexBrandLogo } from '@/components/flex/brand';
+import { LanguageSwitcher } from '@/components/language-switcher';
 import { home } from '@/routes';
 import type { AuthLayoutProps } from '@/types';
 
@@ -14,7 +15,7 @@ export default function AuthSplitLayout({
             <div className="grid min-h-[calc(100svh-1.5rem)] sm:min-h-[calc(100svh-2rem)] lg:min-h-[calc(100svh-3rem)] w-full lg:grid-cols-[44%_56%] xl:grid-cols-[42%_58%]">
                 {/* Left: Auth Form Column */}
                 <div className="flex flex-col justify-between p-4 sm:p-6 lg:p-10">
-                    <div>
+                    <div className="flex items-center justify-between gap-4">
                         <Link
                             href={home()}
                             className="inline-flex items-center gap-2 font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
@@ -22,6 +23,7 @@ export default function AuthSplitLayout({
                             <FlexBrandLogo variant="auth" decorative />
                             <span className="sr-only">FLEX Contact Center</span>
                         </Link>
+                        <LanguageSwitcher />
                     </div>
 
                     <div className="mx-auto w-full max-w-sm py-8 sm:py-12">

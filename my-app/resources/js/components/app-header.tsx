@@ -10,6 +10,7 @@ import {
     DropdownMenuContent,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { LanguageSwitcher } from '@/components/language-switcher';
 import {
     NavigationMenu,
     NavigationMenuItem,
@@ -125,6 +126,9 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                                                 </a>
                                             ))}
                                         </div>
+                                        <div className="border-t border-sidebar-border pt-4">
+                                            <LanguageSwitcher />
+                                        </div>
                                     </div>
                                 </div>
                             </SheetContent>
@@ -172,6 +176,7 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                     </div>
 
                     <div className="ml-auto flex items-center space-x-2">
+                        <LanguageSwitcher variant="compact" />
                         <div className="relative flex items-center space-x-1">
                             <Button
                                 variant="ghost"

@@ -11,6 +11,7 @@ import { FlexIcon } from '@/components/flex/iconography';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { LanguageSwitcher } from '@/components/language-switcher';
 import { TenantContextIndicator } from '@/features/tenants/tenant-context-indicator';
 import { agentStateMap, connectionStateMap } from '@/lib/status-styles';
 import type { AgentState, ConnectionState } from '@/types/flex';
@@ -104,6 +105,9 @@ export function AppTopbar({
                                 </div>
                             ))}
                         </nav>
+                        <div className="mt-4 border-t border-flex-workspace-divider pt-4">
+                            <LanguageSwitcher />
+                        </div>
                     </SheetContent>
                 </Sheet>
 
@@ -164,6 +168,9 @@ export function AppTopbar({
                         <span>{connConfig.label}</span>
                     </div>
                 )}
+
+                {/* Language Switcher — shared control for EN/SW/FR */}
+                <LanguageSwitcher variant="compact" className="hidden sm:flex" />
 
                 {/* Tenant / Platform Context (admin only) — adjacent to profile */}
                 <div data-call-island-zone="profile-tenant" className="flex items-center gap-2 md:gap-3">
