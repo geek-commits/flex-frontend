@@ -19,7 +19,10 @@ export function QueueHealth() {
     const { data, isLoading, error } = useDashboardData();
 
     const rows = useMemo(() => data?.queueHealth ?? [], [data]);
-    const columns = queueColumns(t);
+
+    const columns = queueColumns((key, fallback) =>
+        t(key, { defaultValue: fallback ?? key }),
+    );
     const table = useTable({
         features: dataGridFeatures,
         columns,
