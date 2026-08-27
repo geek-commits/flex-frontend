@@ -1,5 +1,6 @@
 import { RiPhoneLine, RiSearchLine } from '@remixicon/react';
-import React from 'react';
+import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Input } from '@/components/ui/input';
 import type { CallHistoryEntry, CallTarget } from '../state/workspace-types';
 import { Dialer } from './dialer';
@@ -19,6 +20,8 @@ export interface IdleCallSurfaceProps {
  * §25, §46). Active-call controls are never shown here as a sea of disabled
  * buttons.
  */
+type HistoryFilter = 'all' | 'missed' | 'outgoing' | 'recent';
+
 export function IdleCallSurface({
     dialNumber,
     onDialNumberChange,
@@ -28,6 +31,9 @@ export function IdleCallSurface({
     onDial,
     onCallFromHistory,
 }: IdleCallSurfaceProps) {
+    const { t } = useTranslation('agent');
+    const [historyFilter, setHistoryFilter] = useState<HistoryFilter>('all');
+    const [searchQuery, setSearchQuery] = useState('');
     return (
         <>
             <div className="flex items-center border-b border-border bg-muted/20 px-2 shrink-0">
@@ -66,21 +72,67 @@ export function IdleCallSurface({
                     />
                 ) : (
                     <div className="flex flex-col gap-2">
+                        {/* History segment tabs — All/Missed/Outgoing proven, Recent deferred */}
+                        <div role="tablist" aria-label={t('callManager.historyFilter', 'Call history filter')} className="flex items-center gap-1 border-b border-border px-1">
+                            {(['all', 'missed', 'outgoing'] as const).map((f) => (
+                                <button
+                                    key={f}
+                                    role="tab"
+                                    aria-selected={historyFilter === f}
+                                    onClick={() => setHistoryFilter(f)}
+                                    className={`px-2.5 py-2 text-xs font-medium border-b-2 -mb-px transition-colors ${historyFilter === f ? 'border-primary text-primary' : 'border-transparent text-muted-foreground hover:text-foreground'}`}
+                                >
+                                    {f === 'all' ? t('callManager.filterAll', 'All') : f === 'missed' ? t('callManager.filterMissed', 'Missed') : t('callManager.filterOutgoing', 'Outgoing')}
+                                </button>
+                            ))}
+                            <button
+                                role="tab"
+                                aria-selected={false}
+                                aria-disabled="true"
+                                disabled
+                                title="Recent definition pending product confirmation"
+                                className="px-2.5 py-2 text-xs font-medium border-b-2 border-transparent text-muted-foreground/50 cursor-not-allowed"
+                            >
+                                {t('callManager.filterRecent', 'Recent')}
+                            </button>
+                        </div>
+
                         <div className="relative mb-1">
                             <RiSearchLine className="absolute left-2.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
                             <Input
-                                placeholder="Search contacts or numbers…"
+                                placeholder={t('callManager.searchPlaceholder', 'Search contacts or numbers…')}
                                 className="pl-10 h-9 text-[13px] bg-background rounded-[6px]"
-                                aria-label="Filter call history"
+                                aria-label={t('callManager.searchAria', 'Filter call history')}
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
                             />
                         </div>
 
-                        {history.length === 0 ? (
-                            <p className="text-xs text-muted-foreground text-center py-6">
-                                No calls yet this session.
-                            </p>
-                        ) : (
-                            history.map((log) => (
+                        {(() => {
+                            const filtered = history.filter((log) => {
+                                if (historyFilter === 'missed' && log.outcome !== 'missed') return false;
+                                if (historyFilter === 'outgoing' && !(log.direction === 'outbound' || log.outcome === 'outgoing')) return false;
+                                if (searchQuery.trim()) {
+                                    const q = searchQuery.toLowerCase();
+                                    if (!log.target.label.toLowerCase().includes(q) && !(log.target.phone ?? '').toLowerCase().includes(q)) return false;
+                                }
+                                return true;
+                            });
+                            if (history.length === 0) {
+                                return (
+                                    <p className="text-xs text-muted-foreground text-center py-6">
+                                        {t('callManager.noCalls', 'No calls yet this session.')}
+                                    </p>
+                                );
+                            }
+                            if (filtered.length === 0) {
+                                return (
+                                    <p className="text-xs text-muted-foreground text-center py-6">
+                                        {historyFilter === 'missed' ? t('callManager.noMissed', 'No missed calls') : historyFilter === 'outgoing' ? t('callManager.noOutgoing', 'No outgoing calls') : t('callManager.noResults', 'No results')}
+                                    </p>
+                                );
+                            }
+                            return filtered.map((log) => (
                                 <button
                                     key={log.id}
                                     type="button"
@@ -89,17 +141,17 @@ export function IdleCallSurface({
                                     }
                                     className="min-h-[56px] p-2.5 rounded-md bg-card hover:bg-muted border border-border flex items-center gap-3 text-left transition-colors disabled:opacity-60"
                                     disabled={log.target.kind !== 'phone'}
-                                    aria-label={`Call ${log.target.label}`}
+                                    aria-label={log.outcome === 'missed' ? t('callManager.missedCallAria', `Missed call from ${log.target.label} at ${formatTime(log.startedAt)}`) : `Call ${log.target.label}`}
                                 >
-                                    <div className="size-9 shrink-0 rounded-full bg-muted flex items-center justify-center text-[11px] font-semibold text-muted-foreground">
+                                    <div className="size-9 shrink-0 rounded-full bg-muted flex items-center justify-center text-[11px] font-semibold text-muted-foreground" aria-hidden="true">
                                         {log.target.label.slice(0, 2).toUpperCase()}
                                     </div>
                                     <div className="flex flex-1 flex-col min-w-0">
-                                        <span className="font-semibold text-[13px] text-foreground truncate">
+                                        <span className={`font-semibold text-[13px] truncate ${log.outcome === 'missed' ? 'text-destructive' : 'text-foreground'}`}>
                                             {log.target.label}
                                         </span>
                                         <span className="text-[11px] text-muted-foreground">
-                                            {formatTime(log.startedAt)} • {log.direction} • {log.outcome}
+                                            {log.outcome === 'missed' ? t('callManager.missed', 'Missed') + ' • ' : ''}{formatTime(log.startedAt)} • {log.direction} • {log.outcome}
                                         </span>
                                     </div>
                                     <span className="font-mono text-[11px] text-muted-foreground shrink-0 ml-2">
@@ -109,8 +161,8 @@ export function IdleCallSurface({
                                         <RiPhoneLine className="size-3.5" />
                                     </span>
                                 </button>
-                            ))
-                        )}
+                            ));
+                        })()}
                     </div>
                 )}
             </div>
