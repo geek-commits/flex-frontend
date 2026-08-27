@@ -42,9 +42,16 @@ function FlexAppShellInner({
     const hasSidePanels = !!assistPanel || !!rightPanel;
 
     return (
-        <div className="flex min-h-screen bg-background font-sans text-foreground antialiased">
+        <div
+            data-flex-shell
+            data-flex-shell-domain={activeDomain ?? 'none'}
+            data-flex-shell-route={url}
+            className="flex min-h-screen bg-background font-sans text-foreground antialiased"
+        >
             {/* Primary Rail — always visible on desktop */}
-            <PrimaryRail />
+            <div data-flex-primary-rail>
+                <PrimaryRail />
+            </div>
 
             {/* Collapsed context affordance — visible when sidebar exists but is hidden */}
             {hasContext && !contextSidebarOpen && (
@@ -64,6 +71,7 @@ function FlexAppShellInner({
             {/* Domain-driven Contextual Sidebar — collapsible focus mode */}
             {hasContext && domainConfig && (
                 <div
+                    data-flex-context-sidebar
                     className={`hidden md:flex shrink-0 overflow-hidden transition-[width] duration-[180ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${contextSidebarOpen ? 'w-[248px]' : 'w-0'}`}
                     aria-hidden={!contextSidebarOpen}
                 >
@@ -91,12 +99,13 @@ function FlexAppShellInner({
 
             {/* Main area — gains width when context collapses, page padding stable */}
             <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
-                {topbar ?? <AppTopbar mode={mode} />}
+                <div data-flex-topbar>{topbar ?? <AppTopbar mode={mode} />}</div>
 
                 {/* Workspace body — optional side panels (Agent Call Manager / Assist) */}
                 {hasSidePanels ? (
                     <div className="flex min-h-0 flex-1 overflow-hidden">
                         <main
+                            data-flex-workspace
                             className={`min-w-0 flex-1 overflow-y-auto p-4 pb-24 md:p-5 md:pb-5 ${mainClassName ?? ''}`}
                         >
                             {children}
@@ -112,7 +121,7 @@ function FlexAppShellInner({
                         )}
                     </div>
                 ) : (
-                    <main className={`flex-1 overflow-y-auto min-w-0 ${mainClassName ?? ''}`}>{children}</main>
+                    <main data-flex-workspace className={`flex-1 overflow-y-auto min-w-0 ${mainClassName ?? ''}`}>{children}</main>
                 )}
             </div>
         </div>

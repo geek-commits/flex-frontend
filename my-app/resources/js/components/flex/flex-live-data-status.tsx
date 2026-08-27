@@ -1,8 +1,6 @@
-import { formatDistanceToNow } from 'date-fns';
-import { enUS, fr } from 'date-fns/locale';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useFlexLocale } from '@/i18n/locale';
+import { LOCALE_CONFIG, useFlexLocale } from '@/i18n/locale';
 import { connectionStateMap } from '@/lib/status-styles';
 
 export type FlexLiveConnectionState = 'live' | 'stale' | 'reconnecting' | 'error';
@@ -29,11 +27,40 @@ export function FlexLiveDataStatus({
     const tone = connectionStateMap[connectionState];
     const label = tone.labelKey ? t(tone.labelKey as string, tone.label) : tone.label;
 
-    const getDateFnsLocale = () => {
-        if (locale === 'fr') return fr;
-        if (locale === 'en') return enUS;
-        return undefined; // sw fallback to Intl via date-fns default (en) — documented
-    };
+    // Relative-time localization uses the platform Intl.RelativeTimeFormat API.
+    // This provides native en/sw/fr support and avoids maintaining a custom
+    // date-fns Swahili locale shim.
+    const relativeTime = useMemo(() => {
+        if (!lastUpdated) return '';
+        const diffMs = lastUpdated.getTime() - Date.now();
+        const abs = Math.abs(diffMs);
+        const sec = Math.round(diffMs / 1000);
+        const min = Math.round(diffMs / 60_000);
+        const hour = Math.round(diffMs / 3_600_000);
+        const day = Math.round(diffMs / 86_400_000);
+        let value: number;
+        let unit: Intl.RelativeTimeFormatUnit;
+        if (abs < 60_000) {
+            value = sec;
+            unit = 'second';
+        } else if (abs < 3_600_000) {
+            value = min;
+            unit = 'minute';
+        } else if (abs < 86_400_000) {
+            value = hour;
+            unit = 'hour';
+        } else {
+            value = day;
+            unit = 'day';
+        }
+        const intlLocale = LOCALE_CONFIG[locale]?.formatLocale ?? 'en-GB';
+        // Map to Intl expected: en → en, sw-TZ → sw-TZ, fr-FR → fr-FR all valid
+        try {
+            return new Intl.RelativeTimeFormat(intlLocale, { numeric: 'auto' }).format(value, unit);
+        } catch {
+            return new Intl.RelativeTimeFormat('en', { numeric: 'auto' }).format(value, unit);
+        }
+    }, [lastUpdated, locale]);
 
     return (
         <div className="flex flex-wrap items-center justify-between gap-3 px-1">
@@ -65,11 +92,8 @@ export function FlexLiveDataStatus({
                     {lastUpdated && !isRefreshing && (
                         <span className="text-xs text-flex-text-muted">
                             {t('dashboard.live.updated', {
-                                time: formatDistanceToNow(lastUpdated, {
-                                    addSuffix: true,
-                                    locale: getDateFnsLocale(),
-                                }),
-                                defaultValue: `Updated ${formatDistanceToNow(lastUpdated, { addSuffix: true, locale: getDateFnsLocale() })}`,
+                                time: relativeTime,
+                                defaultValue: relativeTime,
                             })}
                         </span>
                     )}
