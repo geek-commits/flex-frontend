@@ -34,7 +34,8 @@ import {
   type TooltipData,
 } from "./chart-context";
 import { isGradientDefComponent, isPatternDefComponent } from "./chart-defs";
-import { shortDateFmt } from "./chart-formatters";
+import { getShortDateFmt } from "./chart-formatters";
+import { useFlexLocale } from "@/i18n/locale";
 import {
   type ChartPhase,
   type ChartStatus,
@@ -201,6 +202,7 @@ const ChartCore = memo(function ChartCore({
   const hoveredBarIndex = tooltipData?.index ?? null;
 
   const isHorizontal = orientation === "horizontal";
+  const { locale } = useFlexLocale();
 
   // Extract bar configs synchronously from children
   const lines = useMemo(() => extractBarConfigs(children), [children]);
@@ -208,16 +210,20 @@ const ChartCore = memo(function ChartCore({
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
-  // Category accessor function - returns string for categorical scale
+  // Category accessor function - returns string for categorical scale (locale-aware)
   const categoryAccessor = useCallback(
     (d: Record<string, unknown>): string => {
       const value = d[xDataKey];
       if (value instanceof Date) {
-        return shortDateFmt.format(value);
+        return getShortDateFmt(locale).format(value);
+      }
+      if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}/.test(value)) {
+        const parsed = new Date(value);
+        if (!isNaN(parsed.getTime())) return getShortDateFmt(locale).format(parsed);
       }
       return String(value ?? "");
     },
-    [xDataKey]
+    [xDataKey, locale]
   );
 
   // For compatibility with ChartContext, provide a Date-based xAccessor

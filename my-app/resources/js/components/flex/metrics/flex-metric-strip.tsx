@@ -13,7 +13,7 @@ export interface FlexMetricStripProps {
 export function FlexMetricStrip({ children, className = '' }: FlexMetricStripProps) {
     return (
         <div
-            className={`flex flex-wrap gap-x-8 gap-y-4 rounded-lg border border-border bg-card px-4 py-3 ${className}`}
+            className={`flex flex-wrap gap-x-8 gap-y-4 rounded-lg border border-border bg-card px-4 py-3 min-h-[96px] ${className}`}
         >
             {children}
         </div>

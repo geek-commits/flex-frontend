@@ -351,7 +351,7 @@
     --chart-marker-foreground:
         var(--flex-text-primary);
     --chart-label:
-        var(--flex-text-muted);
+        var(--flex-text-secondary);
     --chart-scale-01:
         oklch(0.98 0.003 106);
     --chart-scale-02:
@@ -516,7 +516,7 @@
     --chart-marker-foreground:
         var(--flex-text-primary);
     --chart-label:
-        var(--flex-text-muted);
+        var(--flex-text-secondary);
     --chart-scale-01:
         oklch(0.28 0.03 270);
     --chart-scale-02:
