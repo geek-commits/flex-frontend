@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import i18n from '@/i18n';
 
 export const SUPPORTED_LOCALES = ['en', 'sw', 'fr'] as const;
 export type FlexLocale = (typeof SUPPORTED_LOCALES)[number];
@@ -122,8 +121,8 @@ export async function setFlexLocale(locale: FlexLocale): Promise<void> {
 return;
 }
 
-    // 1. Update i18next
-    await i18n.changeLanguage(locale);
+    // 1. Update i18next — lazy import to avoid circular init TDZ with i18n/index.ts
+    const { default: i18n } = await import('@/i18n');
 
     // 2. Update localStorage
     if (typeof localStorage !== 'undefined') {
@@ -145,22 +144,33 @@ return;
 
 export function useFlexLocale() {
     const [currentLocale, setCurrentLocale] = useState<FlexLocale>(() => {
-        return isSupportedLocale(i18n.language) ? (i18n.language as FlexLocale) : DEFAULT_LOCALE;
+        if (typeof window !== 'undefined') {
+            try {
+                const fromHtml = document.documentElement.lang?.split('-')[0];
+                if (isSupportedLocale(fromHtml)) return fromHtml;
+            } catch {
+                // ignore
+            }
+        }
+        return DEFAULT_LOCALE;
     });
 
     useEffect(() => {
-        const handleLanguageChanged = (lng: string) => {
-            const normalized = lng.split('-')[0];
-
-            if (isSupportedLocale(normalized)) {
-                setCurrentLocale(normalized);
-            }
-        };
-
-        i18n.on('languageChanged', handleLanguageChanged);
-
+        let i18n: { on: (e: string, cb: (lng: string) => void) => void; off: (e: string, cb: (lng: string) => void) => void; language: string } | null = null;
+        let handleLanguageChanged: ((lng: string) => void) | null = null;
+        void import('@/i18n').then((mod) => {
+            i18n = mod.default;
+            // sync initial from i18n if available
+            const normalizedInit = mod.default.language?.split('-')[0];
+            if (isSupportedLocale(normalizedInit)) setCurrentLocale(normalizedInit);
+            handleLanguageChanged = (lng: string) => {
+                const normalized = lng.split('-')[0];
+                if (isSupportedLocale(normalized)) setCurrentLocale(normalized);
+            };
+            i18n.on('languageChanged', handleLanguageChanged);
+        });
         return () => {
-            i18n.off('languageChanged', handleLanguageChanged);
+            if (i18n && handleLanguageChanged) i18n.off('languageChanged', handleLanguageChanged);
         };
     }, []);
 
