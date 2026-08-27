@@ -16,6 +16,7 @@ import {
     SheetTitle,
     SheetTrigger,
 } from '@/components/ui/sheet';
+import { isActiveRoute } from '@/auth/nav-domains';
 import { LanguageSwitcher } from '@/components/language-switcher';
 import type { AgentState, ConnectionState } from '@/types/flex';
 import { AgentStateControl } from './agent-state-control';
@@ -77,7 +78,7 @@ export function AgentOperationalHeader({
                         </SheetHeader>
                          <nav className="mt-2 flex flex-col gap-1">
                             {navEntries.map((item) => {
-                                const isActive = url.startsWith(item.href);
+                                const isActive = isActiveRoute(url, item.href);
 
                                 return (
                                     <Link
