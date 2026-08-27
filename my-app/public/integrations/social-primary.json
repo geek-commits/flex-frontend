@@ -1,0 +1,13 @@
+{
+  "integrationId": "social-primary",
+  "type": "social",
+  "vendor": "FLEX Social",
+  "version": "1.0",
+  "mode": "external",
+  "connection": "connected",
+  "iframeConfig": {
+    "src": "https://demo-chat.flex.co.tz/login",
+    "sandbox": "allow-same-origin allow-scripts allow-forms allow-popups",
+    "referrerPolicy": "strict-origin-when-cross-origin"
+  }
+}
