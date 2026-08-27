@@ -1,8 +1,9 @@
-import { Form, Head } from '@inertiajs/react';
+import { Form, Head, setLayoutProps } from '@inertiajs/react';
 import {
     index as confirmOptions,
     store as confirmStore,
 } from '@/actions/Laravel/Passkeys/Http/Controllers/PasskeyConfirmationController';
+import { useTranslation } from 'react-i18next';
 import InputError from '@/components/input-error';
 import PasskeyVerify from '@/components/passkey-verify';
 import PasswordInput from '@/components/password-input';
@@ -12,29 +13,36 @@ import { Spinner } from '@/components/ui/spinner';
 import { store } from '@/routes/password/confirm';
 
 export default function ConfirmPassword() {
+    const { t } = useTranslation('auth');
+
+    setLayoutProps({
+        title: t('confirmPassword.title'),
+        description: t('confirmPassword.description'),
+    });
+
     return (
         <>
-            <Head title="Confirm password" />
+            <Head title={t('confirmPassword.title')} />
 
             <PasskeyVerify
                 routes={{
                     options: confirmOptions(),
                     submit: confirmStore(),
                 }}
-                label="Confirm with passkey"
-                loadingLabel="Confirming..."
-                separator="Or confirm with password"
+                label={t('confirmPassword.confirmWithPasskey')}
+                loadingLabel={t('confirmPassword.confirming')}
+                separator={t('confirmPassword.orWithPassword')}
             />
 
             <Form {...store.form()} resetOnSuccess={['password']}>
                 {({ processing, errors }) => (
                     <div className="space-y-6">
                         <div className="grid gap-2">
-                            <Label htmlFor="password">Password</Label>
+                            <Label htmlFor="password">{t('confirmPassword.passwordLabel')}</Label>
                             <PasswordInput
                                 id="password"
                                 name="password"
-                                placeholder="Password"
+                                placeholder={t('confirmPassword.passwordPlaceholder')}
                                 autoComplete="current-password"
                                 autoFocus
                             />
@@ -49,7 +57,7 @@ export default function ConfirmPassword() {
                                 data-test="confirm-password-button"
                             >
                                 {processing && <Spinner />}
-                                Confirm password
+                                {t('confirmPassword.submit')}
                             </Button>
                         </div>
                     </div>

@@ -1,5 +1,6 @@
 // Components
-import { Form, Head } from '@inertiajs/react';
+import { Form, Head, setLayoutProps } from '@inertiajs/react';
+import { useTranslation } from 'react-i18next';
 import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
@@ -7,14 +8,20 @@ import { logout } from '@/routes';
 import { send } from '@/routes/verification';
 
 export default function VerifyEmail({ status }: { status?: string }) {
+    const { t } = useTranslation('auth');
+
+    setLayoutProps({
+        title: t('verifyEmail.title'),
+        description: t('verifyEmail.description'),
+    });
+
     return (
         <>
-            <Head title="Email verification" />
+            <Head title={t('verifyEmail.title')} />
 
             {status === 'verification-link-sent' && (
                 <div className="mb-4 text-center text-sm font-medium text-status-live">
-                    A new verification link has been sent to the email address
-                    you provided during registration.
+                    {t('verifyEmail.linkSent')}
                 </div>
             )}
 
@@ -23,14 +30,14 @@ export default function VerifyEmail({ status }: { status?: string }) {
                     <>
                         <Button disabled={processing} variant="secondary">
                             {processing && <Spinner />}
-                            Resend verification email
+                            {t('verifyEmail.resend')}
                         </Button>
 
                         <TextLink
                             href={logout()}
                             className="mx-auto block text-sm"
                         >
-                            Log out
+                            {t('verifyEmail.logout')}
                         </TextLink>
                     </>
                 )}
