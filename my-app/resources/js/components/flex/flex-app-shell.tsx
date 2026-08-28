@@ -71,14 +71,14 @@ function FlexAppShellInner({
             {hasContext && domainConfig && (
                 <div
                     data-flex-context-sidebar
-                    className={`hidden md:flex shrink-0 overflow-hidden transition-[width] duration-[180ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${contextSidebarOpen ? 'w-[248px]' : 'w-0'}`}
+                    className={`hidden md:flex shrink-0 overflow-hidden transition-[width] duration-[180ms] ease-[cubic-bezier(0.4,0,0.2,1)] ${contextSidebarOpen ? 'w-[250px]' : 'w-0'}`}
                     aria-hidden={!contextSidebarOpen}
                 >
-                    <div className="w-[248px] shrink-0 h-screen sticky top-0">
+                    <div className="w-[250px] shrink-0 h-screen sticky top-0">
                         <Suspense
                             fallback={
                                 <aside
-                                    className="w-[248px] bg-card border-r border-flex-workspace-divider h-full shrink-0"
+                                    className="w-[250px] bg-card border-r border-flex-workspace-divider h-full shrink-0"
                                     aria-hidden="true"
                                 />
                             }

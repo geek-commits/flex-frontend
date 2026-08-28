@@ -22,7 +22,7 @@ export function FlexGroupHeader({ label, count, icon, actions, collapsible, coll
     const content = (
         <div className="flex items-center gap-2 min-w-0">
             {icon && <span className="size-3.5 shrink-0 text-flex-text-muted" aria-hidden="true">{icon}</span>}
-            <span className="text-sm font-medium leading-[21.56px] text-flex-text-muted truncate">{label}</span>
+            <span className="text-sm font-semibold leading-[21.56px] text-flex-text-muted truncate">{label}</span>
             {typeof count === 'number' && (
                 <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-md border border-flex-workspace-divider bg-flex-workspace-surface px-1.5 text-xs font-medium text-flex-text-muted">
                     {count}

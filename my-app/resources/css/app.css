@@ -508,12 +508,14 @@
     --invert-foreground:
         var(--color-zinc-50);
 
-    /* FLEX tokens — dark overrides */
+    /* FLEX tokens — dark overrides (theme-aware, no literal #333/#777 on dark) */
     --flex-brand-primary-hover: oklch(0.52 0.21 264);
     --flex-brand-primary-active: oklch(0.56 0.20 264);
     --flex-brand-primary-subtle: oklch(0.24 0.06 264);
     --flex-surface-subtle: oklch(0.20 0.006 247);
     --flex-border-strong: oklch(1 0 0 / 0.16);
+    --flex-text-primary: oklch(0.985 0.001 106.423);
+    --flex-text-muted: oklch(0.709 0.01 56.259);
     --flex-text-secondary: oklch(0.80 0.01 247);
     --flex-text-disabled: oklch(0.48 0.01 247);
     /* Workspace surfaces — dark-mode semantic equivalents */
@@ -580,8 +582,6 @@
 }
 
 @theme inline {
-    --font-heading:
-        var(--font-sans);
     --font-sans:
         'Inter Variable', sans-serif;
     --color-sidebar-ring:

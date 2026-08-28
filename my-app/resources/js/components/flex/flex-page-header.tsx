@@ -17,7 +17,7 @@ export function FlexPageHeader({ title, description, eyebrow, actions, meta }: F
         <header className="flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
             <div className="flex flex-col gap-1 min-w-0">
                 {eyebrow && <div className="text-xs font-medium text-flex-brand">{eyebrow}</div>}
-                <h1 className="text-[length:var(--flex-font-size-page-title)] font-semibold tracking-tight text-flex-text-primary leading-tight">
+                <h1 className="text-[length:var(--flex-font-size-page-title)] font-medium tracking-tight text-flex-text-primary leading-tight">
                     {title}
                 </h1>
                 {description && (
