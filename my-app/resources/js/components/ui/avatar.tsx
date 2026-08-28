@@ -45,8 +45,9 @@ function AvatarFallback({
   return (
     <AvatarPrimitive.Fallback
       data-slot="avatar-fallback"
+      style={{ background: 'var(--flex-avatar-gradient)' } as React.CSSProperties}
       className={cn(
-        "flex size-full items-center justify-center rounded-full bg-muted text-sm text-muted-foreground group-data-[size=sm]/avatar:text-xs",
+        "flex size-full items-center justify-center rounded-full text-sm font-medium text-white group-data-[size=sm]/avatar:text-xs",
         className
       )}
       {...props}
