@@ -23,13 +23,17 @@ export interface CrmIntegrationHostProps {
 }
 
 /**
- * Host-owned UI around the frozen external iframe boundary.
+ * @deprecated DEPRECATED: canonical is ExternalWorkspaceHost at features/integrations/external-workspace-host.tsx, not mounted in production, pending deletion after tests.
+ * This file is dead code — no production import (grep: CrmIntegrationHost has zero consumers outside this directory).
+ * Retained only to avoid breaking any ad-hoc tests that may import it; do not add new usages.
  *
- * The iframe content is NOT designed or recreated here. Until real integration,
- * the host reads an isolated synthetic mock JSON (public/mocks/integrations/*.json)
- * for host/integration state only, driven by the integration-state owner
- * (AGENT_WORKSPACE_PLAN §4, §16). No external API, auth/token exchange,
- * postMessage protocol, or production URL is fabricated.
+ * Host-owned UI around the frozen external iframe boundary (legacy mock variant).
+ *
+ * Runtime truth: production mounts ExternalWorkspaceHost with a real external URL via /integrations/crm-primary.json
+ * (public/integrations/crm-primary.json → https://demo-crm.flex.co.tz/login), not this mock path.
+ * This component's default mockConfigPath (/mocks/integrations/crm-primary.json) is test-only synthetic data
+ * (src:null, mockContent/hostBridge) and is NOT used in production. The iframe content is NOT designed or recreated here.
+ * No external API, auth/token exchange, or postMessage protocol is fabricated.
  */
 export function CrmIntegrationHost({
     title = 'Customer Workspace',
@@ -184,8 +188,9 @@ export function CrmIntegrationHost({
                     >
                         <p className="font-semibold text-foreground text-sm">Configuration Missing</p>
                         <p className="max-w-md">
+                            {/* DEPRECATED host — this message references the legacy mock path. Production uses public/integrations/crm-primary.json (real external URL). */}
                             External CRM integration configuration was not found. Retry the connection or
-                            supply public/mocks/integrations/crm-primary.json. The Call Manager remains
+                            supply public/mocks/integrations/crm-primary.json (legacy mock, test-only). Production canonical is public/integrations/crm-primary.json. The Call Manager remains
                             available.
                         </p>
                         <Button variant="outline" size="sm" onClick={retry}>

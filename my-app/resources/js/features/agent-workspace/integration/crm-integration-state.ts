@@ -1,3 +1,10 @@
+/**
+ * @deprecated DEPRECATED: canonical is ExternalWorkspaceHost at features/integrations/external-workspace-host.tsx, not mounted in production, pending deletion after tests.
+ * This file is dead code — no production import of useCrmIntegrationState outside this directory (only used by the deprecated CrmIntegrationHost).
+ * Canonical state owner is features/integrations/use-external-workspace-state.ts (useExternalWorkspaceState).
+ * Retained only for any tests that may import it; do not add new usages.
+ * Runtime truth: production config is /integrations/crm-primary.json (real external URL), not /mocks/integrations/crm-primary.json.
+ */
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { hasExternalSrc } from './crm-host-config';
 import type { CrmHostConfig } from './crm-host-config';
