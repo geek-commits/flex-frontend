@@ -153,25 +153,25 @@ return false;
                                     onClick={() =>
                                         log.target.kind === 'phone' && onCallFromHistory(log.target)
                                     }
-                                    className="min-h-[56px] p-2.5 rounded-md bg-card hover:bg-muted border border-border flex items-center gap-3 text-left transition-colors disabled:opacity-60"
+                                    className="min-h-[56px] p-2.5 rounded-[10px] bg-flex-workspace-surface hover:bg-flex-layer-hover border border-flex-workspace-divider flex items-center gap-3 text-left transition-colors disabled:opacity-60"
                                     disabled={log.target.kind !== 'phone'}
                                     aria-label={log.outcome === 'missed' ? t('callManager.missedCallAria', `Missed call from ${log.target.label} at ${formatTime(log.startedAt)}`) : `Call ${log.target.label}`}
                                 >
-                                    <div className="size-9 shrink-0 rounded-full bg-muted flex items-center justify-center text-[11px] font-semibold text-muted-foreground" aria-hidden="true">
+                                    <div className="size-9 shrink-0 rounded-full bg-flex-workspace-surface-muted border border-flex-workspace-divider flex items-center justify-center text-[11px] font-semibold text-muted-foreground" aria-hidden="true">
                                         {log.target.label.slice(0, 2).toUpperCase()}
                                     </div>
                                     <div className="flex flex-1 flex-col min-w-0">
-                                        <span className={`font-semibold text-[13px] truncate ${log.outcome === 'missed' ? 'text-destructive' : 'text-foreground'}`}>
+                                        <span className={`font-medium text-[13px] leading-[16px] truncate ${log.outcome === 'missed' ? 'text-destructive' : 'text-foreground'}`}>
                                             {log.target.label}
                                         </span>
-                                        <span className="text-[11px] text-muted-foreground">
+                                        <span className="text-[11px] leading-[14px] text-muted-foreground">
                                             {log.outcome === 'missed' ? t('callManager.missed', 'Missed') + ' • ' : ''}{formatTime(log.startedAt)} • {log.direction} • {log.outcome}
                                         </span>
                                     </div>
                                     <span className="font-mono text-[11px] text-muted-foreground shrink-0 ml-2">
                                         {log.durationSeconds > 0 ? formatDuration(log.durationSeconds) : '—'}
                                     </span>
-                                    <span className="size-8 shrink-0 rounded-[6px] bg-muted flex items-center justify-center text-primary ml-2" aria-hidden="true">
+                                    <span className="size-8 shrink-0 rounded-[10px] bg-flex-brand-subtle border border-flex-workspace-divider flex items-center justify-center text-flex-brand ml-2" aria-hidden="true">
                                         <RiPhoneLine className="size-3.5" />
                                     </span>
                                 </button>

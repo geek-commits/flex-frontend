@@ -88,10 +88,10 @@ export function ActiveCallSurface({
 
     return (
         <div className="flex min-h-0 flex-1 flex-col">
-            <div className="flex flex-col gap-3 border-b border-border bg-primary/5 p-3">
+            <div className="flex flex-col gap-3 border-b border-flex-workspace-divider bg-flex-workspace-surface-muted p-3">
                 <div className="flex items-center justify-between gap-2">
                     <div className="flex min-w-0 flex-col">
-                        <span className="truncate text-sm font-bold text-foreground">
+                        <span className="truncate text-[13px] font-medium leading-[16px] text-foreground">
                             {call?.target.label ?? 'Unknown'}
                         </span>
                         {call?.target.phone && (
