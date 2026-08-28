@@ -31,7 +31,7 @@ export function AgentWorkspacePage() {
                 />
             }
         >
-            <ExternalWorkspaceHost title="Customer Workspace" configPath="/integrations/crm-primary.json" />
+            <ExternalWorkspaceHost title="Customer Workspace" configPath="/integrations/crm-primary.json" chrome="none" />
         </AgentShell>
     );
 }

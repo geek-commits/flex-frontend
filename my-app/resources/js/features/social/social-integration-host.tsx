@@ -18,7 +18,7 @@ export function SocialIntegrationHost() {
                 />
             }
         >
-            <ExternalWorkspaceHost title="Social Inbox" configPath="/integrations/social-primary.json" />
+            <ExternalWorkspaceHost title="Social Inbox" configPath="/integrations/social-primary.json" chrome="none" />
         </AgentShell>
     );
 }
