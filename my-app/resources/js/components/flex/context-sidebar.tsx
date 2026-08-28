@@ -44,7 +44,7 @@ export function ContextSidebar({ title, subtitle, groups }: ContextSidebarProps)
     );
 
     return (
-        <aside className="w-[248px] bg-card border-r border-border h-screen sticky top-0 shrink-0 overflow-y-auto hidden md:flex flex-col py-4 px-3 select-none">
+        <aside className="w-[250px] bg-flex-workspace-surface border-r border-flex-workspace-divider h-screen sticky top-0 shrink-0 overflow-y-auto hidden md:flex flex-col py-4 px-3 select-none">
             <div className="mb-3 px-2 flex items-start justify-between gap-2">
                 <div className="min-w-0">
                     <h2 className="text-[13px] font-semibold tracking-tight text-flex-text-primary">{title}</h2>

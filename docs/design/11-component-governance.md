@@ -22,7 +22,7 @@ CampaignsPage    → route composition
 ```
 
 - **Base layer:** shadcn/Radix/TanStack primitives (`components/ui/*`, `@tanstack/react-table`, `recharts`).
-- **FLEX primitives:** shared FLEX-level components that encode product-system rules (`components/flex/*` — `flex-status`, `flex-live-data-status`, `flex-detail-sheet`, `flex-empty-state`, `flex-loading-state`, `flex-error-state`, `flex-page-header`, `flex-page-content`, `back-link`, `context-sidebar`, `primary-rail`, `metric-card`, `trend-charts`).
+- **FLEX primitives:** shared FLEX-level components that encode product-system rules (`components/flex/*` — `flex-status`, `flex-live-data-status`, `flex-detail-sheet`, `flex-empty-state`, `flex-loading-state`, `flex-error-state`, `flex-page-header`, `flex-page-content`, `back-link`, `context-sidebar`, `primary-rail`, `metric-card`, `trend-charts`, `flex-view-switcher`, `flex-group-header`, `flex-list-row`, `flex-kanban-card`).
 - **Domain composition:** feature-specific components composed from primitives (`features/cdr/*`, `features/campaigns/*`, `features/dashboard/*`).
 - **Route:** the page composes domain components (`pages/admin/*`).
 
@@ -66,6 +66,7 @@ domain composition
 - No arbitrary radii or shadows — use the token set (`--flex-radius-*`, `--flex-shadow-*`).
 - Minimal icon backplates — colored circle/square behind icons only when it carries meaning.
 - Semantic colors are reserved for semantic states (success/warning/danger/info/neutral via `FlexStatus`).
+- **Capsule pattern:** `FlexViewSwitcher` is the canonical capsule (`bg-flex-workspace-surface-muted p-0.5 rounded-lg border border-flex-workspace-divider`); active item is `bg-flex-workspace-surface border shadow-flex-overlay`. Do not recreate ad-hoc toggle pills per route — compose through this primitive.
 - Fewer containers — prefer spacing and dividers over nested cards (see the FLEX UI foundation rules).
 - No generic purple "AI" styling and no gradients unless they are genuinely part of the brand system.
 

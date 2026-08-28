@@ -29,8 +29,8 @@ All surfaces and dividers are driven by semantic tokens (light/dark equivalents;
 | `--flex-workspace-canvas` | `var(--background)` (near-white neutral `#F7F8FA`-family) | canvas | page background |
 | `--flex-workspace-surface` | `#FFFFFF` | elevated dark surface | primary work surface |
 | `--flex-workspace-surface-muted` | `#FBFBFC` | slightly raised | toolbars / headers within a surface |
-| `--flex-workspace-divider` | `#E7E9EE` | translucent white | quiet structural divider |
-| `--flex-workspace-divider-strong` | `#DDE1E7` | stronger translucent white | stronger divider |
+| `--flex-workspace-divider` | `oklch(0.93 0.0025 250)` — hairline 1px achromatic (Plane pivot, chroma <0.004) | `oklch(1 0 0 / 0.10)` | quiet structural divider |
+| `--flex-workspace-divider-strong` | `#DDE1E7` | `oklch(1 0 0 / 0.20)` | stronger divider |
 
 Tailwind utilities are exposed as `bg-flex-workspace-canvas`, `bg-flex-workspace-surface`, `bg-flex-workspace-surface-muted`, `border-flex-workspace-divider`, `border-flex-workspace-divider-strong`.
 
@@ -139,7 +139,17 @@ All structural boundaries use semantic divider tokens:
 
 `border-border` (→ `--flex-border`) remains valid for non-structural borders and true cards; structural dividers inside a work surface use `border-flex-workspace-divider`.
 
-## 8. Quality gates
+## 8. Plane pivot primitives
+
+- `FlexViewSwitcher` — capsule view toggle (RESEARCH §7.3).
+- `FlexGroupHeader` — `h-[43px] bg-flex-workspace-surface-muted border-b` group bar, label 14/500 muted + count pill.
+- `FlexListRow` — `min-h-11 py-3 px-[var(--flex-space-list-x)] border-b` row, title 13/400, ID 12/500 muted, hover `bg-flex-layer-hover`.
+- `FlexKanbanCard` / `FlexKanbanColumn` — `rounded-md border p-3` card, board column `w-[280px]`.
+- Shell widths: `PrimaryRail` `w-14` (56px) + `ContextSidebar` `w-[250px]` — verified against Plane (§2.3).
+
+Topbar search: centered `w-[364px] h-7 rounded-lg bg-flex-workspace-surface-muted border-flex-workspace-divider` (`GlobalSearchTrigger`) — grid `1fr auto 1fr` centers within main-area width.
+
+## 9. Quality gates
 
 Apply this document when building or refactoring an operational surface:
 

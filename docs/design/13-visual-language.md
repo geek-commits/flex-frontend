@@ -48,12 +48,15 @@ Subtle #777777
 | Global font | `--font-sans: 'Inter Variable'` in `app.css` `@theme` |
 | Metric | `.flex-metric` utility (18/24, 600, -0.1px) |
 | Label | `.flex-label` utility (12/16, 500) |
+| Section / group label | `--flex-font-size-section: 0.875rem` (14px) / 600 muted — Plane pivot for workbench group headers |
 | Compact filter | `Input size="sm"` / `Select size="sm"` (28px, 13px, 6px radius) |
 | Card | `rounded-lg` (14px) + `CardContent p-4` (16px) |
 | Chart line | `--flex-chart-line: #519DFA` |
 | Chart bar | `--flex-chart-bar: #0077E6` |
 | Light default text | `--foreground: #333333` equivalent |
 | Light subtle text | `--muted-foreground: #777777` equivalent |
+| Motion slow | `--flex-duration-slow: 300ms` — shell/sidebar collapse |
+| Radius rule | `sm 6 / md 8 / lg 12` — reserve `lg` for overlays/modals; inline surfaces use 6/8 (Plane 4/6/8) |
 
 ## Rules
 
@@ -76,6 +79,11 @@ Subtle #777777
 - Use `.flex-label` for metric labels, compact metadata, small field labels,
   supporting descriptors, and chart supporting labels.
 - Do not reduce normal body text to 12px.
+
+### Section / group header role (Plane pivot)
+- Group headers inside workbench surfaces (e.g. `Backlog 3`, `Todo 1`, table group rows) use **14px / 600 / muted** (`--flex-font-size-section` + `font-semibold text-flex-text-muted`).
+- This is distinct from `.flex-label` (12px). Do not apply 14/600 to ordinary body/table cells — those remain 13px (`--flex-font-size-label` / body).
+- The tighter 13px body versus 14px muted header gives Plane's hierarchy-without-color effect.
 
 ### Compact filters
 - Compact/filter controls are 28px, Inter 13/16, 500 weight, 6px radius.

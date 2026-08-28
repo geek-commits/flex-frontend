@@ -37,9 +37,9 @@ export function StatusBadge(props: StatusBadgeType & { className?: string }) {
     return (
         <Badge
             variant="outline"
-            className={`inline-flex items-center gap-1.5 px-2 py-0.5 text-xs font-semibold rounded-md border ${cfg.bgClass} ${cfg.textClass} ${cfg.borderClass} ${props.className || ''}`}
+            className={`inline-flex h-5 items-center gap-1.5 rounded-md border px-2 py-0 text-[12px] font-medium leading-none ${cfg.bgClass} ${cfg.textClass} ${cfg.borderClass} ${props.className || ''}`}
         >
-            <span className={`size-1.5 rounded-full ${cfg.dotClass}`} />
+            <span className={`size-1.5 rounded-full ${cfg.dotClass}`} aria-hidden="true" />
             <span>{cfg.label}</span>
         </Badge>
     );

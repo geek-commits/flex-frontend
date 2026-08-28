@@ -29,7 +29,7 @@ export function FlexStatus({ tone, children, className }: FlexStatusProps) {
     return (
         <Badge
             variant="outline"
-            className={`inline-flex items-center gap-1.5 ${classes.bgClass} ${classes.textClass} ${classes.borderClass} ${className ?? ''}`}
+            className={`inline-flex h-5 items-center gap-1.5 rounded-md border px-2 py-0 text-[12px] font-medium leading-none ${classes.bgClass} ${classes.textClass} ${classes.borderClass} ${className ?? ''}`}
         >
             <span className={`size-1.5 rounded-full ${classes.dotClass}`} aria-hidden="true" />
             {children}

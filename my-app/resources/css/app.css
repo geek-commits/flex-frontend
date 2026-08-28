@@ -233,11 +233,12 @@
     --flex-border: var(--border);
     --flex-border-strong: oklch(0.87 0.004 247);
 
-    /* Workspace surfaces — neutral canvas + white work surface + structural dividers */
+    /* Workspace surfaces — neutral canvas + white work surface + structural dividers
+       Plane pivot: hairline 1px borders, achromatic (chroma <0.004), luminance-stepped */
     --flex-workspace-canvas: var(--background);
     --flex-workspace-surface: var(--card);
     --flex-workspace-surface-muted: oklch(0.986 0.001 250);
-    --flex-workspace-divider: oklch(0.935 0.003 250);
+    --flex-workspace-divider: oklch(0.93 0.0025 250);
     --flex-workspace-divider-strong: oklch(0.896 0.004 250);
     --flex-table-grid: oklch(0.91 0.003 250);
 
@@ -279,10 +280,11 @@
     --flex-shadow-overlay: 0 8px 24px rgb(15 23 42 / 0.08);
     --flex-shadow-modal: 0 16px 48px rgb(15 23 42 / 0.14);
 
-    /* Motion */
+    /* Motion — Plane pivot: 150–300ms for shell/sidebar, fast for controls */
     --flex-duration-fast: 120ms;
     --flex-duration-default: 150ms;
     --flex-duration-overlay: 200ms;
+    --flex-duration-slow: 300ms;
     --flex-ease: cubic-bezier(0.4, 0, 0.2, 1);
 
     /* Focus */
@@ -315,7 +317,8 @@
     --flex-font-size-page-title-line: 1.25rem; /* 20px */
     --flex-font-weight-title: 500; /* Medium */
     --flex-font-size-subtitle: 0.75rem;
-    --flex-font-size-section: 0.75rem;
+    --flex-font-size-section: 0.875rem; /* 14px — Plane pivot: section/group labels 14/600 muted */
+    --flex-font-weight-section: 600;
     --flex-font-size-card-title: 0.875rem;
     --flex-font-size-body: 0.875rem; /* 14px Regular */
     --flex-font-size-body-line: 1.25rem;
@@ -715,6 +718,7 @@
     --duration-flex-fast: var(--flex-duration-fast);
     --duration-flex-default: var(--flex-duration-default);
     --duration-flex-overlay: var(--flex-duration-overlay);
+    --duration-flex-slow: var(--flex-duration-slow);
 
     --ease-flex: var(--flex-ease);
 
