@@ -10,6 +10,7 @@ import { useDashboardData } from '@/features/dashboard/use-dashboard-data';
 
 function TrafficLegend() {
     const { t } = useTranslation('supervision');
+
     return (
         <div className="flex items-center gap-4">
             {TRAFFIC_SERIES.map((s) => (

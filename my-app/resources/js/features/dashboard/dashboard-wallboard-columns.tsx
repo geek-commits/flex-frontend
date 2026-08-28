@@ -39,6 +39,7 @@ function CurrentCallCell({ agent }: { agent: AgentRosterEntry }) {
 function TranslatedStateCell({ agent, t }: { agent: AgentRosterEntry; t: TFn }) {
     const cfg = agentStateMap[agent.state];
     const label = cfg.labelKey ? t(cfg.labelKey) : cfg.label;
+
     return (
         <FlexStatus tone={AGENT_STATE_TONES[agent.state]} className="capitalize">
             {label}
@@ -48,6 +49,7 @@ function TranslatedStateCell({ agent, t }: { agent: AgentRosterEntry; t: TFn }) 
 
 function StateCell({ agent }: { agent: AgentRosterEntry }) {
     const cfg = agentStateMap[agent.state];
+
     return (
         <FlexStatus tone={AGENT_STATE_TONES[agent.state]} className="capitalize">
             {cfg.label}

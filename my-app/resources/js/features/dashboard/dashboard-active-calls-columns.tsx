@@ -33,6 +33,7 @@ function DurationCell({ call }: { call: ActiveCall }) {
 
 function TranslatedStateCell({ call, t }: { call: ActiveCall; t: TFn }) {
     const key = `supervision:activeCalls.state.${call.state}`;
+
     return (
         <FlexStatus tone={CALL_STATE_TONES[call.state]} className="capitalize">
             {t(key)}
@@ -50,6 +51,7 @@ function StateCell({ call }: { call: ActiveCall }) {
 
 function DirectionCell({ call, t }: { call: ActiveCall; t: TFn }) {
     const key = `supervision:activeCalls.direction.${call.direction}`;
+
     return <span className="capitalize text-flex-text-muted">{t(key)}</span>;
 }
 

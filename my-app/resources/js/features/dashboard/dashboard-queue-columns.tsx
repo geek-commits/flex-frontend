@@ -35,6 +35,7 @@ function QueueStatusCell({ queue, t }: { queue: QueueHealth; t: (k: string, fall
 
 export function queueColumns(t?: (k: string, fallback?: string) => string): ColumnDef<DataGridFeatures, QueueHealth>[] {
     const tr = t ?? ((k: string, fb?: string) => fb ?? k);
+
     return [
         {
             accessorKey: 'queue',
