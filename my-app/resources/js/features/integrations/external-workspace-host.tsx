@@ -8,38 +8,41 @@ export interface ExternalWorkspaceHostProps {
     title: string;
     configPath: string;
     className?: string;
+    chrome?: 'full' | 'none';
 }
 
-export function ExternalWorkspaceHost({ title, configPath, className }: ExternalWorkspaceHostProps) {
+export function ExternalWorkspaceHost({ title, configPath, className, chrome = 'full' }: ExternalWorkspaceHostProps) {
     const { t } = useTranslation('common');
     const { status, config, frameKey, retry, handleFrameLoad, handleFrameError } = useExternalWorkspaceState(configPath);
     const effectiveSrc = config?.iframeConfig?.src ?? null;
     const showFrame = config !== null && (status === 'loading' || status === 'mock' || status === 'connected' || status === 'loaded');
 
     return (
-        <div className={`flex h-full flex-col overflow-hidden bg-background ${className ?? ''}`}>
-            {/* Toolbar — minimal, operational */}
-            <div className="flex h-9 shrink-0 items-center justify-between gap-2 border-b border-flex-workspace-divider bg-flex-workspace-surface px-3">
-                <h2 className="truncate text-sm font-semibold text-flex-text-primary">{title}</h2>
-                <div className="flex items-center gap-1">
-                    {effectiveSrc && (
-                        <Button
-                            variant="ghost"
-                            size="icon-sm"
-                            aria-label={t('common:actions.openExternally', 'Open externally')}
-                            onClick={() => window.open(effectiveSrc, '_blank', 'noopener,noreferrer')}
-                        >
-                            <RiExternalLinkLine className="size-4" />
+        <div className={`flex h-full min-h-0 flex-col overflow-hidden bg-background ${className ?? ''}`}>
+            {/* Toolbar — minimal, operational (hidden when chrome="none" for old-version parity) */}
+            {chrome !== 'none' && (
+                <div className="flex h-9 shrink-0 items-center justify-between gap-2 border-b border-flex-workspace-divider bg-flex-workspace-surface px-3">
+                    <h2 className="truncate text-sm font-semibold text-flex-text-primary">{title}</h2>
+                    <div className="flex items-center gap-1">
+                        {effectiveSrc && (
+                            <Button
+                                variant="ghost"
+                                size="icon-sm"
+                                aria-label={t('common:actions.openExternally', 'Open externally')}
+                                onClick={() => window.open(effectiveSrc, '_blank', 'noopener,noreferrer')}
+                            >
+                                <RiExternalLinkLine className="size-4" />
+                            </Button>
+                        )}
+                        <Button variant="ghost" size="icon-sm" aria-label={t('common:actions.refresh', 'Reload')} onClick={retry}>
+                            <RiRefreshLine className="size-4" />
                         </Button>
-                    )}
-                    <Button variant="ghost" size="icon-sm" aria-label={t('common:actions.refresh', 'Reload')} onClick={retry}>
-                        <RiRefreshLine className="size-4" />
-                    </Button>
+                    </div>
                 </div>
-            </div>
+            )}
 
-            {/* Viewport */}
-            <div className="relative flex min-h-[400px] flex-1 overflow-hidden bg-flex-workspace-surface-muted">
+            {/* Viewport — full-bleed: relative min-h-0 + absolute inset-0 iframe */}
+            <div className="relative flex min-h-0 flex-1 overflow-hidden bg-flex-workspace-surface-muted">
                 {(status === 'loading' || status === 'retrying') && (
                     <div role="status" className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 bg-background/80 backdrop-blur-sm px-4 text-center">
                         <div className="size-5 animate-spin rounded-full border-2 border-primary border-t-transparent" aria-hidden="true" />
@@ -84,7 +87,7 @@ export function ExternalWorkspaceHost({ title, configPath, className }: External
                         sandbox={config?.iframeConfig?.sandbox}
                         allow={config?.iframeConfig?.allow}
                         referrerPolicy={(config?.iframeConfig?.referrerPolicy as React.IframeHTMLAttributes<HTMLIFrameElement>['referrerPolicy']) ?? 'strict-origin-when-cross-origin'}
-                        className="h-full w-full border-0"
+                        className="absolute inset-0 block h-full w-full border-0"
                         onLoad={handleFrameLoad}
                         onError={handleFrameError}
                     />
