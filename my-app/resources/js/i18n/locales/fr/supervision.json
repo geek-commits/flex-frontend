@@ -35,12 +35,37 @@
         "description": "Charge des files en temps réel"
       },
       "activeCalls": {
-        "title": "Appels actifs",
-        "empty": "Aucun appel actif"
+        "title": "Appels actifs et trafic",
+        "empty": "Aucun appel actif",
+        "emptyDescription": "Toutes les lignes sont disponibles",
+        "errorTitle": "Appels actifs indisponibles",
+        "errorDescription": "Échec du chargement des appels actifs"
       },
       "agentWallboard": {
-        "title": "Tableau des agents",
-        "empty": "Aucun agent en ligne"
+        "title": "Tableau des agents en direct",
+        "empty": "Aucun agent connecté",
+        "emptyDescription": "Aucune donnée d'agents disponible",
+        "errorTitle": "Tableau des agents indisponible",
+        "errorDescription": "Échec du chargement des données agents",
+        "callsToday_one": "{{count}} appel aujourd'hui",
+        "callsToday_other": "{{count}} appels aujourd'hui"
+      },
+      "queuePressure": {
+        "title": "Pression des files",
+        "subtitle": "Appels en attente et disponibilité",
+        "status": {
+          "noCalls": "Aucun appel en attente",
+          "belowSla": "Sous le SLA",
+          "noAgents": "Aucun agent disponible",
+          "healthy": "Sain"
+        },
+        "metrics": {
+          "waiting": "En attente",
+          "longestWait": "Attente la plus longue",
+          "availableAgents": "Agents disponibles",
+          "sla": "SLA"
+        },
+        "empty": "Aucune donnée de file disponible."
       }
     },
     "traffic": {
@@ -111,13 +136,28 @@
       "direction": "Dir.",
       "duration": "Durée",
       "state": "État"
+    },
+    "state": {
+      "ringing": "Sonnerie",
+      "connected": "Connecté",
+      "hold": "En attente",
+      "transferring": "Transfert"
+    },
+    "direction": {
+      "inbound": "Entrant",
+      "outbound": "Sortant"
     }
   },
   "wallboard": {
     "columns": {
       "agent": "Agent",
+      "ext": "Poste",
       "queue": "File",
-      "state": "État"
+      "state": "État",
+      "stateTime": "Temps d'état",
+      "currentCall": "Appel en cours",
+      "callsToday": "Appels aujourd'hui",
+      "aht": "AHT"
     }
   }
 }

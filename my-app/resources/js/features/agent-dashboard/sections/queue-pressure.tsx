@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexStatus } from '@/components/flex/flex-status';
 import { FlexMetricItem } from '@/components/flex/metrics/flex-metric-item';
 import { FlexMetricStrip } from '@/components/flex/metrics/flex-metric-strip';
@@ -28,69 +29,73 @@ export interface QueuePressureSectionProps {
  * invents thresholds.
  */
 export function QueuePressureSection({ queues }: QueuePressureSectionProps) {
+    const { t } = useTranslation('agent');
+
     return (
         <Card className="bg-card border-border shadow-2xs">
             <CardContent className="p-4 flex flex-col gap-3">
                 <div className="flex items-center justify-between gap-3">
                     <h3 className="text-xs font-bold tracking-wider text-muted-foreground uppercase">
-                        Queue Pressure
+                        {t('dashboard.queuePressure.title')}
                     </h3>
                     <span className="text-[11px] text-muted-foreground">
-                        Waiting calls and availability
+                        {t('dashboard.queuePressure.subtitle')}
                     </span>
                 </div>
 
                 <div className="flex flex-col gap-3">
-                    {queues.map((queue) => (
-                        <div key={queue.queue} className="flex flex-col gap-2">
-                            <div className="flex items-center justify-between gap-2">
-                                <span className="text-sm font-semibold text-foreground">
-                                    {queue.queue}
-                                </span>
-                                <FlexStatus
-                                    tone={
-                                        queue.waiting === 0
-                                            ? 'neutral'
-                                            : queue.sla < SLA_TARGET
-                                              ? 'warning'
-                                              : queue.availableAgents === 0
-                                                ? 'warning'
-                                                : 'success'
-                                    }
-                                >
-                                    {queue.waiting === 0
-                                        ? 'No calls waiting'
-                                        : queue.sla < SLA_TARGET
-                                          ? 'Below SLA'
-                                          : queue.availableAgents === 0
-                                            ? 'No agents available'
-                                            : 'Healthy'}
-                                </FlexStatus>
-                            </div>
-
-                            <FlexMetricStrip className="gap-x-6 px-3 py-2">
-                                <FlexMetricItem
-                                    label="Waiting"
-                                    value={queue.waiting}
-                                />
-                                <FlexMetricItem
-                                    label="Longest wait"
-                                    value={formatWait(queue.longestWait)}
-                                />
-                                <FlexMetricItem
-                                    label="Available agents"
-                                    value={`${queue.availableAgents} / ${queue.totalAgents}`}
-                                />
-                                <FlexMetricItem
-                                    label="SLA"
-                                    value={`${queue.sla}%`}
-                                />
-                            </FlexMetricStrip>
-                        </div>
-                    )) || (
+                    {queues.length === 0 ? (
                         <div className="text-xs text-muted-foreground">
-                            No queue data available.
+                            {t('dashboard.queuePressure.empty')}
                         </div>
+                    ) : (
+                        queues.map((queue) => (
+                            <div key={queue.queue} className="flex flex-col gap-2">
+                                <div className="flex items-center justify-between gap-2">
+                                    <span className="text-sm font-semibold text-foreground">
+                                        {queue.queue}
+                                    </span>
+                                    <FlexStatus
+                                        tone={
+                                            queue.waiting === 0
+                                                ? 'neutral'
+                                                : queue.sla < SLA_TARGET
+                                                  ? 'warning'
+                                                  : queue.availableAgents === 0
+                                                    ? 'warning'
+                                                    : 'success'
+                                        }
+                                    >
+                                        {queue.waiting === 0
+                                            ? t('dashboard.queuePressure.status.noCalls')
+                                            : queue.sla < SLA_TARGET
+                                              ? t('dashboard.queuePressure.status.belowSla')
+                                              : queue.availableAgents === 0
+                                                ? t('dashboard.queuePressure.status.noAgents')
+                                                : t('dashboard.queuePressure.status.healthy')}
+                                    </FlexStatus>
+                                </div>
+
+                                <FlexMetricStrip className="gap-x-6 px-3 py-2">
+                                    <FlexMetricItem
+                                        label={t('dashboard.queuePressure.metrics.waiting')}
+                                        value={queue.waiting}
+                                    />
+                                    <FlexMetricItem
+                                        label={t('dashboard.queuePressure.metrics.longestWait')}
+                                        value={formatWait(queue.longestWait)}
+                                    />
+                                    <FlexMetricItem
+                                        label={t('dashboard.queuePressure.metrics.availableAgents')}
+                                        value={`${queue.availableAgents} / ${queue.totalAgents}`}
+                                    />
+                                    <FlexMetricItem
+                                        label={t('dashboard.queuePressure.metrics.sla')}
+                                        value={`${queue.sla}%`}
+                                    />
+                                </FlexMetricStrip>
+                            </div>
+                        ))
                     )}
                 </div>
             </CardContent>

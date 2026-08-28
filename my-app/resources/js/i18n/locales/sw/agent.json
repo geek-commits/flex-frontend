@@ -40,5 +40,24 @@
     "enterNumber": "Weka nambari ya simu au kiendelezi",
     "call": "Piga simu",
     "clear": "Futa"
+  },
+  "dashboard": {
+    "queuePressure": {
+      "title": "Msongamano wa Foleni",
+      "subtitle": "Simu zinazosubiri na upatikanaji",
+      "status": {
+        "noCalls": "Hakuna simu zinazosubiri",
+        "belowSla": "Chini ya SLA",
+        "noAgents": "Hakuna wakala anayepatikana",
+        "healthy": "Imara"
+      },
+      "metrics": {
+        "waiting": "Wanasubiri",
+        "longestWait": "Muda mrefu zaidi",
+        "availableAgents": "Wakala wanaopatikana",
+        "sla": "SLA"
+      },
+      "empty": "Hakuna data ya foleni."
+    }
   }
 }

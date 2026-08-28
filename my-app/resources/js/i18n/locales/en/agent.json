@@ -40,5 +40,24 @@
     "enterNumber": "Enter phone number or extension",
     "call": "Call",
     "clear": "Clear"
+  },
+  "dashboard": {
+    "queuePressure": {
+      "title": "Queue Pressure",
+      "subtitle": "Waiting calls and availability",
+      "status": {
+        "noCalls": "No calls waiting",
+        "belowSla": "Below SLA",
+        "noAgents": "No agents available",
+        "healthy": "Healthy"
+      },
+      "metrics": {
+        "waiting": "Waiting",
+        "longestWait": "Longest wait",
+        "availableAgents": "Available agents",
+        "sla": "SLA"
+      },
+      "empty": "No queue data available."
+    }
   }
 }

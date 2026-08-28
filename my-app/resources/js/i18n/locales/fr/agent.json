@@ -40,5 +40,24 @@
     "enterNumber": "Saisir un numéro ou un poste",
     "call": "Appeler",
     "clear": "Effacer"
+  },
+  "dashboard": {
+    "queuePressure": {
+      "title": "Pression des files",
+      "subtitle": "Appels en attente et disponibilité",
+      "status": {
+        "noCalls": "Aucun appel en attente",
+        "belowSla": "Sous le SLA",
+        "noAgents": "Aucun agent disponible",
+        "healthy": "Sain"
+      },
+      "metrics": {
+        "waiting": "En attente",
+        "longestWait": "Attente la plus longue",
+        "availableAgents": "Agents disponibles",
+        "sla": "SLA"
+      },
+      "empty": "Aucune donnée de file disponible."
+    }
   }
 }

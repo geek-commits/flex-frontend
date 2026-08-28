@@ -35,12 +35,37 @@
         "description": "Real-time queue load"
       },
       "activeCalls": {
-        "title": "Active Calls",
-        "empty": "No active calls"
+        "title": "Active Calls & Traffic",
+        "empty": "No active calls",
+        "emptyDescription": "All lines are currently clear",
+        "errorTitle": "Active calls unavailable",
+        "errorDescription": "Failed to load active calls"
       },
       "agentWallboard": {
-        "title": "Agent Wallboard",
-        "empty": "No agents online"
+        "title": "Live Agent Wallboard",
+        "empty": "No agents logged in",
+        "emptyDescription": "No agent roster data available",
+        "errorTitle": "Agent wallboard unavailable",
+        "errorDescription": "Failed to load agent data",
+        "callsToday_one": "{{count}} call today",
+        "callsToday_other": "{{count}} calls today"
+      },
+      "queuePressure": {
+        "title": "Queue Pressure",
+        "subtitle": "Waiting calls and availability",
+        "status": {
+          "noCalls": "No calls waiting",
+          "belowSla": "Below SLA",
+          "noAgents": "No agents available",
+          "healthy": "Healthy"
+        },
+        "metrics": {
+          "waiting": "Waiting",
+          "longestWait": "Longest wait",
+          "availableAgents": "Available agents",
+          "sla": "SLA"
+        },
+        "empty": "No queue data available."
       }
     },
     "traffic": {
@@ -111,13 +136,28 @@
       "direction": "Dir.",
       "duration": "Duration",
       "state": "State"
+    },
+    "state": {
+      "ringing": "Ringing",
+      "connected": "Connected",
+      "hold": "On Hold",
+      "transferring": "Transferring"
+    },
+    "direction": {
+      "inbound": "Inbound",
+      "outbound": "Outbound"
     }
   },
   "wallboard": {
     "columns": {
       "agent": "Agent",
+      "ext": "Ext.",
       "queue": "Queue",
-      "state": "State"
+      "state": "State",
+      "stateTime": "State Time",
+      "currentCall": "Current Call",
+      "callsToday": "Calls Today",
+      "aht": "AHT"
     }
   }
 }

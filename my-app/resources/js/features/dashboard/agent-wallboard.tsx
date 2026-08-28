@@ -1,5 +1,6 @@
 import { useTable } from '@tanstack/react-table';
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexErrorState } from '@/components/flex/flex-error-state';
 import {
@@ -11,14 +12,15 @@ import { DataGridScrollArea } from '@/components/reui/data-grid/data-grid-scroll
 import { DataGridTable } from '@/components/reui/data-grid/data-grid-table';
 import { Button } from '@/components/ui/button';
 import type { AgentRosterEntry } from '@/features/dashboard/dashboard-types';
-import { wallboardColumns } from '@/features/dashboard/dashboard-wallboard-columns';
+import { wallboardColumnsTranslated } from '@/features/dashboard/dashboard-wallboard-columns';
 import { useDashboardData } from '@/features/dashboard/use-dashboard-data';
 
 export function AgentWallboard() {
+    const { t } = useTranslation('supervision');
     const { data, isLoading, error } = useDashboardData();
 
     const rows = useMemo(() => data?.agents ?? [], [data]);
-    const columns = useMemo(() => wallboardColumns(), []);
+    const columns = useMemo(() => wallboardColumnsTranslated(t), [t]);
     const table = useTable({
         features: dataGridFeatures,
         columns,
@@ -37,11 +39,11 @@ export function AgentWallboard() {
         return (
             <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
                 <FlexErrorState
-                    title="Agent wallboard unavailable"
-                    description="Failed to load agent data"
+                    title={t('dashboard.metrics.agentWallboard.errorTitle')}
+                    description={t('dashboard.metrics.agentWallboard.errorDescription')}
                     action={
                         <Button onClick={() => window.location.reload()} size="sm">
-                            Retry
+                            {t('dashboard.live.retry')}
                         </Button>
                     }
                 />
@@ -53,8 +55,8 @@ export function AgentWallboard() {
         return (
             <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
                 <FlexEmptyState
-                    title="No agents logged in"
-                    description="No agent roster data available"
+                    title={t('dashboard.metrics.agentWallboard.empty')}
+                    description={t('dashboard.metrics.agentWallboard.emptyDescription')}
                 />
             </div>
         );
@@ -64,7 +66,7 @@ export function AgentWallboard() {
         <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
             <div className="flex items-center justify-between border-b border-flex-workspace-divider px-4 py-3">
                 <h2 className="text-sm font-semibold text-flex-text-primary">
-                    Live Agent Wallboard
+                    {t('dashboard.metrics.agentWallboard.title')}
                 </h2>
                 <span className="flex items-center gap-1.5">
                     <span
@@ -72,7 +74,7 @@ export function AgentWallboard() {
                         aria-hidden="true"
                     />
                     <span className="text-xs font-semibold text-status-live">
-                        {callsToday} calls today
+                        {t('dashboard.metrics.agentWallboard.callsToday', { count: callsToday })}
                     </span>
                 </span>
             </div>
@@ -82,7 +84,7 @@ export function AgentWallboard() {
                 recordCount={rows.length}
                 isLoading={isLoading}
                 loadingMode="spinner"
-                emptyMessage="No agents logged in"
+                emptyMessage={t('dashboard.metrics.agentWallboard.empty')}
                 tableLayout={{
                     columnsMovable: false,
                 }}
