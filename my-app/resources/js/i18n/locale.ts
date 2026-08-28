@@ -148,11 +148,15 @@ export function useFlexLocale() {
         if (typeof window !== 'undefined') {
             try {
                 const fromHtml = document.documentElement.lang?.split('-')[0];
-                if (isSupportedLocale(fromHtml)) return fromHtml;
+
+                if (isSupportedLocale(fromHtml)) {
+return fromHtml;
+}
             } catch {
                 // ignore
             }
         }
+
         return DEFAULT_LOCALE;
     });
 
@@ -163,15 +167,25 @@ export function useFlexLocale() {
             i18n = mod.default;
             // sync initial from i18n if available
             const normalizedInit = mod.default.language?.split('-')[0];
-            if (isSupportedLocale(normalizedInit)) setCurrentLocale(normalizedInit);
+
+            if (isSupportedLocale(normalizedInit)) {
+setCurrentLocale(normalizedInit);
+}
+
             handleLanguageChanged = (lng: string) => {
                 const normalized = lng.split('-')[0];
-                if (isSupportedLocale(normalized)) setCurrentLocale(normalized);
+
+                if (isSupportedLocale(normalized)) {
+setCurrentLocale(normalized);
+}
             };
             i18n.on('languageChanged', handleLanguageChanged);
         });
+
         return () => {
-            if (i18n && handleLanguageChanged) i18n.off('languageChanged', handleLanguageChanged);
+            if (i18n && handleLanguageChanged) {
+i18n.off('languageChanged', handleLanguageChanged);
+}
         };
     }, []);
 

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { hasExternalSrc, type ExternalWorkspaceConfig } from './external-workspace-config';
+import { hasExternalSrc  } from './external-workspace-config';
+import type {ExternalWorkspaceConfig} from './external-workspace-config';
 
 export type ExternalWorkspaceStatus =
     | 'loading'
@@ -20,12 +21,19 @@ export interface ExternalWorkspaceState {
 
 async function fetchConfig(path: string): Promise<ExternalWorkspaceConfig> {
     const response = await fetch(path, { cache: 'no-store' });
-    if (!response.ok) throw new Error('config not found');
+
+    if (!response.ok) {
+throw new Error('config not found');
+}
+
     return (await response.json()) as ExternalWorkspaceConfig;
 }
 
 function resolveStatus(data: ExternalWorkspaceConfig): ExternalWorkspaceStatus {
-    if (data.connection === 'unavailable') return 'unavailable';
+    if (data.connection === 'unavailable') {
+return 'unavailable';
+}
+
     return hasExternalSrc(data) ? 'loading' : 'mock';
 }
 
@@ -53,11 +61,16 @@ export function useExternalWorkspaceState(configPath: string): ExternalWorkspace
         activeRef.current = true;
         fetchConfig(configPath)
             .then((data) => {
-                if (activeRef.current) applyConfig(data);
+                if (activeRef.current) {
+applyConfig(data);
+}
             })
             .catch(() => {
-                if (activeRef.current) applyMissing();
+                if (activeRef.current) {
+applyMissing();
+}
             });
+
         return () => {
             activeRef.current = false;
         };

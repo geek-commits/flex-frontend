@@ -33,6 +33,7 @@ export function emitObservability(event: ObservabilityEvent): void {
         timestamp: new Date().toISOString(),
         ...event,
     };
+
     if (emitter) {
         try {
             emitter(enriched);
@@ -40,10 +41,11 @@ export function emitObservability(event: ObservabilityEvent): void {
             // emitter must never throw into UI
         }
     }
+
     // POC fallback: console for diagnostics without sensitive payloads
     if (import.meta.env.DEV) {
         // keep quiet in prod; dev-only trace
-        // eslint-disable-next-line no-console
+         
         console.debug('[observe]', enriched.event_name, enriched.feature, enriched.status ?? '');
     }
 }
