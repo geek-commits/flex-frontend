@@ -2,8 +2,25 @@
   "search": {
     "placeholder": "Tafuta FLEX",
     "dialogTitle": "Utafutaji wa Kimataifa",
-    "dialogDescription": "Tafuta kurasa, vitendo, na vipengele katika FLEX",
-    "noResults": "Hakuna matokeo yaliyopatikana"
+    "dialogDescription": "Tafuta kurasa, vitendo na vipengele",
+    "noResults": "Hakuna matokeo",
+    "groups": {
+      "navigation": "Urambazaji",
+      "modules": "Moduli",
+      "actions": "Vitendo",
+      "records": "Rekodi"
+    },
+    "actions": {
+      "newCampaign": "Kampeni Mpya",
+      "newCampaignSubtitle": "Unda kampeni ya simu zinazotoka",
+      "manageQueues": "Simamia Foleni",
+      "manageQueuesSubtitle": "Mikakati ya foleni na malengo ya SLA",
+      "viewReports": "Angalia Ripoti",
+      "viewReportsSubtitle": "Injini ya ripoti na uchambuzi"
+    },
+    "pocRole": "Jukumu la POC:",
+    "pocAria": "Kibadili cha jukumu la POC",
+    "keyboard": "↑↓ sogeza · ↵ fungua · esc funga"
   },
   "domains": {
     "agent": "Wakala",

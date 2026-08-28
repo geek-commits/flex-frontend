@@ -51,10 +51,10 @@ export function ExternalWorkspaceHost({ title, configPath, className }: External
 
                 {status === 'configuration-missing' && (
                     <div role="alert" className="flex flex-1 flex-col items-center justify-center gap-3 p-6 text-center">
-                        <p className="text-sm font-medium text-flex-text-primary">{t('common:status.configurationMissing', 'Workspace configuration unavailable')}</p>
-                        <p className="max-w-md text-xs text-flex-text-muted">{configPath} not found. Call Manager remains available.</p>
+                        <p className="text-sm font-medium text-flex-text-primary">{t('common:status.configurationMissing')}</p>
+                        <p className="max-w-md text-xs text-flex-text-muted">{configPath} {t('common:status.configurationMissingDescription')}</p>
                         <Button onClick={retry} size="sm">
-                            {t('common:actions.retry', 'Retry')}
+                            {t('common:actions.retry')}
                         </Button>
                     </div>
                 )}

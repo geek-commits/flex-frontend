@@ -3,7 +3,24 @@
     "placeholder": "Rechercher dans FLEX",
     "dialogTitle": "Recherche globale",
     "dialogDescription": "Recherchez des pages, des actions et des fonctionnalités dans FLEX",
-    "noResults": "Aucun résultat trouvé"
+    "noResults": "Aucun résultat trouvé",
+    "groups": {
+      "navigation": "Navigation",
+      "modules": "Modules",
+      "actions": "Actions",
+      "records": "Enregistrements"
+    },
+    "actions": {
+      "newCampaign": "Nouvelle campagne",
+      "newCampaignSubtitle": "Créer une campagne d'appels sortants",
+      "manageQueues": "Gérer les files",
+      "manageQueuesSubtitle": "Stratégies de files et objectifs SLA",
+      "viewReports": "Voir les rapports",
+      "viewReportsSubtitle": "Moteur de rapports et analytique"
+    },
+    "pocRole": "Rôle POC :",
+    "pocAria": "Sélecteur de rôle POC",
+    "keyboard": "↑↓ naviguer · ↵ ouvrir · esc fermer"
   },
   "domains": {
     "agent": "Agent",

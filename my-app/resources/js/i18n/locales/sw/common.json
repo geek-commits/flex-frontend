@@ -12,9 +12,10 @@
     "apply": "Tumia",
     "reset": "Weka upya",
     "open": "Fungua",
+    "openExternally": "Fungua nje",
     "view": "Tazama",
     "retry": "Jaribu tena",
-    "refresh": "Onyesha upya",
+    "refresh": "Pakia upya",
     "back": "Nyuma",
     "next": "Mbele",
     "confirm": "Thibitisha",
@@ -22,6 +23,7 @@
   },
   "status": {
     "loading": "Inapakia...",
+    "reconnecting": "Inaunganisha tena...",
     "noResults": "Hakuna matokeo yaliyopatikana",
     "error": "Hitilafu",
     "success": "Imefanikiwa",
@@ -32,7 +34,11 @@
     "yes": "Ndiyo",
     "no": "Hapana",
     "all": "Yote",
-    "none": "Hakuna"
+    "none": "Hakuna",
+    "configurationMissing": "Usanidi wa nafasi ya kazi haupatikani",
+    "configurationMissingDescription": "haikupatikana. Kidhibiti Simu kinaendelea kupatikana.",
+    "unavailable": "Nafasi ya kazi haipatikani",
+    "unavailableDescription": "Nafasi ya kazi ya nje haipatikani. Simu na Kidhibiti Simu vinaendelea kufanya kazi."
   },
   "languages": {
     "language": "Lugha",

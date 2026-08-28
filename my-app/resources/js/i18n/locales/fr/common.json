@@ -12,9 +12,10 @@
     "apply": "Appliquer",
     "reset": "Réinitialiser",
     "open": "Ouvrir",
+    "openExternally": "Ouvrir à l'extérieur",
     "view": "Afficher",
     "retry": "Réessayer",
-    "refresh": "Actualiser",
+    "refresh": "Recharger",
     "back": "Retour",
     "next": "Suivant",
     "confirm": "Confirmer",
@@ -22,6 +23,7 @@
   },
   "status": {
     "loading": "Chargement...",
+    "reconnecting": "Reconnexion...",
     "noResults": "Aucun résultat trouvé",
     "error": "Erreur",
     "success": "Succès",
@@ -32,7 +34,11 @@
     "yes": "Oui",
     "no": "Non",
     "all": "Tous",
-    "none": "Aucun"
+    "none": "Aucun",
+    "configurationMissing": "Configuration de l'espace indisponible",
+    "configurationMissingDescription": "introuvable. Le gestionnaire d'appels reste disponible.",
+    "unavailable": "Espace indisponible",
+    "unavailableDescription": "L'espace externe est indisponible. La téléphonie et le gestionnaire d'appels restent actifs."
   },
   "languages": {
     "language": "Langue",

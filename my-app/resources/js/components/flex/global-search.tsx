@@ -116,11 +116,13 @@ function buildRecordIndex(): Omit<SearchRecord, 'group'>[] {
     return records;
 }
 
-const ACTION_INDEX: Omit<SearchRecord, 'group'>[] = [
-    { kind: 'action', title: 'New Campaign', subtitle: 'Create an outbound call campaign', href: '/admin/campaigns', icon: 'campaigns' },
-    { kind: 'action', title: 'Manage Queues', subtitle: 'Queue strategies & SLA targets', href: '/admin/settings/queues', icon: 'routes' },
-    { kind: 'action', title: 'View Reports', subtitle: 'Reports & analytics engine', href: '/admin/reports', icon: 'reports' },
-];
+function buildActionIndex(t: (k: string) => string): Omit<SearchRecord, 'group'>[] {
+    return [
+        { kind: 'action', title: t('search.actions.newCampaign'), subtitle: t('search.actions.newCampaignSubtitle'), href: '/admin/campaigns', icon: 'campaigns' },
+        { kind: 'action', title: t('search.actions.manageQueues'), subtitle: t('search.actions.manageQueuesSubtitle'), href: '/admin/settings/queues', icon: 'routes' },
+        { kind: 'action', title: t('search.actions.viewReports'), subtitle: t('search.actions.viewReportsSubtitle'), href: '/admin/reports', icon: 'reports' },
+    ];
+}
 
 export function GlobalSearchProvider({ children }: { children: React.ReactNode }) {
     const [open, setOpen] = useState(false);
@@ -218,10 +220,12 @@ return false;
         })
         .slice(0, 8);
 
+    const actionIndex = useMemo(() => buildActionIndex(t), [t]);
+
     const grouped = {
         navigation: visibleNavigation.map((entry) => ({
             ...entry,
-            group: 'Navigation',
+            group: t('search.groups.navigation'),
             kind: 'navigation' as const,
         })),
         modules: filteredModules.map((module) => ({
@@ -229,25 +233,27 @@ return false;
             title: module.title,
             subtitle: module.category,
             href: module.href,
-            group: 'Modules',
+            group: t('search.groups.modules'),
             icon: module.icon,
         })),
-        actions: ACTION_INDEX.filter((a) => {
-            if (a.href.startsWith('/admin/campaigns') && !has('campaigns.view')) {
+        actions: actionIndex
+            .filter((a) => {
+                if (a.href.startsWith('/admin/campaigns') && !has('campaigns.view')) {
 return false;
 }
 
-            if (a.href.startsWith('/admin/reports') && !has('reports.view')) {
+                if (a.href.startsWith('/admin/reports') && !has('reports.view')) {
 return false;
 }
 
-            if (a.href.startsWith('/admin/settings') && !has('settings.manage')) {
+                if (a.href.startsWith('/admin/settings') && !has('settings.manage')) {
 return false;
 }
 
-            return true;
-        }).map((a) => ({ ...a, group: 'Actions' })),
-        records: filteredRecords.filter((r) => r.kind === 'record').map((r) => ({ ...r, group: 'Records' })),
+                return true;
+            })
+            .map((a) => ({ ...a, group: t('search.groups.actions') })),
+        records: filteredRecords.filter((r) => r.kind === 'record').map((r) => ({ ...r, group: t('search.groups.records') })),
     };
 
     const run = (href: string) => {
@@ -263,7 +269,7 @@ return false;
                 <CommandEmpty>{t('search.noResults')} &quot;{query}&quot;.</CommandEmpty>
 
                 {grouped.navigation.length > 0 && (
-                    <CommandGroup heading="Navigation">
+                    <CommandGroup heading={t('search.groups.navigation')}>
                         {grouped.navigation.map((item) => {
                             return (
                                 <CommandItem key={item.href} value={`nav ${item.title}`} onSelect={() => run(item.href)}>
@@ -281,7 +287,7 @@ return false;
                 )}
 
                 {grouped.modules.length > 0 && (
-                    <CommandGroup heading="Modules">
+                    <CommandGroup heading={t('search.groups.modules')}>
                         {grouped.modules.map((item) => {
                             return (
                                 <CommandItem key={item.href} value={`module ${item.title}`} onSelect={() => run(item.href)}>
@@ -295,7 +301,7 @@ return false;
                 )}
 
                 {grouped.actions.length > 0 && (
-                    <CommandGroup heading="Actions">
+                    <CommandGroup heading={t('search.groups.actions')}>
                         {grouped.actions.map((item) => {
                             const Icon = item.icon;
 
@@ -310,7 +316,7 @@ return false;
                 )}
 
                 {grouped.records.length > 0 && (
-                    <CommandGroup heading="Records">
+                    <CommandGroup heading={t('search.groups.records')}>
                         {grouped.records.map((record, index) => {
                             const Icon = record.icon;
 
@@ -338,8 +344,8 @@ return false;
                 <div className="flex items-center justify-between px-3 py-2 text-[10px] text-muted-foreground">
                     <div className="flex items-center gap-1.5">
                         <RiAppsLine className="size-3" />
-                        <span>POC role:</span>
-                        <div className="flex items-center gap-0.5" role="group" aria-label="POC role switcher">
+                        <span>{t('search.pocRole')}</span>
+                        <div className="flex items-center gap-0.5" role="group" aria-label={t('search.pocAria')}>
                             {ROLE_OPTIONS.map((option) => (
                                 <button
                                     key={option.value}
@@ -364,7 +370,7 @@ return false;
                             ))}
                         </div>
                     </div>
-                    <span className="hidden sm:inline">↑↓ navigate · ↵ open · esc close</span>
+                    <span className="hidden sm:inline">{t('search.keyboard')}</span>
                 </div>
             </Command>
         </CommandDialog>

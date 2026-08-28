@@ -3,7 +3,24 @@
     "placeholder": "Search FLEX",
     "dialogTitle": "Global Search",
     "dialogDescription": "Search pages, actions, and features across FLEX",
-    "noResults": "No results found"
+    "noResults": "No results found",
+    "groups": {
+      "navigation": "Navigation",
+      "modules": "Modules",
+      "actions": "Actions",
+      "records": "Records"
+    },
+    "actions": {
+      "newCampaign": "New Campaign",
+      "newCampaignSubtitle": "Create an outbound call campaign",
+      "manageQueues": "Manage Queues",
+      "manageQueuesSubtitle": "Queue strategies & SLA targets",
+      "viewReports": "View Reports",
+      "viewReportsSubtitle": "Reports & analytics engine"
+    },
+    "pocRole": "POC role:",
+    "pocAria": "POC role switcher",
+    "keyboard": "↑↓ navigate · ↵ open · esc close"
   },
   "domains": {
     "agent": "Agent",

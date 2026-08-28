@@ -12,9 +12,10 @@
     "apply": "Apply",
     "reset": "Reset",
     "open": "Open",
+    "openExternally": "Open externally",
     "view": "View",
     "retry": "Retry",
-    "refresh": "Refresh",
+    "refresh": "Reload",
     "back": "Back",
     "next": "Next",
     "confirm": "Confirm",
@@ -22,6 +23,7 @@
   },
   "status": {
     "loading": "Loading...",
+    "reconnecting": "Reconnecting workspace...",
     "noResults": "No results found",
     "error": "Error",
     "success": "Success",
@@ -32,7 +34,11 @@
     "yes": "Yes",
     "no": "No",
     "all": "All",
-    "none": "None"
+    "none": "None",
+    "configurationMissing": "Workspace configuration unavailable",
+    "configurationMissingDescription": "not found. Call Manager remains available.",
+    "unavailable": "Workspace unavailable",
+    "unavailableDescription": "External workspace is unavailable. Telephony and Call Manager keep working independently."
   },
   "languages": {
     "language": "Language",
