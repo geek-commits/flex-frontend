@@ -19,14 +19,16 @@ export interface CampaignRowHandlers {
     statusBusyId?: string;
 }
 
-export function campaignColumns(handlers: CampaignRowHandlers): ColumnDef<DataGridFeatures, CampaignRecord>[] {
+type TFunction = (key: string, options?: Record<string, unknown>) => string;
+
+export function campaignColumns(t: TFunction, handlers: CampaignRowHandlers): ColumnDef<DataGridFeatures, CampaignRecord>[] {
     const { onView, onEdit, onToggleStatus, onDelete, statusBusyId } = handlers;
 
     return [
         {
             accessorKey: 'title',
             id: 'campaign',
-            header: ({ column }) => <DataGridColumnHeader title="Campaign" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('campaigns.columns.campaign')} column={column} />,
             cell: ({ row, table }) => {
                 const queryText = (table.options.meta as { search?: string } | undefined)?.search ?? '';
 
@@ -48,7 +50,7 @@ export function campaignColumns(handlers: CampaignRowHandlers): ColumnDef<DataGr
         {
             accessorKey: 'scheduleTime',
             id: 'schedule',
-            header: ({ column }) => <DataGridColumnHeader title="Schedule" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('campaigns.columns.schedule')} column={column} />,
             cell: ({ getValue }) => <span className="font-mono text-flex-text-muted">{getValue() as string}</span>,
             size: 150,
             enableSorting: true,
@@ -57,7 +59,7 @@ export function campaignColumns(handlers: CampaignRowHandlers): ColumnDef<DataGr
         {
             accessorKey: 'totalContacts',
             id: 'progress',
-            header: ({ column }) => <DataGridColumnHeader title="Progress" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('campaigns.columns.progress')} column={column} />,
             cell: ({ row }) => (
                 <CampaignProgress completed={row.original.dialedCount} total={row.original.totalContacts} />
             ),
@@ -68,7 +70,7 @@ export function campaignColumns(handlers: CampaignRowHandlers): ColumnDef<DataGr
         {
             accessorKey: 'answeredCount',
             id: 'answerRate',
-            header: ({ column }) => <DataGridColumnHeader title="Answer Rate" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('campaigns.columns.answerRate')} column={column} />,
             cell: ({ row }) => {
                 const tone = answerRateTone(row.original.answeredCount, row.original.dialedCount, row.original.status);
 
@@ -81,10 +83,10 @@ export function campaignColumns(handlers: CampaignRowHandlers): ColumnDef<DataGr
         {
             accessorKey: 'status',
             id: 'status',
-            header: ({ column }) => <DataGridColumnHeader title="Status" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('campaigns.columns.status')} column={column} />,
             cell: ({ row }) => (
                 <FlexStatus tone={CAMPAIGN_STATUS_TONE[row.original.status]} className="capitalize">
-                    {row.original.status}
+                    {t(`campaigns.status.${row.original.status}`)}
                 </FlexStatus>
             ),
             size: 120,
@@ -93,13 +95,13 @@ export function campaignColumns(handlers: CampaignRowHandlers): ColumnDef<DataGr
         },
         {
             id: 'actions',
-            header: 'Actions',
+            header: t('campaigns.columns.actions'),
             cell: ({ row }) => (
                 <div className="flex items-center gap-1">
                     <Button
                         variant="ghost"
                         size="icon-xs"
-                        title="View campaign"
+                        title={t('campaigns.actions.view')}
                         onClick={(e) => {
                             e.stopPropagation();
                             onView(row.original);
@@ -110,7 +112,7 @@ export function campaignColumns(handlers: CampaignRowHandlers): ColumnDef<DataGr
                     <Button
                         variant="ghost"
                         size="icon-xs"
-                        title="Edit campaign"
+                        title={t('campaigns.actions.edit')}
                         onClick={(e) => {
                             e.stopPropagation();
                             onEdit(row.original);
@@ -122,7 +124,7 @@ export function campaignColumns(handlers: CampaignRowHandlers): ColumnDef<DataGr
                         <Button
                             variant="ghost"
                             size="icon-xs"
-                            title={row.original.status === 'active' ? 'Pause campaign' : 'Start campaign'}
+                            title={row.original.status === 'active' ? t('campaigns.actions.pause') : t('campaigns.actions.start')}
                             disabled={statusBusyId === row.original.id}
                             onClick={(e) => {
                                 e.stopPropagation();
@@ -139,7 +141,7 @@ export function campaignColumns(handlers: CampaignRowHandlers): ColumnDef<DataGr
                     <Button
                         variant="ghost"
                         size="icon-xs"
-                        title="Delete campaign"
+                        title={t('campaigns.actions.delete')}
                         className="text-destructive hover:text-destructive/80"
                         onClick={(e) => {
                             e.stopPropagation();

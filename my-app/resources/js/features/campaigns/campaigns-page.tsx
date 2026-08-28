@@ -3,6 +3,7 @@ import { RiRefreshLine } from '@remixicon/react';
 import type { PaginationState, SortingState } from '@tanstack/react-table';
 import { useTable } from '@tanstack/react-table';
 import React, { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexErrorState } from '@/components/flex/flex-error-state';
@@ -25,6 +26,7 @@ import type { CampaignStatus } from '@/types/flex';
 
 
 export function CampaignsPage() {
+    const { t } = useTranslation('supervision');
     const [search, setSearch] = useState('');
     const [statusFilter, setStatusFilter] = useState<CampaignStatusFilter>('all');
     const [records, setRecords] = useState<CampaignRecord[]>(() => campaignRepository.query({}));
@@ -48,12 +50,12 @@ export function CampaignsPage() {
             try {
                 setRecords(campaignRepository.query({}));
             } catch {
-                setError('Campaign data could not be retrieved.');
+                setError(t('campaigns.error.generic'));
             }
 
             setIsLoading(false);
         }, 350);
-    }, []);
+    }, [t]);
 
     const filteredData = useMemo(() => {
         const needle = search.trim().toLowerCase();
@@ -103,10 +105,10 @@ export function CampaignsPage() {
                 });
                 setStatusBusyId(undefined);
                 refresh();
-                toast.success(nextStatus === 'active' ? 'Campaign started' : 'Campaign paused');
+                toast.success(nextStatus === 'active' ? t('campaigns.toast.started') : t('campaigns.toast.paused'));
             }, 250);
         },
-        [refresh, statusBusyId]
+        [refresh, statusBusyId, t]
     );
 
     const openDetail = useCallback((record: CampaignRecord) => {
@@ -115,14 +117,14 @@ export function CampaignsPage() {
 
     const columns = useMemo(
         () =>
-            campaignColumns({
+            campaignColumns(t, {
                 onView: openDetail,
                 onEdit: openEdit,
                 onToggleStatus: toggleStatus,
                 onDelete: openDelete,
                 statusBusyId,
             }),
-        [openDetail, openEdit, toggleStatus, openDelete, statusBusyId]
+        [t, openDetail, openEdit, toggleStatus, openDelete, statusBusyId]
     );
 
     const [columnOrder, setColumnOrder] = useState<string[]>(() => columns.map((column) => column.id as string));
@@ -157,9 +159,9 @@ export function CampaignsPage() {
         setTimeout(() => {
             try {
                 campaignRepository.delete(deleteTarget.id);
-                toast.success('Campaign deleted');
+                toast.success(t('campaigns.toast.deleted'));
             } catch {
-                toast.error('Campaign could not be deleted');
+                toast.error(t('campaigns.toast.deleteFailed'));
             }
 
             setDeleting(false);
@@ -170,23 +172,23 @@ export function CampaignsPage() {
 
     return (
         <AdminShell
-            title="Call Campaigns"
-            subtitle="Manage outbound dialer & automated campaign schedules"
+            title={t('campaigns.titleLong')}
+            subtitle={t('campaigns.subtitle')}
             
         >
-            <Head title="Call Campaigns — Flex Contact Center" />
+            <Head title={t('campaigns.headTitle')} />
 
             <div className="flex flex-col gap-[var(--flex-space-section)] w-full">
                 <CampaignSummary records={records} loading={isLoading} />
 
                 {error ? (
                     <FlexErrorState
-                        title="Couldn't load campaigns"
+                        title={t('campaigns.error.title')}
                         description={error}
                         action={
                             <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={refresh}>
                                 <RiRefreshLine className="size-3.5" />
-                                Try again
+                                {t('campaigns.error.retry')}
                             </Button>
                         }
                     />
@@ -221,21 +223,21 @@ export function CampaignsPage() {
                             onRowClick={openDetail}
                             emptyMessage={
                                 <FlexEmptyState
-                                    title={records.length === 0 ? 'No campaigns yet' : 'No campaigns match these filters'}
+                                    title={records.length === 0 ? t('campaigns.empty.noCampaigns') : t('campaigns.empty.noMatch')}
                                     description={
                                         records.length === 0
-                                            ? 'Create your first outbound campaign to get started.'
-                                            : 'Try changing your search or filters.'
+                                            ? t('campaigns.empty.noCampaignsDescription')
+                                            : t('campaigns.empty.noMatchDescription')
                                     }
                                     illustration={records.length === 0 ? 'empty-campaigns' : undefined}
                                     action={
                                         records.length === 0 ? (
                                             <Button variant="outline" size="sm" className="text-xs" onClick={openAdd}>
-                                                New Campaign
+                                                {t('campaigns.empty.newCampaign')}
                                             </Button>
                                         ) : (
                                             <Button variant="outline" size="sm" className="text-xs" onClick={clearAll}>
-                                                Clear filters
+                                                {t('campaigns.empty.clearFilters')}
                                             </Button>
                                         )
                                     }
@@ -246,7 +248,7 @@ export function CampaignsPage() {
                 )}
 
                 <p className="text-[10px] text-flex-text-muted">
-                    POC mock adapter — `CampaignRepository` boundary; replace with the real campaigns backend in rollout.
+                    {t('campaigns.footerHint')}
                 </p>
             </div>
 
@@ -270,15 +272,15 @@ export function CampaignsPage() {
             <AlertDialog open={!!deleteTarget} onOpenChange={(open) => !open && setDeleteTarget(undefined)}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Delete campaign</AlertDialogTitle>
+                        <AlertDialogTitle>{t('campaigns.deleteDialog.title')}</AlertDialogTitle>
                         <AlertDialogDescription>
-                            Delete &quot;{deleteTarget?.title}&quot;? This action cannot be undone.
+                            {t('campaigns.deleteDialog.description', { title: deleteTarget?.title })}
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel disabled={deleting}>Cancel</AlertDialogCancel>
+                        <AlertDialogCancel disabled={deleting}>{t('campaigns.deleteDialog.cancel')}</AlertDialogCancel>
                         <AlertDialogAction variant="destructive" onClick={handleDelete} disabled={deleting}>
-                            {deleting ? 'Deleting…' : 'Delete campaign'}
+                            {deleting ? t('campaigns.deleteDialog.deleting') : t('campaigns.deleteDialog.delete')}
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>

@@ -3,6 +3,7 @@ import { RiRefreshLine } from '@remixicon/react';
 import type { PaginationState, SortingState } from '@tanstack/react-table';
 import { useTable } from '@tanstack/react-table';
 import React, { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexErrorState } from '@/components/flex/flex-error-state';
 import { FlexWorkbenchShell } from '@/components/flex/flex-workbench-shell';
@@ -23,6 +24,7 @@ import { AdminShell } from '@/layouts/admin-shell';
 
 
 export function UsersPage() {
+    const { t } = useTranslation('administration');
     const [search, setSearch] = useState('');
     const [statusFilter, setStatusFilter] = useState<UserStatusFilter>('all');
     const [roleFilter, setRoleFilter] = useState<UserRoleFilter>('all');
@@ -45,12 +47,12 @@ export function UsersPage() {
             try {
                 setRecords(accessRepository.queryUsers({}));
             } catch {
-                setError('User data could not be retrieved.');
+                setError(t('users.error.generic'));
             }
 
             setIsLoading(false);
         }, 350);
-    }, []);
+    }, [t]);
 
     const filteredData = useMemo(() => {
         const needle = search.trim().toLowerCase();
@@ -90,11 +92,11 @@ export function UsersPage() {
 
     const columns = useMemo(
         () =>
-            userColumns({
+            userColumns(t, {
                 onView: openDetail,
                 onEdit: openEdit,
             }),
-        [openDetail, openEdit]
+        [t, openDetail, openEdit]
     );
 
     const [columnOrder, setColumnOrder] = useState<string[]>(() => columns.map((column) => column.id as string));
@@ -129,21 +131,21 @@ export function UsersPage() {
 
     return (
         <AdminShell
-            title="Users"
-            subtitle="Manage user accounts and access."
+            title={t('users.title')}
+            subtitle={t('users.subtitle')}
             
         >
-            <Head title="Users — Flex Contact Center" />
+            <Head title={t('users.headTitle')} />
 
             <div className="flex flex-col gap-[var(--flex-space-section)] w-full">
                 {error ? (
                     <FlexErrorState
-                        title="Couldn't load users"
+                        title={t('users.error.title')}
                         description={error}
                         action={
                             <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={refresh}>
                                 <RiRefreshLine className="size-3.5" />
-                                Try again
+                                {t('users.error.retry')}
                             </Button>
                         }
                     />
@@ -183,20 +185,20 @@ export function UsersPage() {
                             onRowClick={openDetail}
                             emptyMessage={
                                 <FlexEmptyState
-                                    title={records.length === 0 ? 'No users yet' : 'No users match these filters'}
+                                    title={records.length === 0 ? t('users.empty.noUsers') : t('users.empty.noMatch')}
                                     description={
                                         records.length === 0
-                                            ? 'Add your first user account to get started.'
-                                            : 'Try changing your search or filters.'
+                                            ? t('users.empty.noUsersDescription')
+                                            : t('users.empty.noMatchDescription')
                                     }
                                     action={
                                         records.length === 0 ? (
                                             <Button variant="outline" size="sm" className="text-xs" onClick={() => setFormOpen(true)}>
-                                                Add User
+                                                {t('users.empty.addUser')}
                                             </Button>
                                         ) : (
                                             <Button variant="outline" size="sm" className="text-xs" onClick={clearAll}>
-                                                Clear filters
+                                                {t('users.empty.clearFilters')}
                                             </Button>
                                         )
                                     }
@@ -207,7 +209,7 @@ export function UsersPage() {
                 )}
 
                 <p className="text-[10px] text-flex-text-muted">
-                    POC mock adapter — `AccessRepository` boundary; replace with the real users backend in rollout.
+                    {t('users.footerHint')}
                 </p>
             </div>
 

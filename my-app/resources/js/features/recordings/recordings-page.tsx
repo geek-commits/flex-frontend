@@ -2,6 +2,7 @@ import { Head } from '@inertiajs/react';
 import type { ColumnDef, PaginationState, SortingState } from '@tanstack/react-table';
 import { useTable } from '@tanstack/react-table';
 import React, { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { FlexWorkbenchShell } from '@/components/flex/flex-workbench-shell';
 import { FlexMetricItem } from '@/components/flex/metrics/flex-metric-item';
@@ -30,6 +31,7 @@ function formatBytes(bytes: number): string {
 }
 
 export function RecordingsPage() {
+    const { t } = useTranslation('administration');
     const {
         records,
         summary,
@@ -130,12 +132,12 @@ export function RecordingsPage() {
         const res = remove(record.id, force);
 
         if (!res.ok) {
-            toast.error(res.reason ?? 'Failed to delete recording');
+            toast.error(res.reason ?? t('recordings.toast.deleteFailed'));
 
             return;
         }
 
-        toast.success(`Deleted "${record.name}"`);
+        toast.success(t('recordings.toast.deleted', { name: record.name }));
         setDeleteOpen(false);
 
         if (selectedRecord?.id === record.id) {
@@ -149,13 +151,13 @@ export function RecordingsPage() {
 
     const columns = useMemo<ColumnDef<DataGridFeatures, RecordingRecord>[]>(
         () =>
-            buildRecordingsColumns({
+            buildRecordingsColumns(t, {
                 onRowClick: handleRowClick,
                 onEdit: handleEdit,
                 onReplace: handleReplace,
                 onDelete: handleDeleteClick,
             }),
-        [handleRowClick, handleEdit, handleReplace, handleDeleteClick]
+        [t, handleRowClick, handleEdit, handleReplace, handleDeleteClick]
     );
 
     const [columnOrder, setColumnOrder] = useState<string[]>(() => columns.map((column) => column.id as string));
@@ -174,27 +176,23 @@ export function RecordingsPage() {
 
     return (
         <AdminShell
-            title="Call Recordings & Audio Prompts"
-            subtitle="Manage system audio files, greetings, hold music, and IVR prompts."
+            title={t('recordings.title')}
+            subtitle={t('recordings.subtitle')}
         >
-            <Head title="Call Recordings & Audio Prompts — Flex Contact Center" />
+            <Head title={t('recordings.headTitle')} />
 
             <div className="flex flex-col gap-[var(--flex-space-section)] w-full">
                 {/* Metric Summary Strip */}
                 <FlexMetricStrip>
-                    <FlexMetricItem label="Total Audio Assets" value={summary.totalRecordings} />
-                    <FlexMetricItem label="Storage Used" value={formatBytes(summary.totalFileSizeBytes)} />
-                    <FlexMetricItem label="IVR Prompts" value={summary.ivrPromptsCount} />
-                    <FlexMetricItem label="Queue Audio" value={summary.queueAudioCount} />
+                    <FlexMetricItem label={t('recordings.metrics.totalAssets')} value={summary.totalRecordings} />
+                    <FlexMetricItem label={t('recordings.metrics.storageUsed')} value={formatBytes(summary.totalFileSizeBytes)} />
+                    <FlexMetricItem label={t('recordings.metrics.ivrPrompts')} value={summary.ivrPromptsCount} />
+                    <FlexMetricItem label={t('recordings.metrics.queueAudio')} value={summary.queueAudioCount} />
                 </FlexMetricStrip>
 
                 <div className="flex items-center justify-between text-xs text-flex-text-muted">
-                    <span>
-                        Showing <span className="font-semibold text-flex-text-primary">{records.length}</span> audio {records.length === 1 ? 'file' : 'files'}
-                    </span>
-                    <span>
-                        Updated {lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                    </span>
+                    <span>{t('recordings.showing', { count: records.length })}</span>
+                    <span>{t('recordings.updated', { time: lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) })}</span>
                 </div>
 
                 {/* Toolbar + Main Table */}

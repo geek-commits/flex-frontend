@@ -86,24 +86,129 @@
   "monitoring": "Surveillance des agents",
   "cdr": {
     "title": "Historique des appels",
+    "titleLong": "Historique des appels (CDR)",
+    "subtitle": "Recherchez, filtrez et inspectez les journaux téléphoniques",
+    "headTitle": "CDR — Flex Contact Center",
     "columns": {
       "direction": "Direction",
       "duration": "Durée",
       "queue": "File",
       "agent": "Agent",
-      "outcome": "Résultat"
+      "outcome": "Résultat",
+      "dateTime": "Date et heure",
+      "customer": "Client",
+      "status": "Statut",
+      "recording": "Enregistrement",
+      "actions": "Actions"
     },
     "filters": "Filtres",
-    "noRecords": "Aucun enregistrement"
+    "noRecords": "Aucun enregistrement",
+    "error": {
+      "title": "Impossible de charger les enregistrements d'appels",
+      "retry": "Réessayer",
+      "generic": "Le service d'enregistrements d'appels n'a pas répondu."
+    },
+    "empty": {
+      "title": "Aucun enregistrement d'appel trouvé",
+      "description": "Essayez de modifier vos filtres ou la période.",
+      "action": "Effacer les filtres"
+    },
+    "footerHint": "Adaptateur POC (jeu de données {{date}}) — limite `CdrRepository` ; remplacer par le backend CDR lors du déploiement.",
+    "recording": {
+      "noRecording": "Pas d'enregistrement",
+      "listen": "Écouter l'enregistrement audio"
+    },
+    "actions": {
+      "view": "Voir l'enregistrement d'appel"
+    },
+    "toolbar": {
+      "quickFiltersLabel": "Filtres rapides",
+      "filters": "Filtres",
+      "clear": "Effacer",
+      "columns": "Colonnes",
+      "refresh": "Actualiser",
+      "searchPlaceholder": "Rechercher par téléphone, agent, file...",
+      "searchAriaLabel": "Rechercher des appels",
+      "filterQueue": "File",
+      "filterAgent": "Agent",
+      "filterAgentPlaceholder": "Rechercher un agent..."
+    },
+    "quickFilters": {
+      "all": "Tous",
+      "today": "Aujourd'hui",
+      "answered": "Répondus",
+      "missed": "Manqués",
+      "voicemail": "Messagerie",
+      "transferred": "Transférés"
+    }
   },
   "campaigns": {
     "title": "Campagnes",
+    "titleLong": "Campagnes d'appels",
+    "subtitle": "Gérez la numérotation automatique et la planification des campagnes",
+    "headTitle": "Campagnes d'appels — Flex Contact Center",
     "status": {
       "active": "Active",
       "paused": "En pause",
-      "completed": "Terminée"
+      "completed": "Terminée",
+      "draft": "Brouillon",
+      "scheduled": "Planifiée"
     },
-    "actions": "Actions"
+    "columns": {
+      "campaign": "Campagne",
+      "schedule": "Planification",
+      "progress": "Progression",
+      "answerRate": "Taux de réponse",
+      "status": "Statut",
+      "actions": "Actions"
+    },
+    "toolbar": {
+      "filterLabel": "Filtrer par statut",
+      "searchPlaceholder": "Rechercher par titre ou destination...",
+      "searchAriaLabel": "Rechercher des campagnes",
+      "columns": "Colonnes",
+      "refresh": "Actualiser",
+      "newCampaign": "Nouvelle campagne",
+      "clear": "Effacer"
+    },
+    "filters": {
+      "all": "Tous"
+    },
+    "actions": {
+      "view": "Voir la campagne",
+      "edit": "Modifier la campagne",
+      "pause": "Mettre en pause",
+      "start": "Démarrer la campagne",
+      "delete": "Supprimer la campagne",
+      "actions": "Actions"
+    },
+    "error": {
+      "title": "Impossible de charger les campagnes",
+      "retry": "Réessayer",
+      "generic": "Les données des campagnes n'ont pas pu être récupérées."
+    },
+    "empty": {
+      "noCampaigns": "Aucune campagne pour l'instant",
+      "noMatch": "Aucune campagne ne correspond à ces filtres",
+      "noCampaignsDescription": "Créez votre première campagne sortante pour commencer.",
+      "noMatchDescription": "Essayez de modifier votre recherche ou vos filtres.",
+      "newCampaign": "Nouvelle campagne",
+      "clearFilters": "Effacer les filtres"
+    },
+    "deleteDialog": {
+      "title": "Supprimer la campagne",
+      "description": "Supprimer \"{{title}}\" ? Cette action est irréversible.",
+      "cancel": "Annuler",
+      "delete": "Supprimer la campagne",
+      "deleting": "Suppression…"
+    },
+    "toast": {
+      "started": "Campagne démarrée",
+      "paused": "Campagne mise en pause",
+      "deleted": "Campagne supprimée",
+      "deleteFailed": "La campagne n'a pas pu être supprimée"
+    },
+    "footerHint": "Adaptateur POC — limite `CampaignRepository` ; remplacer par le backend réel des campagnes lors du déploiement."
   },
   "reports": {
     "title": "Rapports",

@@ -1,12 +1,179 @@
 {
   "console": "Management Console",
-  "users": "Users",
+  "users": {
+    "title": "Users",
+    "subtitle": "Manage user accounts and access.",
+    "headTitle": "Users — Flex Contact Center",
+    "error": {
+      "title": "Couldn't load users",
+      "retry": "Try again",
+      "generic": "User data could not be retrieved."
+    },
+    "empty": {
+      "noUsers": "No users yet",
+      "noMatch": "No users match these filters",
+      "noUsersDescription": "Add your first user account to get started.",
+      "noMatchDescription": "Try changing your search or filters.",
+      "addUser": "Add User",
+      "clearFilters": "Clear filters"
+    },
+    "footerHint": "POC mock adapter — `AccessRepository` boundary; replace with the real users backend in rollout.",
+    "columns": {
+      "user": "User",
+      "username": "Username",
+      "role": "Role",
+      "organization": "Organization",
+      "status": "Status",
+      "lastActivity": "Last Activity",
+      "actions": "Actions"
+    },
+    "toolbar": {
+      "filterStatusLabel": "Filter by status",
+      "filterRoleLabel": "Filter by role",
+      "searchPlaceholder": "Search users by name, email, or username...",
+      "searchAriaLabel": "Search users",
+      "columns": "Columns",
+      "refresh": "Refresh",
+      "addUser": "Add User",
+      "clear": "Clear",
+      "all": "All",
+      "allRoles": "All roles"
+    },
+    "actions": {
+      "view": "View user",
+      "edit": "Edit user"
+    },
+    "status": {
+      "active": "active",
+      "inactive": "inactive",
+      "deleted": "deleted"
+    }
+  },
   "roles": "Roles & Permissions",
-  "queues": "Queues",
+  "queues": {
+    "label": "Queues",
+    "title": "Queues",
+    "subtitle": "Configure call distribution and queue members.",
+    "headTitle": "Queues — Flex Contact Center",
+    "toolbar": {
+      "searchPlaceholder": "Search queues...",
+      "searchAriaLabel": "Search queues",
+      "strategyLabel": "Strategy",
+      "allStrategies": "All strategies",
+      "strategies": {
+        "ring-all": "Ring All",
+        "least-recent": "Least Recent",
+        "fewest-calls": "Fewest Calls",
+        "random": "Random"
+      }
+    },
+    "error": {
+      "title": "Couldn't load queues",
+      "retry": "Try Again",
+      "generic": "Queue data could not be retrieved."
+    },
+    "empty": {
+      "noQueuesTitle": "No queues configured",
+      "noQueuesDescription": "Create a queue to define call distribution.",
+      "noMatchTitle": "No queues match these filters",
+      "noMatchDescription": "Try changing your search or filters.",
+      "addQueue": "Add Queue",
+      "clearFilters": "Clear filters"
+    },
+    "footerHint": "POC mock adapter — `RoutingRepository` boundary; replace with the real routing backend in rollout.",
+    "actions": {
+      "addQueue": "Add Queue"
+    },
+    "columns": {
+      "queue": "Queue",
+      "extension": "Extension",
+      "strategy": "Strategy",
+      "members": "Members",
+      "ringTimeout": "Ring Timeout",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "table": {
+      "view": "View",
+      "members": "Members",
+      "edit": "Edit",
+      "viewAria": "View {{name}}",
+      "membersAria": "Members of {{name}}",
+      "editAria": "Edit {{name}}"
+    }
+  },
   "ivr": "IVR",
   "timeGroups": "Time Groups",
   "timeConditions": "Time Conditions",
-  "recordings": "Recordings",
+  "recordings": {
+    "label": "Recordings",
+    "title": "Call Recordings & Audio Prompts",
+    "subtitle": "Manage system audio files, greetings, hold music, and IVR prompts.",
+    "headTitle": "Call Recordings & Audio Prompts — Flex Contact Center",
+    "metrics": {
+      "totalAssets": "Total Audio Assets",
+      "storageUsed": "Storage Used",
+      "ivrPrompts": "IVR Prompts",
+      "queueAudio": "Queue Audio"
+    },
+    "showing_one": "Showing {{count}} audio file",
+    "showing_other": "Showing {{count}} audio files",
+    "updated": "Updated {{time}}",
+    "toast": {
+      "deleteFailed": "Failed to delete recording",
+      "deleted": "Deleted \"{{name}}\""
+    },
+    "empty": {
+      "title": "No audio recordings found",
+      "description": "Upload audio prompts or adjust your filters to view recordings."
+    },
+    "columns": {
+      "titleFile": "Title & File",
+      "category": "Category",
+      "duration": "Duration",
+      "formatSize": "Format & Size",
+      "usedIn": "Used In",
+      "modified": "Modified",
+      "unassigned": "Unassigned",
+      "target_one": "{{count}} target",
+      "target_other": "{{count}} targets",
+      "categories": {
+        "ivr-prompt": "IVR Prompt",
+        "queue-announcement": "Queue Audio",
+        "voicemail-greeting": "Voicemail",
+        "hold-music": "Hold Music",
+        "system-announcement": "System Notice"
+      }
+    },
+    "actions": {
+      "inspect": "Inspect recording",
+      "edit": "Edit details",
+      "replace": "Replace audio file",
+      "delete": "Delete recording",
+      "inspectAria": "Inspect {{name}}",
+      "editAria": "Edit {{name}}",
+      "replaceAria": "Replace audio for {{name}}",
+      "deleteAria": "Delete {{name}}"
+    },
+    "toolbar": {
+      "categoryLabel": "Category",
+      "formatLabel": "Format",
+      "allCategories": "All Categories",
+      "categories": {
+        "ivr-prompt": "IVR Prompts",
+        "queue-announcement": "Queue Announcements",
+        "voicemail-greeting": "Voicemail Greetings",
+        "hold-music": "Hold Music",
+        "system-announcement": "System Notices"
+      },
+      "allFormats": "All Formats",
+      "clearFilters": "Clear filters",
+      "searchPlaceholder": "Search audio titles, files...",
+      "searchAriaLabel": "Search recordings",
+      "columns": "Columns",
+      "uploadRecording": "Upload Recording"
+    }
+  },
   "mail": "Mail",
   "subscriptions": "Subscriptions",
   "system": "System",

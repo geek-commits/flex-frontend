@@ -5,5 +5,59 @@
     "active": "Active",
     "inactive": "Inactive"
   },
-  "health": "System Health"
+  "health": "System Health",
+  "tenants": {
+    "title": "Tenants",
+    "subtitle": "Manage tenant organizations and their status.",
+    "headTitle": "Tenants — Flex Contact Center",
+    "error": {
+      "title": "Couldn't load tenants",
+      "retry": "Try again",
+      "generic": "Tenant data could not be retrieved."
+    },
+    "empty": {
+      "noTenants": "No tenants yet",
+      "noMatch": "No tenants match these filters",
+      "noTenantsDescription": "Add your first tenant organization to get started.",
+      "noMatchDescription": "Try changing your search or filters.",
+      "addTenant": "Add Tenant",
+      "clearFilters": "Clear filters"
+    },
+    "footerHint": "POC mock adapter — `TenantRepository` boundary; replace with the real tenants backend in rollout.",
+    "columns": {
+      "tenant": "Tenant",
+      "contact": "Contact",
+      "phone": "Phone",
+      "status": "Status",
+      "created": "Created",
+      "actions": "Actions"
+    },
+    "toolbar": {
+      "filterLabel": "Filter by status",
+      "searchPlaceholder": "Search tenants by name, domain, or contact...",
+      "searchAriaLabel": "Search tenants",
+      "columns": "Columns",
+      "refresh": "Refresh",
+      "addTenant": "Add Tenant",
+      "clear": "Clear"
+    },
+    "filters": {
+      "all": "All",
+      "active": "Active",
+      "disabled": "Disabled"
+    },
+    "actions": {
+      "view": "View tenant",
+      "tenantActions": "Tenant actions",
+      "actionsFor": "Actions for {{name}}",
+      "edit": "Edit tenant",
+      "enter": "Enter tenant",
+      "disable": "Disable tenant",
+      "enable": "Enable tenant"
+    },
+    "status": {
+      "active": "Active",
+      "disabled": "Disabled"
+    }
+  }
 }

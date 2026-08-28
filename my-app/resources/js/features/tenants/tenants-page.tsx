@@ -3,6 +3,7 @@ import { RiRefreshLine } from '@remixicon/react';
 import type { PaginationState, SortingState } from '@tanstack/react-table';
 import { useTable } from '@tanstack/react-table';
 import React, { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexErrorState } from '@/components/flex/flex-error-state';
 import { FlexWorkbenchShell } from '@/components/flex/flex-workbench-shell';
@@ -22,6 +23,7 @@ import { AdminShell } from '@/layouts/admin-shell';
 
 
 export function TenantsPage() {
+    const { t } = useTranslation('platform');
     const [search, setSearch] = useState('');
     const [statusFilter, setStatusFilter] = useState<TenantStatusFilter>('all');
     const [records, setRecords] = useState<TenantRecord[]>(() => tenantRepository.queryTenants({}));
@@ -44,12 +46,12 @@ export function TenantsPage() {
             try {
                 setRecords(tenantRepository.queryTenants({}));
             } catch {
-                setError('Tenant data could not be retrieved.');
+                setError(t('tenants.error.generic'));
             }
 
             setIsLoading(false);
         }, 350);
-    }, []);
+    }, [t]);
 
     const filteredData = useMemo(() => {
         const needle = search.trim().toLowerCase();
@@ -90,13 +92,13 @@ export function TenantsPage() {
 
     const columns = useMemo(
         () =>
-            tenantColumns({
+            tenantColumns(t, {
                 onView: openDetail,
                 onEdit: openEdit,
                 onEnter: openEnter,
                 onSetStatus: openSetStatus,
             }),
-        [openDetail, openEdit, openEnter, openSetStatus]
+        [t, openDetail, openEdit, openEnter, openSetStatus]
     );
 
     const [columnOrder, setColumnOrder] = useState<string[]>(() => columns.map((column) => column.id as string));
@@ -135,21 +137,21 @@ export function TenantsPage() {
 
     return (
         <AdminShell
-            title="Tenants"
-            subtitle="Manage tenant organizations and their status."
+            title={t('tenants.title')}
+            subtitle={t('tenants.subtitle')}
             
         >
-            <Head title="Tenants — Flex Contact Center" />
+            <Head title={t('tenants.headTitle')} />
 
             <div className="flex flex-col gap-[var(--flex-space-section)] w-full">
                 {error ? (
                     <FlexErrorState
-                        title="Couldn't load tenants"
+                        title={t('tenants.error.title')}
                         description={error}
                         action={
                             <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={refresh}>
                                 <RiRefreshLine className="size-3.5" />
-                                Try again
+                                {t('tenants.error.retry')}
                             </Button>
                         }
                     />
@@ -184,20 +186,20 @@ export function TenantsPage() {
                             onRowClick={openDetail}
                             emptyMessage={
                                 <FlexEmptyState
-                                    title={records.length === 0 ? 'No tenants yet' : 'No tenants match these filters'}
+                                    title={records.length === 0 ? t('tenants.empty.noTenants') : t('tenants.empty.noMatch')}
                                     description={
                                         records.length === 0
-                                            ? 'Add your first tenant organization to get started.'
-                                            : 'Try changing your search or filters.'
+                                            ? t('tenants.empty.noTenantsDescription')
+                                            : t('tenants.empty.noMatchDescription')
                                     }
                                     action={
                                         records.length === 0 ? (
                                             <Button variant="outline" size="sm" className="text-xs" onClick={() => setFormOpen(true)}>
-                                                Add Tenant
+                                                {t('tenants.empty.addTenant')}
                                             </Button>
                                         ) : (
                                             <Button variant="outline" size="sm" className="text-xs" onClick={clearAll}>
-                                                Clear filters
+                                                {t('tenants.empty.clearFilters')}
                                             </Button>
                                         )
                                     }
@@ -208,7 +210,7 @@ export function TenantsPage() {
                 )}
 
                 <p className="text-[10px] text-flex-text-muted">
-                    POC mock adapter — `TenantRepository` boundary; replace with the real tenants backend in rollout.
+                    {t('tenants.footerHint')}
                 </p>
             </div>
 

@@ -1,6 +1,7 @@
 import { RiFilterOffLine, RiSearchLine, RiUploadCloudLine } from '@remixicon/react';
 import type { Table } from '@tanstack/react-table';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { DataGridFeatures } from '@/components/reui/data-grid/data-grid';
 import { DataGridColumnVisibility } from '@/components/reui/data-grid/data-grid-column-visibility';
 import { Button } from '@/components/ui/button';
@@ -16,27 +17,29 @@ export interface RecordingToolbarProps {
     onUploadClick: () => void;
 }
 
-const CATEGORIES: { value: RecordingCategory | 'all'; label: string }[] = [
-    { value: 'all', label: 'All Categories' },
-    { value: 'ivr-prompt', label: 'IVR Prompts' },
-    { value: 'queue-announcement', label: 'Queue Announcements' },
-    { value: 'voicemail-greeting', label: 'Voicemail Greetings' },
-    { value: 'hold-music', label: 'Hold Music' },
-    { value: 'system-announcement', label: 'System Notices' },
-];
-
-const FORMATS: { value: 'all' | 'WAV' | 'MP3'; label: string }[] = [
-    { value: 'all', label: 'All Formats' },
-    { value: 'WAV', label: 'WAV' },
-    { value: 'MP3', label: 'MP3' },
-];
-
 export function RecordingToolbar({
     table,
     query,
     onQueryChange,
     onUploadClick,
 }: RecordingToolbarProps) {
+    const { t } = useTranslation('administration');
+
+    const CATEGORIES: { value: RecordingCategory | 'all'; label: string }[] = [
+        { value: 'all', label: t('recordings.toolbar.allCategories') },
+        { value: 'ivr-prompt', label: t('recordings.toolbar.categories.ivr-prompt') },
+        { value: 'queue-announcement', label: t('recordings.toolbar.categories.queue-announcement') },
+        { value: 'voicemail-greeting', label: t('recordings.toolbar.categories.voicemail-greeting') },
+        { value: 'hold-music', label: t('recordings.toolbar.categories.hold-music') },
+        { value: 'system-announcement', label: t('recordings.toolbar.categories.system-announcement') },
+    ];
+
+    const FORMATS: { value: 'all' | 'WAV' | 'MP3'; label: string }[] = [
+        { value: 'all', label: t('recordings.toolbar.allFormats') },
+        { value: 'WAV', label: 'WAV' },
+        { value: 'MP3', label: 'MP3' },
+    ];
+
     const hasFilters =
         Boolean(query.search) ||
         (query.category ?? 'all') !== 'all' ||
@@ -50,7 +53,7 @@ export function RecordingToolbar({
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:flex-wrap">
                 <div className="flex items-center gap-2">
                     <Label htmlFor="rec-cat" className="text-xs font-semibold text-flex-text-muted shrink-0">
-                        Category
+                        {t('recordings.toolbar.categoryLabel')}
                     </Label>
                     <Select
                         value={query.category ?? 'all'}
@@ -71,7 +74,7 @@ export function RecordingToolbar({
 
                 <div className="flex items-center gap-2">
                     <Label htmlFor="rec-format" className="text-xs font-semibold text-flex-text-muted shrink-0">
-                        Format
+                        {t('recordings.toolbar.formatLabel')}
                     </Label>
                     <Select
                         value={query.format ?? 'all'}
@@ -93,7 +96,7 @@ export function RecordingToolbar({
                 {hasFilters && (
                     <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={clearFilters}>
                         <RiFilterOffLine className="size-3.5" />
-                        Clear filters
+                        {t('recordings.toolbar.clearFilters')}
                     </Button>
                 )}
             </div>
@@ -105,8 +108,8 @@ export function RecordingToolbar({
                     <Input
                         value={query.search ?? ''}
                         onChange={(e) => onQueryChange({ ...query, search: e.target.value })}
-                        placeholder="Search audio titles, files..."
-                        aria-label="Search recordings"
+                        placeholder={t('recordings.toolbar.searchPlaceholder')}
+                        aria-label={t('recordings.toolbar.searchAriaLabel')}
                         size="sm"
                         className="pl-8"
                     />
@@ -114,12 +117,12 @@ export function RecordingToolbar({
 
                 <DataGridColumnVisibility
                     table={table}
-                    trigger={<Button variant="outline" size="sm" className="gap-1.5 text-xs">Columns</Button>}
+                    trigger={<Button variant="outline" size="sm" className="gap-1.5 text-xs">{t('recordings.toolbar.columns')}</Button>}
                 />
 
                 <Button size="sm" className="gap-1.5 text-xs" onClick={onUploadClick}>
                     <RiUploadCloudLine className="size-3.5" />
-                    Upload Recording
+                    {t('recordings.toolbar.uploadRecording')}
                 </Button>
             </div>
         </div>

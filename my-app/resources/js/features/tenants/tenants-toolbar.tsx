@@ -1,6 +1,7 @@
 import { RiAddLine, RiFilterOffLine, RiRefreshLine, RiSearchLine } from '@remixicon/react';
 import type { Table } from '@tanstack/react-table';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { DataGridFeatures } from '@/components/reui/data-grid/data-grid';
 import { DataGridColumnVisibility } from '@/components/reui/data-grid/data-grid-column-visibility';
 import { Button } from '@/components/ui/button';
@@ -41,6 +42,16 @@ export function TenantsToolbar({
     isRefreshing,
     onAdd,
 }: TenantsToolbarProps) {
+    const { t } = useTranslation('platform');
+
+    const statusFilters: { value: TenantStatusFilter; label: string }[] = [
+        { value: 'all', label: t('tenants.filters.all') },
+        ...TENANT_STATUS_OPTIONS.map((status) => ({
+            value: status as TenantStatusFilter,
+            label: t(`tenants.filters.${status}`),
+        })),
+    ];
+
     return (
         <div className="flex flex-col gap-3 px-3 py-2.5 lg:flex-row lg:items-center lg:justify-between">
             {/* Left group — scope & filters */}
@@ -48,9 +59,9 @@ export function TenantsToolbar({
                 <div
                     className="flex items-center gap-1 rounded-md border border-border bg-card p-1"
                     role="group"
-                    aria-label="Filter by status"
+                    aria-label={t('tenants.toolbar.filterLabel')}
                 >
-                    {TENANT_STATUS_FILTERS.map((option) => (
+                    {statusFilters.map((option) => (
                         <button
                             key={option.value}
                             type="button"
@@ -69,7 +80,7 @@ export function TenantsToolbar({
                 {hasActiveFilters && (
                     <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={onClearFilters}>
                         <RiFilterOffLine className="size-3.5" />
-                        Clear
+                        {t('tenants.toolbar.clear')}
                     </Button>
                 )}
             </div>
@@ -81,26 +92,26 @@ export function TenantsToolbar({
                     <Input
                         value={search}
                         onChange={(e) => onSearchChange(e.target.value)}
-                        placeholder="Search tenants by name, domain, or contact..."
+                        placeholder={t('tenants.toolbar.searchPlaceholder')}
                         size="sm"
                         className="pl-8"
-                        aria-label="Search tenants"
+                        aria-label={t('tenants.toolbar.searchAriaLabel')}
                     />
                 </div>
 
                 <DataGridColumnVisibility
                     table={table}
-                    trigger={<Button variant="outline" size="sm" className="gap-1.5 text-xs">Columns</Button>}
+                    trigger={<Button variant="outline" size="sm" className="gap-1.5 text-xs">{t('tenants.toolbar.columns')}</Button>}
                 />
 
                 <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={onRefresh} disabled={isRefreshing}>
                     <RiRefreshLine className="size-3.5" />
-                    Refresh
+                    {t('tenants.toolbar.refresh')}
                 </Button>
 
                 <Button size="sm" className="gap-1.5 text-xs" onClick={onAdd}>
                     <RiAddLine className="size-4" />
-                    Add Tenant
+                    {t('tenants.toolbar.addTenant')}
                 </Button>
             </div>
         </div>

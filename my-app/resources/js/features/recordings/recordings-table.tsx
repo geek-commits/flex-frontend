@@ -6,6 +6,7 @@ import {
 } from '@remixicon/react';
 import type { ColumnDef, Table } from '@tanstack/react-table';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexStatus } from '@/components/flex/flex-status';
 import {
@@ -31,12 +32,14 @@ export interface RecordingsTableProps {
     onDelete: (record: RecordingRecord) => void;
 }
 
-const CATEGORY_META: Record<RecordingCategory, { label: string; tone: 'info' | 'warning' | 'neutral' | 'success' | 'danger' }> = {
-    'ivr-prompt': { label: 'IVR Prompt', tone: 'info' },
-    'queue-announcement': { label: 'Queue Audio', tone: 'warning' },
-    'voicemail-greeting': { label: 'Voicemail', tone: 'neutral' },
-    'hold-music': { label: 'Hold Music', tone: 'success' },
-    'system-announcement': { label: 'System Notice', tone: 'danger' },
+type TFunction = (key: string, options?: Record<string, unknown>) => string;
+
+const CATEGORY_TONE: Record<RecordingCategory, 'info' | 'warning' | 'neutral' | 'success' | 'danger'> = {
+    'ivr-prompt': 'info',
+    'queue-announcement': 'warning',
+    'voicemail-greeting': 'neutral',
+    'hold-music': 'success',
+    'system-announcement': 'danger',
 };
 
 function formatBytes(bytes: number): string {
@@ -51,19 +54,22 @@ function formatBytes(bytes: number): string {
     return `${parseFloat((bytes / Math.pow(k, i)).toFixed(1))} ${sizes[i]}`;
 }
 
-export function buildRecordingsColumns(deps: {
-    onRowClick: (record: RecordingRecord) => void;
-    onEdit: (record: RecordingRecord) => void;
-    onReplace: (record: RecordingRecord) => void;
-    onDelete: (record: RecordingRecord) => void;
-}): ColumnDef<DataGridFeatures, RecordingRecord>[] {
+export function buildRecordingsColumns(
+    t: TFunction,
+    deps: {
+        onRowClick: (record: RecordingRecord) => void;
+        onEdit: (record: RecordingRecord) => void;
+        onReplace: (record: RecordingRecord) => void;
+        onDelete: (record: RecordingRecord) => void;
+    }
+): ColumnDef<DataGridFeatures, RecordingRecord>[] {
     const { onRowClick, onEdit, onReplace, onDelete } = deps;
 
     return [
         {
             accessorKey: 'name',
             id: 'name',
-            header: ({ column }) => <DataGridColumnHeader title="Title & File" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('recordings.columns.titleFile')} column={column} />,
             cell: ({ row }) => (
                 <div className="flex flex-col min-w-0">
                     <span className="text-xs font-semibold text-flex-text-primary truncate">
@@ -79,13 +85,14 @@ export function buildRecordingsColumns(deps: {
         {
             accessorKey: 'category',
             id: 'category',
-            header: ({ column }) => <DataGridColumnHeader title="Category" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('recordings.columns.category')} column={column} />,
             cell: ({ row }) => {
-                const meta = CATEGORY_META[row.original.category] ?? { label: row.original.category, tone: 'neutral' as const };
+                const tone = CATEGORY_TONE[row.original.category] ?? 'neutral';
+                const label = t(`recordings.columns.categories.${row.original.category}`, { defaultValue: row.original.category });
 
                 return (
-                    <FlexStatus tone={meta.tone} className="text-[11px]">
-                        {meta.label}
+                    <FlexStatus tone={tone} className="text-[11px]">
+                        {label}
                     </FlexStatus>
                 );
             },
@@ -96,7 +103,7 @@ export function buildRecordingsColumns(deps: {
         {
             accessorKey: 'duration',
             id: 'duration',
-            header: 'Duration',
+            header: t('recordings.columns.duration'),
             cell: ({ row }) => (
                 <RecordingAudioPlayer
                     url={row.original.url}
@@ -111,7 +118,7 @@ export function buildRecordingsColumns(deps: {
         {
             accessorKey: 'format',
             id: 'format',
-            header: 'Format & Size',
+            header: t('recordings.columns.formatSize'),
             cell: ({ row }) => (
                 <span className="text-xs text-flex-text-muted tabular-nums">
                     {row.original.format} · {formatBytes(row.original.fileSizeBytes)}
@@ -123,18 +130,18 @@ export function buildRecordingsColumns(deps: {
         {
             accessorKey: 'usages',
             id: 'usages',
-            header: 'Used In',
+            header: t('recordings.columns.usedIn'),
             cell: ({ row }) => {
                 const usages = row.original.usages;
 
                 if (usages.length === 0) {
-                    return <span className="text-xs text-flex-text-muted">Unassigned</span>;
+                    return <span className="text-xs text-flex-text-muted">{t('recordings.columns.unassigned')}</span>;
                 }
 
                 return (
                     <div className="flex items-center gap-1.5 flex-wrap">
                         <span className="text-xs font-medium text-flex-text-primary">
-                            {usages.length} {usages.length === 1 ? 'target' : 'targets'}
+                            {t('recordings.columns.target', { count: usages.length })}
                         </span>
                         <span className="text-[11px] text-flex-text-muted truncate max-w-[120px]">
                             ({usages.map((u) => u.type).join(', ')})
@@ -148,7 +155,7 @@ export function buildRecordingsColumns(deps: {
         {
             accessorKey: 'updatedAt',
             id: 'updatedAt',
-            header: ({ column }) => <DataGridColumnHeader title="Modified" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('recordings.columns.modified')} column={column} />,
             cell: ({ getValue }) => {
                 const date = new Date(getValue() as string);
 
@@ -172,8 +179,8 @@ export function buildRecordingsColumns(deps: {
                     <Button
                         variant="ghost"
                         size="icon-xs"
-                        title="Inspect recording"
-                        aria-label={`Inspect ${row.original.name}`}
+                        title={t('recordings.actions.inspect')}
+                        aria-label={t('recordings.actions.inspectAria', { name: row.original.name })}
                         onClick={() => onRowClick(row.original)}
                     >
                         <RiEyeLine className="size-3.5" />
@@ -181,8 +188,8 @@ export function buildRecordingsColumns(deps: {
                     <Button
                         variant="ghost"
                         size="icon-xs"
-                        title="Edit details"
-                        aria-label={`Edit ${row.original.name}`}
+                        title={t('recordings.actions.edit')}
+                        aria-label={t('recordings.actions.editAria', { name: row.original.name })}
                         onClick={() => onEdit(row.original)}
                     >
                         <RiEditLine className="size-3.5" />
@@ -190,8 +197,8 @@ export function buildRecordingsColumns(deps: {
                     <Button
                         variant="ghost"
                         size="icon-xs"
-                        title="Replace audio file"
-                        aria-label={`Replace audio for ${row.original.name}`}
+                        title={t('recordings.actions.replace')}
+                        aria-label={t('recordings.actions.replaceAria', { name: row.original.name })}
                         onClick={() => onReplace(row.original)}
                     >
                         <RiExchangeLine className="size-3.5" />
@@ -199,8 +206,8 @@ export function buildRecordingsColumns(deps: {
                     <Button
                         variant="ghost"
                         size="icon-xs"
-                        title="Delete recording"
-                        aria-label={`Delete ${row.original.name}`}
+                        title={t('recordings.actions.delete')}
+                        aria-label={t('recordings.actions.deleteAria', { name: row.original.name })}
                         className="text-destructive hover:text-destructive hover:bg-destructive/10"
                         onClick={() => onDelete(row.original)}
                     >
@@ -222,6 +229,8 @@ export function RecordingsTable({
     isLoading,
     onRowClick,
 }: RecordingsTableProps) {
+    const { t } = useTranslation('administration');
+
     return (
         <DataGrid
             table={table}
@@ -230,8 +239,8 @@ export function RecordingsTable({
             loadingMode="skeleton"
             emptyMessage={
                 <FlexEmptyState
-                    title="No audio recordings found"
-                    description="Upload audio prompts or adjust your filters to view recordings."
+                    title={t('recordings.empty.title')}
+                    description={t('recordings.empty.description')}
                 />
             }
             tableLayout={{ dense: true }}

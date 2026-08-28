@@ -1,5 +1,6 @@
 import { RiAddLine, RiFilterOffLine, RiRefreshLine, RiSearchLine } from '@remixicon/react';
 import type { Table } from '@tanstack/react-table';
+import { useTranslation } from 'react-i18next';
 import type { DataGridFeatures } from '@/components/reui/data-grid/data-grid';
 import { DataGridColumnVisibility } from '@/components/reui/data-grid/data-grid-column-visibility';
 import { Button } from '@/components/ui/button';
@@ -40,6 +41,16 @@ export function CampaignsToolbar({
     isRefreshing,
     onAdd,
 }: CampaignsToolbarProps) {
+    const { t } = useTranslation('supervision');
+
+    const quickFilters: { value: CampaignStatusFilter; label: string }[] = [
+        { value: 'all', label: t('campaigns.filters.all') },
+        ...CAMPAIGN_STATUS_OPTIONS.map((status) => ({
+            value: status as CampaignStatusFilter,
+            label: t(`campaigns.status.${status}`),
+        })),
+    ];
+
     return (
         <div className="flex flex-col gap-3 px-3 py-2.5 lg:flex-row lg:items-center lg:justify-between">
             {/* Left group — scope & filters */}
@@ -47,9 +58,9 @@ export function CampaignsToolbar({
                 <div
                     className="flex items-center gap-1 rounded-md border border-border bg-card p-1"
                     role="group"
-                    aria-label="Filter by status"
+                    aria-label={t('campaigns.toolbar.filterLabel')}
                 >
-                    {CAMPAIGN_QUICK_FILTERS.map((option) => (
+                    {quickFilters.map((option) => (
                         <button
                             key={option.value}
                             type="button"
@@ -68,7 +79,7 @@ export function CampaignsToolbar({
                 {hasActiveFilters && (
                     <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={onClearFilters}>
                         <RiFilterOffLine className="size-3.5" />
-                        Clear
+                        {t('campaigns.toolbar.clear')}
                     </Button>
                 )}
             </div>
@@ -80,26 +91,26 @@ export function CampaignsToolbar({
                     <Input
                         value={search}
                         onChange={(e) => onSearchChange(e.target.value)}
-                        placeholder="Search campaigns by title or destination..."
+                        placeholder={t('campaigns.toolbar.searchPlaceholder')}
                         size="sm"
                         className="pl-8"
-                        aria-label="Search campaigns"
+                        aria-label={t('campaigns.toolbar.searchAriaLabel')}
                     />
                 </div>
 
                 <DataGridColumnVisibility
                     table={table}
-                    trigger={<Button variant="outline" size="sm" className="gap-1.5 text-xs">Columns</Button>}
+                    trigger={<Button variant="outline" size="sm" className="gap-1.5 text-xs">{t('campaigns.toolbar.columns')}</Button>}
                 />
 
                 <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={onRefresh} disabled={isRefreshing}>
                     <RiRefreshLine className="size-3.5" />
-                    Refresh
+                    {t('campaigns.toolbar.refresh')}
                 </Button>
 
                 <Button size="sm" className="gap-1.5 text-xs" onClick={onAdd}>
                     <RiAddLine className="size-4" />
-                    New Campaign
+                    {t('campaigns.toolbar.newCampaign')}
                 </Button>
             </div>
         </div>

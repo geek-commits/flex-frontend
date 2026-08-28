@@ -1,12 +1,179 @@
 {
   "console": "Dashibodi ya Usimamizi",
-  "users": "Watumiaji",
+  "users": {
+    "title": "Watumiaji",
+    "subtitle": "Simamia akaunti za watumiaji na ufikiaji.",
+    "headTitle": "Watumiaji — Flex Contact Center",
+    "error": {
+      "title": "Imeshindwa kupakia watumiaji",
+      "retry": "Jaribu tena",
+      "generic": "Data ya watumiaji haikupatikana."
+    },
+    "empty": {
+      "noUsers": "Hakuna watumiaji bado",
+      "noMatch": "Hakuna watumiaji wanaoendana na vichujio hivi",
+      "noUsersDescription": "Ongeza akaunti ya kwanza ya mtumiaji ili kuanza.",
+      "noMatchDescription": "Jaribu kubadilisha utafutaji au vichujio.",
+      "addUser": "Ongeza Mtumiaji",
+      "clearFilters": "Ondoa vichujio"
+    },
+    "footerHint": "Adapta ya POC — mpaka wa `AccessRepository`; badilisha na backend halisi ya watumiaji wakati wa uzinduzi.",
+    "columns": {
+      "user": "Mtumiaji",
+      "username": "Jina la mtumiaji",
+      "role": "Jukumu",
+      "organization": "Shirika",
+      "status": "Hali",
+      "lastActivity": "Shughuli ya Mwisho",
+      "actions": "Vitendo"
+    },
+    "toolbar": {
+      "filterStatusLabel": "Chuja kwa hali",
+      "filterRoleLabel": "Chuja kwa jukumu",
+      "searchPlaceholder": "Tafuta watumiaji kwa jina, barua pepe au jina la mtumiaji...",
+      "searchAriaLabel": "Tafuta watumiaji",
+      "columns": "Safu",
+      "refresh": "Onyesha upya",
+      "addUser": "Ongeza Mtumiaji",
+      "clear": "Ondoa",
+      "all": "Zote",
+      "allRoles": "Majukumu yote"
+    },
+    "actions": {
+      "view": "Angalia mtumiaji",
+      "edit": "Hariri mtumiaji"
+    },
+    "status": {
+      "active": "amilifu",
+      "inactive": "hana shughuli",
+      "deleted": "imefutwa"
+    }
+  },
   "roles": "Majukumu na Ruhusa",
-  "queues": "Foleni",
+  "queues": {
+    "label": "Foleni",
+    "title": "Foleni",
+    "subtitle": "Sanidi usambazaji wa simu na wanachama wa foleni.",
+    "headTitle": "Foleni — Flex Contact Center",
+    "toolbar": {
+      "searchPlaceholder": "Tafuta foleni...",
+      "searchAriaLabel": "Tafuta foleni",
+      "strategyLabel": "Mkakati",
+      "allStrategies": "Mikakati yote",
+      "strategies": {
+        "ring-all": "Piga Zote",
+        "least-recent": "Ile ya Zamani Zaidi",
+        "fewest-calls": "Simu Chache Zaidi",
+        "random": "Nasibu"
+      }
+    },
+    "error": {
+      "title": "Imeshindwa kupakia foleni",
+      "retry": "Jaribu tena",
+      "generic": "Data ya foleni haikupatikana."
+    },
+    "empty": {
+      "noQueuesTitle": "Hakuna foleni zilizosanidiwa",
+      "noQueuesDescription": "Unda foleni ili kufafanua usambazaji wa simu.",
+      "noMatchTitle": "Hakuna foleni zinazolingana na vichujio hivi",
+      "noMatchDescription": "Jaribu kubadilisha utafutaji au vichujio.",
+      "addQueue": "Ongeza Foleni",
+      "clearFilters": "Ondoa vichujio"
+    },
+    "footerHint": "Adapta ya POC — mpaka wa `RoutingRepository`; badilisha na backend halisi ya uelekezaji wakati wa uzinduzi.",
+    "actions": {
+      "addQueue": "Ongeza Foleni"
+    },
+    "columns": {
+      "queue": "Foleni",
+      "extension": "Kiambishi",
+      "strategy": "Mkakati",
+      "members": "Wanachama",
+      "ringTimeout": "Muda wa Kulia",
+      "status": "Hali",
+      "actions": "Vitendo"
+    },
+    "table": {
+      "view": "Angalia",
+      "members": "Wanachama",
+      "edit": "Hariri",
+      "viewAria": "Angalia {{name}}",
+      "membersAria": "Wanachama wa {{name}}",
+      "editAria": "Hariri {{name}}"
+    }
+  },
   "ivr": "IVR",
   "timeGroups": "Vikundi vya Muda",
   "timeConditions": "Masharti ya Muda",
-  "recordings": "Rekodi",
+  "recordings": {
+    "label": "Rekodi",
+    "title": "Rekodi za Simu na Sauti za Matangazo",
+    "subtitle": "Simamia faili za sauti za mfumo, salamu, muziki wa kusubiri na matangazo ya IVR.",
+    "headTitle": "Rekodi za Simu na Sauti za Matangazo — Flex Contact Center",
+    "metrics": {
+      "totalAssets": "Jumla ya Faili za Sauti",
+      "storageUsed": "Hifadhi Iliyotumika",
+      "ivrPrompts": "Matangazo ya IVR",
+      "queueAudio": "Sauti za Foleni"
+    },
+    "showing_one": "Inaonyesha faili {{count}} ya sauti",
+    "showing_other": "Inaonyesha faili {{count}} za sauti",
+    "updated": "Imeboreshwa {{time}}",
+    "toast": {
+      "deleteFailed": "Imeshindwa kufuta rekodi",
+      "deleted": "Imefuta \"{{name}}\""
+    },
+    "empty": {
+      "title": "Hakuna rekodi za sauti zilizopatikana",
+      "description": "Pakia matangazo ya sauti au rekebisha vichujio ili kuona rekodi."
+    },
+    "columns": {
+      "titleFile": "Kichwa na Faili",
+      "category": "Kategoria",
+      "duration": "Muda",
+      "formatSize": "Muundo na Ukubwa",
+      "usedIn": "Imetumika Katika",
+      "modified": "Ilirekebishwa",
+      "unassigned": "Haijapangiwa",
+      "target_one": "lengo {{count}}",
+      "target_other": "malengo {{count}}",
+      "categories": {
+        "ivr-prompt": "Tangazo la IVR",
+        "queue-announcement": "Sauti ya Foleni",
+        "voicemail-greeting": "Voicemail",
+        "hold-music": "Muziki wa Kusubiri",
+        "system-announcement": "Taarifa ya Mfumo"
+      }
+    },
+    "actions": {
+      "inspect": "Kagua rekodi",
+      "edit": "Hariri maelezo",
+      "replace": "Badilisha faili ya sauti",
+      "delete": "Futa rekodi",
+      "inspectAria": "Kagua {{name}}",
+      "editAria": "Hariri {{name}}",
+      "replaceAria": "Badilisha sauti ya {{name}}",
+      "deleteAria": "Futa {{name}}"
+    },
+    "toolbar": {
+      "categoryLabel": "Kategoria",
+      "formatLabel": "Muundo",
+      "allCategories": "Kategoria Zote",
+      "categories": {
+        "ivr-prompt": "Matangazo ya IVR",
+        "queue-announcement": "Matangazo ya Foleni",
+        "voicemail-greeting": "Salamu za Voicemail",
+        "hold-music": "Muziki wa Kusubiri",
+        "system-announcement": "Taarifa za Mfumo"
+      },
+      "allFormats": "Miundo Yote",
+      "clearFilters": "Ondoa vichujio",
+      "searchPlaceholder": "Tafuta vichwa vya sauti, faili...",
+      "searchAriaLabel": "Tafuta rekodi",
+      "columns": "Safu",
+      "uploadRecording": "Pakia Rekodi"
+    }
+  },
   "mail": "Barua Pepe",
   "subscriptions": "Usajili",
   "system": "Mfumo",

@@ -1,12 +1,179 @@
 {
   "console": "Console de gestion",
-  "users": "Utilisateurs",
+  "users": {
+    "title": "Utilisateurs",
+    "subtitle": "Gérez les comptes utilisateurs et les accès.",
+    "headTitle": "Utilisateurs — Flex Contact Center",
+    "error": {
+      "title": "Impossible de charger les utilisateurs",
+      "retry": "Réessayer",
+      "generic": "Les données utilisateurs n'ont pas pu être récupérées."
+    },
+    "empty": {
+      "noUsers": "Aucun utilisateur pour l'instant",
+      "noMatch": "Aucun utilisateur ne correspond à ces filtres",
+      "noUsersDescription": "Ajoutez votre premier compte utilisateur pour commencer.",
+      "noMatchDescription": "Essayez de modifier votre recherche ou vos filtres.",
+      "addUser": "Ajouter un utilisateur",
+      "clearFilters": "Effacer les filtres"
+    },
+    "footerHint": "Adaptateur POC — limite `AccessRepository` ; remplacer par le backend réel des utilisateurs lors du déploiement.",
+    "columns": {
+      "user": "Utilisateur",
+      "username": "Nom d'utilisateur",
+      "role": "Rôle",
+      "organization": "Organisation",
+      "status": "Statut",
+      "lastActivity": "Dernière activité",
+      "actions": "Actions"
+    },
+    "toolbar": {
+      "filterStatusLabel": "Filtrer par statut",
+      "filterRoleLabel": "Filtrer par rôle",
+      "searchPlaceholder": "Rechercher par nom, e-mail ou nom d'utilisateur...",
+      "searchAriaLabel": "Rechercher des utilisateurs",
+      "columns": "Colonnes",
+      "refresh": "Actualiser",
+      "addUser": "Ajouter un utilisateur",
+      "clear": "Effacer",
+      "all": "Tous",
+      "allRoles": "Tous les rôles"
+    },
+    "actions": {
+      "view": "Voir l'utilisateur",
+      "edit": "Modifier l'utilisateur"
+    },
+    "status": {
+      "active": "actif",
+      "inactive": "inactif",
+      "deleted": "supprimé"
+    }
+  },
   "roles": "Rôles et autorisations",
-  "queues": "Files d'attente",
+  "queues": {
+    "label": "Files d'attente",
+    "title": "Files d'attente",
+    "subtitle": "Configurez la distribution des appels et les membres des files.",
+    "headTitle": "Files d'attente — Flex Contact Center",
+    "toolbar": {
+      "searchPlaceholder": "Rechercher des files...",
+      "searchAriaLabel": "Rechercher des files",
+      "strategyLabel": "Stratégie",
+      "allStrategies": "Toutes les stratégies",
+      "strategies": {
+        "ring-all": "Sonner tout",
+        "least-recent": "Moins récent",
+        "fewest-calls": "Moins d'appels",
+        "random": "Aléatoire"
+      }
+    },
+    "error": {
+      "title": "Impossible de charger les files",
+      "retry": "Réessayer",
+      "generic": "Les données des files n'ont pas pu être récupérées."
+    },
+    "empty": {
+      "noQueuesTitle": "Aucune file configurée",
+      "noQueuesDescription": "Créez une file pour définir la distribution des appels.",
+      "noMatchTitle": "Aucune file ne correspond à ces filtres",
+      "noMatchDescription": "Essayez de modifier votre recherche ou vos filtres.",
+      "addQueue": "Ajouter une file",
+      "clearFilters": "Effacer les filtres"
+    },
+    "footerHint": "Adaptateur POC — limite `RoutingRepository` ; remplacer par le backend réel d'acheminement lors du déploiement.",
+    "actions": {
+      "addQueue": "Ajouter une file"
+    },
+    "columns": {
+      "queue": "File",
+      "extension": "Extension",
+      "strategy": "Stratégie",
+      "members": "Membres",
+      "ringTimeout": "Timeout de sonnerie",
+      "status": "Statut",
+      "actions": "Actions"
+    },
+    "table": {
+      "view": "Voir",
+      "members": "Membres",
+      "edit": "Modifier",
+      "viewAria": "Voir {{name}}",
+      "membersAria": "Membres de {{name}}",
+      "editAria": "Modifier {{name}}"
+    }
+  },
   "ivr": "SVI",
   "timeGroups": "Groupes d'heures",
   "timeConditions": "Conditions horaires",
-  "recordings": "Enregistrements",
+  "recordings": {
+    "label": "Enregistrements",
+    "title": "Enregistrements d'appels et messages audio",
+    "subtitle": "Gérez les fichiers audio système, messages d'accueil, musiques d'attente et annonces IVR.",
+    "headTitle": "Enregistrements d'appels et messages audio — Flex Contact Center",
+    "metrics": {
+      "totalAssets": "Total des ressources audio",
+      "storageUsed": "Stockage utilisé",
+      "ivrPrompts": "Messages IVR",
+      "queueAudio": "Audio des files"
+    },
+    "showing_one": "Affichage de {{count}} fichier audio",
+    "showing_other": "Affichage de {{count}} fichiers audio",
+    "updated": "Mis à jour {{time}}",
+    "toast": {
+      "deleteFailed": "Échec de la suppression de l'enregistrement",
+      "deleted": "Supprimé « {{name}} »"
+    },
+    "empty": {
+      "title": "Aucun enregistrement audio trouvé",
+      "description": "Téléversez des messages audio ou ajustez vos filtres pour voir les enregistrements."
+    },
+    "columns": {
+      "titleFile": "Titre et fichier",
+      "category": "Catégorie",
+      "duration": "Durée",
+      "formatSize": "Format et taille",
+      "usedIn": "Utilisé dans",
+      "modified": "Modifié",
+      "unassigned": "Non assigné",
+      "target_one": "{{count}} cible",
+      "target_other": "{{count}} cibles",
+      "categories": {
+        "ivr-prompt": "Message IVR",
+        "queue-announcement": "Audio de file",
+        "voicemail-greeting": "Messagerie vocale",
+        "hold-music": "Musique d'attente",
+        "system-announcement": "Annonce système"
+      }
+    },
+    "actions": {
+      "inspect": "Inspecter l'enregistrement",
+      "edit": "Modifier les détails",
+      "replace": "Remplacer le fichier audio",
+      "delete": "Supprimer l'enregistrement",
+      "inspectAria": "Inspecter {{name}}",
+      "editAria": "Modifier {{name}}",
+      "replaceAria": "Remplacer l'audio de {{name}}",
+      "deleteAria": "Supprimer {{name}}"
+    },
+    "toolbar": {
+      "categoryLabel": "Catégorie",
+      "formatLabel": "Format",
+      "allCategories": "Toutes les catégories",
+      "categories": {
+        "ivr-prompt": "Messages IVR",
+        "queue-announcement": "Annonces de file",
+        "voicemail-greeting": "Messages vocaux",
+        "hold-music": "Musique d'attente",
+        "system-announcement": "Annonces système"
+      },
+      "allFormats": "Tous les formats",
+      "clearFilters": "Effacer les filtres",
+      "searchPlaceholder": "Rechercher titres audio, fichiers...",
+      "searchAriaLabel": "Rechercher des enregistrements",
+      "columns": "Colonnes",
+      "uploadRecording": "Téléverser un enregistrement"
+    }
+  },
   "mail": "E-mails",
   "subscriptions": "Abonnements",
   "system": "Système",

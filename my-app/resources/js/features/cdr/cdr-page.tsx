@@ -4,6 +4,7 @@ import type { PaginationState, SortingState } from '@tanstack/react-table';
 import { useTable } from '@tanstack/react-table';
 import { format } from 'date-fns';
 import React, { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexErrorState } from '@/components/flex/flex-error-state';
 import { FlexWorkbenchShell } from '@/components/flex/flex-workbench-shell';
@@ -25,6 +26,7 @@ import { AdminShell } from '@/layouts/admin-shell';
 const toDateInput = (date: Date) => format(date, 'yyyy-MM-dd');
 
 export function CdrPage() {
+    const { t } = useTranslation('supervision');
     const [search, setSearch] = useState('');
     const [quickFilter, setQuickFilter] = useState<QuickFilter>('all');
     const [dateFrom, setDateFrom] = useState<string>();
@@ -62,9 +64,9 @@ q.dateTo = dateTo;
         try {
             return { records: cdrRepository.query(query), error: undefined as string | undefined };
         } catch {
-            return { records: [], error: 'The call records service did not respond.' };
+            return { records: [], error: t('cdr.error.generic') };
         }
-    }, [query]);
+    }, [query, t]);
 
     const loadError = error ?? queryError;
 
@@ -103,7 +105,7 @@ return false;
         setDetailId(record.id);
     }, []);
 
-    const columns = useMemo(() => cdrColumns(openDetail), [openDetail]);
+    const columns = useMemo(() => cdrColumns(t, openDetail), [t, openDetail]);
 
     const [columnOrder, setColumnOrder] = useState<string[]>(() => columns.map((column) => column.id as string));
 
@@ -144,21 +146,21 @@ return false;
 
     return (
         <AdminShell
-            title="Call Detail Records (CDR)"
-            subtitle="Search, filter & inspect telephony logs"
+            title={t('cdr.titleLong')}
+            subtitle={t('cdr.subtitle')}
             
             >
-            <Head title="CDR — Flex Contact Center" />
+            <Head title={t('cdr.headTitle')} />
 
             <div className="flex flex-col gap-4 w-full">
                 {loadError ? (
                     <FlexErrorState
-                        title="Couldn't load call records"
+                        title={t('cdr.error.title')}
                         description={loadError}
                         action={
                             <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={refresh}>
                                 <RiRefreshLine className="size-3.5" />
-                                Try again
+                                {t('cdr.error.retry')}
                             </Button>
                         }
                     />
@@ -204,11 +206,11 @@ return false;
                             onRowClick={openDetail}
                             emptyMessage={
                                 <FlexEmptyState
-                                    title="No call records found"
-                                    description="Try changing your filters or date range."
+                                    title={t('cdr.empty.title')}
+                                    description={t('cdr.empty.description')}
                                     action={
                                         <Button variant="outline" size="sm" className="text-xs" onClick={clearAll}>
-                                            Clear filters
+                                            {t('cdr.empty.action')}
                                         </Button>
                                     }
                                 />
@@ -218,8 +220,7 @@ return false;
                 )}
 
                 <p className="text-[10px] text-flex-text-muted">
-                    POC mock adapter ({todayDate} dataset) — `CdrRepository` boundary; replace with the CDR backend in
-                    rollout.
+                    {t('cdr.footerHint', { date: todayDate })}
                 </p>
             </div>
 

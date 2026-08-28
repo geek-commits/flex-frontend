@@ -86,24 +86,129 @@
   "monitoring": "Agent Monitoring",
   "cdr": {
     "title": "Call Detail Records",
+    "titleLong": "Call Detail Records (CDR)",
+    "subtitle": "Search, filter & inspect telephony logs",
+    "headTitle": "CDR — Flex Contact Center",
     "columns": {
       "direction": "Direction",
       "duration": "Duration",
       "queue": "Queue",
       "agent": "Agent",
-      "outcome": "Outcome"
+      "outcome": "Outcome",
+      "dateTime": "Date & Time",
+      "customer": "Customer",
+      "status": "Status",
+      "recording": "Recording",
+      "actions": "Actions"
     },
     "filters": "Filters",
-    "noRecords": "No records"
+    "noRecords": "No records",
+    "error": {
+      "title": "Couldn't load call records",
+      "retry": "Try again",
+      "generic": "The call records service did not respond."
+    },
+    "empty": {
+      "title": "No call records found",
+      "description": "Try changing your filters or date range.",
+      "action": "Clear filters"
+    },
+    "footerHint": "POC mock adapter ({{date}} dataset) — `CdrRepository` boundary; replace with the CDR backend in rollout.",
+    "recording": {
+      "noRecording": "No recording",
+      "listen": "Listen to audio recording"
+    },
+    "actions": {
+      "view": "View call record"
+    },
+    "toolbar": {
+      "quickFiltersLabel": "Quick filters",
+      "filters": "Filters",
+      "clear": "Clear",
+      "columns": "Columns",
+      "refresh": "Refresh",
+      "searchPlaceholder": "Search calls by phone, agent, queue...",
+      "searchAriaLabel": "Search calls",
+      "filterQueue": "Queue",
+      "filterAgent": "Agent",
+      "filterAgentPlaceholder": "Search agent..."
+    },
+    "quickFilters": {
+      "all": "All",
+      "today": "Today",
+      "answered": "Answered",
+      "missed": "Missed",
+      "voicemail": "Voicemail",
+      "transferred": "Transferred"
+    }
   },
   "campaigns": {
     "title": "Campaigns",
+    "titleLong": "Call Campaigns",
+    "subtitle": "Manage outbound dialer & automated campaign schedules",
+    "headTitle": "Call Campaigns — Flex Contact Center",
     "status": {
       "active": "Active",
       "paused": "Paused",
-      "completed": "Completed"
+      "completed": "Completed",
+      "draft": "Draft",
+      "scheduled": "Scheduled"
     },
-    "actions": "Actions"
+    "columns": {
+      "campaign": "Campaign",
+      "schedule": "Schedule",
+      "progress": "Progress",
+      "answerRate": "Answer Rate",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "toolbar": {
+      "filterLabel": "Filter by status",
+      "searchPlaceholder": "Search campaigns by title or destination...",
+      "searchAriaLabel": "Search campaigns",
+      "columns": "Columns",
+      "refresh": "Refresh",
+      "newCampaign": "New Campaign",
+      "clear": "Clear"
+    },
+    "filters": {
+      "all": "All"
+    },
+    "actions": {
+      "view": "View campaign",
+      "edit": "Edit campaign",
+      "pause": "Pause campaign",
+      "start": "Start campaign",
+      "delete": "Delete campaign",
+      "actions": "Actions"
+    },
+    "error": {
+      "title": "Couldn't load campaigns",
+      "retry": "Try again",
+      "generic": "Campaign data could not be retrieved."
+    },
+    "empty": {
+      "noCampaigns": "No campaigns yet",
+      "noMatch": "No campaigns match these filters",
+      "noCampaignsDescription": "Create your first outbound campaign to get started.",
+      "noMatchDescription": "Try changing your search or filters.",
+      "newCampaign": "New Campaign",
+      "clearFilters": "Clear filters"
+    },
+    "deleteDialog": {
+      "title": "Delete campaign",
+      "description": "Delete \"{{title}}\"? This action cannot be undone.",
+      "cancel": "Cancel",
+      "delete": "Delete campaign",
+      "deleting": "Deleting…"
+    },
+    "toast": {
+      "started": "Campaign started",
+      "paused": "Campaign paused",
+      "deleted": "Campaign deleted",
+      "deleteFailed": "Campaign could not be deleted"
+    },
+    "footerHint": "POC mock adapter — `CampaignRepository` boundary; replace with the real campaigns backend in rollout."
   },
   "reports": {
     "title": "Reports",

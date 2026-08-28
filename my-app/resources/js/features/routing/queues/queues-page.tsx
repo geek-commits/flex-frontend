@@ -1,5 +1,6 @@
 import { RiAddLine, RiSearchLine } from '@remixicon/react';
 import React, { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexErrorState } from '@/components/flex/flex-error-state';
 import { Button } from '@/components/ui/button';
@@ -12,7 +13,6 @@ import type { QueueRecord, QueueStrategy } from '@/domain/routing-types';
 import { QueueDeleteDialog } from '@/features/routing/queues/queue-delete-dialog';
 import { QueueDetailSheet } from '@/features/routing/queues/queue-detail-sheet';
 import { QueueFormSheet } from '@/features/routing/queues/queue-form-sheet';
-import { QUEUE_STRATEGY_LABELS } from '@/features/routing/queues/queue-labels';
 import { QueueMembersSheet } from '@/features/routing/queues/queue-members-sheet';
 import { QueueTable } from '@/features/routing/queues/queue-table';
 import { RoutingShell } from '@/features/routing/routing-shell';
@@ -20,6 +20,7 @@ import { RoutingShell } from '@/features/routing/routing-shell';
 const STRATEGY_FILTERS: (QueueStrategy | 'all')[] = ['all', 'ring-all', 'least-recent', 'fewest-calls', 'random'];
 
 export function QueuesPage() {
+    const { t } = useTranslation('administration');
     const [records, setRecords] = useState<QueueRecord[]>(() => routingRepository.queryQueues());
     const [search, setSearch] = useState('');
     const [strategyFilter, setStrategyFilter] = useState<QueueStrategy | 'all'>('all');
@@ -43,12 +44,12 @@ export function QueuesPage() {
             try {
                 setRecords(routingRepository.queryQueues());
             } catch {
-                setError('Queue data could not be retrieved.');
+                setError(t('queues.error.generic'));
             }
 
             setIsLoading(false);
         }, 350);
-    }, []);
+    }, [t]);
 
     const openCreate = () => {
         setEditingId(undefined);
@@ -87,12 +88,12 @@ export function QueuesPage() {
 
     return (
         <RoutingShell
-            title="Queues"
-            subtitle="Configure call distribution and queue members."
+            title={t('queues.title')}
+            subtitle={t('queues.subtitle')}
             actions={
                 <Button size="sm" className="gap-1.5 text-xs" onClick={openCreate}>
                     <RiAddLine className="size-4" />
-                    Add Queue
+                    {t('queues.actions.addQueue')}
                 </Button>
             }
         >
@@ -103,14 +104,14 @@ export function QueuesPage() {
                         <Input
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
-                            placeholder="Search queues..."
-                            aria-label="Search queues"
+                            placeholder={t('queues.toolbar.searchPlaceholder')}
+                            aria-label={t('queues.toolbar.searchAriaLabel')}
                             className="pl-9 h-9 text-xs"
                         />
                     </div>
                     <div className="flex items-center gap-2">
                         <Label htmlFor="queue-strategy" className="text-xs font-semibold text-flex-text-muted">
-                            Strategy
+                            {t('queues.toolbar.strategyLabel')}
                         </Label>
                         <Select value={strategyFilter} onValueChange={(value) => setStrategyFilter((value as QueueStrategy | 'all') ?? 'all')}>
                             <SelectTrigger id="queue-strategy" className="w-40 h-9 text-xs">
@@ -119,7 +120,7 @@ export function QueuesPage() {
                             <SelectContent>
                                 {STRATEGY_FILTERS.map((strategy) => (
                                     <SelectItem key={strategy} value={strategy} className="text-xs capitalize">
-                                        {strategy === 'all' ? 'All strategies' : QUEUE_STRATEGY_LABELS[strategy]}
+                                        {strategy === 'all' ? t('queues.toolbar.allStrategies') : t(`queues.toolbar.strategies.${strategy}`)}
                                     </SelectItem>
                                 ))}
                             </SelectContent>
@@ -129,11 +130,11 @@ export function QueuesPage() {
 
                 {error ? (
                     <FlexErrorState
-                        title="Couldn't load queues"
+                        title={t('queues.error.title')}
                         description={error}
                         action={
                             <Button variant="outline" size="sm" className="text-xs" onClick={refresh}>
-                                Try Again
+                                {t('queues.error.retry')}
                             </Button>
                         }
                     />
@@ -145,17 +146,17 @@ export function QueuesPage() {
                     </div>
                 ) : filtered.length === 0 ? (
                     <FlexEmptyState
-                        title={records.length === 0 ? 'No queues configured' : 'No queues match these filters'}
+                        title={records.length === 0 ? t('queues.empty.noQueuesTitle') : t('queues.empty.noMatchTitle')}
                         description={
                             records.length === 0
-                                ? 'Create a queue to define call distribution.'
-                                : 'Try changing your search or filters.'
+                                ? t('queues.empty.noQueuesDescription')
+                                : t('queues.empty.noMatchDescription')
                         }
                         illustration={records.length === 0 ? 'empty-queues' : undefined}
                         action={
                             records.length === 0 ? (
                                 <Button variant="outline" size="sm" className="text-xs" onClick={openCreate}>
-                                    Add Queue
+                                    {t('queues.empty.addQueue')}
                                 </Button>
                             ) : (
                                 <Button
@@ -167,7 +168,7 @@ export function QueuesPage() {
                                         setStrategyFilter('all');
                                     }}
                                 >
-                                    Clear filters
+                                    {t('queues.empty.clearFilters')}
                                 </Button>
                             )
                         }
@@ -182,7 +183,7 @@ export function QueuesPage() {
                 )}
 
                 <p className="text-[10px] text-flex-text-muted">
-                    POC mock adapter — `RoutingRepository` boundary; replace with the real routing backend in rollout.
+                    {t('queues.footerHint')}
                 </p>
             </div>
 

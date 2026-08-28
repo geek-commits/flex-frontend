@@ -1,6 +1,7 @@
 import { RiAddLine, RiFilterOffLine, RiRefreshLine, RiSearchLine } from '@remixicon/react';
 import type { Table } from '@tanstack/react-table';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { DataGridFeatures } from '@/components/reui/data-grid/data-grid';
 import { DataGridColumnVisibility } from '@/components/reui/data-grid/data-grid-column-visibility';
 import { Button } from '@/components/ui/button';
@@ -49,6 +50,18 @@ export function UsersToolbar({
     isRefreshing,
     onAdd,
 }: UsersToolbarProps) {
+    const { t } = useTranslation('administration');
+
+    const statusFilters: { value: UserStatusFilter; label: string }[] = [
+        { value: 'all', label: t('users.toolbar.all') },
+        ...USER_STATUS_OPTIONS.map((status) => ({ value: status as UserStatusFilter, label: t(`users.status.${status}`) })),
+    ];
+
+    const roleFilters: { value: UserRoleFilter; label: string }[] = [
+        { value: 'all', label: t('users.toolbar.allRoles') },
+        ...ROLE_OPTIONS.map((opt) => ({ value: opt.value as UserRoleFilter, label: opt.label })),
+    ];
+
     return (
         <div className="flex flex-col gap-3 px-3 py-2.5 lg:flex-row lg:items-center lg:justify-between">
             {/* Left group — scope & filters */}
@@ -56,9 +69,9 @@ export function UsersToolbar({
                 <div
                     className="flex items-center gap-1 rounded-md border border-border bg-card p-1"
                     role="group"
-                    aria-label="Filter by status"
+                    aria-label={t('users.toolbar.filterStatusLabel')}
                 >
-                    {USER_STATUS_FILTERS.map((option) => (
+                    {statusFilters.map((option) => (
                         <button
                             key={option.value}
                             type="button"
@@ -77,10 +90,10 @@ export function UsersToolbar({
                 <select
                     value={roleFilter}
                     onChange={(e) => onRoleFilterChange(e.target.value as UserRoleFilter)}
-                    aria-label="Filter by role"
+                    aria-label={t('users.toolbar.filterRoleLabel')}
                     className="h-7 rounded-[6px] border border-border bg-card px-2.5 text-[13px] font-medium text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                 >
-                    {USER_ROLE_FILTERS.map((option) => (
+                    {roleFilters.map((option) => (
                         <option key={option.value} value={option.value}>
                             {option.label}
                         </option>
@@ -90,7 +103,7 @@ export function UsersToolbar({
                 {hasActiveFilters && (
                     <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={onClearFilters}>
                         <RiFilterOffLine className="size-3.5" />
-                        Clear
+                        {t('users.toolbar.clear')}
                     </Button>
                 )}
             </div>
@@ -102,26 +115,26 @@ export function UsersToolbar({
                     <Input
                         value={search}
                         onChange={(e) => onSearchChange(e.target.value)}
-                        placeholder="Search users by name, email, or username..."
+                        placeholder={t('users.toolbar.searchPlaceholder')}
                         size="sm"
                         className="pl-8"
-                        aria-label="Search users"
+                        aria-label={t('users.toolbar.searchAriaLabel')}
                     />
                 </div>
 
                 <DataGridColumnVisibility
                     table={table}
-                    trigger={<Button variant="outline" size="sm" className="gap-1.5 text-xs">Columns</Button>}
+                    trigger={<Button variant="outline" size="sm" className="gap-1.5 text-xs">{t('users.toolbar.columns')}</Button>}
                 />
 
                 <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={onRefresh} disabled={isRefreshing}>
                     <RiRefreshLine className="size-3.5" />
-                    Refresh
+                    {t('users.toolbar.refresh')}
                 </Button>
 
                 <Button size="sm" className="gap-1.5 text-xs" onClick={onAdd}>
                     <RiAddLine className="size-4" />
-                    Add User
+                    {t('users.toolbar.addUser')}
                 </Button>
             </div>
         </div>

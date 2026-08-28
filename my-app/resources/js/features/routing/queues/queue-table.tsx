@@ -1,8 +1,8 @@
 import { RiEyeLine, RiPencilLine, RiTeamLine } from '@remixicon/react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import type { QueueRecord } from '@/domain/routing-types';
-import { QUEUE_STRATEGY_LABELS } from '@/features/routing/queues/queue-labels';
 import { RoutingStatusBadge } from '@/features/routing/shared/routing-status';
 
 export interface QueueTableProps {
@@ -14,13 +14,15 @@ export interface QueueTableProps {
 
 /** Dense queue directory table. */
 export function QueueTable({ records, onView, onEdit, onMembers }: QueueTableProps) {
+    const { t } = useTranslation('administration');
+
     const headers: { key: string; label: string; align: 'start' | 'end' | 'center' }[] = [
-        { key: 'queue', label: 'Queue', align: 'start' },
-        { key: 'extension', label: 'Extension', align: 'start' },
-        { key: 'strategy', label: 'Strategy', align: 'start' },
-        { key: 'members', label: 'Members', align: 'end' },
-        { key: 'ringTimeout', label: 'Ring Timeout', align: 'end' },
-        { key: 'status', label: 'Status', align: 'start' },
+        { key: 'queue', label: t('queues.columns.queue'), align: 'start' },
+        { key: 'extension', label: t('queues.columns.extension'), align: 'start' },
+        { key: 'strategy', label: t('queues.columns.strategy'), align: 'start' },
+        { key: 'members', label: t('queues.columns.members'), align: 'end' },
+        { key: 'ringTimeout', label: t('queues.columns.ringTimeout'), align: 'end' },
+        { key: 'status', label: t('queues.columns.status'), align: 'start' },
         { key: 'actions', label: '', align: 'center' },
     ];
 
@@ -53,19 +55,19 @@ export function QueueTable({ records, onView, onEdit, onMembers }: QueueTablePro
                                     )}
                                 </td>
                                 <td className="px-4 py-2.5 font-mono text-xs text-flex-text-muted whitespace-nowrap text-start">{queue.extension}</td>
-                                <td className="px-4 py-2.5 text-xs text-flex-text-primary whitespace-nowrap text-start">{QUEUE_STRATEGY_LABELS[queue.strategy]}</td>
+                                <td className="px-4 py-2.5 text-xs text-flex-text-primary whitespace-nowrap text-start">{t(`queues.toolbar.strategies.${queue.strategy}`)}</td>
                                 <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary text-end">{queue.memberCount}</td>
                                 <td className="px-4 py-2.5 text-xs tabular-nums text-flex-text-primary whitespace-nowrap text-end">{queue.ringTimeout}s</td>
                                 <td className="px-4 py-2.5 text-start"><RoutingStatusBadge status={queue.status} /></td>
                                 <td className="px-4 py-2.5 text-center">
                                     <div className="flex items-center gap-0.5 justify-center">
-                                        <Button variant="ghost" size="icon-xs" title="View" aria-label={`View ${queue.name}`} onClick={() => onView(queue)}>
+                                        <Button variant="ghost" size="icon-xs" title={t('queues.table.view')} aria-label={t('queues.table.viewAria', { name: queue.name })} onClick={() => onView(queue)}>
                                             <RiEyeLine className="size-3.5" />
                                         </Button>
-                                        <Button variant="ghost" size="icon-xs" title="Members" aria-label={`Members of ${queue.name}`} onClick={() => onMembers(queue)}>
+                                        <Button variant="ghost" size="icon-xs" title={t('queues.table.members')} aria-label={t('queues.table.membersAria', { name: queue.name })} onClick={() => onMembers(queue)}>
                                             <RiTeamLine className="size-3.5" />
                                         </Button>
-                                        <Button variant="ghost" size="icon-xs" title="Edit" aria-label={`Edit ${queue.name}`} onClick={() => onEdit(queue)}>
+                                        <Button variant="ghost" size="icon-xs" title={t('queues.table.edit')} aria-label={t('queues.table.editAria', { name: queue.name })} onClick={() => onEdit(queue)}>
                                             <RiPencilLine className="size-3.5" />
                                         </Button>
                                     </div>

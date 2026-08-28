@@ -86,24 +86,129 @@
   "monitoring": "Ufuatiliaji wa Mawakala",
   "cdr": {
     "title": "Kumbukumbu za Simu",
+    "titleLong": "Kumbukumbu za Simu (CDR)",
+    "subtitle": "Tafuta, chuja na kagua kumbukumbu za simu",
+    "headTitle": "CDR — Flex Contact Center",
     "columns": {
       "direction": "Mwelekeo",
       "duration": "Muda",
       "queue": "Foleni",
       "agent": "Wakala",
-      "outcome": "Matokeo"
+      "outcome": "Matokeo",
+      "dateTime": "Tarehe na Muda",
+      "customer": "Mteja",
+      "status": "Hali",
+      "recording": "Rekodi",
+      "actions": "Vitendo"
     },
     "filters": "Vichujio",
-    "noRecords": "Hakuna kumbukumbu"
+    "noRecords": "Hakuna kumbukumbu",
+    "error": {
+      "title": "Imeshindwa kupakia kumbukumbu za simu",
+      "retry": "Jaribu tena",
+      "generic": "Huduma ya kumbukumbu za simu haikujibu."
+    },
+    "empty": {
+      "title": "Hakuna kumbukumbu za simu zilizopatikana",
+      "description": "Jaribu kubadilisha vichujio au kipindi cha tarehe.",
+      "action": "Ondoa vichujio"
+    },
+    "footerHint": "Adapta ya POC (dataset ya {{date}}) — mpaka wa `CdrRepository`; badilisha na backend ya CDR wakati wa uzinduzi.",
+    "recording": {
+      "noRecording": "Hakuna rekodi",
+      "listen": "Sikiliza rekodi ya sauti"
+    },
+    "actions": {
+      "view": "Angalia rekodi ya simu"
+    },
+    "toolbar": {
+      "quickFiltersLabel": "Vichujio vya haraka",
+      "filters": "Vichujio",
+      "clear": "Ondoa",
+      "columns": "Safu",
+      "refresh": "Onyesha upya",
+      "searchPlaceholder": "Tafuta simu kwa nambari, wakala, foleni...",
+      "searchAriaLabel": "Tafuta simu",
+      "filterQueue": "Foleni",
+      "filterAgent": "Wakala",
+      "filterAgentPlaceholder": "Tafuta wakala..."
+    },
+    "quickFilters": {
+      "all": "Zote",
+      "today": "Leo",
+      "answered": "Zilizojibiwa",
+      "missed": "Zilizokosekana",
+      "voicemail": "Voicemail",
+      "transferred": "Zilizopelekwa"
+    }
   },
   "campaigns": {
     "title": "Kampeni",
+    "titleLong": "Kampeni za Simu",
+    "subtitle": "Simamia upigaji wa moja kwa moja na ratiba za kampeni",
+    "headTitle": "Kampeni za Simu — Flex Contact Center",
     "status": {
       "active": "Amilifu",
       "paused": "Imesitishwa",
-      "completed": "Imekamilika"
+      "completed": "Imekamilika",
+      "draft": "Rasimu",
+      "scheduled": "Imepangwa"
     },
-    "actions": "Vitendo"
+    "columns": {
+      "campaign": "Kampeni",
+      "schedule": "Ratiba",
+      "progress": "Maendeleo",
+      "answerRate": "Kiwango cha Majibu",
+      "status": "Hali",
+      "actions": "Vitendo"
+    },
+    "toolbar": {
+      "filterLabel": "Chuja kwa hali",
+      "searchPlaceholder": "Tafuta kampeni kwa kichwa au marudio...",
+      "searchAriaLabel": "Tafuta kampeni",
+      "columns": "Safu",
+      "refresh": "Onyesha upya",
+      "newCampaign": "Kampeni Mpya",
+      "clear": "Ondoa"
+    },
+    "filters": {
+      "all": "Zote"
+    },
+    "actions": {
+      "view": "Angalia kampeni",
+      "edit": "Hariri kampeni",
+      "pause": "Sitisha kampeni",
+      "start": "Anzisha kampeni",
+      "delete": "Futa kampeni",
+      "actions": "Vitendo"
+    },
+    "error": {
+      "title": "Imeshindwa kupakia kampeni",
+      "retry": "Jaribu tena",
+      "generic": "Data ya kampeni haikupatikana."
+    },
+    "empty": {
+      "noCampaigns": "Hakuna kampeni bado",
+      "noMatch": "Hakuna kampeni zinazoendana na vichujio hivi",
+      "noCampaignsDescription": "Unda kampeni yako ya kwanza ya moja kwa moja ili kuanza.",
+      "noMatchDescription": "Jaribu kubadilisha utafutaji au vichujio.",
+      "newCampaign": "Kampeni Mpya",
+      "clearFilters": "Ondoa vichujio"
+    },
+    "deleteDialog": {
+      "title": "Futa kampeni",
+      "description": "Futa \"{{title}}\"? Kitendo hiki hakiwezi kutenduliwa.",
+      "cancel": "Ghairi",
+      "delete": "Futa kampeni",
+      "deleting": "Inafuta…"
+    },
+    "toast": {
+      "started": "Kampeni imeanzishwa",
+      "paused": "Kampeni imesitishwa",
+      "deleted": "Kampeni imefutwa",
+      "deleteFailed": "Kampeni haikuweza kufutwa"
+    },
+    "footerHint": "Adapta ya POC — mpaka wa `CampaignRepository`; badilisha na backend halisi ya kampeni wakati wa uzinduzi."
   },
   "reports": {
     "title": "Ripoti",

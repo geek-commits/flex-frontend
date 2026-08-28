@@ -5,6 +5,7 @@ import type { DataGridFeatures } from '@/components/reui/data-grid/data-grid';
 import { DataGridColumnVisibility } from '@/components/reui/data-grid/data-grid-column-visibility';
 import { Filters   } from '@/components/reui/filters';
 import type {Filter, FilterFieldConfig} from '@/components/reui/filters';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import type { CDRRecord } from '@/domain/types';
@@ -74,6 +75,38 @@ export function CdrToolbar({
     onRefresh,
     isRefreshing,
 }: CdrToolbarProps) {
+    const { t } = useTranslation('supervision');
+
+    const quickFilterOptions: { value: QuickFilter; label: string }[] = [
+        { value: 'all', label: t('cdr.quickFilters.all') },
+        { value: 'today', label: t('cdr.quickFilters.today') },
+        { value: 'answered', label: t('cdr.quickFilters.answered') },
+        { value: 'missed', label: t('cdr.quickFilters.missed') },
+        { value: 'voicemail', label: t('cdr.quickFilters.voicemail') },
+        { value: 'transferred', label: t('cdr.quickFilters.transferred') },
+    ];
+
+    const filterFields: FilterFieldConfig[] = [
+        {
+            key: 'queue',
+            label: t('cdr.toolbar.filterQueue'),
+            type: 'select',
+            searchable: true,
+            className: 'w-[180px]',
+            options: ['Customer Support', 'Sales & Inquiries', 'Technical Escalations'].map((queue) => ({
+                value: queue,
+                label: queue,
+            })),
+        },
+        {
+            key: 'agent',
+            label: t('cdr.toolbar.filterAgent'),
+            type: 'text',
+            className: 'w-44',
+            placeholder: t('cdr.toolbar.filterAgentPlaceholder'),
+        },
+    ];
+
     return (
         <div className="flex flex-col gap-3 px-3 py-2.5 lg:flex-row lg:items-center lg:justify-between">
             {/* Left group — scope & filters */}
@@ -81,9 +114,9 @@ export function CdrToolbar({
                 <div
                     className="flex items-center gap-1 rounded-md border border-border bg-card p-1"
                     role="group"
-                    aria-label="Quick filters"
+                    aria-label={t('cdr.toolbar.quickFiltersLabel')}
                 >
-                    {QUICK_FILTERS.map((option) => (
+                    {quickFilterOptions.map((option) => (
                         <button
                             key={option.value}
                             type="button"
@@ -103,13 +136,13 @@ export function CdrToolbar({
 
                 <Filters
                     filters={filters}
-                    fields={CDR_FILTER_FIELDS}
+                    fields={filterFields}
                     onChange={onFiltersChange}
                     size="sm"
                     trigger={
                         <Button variant="outline" size="sm" className="gap-1.5 text-xs">
                             <RiFilter3Line className="size-3.5" />
-                            Filters
+                            {t('cdr.toolbar.filters')}
                             {hasActiveAdvanced && <span className="size-1.5 rounded-full bg-primary" />}
                         </Button>
                     }
@@ -117,7 +150,7 @@ export function CdrToolbar({
                 {hasActiveAdvanced && (
                     <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={onClearFilters}>
                         <RiFilterOffLine className="size-3.5" />
-                        Clear
+                        {t('cdr.toolbar.clear')}
                     </Button>
                 )}
             </div>
@@ -129,16 +162,16 @@ export function CdrToolbar({
                     <Input
                         value={search}
                         onChange={(e) => onSearchChange(e.target.value)}
-                        placeholder="Search calls by phone, agent, queue..."
+                        placeholder={t('cdr.toolbar.searchPlaceholder')}
                         size="sm"
                         className="pl-8"
-                        aria-label="Search calls"
+                        aria-label={t('cdr.toolbar.searchAriaLabel')}
                     />
                 </div>
 
                 <DataGridColumnVisibility
                     table={table}
-                    trigger={<Button variant="outline" size="sm" className="gap-1.5 text-xs">Columns</Button>}
+                    trigger={<Button variant="outline" size="sm" className="gap-1.5 text-xs">{t('cdr.toolbar.columns')}</Button>}
                 />
 
                 <Button
@@ -149,7 +182,7 @@ export function CdrToolbar({
                     disabled={isRefreshing}
                 >
                     <RiRefreshLine className="size-3.5" />
-                    Refresh
+                    {t('cdr.toolbar.refresh')}
                 </Button>
             </div>
         </div>

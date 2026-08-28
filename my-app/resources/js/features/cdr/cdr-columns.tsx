@@ -9,6 +9,8 @@ import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import type { CDRRecord } from '@/domain/types';
 
+type TFunction = (key: string, options?: Record<string, unknown>) => string;
+
 export const CDR_STATUS_TONE: Record<CDRRecord['status'], FlexStatusTone> = {
     answered: 'success',
     missed: 'danger',
@@ -23,16 +25,15 @@ export const formatDuration = (sec: number) => {
     return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
 };
 
-const recordingUnavailable = (
-    <span className="text-flex-text-muted italic text-[10px]">No recording</span>
-);
-
-export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDef<DataGridFeatures, CDRRecord>[] {
+export function cdrColumns(t: TFunction, onViewRecord?: (record: CDRRecord) => void): ColumnDef<DataGridFeatures, CDRRecord>[] {
+    const recordingUnavailable = (
+        <span className="text-flex-text-muted italic text-[10px]">{t('cdr.recording.noRecording')}</span>
+    );
     return [
         {
             accessorKey: 'date',
             id: 'date',
-            header: ({ column }) => <DataGridColumnHeader title="Date & Time" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('cdr.columns.dateTime')} column={column} />,
             cell: ({ getValue }) => (
                 <span className="font-mono flex-numeric text-flex-text-muted">{getValue() as string}</span>
             ),
@@ -43,7 +44,7 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
         {
             accessorKey: 'customerPhone',
             id: 'customerPhone',
-            header: ({ column }) => <DataGridColumnHeader title="Customer" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('cdr.columns.customer')} column={column} />,
             cell: ({ row, table }) => {
                 const queryText = (table.options.meta as { search?: string } | undefined)?.search ?? '';
 
@@ -60,7 +61,7 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
         {
             accessorKey: 'agentName',
             id: 'agentName',
-            header: ({ column }) => <DataGridColumnHeader title="Agent" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('cdr.columns.agent')} column={column} />,
             cell: ({ row, table }) => {
                 const queryText = (table.options.meta as { search?: string } | undefined)?.search ?? '';
 
@@ -73,7 +74,7 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
         {
             accessorKey: 'queueName',
             id: 'queueName',
-            header: ({ column }) => <DataGridColumnHeader title="Queue" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('cdr.columns.queue')} column={column} />,
             cell: ({ row, table }) => {
                 const queryText = (table.options.meta as { search?: string } | undefined)?.search ?? '';
 
@@ -86,7 +87,7 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
         {
             accessorKey: 'durationSeconds',
             id: 'duration',
-            header: ({ column }) => <DataGridColumnHeader title="Duration" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('cdr.columns.duration')} column={column} />,
             cell: ({ row }) => (
                 <span className="font-mono flex-numeric">{formatDuration(row.original.durationSeconds)}</span>
             ),
@@ -97,7 +98,7 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
         {
             accessorKey: 'status',
             id: 'status',
-            header: ({ column }) => <DataGridColumnHeader title="Status" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('cdr.columns.status')} column={column} />,
             cell: ({ row }) => (
                 <FlexStatus tone={CDR_STATUS_TONE[row.original.status]} className="capitalize">
                     {row.original.status}
@@ -110,10 +111,10 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
         {
             accessorKey: 'hasRecording',
             id: 'recording',
-            header: 'Recording',
+            header: t('cdr.columns.recording'),
             cell: ({ row }) =>
                 row.original.hasRecording ? (
-                    <Button variant="outline" size="icon-xs" title="Listen to audio recording">
+                    <Button variant="outline" size="icon-xs" title={t('cdr.recording.listen')}>
                         <RiPlayFill className="size-3.5 text-primary" />
                     </Button>
                 ) : (
@@ -125,14 +126,14 @@ export function cdrColumns(onViewRecord?: (record: CDRRecord) => void): ColumnDe
         },
         {
             id: 'actions',
-            header: 'Actions',
+            header: t('cdr.columns.actions'),
             cell: ({ row }) => (
                 <div className="flex items-center justify-center">
                     {onViewRecord && (
                         <Button
                             variant="ghost"
                             size="icon-xs"
-                            title="View call record"
+                            title={t('cdr.actions.view')}
                             onClick={(e) => {
                                 e.stopPropagation();
                                 onViewRecord(row.original);

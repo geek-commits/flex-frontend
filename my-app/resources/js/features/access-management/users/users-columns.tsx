@@ -15,14 +15,16 @@ export interface UserRowHandlers {
     onEdit: (user: UserAccount) => void;
 }
 
-export function userColumns(handlers: UserRowHandlers): ColumnDef<DataGridFeatures, UserAccount>[] {
+type TFunction = (key: string, options?: Record<string, unknown>) => string;
+
+export function userColumns(t: TFunction, handlers: UserRowHandlers): ColumnDef<DataGridFeatures, UserAccount>[] {
     const { onView, onEdit } = handlers;
 
     return [
         {
             accessorKey: 'name',
             id: 'user',
-            header: ({ column }) => <DataGridColumnHeader title="User" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('users.columns.user')} column={column} />,
             cell: ({ row, table }) => {
                 const queryText = (table.options.meta as { search?: string } | undefined)?.search ?? '';
 
@@ -44,7 +46,7 @@ export function userColumns(handlers: UserRowHandlers): ColumnDef<DataGridFeatur
         {
             accessorKey: 'username',
             id: 'username',
-            header: ({ column }) => <DataGridColumnHeader title="Username" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('users.columns.username')} column={column} />,
             cell: ({ getValue }) => <span className="font-mono text-xs text-flex-text-muted">{getValue() as string}</span>,
             size: 150,
             enableSorting: true,
@@ -53,7 +55,7 @@ export function userColumns(handlers: UserRowHandlers): ColumnDef<DataGridFeatur
         {
             accessorKey: 'role',
             id: 'role',
-            header: ({ column }) => <DataGridColumnHeader title="Role" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('users.columns.role')} column={column} />,
             cell: ({ row }) => <span className="text-xs text-flex-text-primary">{roleLabels[row.original.role]}</span>,
             size: 150,
             enableSorting: true,
@@ -62,7 +64,7 @@ export function userColumns(handlers: UserRowHandlers): ColumnDef<DataGridFeatur
         {
             accessorKey: 'organization',
             id: 'organization',
-            header: ({ column }) => <DataGridColumnHeader title="Organization" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('users.columns.organization')} column={column} />,
             cell: ({ getValue }) => <span className="text-xs text-flex-text-primary">{getValue() as string}</span>,
             size: 160,
             enableSorting: true,
@@ -71,10 +73,10 @@ export function userColumns(handlers: UserRowHandlers): ColumnDef<DataGridFeatur
         {
             accessorKey: 'status',
             id: 'status',
-            header: ({ column }) => <DataGridColumnHeader title="Status" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('users.columns.status')} column={column} />,
             cell: ({ row }) => (
                 <FlexStatus tone={USER_STATUS_TONE[row.original.status]} className="capitalize">
-                    {row.original.status}
+                    {t(`users.status.${row.original.status}`)}
                 </FlexStatus>
             ),
             size: 110,
@@ -84,7 +86,7 @@ export function userColumns(handlers: UserRowHandlers): ColumnDef<DataGridFeatur
         {
             accessorKey: 'lastActivity',
             id: 'lastActivity',
-            header: ({ column }) => <DataGridColumnHeader title="Last Activity" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('users.columns.lastActivity')} column={column} />,
             cell: ({ getValue }) => (
                 <span className="text-xs text-flex-text-muted">{formatLastActivity(getValue() as string | undefined)}</span>
             ),
@@ -94,13 +96,13 @@ export function userColumns(handlers: UserRowHandlers): ColumnDef<DataGridFeatur
         },
         {
             id: 'actions',
-            header: 'Actions',
+            header: t('users.columns.actions'),
             cell: ({ row }) => (
                 <div className="flex items-center gap-1">
                     <Button
                         variant="ghost"
                         size="icon-xs"
-                        title="View user"
+                        title={t('users.actions.view')}
                         onClick={(e) => {
                             e.stopPropagation();
                             onView(row.original);
@@ -111,7 +113,7 @@ export function userColumns(handlers: UserRowHandlers): ColumnDef<DataGridFeatur
                     <Button
                         variant="ghost"
                         size="icon-xs"
-                        title="Edit user"
+                        title={t('users.actions.edit')}
                         onClick={(e) => {
                             e.stopPropagation();
                             onEdit(row.original);
