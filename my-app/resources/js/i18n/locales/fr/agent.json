@@ -13,10 +13,17 @@
     "live": "En direct",
     "calling": "Appel en cours...",
     "ringing": "Sonnerie...",
+    "ringingIncoming": "Entrant",
     "connected": "Connecté",
     "held": "En attente",
     "transferring": "Transfert en cours...",
-    "ended": "Appel terminé"
+    "ended": "Appel terminé",
+    "idle": "Inactif",
+    "dialing": "Composition",
+    "connecting": "Connexion",
+    "muted": "Muet",
+    "wrapUp": "Clôture",
+    "failed": "Échoué"
   },
   "callManager": {
     "title": "Gestionnaire d'appels",
@@ -59,5 +66,20 @@
       },
       "empty": "Aucune donnée de file disponible."
     }
+  },
+  "dynamicIsland": {
+    "connected": "Connecté",
+    "held": "En attente",
+    "transferring": "Transfert en cours",
+    "inbound": "Entrant",
+    "outbound": "Sortant",
+    "activeCall": "Appel actif",
+    "assistLive": "Assistance en direct",
+    "detectingLanguage": "Détection de la langue…",
+    "openAssist": "Ouvrir l'assistance",
+    "openCall": "Ouvrir l'appel",
+    "openDetails": "Ouvrir les détails de l'appel",
+    "closeDetails": "Fermer les détails de l'appel",
+    "assistLiveLabel": "Assistance en direct"
   }
 }

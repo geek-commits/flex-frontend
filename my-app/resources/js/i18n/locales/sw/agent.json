@@ -13,10 +13,17 @@
     "live": "Moja kwa moja",
     "calling": "Inapiga...",
     "ringing": "Inalia...",
+    "ringingIncoming": "Inayoingia",
     "connected": "Imeunganishwa",
     "held": "Imesimamishwa",
     "transferring": "Inahamisha...",
-    "ended": "Simu imeisha"
+    "ended": "Simu imeisha",
+    "idle": "Haitumiki",
+    "dialing": "Inapiga",
+    "connecting": "Inaunganisha",
+    "muted": "Imenyamazishwa",
+    "wrapUp": "Kuhitimisha",
+    "failed": "Imeshindwa"
   },
   "callManager": {
     "title": "Kidhibiti Simu",
@@ -59,5 +66,20 @@
       },
       "empty": "Hakuna data ya foleni."
     }
+  },
+  "dynamicIsland": {
+    "connected": "Imeunganishwa",
+    "held": "Imesimamishwa",
+    "transferring": "Inahamisha",
+    "inbound": "Inayoingia",
+    "outbound": "Inayotoka",
+    "activeCall": "Simu inayoendelea",
+    "assistLive": "Msaada unaendelea",
+    "detectingLanguage": "Inatambua lugha…",
+    "openAssist": "Fungua Msaada",
+    "openCall": "Fungua Simu",
+    "openDetails": "Fungua maelezo ya simu",
+    "closeDetails": "Funga maelezo ya simu",
+    "assistLiveLabel": "Msaada unaendelea"
   }
 }

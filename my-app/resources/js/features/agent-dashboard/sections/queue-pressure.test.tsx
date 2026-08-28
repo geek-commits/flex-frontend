@@ -11,9 +11,8 @@ describe('QueuePressureSection', () => {
                 <QueuePressureSection queues={[]} />
             </I18nextProvider>,
         );
-        // Should show translated empty, not render empty div via queues.map || <Empty>
-        expect(screen.getByText('Queue Pressure')).toBeInTheDocument();
-        expect(screen.getByText('No queue data available.')).toBeInTheDocument();
+        expect(screen.getByText('Queue Pressure')).toBeTruthy();
+        expect(screen.getByText('No queue data available.')).toBeTruthy();
     });
 
     it('renders queues when data exists', () => {
@@ -26,7 +25,7 @@ describe('QueuePressureSection', () => {
                 />
             </I18nextProvider>,
         );
-        expect(screen.getByText('Support')).toBeInTheDocument();
-        expect(screen.getByText('Waiting')).toBeInTheDocument();
+        expect(screen.getByText('Support')).toBeTruthy();
+        expect(screen.getByText('Waiting')).toBeTruthy();
     });
 });

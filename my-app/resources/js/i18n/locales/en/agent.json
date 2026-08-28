@@ -13,10 +13,17 @@
     "live": "Live",
     "calling": "Calling...",
     "ringing": "Ringing...",
+    "ringingIncoming": "Incoming",
     "connected": "Connected",
     "held": "On Hold",
     "transferring": "Transferring...",
-    "ended": "Call Ended"
+    "ended": "Call Ended",
+    "idle": "Idle",
+    "dialing": "Dialing",
+    "connecting": "Connecting",
+    "muted": "Muted",
+    "wrapUp": "Wrap Up",
+    "failed": "Failed"
   },
   "callManager": {
     "title": "Call Manager",
@@ -59,5 +66,20 @@
       },
       "empty": "No queue data available."
     }
+  },
+  "dynamicIsland": {
+    "connected": "Connected",
+    "held": "Held",
+    "transferring": "Transferring",
+    "inbound": "Inbound",
+    "outbound": "Outbound",
+    "activeCall": "Active call",
+    "assistLive": "Assist live",
+    "detectingLanguage": "Detecting language…",
+    "openAssist": "Open Assist",
+    "openCall": "Open Call",
+    "openDetails": "Open call details",
+    "closeDetails": "Close call details",
+    "assistLiveLabel": "Assist live"
   }
 }

@@ -5,6 +5,7 @@ import {
     RiSparklingLine,
 } from '@remixicon/react';
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { AgentAssistMobileView } from '../agent-assist/agent-assist-dock';
 import { useAgentAssistSessionOptional } from '../agent-assist/agent-assist-session-context';
 import { Badge } from '@/components/ui/badge';
@@ -37,6 +38,7 @@ const IN_CALL_STATES = new Set([
  * schedules fake transitions.
  */
 export function CallManager() {
+    const { t } = useTranslation('agent');
     const ws = useWorkspaceState();
     const assist = useAgentAssistSessionOptional();
     const [dialNumber, setDialNumber] = useState('');
@@ -47,6 +49,7 @@ export function CallManager() {
 
     const { callState } = ws;
     const stateCfg = callStateMap[callState];
+    const stateLabel = stateCfg.labelKey ? t(stateCfg.labelKey) : stateCfg.label;
     const inCall = IN_CALL_STATES.has(callState);
     const canCollapse = callState === 'idle' || callState === 'wrap-up' || callState === 'ended';
 
@@ -156,7 +159,7 @@ export function CallManager() {
                 <div className="flex shrink-0 items-center justify-between gap-2 border-b border-border bg-flex-workspace-surface-muted px-3 py-2">
                     <span className="flex items-center gap-1.5 text-xs text-flex-text-muted">
                         <span className="size-1.5 rounded-full bg-emerald-500" aria-hidden />
-                        Connected
+                        {t('callState.connected')}
                         {ws.activeCall?.connectedAt && (
                             <span className="ml-1 font-mono text-[11px]">{ws.activeCall.target.label}</span>
                         )}
@@ -168,7 +171,7 @@ export function CallManager() {
                         onClick={() => setMobileAssistMode(false)}
                         className="h-7 text-xs"
                     >
-                        Call controls
+                        {t('callManager.title')}
                     </Button>
                 </div>
                 <AgentAssistMobileView />
@@ -201,17 +204,17 @@ export function CallManager() {
                     <button
                         type="button"
                         onClick={() => setCollapsedCallState(null)}
-                        aria-label={`Call Manager: ${stateCfg.label}. Open call controls`}
+                        aria-label={`${t('callManager.title')}: ${stateLabel}. ${t('common:actions.open', 'Open call controls')}`}
                         className="flex h-14 shrink-0 items-center gap-2 border-t border-border bg-card px-3 text-left text-xs select-none"
                     >
                         <RiPhoneLine className="size-4 shrink-0 text-primary" />
                         <span className="shrink-0 font-bold text-foreground">
-                            Call Manager
+                            {t('callManager.title')}
                         </span>
                         <span
                             className={`shrink-0 rounded-full px-1.5 py-0.5 text-[10px] font-semibold capitalize ${stateCfg.badgeClass}`}
                         >
-                            {stateCfg.label}
+                            {stateLabel}
                         </span>
                         {ws.activeCall && (
                             <span className="min-w-0 flex-1 truncate font-medium text-muted-foreground">
@@ -229,12 +232,12 @@ export function CallManager() {
                                 {showAssistToggle && mobileAssistMode ? (
                                     <>
                                         <RiSparklingLine className="size-4 shrink-0 text-primary" />
-                                        <span className="truncate">Agent Assist</span>
+                                        <span className="truncate">{t('assist:title', 'Agent Assist')}</span>
                                     </>
                                 ) : (
                                     <>
                                         <RiPhoneLine className="size-4 shrink-0 text-primary" />
-                                        <span className="truncate">Call Manager</span>
+                                        <span className="truncate">{t('callManager.title')}</span>
                                     </>
                                 )}
                             </div>
@@ -247,10 +250,10 @@ export function CallManager() {
                                         size="sm"
                                         onClick={() => setMobileAssistMode(true)}
                                         className="h-7 gap-1 text-xs"
-                                        aria-label="Open Assist transcript"
+                                        aria-label={t('dynamicIsland.openAssist')}
                                     >
                                         <RiSparklingLine className="size-3.5" />
-                                        Assist
+                                        {t('assist:title', 'Assist')}
                                     </Button>
                                 )}
                                 {showAssistToggle && mobileAssistMode && (
@@ -261,21 +264,21 @@ export function CallManager() {
                                         onClick={() => setMobileAssistMode(false)}
                                         className="h-7 text-xs"
                                     >
-                                        Call
+                                        {t('callManager.title')}
                                     </Button>
                                 )}
                                 <Badge
                                     variant="outline"
                                     className={`text-[10px] font-semibold capitalize ${stateCfg.badgeClass}`}
                                 >
-                                    {stateCfg.label}
+                                    {stateLabel}
                                 </Badge>
 
                                 {canCollapse && (
                                     <Button
                                         variant="ghost"
                                         size="icon-sm"
-                                        aria-label="Collapse Call Manager"
+                                        aria-label={t('common:actions.close', 'Collapse Call Manager')}
                                         onClick={() => setCollapsedCallState(callState)}
                                     >
                                         <RiCloseLine className="size-4" />
@@ -296,13 +299,13 @@ export function CallManager() {
             <div className="flex shrink-0 items-center justify-between border-b border-border p-3">
                 <div className="flex items-center gap-2 font-bold text-foreground">
                     <RiPhoneLine className="size-4 text-primary" />
-                    <span>Call Manager</span>
+                    <span>{t('callManager.title')}</span>
                 </div>
                 <Badge
                     variant="outline"
                     className={`text-[10px] font-semibold capitalize ${stateCfg.badgeClass}`}
                 >
-                    {stateCfg.label}
+                    {stateLabel}
                 </Badge>
             </div>
 
