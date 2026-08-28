@@ -385,6 +385,8 @@ export interface DataGridProps<
   allRowsLoadedMessage?: ReactNode | string
   emptyMessage?: ReactNode | string
   tableLayout?: {
+    /** Canonical row density: data=40px analytical, object=44px entity. dense remains compact 32px exception. */
+    density?: 'data' | 'object'
     dense?: boolean
     cellBorder?: boolean
     rowBorder?: boolean

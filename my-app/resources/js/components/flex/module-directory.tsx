@@ -39,7 +39,7 @@ export function ModuleDirectory({ title, description, modules }: ModuleDirectory
             {/* Header + Search Bar */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
-                    <h2 className="text-xl font-bold text-foreground tracking-tight">{title}</h2>
+                    <h2 className="text-[length:var(--flex-font-size-page-title)] font-medium text-foreground tracking-tight">{title}</h2>
                     {description && <p className="text-xs text-muted-foreground mt-0.5">{description}</p>}
                 </div>
 

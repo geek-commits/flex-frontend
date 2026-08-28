@@ -328,7 +328,8 @@
     --flex-font-weight-label: 500; /* Medium */
     --flex-font-size-metadata: 0.75rem;
     --flex-font-size-caption: 0.6875rem;
-    --flex-font-size-table-header: 0.6875rem;
+    --flex-font-size-table-header: 0.8125rem; /* 13px — canonical table header 13/16 Medium (§11) */
+    --flex-font-weight-table-header: 500;
     --flex-font-size-table-body: 0.8125rem;
     --flex-font-size-numeric: 0.8125rem;
     --flex-font-numeric: tabular-nums;

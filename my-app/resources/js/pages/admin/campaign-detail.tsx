@@ -124,7 +124,7 @@ export default function CampaignDetailPage() {
                         <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                             <div className="flex flex-col gap-1.5">
                                 <div className="flex items-center gap-2.5">
-                                    <span className="text-xl font-semibold text-foreground tracking-tight">{campaign.title}</span>
+                                    <span className="text-[length:var(--flex-font-size-page-title)] font-medium text-foreground tracking-tight">{campaign.title}</span>
                                     <StatusBadge domain="campaign" status={campaign.status} />
                                 </div>
                                 <p className="text-xs text-muted-foreground">

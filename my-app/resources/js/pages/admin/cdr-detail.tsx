@@ -63,7 +63,7 @@ export default function CdrDetailPage() {
                                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                                     <div className="flex flex-col gap-1.5">
                                         <div className="flex items-center gap-2.5">
-                                            <span className="text-2xl font-bold font-mono text-foreground tracking-tight">
+                                            <span className="text-[length:var(--flex-font-size-page-title)] font-medium font-mono text-foreground tracking-tight">
                                                 {record.customerPhone}
                                             </span>
                                             <FlexStatus tone={status?.tone ?? 'neutral'} className="capitalize">

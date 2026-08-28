@@ -604,7 +604,7 @@ const MemoizedVirtualBody = memo(
 
 function DataGridTableVirtual<TData extends object>({
   height,
-  estimateSize = 48,
+  estimateSize = 40,
   overscan = 10,
   scrollBehavior = "auto",
   scrollToRowAlign = "auto",
