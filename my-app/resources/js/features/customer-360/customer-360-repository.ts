@@ -1,7 +1,6 @@
 import { cdrRepository } from '@/domain/cdr-repository';
 import { recoveryRepository } from '@/domain/recovery-repository';
-import { socialRepository } from '@/features/social/social-repository';
-import type { SocialConversation } from '@/features/social/social-types';
+import { getCustomer360SocialActivities } from './customer-360-social-mock';
 
 export type TimelineType = 'call' | 'social' | 'callback' | 'voicemail';
 
@@ -46,8 +45,8 @@ export function resolveCustomerTimeline(phoneOrHandle: string): { displayName: s
         }
     }
 
-    // Social — match participant or displayName
-    for (const c of socialRepository.getInbox().conversations as SocialConversation[]) {
+    // Social — Customer 360 POC mock (decoupled from native Social Inbox; external Social owns realtime)
+    for (const c of getCustomer360SocialActivities()) {
         const participantNorm = normalizePhone(c.participant);
         const nameNorm = (c.displayName ?? '').toLowerCase();
 

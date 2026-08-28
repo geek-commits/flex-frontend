@@ -1,41 +1,26 @@
-# ADR-003 — Social Realtime Ownership
+# ADR-003 — Social Realtime Ownership (Superseded for external Social)
 
-* Status: **Accepted — deferred transport** (Increment 1 baseline has no realtime transport)
-* Date: 2026-08-21
-* Deciders: FLEX Hardening plan §§7, 8, 26
+* Status: **Superseded 2026-08-28** — Social is external (`https://demo-chat.flex.co.tz` via `public/integrations/social-primary.json` embedded at `/agent/social` via `ExternalWorkspaceHost` `chrome="none"`). See `docs/architecture/FLEX_EXTERNAL_SYSTEM_OWNERSHIP.md`.
+* Date: 2026-08-21 (original), updated 2026-08-28
+* Deciders: Old-version parity plan §§30-35 + Customer 360 decoupling decision
 
 ## Context
 
-Social Inbox is `SHIPPED (POC)` on a mock `socialRepository` (`features/social/social-repository.ts` + `data/social.mock.ts` — 5 conversations, channels whatsapp/facebook/instagram via `SOCIAL_CHANNELS`). React binding `useSocialWorkspace()` (`features/social/use-social-workspace.ts`) holds `SocialInboxData` via `useState(() => getInbox())` and synchronous actions `sendReply/setFollowUp/escalate` (+ `setData(getInbox())`). Baseline has **no polling, no SSE/WebSocket, no Pusher**, and inbox is NOT tenant-scoped. Manual §§20, 8 demand: message ID dedupe, ordering, pagination merge, read-state, reconnect, `Tenant A→B→A` isolation.
+Social Inbox was `SHIPPED (POC)` on a mock `socialRepository` (`features/social/social-repository.ts` + `data/social.mock.ts`). That POC is now **removed** from the production route. Canonical route `pages/agent/social.tsx` → `SocialIntegrationHost` → `ExternalWorkspaceHost` embeds the real external Social system. Native three-pane inbox (`SocialWorkspacePage`), `useSocialWorkspace()`, `socialRepository`, dedupe/identity, conversation components, composer, and `SocialChannelIcon` are deleted per reachability audit (no production route import; Customer 360 now uses minimal `features/customer-360/customer-360-social-mock.ts` POC boundary linking to `/agent/social`).
 
-## Decision
+## Decision (current)
 
-**Single owner:** `socialRepository` singleton. Transport-agnostic contract:
-
-```
-owner:  socialRepository (session singleton)
-binding: useSocialWorkspace() — stable action callbacks via useMemo
-selectors: conversations, getMessages(conversationId), unreadCount, followUp/escalated
-transport: pluggable adapter behind the same contract (mock → polling/SSE/WS)
-persistence: none — no draft/message persistence beyond explicit product requirement
-tenant scope: to be added via ADR-002 invalidator
-```
-
-When a real transport lands (Increment 3):
-
-* `messageId` dedupe, ordering (server-timestamp canonical), pagination-merge, `read` reconciliation, `followUp/escalated` idempotency.
-* `last-known-data` preserved during reconnect (`§8` rule — keep data visible, localize failure).
-* Navigation `activeId` remains local `useState` in `SocialWorkspacePage` (correct locality; only promote if cross-route reuse proven).
-
-Domain layout: `features/social/` (16 files) + `domain/`-compatible `social/` boundary if split proves useful (§26); prefer compatibility with `features/social/*` over a forced mega-store.
+- **External Social owns:** UI, login/auth/session, conversation inbox/detail/composer, filters, realtime (messages, typing, delivery), data. FLEX must not reintroduce native realtime owner, polling, or duplicate subscriptions.
+- **FLEX owns:** `ExternalWorkspaceHost` container/lifecycle (`relative min-h-0` → `absolute inset-0 block` full-bleed), config fetch (`/integrations/social-primary.json`), neutral `loaded` state, error/deferred state (`configuration-missing`/`unavailable` with retry/open-externally), `frameKey` only on config/retry (not on locale/sidebar/timer).
+- **Customer 360:** POC social timeline events preserved via `features/customer-360/customer-360-social-mock.ts` (fields: id, participant, displayName, channel, lastActivityAt, latestPreview, route `/agent/social`) — no dependency on native `SocialConversation` model, no fake external API, no iframe scraping.
 
 ## Consequences
 
-* No duplicate polling/listeners introduced in Increment 1 — Social has zero intervals at baseline (see `FLEX_REALTIME_CHANNEL_AUDIT.md`).
-* Increment 3 reconnect tests: offline 5 s / 30 s, server reconnect, tenant-switch-while-reconnecting, route-change-during-reconnect.
-* Primitive `SocialChannelIcon` stays canonical (`@assets/social/*.svg?react` via `vite-plugin-svgr`).
+- No native Social polling/listeners to audit — external system handles reconnect, dedupe, ordering, pagination, read-state.
+- FLEX must not: capture external credentials, modify cookies, proxy/inject HTML, add `allow-top-navigation`, or attempt CSP fix from React (child `frame-ancestors`).
+- Remaining `frame-ancestors` block is `KNOWN EXTERNAL` until server phase; frontend composition is PASS.
 
 ## Verification
 
-* Grep `social` transports → zero `setInterval/EventSource/WebSocket` at baseline (confirmed).
-* Vitest targets (Increment 2): `SocialChannelIcon` normalization, dedupe/ordering reducers, pagination merge, error normalization for `message_send_failed`.
+- `grep -r features/social` at `c6c0ebb` post-cleanup: only `social-integration-host.tsx` + `customer-360-social-mock.ts` remain production-reachable; `SocialWorkspacePage`/`useSocialWorkspace`/`socialRepository` gone.
+- `bun run tests` — native social tests removed (12 files 127 tests); `shell-integrity` still PASS.
