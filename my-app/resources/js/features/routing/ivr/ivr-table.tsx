@@ -1,5 +1,6 @@
 import { RiEyeLine, RiPencilLine } from '@remixicon/react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import type { IVRRecord } from '@/domain/routing-types';
 import { formatDestination } from '@/domain/routing-types';
@@ -14,25 +15,26 @@ export interface IVRTableProps {
 const alignClass = (a: 'start' | 'end' | 'center' | undefined) =>
     a === 'end' ? 'text-end' : a === 'center' ? 'text-center' : 'text-start';
 
-const headers: { label: string; align: 'start' | 'end' | 'center' }[] = [
-    { label: 'IVR', align: 'start' },
-    { label: 'Prompt', align: 'start' },
-    { label: 'Entries', align: 'end' },
-    { label: 'Default Destination', align: 'start' },
-    { label: 'Status', align: 'start' },
-    { label: '', align: 'center' },
-];
-
 /** Dense IVR directory table. */
 export function IVRTable({ records, onView, onEdit }: IVRTableProps) {
+    const { t } = useTranslation('administration');
+
+    const headers: { key: string; label: string; align: 'start' | 'end' | 'center' }[] = [
+        { key: 'ivr', label: t('ivr.columns.ivr'), align: 'start' },
+        { key: 'prompt', label: t('ivr.columns.prompt'), align: 'start' },
+        { key: 'entries', label: t('ivr.columns.entries'), align: 'end' },
+        { key: 'defaultDestination', label: t('ivr.columns.defaultDestination'), align: 'start' },
+        { key: 'status', label: t('ivr.columns.status'), align: 'start' },
+        { key: 'actions', label: '', align: 'center' },
+    ];
     return (
         <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
             <div className="overflow-x-auto">
                 <table className="flex-table-grid w-full text-sm">
                     <thead>
                         <tr className="border-b border-border bg-muted/40 text-left">
-                            {headers.map((header, index) => (
-                                <th key={index} className={`px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap ${alignClass(header.align)}`}>
+                            {headers.map((header) => (
+                                <th key={header.key} className={`px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap ${alignClass(header.align)}`}>
                                     {header.label}
                                 </th>
                             ))}
@@ -48,10 +50,10 @@ export function IVRTable({ records, onView, onEdit }: IVRTableProps) {
                                 <td className="px-4 py-2.5 text-start"><RoutingStatusBadge status={ivr.status} /></td>
                                 <td className="px-4 py-2.5 text-center">
                                     <div className="flex items-center gap-0.5 justify-center">
-                                        <Button variant="ghost" size="icon-xs" title="View" aria-label={`View ${ivr.name}`} onClick={() => onView(ivr)}>
+                                        <Button variant="ghost" size="icon-xs" title={t('ivr.table.view')} aria-label={t('ivr.table.viewAria', { name: ivr.name })} onClick={() => onView(ivr)}>
                                             <RiEyeLine className="size-3.5" />
                                         </Button>
-                                        <Button variant="ghost" size="icon-xs" title="Edit" aria-label={`Edit ${ivr.name}`} onClick={() => onEdit(ivr)}>
+                                        <Button variant="ghost" size="icon-xs" title={t('ivr.table.edit')} aria-label={t('ivr.table.editAria', { name: ivr.name })} onClick={() => onEdit(ivr)}>
                                             <RiPencilLine className="size-3.5" />
                                         </Button>
                                     </div>

@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -41,6 +42,7 @@ export interface TimeConditionFormSheetProps {
 }
 
 export function TimeConditionFormSheet({ open, onOpenChange, editing, onSaved }: TimeConditionFormSheetProps) {
+    const { t } = useTranslation('administration');
     const [draft, setDraft] = useState<TimeConditionDraft>(() => seedDraft(editing));
     const [nameError, setNameError] = useState<string>();
     const [saving, setSaving] = useState(false);
@@ -62,13 +64,13 @@ export function TimeConditionFormSheet({ open, onOpenChange, editing, onSaved }:
 
     const handleSave = () => {
         if (!draft.name.trim()) {
-            setNameError('Condition name is required.');
+            setNameError(t('timeConditions.form.validation.nameRequired'));
 
             return;
         }
 
         if (!draft.timeGroupId) {
-            toast.error('Select a Time Group.');
+            toast.error(t('timeConditions.form.validation.timeGroupRequired'));
 
             return;
         }
@@ -78,13 +80,13 @@ export function TimeConditionFormSheet({ open, onOpenChange, editing, onSaved }:
             try {
                 if (editing) {
                     routingRepository.updateTimeCondition(editing.id, draft);
-                    toast.success('Time Condition updated');
+                    toast.success(t('timeConditions.form.toast.updated'));
                 } else {
                     routingRepository.createTimeCondition(draft);
-                    toast.success('Time Condition created');
+                    toast.success(t('timeConditions.form.toast.created'));
                 }
             } catch {
-                toast.error(editing ? 'Time Condition could not be saved' : 'Time Condition could not be created');
+                toast.error(editing ? t('timeConditions.form.toast.saveFailed') : t('timeConditions.form.toast.createFailed'));
             }
 
             setSaving(false);
@@ -97,49 +99,49 @@ export function TimeConditionFormSheet({ open, onOpenChange, editing, onSaved }:
         <Sheet open={open} onOpenChange={handleOpenChange}>
             <SheetContent className="w-full sm:max-w-lg overflow-y-auto">
                 <SheetHeader>
-                    <SheetTitle>{editing ? 'Edit Time Condition' : 'Add Time Condition'}</SheetTitle>
-                    <SheetDescription>Define when this condition routes and where calls go.</SheetDescription>
+                    <SheetTitle>{editing ? t('timeConditions.form.editTitle') : t('timeConditions.form.addTitle')}</SheetTitle>
+                    <SheetDescription>{t('timeConditions.form.description')}</SheetDescription>
                 </SheetHeader>
 
                 <div className="flex-1 overflow-y-auto px-4 pb-4 flex flex-col gap-5">
-                    <RoutingFormSection title="General">
+                    <RoutingFormSection title={t('timeConditions.form.general')}>
                         <div className="flex flex-col gap-1.5">
                             <Label htmlFor="tc-name" className="text-xs font-semibold">
-                                Condition Name
+                                {t('timeConditions.form.conditionName')}
                             </Label>
                             <Input
                                 id="tc-name"
                                 value={draft.name}
                                 onChange={(e) => updateDraft({ name: e.target.value })}
-                                placeholder="e.g. Business Hours Routing"
+                                placeholder={t('timeConditions.form.conditionNamePlaceholder')}
                                 aria-invalid={!!nameError}
                             />
                             {nameError && <p className="text-xs text-destructive">{nameError}</p>}
                         </div>
                         <div className="flex flex-col gap-1.5">
                             <Label htmlFor="tc-status" className="text-xs font-semibold">
-                                Status
+                                {t('timeConditions.form.status')}
                             </Label>
                             <Select value={draft.status} onValueChange={(value) => updateDraft({ status: (value as 'active' | 'inactive') ?? 'active' })}>
                                 <SelectTrigger id="tc-status" className="w-full">
                                     <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="active" className="text-xs capitalize">Active</SelectItem>
-                                    <SelectItem value="inactive" className="text-xs capitalize">Inactive</SelectItem>
+                                    <SelectItem value="active" className="text-xs capitalize">{t('timeConditions.form.active')}</SelectItem>
+                                    <SelectItem value="inactive" className="text-xs capitalize">{t('timeConditions.form.inactive')}</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
                     </RoutingFormSection>
 
-                    <RoutingFormSection title="Schedule">
+                    <RoutingFormSection title={t('timeConditions.form.schedule')}>
                         <div className="flex flex-col gap-1.5">
                             <Label htmlFor="tc-group" className="text-xs font-semibold">
-                                Time Group
+                                {t('timeConditions.form.timeGroup')}
                             </Label>
                             <Select value={draft.timeGroupId || undefined} onValueChange={(value) => updateDraft({ timeGroupId: value ?? '' })}>
                                 <SelectTrigger id="tc-group" className="w-full">
-                                    <SelectValue placeholder="Select a time group" />
+                                    <SelectValue placeholder={t('timeConditions.form.selectTimeGroup')} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     {timeGroups.map((group) => (
@@ -150,16 +152,16 @@ export function TimeConditionFormSheet({ open, onOpenChange, editing, onSaved }:
                                 </SelectContent>
                             </Select>
                             <p className="text-[11px] text-flex-text-muted">
-                                This condition controls where calls are routed during the configured schedule.
+                                {t('timeConditions.form.scheduleHint')}
                             </p>
                         </div>
                     </RoutingFormSection>
 
-                    <RoutingFormSection title="Routing">
+                    <RoutingFormSection title={t('timeConditions.form.routing')}>
                         <div className="flex flex-col gap-3">
                             <RoutingDestinationSelect
                                 id="tc-match"
-                                label="When schedule matches"
+                                label={t('timeConditions.form.whenMatches')}
                                 value={draft.matchDestination}
                                 onChange={(destination) =>
                                     updateDraft({ matchDestination: destination ?? { type: 'Queue', value: '' } })
@@ -167,7 +169,7 @@ export function TimeConditionFormSheet({ open, onOpenChange, editing, onSaved }:
                             />
                             <RoutingDestinationSelect
                                 id="tc-nomatch"
-                                label="When schedule does not match"
+                                label={t('timeConditions.form.whenNotMatches')}
                                 value={draft.noMatchDestination}
                                 onChange={(destination) =>
                                     updateDraft({ noMatchDestination: destination ?? { type: 'IVR', value: '' } })
@@ -179,10 +181,10 @@ export function TimeConditionFormSheet({ open, onOpenChange, editing, onSaved }:
 
                 <SheetFooter className="border-t border-border px-4 py-3">
                     <Button variant="outline" onClick={() => handleOpenChange(false)} disabled={saving}>
-                        Cancel
+                        {t('timeConditions.form.cancel')}
                     </Button>
                     <Button onClick={handleSave} disabled={saving}>
-                        {saving ? 'Saving…' : editing ? 'Save Condition' : 'Create Condition'}
+                        {saving ? t('timeConditions.form.saving') : editing ? t('timeConditions.form.saveCondition') : t('timeConditions.form.createCondition')}
                     </Button>
                 </SheetFooter>
             </SheetContent>

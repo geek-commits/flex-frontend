@@ -1,6 +1,7 @@
 import { Head } from '@inertiajs/react';
 import { RiArrowRightLine, RiInformationLine } from '@remixicon/react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { MailConfigForm } from '@/features/mail-config/mail-config-form';
 import { MailStatusBanner } from '@/features/mail-config/mail-status-banner';
@@ -10,6 +11,7 @@ import { useMailConfigData } from '@/features/mail-config/use-mail-config-data';
 import { AdminShell } from '@/layouts/admin-shell';
 
 export function MailConfigPage() {
+    const { t } = useTranslation('administration');
     const {
         config,
         isSaving,
@@ -24,10 +26,10 @@ export function MailConfigPage() {
 
     return (
         <AdminShell
-            title="Mail Configuration"
-            subtitle="Configure and test the SMTP server used for system notifications and alerts."
+            title={t('mail.title')}
+            subtitle={t('mail.subtitle')}
         >
-            <Head title="Mail Configuration — Flex Contact Center" />
+            <Head title={t('mail.headTitle')} />
 
             <div className="flex flex-col gap-[var(--flex-space-section)] w-full max-w-4xl">
                 {/* Live Status Banner */}
@@ -60,7 +62,7 @@ export function MailConfigPage() {
                     <div className="flex items-center gap-2 text-flex-text-muted">
                         <RiInformationLine className="size-4 shrink-0 text-flex-text-primary" />
                         <span>
-                            Mail delivery powers 5-day expiration reminders and payment confirmations for accounts.
+                            {t('mail.crossLink.description')}
                         </span>
                     </div>
                     <Button
@@ -71,7 +73,7 @@ export function MailConfigPage() {
                             window.location.href = '/admin/subscription';
                         }}
                     >
-                        View Subscriptions
+                        {t('mail.crossLink.viewSubscriptions')}
                         <RiArrowRightLine className="size-3.5" />
                     </Button>
                 </div>

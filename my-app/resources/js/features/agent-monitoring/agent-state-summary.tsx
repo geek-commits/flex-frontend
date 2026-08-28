@@ -8,6 +8,7 @@ import {
     RiTimeLine,
 } from '@remixicon/react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexMetricItem } from '@/components/flex/metrics/flex-metric-item';
 import { FlexMetricStrip } from '@/components/flex/metrics/flex-metric-strip';
 import { MONITORING_STATE_ORDER } from '@/features/agent-monitoring/use-agent-monitoring';
@@ -24,44 +25,44 @@ interface SummaryState {
 const SUMMARY_STATES: SummaryState[] = [
     {
         state: 'talking',
-        label: 'Talking',
-        description: 'Agents on active call',
+        label: 'monitoring.summary.talking.label',
+        description: 'monitoring.summary.talking.description',
         icon: RiCustomerServiceLine,
     },
     {
         state: 'ready',
-        label: 'Ready',
-        description: 'Available for incoming calls',
+        label: 'monitoring.summary.ready.label',
+        description: 'monitoring.summary.ready.description',
         icon: RiCheckLine,
     },
     {
         state: 'ringing',
-        label: 'Ringing',
-        description: 'Agents on inbound ring',
+        label: 'monitoring.summary.ringing.label',
+        description: 'monitoring.summary.ringing.description',
         icon: RiPhoneLine,
     },
     {
         state: 'wrap-up',
-        label: 'Wrap-Up',
-        description: 'Post-call work',
+        label: 'monitoring.summary.wrapUp.label',
+        description: 'monitoring.summary.wrapUp.description',
         icon: RiFileListLine,
     },
     {
         state: 'break',
-        label: 'Break',
-        description: 'Away on break',
+        label: 'monitoring.summary.break.label',
+        description: 'monitoring.summary.break.description',
         icon: RiCupLine,
     },
     {
         state: 'not-ready',
-        label: 'Not Ready',
-        description: 'Unavailable for calls',
+        label: 'monitoring.summary.notReady.label',
+        description: 'monitoring.summary.notReady.description',
         icon: RiPauseCircleLine,
     },
     {
         state: 'offline',
-        label: 'Offline',
-        description: 'Not currently logged in',
+        label: 'monitoring.summary.offline.label',
+        description: 'monitoring.summary.offline.description',
         icon: RiTimeLine,
     },
 ];
@@ -69,6 +70,7 @@ const SUMMARY_STATES: SummaryState[] = [
 const SUMMARY_STATE_SET = new Set(SUMMARY_STATES.map((s) => s.state));
 
 export function AgentStateSummary() {
+    const { t } = useTranslation('supervision');
     const { summary, isLoading } = useAgentMonitoring();
     const orderedStates = MONITORING_STATE_ORDER.filter((state) =>
         SUMMARY_STATE_SET.has(state),
@@ -86,9 +88,9 @@ export function AgentStateSummary() {
                 return (
                     <FlexMetricItem
                         key={state}
-                        label={config.label}
+                        label={t(config.label)}
                         value={summary[state]}
-                        description={config.description}
+                        description={t(config.description)}
                         icon={config.icon}
                         loading={isLoading}
                     />

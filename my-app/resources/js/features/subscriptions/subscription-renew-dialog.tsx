@@ -1,5 +1,6 @@
 import { RiRefreshLine } from '@remixicon/react';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -33,6 +34,7 @@ export function SubscriptionRenewDialog({
     onOpenChange,
     onConfirm,
 }: SubscriptionRenewDialogProps) {
+    const { t } = useTranslation('administration');
     const [months, setMonths] = useState<number>(1);
 
     if (!record) {
@@ -45,16 +47,15 @@ export function SubscriptionRenewDialog({
                 <AlertDialogHeader className="gap-2">
                     <div className="flex items-center gap-2 text-primary">
                         <RiRefreshLine className="size-5" />
-                        <AlertDialogTitle>Renew Subscription</AlertDialogTitle>
+                        <AlertDialogTitle>{t('subscriptions.dialog.title')}</AlertDialogTitle>
                     </div>
                     <AlertDialogDescription className="text-xs text-flex-text-muted leading-relaxed">
-                        Extend active access and reset notification flags for{' '}
-                        <span className="font-semibold text-flex-text-primary">"{record.accountName}"</span> ({record.plan} Plan, {record.seats} seats).
+                        {t('subscriptions.dialog.description', { account: record.accountName, plan: record.plan, seats: record.seats })}
                     </AlertDialogDescription>
 
                     <div className="flex flex-col gap-1.5 my-2">
                         <Label htmlFor="renew-duration" className="text-xs font-semibold text-flex-text-primary">
-                            Renewal Term Extension
+                            {t('subscriptions.dialog.renewalTerm')}
                         </Label>
                         <Select
                             value={String(months)}
@@ -65,13 +66,13 @@ export function SubscriptionRenewDialog({
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="1" className="text-xs">
-                                    +1 Month ({record.billingCycle === 'monthly' ? `$${record.amount}` : `$${Math.round(record.amount / 12)}`})
+                                    {t('subscriptions.dialog.oneMonth', { price: record.billingCycle === 'monthly' ? `$${record.amount}` : `$${Math.round(record.amount / 12)}` })}
                                 </SelectItem>
                                 <SelectItem value="3" className="text-xs">
-                                    +3 Months (Quarterly)
+                                    {t('subscriptions.dialog.threeMonths')}
                                 </SelectItem>
                                 <SelectItem value="12" className="text-xs">
-                                    +12 Months (1 Year - Annual)
+                                    {t('subscriptions.dialog.twelveMonths')}
                                 </SelectItem>
                             </SelectContent>
                         </Select>
@@ -79,13 +80,13 @@ export function SubscriptionRenewDialog({
                 </AlertDialogHeader>
 
                 <AlertDialogFooter className="gap-2">
-                    <AlertDialogCancel className="text-xs h-9">Cancel</AlertDialogCancel>
+                    <AlertDialogCancel className="text-xs h-9">{t('subscriptions.dialog.cancel')}</AlertDialogCancel>
                     <AlertDialogAction
                         className="text-xs h-9 gap-1.5"
                         onClick={() => onConfirm(record, months)}
                     >
                         <RiRefreshLine className="size-3.5" />
-                        Confirm Renewal
+                        {t('subscriptions.dialog.confirm')}
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>

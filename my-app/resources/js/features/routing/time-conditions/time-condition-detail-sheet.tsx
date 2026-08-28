@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexDetailSheet } from '@/components/flex/flex-detail-sheet';
 import { Button } from '@/components/ui/button';
 import type { TimeConditionRecord } from '@/domain/routing-types';
@@ -25,25 +26,26 @@ function DetailRow({ label, children }: { label: string; children: React.ReactNo
 
 /** Time Condition detail — inspection with Time Group and routing branches. */
 export function TimeConditionDetailSheet({ condition, onOpenChange, onEdit, onDelete }: TimeConditionDetailSheetProps) {
+    const { t } = useTranslation('administration');
     const group = condition ? resolveTimeGroup(condition.timeGroupId) : undefined;
 
     return (
         <FlexDetailSheet
             open={!!condition}
             onOpenChange={onOpenChange}
-            title={condition?.name ?? 'Time Condition'}
+            title={condition?.name ?? t('timeConditions.detail.titleFallback')}
             meta={group?.description}
             footer={
                 condition ? (
                     <>
                         {onEdit && (
                             <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={() => onEdit(condition)}>
-                                Edit
+                                {t('timeConditions.detail.edit')}
                             </Button>
                         )}
                         {onDelete && (
                             <Button variant="outline" size="sm" className="gap-1.5 text-xs text-destructive" onClick={() => onDelete(condition)}>
-                                Delete
+                                {t('timeConditions.detail.delete')}
                             </Button>
                         )}
                     </>
@@ -51,13 +53,13 @@ export function TimeConditionDetailSheet({ condition, onOpenChange, onEdit, onDe
             }
         >
             <div className="flex flex-col gap-3">
-                <DetailRow label="Status">
+                <DetailRow label={t('timeConditions.detail.status')}>
                     {condition && <RoutingStatusBadge status={condition.status} />}
                 </DetailRow>
-                <DetailRow label="Time Group">
+                <DetailRow label={t('timeConditions.detail.timeGroup')}>
                     {group ? (
                         group.missing ? (
-                            <span className="text-destructive">Unknown / deleted</span>
+                            <span className="text-destructive">{t('timeConditions.detail.unknownDeleted')}</span>
                         ) : (
                             <Link href="/admin/time-groups" className="text-primary hover:underline">
                                 {group.description}
@@ -67,8 +69,8 @@ export function TimeConditionDetailSheet({ condition, onOpenChange, onEdit, onDe
                         '—'
                     )}
                 </DetailRow>
-                <DetailRow label="When schedule matches">{condition && formatDestination(condition.matchDestination)}</DetailRow>
-                <DetailRow label="When schedule does not match">{condition && formatDestination(condition.noMatchDestination)}</DetailRow>
+                <DetailRow label={t('timeConditions.detail.whenMatches')}>{condition && formatDestination(condition.matchDestination)}</DetailRow>
+                <DetailRow label={t('timeConditions.detail.whenNotMatches')}>{condition && formatDestination(condition.noMatchDestination)}</DetailRow>
             </div>
         </FlexDetailSheet>
     );

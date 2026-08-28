@@ -7,6 +7,7 @@ import {
 import type { ColumnDef, PaginationState, SortingState } from '@tanstack/react-table';
 import { useTable } from '@tanstack/react-table';
 import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import {
     DataGrid,
@@ -37,6 +38,7 @@ export function SubscriptionsTable({
     onTriggerReminder,
     onRenew,
 }: SubscriptionsTableProps) {
+    const { t } = useTranslation('administration');
     const [sorting, setSorting] = useState<SortingState>([
         { id: 'remainingDays', desc: false },
     ]);
@@ -49,7 +51,7 @@ export function SubscriptionsTable({
         () => [
             {
                 accessorKey: 'accountName',
-                header: ({ column }) => <DataGridColumnHeader column={column} title="Account & Contact" />,
+                header: ({ column }) => <DataGridColumnHeader column={column} title={t('subscriptions.columns.accountContact')} />,
                 cell: ({ row }) => (
                     <div className="flex flex-col min-w-0 py-0.5">
                         <span className="font-semibold text-xs text-flex-text-primary truncate">
@@ -66,11 +68,11 @@ export function SubscriptionsTable({
             },
             {
                 accessorKey: 'plan',
-                header: ({ column }) => <DataGridColumnHeader column={column} title="Plan & Seats" />,
+                header: ({ column }) => <DataGridColumnHeader column={column} title={t('subscriptions.columns.planSeats')} />,
                 cell: ({ row }) => (
                     <div className="flex items-center gap-1.5 text-xs text-flex-text-primary whitespace-nowrap">
                         <span className="font-medium">{row.original.plan}</span>
-                        <span className="text-flex-text-muted">({row.original.seats} seats)</span>
+                        <span className="text-flex-text-muted">({t('subscriptions.columns.seats', { count: row.original.seats })})</span>
                     </div>
                 ),
                 size: 140,
@@ -79,14 +81,14 @@ export function SubscriptionsTable({
             },
             {
                 accessorKey: 'amount',
-                header: ({ column }) => <DataGridColumnHeader column={column} title="Billing" />,
+                header: ({ column }) => <DataGridColumnHeader column={column} title={t('subscriptions.columns.billing')} />,
                 cell: ({ row }) => (
                     <div className="flex flex-col text-xs">
                         <span className="font-semibold flex-numeric text-flex-text-primary">
                             ${row.original.amount.toLocaleString()} {row.original.currency}
                         </span>
                         <span className="text-[10px] text-flex-text-muted capitalize">
-                            {row.original.billingCycle} · {row.original.autoRenew ? 'Auto-renew' : 'Manual'}
+                            {row.original.billingCycle} · {row.original.autoRenew ? t('subscriptions.columns.autoRenew') : t('subscriptions.columns.manual')}
                         </span>
                     </div>
                 ),
@@ -96,7 +98,7 @@ export function SubscriptionsTable({
             },
             {
                 accessorKey: 'expiresAt',
-                header: ({ column }) => <DataGridColumnHeader column={column} title="Expires" />,
+                header: ({ column }) => <DataGridColumnHeader column={column} title={t('subscriptions.columns.expires')} />,
                 cell: ({ row }) => {
                     const date = new Date(row.original.expiresAt);
 
@@ -114,7 +116,7 @@ export function SubscriptionsTable({
             },
             {
                 accessorKey: 'remainingDays',
-                header: ({ column }) => <DataGridColumnHeader column={column} title="Remaining Time" />,
+                header: ({ column }) => <DataGridColumnHeader column={column} title={t('subscriptions.columns.remainingTime')} />,
                 cell: ({ row }) => {
                     const days = row.original.remainingDays;
 
@@ -129,7 +131,7 @@ export function SubscriptionsTable({
                                           : 'text-flex-text-primary'
                                 }`}
                             >
-                                {days === 0 ? '0 days' : `${days} days`}
+                                {days === 0 ? t('subscriptions.columns.zeroDays') : t(days === 1 ? 'subscriptions.columns.days_one' : 'subscriptions.columns.days_other', { count: days })}
                             </span>
                         </div>
                     );
@@ -140,7 +142,7 @@ export function SubscriptionsTable({
             },
             {
                 accessorKey: 'status',
-                header: ({ column }) => <DataGridColumnHeader column={column} title="Status" />,
+                header: ({ column }) => <DataGridColumnHeader column={column} title={t('subscriptions.columns.status')} />,
                 cell: ({ row }) => (
                     <SubscriptionStatusBadge
                         status={row.original.status}
@@ -153,7 +155,7 @@ export function SubscriptionsTable({
             },
             {
                 id: 'notifications',
-                header: 'Reminders',
+                header: t('subscriptions.columns.reminders'),
                 cell: ({ row }) => {
                     const rec = row.original;
 
@@ -162,12 +164,12 @@ export function SubscriptionsTable({
                             {rec.reminderSent ? (
                                 <span className="inline-flex items-center gap-1 text-success">
                                     <RiCalendarCheckLine className="size-3.5" />
-                                    Reminder sent
+                                    {t('subscriptions.reminders.sent')}
                                 </span>
                             ) : rec.remainingDays <= 5 && rec.remainingDays > 0 ? (
-                                <span className="text-warning font-medium">Due (≤5d)</span>
+                                <span className="text-warning font-medium">{t('subscriptions.reminders.due')}</span>
                             ) : (
-                                <span>Not sent</span>
+                                <span>{t('subscriptions.reminders.notSent')}</span>
                             )}
                         </div>
                     );
@@ -184,8 +186,8 @@ export function SubscriptionsTable({
                         <Button
                             variant="ghost"
                             size="icon-xs"
-                            title="Inspect subscription"
-                            aria-label={`Inspect ${row.original.accountName}`}
+                            title={t('subscriptions.actions.inspect')}
+                            aria-label={t('subscriptions.actions.inspectAria', { account: row.original.accountName })}
                             onClick={() => onRowClick(row.original)}
                         >
                             <RiEyeLine className="size-3.5" />
@@ -193,8 +195,8 @@ export function SubscriptionsTable({
                         <Button
                             variant="ghost"
                             size="icon-xs"
-                            title="Send reminder notice"
-                            aria-label={`Send reminder to ${row.original.accountName}`}
+                            title={t('subscriptions.actions.sendReminder')}
+                            aria-label={t('subscriptions.actions.reminderAria', { account: row.original.accountName })}
                             onClick={() => onTriggerReminder(row.original)}
                         >
                             <RiMailSendLine className="size-3.5" />
@@ -202,8 +204,8 @@ export function SubscriptionsTable({
                         <Button
                             variant="ghost"
                             size="icon-xs"
-                            title="Renew subscription"
-                            aria-label={`Renew ${row.original.accountName}`}
+                            title={t('subscriptions.actions.renew')}
+                            aria-label={t('subscriptions.actions.renewAria', { account: row.original.accountName })}
                             onClick={() => onRenew(row.original)}
                         >
                             <RiRefreshLine className="size-3.5" />
@@ -216,7 +218,7 @@ export function SubscriptionsTable({
                 meta: { kind: 'action', align: 'center' },
             },
         ],
-        [onRowClick, onTriggerReminder, onRenew]
+        [t, onRowClick, onTriggerReminder, onRenew]
     );
 
     const [columnOrder, setColumnOrder] = useState<string[]>(() => columns.map((column) => column.id as string));
@@ -241,8 +243,8 @@ export function SubscriptionsTable({
             loadingMode="skeleton"
             emptyMessage={
                 <FlexEmptyState
-                    title="No Subscriptions Found"
-                    description="No subscription records match your current search and filter criteria."
+                    title={t('subscriptions.empty.title')}
+                    description={t('subscriptions.empty.description')}
                 />
             }
             tableLayout={{ dense: true }}

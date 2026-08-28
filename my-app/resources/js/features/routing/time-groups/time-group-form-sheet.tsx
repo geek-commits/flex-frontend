@@ -1,5 +1,6 @@
 import { RiAddLine } from '@remixicon/react';
 import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -33,6 +34,7 @@ export interface TimeGroupFormSheetProps {
 }
 
 export function TimeGroupFormSheet({ open, onOpenChange, editing, onSaved }: TimeGroupFormSheetProps) {
+    const { t } = useTranslation('administration');
     const [draft, setDraft] = useState<TimeGroupDraft>(() => seedDraft(editing));
     const [nameError, setNameError] = useState<string>();
     const [saving, setSaving] = useState(false);
@@ -65,13 +67,13 @@ export function TimeGroupFormSheet({ open, onOpenChange, editing, onSaved }: Tim
 
     const handleSave = () => {
         if (!draft.description.trim()) {
-            setNameError('Description is required.');
+            setNameError(t('timeGroups.form.validation.descriptionRequired'));
 
             return;
         }
 
         if (draft.entries.length === 0) {
-            toast.error('Add at least one schedule entry.');
+            toast.error(t('timeGroups.form.validation.atLeastOneEntry'));
 
             return;
         }
@@ -81,13 +83,13 @@ export function TimeGroupFormSheet({ open, onOpenChange, editing, onSaved }: Tim
             try {
                 if (editing) {
                     routingRepository.updateTimeGroup(editing.id, draft);
-                    toast.success('Time Group updated');
+                    toast.success(t('timeGroups.form.toast.updated'));
                 } else {
                     routingRepository.createTimeGroup(draft);
-                    toast.success('Time Group created');
+                    toast.success(t('timeGroups.form.toast.created'));
                 }
             } catch {
-                toast.error(editing ? 'Time Group could not be saved' : 'Time Group could not be created');
+                toast.error(editing ? t('timeGroups.form.toast.saveFailed') : t('timeGroups.form.toast.createFailed'));
             }
 
             setSaving(false);
@@ -100,31 +102,31 @@ export function TimeGroupFormSheet({ open, onOpenChange, editing, onSaved }: Tim
         <Sheet open={open} onOpenChange={handleOpenChange}>
             <SheetContent className="w-full sm:max-w-xl overflow-y-auto">
                 <SheetHeader>
-                    <SheetTitle>{editing ? 'Edit Time Group' : 'Add Time Group'}</SheetTitle>
-                    <SheetDescription>Define a reusable schedule for time-based routing.</SheetDescription>
+                    <SheetTitle>{editing ? t('timeGroups.form.editTitle') : t('timeGroups.form.addTitle')}</SheetTitle>
+                    <SheetDescription>{t('timeGroups.form.description')}</SheetDescription>
                 </SheetHeader>
 
                 <div className="flex-1 overflow-y-auto px-4 pb-4 flex flex-col gap-5">
-                    <RoutingFormSection title="General">
+                    <RoutingFormSection title={t('timeGroups.form.general')}>
                         <div className="flex flex-col gap-1.5">
                             <Label htmlFor="tg-description" className="text-xs font-semibold">
-                                Description
+                                {t('timeGroups.form.descriptionLabel')}
                             </Label>
                             <Input
                                 id="tg-description"
                                 value={draft.description}
                                 onChange={(e) => updateDraft({ description: e.target.value })}
-                                placeholder="e.g. Business Hours"
+                                placeholder={t('timeGroups.form.descriptionPlaceholder')}
                                 aria-invalid={!!nameError}
                             />
                             {nameError && <p className="text-xs text-destructive">{nameError}</p>}
                         </div>
                         <p className="text-[11px] text-flex-text-muted">
-                            Schedule times are evaluated in the tenant timezone. Configured values are stored as entered.
+                            {t('timeGroups.form.scheduleHint')}
                         </p>
                     </RoutingFormSection>
 
-                    <RoutingFormSection title="Schedule Entries">
+                    <RoutingFormSection title={t('timeGroups.form.scheduleEntries')}>
                         <div className="flex flex-col gap-3">
                             {draft.entries.map((entry, index) => (
                                 <ScheduleEntryEditor
@@ -138,7 +140,7 @@ export function TimeGroupFormSheet({ open, onOpenChange, editing, onSaved }: Tim
                             ))}
                             <Button variant="outline" size="sm" className="gap-1.5 text-xs w-fit" onClick={addEntry}>
                                 <RiAddLine className="size-3.5" />
-                                Add Schedule
+                                {t('timeGroups.form.addSchedule')}
                             </Button>
                         </div>
                     </RoutingFormSection>
@@ -146,10 +148,10 @@ export function TimeGroupFormSheet({ open, onOpenChange, editing, onSaved }: Tim
 
                 <SheetFooter className="border-t border-border px-4 py-3">
                     <Button variant="outline" onClick={() => handleOpenChange(false)} disabled={saving}>
-                        Cancel
+                        {t('timeGroups.form.cancel')}
                     </Button>
                     <Button onClick={handleSave} disabled={saving}>
-                        {saving ? 'Saving…' : editing ? 'Save Time Group' : 'Create Time Group'}
+                        {saving ? t('timeGroups.form.saving') : editing ? t('timeGroups.form.saveTimeGroup') : t('timeGroups.form.createTimeGroup')}
                     </Button>
                 </SheetFooter>
             </SheetContent>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import {
     AlertDialog,
@@ -24,6 +25,7 @@ export interface TimeGroupDeleteDialogProps {
  * is blocked and the backend-style dependency reason is surfaced.
  */
 export function TimeGroupDeleteDialog({ group, onOpenChange, onDeleted }: TimeGroupDeleteDialogProps) {
+    const { t } = useTranslation('administration');
     const [busy, setBusy] = useState(false);
 
     const open = !!group;
@@ -39,9 +41,9 @@ export function TimeGroupDeleteDialog({ group, onOpenChange, onDeleted }: TimeGr
         setTimeout(() => {
             try {
                 routingRepository.deleteTimeGroup(group.id);
-                toast.success('Time Group deleted');
+                toast.success(t('timeGroups.deleteDialog.toast.deleted'));
             } catch {
-                toast.error('Time Group could not be deleted');
+                toast.error(t('timeGroups.deleteDialog.toast.deleteFailed'));
             }
 
             setBusy(false);
@@ -54,22 +56,21 @@ export function TimeGroupDeleteDialog({ group, onOpenChange, onDeleted }: TimeGr
         <AlertDialog open={open} onOpenChange={onOpenChange}>
             <AlertDialogContent>
                 <AlertDialogHeader>
-                    <AlertDialogTitle>Delete time group?</AlertDialogTitle>
+                    <AlertDialogTitle>{t('timeGroups.deleteDialog.title')}</AlertDialogTitle>
                     {blocked ? (
                         <AlertDialogDescription>
-                            This Time Group is currently used by {usage} time condition{usage === 1 ? '' : 's'} and
-                            cannot be deleted.
+                            {t('timeGroups.deleteDialog.blockedDescription', { count: usage, count_other: usage })}
                         </AlertDialogDescription>
                     ) : (
                         <AlertDialogDescription>
-                            Delete &quot;{group?.description}&quot;? Its schedule definition will be removed.
+                            {t('timeGroups.deleteDialog.description', { name: group?.description })}
                         </AlertDialogDescription>
                     )}
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogCancel disabled={busy}>Cancel</AlertDialogCancel>
+                    <AlertDialogCancel disabled={busy}>{t('timeGroups.deleteDialog.cancel')}</AlertDialogCancel>
                     <AlertDialogAction variant="destructive" onClick={handleConfirm} disabled={busy || blocked}>
-                        {busy ? 'Deleting…' : 'Delete Time Group'}
+                        {busy ? t('timeGroups.deleteDialog.deleting') : t('timeGroups.deleteDialog.delete')}
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>

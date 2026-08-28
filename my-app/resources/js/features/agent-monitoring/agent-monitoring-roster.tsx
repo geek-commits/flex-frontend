@@ -1,4 +1,5 @@
 import type { Table } from '@tanstack/react-table';
+import { useTranslation } from 'react-i18next';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import {
     DataGrid,
@@ -23,6 +24,7 @@ export interface AgentMonitoringRosterProps {
  * exists (e.g. Whisper).
  */
 export function AgentMonitoringRoster({ table, rows, isLoading }: AgentMonitoringRosterProps) {
+    const { t } = useTranslation('supervision');
     return (
         <DataGrid
             table={table}
@@ -31,8 +33,8 @@ export function AgentMonitoringRoster({ table, rows, isLoading }: AgentMonitorin
             loadingMode="spinner"
             emptyMessage={
                 <FlexEmptyState
-                    title="No agents online"
-                    description="Agent activity will appear here once agents come online."
+                    title={t('monitoring.empty.rosterTitle')}
+                    description={t('monitoring.empty.rosterDescription')}
                 />
             }
             tableLayout={{

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import {
     AlertDialog,
@@ -21,6 +22,7 @@ export interface IVRDeleteDialogProps {
 
 /** IVR deletion — confirms the IVR name and that its menu routing will be removed. */
 export function IVRDeleteDialog({ ivr, onOpenChange, onDeleted }: IVRDeleteDialogProps) {
+    const { t } = useTranslation('administration');
     const [busy, setBusy] = useState(false);
 
     const open = !!ivr;
@@ -34,9 +36,9 @@ export function IVRDeleteDialog({ ivr, onOpenChange, onDeleted }: IVRDeleteDialo
         setTimeout(() => {
             try {
                 routingRepository.deleteIVR(ivr.id);
-                toast.success('IVR deleted');
+                toast.success(t('ivr.deleteDialog.toast.deleted'));
             } catch {
-                toast.error('IVR could not be deleted');
+                toast.error(t('ivr.deleteDialog.toast.deleteFailed'));
             }
 
             setBusy(false);
@@ -49,15 +51,15 @@ export function IVRDeleteDialog({ ivr, onOpenChange, onDeleted }: IVRDeleteDialo
         <AlertDialog open={open} onOpenChange={onOpenChange}>
             <AlertDialogContent>
                 <AlertDialogHeader>
-                    <AlertDialogTitle>Delete IVR?</AlertDialogTitle>
+                    <AlertDialogTitle>{t('ivr.deleteDialog.title')}</AlertDialogTitle>
                     <AlertDialogDescription>
-                        Delete &quot;{ivr?.name}&quot;? Its menu entries and destinations will be removed.
+                        {t('ivr.deleteDialog.description', { name: ivr?.name })}
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogCancel disabled={busy}>Cancel</AlertDialogCancel>
+                    <AlertDialogCancel disabled={busy}>{t('ivr.deleteDialog.cancel')}</AlertDialogCancel>
                     <AlertDialogAction variant="destructive" onClick={handleConfirm} disabled={busy}>
-                        {busy ? 'Deleting…' : 'Delete IVR'}
+                        {busy ? t('ivr.deleteDialog.deleting') : t('ivr.deleteDialog.delete')}
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>

@@ -44,12 +44,13 @@ function CurrentCallCell({ row }: { row: MonitoringAgentRow }) {
     );
 }
 
-export function monitoringColumns(): ColumnDef<DataGridFeatures, MonitoringAgentRow>[] {
+export function monitoringColumns(t?: (key: string) => string): ColumnDef<DataGridFeatures, MonitoringAgentRow>[] {
+    const tt = t ?? ((k: string) => k);
     return [
         {
             accessorKey: 'name',
             id: 'name',
-            header: ({ column }) => <DataGridColumnHeader title="Agent" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={tt('monitoring.columns.agent')} column={column} />,
             cell: ({ row }) => (
                 <span className="font-medium text-flex-text-primary">{row.original.name}</span>
             ),
@@ -60,7 +61,7 @@ export function monitoringColumns(): ColumnDef<DataGridFeatures, MonitoringAgent
         {
             accessorKey: 'extension',
             id: 'extension',
-            header: ({ column }) => <DataGridColumnHeader title="Ext." column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={tt('monitoring.columns.ext')} column={column} />,
             cell: ({ row }) => (
                 <span className="tabular-nums text-flex-text-muted">{row.original.extension}</span>
             ),
@@ -71,7 +72,7 @@ export function monitoringColumns(): ColumnDef<DataGridFeatures, MonitoringAgent
         {
             accessorKey: 'queue',
             id: 'queue',
-            header: ({ column }) => <DataGridColumnHeader title="Queue" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={tt('monitoring.columns.queue')} column={column} />,
             cell: ({ row }) => (
                 <span className="text-flex-text-primary">{row.original.queue}</span>
             ),
@@ -82,7 +83,7 @@ export function monitoringColumns(): ColumnDef<DataGridFeatures, MonitoringAgent
         {
             accessorKey: 'state',
             id: 'state',
-            header: ({ column }) => <DataGridColumnHeader title="State" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={tt('monitoring.columns.state')} column={column} />,
             cell: ({ row }) => (
                 <FlexStatus tone={AGENT_STATE_TONES[row.original.state]} className="capitalize">
                     {agentStateMap[row.original.state].label}
@@ -95,7 +96,7 @@ export function monitoringColumns(): ColumnDef<DataGridFeatures, MonitoringAgent
         {
             accessorKey: 'stateSince',
             id: 'stateTime',
-            header: ({ column }) => <DataGridColumnHeader title="State Time" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={tt('monitoring.columns.stateTime')} column={column} />,
             cell: ({ row }) => <StateTimeCell row={row.original} />,
             size: 116,
             enableSorting: true,
@@ -104,7 +105,7 @@ export function monitoringColumns(): ColumnDef<DataGridFeatures, MonitoringAgent
         {
             accessorKey: 'call',
             id: 'currentCall',
-            header: ({ column }) => <DataGridColumnHeader title="Current Call" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={tt('monitoring.columns.currentCall')} column={column} />,
             cell: ({ row }) => <CurrentCallCell row={row.original} />,
             size: 320,
             enableSorting: false,
@@ -113,7 +114,7 @@ export function monitoringColumns(): ColumnDef<DataGridFeatures, MonitoringAgent
         {
             accessorKey: 'callsToday',
             id: 'callsToday',
-            header: ({ column }) => <DataGridColumnHeader title="Calls Today" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={tt('monitoring.columns.callsToday')} column={column} />,
             cell: ({ row }) => (
                 <span className="font-medium tabular-nums text-flex-text-primary">{row.original.callsToday}</span>
             ),
@@ -124,7 +125,7 @@ export function monitoringColumns(): ColumnDef<DataGridFeatures, MonitoringAgent
         {
             accessorKey: 'aht',
             id: 'aht',
-            header: ({ column }) => <DataGridColumnHeader title="AHT" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={tt('monitoring.columns.aht')} column={column} />,
             cell: ({ row }) => (
                 <span className="tabular-nums text-flex-text-primary">{row.original.aht}</span>
             ),

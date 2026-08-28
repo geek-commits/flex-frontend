@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react';
 import { RiEyeLine, RiPencilLine } from '@remixicon/react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import type { TimeConditionRecord } from '@/domain/routing-types';
 import { formatDestination } from '@/domain/routing-types';
@@ -16,25 +17,26 @@ export interface TimeConditionTableProps {
 const alignClass = (a: 'start' | 'end' | 'center' | undefined) =>
     a === 'end' ? 'text-end' : a === 'center' ? 'text-center' : 'text-start';
 
-const headers: { label: string; align: 'start' | 'end' | 'center' }[] = [
-    { label: 'Condition', align: 'start' },
-    { label: 'Time Group', align: 'start' },
-    { label: 'Match Destination', align: 'start' },
-    { label: 'Fallback', align: 'start' },
-    { label: 'Status', align: 'start' },
-    { label: '', align: 'center' },
-];
-
 /** Dense Time Condition directory table showing the Time Group relationship. */
 export function TimeConditionTable({ records, onView, onEdit }: TimeConditionTableProps) {
+    const { t } = useTranslation('administration');
+
+    const headers: { key: string; label: string; align: 'start' | 'end' | 'center' }[] = [
+        { key: 'condition', label: t('timeConditions.columns.condition'), align: 'start' },
+        { key: 'timeGroup', label: t('timeConditions.columns.timeGroup'), align: 'start' },
+        { key: 'matchDestination', label: t('timeConditions.columns.matchDestination'), align: 'start' },
+        { key: 'fallback', label: t('timeConditions.columns.fallback'), align: 'start' },
+        { key: 'status', label: t('timeConditions.columns.status'), align: 'start' },
+        { key: 'actions', label: '', align: 'center' },
+    ];
     return (
         <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
             <div className="overflow-x-auto">
                 <table className="flex-table-grid w-full text-sm">
                     <thead>
                         <tr className="border-b border-border bg-muted/40 text-left">
-                            {headers.map((header, index) => (
-                                <th key={index} className={`px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap ${alignClass(header.align)}`}>
+                            {headers.map((header) => (
+                                <th key={header.key} className={`px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap ${alignClass(header.align)}`}>
                                     {header.label}
                                 </th>
                             ))}
@@ -61,10 +63,10 @@ export function TimeConditionTable({ records, onView, onEdit }: TimeConditionTab
                                     <td className="px-4 py-2.5 text-start"><RoutingStatusBadge status={condition.status} /></td>
                                     <td className="px-4 py-2.5 text-center">
                                         <div className="flex items-center gap-0.5 justify-center">
-                                            <Button variant="ghost" size="icon-xs" title="View" aria-label={`View ${condition.name}`} onClick={() => onView(condition)}>
+                                            <Button variant="ghost" size="icon-xs" title={t('timeConditions.table.view')} aria-label={t('timeConditions.table.viewAria', { name: condition.name })} onClick={() => onView(condition)}>
                                                 <RiEyeLine className="size-3.5" />
                                             </Button>
-                                            <Button variant="ghost" size="icon-xs" title="Edit" aria-label={`Edit ${condition.name}`} onClick={() => onEdit(condition)}>
+                                            <Button variant="ghost" size="icon-xs" title={t('timeConditions.table.edit')} aria-label={t('timeConditions.table.editAria', { name: condition.name })} onClick={() => onEdit(condition)}>
                                                 <RiPencilLine className="size-3.5" />
                                             </Button>
                                         </div>

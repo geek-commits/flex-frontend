@@ -3,6 +3,7 @@ import type { SortingState } from '@tanstack/react-table';
 import { useTable } from '@tanstack/react-table';
 
 import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexErrorState } from '@/components/flex/flex-error-state';
 import { FlexLiveDataStatus } from '@/components/flex/flex-live-data-status';
@@ -21,6 +22,7 @@ import { AdminShell } from '@/layouts/admin-shell';
 
 
 function AgentMonitoringContent() {
+    const { t } = useTranslation('supervision');
     const {
         agents,
         filteredAgents,
@@ -42,7 +44,7 @@ function AgentMonitoringContent() {
     const showFilteredEmpty = hasActiveFilters && filteredAgents.length === 0;
     const showTrueEmpty = !isLoading && !error && agents.length === 0 && !hasActiveFilters;
 
-    const columns = useMemo(() => monitoringColumns(), []);
+    const columns = useMemo(() => monitoringColumns(t), [t]);
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnOrder, setColumnOrder] = useState<string[]>(() => columns.map((column) => column.id as string));
 
@@ -69,28 +71,28 @@ function AgentMonitoringContent() {
 
             {error ? (
                 <FlexErrorState
-                    title="Agent monitoring unavailable"
-                    description="Failed to load live agent activity."
+                    title={t('monitoring.error.title')}
+                    description={t('monitoring.error.description')}
                     action={
                         <Button variant="outline" size="sm" className="text-xs" onClick={refresh}>
-                            Retry
+                            {t('monitoring.error.retry')}
                         </Button>
                     }
                 />
             ) : showFilteredEmpty ? (
                 <FlexEmptyState
-                    title="No agents match your filters"
-                    description="Try a different search or clear your filters."
+                    title={t('monitoring.empty.filteredTitle')}
+                    description={t('monitoring.empty.filteredDescription')}
                     action={
                         <Button variant="outline" size="sm" className="text-xs" onClick={clearFilters}>
-                            Clear filters
+                            {t('monitoring.empty.clearFilters')}
                         </Button>
                     }
                 />
             ) : showTrueEmpty ? (
                 <FlexEmptyState
-                    title="No agents online"
-                    description="Agent activity will appear here once agents come online."
+                    title={t('monitoring.empty.noAgentsTitle')}
+                    description={t('monitoring.empty.noAgentsDescription')}
                 />
             ) : (
                 <FlexWorkbenchShell variant="primary"
@@ -115,14 +117,15 @@ function AgentMonitoringContent() {
 }
 
 export function AgentMonitoringPage() {
+    const { t } = useTranslation('supervision');
     return (
         <DashboardProvider>
             <AdminShell
-                title="Agent Monitoring"
-                subtitle="Live agent activity and supervisor intervention."
+                title={t('monitoring.title')}
+                subtitle={t('monitoring.subtitle')}
                 
             >
-                <Head title="Agent Monitoring — Flex Contact Center" />
+                <Head title={t('monitoring.headTitle')} />
 
                 <AgentMonitoringContent />
             </AdminShell>

@@ -1,6 +1,7 @@
 import { Head } from '@inertiajs/react';
 import { RiRefreshLine } from '@remixicon/react';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexStatus } from '@/components/flex/flex-status';
 import type { FlexStatusTone } from '@/components/flex/flex-status';
 import { FlexIcon } from '@/components/flex/iconography';
@@ -26,6 +27,7 @@ const RESOURCE_TONE: Record<string, string> = {
 
 
 export default function SystemPage() {
+    const { t } = useTranslation('administration');
     const { data, refresh } = useSystem();
     const [refreshing, setRefreshing] = useState(false);
     const { services, serverResources, backups, summary } = data;
@@ -41,45 +43,45 @@ export default function SystemPage() {
 
     return (
         <AdminShell
-            title="System & Infrastructure"
-            subtitle="Platform Health, Backups, TLS Certificates & Gateway Connections"
+            title={t('system.title')}
+            subtitle={t('system.subtitle')}
             
             actions={
                 <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={handleRefresh}>
                     <RiRefreshLine className={`size-3.5 ${refreshing ? 'animate-spin' : ''}`} />
-                    <span>{refreshing ? 'Refreshing...' : 'Refresh Status'}</span>
+                    <span>{refreshing ? t('system.refreshing') : t('system.refresh')}</span>
                 </Button>
             }
         >
-            <Head title="System & Infrastructure — Flex Contact Center" />
+            <Head title={t('system.headTitle')} />
 
             <div className="flex flex-col gap-6 w-full">
                 {/* 1. Infrastructure Health Overview */}
                 <div className="flex flex-col gap-2.5">
                     <h2 className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
                         <FlexIcon name="infrastructure" className="text-primary" />
-                        <span>Infrastructure Health Overview</span>
+                        <span>{t('system.infrastructureHealth')}</span>
                     </h2>
                     <MetricGroup>
                         <MetricCard
-                            title="Operational"
+                            title={t('system.metrics.operational')}
                             value={summary.operationalCount}
-                            description="Services fully functional"
+                            description={t('system.metrics.operationalDescription')}
                         />
                         <MetricCard
-                            title="Degraded"
+                            title={t('system.metrics.degraded')}
                             value={summary.degradedCount}
-                            description="Services with elevated latency"
+                            description={t('system.metrics.degradedDescription')}
                         />
                         <MetricCard
-                            title="Down"
+                            title={t('system.metrics.down')}
                             value={summary.downCount}
-                            description="Services unreachable"
+                            description={t('system.metrics.downDescription')}
                         />
                         <MetricCard
-                            title="Uptime (30d) — Sample"
+                            title={t('system.metrics.uptime')}
                             value={summary.uptime30d}
-                            description="Sample / POC data — not live SLA telemetry."
+                            description={t('system.metrics.uptimeDescription')}
                         />
                     </MetricGroup>
                 </div>
@@ -90,7 +92,7 @@ export default function SystemPage() {
                         <CardHeader className="p-4 pb-2 border-b border-border">
                             <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
                                 <FlexIcon name="server-resources" className="text-primary" />
-                                Server Resources
+                                {t('system.serverResources')}
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="p-4 flex flex-col gap-4">
@@ -118,7 +120,7 @@ export default function SystemPage() {
                         <CardHeader className="p-4 pb-2 border-b border-border">
                             <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
                                 <FlexIcon name="backup-status" className="text-primary" />
-                                Backup Status
+                                {t('system.backupStatus')}
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="p-4 flex flex-col gap-3">
@@ -139,17 +141,17 @@ export default function SystemPage() {
                     <CardHeader className="p-4 pb-2 border-b border-border">
                         <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
                             <FlexIcon name="service-health" className="text-primary" />
-                            Service Health Matrix
+                            {t('system.serviceHealthMatrix')}
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="p-4 overflow-x-auto">
                         <table className="flex-table-grid w-full text-left text-xs">
                             <thead>
                                 <tr className="border-b border-border text-muted-foreground font-semibold uppercase text-[10px]">
-                                    <th className="pb-2">Service</th>
-                                    <th className="pb-2">Status</th>
-                                    <th className="pb-2">Latency</th>
-                                    <th className="pb-2">Last Checked</th>
+                                    <th className="pb-2">{t('system.table.service')}</th>
+                                    <th className="pb-2">{t('system.table.status')}</th>
+                                    <th className="pb-2">{t('system.table.latency')}</th>
+                                    <th className="pb-2">{t('system.table.lastChecked')}</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-border">
@@ -187,7 +189,7 @@ export default function SystemPage() {
                 </Card>
 
                 <p className="text-[10px] text-flex-text-muted">
-                    POC mock data — sample service, resource and backup metrics; not live telephony or SLA telemetry.
+                    {t('system.footer')}
                 </p>
             </div>
         </AdminShell>

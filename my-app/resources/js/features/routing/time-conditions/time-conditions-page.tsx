@@ -1,5 +1,6 @@
 import { RiAddLine, RiSearchLine } from '@remixicon/react';
 import React, { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexErrorState } from '@/components/flex/flex-error-state';
 import { Button } from '@/components/ui/button';
@@ -15,6 +16,7 @@ import { TimeConditionFormSheet } from '@/features/routing/time-conditions/time-
 import { TimeConditionTable } from '@/features/routing/time-conditions/time-condition-table';
 
 export function TimeConditionsPage() {
+    const { t } = useTranslation('administration');
     const [records, setRecords] = useState<TimeConditionRecord[]>(() => routingRepository.queryTimeConditions());
     const [search, setSearch] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -35,12 +37,12 @@ export function TimeConditionsPage() {
             try {
                 setRecords(routingRepository.queryTimeConditions());
             } catch {
-                setError('Time Condition data could not be retrieved.');
+                setError(t('timeConditions.error.generic'));
             }
 
             setIsLoading(false);
         }, 350);
-    }, []);
+    }, [t]);
 
     const openCreate = () => {
         setEditingId(undefined);
@@ -74,12 +76,12 @@ export function TimeConditionsPage() {
 
     return (
         <RoutingShell
-            title="Time Conditions"
-            subtitle="Route calls by date, time, and schedule."
+            title={t('timeConditions.title')}
+            subtitle={t('timeConditions.subtitle')}
             actions={
                 <Button size="sm" className="gap-1.5 text-xs" onClick={openCreate}>
                     <RiAddLine className="size-4" />
-                    Add Time Condition
+                    {t('timeConditions.actions.addTimeCondition')}
                 </Button>
             }
         >
@@ -89,19 +91,19 @@ export function TimeConditionsPage() {
                     <Input
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        placeholder="Search conditions..."
-                        aria-label="Search conditions"
+                        placeholder={t('timeConditions.toolbar.searchPlaceholder')}
+                        aria-label={t('timeConditions.toolbar.searchAriaLabel')}
                         className="pl-9 h-9 text-xs"
                     />
                 </div>
 
                 {error ? (
                     <FlexErrorState
-                        title="Couldn't load time conditions"
+                        title={t('timeConditions.error.title')}
                         description={error}
                         action={
                             <Button variant="outline" size="sm" className="text-xs" onClick={refresh}>
-                                Try Again
+                                {t('timeConditions.error.retry')}
                             </Button>
                         }
                     />
@@ -113,16 +115,16 @@ export function TimeConditionsPage() {
                     </div>
                 ) : filtered.length === 0 ? (
                     <FlexEmptyState
-                        title={records.length === 0 ? 'No time conditions configured' : 'No conditions match your search'}
+                        title={records.length === 0 ? t('timeConditions.empty.noConditionsTitle') : t('timeConditions.empty.noMatchTitle')}
                         description={
                             records.length === 0
-                                ? 'Create a condition to route calls by schedule.'
-                                : 'Try changing your search.'
+                                ? t('timeConditions.empty.noConditionsDescription')
+                                : t('timeConditions.empty.noMatchDescription')
                         }
                         action={
                             records.length === 0 ? (
                                 <Button variant="outline" size="sm" className="text-xs" onClick={openCreate}>
-                                    Add Time Condition
+                                    {t('timeConditions.empty.addTimeCondition')}
                                 </Button>
                             ) : undefined
                         }
@@ -132,7 +134,7 @@ export function TimeConditionsPage() {
                 )}
 
                 <p className="text-[10px] text-flex-text-muted">
-                    POC mock adapter — `RoutingRepository` boundary; replace with the real routing backend in rollout.
+                    {t('timeConditions.footerHint')}
                 </p>
             </div>
 

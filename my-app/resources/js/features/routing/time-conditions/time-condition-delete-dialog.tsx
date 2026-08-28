@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import {
     AlertDialog,
@@ -21,6 +22,7 @@ export interface TimeConditionDeleteDialogProps {
 
 /** Time Condition deletion — confirms the condition name and that routing rules stop. */
 export function TimeConditionDeleteDialog({ condition, onOpenChange, onDeleted }: TimeConditionDeleteDialogProps) {
+    const { t } = useTranslation('administration');
     const [busy, setBusy] = useState(false);
 
     const open = !!condition;
@@ -34,9 +36,9 @@ export function TimeConditionDeleteDialog({ condition, onOpenChange, onDeleted }
         setTimeout(() => {
             try {
                 routingRepository.deleteTimeCondition(condition.id);
-                toast.success('Time Condition deleted');
+                toast.success(t('timeConditions.deleteDialog.toast.deleted'));
             } catch {
-                toast.error('Time Condition could not be deleted');
+                toast.error(t('timeConditions.deleteDialog.toast.deleteFailed'));
             }
 
             setBusy(false);
@@ -49,15 +51,15 @@ export function TimeConditionDeleteDialog({ condition, onOpenChange, onDeleted }
         <AlertDialog open={open} onOpenChange={onOpenChange}>
             <AlertDialogContent>
                 <AlertDialogHeader>
-                    <AlertDialogTitle>Delete time condition?</AlertDialogTitle>
+                    <AlertDialogTitle>{t('timeConditions.deleteDialog.title')}</AlertDialogTitle>
                     <AlertDialogDescription>
-                        Delete &quot;{condition?.name}&quot;? Its schedule-based routing rules will be removed.
+                        {t('timeConditions.deleteDialog.description', { name: condition?.name })}
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogCancel disabled={busy}>Cancel</AlertDialogCancel>
+                    <AlertDialogCancel disabled={busy}>{t('timeConditions.deleteDialog.cancel')}</AlertDialogCancel>
                     <AlertDialogAction variant="destructive" onClick={handleConfirm} disabled={busy}>
-                        {busy ? 'Deleting…' : 'Delete Condition'}
+                        {busy ? t('timeConditions.deleteDialog.deleting') : t('timeConditions.deleteDialog.delete')}
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>

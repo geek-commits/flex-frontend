@@ -1,5 +1,6 @@
 import { RiCloseLine, RiSearchLine } from '@remixicon/react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -20,24 +21,25 @@ export interface SubscriptionToolbarProps {
     onQueryChange: (query: SubscriptionQuery) => void;
 }
 
-const STATUS_OPTIONS: { value: SubscriptionStatus | 'all'; label: string }[] = [
-    { value: 'all', label: 'All Statuses' },
-    { value: 'active', label: 'Active' },
-    { value: 'expiring', label: 'Expiring Soon (≤5 days)' },
-    { value: 'expired', label: 'Expired' },
-    { value: 'trial', label: 'Trial' },
-];
-
-const PLAN_OPTIONS: { value: SubscriptionPlan | 'all'; label: string }[] = [
-    { value: 'all', label: 'All Plans' },
-    { value: 'Starter', label: 'Starter' },
-    { value: 'Professional', label: 'Professional' },
-    { value: 'Enterprise', label: 'Enterprise' },
-    { value: 'Custom', label: 'Custom' },
-];
-
 export function SubscriptionToolbar({ query, onQueryChange }: SubscriptionToolbarProps) {
+    const { t } = useTranslation('administration');
     const hasFilters = Boolean(query.search || query.status || query.plan || query.expiringOnly);
+
+    const STATUS_OPTIONS: { value: SubscriptionStatus | 'all'; label: string }[] = [
+        { value: 'all', label: t('subscriptions.toolbar.allStatuses') },
+        { value: 'active', label: t('subscriptions.toolbar.statusOptions.active') },
+        { value: 'expiring', label: t('subscriptions.toolbar.statusOptions.expiring') },
+        { value: 'expired', label: t('subscriptions.toolbar.statusOptions.expired') },
+        { value: 'trial', label: t('subscriptions.toolbar.statusOptions.trial') },
+    ];
+
+    const PLAN_OPTIONS: { value: SubscriptionPlan | 'all'; label: string }[] = [
+        { value: 'all', label: t('subscriptions.toolbar.allPlans') },
+        { value: 'Starter', label: t('subscriptions.toolbar.planOptions.starter') },
+        { value: 'Professional', label: t('subscriptions.toolbar.planOptions.professional') },
+        { value: 'Enterprise', label: t('subscriptions.toolbar.planOptions.enterprise') },
+        { value: 'Custom', label: t('subscriptions.toolbar.planOptions.custom') },
+    ];
 
     return (
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
@@ -47,7 +49,8 @@ export function SubscriptionToolbar({ query, onQueryChange }: SubscriptionToolba
                     <RiSearchLine className="absolute left-2.5 top-1/2 -translate-y-1/2 size-4 text-flex-text-muted" />
                     <Input
                         type="search"
-                        placeholder="Search account, email, or plan..."
+                        placeholder={t('subscriptions.toolbar.searchPlaceholder')}
+                        aria-label={t('subscriptions.toolbar.searchAriaLabel')}
                         value={query.search ?? ''}
                         onChange={(e) => onQueryChange({ ...query, search: e.target.value || undefined })}
                         size="sm"
@@ -108,7 +111,7 @@ export function SubscriptionToolbar({ query, onQueryChange }: SubscriptionToolba
                         className="h-9 px-2.5 text-xs text-flex-text-muted hover:text-flex-text-primary gap-1"
                     >
                         <RiCloseLine className="size-3.5" />
-                        Clear
+                        {t('subscriptions.toolbar.clear')}
                     </Button>
                 )}
             </div>

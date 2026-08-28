@@ -1,19 +1,10 @@
 import { RiCloseLine } from '@remixicon/react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import type { ScheduleEntry } from '@/domain/routing-types';
-
-const WEEKDAYS = [
-    { value: 0, label: 'Sun' },
-    { value: 1, label: 'Mon' },
-    { value: 2, label: 'Tue' },
-    { value: 3, label: 'Wed' },
-    { value: 4, label: 'Thu' },
-    { value: 5, label: 'Fri' },
-    { value: 6, label: 'Sat' },
-];
 
 const MONTHS = Array.from({ length: 12 }, (_, index) => index + 1);
 const MONTH_DAYS = Array.from({ length: 31 }, (_, index) => index + 1);
@@ -32,12 +23,22 @@ function toggleValue(values: number[], value: number): number[] {
 
 /** A single routing schedule-entry editor (hours, weekdays, month days, months). */
 export function ScheduleEntryEditor({ index, value, onChange, onRemove, removable }: ScheduleEntryEditorProps) {
+    const { t } = useTranslation('administration');
+    const WEEKDAYS = [
+        { value: 0, label: t('timeGroups.editor.weekdaysShort.sun') },
+        { value: 1, label: t('timeGroups.editor.weekdaysShort.mon') },
+        { value: 2, label: t('timeGroups.editor.weekdaysShort.tue') },
+        { value: 3, label: t('timeGroups.editor.weekdaysShort.wed') },
+        { value: 4, label: t('timeGroups.editor.weekdaysShort.thu') },
+        { value: 5, label: t('timeGroups.editor.weekdaysShort.fri') },
+        { value: 6, label: t('timeGroups.editor.weekdaysShort.sat') },
+    ];
     return (
         <div className="rounded-lg border border-border p-3 flex flex-col gap-3">
             <div className="flex items-center justify-between">
-                <p className="text-xs font-semibold text-flex-text-primary">Schedule Entry {index + 1}</p>
+                <p className="text-xs font-semibold text-flex-text-primary">{t('timeGroups.editor.scheduleEntry', { index: index + 1 })}</p>
                 {removable && onRemove && (
-                    <Button variant="ghost" size="icon-xs" aria-label={`Remove schedule entry ${index + 1}`} onClick={onRemove}>
+                    <Button variant="ghost" size="icon-xs" aria-label={t('timeGroups.editor.removeEntryAria', { index: index + 1 })} onClick={onRemove}>
                         <RiCloseLine className="size-3.5" />
                     </Button>
                 )}
@@ -45,21 +46,21 @@ export function ScheduleEntryEditor({ index, value, onChange, onRemove, removabl
 
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
                 <div className="flex flex-col gap-1">
-                    <Label className="text-xs font-semibold text-flex-text-muted">Hours</Label>
+                    <Label className="text-xs font-semibold text-flex-text-muted">{t('timeGroups.editor.hours')}</Label>
                     <div className="flex items-center gap-1.5">
                         <Input
                             type="time"
                             value={value.startTime}
                             onChange={(e) => onChange({ ...value, startTime: e.target.value })}
-                            aria-label={`Entry ${index + 1} start time`}
+                            aria-label={t('timeGroups.editor.startTimeAria', { index: index + 1 })}
                             className="h-9 w-32 text-xs"
                         />
-                        <span className="text-xs text-flex-text-muted">to</span>
+                        <span className="text-xs text-flex-text-muted">{t('timeGroups.editor.to')}</span>
                         <Input
                             type="time"
                             value={value.endTime}
                             onChange={(e) => onChange({ ...value, endTime: e.target.value })}
-                            aria-label={`Entry ${index + 1} end time`}
+                            aria-label={t('timeGroups.editor.endTimeAria', { index: index + 1 })}
                             className="h-9 w-32 text-xs"
                         />
                     </div>
@@ -67,7 +68,7 @@ export function ScheduleEntryEditor({ index, value, onChange, onRemove, removabl
             </div>
 
             <div className="flex flex-col gap-1">
-                <Label className="text-xs font-semibold text-flex-text-muted">Weekdays</Label>
+                <Label className="text-xs font-semibold text-flex-text-muted">{t('timeGroups.editor.weekdays')}</Label>
                 <div className="flex flex-wrap gap-1.5">
                     {WEEKDAYS.map((day) => {
                         const active = value.weekdays.includes(day.value);
@@ -92,7 +93,7 @@ export function ScheduleEntryEditor({ index, value, onChange, onRemove, removabl
             </div>
 
             <div className="flex flex-col gap-1">
-                <Label className="text-xs font-semibold text-flex-text-muted">Month Days</Label>
+                <Label className="text-xs font-semibold text-flex-text-muted">{t('timeGroups.editor.monthDays')}</Label>
                 <div className="flex flex-wrap gap-1">
                     {MONTH_DAYS.map((day) => {
                         const active = value.monthDays.includes(day);
@@ -117,7 +118,7 @@ export function ScheduleEntryEditor({ index, value, onChange, onRemove, removabl
             </div>
 
             <div className="flex flex-col gap-1">
-                <Label className="text-xs font-semibold text-flex-text-muted">Months of Year</Label>
+                <Label className="text-xs font-semibold text-flex-text-muted">{t('timeGroups.editor.monthsOfYear')}</Label>
                 <div className="flex flex-wrap gap-1">
                     {MONTHS.map((month) => {
                         const active = value.months.includes(month);

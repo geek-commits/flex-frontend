@@ -102,9 +102,310 @@
       "editAria": "Modifier {{name}}"
     }
   },
-  "ivr": "SVI",
-  "timeGroups": "Groupes d'heures",
-  "timeConditions": "Conditions horaires",
+  "ivr": {
+    "label": "IVR",
+    "title": "IVR",
+    "subtitle": "Configure interactive voice response menus.",
+    "headTitle": "IVR — Flex Contact Center",
+    "actions": {
+      "addIVR": "Add IVR"
+    },
+    "toolbar": {
+      "searchPlaceholder": "Search IVR menus...",
+      "searchAriaLabel": "Search IVR menus"
+    },
+    "error": {
+      "title": "Couldn't load IVR menus",
+      "retry": "Try Again",
+      "generic": "IVR data could not be retrieved."
+    },
+    "empty": {
+      "noIVRTitle": "No IVR menus configured",
+      "noIVRDescription": "Create an IVR menu to route callers by keypress.",
+      "noMatchTitle": "No IVR menus match your search",
+      "noMatchDescription": "Try changing your search.",
+      "addIVR": "Add IVR",
+      "clearFilters": "Clear filters"
+    },
+    "footerHint": "POC mock adapter — `RoutingRepository` boundary; replace with the real routing backend in rollout.",
+    "columns": {
+      "ivr": "IVR",
+      "prompt": "Prompt",
+      "entries": "Entries",
+      "defaultDestination": "Default Destination",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "table": {
+      "view": "View",
+      "edit": "Edit",
+      "viewAria": "View {{name}}",
+      "editAria": "Edit {{name}}"
+    },
+    "detail": {
+      "titleFallback": "IVR",
+      "status": "Status",
+      "prompt": "Prompt",
+      "defaultDestination": "Default Destination",
+      "menuEntries": "Menu Entries",
+      "key": "Key",
+      "label": "Label",
+      "destination": "Destination",
+      "editIVR": "Edit IVR",
+      "delete": "Delete"
+    },
+    "form": {
+      "addTitle": "Add IVR",
+      "editTitle": "Edit IVR",
+      "description": "Configure the IVR menu, prompt, and routing destinations.",
+      "general": "General",
+      "ivrName": "IVR Name",
+      "ivrNamePlaceholder": "e.g. Main Menu",
+      "promptLabel": "Prompt / Recording",
+      "selectRecording": "Select a recording",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "menuEntries": "Menu Entries",
+      "key": "Key",
+      "label": "Label",
+      "destination": "Destination",
+      "entryKeyPlaceholder": "1",
+      "entryLabelPlaceholder": "e.g. Sales",
+      "entryKeyAria": "Entry {{index}} key",
+      "entryLabelAria": "Entry {{index}} label",
+      "removeEntryAria": "Remove entry {{index}}",
+      "addEntry": "Add Entry",
+      "fallbackDestination": "Fallback Destination",
+      "defaultDestination": "Default Destination",
+      "cancel": "Cancel",
+      "saving": "Saving…",
+      "saveIVR": "Save IVR",
+      "createIVR": "Create IVR",
+      "validation": {
+        "nameRequired": "IVR name is required.",
+        "duplicateKeys": "Menu entry keys must be unique."
+      },
+      "toast": {
+        "saved": "IVR saved",
+        "created": "IVR created",
+        "saveFailed": "IVR could not be saved",
+        "createFailed": "IVR could not be created"
+      }
+    },
+    "deleteDialog": {
+      "title": "Delete IVR?",
+      "description": "Delete \"{{name}}\"? Its menu entries and destinations will be removed.",
+      "cancel": "Cancel",
+      "delete": "Delete IVR",
+      "deleting": "Deleting…",
+      "toast": {
+        "deleted": "IVR deleted",
+        "deleteFailed": "IVR could not be deleted"
+      }
+    }
+  },
+  "timeGroups": {
+    "label": "Time Groups",
+    "title": "Time Groups",
+    "subtitle": "Define reusable schedules for time-based routing.",
+    "headTitle": "Time Groups — Flex Contact Center",
+    "actions": {
+      "addTimeGroup": "Add Time Group"
+    },
+    "toolbar": {
+      "searchPlaceholder": "Search time groups...",
+      "searchAriaLabel": "Search time groups"
+    },
+    "error": {
+      "title": "Couldn't load time groups",
+      "retry": "Try Again",
+      "generic": "Time Group data could not be retrieved."
+    },
+    "empty": {
+      "noTimeGroupsTitle": "No time groups configured",
+      "noTimeGroupsDescription": "Create a reusable schedule for time-based routing.",
+      "noMatchTitle": "No time groups match your search",
+      "noMatchDescription": "Try changing your search.",
+      "addTimeGroup": "Add Time Group",
+      "clearFilters": "Clear filters"
+    },
+    "footerHint": "POC mock adapter — `RoutingRepository` boundary; replace with the real routing backend in rollout.",
+    "columns": {
+      "timeGroup": "Time Group",
+      "schedule": "Schedule",
+      "entries": "Entries",
+      "usedBy": "Used By",
+      "actions": "Actions"
+    },
+    "table": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "editAria": "Edit {{name}}",
+      "deleteAria": "Delete {{name}}",
+      "usedBy_one": "{{count}} condition",
+      "usedBy_other": "{{count}} conditions",
+      "notUsed": "Not used"
+    },
+    "form": {
+      "addTitle": "Add Time Group",
+      "editTitle": "Edit Time Group",
+      "description": "Define a reusable schedule for time-based routing.",
+      "general": "General",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "e.g. Business Hours",
+      "scheduleHint": "Schedule times are evaluated in the tenant timezone. Configured values are stored as entered.",
+      "scheduleEntries": "Schedule Entries",
+      "addSchedule": "Add Schedule",
+      "cancel": "Cancel",
+      "saving": "Saving…",
+      "saveTimeGroup": "Save Time Group",
+      "createTimeGroup": "Create Time Group",
+      "validation": {
+        "descriptionRequired": "Description is required.",
+        "atLeastOneEntry": "Add at least one schedule entry."
+      },
+      "toast": {
+        "updated": "Time Group updated",
+        "created": "Time Group created",
+        "saveFailed": "Time Group could not be saved",
+        "createFailed": "Time Group could not be created"
+      }
+    },
+    "deleteDialog": {
+      "title": "Delete time group?",
+      "description": "Delete \"{{name}}\"? Its schedule definition will be removed.",
+      "blockedDescription": "This Time Group is currently used by {{count}} time conditions and cannot be deleted.",
+      "cancel": "Cancel",
+      "delete": "Delete Time Group",
+      "deleting": "Deleting…",
+      "toast": {
+        "deleted": "Time Group deleted",
+        "deleteFailed": "Time Group could not be deleted"
+      }
+    },
+    "editor": {
+      "scheduleEntry": "Schedule Entry {{index}}",
+      "hours": "Hours",
+      "to": "to",
+      "weekdays": "Weekdays",
+      "monthDays": "Month Days",
+      "monthsOfYear": "Months of Year",
+      "removeEntryAria": "Remove schedule entry {{index}}",
+      "startTimeAria": "Entry {{index}} start time",
+      "endTimeAria": "Entry {{index}} end time",
+      "weekdaysShort": {
+        "sun": "Sun",
+        "mon": "Mon",
+        "tue": "Tue",
+        "wed": "Wed",
+        "thu": "Thu",
+        "fri": "Fri",
+        "sat": "Sat"
+      }
+    },
+    "summary": {
+      "noEntries": "No schedule entries",
+      "entries_other": "{{count}} schedule entries",
+      "everyDay": "Every day",
+      "day": "Day {{days}}",
+      "monthPrefix": "M{{month}}"
+    }
+  },
+  "timeConditions": {
+    "label": "Time Conditions",
+    "title": "Time Conditions",
+    "subtitle": "Route calls by date, time, and schedule.",
+    "headTitle": "Time Conditions — Flex Contact Center",
+    "actions": {
+      "addTimeCondition": "Add Time Condition"
+    },
+    "toolbar": {
+      "searchPlaceholder": "Search conditions...",
+      "searchAriaLabel": "Search conditions"
+    },
+    "error": {
+      "title": "Couldn't load time conditions",
+      "retry": "Try Again",
+      "generic": "Time Condition data could not be retrieved."
+    },
+    "empty": {
+      "noConditionsTitle": "No time conditions configured",
+      "noConditionsDescription": "Create a condition to route calls by schedule.",
+      "noMatchTitle": "No conditions match your search",
+      "noMatchDescription": "Try changing your search.",
+      "addTimeCondition": "Add Time Condition",
+      "clearFilters": "Clear filters"
+    },
+    "footerHint": "POC mock adapter — `RoutingRepository` boundary; replace with the real routing backend in rollout.",
+    "columns": {
+      "condition": "Condition",
+      "timeGroup": "Time Group",
+      "matchDestination": "Match Destination",
+      "fallback": "Fallback",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "table": {
+      "view": "View",
+      "edit": "Edit",
+      "viewAria": "View {{name}}",
+      "editAria": "Edit {{name}}"
+    },
+    "detail": {
+      "titleFallback": "Time Condition",
+      "status": "Status",
+      "timeGroup": "Time Group",
+      "whenMatches": "When schedule matches",
+      "whenNotMatches": "When schedule does not match",
+      "unknownDeleted": "Unknown / deleted",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "form": {
+      "addTitle": "Add Time Condition",
+      "editTitle": "Edit Time Condition",
+      "description": "Define when this condition routes and where calls go.",
+      "general": "General",
+      "conditionName": "Condition Name",
+      "conditionNamePlaceholder": "e.g. Business Hours Routing",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "schedule": "Schedule",
+      "timeGroup": "Time Group",
+      "selectTimeGroup": "Select a time group",
+      "scheduleHint": "This condition controls where calls are routed during the configured schedule.",
+      "routing": "Routing",
+      "whenMatches": "When schedule matches",
+      "whenNotMatches": "When schedule does not match",
+      "cancel": "Cancel",
+      "saving": "Saving…",
+      "saveCondition": "Save Condition",
+      "createCondition": "Create Condition",
+      "validation": {
+        "nameRequired": "Condition name is required.",
+        "timeGroupRequired": "Select a Time Group."
+      },
+      "toast": {
+        "updated": "Time Condition updated",
+        "created": "Time Condition created",
+        "saveFailed": "Time Condition could not be saved",
+        "createFailed": "Time Condition could not be created"
+      }
+    },
+    "deleteDialog": {
+      "title": "Delete time condition?",
+      "description": "Delete \"{{name}}\"? Its schedule-based routing rules will be removed.",
+      "cancel": "Cancel",
+      "delete": "Delete Condition",
+      "deleting": "Deleting…",
+      "toast": {
+        "deleted": "Time Condition deleted",
+        "deleteFailed": "Time Condition could not be deleted"
+      }
+    }
+  },
   "recordings": {
     "label": "Enregistrements",
     "title": "Enregistrements d'appels et messages audio",
@@ -174,8 +475,251 @@
       "uploadRecording": "Téléverser un enregistrement"
     }
   },
-  "mail": "E-mails",
-  "subscriptions": "Abonnements",
-  "system": "Système",
+  "subscriptions": {
+    "title": "Gestion des abonnements",
+    "subtitle": "Suivez le statut, les jours restants, les rappels et les renouvellements.",
+    "headTitle": "Abonnements — Flex Contact Center",
+    "metrics": {
+      "totalAccounts": "Total des comptes",
+      "active": "Actifs",
+      "expiringSoon": "Expire bientôt (≤5j)",
+      "expiringActionNeeded": "Action requise",
+      "expired": "Expirés",
+      "totalSeats": "Total des licences"
+    },
+    "showing_one": "Affichage de {{count}} abonnement",
+    "showing_other": "Affichage de {{count}} abonnements",
+    "updated": "Mis à jour {{time}}",
+    "toast": {
+      "queuedWarning": "E-mail de rappel en file d'attente, mais le serveur de messagerie est déconnecté. Configurez SMTP pour l'envoi.",
+      "sent": "Notification de rappel envoyée à {{email}}",
+      "sendFailed": "Échec de l'envoi du rappel",
+      "renewed": "Abonnement {{account}} renouvelé pour +{{months}} {{unit}}",
+      "renewFailed": "Échec du renouvellement",
+      "month_one": "mois",
+      "month_other": "mois"
+    },
+    "empty": {
+      "title": "Aucun abonnement trouvé",
+      "description": "Aucun enregistrement ne correspond à vos critères de recherche et de filtrage."
+    },
+    "columns": {
+      "accountContact": "Compte et contact",
+      "planSeats": "Forfait et licences",
+      "billing": "Facturation",
+      "expires": "Expire le",
+      "remainingTime": "Temps restant",
+      "status": "Statut",
+      "reminders": "Rappels",
+      "seats": "{{count}} licences",
+      "autoRenew": "Renouvellement auto",
+      "manual": "Manuel",
+      "days_one": "{{count}} jour",
+      "days_other": "{{count}} jours",
+      "zeroDays": "0 jour"
+    },
+    "reminders": {
+      "sent": "Rappel envoyé",
+      "due": "Échéance (≤5j)",
+      "notSent": "Non envoyé"
+    },
+    "actions": {
+      "inspect": "Inspecter l'abonnement",
+      "sendReminder": "Envoyer un rappel",
+      "renew": "Renouveler l'abonnement",
+      "inspectAria": "Inspecter {{account}}",
+      "reminderAria": "Envoyer un rappel à {{account}}",
+      "renewAria": "Renouveler {{account}}"
+    },
+    "toolbar": {
+      "searchPlaceholder": "Rechercher compte, e-mail ou forfait...",
+      "searchAriaLabel": "Rechercher des abonnements",
+      "allStatuses": "Tous les statuts",
+      "allPlans": "Tous les forfaits",
+      "clear": "Effacer",
+      "statusOptions": {
+        "active": "Actif",
+        "expiring": "Expire bientôt (≤5 jours)",
+        "expired": "Expiré",
+        "trial": "Essai"
+      },
+      "planOptions": {
+        "starter": "Starter",
+        "professional": "Professional",
+        "enterprise": "Enterprise",
+        "custom": "Custom"
+      }
+    },
+    "detail": {
+      "meta_one": "Forfait {{plan}} · {{seats}} licences · {{days}} jour restant",
+      "meta_other": "Forfait {{plan}} · {{seats}} licences · {{days}} jours restants",
+      "sendReminder": "Envoyer l'e-mail de rappel",
+      "renew": "Renouveler l'abonnement",
+      "statusLabel": "Statut de l'abonnement",
+      "daysRemaining_one": "{{count}} jour",
+      "daysRemaining_other": "{{count}} jours",
+      "remainingUntilExpiry": "restant avant expiration",
+      "expiresOn": "Expire le {{date}}",
+      "accountContract": "Compte et contrat",
+      "subscriptionId": "ID d'abonnement",
+      "billingContact": "Contact de facturation",
+      "tierPlan": "Niveau et forfait",
+      "seatAllocation": "Allocation des licences",
+      "seatAllocationValue_one": "{{count}} licence agent",
+      "seatAllocationValue_other": "{{count}} licences agent",
+      "contractAmount": "Montant du contrat",
+      "renewalPolicy": "Politique de renouvellement",
+      "autoRenewActive": "Renouvellement automatique actif",
+      "manualRenewal": "Renouvellement manuel par facture",
+      "lastPayment": "Dernier paiement",
+      "notificationDelivery": "Distribution des notifications",
+      "mailConfig": "Config. e-mail",
+      "smtpServer": "Serveur SMTP :",
+      "connectedActive": "Connecté et actif",
+      "disconnected": "Déconnecté / Non testé",
+      "expiryReminder": "Rappel à 5 jours :",
+      "expiryNotice": "Avis d'expiration :",
+      "sent": "Envoyé",
+      "sentAt": "Envoyé ({{date}})",
+      "none": "Aucun"
+    },
+    "dialog": {
+      "title": "Renouveler l'abonnement",
+      "description": "Prolongez l'accès et réinitialisez les notifications pour « {{account}} » (forfait {{plan}}, {{seats}} licences).",
+      "renewalTerm": "Extension de la durée",
+      "oneMonth": "+1 mois ({{price}})",
+      "threeMonths": "+3 mois (Trimestriel)",
+      "twelveMonths": "+12 mois (1 an - Annuel)",
+      "cancel": "Annuler",
+      "confirm": "Confirmer le renouvellement"
+    },
+    "status": {
+      "active": "Actif",
+      "expiring": "Expire ({{days}}j)",
+      "expired": "Expiré",
+      "trial": "Essai"
+    },
+    "mailNotice": {
+      "title": "Notifications e-mail inactives",
+      "description": "Les rappels automatiques à 5 jours et les confirmations de paiement nécessitent une configuration e-mail connectée.",
+      "configure": "Configurer le serveur e-mail"
+    }
+  },
+  "mail": {
+    "title": "Configuration e-mail",
+    "subtitle": "Configurez et testez le serveur SMTP pour les notifications système.",
+    "headTitle": "Configuration e-mail — Flex Contact Center",
+    "crossLink": {
+      "description": "La distribution e-mail alimente les rappels à 5 jours et les confirmations de paiement.",
+      "viewSubscriptions": "Voir les abonnements"
+    },
+    "form": {
+      "senderIdentity": "Identité de l'expéditeur",
+      "senderIdentityDescription": "Configurez le nom et l'adresse affichés sur les e-mails automatiques.",
+      "fromName": "Nom de l'expéditeur",
+      "fromNamePlaceholder": "ex. Flex Contact Center",
+      "fromEmail": "Adresse e-mail d'expédition",
+      "fromEmailPlaceholder": "notifications@votredomaine.com",
+      "replyTo": "Adresse Répondre à",
+      "replyToOptional": "(Optionnel)",
+      "replyToPlaceholder": "support@votredomaine.com",
+      "smtpSettings": "Paramètres du serveur SMTP",
+      "smtpSettingsDescription": "Configurez l'hôte SMTP, l'authentification, le port et la sécurité.",
+      "smtpHost": "Hôte SMTP",
+      "smtpHostPlaceholder": "ex. smtp.office365.com ou smtp.sendgrid.net",
+      "port": "Port",
+      "portPlaceholder": "587",
+      "encryption": "Sécurité du chiffrement",
+      "encryptionOptions": {
+        "tls": "TLS (Recommandé - Port 587)",
+        "ssl": "SSL (Port 465)",
+        "none": "Aucun (Non chiffré - Port 25)"
+      },
+      "username": "Nom d'utilisateur SMTP",
+      "usernamePlaceholder": "nom d'utilisateur ou clé API",
+      "password": "Mot de passe SMTP",
+      "passwordPlaceholderUnchanged": "•••••••• (inchangé)",
+      "passwordPlaceholderNew": "Entrez le mot de passe SMTP",
+      "passwordHintHasPassword": "Laissez vide pour conserver le secret stocké.",
+      "passwordHintNoPassword": "Le mot de passe sera stocké de manière sécurisée en écriture seule.",
+      "enableDelivery": "Activer la distribution e-mail",
+      "enableDeliveryDescription": "Permettre l'envoi des rappels, alertes et rapports automatiques.",
+      "save": "Enregistrer la configuration e-mail",
+      "saving": "Enregistrement...",
+      "errors": {
+        "fromName": "Le nom de l'expéditeur est requis.",
+        "fromAddress": "L'adresse d'expédition est requise.",
+        "smtpHost": "L'hôte SMTP est requis.",
+        "port": "Le port doit être entre 1 et 65535.",
+        "username": "Le nom d'utilisateur est requis."
+      },
+      "toast": {
+        "saved": "Configuration e-mail enregistrée avec succès",
+        "saveFailed": "Échec de l'enregistrement de la configuration e-mail"
+      }
+    },
+    "banner": {
+      "testing": "Test de la connectivité SMTP...",
+      "disabled": "La distribution e-mail est actuellement désactivée. Aucune notification ne sera envoyée.",
+      "disabledLabel": "Désactivé",
+      "connected": "Serveur e-mail connecté et actif",
+      "connectedDescription": "Prêt pour les rappels d'abonnement, alertes et rapports automatiques.",
+      "verified": "Vérifié {{time}}",
+      "failed": "Échec de la connexion",
+      "failedFallback": "Impossible de se connecter au serveur SMTP configuré.",
+      "tested": "Testé {{time}}",
+      "notTested": "La configuration SMTP n'a pas été testée. Lancez Test de connexion pour vérifier.",
+      "notTestedAction": "Test de connexion"
+    },
+    "testConnection": {
+      "title": "Tester la connexion",
+      "description": "Vérifiez la négociation SSL/TLS et les identifiants sans envoyer d'e-mail.",
+      "verified": "Connexion vérifiée",
+      "failed": "Échec de la connexion",
+      "latency": "Latence : {{value}}ms",
+      "verifying": "Vérification...",
+      "run": "Lancer le test de connexion"
+    },
+    "testEmail": {
+      "title": "Envoyer un e-mail de test",
+      "description": "Envoyez un e-mail de test réel pour vérifier la réception et les filtres anti-spam.",
+      "dispatched": "E-mail envoyé",
+      "sendFailed": "Échec de l'envoi",
+      "messageId": "ID du message : {{id}}",
+      "recipient": "Adresse du destinataire",
+      "recipientPlaceholder": "admin@exemple.com",
+      "invalidRecipient": "Veuillez saisir une adresse e-mail valide.",
+      "dispatching": "Envoi...",
+      "send": "Envoyer l'e-mail de test"
+    }
+  },
+  "system": {
+    "title": "Système et infrastructure",
+    "subtitle": "Santé de la plateforme, sauvegardes, certificats TLS et connexions passerelle",
+    "headTitle": "Système et infrastructure — Flex Contact Center",
+    "refresh": "Actualiser le statut",
+    "refreshing": "Actualisation...",
+    "infrastructureHealth": "Vue d'ensemble de la santé",
+    "metrics": {
+      "operational": "Opérationnel",
+      "operationalDescription": "Services pleinement fonctionnels",
+      "degraded": "Dégradé",
+      "degradedDescription": "Services avec latence élevée",
+      "down": "En panne",
+      "downDescription": "Services inaccessibles",
+      "uptime": "Disponibilité (30j) — Exemple",
+      "uptimeDescription": "Données d'exemple / POC — pas de télémétrie SLA réelle."
+    },
+    "serverResources": "Ressources serveur",
+    "backupStatus": "État des sauvegardes",
+    "serviceHealthMatrix": "Matrice de santé des services",
+    "table": {
+      "service": "Service",
+      "status": "Statut",
+      "latency": "Latence",
+      "lastChecked": "Dernière vérification"
+    },
+    "footer": "Données fictives POC — métriques d'exemple ; pas de télémétrie téléphonique ou SLA réelle."
+  },
   "ai": "Centre d'IA"
 }

@@ -6,6 +6,7 @@ import {
     RiShieldCheckLine,
 } from '@remixicon/react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexDetailSheet } from '@/components/flex/flex-detail-sheet';
 import { Button } from '@/components/ui/button';
 import type { MailConnectionStatus } from '@/domain/mail-types';
@@ -38,16 +39,18 @@ export function SubscriptionDetailSheet({
     onTriggerReminder,
     onRenew,
 }: SubscriptionDetailSheetProps) {
+    const { t } = useTranslation('administration');
     if (!record) {
         return null;
     }
 
+    const metaKey = record.remainingDays === 1 ? 'subscriptions.detail.meta_one' : 'subscriptions.detail.meta_other';
     return (
         <FlexDetailSheet
             open={open}
             onOpenChange={onOpenChange}
             title={record.accountName}
-            meta={`${record.plan} Plan · ${record.seats} Seats · ${record.remainingDays} days remaining`}
+            meta={t(metaKey, { plan: record.plan, seats: record.seats, days: record.remainingDays })}
             footer={
                 <div className="flex items-center justify-between gap-2 w-full">
                     <Button
@@ -60,7 +63,7 @@ export function SubscriptionDetailSheet({
                         }}
                     >
                         <RiMailSendLine className="size-3.5" />
-                        Send Reminder Email
+                        {t('subscriptions.detail.sendReminder')}
                     </Button>
                     <Button
                         size="sm"
@@ -71,7 +74,7 @@ export function SubscriptionDetailSheet({
                         }}
                     >
                         <RiRefreshLine className="size-3.5" />
-                        Renew Subscription
+                        {t('subscriptions.detail.renew')}
                     </Button>
                 </div>
             }
@@ -81,7 +84,7 @@ export function SubscriptionDetailSheet({
                 <div className="p-3.5 rounded-lg border bg-muted/20 flex flex-col gap-2">
                     <div className="flex items-center justify-between">
                         <span className="text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted">
-                            Subscription Status
+                            {t('subscriptions.detail.statusLabel')}
                         </span>
                         <SubscriptionStatusBadge
                             status={record.status}
@@ -90,40 +93,35 @@ export function SubscriptionDetailSheet({
                     </div>
                     <div className="flex items-baseline gap-2 mt-1">
                         <span className="text-2xl font-bold text-flex-text-primary flex-numeric">
-                            {record.remainingDays} {record.remainingDays === 1 ? 'day' : 'days'}
+                            {t(record.remainingDays === 1 ? 'subscriptions.detail.daysRemaining_one' : 'subscriptions.detail.daysRemaining_other', { count: record.remainingDays })}
                         </span>
-                        <span className="text-xs text-flex-text-muted">remaining until expiry</span>
+                        <span className="text-xs text-flex-text-muted">{t('subscriptions.detail.remainingUntilExpiry')}</span>
                     </div>
                     <p className="text-[11px] text-flex-text-muted">
-                        Expires on{' '}
-                        <span className="font-semibold text-flex-text-primary">
-                            {new Date(record.expiresAt).toLocaleDateString([], {
-                                dateStyle: 'full',
-                            })}
-                        </span>
+                        {t('subscriptions.detail.expiresOn', { date: new Date(record.expiresAt).toLocaleDateString([], { dateStyle: 'full' }) })}
                     </p>
                 </div>
 
                 {/* Account & Billing */}
                 <div className="flex flex-col">
                     <span className="text-[11px] font-semibold text-flex-text-muted uppercase tracking-wider mb-2">
-                        Account & Contract
+                        {t('subscriptions.detail.accountContract')}
                     </span>
-                    <DetailRow label="Subscription ID">
+                    <DetailRow label={t('subscriptions.detail.subscriptionId')}>
                         <span className="font-mono text-[11px]">{record.id}</span>
                     </DetailRow>
-                    <DetailRow label="Billing Contact">
+                    <DetailRow label={t('subscriptions.detail.billingContact')}>
                         <span className="font-mono text-[11px]">{record.contactEmail}</span>
                     </DetailRow>
-                    <DetailRow label="Tier & Plan">{record.plan}</DetailRow>
-                    <DetailRow label="Seat Allocation">{record.seats} agent licenses</DetailRow>
-                    <DetailRow label="Contract Amount">
+                    <DetailRow label={t('subscriptions.detail.tierPlan')}>{record.plan}</DetailRow>
+                    <DetailRow label={t('subscriptions.detail.seatAllocation')}>{t(record.seats === 1 ? 'subscriptions.detail.seatAllocationValue_one' : 'subscriptions.detail.seatAllocationValue_other', { count: record.seats })}</DetailRow>
+                    <DetailRow label={t('subscriptions.detail.contractAmount')}>
                         ${record.amount.toLocaleString()} {record.currency} ({record.billingCycle})
                     </DetailRow>
-                    <DetailRow label="Renewal Policy">
-                        {record.autoRenew ? 'Automatic renewal active' : 'Manual invoice renewal'}
+                    <DetailRow label={t('subscriptions.detail.renewalPolicy')}>
+                        {record.autoRenew ? t('subscriptions.detail.autoRenewActive') : t('subscriptions.detail.manualRenewal')}
                     </DetailRow>
-                    <DetailRow label="Last Payment">
+                    <DetailRow label={t('subscriptions.detail.lastPayment')}>
                         {new Date(record.lastPaymentDate).toLocaleDateString([], {
                             month: 'short',
                             day: 'numeric',
@@ -137,20 +135,20 @@ export function SubscriptionDetailSheet({
                 <div className="flex flex-col gap-2">
                     <div className="flex items-center justify-between">
                         <span className="text-[11px] font-semibold text-flex-text-muted uppercase tracking-wider">
-                            Notification Delivery
+                            {t('subscriptions.detail.notificationDelivery')}
                         </span>
                         <a
                             href="/admin/mail-config"
                             className="text-primary hover:underline flex items-center gap-1 text-[11px]"
                         >
-                            Mail Config
+                            {t('subscriptions.detail.mailConfig')}
                             <RiExternalLinkLine className="size-3" />
                         </a>
                     </div>
 
                     <div className="p-3 rounded border bg-card text-xs flex flex-col gap-2">
                         <div className="flex items-center justify-between">
-                            <span className="text-flex-text-muted">SMTP Server:</span>
+                            <span className="text-flex-text-muted">{t('subscriptions.detail.smtpServer')}</span>
                             <span
                                 className={`font-semibold flex items-center gap-1 ${
                                     mailStatus.isReady ? 'text-success' : 'text-warning'
@@ -159,40 +157,40 @@ export function SubscriptionDetailSheet({
                                 {mailStatus.isReady ? (
                                     <>
                                         <RiShieldCheckLine className="size-3.5" />
-                                        Connected & Active
+                                        {t('subscriptions.detail.connectedActive')}
                                     </>
                                 ) : (
-                                    'Disconnected / Untested'
+                                    t('subscriptions.detail.disconnected')
                                 )}
                             </span>
                         </div>
 
                         <div className="flex items-center justify-between border-t border-border/40 pt-2">
-                            <span className="text-flex-text-muted">5-Day Expiry Reminder:</span>
+                            <span className="text-flex-text-muted">{t('subscriptions.detail.expiryReminder')}</span>
                             <span className="font-medium text-flex-text-primary">
                                 {record.reminderSent ? (
                                     <span className="text-success inline-flex items-center gap-1">
                                         <RiCheckLine className="size-3.5" />
-                                        Sent{' '}
-                                        {record.reminderSentAt &&
-                                            `(${new Date(record.reminderSentAt).toLocaleDateString()})`}
+                                        {record.reminderSentAt
+                                            ? t('subscriptions.detail.sentAt', { date: new Date(record.reminderSentAt).toLocaleDateString() })
+                                            : t('subscriptions.detail.sent')}
                                     </span>
                                 ) : (
-                                    'Not sent'
+                                    t('subscriptions.detail.none')
                                 )}
                             </span>
                         </div>
 
                         <div className="flex items-center justify-between border-t border-border/40 pt-2">
-                            <span className="text-flex-text-muted">Expiry Notice:</span>
+                            <span className="text-flex-text-muted">{t('subscriptions.detail.expiryNotice')}</span>
                             <span className="font-medium text-flex-text-primary">
                                 {record.expiryNoticeSent ? (
                                     <span className="text-destructive inline-flex items-center gap-1">
                                         <RiCheckLine className="size-3.5" />
-                                        Sent
+                                        {t('subscriptions.detail.sent')}
                                     </span>
                                 ) : (
-                                    'None'
+                                    t('subscriptions.detail.none')
                                 )}
                             </span>
                         </div>

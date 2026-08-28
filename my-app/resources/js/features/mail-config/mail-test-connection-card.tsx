@@ -5,6 +5,7 @@ import {
     RiLoader4Line,
 } from '@remixicon/react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import type { TestConnectionResult } from '@/domain/mail-types';
@@ -20,12 +21,13 @@ export function MailTestConnectionCard({
     result,
     onTest,
 }: MailTestConnectionCardProps) {
+    const { t } = useTranslation('administration');
     return (
         <Card className="h-full flex flex-col justify-between">
             <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-semibold">Test Connection</CardTitle>
+                <CardTitle className="text-sm font-semibold">{t('mail.testConnection.title')}</CardTitle>
                 <CardDescription className="text-xs">
-                    Verify socket handshake, SSL/TLS negotiation, and credentials without sending an email.
+                    {t('mail.testConnection.description')}
                 </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-3">
@@ -43,11 +45,11 @@ export function MailTestConnectionCard({
                             <RiCloseCircleLine className="size-4 text-destructive shrink-0 mt-0.5" />
                         )}
                         <div className="flex flex-col gap-0.5">
-                            <span className="font-semibold">{result.ok ? 'Connection Verified' : 'Connection Failed'}</span>
+                            <span className="font-semibold">{result.ok ? t('mail.testConnection.verified') : t('mail.testConnection.failed')}</span>
                             <span className="text-[11px] text-flex-text-muted">{result.message}</span>
                             {result.latencyMs && (
                                 <span className="text-[10px] text-flex-text-muted font-mono mt-1">
-                                    Latency: {result.latencyMs}ms
+                                    {t('mail.testConnection.latency', { value: result.latencyMs })}
                                 </span>
                             )}
                         </div>
@@ -67,7 +69,7 @@ export function MailTestConnectionCard({
                     ) : (
                         <RiExchangeLine className="size-3.5" />
                     )}
-                    {isTesting ? 'Verifying Handshake...' : 'Run Test Connection'}
+                    {isTesting ? t('mail.testConnection.verifying') : t('mail.testConnection.run')}
                 </Button>
             </CardContent>
         </Card>

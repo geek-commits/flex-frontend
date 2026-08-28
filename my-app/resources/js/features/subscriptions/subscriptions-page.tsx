@@ -1,5 +1,6 @@
 import { Head } from '@inertiajs/react';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { FlexWorkbenchShell } from '@/components/flex/flex-workbench-shell';
 import { FlexMetricItem } from '@/components/flex/metrics/flex-metric-item';
@@ -14,6 +15,7 @@ import { useSubscriptionsData } from '@/features/subscriptions/use-subscriptions
 import { AdminShell } from '@/layouts/admin-shell';
 
 export function SubscriptionsPage() {
+    const { t } = useTranslation('administration');
     const {
         records,
         summary,
@@ -39,21 +41,19 @@ export function SubscriptionsPage() {
 
     const handleTriggerReminder = (record: SubscriptionRecord) => {
         if (!mailStatus.isReady) {
-            toast.warning(
-                'Reminder email queued, but Mail Server is disconnected. Configure SMTP to deliver.'
-            );
+            toast.warning(t('subscriptions.toast.queuedWarning'));
         }
 
         const res = triggerReminder(record.id);
 
         if (res.ok) {
-            toast.success(`Reminder notification sent to ${record.contactEmail}`);
+            toast.success(t('subscriptions.toast.sent', { email: record.contactEmail }));
 
             if (selectedRecord?.id === record.id) {
                 setSelectedRecord(res.record);
             }
         } else {
-            toast.error(res.reason ?? 'Failed to send reminder');
+            toast.error(res.reason ?? t('subscriptions.toast.sendFailed'));
         }
     };
 
@@ -66,8 +66,11 @@ export function SubscriptionsPage() {
         const res = renewSubscription(record.id, months);
 
         if (res.ok) {
+            const unit = t(`subscriptions.toast.month_${months === 1 ? 'one' : 'other'}`, { count: months, defaultValue: months === 1 ? 'month' : 'months' });
+            // Use custom key: subscriptions.toast.month_one/other maps to month label via t
+            const monthLabel = months === 1 ? t('subscriptions.toast.month_one') : t('subscriptions.toast.month_other');
             toast.success(
-                `Renewed ${record.accountName} for +${months} ${months === 1 ? 'month' : 'months'}`
+                t('subscriptions.toast.renewed', { account: record.accountName, months, unit: monthLabel })
             );
             setRenewOpen(false);
 
@@ -75,29 +78,29 @@ export function SubscriptionsPage() {
                 setSelectedRecord(res.record);
             }
         } else {
-            toast.error(res.reason ?? 'Renewal failed');
+            toast.error(res.reason ?? t('subscriptions.toast.renewFailed'));
         }
     };
 
     return (
         <AdminShell
-            title="Subscription Management"
-            subtitle="Track subscription status, remaining days, reminders, and renewal activity."
+            title={t('subscriptions.title')}
+            subtitle={t('subscriptions.subtitle')}
         >
-            <Head title="Subscriptions — Flex Contact Center" />
+            <Head title={t('subscriptions.headTitle')} />
 
             <div className="flex flex-col gap-[var(--flex-space-section)] w-full">
                 {/* Metric Summary Strip */}
                 <FlexMetricStrip>
-                    <FlexMetricItem label="Total Accounts" value={summary.totalSubscriptions} />
-                    <FlexMetricItem label="Active" value={summary.activeCount} />
+                    <FlexMetricItem label={t('subscriptions.metrics.totalAccounts')} value={summary.totalSubscriptions} />
+                    <FlexMetricItem label={t('subscriptions.metrics.active')} value={summary.activeCount} />
                     <FlexMetricItem
-                        label="Expiring Soon (≤5d)"
+                        label={t('subscriptions.metrics.expiringSoon')}
                         value={summary.expiringCount}
-                        description={summary.expiringCount > 0 ? 'Action needed' : undefined}
+                        description={summary.expiringCount > 0 ? t('subscriptions.metrics.expiringActionNeeded') : undefined}
                     />
-                    <FlexMetricItem label="Expired" value={summary.expiredCount} />
-                    <FlexMetricItem label="Total Seats" value={summary.totalSeats} />
+                    <FlexMetricItem label={t('subscriptions.metrics.expired')} value={summary.expiredCount} />
+                    <FlexMetricItem label={t('subscriptions.metrics.totalSeats')} value={summary.totalSeats} />
                 </FlexMetricStrip>
 
                 {/* Mail Delivery Notice if SMTP is not ready */}
@@ -105,10 +108,10 @@ export function SubscriptionsPage() {
 
                 <div className="flex items-center justify-between text-xs text-flex-text-muted">
                     <span>
-                        Showing <span className="font-semibold text-flex-text-primary">{records.length}</span> subscriptions
+                        {t(records.length === 1 ? 'subscriptions.showing_one' : 'subscriptions.showing_other', { count: records.length })}
                     </span>
                     <span>
-                        Updated {lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        {t('subscriptions.updated', { time: lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) })}
                     </span>
                 </div>
 

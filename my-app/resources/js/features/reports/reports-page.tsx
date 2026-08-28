@@ -1,5 +1,6 @@
 import { Head } from '@inertiajs/react';
 import React, { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { useCapabilities } from '@/auth/capabilities';
 import { scheduledReportsRepository } from '@/domain/scheduled-reports-repository';
@@ -24,6 +25,7 @@ const DEFAULT_QUERY: ReportQuery = {};
 type ReportsView = 'library' | 'viewer' | 'scheduled';
 
 export function ReportsPage() {
+    const { t } = useTranslation('supervision');
     const { has } = useCapabilities();
     const [view, setView] = useState<ReportsView>('library');
     const [activeReportId, setActiveReportId] = useState<string>();
@@ -89,11 +91,11 @@ export function ReportsPage() {
 
     return (
         <AdminShell
-            title="Reports & Analytics"
-            subtitle="Operational and historical reporting across FLEX."
+            title={t('reports.title')}
+            subtitle={t('reports.subtitle')}
             
         >
-            <Head title="Reports & Analytics — Flex Contact Center" />
+            <Head title={t('reports.headTitle')} />
 
             {view === 'library' && (
                 <ReportLibrary reports={permittedReports} onOpen={openReport} onOpenScheduled={openScheduled} />

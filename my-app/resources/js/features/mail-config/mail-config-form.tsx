@@ -1,5 +1,6 @@
 import { RiSave3Line } from '@remixicon/react';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -22,6 +23,7 @@ export interface MailConfigFormProps {
 }
 
 export function MailConfigForm({ config, isSaving = false, onSave }: MailConfigFormProps) {
+    const { t } = useTranslation('administration');
     const [fromName, setFromName] = useState(config.fromName);
     const [fromAddress, setFromAddress] = useState(config.fromAddress);
     const [replyTo, setReplyTo] = useState(config.replyTo ?? '');
@@ -39,23 +41,23 @@ export function MailConfigForm({ config, isSaving = false, onSave }: MailConfigF
         const errs: Record<string, string> = {};
 
         if (!fromName.trim()) {
-            errs.fromName = 'From Name is required.';
+            errs.fromName = t('mail.form.errors.fromName');
         }
 
         if (!fromAddress.trim()) {
-            errs.fromAddress = 'From Address is required.';
+            errs.fromAddress = t('mail.form.errors.fromAddress');
         }
 
         if (!smtpHost.trim()) {
-            errs.smtpHost = 'SMTP Host is required.';
+            errs.smtpHost = t('mail.form.errors.smtpHost');
         }
 
         if (!port || port < 1 || port > 65535) {
-            errs.port = 'Port must be between 1 and 65535.';
+            errs.port = t('mail.form.errors.port');
         }
 
         if (!username.trim()) {
-            errs.username = 'Username is required.';
+            errs.username = t('mail.form.errors.username');
         }
 
         if (Object.keys(errs).length > 0) {
@@ -80,9 +82,9 @@ export function MailConfigForm({ config, isSaving = false, onSave }: MailConfigF
 
         if (res.ok) {
             setPassword('');
-            toast.success('Mail configuration saved successfully');
+            toast.success(t('mail.form.toast.saved'));
         } else {
-            toast.error(res.reason ?? 'Failed to save mail configuration');
+            toast.error(res.reason ?? t('mail.form.toast.saveFailed'));
         }
     };
 
@@ -91,15 +93,15 @@ export function MailConfigForm({ config, isSaving = false, onSave }: MailConfigF
             {/* Sender Identity Card */}
             <Card>
                 <CardHeader className="pb-3">
-                    <CardTitle className="text-sm font-semibold">Sender Identity</CardTitle>
+                    <CardTitle className="text-sm font-semibold">{t('mail.form.senderIdentity')}</CardTitle>
                     <CardDescription className="text-xs">
-                        Configure the sender name and address displayed on automated emails.
+                        {t('mail.form.senderIdentityDescription')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-1.5">
                         <Label htmlFor="mail-from-name" className="text-xs font-semibold">
-                            From Name
+                            {t('mail.form.fromName')}
                         </Label>
                         <Input
                             id="mail-from-name"
@@ -108,7 +110,7 @@ export function MailConfigForm({ config, isSaving = false, onSave }: MailConfigF
                                 setFromName(e.target.value);
                                 setErrors((prev) => ({ ...prev, fromName: '' }));
                             }}
-                            placeholder="e.g. Flex Contact Center"
+                            placeholder={t('mail.form.fromNamePlaceholder')}
                             className="h-9 text-xs"
                         />
                         {errors.fromName && <p className="text-[11px] text-destructive">{errors.fromName}</p>}
@@ -116,7 +118,7 @@ export function MailConfigForm({ config, isSaving = false, onSave }: MailConfigF
 
                     <div className="flex flex-col gap-1.5">
                         <Label htmlFor="mail-from-address" className="text-xs font-semibold">
-                            From Email Address
+                            {t('mail.form.fromEmail')}
                         </Label>
                         <Input
                             id="mail-from-address"
@@ -126,7 +128,7 @@ export function MailConfigForm({ config, isSaving = false, onSave }: MailConfigF
                                 setFromAddress(e.target.value);
                                 setErrors((prev) => ({ ...prev, fromAddress: '' }));
                             }}
-                            placeholder="notifications@yourdomain.com"
+                            placeholder={t('mail.form.fromEmailPlaceholder')}
                             className="h-9 text-xs"
                         />
                         {errors.fromAddress && (
@@ -136,14 +138,14 @@ export function MailConfigForm({ config, isSaving = false, onSave }: MailConfigF
 
                     <div className="flex flex-col gap-1.5 sm:col-span-2">
                         <Label htmlFor="mail-reply-to" className="text-xs font-semibold">
-                            Reply-To Address <span className="text-flex-text-muted font-normal">(Optional)</span>
+                            {t('mail.form.replyTo')} <span className="text-flex-text-muted font-normal">{t('mail.form.replyToOptional')}</span>
                         </Label>
                         <Input
                             id="mail-reply-to"
                             type="email"
                             value={replyTo}
                             onChange={(e) => setReplyTo(e.target.value)}
-                            placeholder="support@yourdomain.com"
+                            placeholder={t('mail.form.replyToPlaceholder')}
                             className="h-9 text-xs"
                         />
                     </div>
@@ -153,15 +155,15 @@ export function MailConfigForm({ config, isSaving = false, onSave }: MailConfigF
             {/* SMTP Server Connection Card */}
             <Card>
                 <CardHeader className="pb-3">
-                    <CardTitle className="text-sm font-semibold">SMTP Server Settings</CardTitle>
+                    <CardTitle className="text-sm font-semibold">{t('mail.form.smtpSettings')}</CardTitle>
                     <CardDescription className="text-xs">
-                        Configure SMTP host, authentication, port, and transport security.
+                        {t('mail.form.smtpSettingsDescription')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div className="flex flex-col gap-1.5 sm:col-span-2">
                         <Label htmlFor="mail-smtp-host" className="text-xs font-semibold">
-                            SMTP Host
+                            {t('mail.form.smtpHost')}
                         </Label>
                         <Input
                             id="mail-smtp-host"
@@ -170,7 +172,7 @@ export function MailConfigForm({ config, isSaving = false, onSave }: MailConfigF
                                 setSmtpHost(e.target.value);
                                 setErrors((prev) => ({ ...prev, smtpHost: '' }));
                             }}
-                            placeholder="e.g. smtp.office365.com or smtp.sendgrid.net"
+                            placeholder={t('mail.form.smtpHostPlaceholder')}
                             className="h-9 text-xs"
                         />
                         {errors.smtpHost && <p className="text-[11px] text-destructive">{errors.smtpHost}</p>}
@@ -178,7 +180,7 @@ export function MailConfigForm({ config, isSaving = false, onSave }: MailConfigF
 
                     <div className="flex flex-col gap-1.5">
                         <Label htmlFor="mail-port" className="text-xs font-semibold">
-                            Port
+                            {t('mail.form.port')}
                         </Label>
                         <Input
                             id="mail-port"
@@ -188,7 +190,7 @@ export function MailConfigForm({ config, isSaving = false, onSave }: MailConfigF
                                 setPort(Number(e.target.value));
                                 setErrors((prev) => ({ ...prev, port: '' }));
                             }}
-                            placeholder="587"
+                            placeholder={t('mail.form.portPlaceholder')}
                             className="h-9 text-xs flex-numeric"
                         />
                         {errors.port && <p className="text-[11px] text-destructive">{errors.port}</p>}
@@ -196,7 +198,7 @@ export function MailConfigForm({ config, isSaving = false, onSave }: MailConfigF
 
                     <div className="flex flex-col gap-1.5">
                         <Label htmlFor="mail-encryption" className="text-xs font-semibold">
-                            Encryption Security
+                            {t('mail.form.encryption')}
                         </Label>
                         <Select
                             value={encryption}
@@ -207,13 +209,13 @@ export function MailConfigForm({ config, isSaving = false, onSave }: MailConfigF
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="TLS" className="text-xs">
-                                    TLS (Recommended - Port 587)
+                                    {t('mail.form.encryptionOptions.tls')}
                                 </SelectItem>
                                 <SelectItem value="SSL" className="text-xs">
-                                    SSL (Port 465)
+                                    {t('mail.form.encryptionOptions.ssl')}
                                 </SelectItem>
                                 <SelectItem value="None" className="text-xs">
-                                    None (Unencrypted - Port 25)
+                                    {t('mail.form.encryptionOptions.none')}
                                 </SelectItem>
                             </SelectContent>
                         </Select>
@@ -221,7 +223,7 @@ export function MailConfigForm({ config, isSaving = false, onSave }: MailConfigF
 
                     <div className="flex flex-col gap-1.5">
                         <Label htmlFor="mail-username" className="text-xs font-semibold">
-                            SMTP Username
+                            {t('mail.form.username')}
                         </Label>
                         <Input
                             id="mail-username"
@@ -230,7 +232,7 @@ export function MailConfigForm({ config, isSaving = false, onSave }: MailConfigF
                                 setUsername(e.target.value);
                                 setErrors((prev) => ({ ...prev, username: '' }));
                             }}
-                            placeholder="username or api key"
+                            placeholder={t('mail.form.usernamePlaceholder')}
                             className="h-9 text-xs"
                         />
                         {errors.username && <p className="text-[11px] text-destructive">{errors.username}</p>}
@@ -238,30 +240,30 @@ export function MailConfigForm({ config, isSaving = false, onSave }: MailConfigF
 
                     <div className="flex flex-col gap-1.5">
                         <Label htmlFor="mail-password" className="text-xs font-semibold">
-                            SMTP Password
+                            {t('mail.form.password')}
                         </Label>
                         <Input
                             id="mail-password"
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            placeholder={config.hasPassword ? '•••••••• (unchanged)' : 'Enter SMTP password'}
+                            placeholder={config.hasPassword ? t('mail.form.passwordPlaceholderUnchanged') : t('mail.form.passwordPlaceholderNew')}
                             className="h-9 text-xs"
                         />
                         <p className="text-[10px] text-flex-text-muted">
                             {config.hasPassword
-                                ? 'Leave blank to preserve stored secret.'
-                                : 'Password will be stored securely write-only.'}
+                                ? t('mail.form.passwordHintHasPassword')
+                                : t('mail.form.passwordHintNoPassword')}
                         </p>
                     </div>
 
                     <div className="sm:col-span-3 flex items-center justify-between p-3 rounded-lg bg-muted/20 border mt-1">
                         <div className="flex flex-col gap-0.5">
                             <span className="text-xs font-semibold text-flex-text-primary">
-                                Enable Mail Delivery
+                                {t('mail.form.enableDelivery')}
                             </span>
                             <span className="text-[11px] text-flex-text-muted">
-                                Allow system to send automated subscription reminders, alerts, and reports.
+                                {t('mail.form.enableDeliveryDescription')}
                             </span>
                         </div>
                         <Checkbox
@@ -275,7 +277,7 @@ export function MailConfigForm({ config, isSaving = false, onSave }: MailConfigF
             <div className="flex items-center justify-end gap-3">
                 <Button type="submit" size="sm" disabled={isSaving} className="gap-1.5 text-xs h-9">
                     <RiSave3Line className="size-3.5" />
-                    {isSaving ? 'Saving Settings...' : 'Save Mail Configuration'}
+                    {isSaving ? t('mail.form.saving') : t('mail.form.save')}
                 </Button>
             </div>
         </form>

@@ -5,6 +5,7 @@ import {
     RiMailSendLine,
 } from '@remixicon/react';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -22,6 +23,7 @@ export function MailTestEmailCard({
     result,
     onSend,
 }: MailTestEmailCardProps) {
+    const { t } = useTranslation('administration');
     const [recipient, setRecipient] = useState('');
     const [error, setError] = useState<string>();
 
@@ -29,7 +31,7 @@ export function MailTestEmailCard({
         e.preventDefault();
 
         if (!recipient.trim() || !recipient.includes('@')) {
-            setError('Please enter a valid recipient email address.');
+            setError(t('mail.testEmail.invalidRecipient'));
 
             return;
         }
@@ -41,9 +43,9 @@ export function MailTestEmailCard({
     return (
         <Card className="h-full flex flex-col justify-between">
             <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-semibold">Send Test Email</CardTitle>
+                <CardTitle className="text-sm font-semibold">{t('mail.testEmail.title')}</CardTitle>
                 <CardDescription className="text-xs">
-                    Dispatch an actual test email to verify mailbox receipt, reverse-DNS, and spam filters.
+                    {t('mail.testEmail.description')}
                 </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-3">
@@ -61,11 +63,11 @@ export function MailTestEmailCard({
                             <RiCloseCircleLine className="size-4 text-destructive shrink-0 mt-0.5" />
                         )}
                         <div className="flex flex-col gap-0.5">
-                            <span className="font-semibold">{result.ok ? 'Email Dispatched' : 'Send Failed'}</span>
+                            <span className="font-semibold">{result.ok ? t('mail.testEmail.dispatched') : t('mail.testEmail.sendFailed')}</span>
                             <span className="text-[11px] text-flex-text-muted">{result.message}</span>
                             {result.messageId && (
                                 <span className="text-[10px] text-flex-text-muted font-mono mt-1">
-                                    Message ID: {result.messageId}
+                                    {t('mail.testEmail.messageId', { id: result.messageId })}
                                 </span>
                             )}
                         </div>
@@ -75,12 +77,12 @@ export function MailTestEmailCard({
                 <form onSubmit={handleSend} className="flex flex-col sm:flex-row items-end gap-2">
                     <div className="flex flex-col gap-1.5 flex-1 w-full">
                         <Label htmlFor="test-recipient" className="text-xs font-semibold">
-                            Recipient Address
+                            {t('mail.testEmail.recipient')}
                         </Label>
                         <Input
                             id="test-recipient"
                             type="email"
-                            placeholder="admin@example.com"
+                            placeholder={t('mail.testEmail.recipientPlaceholder')}
                             value={recipient}
                             onChange={(e) => {
                                 setRecipient(e.target.value);
@@ -102,7 +104,7 @@ export function MailTestEmailCard({
                         ) : (
                             <RiMailSendLine className="size-3.5" />
                         )}
-                        {isSending ? 'Dispatching...' : 'Send Test Email'}
+                        {isSending ? t('mail.testEmail.dispatching') : t('mail.testEmail.send')}
                     </Button>
                 </form>
             </CardContent>

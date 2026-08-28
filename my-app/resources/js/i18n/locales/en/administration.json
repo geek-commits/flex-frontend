@@ -102,9 +102,310 @@
       "editAria": "Edit {{name}}"
     }
   },
-  "ivr": "IVR",
-  "timeGroups": "Time Groups",
-  "timeConditions": "Time Conditions",
+  "ivr": {
+    "label": "IVR",
+    "title": "IVR",
+    "subtitle": "Configure interactive voice response menus.",
+    "headTitle": "IVR — Flex Contact Center",
+    "actions": {
+      "addIVR": "Add IVR"
+    },
+    "toolbar": {
+      "searchPlaceholder": "Search IVR menus...",
+      "searchAriaLabel": "Search IVR menus"
+    },
+    "error": {
+      "title": "Couldn't load IVR menus",
+      "retry": "Try Again",
+      "generic": "IVR data could not be retrieved."
+    },
+    "empty": {
+      "noIVRTitle": "No IVR menus configured",
+      "noIVRDescription": "Create an IVR menu to route callers by keypress.",
+      "noMatchTitle": "No IVR menus match your search",
+      "noMatchDescription": "Try changing your search.",
+      "addIVR": "Add IVR",
+      "clearFilters": "Clear filters"
+    },
+    "footerHint": "POC mock adapter — `RoutingRepository` boundary; replace with the real routing backend in rollout.",
+    "columns": {
+      "ivr": "IVR",
+      "prompt": "Prompt",
+      "entries": "Entries",
+      "defaultDestination": "Default Destination",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "table": {
+      "view": "View",
+      "edit": "Edit",
+      "viewAria": "View {{name}}",
+      "editAria": "Edit {{name}}"
+    },
+    "detail": {
+      "titleFallback": "IVR",
+      "status": "Status",
+      "prompt": "Prompt",
+      "defaultDestination": "Default Destination",
+      "menuEntries": "Menu Entries",
+      "key": "Key",
+      "label": "Label",
+      "destination": "Destination",
+      "editIVR": "Edit IVR",
+      "delete": "Delete"
+    },
+    "form": {
+      "addTitle": "Add IVR",
+      "editTitle": "Edit IVR",
+      "description": "Configure the IVR menu, prompt, and routing destinations.",
+      "general": "General",
+      "ivrName": "IVR Name",
+      "ivrNamePlaceholder": "e.g. Main Menu",
+      "promptLabel": "Prompt / Recording",
+      "selectRecording": "Select a recording",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "menuEntries": "Menu Entries",
+      "key": "Key",
+      "label": "Label",
+      "destination": "Destination",
+      "entryKeyPlaceholder": "1",
+      "entryLabelPlaceholder": "e.g. Sales",
+      "entryKeyAria": "Entry {{index}} key",
+      "entryLabelAria": "Entry {{index}} label",
+      "removeEntryAria": "Remove entry {{index}}",
+      "addEntry": "Add Entry",
+      "fallbackDestination": "Fallback Destination",
+      "defaultDestination": "Default Destination",
+      "cancel": "Cancel",
+      "saving": "Saving…",
+      "saveIVR": "Save IVR",
+      "createIVR": "Create IVR",
+      "validation": {
+        "nameRequired": "IVR name is required.",
+        "duplicateKeys": "Menu entry keys must be unique."
+      },
+      "toast": {
+        "saved": "IVR saved",
+        "created": "IVR created",
+        "saveFailed": "IVR could not be saved",
+        "createFailed": "IVR could not be created"
+      }
+    },
+    "deleteDialog": {
+      "title": "Delete IVR?",
+      "description": "Delete \"{{name}}\"? Its menu entries and destinations will be removed.",
+      "cancel": "Cancel",
+      "delete": "Delete IVR",
+      "deleting": "Deleting…",
+      "toast": {
+        "deleted": "IVR deleted",
+        "deleteFailed": "IVR could not be deleted"
+      }
+    }
+  },
+  "timeGroups": {
+    "label": "Time Groups",
+    "title": "Time Groups",
+    "subtitle": "Define reusable schedules for time-based routing.",
+    "headTitle": "Time Groups — Flex Contact Center",
+    "actions": {
+      "addTimeGroup": "Add Time Group"
+    },
+    "toolbar": {
+      "searchPlaceholder": "Search time groups...",
+      "searchAriaLabel": "Search time groups"
+    },
+    "error": {
+      "title": "Couldn't load time groups",
+      "retry": "Try Again",
+      "generic": "Time Group data could not be retrieved."
+    },
+    "empty": {
+      "noTimeGroupsTitle": "No time groups configured",
+      "noTimeGroupsDescription": "Create a reusable schedule for time-based routing.",
+      "noMatchTitle": "No time groups match your search",
+      "noMatchDescription": "Try changing your search.",
+      "addTimeGroup": "Add Time Group",
+      "clearFilters": "Clear filters"
+    },
+    "footerHint": "POC mock adapter — `RoutingRepository` boundary; replace with the real routing backend in rollout.",
+    "columns": {
+      "timeGroup": "Time Group",
+      "schedule": "Schedule",
+      "entries": "Entries",
+      "usedBy": "Used By",
+      "actions": "Actions"
+    },
+    "table": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "editAria": "Edit {{name}}",
+      "deleteAria": "Delete {{name}}",
+      "usedBy_one": "{{count}} condition",
+      "usedBy_other": "{{count}} conditions",
+      "notUsed": "Not used"
+    },
+    "form": {
+      "addTitle": "Add Time Group",
+      "editTitle": "Edit Time Group",
+      "description": "Define a reusable schedule for time-based routing.",
+      "general": "General",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "e.g. Business Hours",
+      "scheduleHint": "Schedule times are evaluated in the tenant timezone. Configured values are stored as entered.",
+      "scheduleEntries": "Schedule Entries",
+      "addSchedule": "Add Schedule",
+      "cancel": "Cancel",
+      "saving": "Saving…",
+      "saveTimeGroup": "Save Time Group",
+      "createTimeGroup": "Create Time Group",
+      "validation": {
+        "descriptionRequired": "Description is required.",
+        "atLeastOneEntry": "Add at least one schedule entry."
+      },
+      "toast": {
+        "updated": "Time Group updated",
+        "created": "Time Group created",
+        "saveFailed": "Time Group could not be saved",
+        "createFailed": "Time Group could not be created"
+      }
+    },
+    "deleteDialog": {
+      "title": "Delete time group?",
+      "description": "Delete \"{{name}}\"? Its schedule definition will be removed.",
+      "blockedDescription": "This Time Group is currently used by {{count}} time conditions and cannot be deleted.",
+      "cancel": "Cancel",
+      "delete": "Delete Time Group",
+      "deleting": "Deleting…",
+      "toast": {
+        "deleted": "Time Group deleted",
+        "deleteFailed": "Time Group could not be deleted"
+      }
+    },
+    "editor": {
+      "scheduleEntry": "Schedule Entry {{index}}",
+      "hours": "Hours",
+      "to": "to",
+      "weekdays": "Weekdays",
+      "monthDays": "Month Days",
+      "monthsOfYear": "Months of Year",
+      "removeEntryAria": "Remove schedule entry {{index}}",
+      "startTimeAria": "Entry {{index}} start time",
+      "endTimeAria": "Entry {{index}} end time",
+      "weekdaysShort": {
+        "sun": "Sun",
+        "mon": "Mon",
+        "tue": "Tue",
+        "wed": "Wed",
+        "thu": "Thu",
+        "fri": "Fri",
+        "sat": "Sat"
+      }
+    },
+    "summary": {
+      "noEntries": "No schedule entries",
+      "entries_other": "{{count}} schedule entries",
+      "everyDay": "Every day",
+      "day": "Day {{days}}",
+      "monthPrefix": "M{{month}}"
+    }
+  },
+  "timeConditions": {
+    "label": "Time Conditions",
+    "title": "Time Conditions",
+    "subtitle": "Route calls by date, time, and schedule.",
+    "headTitle": "Time Conditions — Flex Contact Center",
+    "actions": {
+      "addTimeCondition": "Add Time Condition"
+    },
+    "toolbar": {
+      "searchPlaceholder": "Search conditions...",
+      "searchAriaLabel": "Search conditions"
+    },
+    "error": {
+      "title": "Couldn't load time conditions",
+      "retry": "Try Again",
+      "generic": "Time Condition data could not be retrieved."
+    },
+    "empty": {
+      "noConditionsTitle": "No time conditions configured",
+      "noConditionsDescription": "Create a condition to route calls by schedule.",
+      "noMatchTitle": "No conditions match your search",
+      "noMatchDescription": "Try changing your search.",
+      "addTimeCondition": "Add Time Condition",
+      "clearFilters": "Clear filters"
+    },
+    "footerHint": "POC mock adapter — `RoutingRepository` boundary; replace with the real routing backend in rollout.",
+    "columns": {
+      "condition": "Condition",
+      "timeGroup": "Time Group",
+      "matchDestination": "Match Destination",
+      "fallback": "Fallback",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "table": {
+      "view": "View",
+      "edit": "Edit",
+      "viewAria": "View {{name}}",
+      "editAria": "Edit {{name}}"
+    },
+    "detail": {
+      "titleFallback": "Time Condition",
+      "status": "Status",
+      "timeGroup": "Time Group",
+      "whenMatches": "When schedule matches",
+      "whenNotMatches": "When schedule does not match",
+      "unknownDeleted": "Unknown / deleted",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "form": {
+      "addTitle": "Add Time Condition",
+      "editTitle": "Edit Time Condition",
+      "description": "Define when this condition routes and where calls go.",
+      "general": "General",
+      "conditionName": "Condition Name",
+      "conditionNamePlaceholder": "e.g. Business Hours Routing",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "schedule": "Schedule",
+      "timeGroup": "Time Group",
+      "selectTimeGroup": "Select a time group",
+      "scheduleHint": "This condition controls where calls are routed during the configured schedule.",
+      "routing": "Routing",
+      "whenMatches": "When schedule matches",
+      "whenNotMatches": "When schedule does not match",
+      "cancel": "Cancel",
+      "saving": "Saving…",
+      "saveCondition": "Save Condition",
+      "createCondition": "Create Condition",
+      "validation": {
+        "nameRequired": "Condition name is required.",
+        "timeGroupRequired": "Select a Time Group."
+      },
+      "toast": {
+        "updated": "Time Condition updated",
+        "created": "Time Condition created",
+        "saveFailed": "Time Condition could not be saved",
+        "createFailed": "Time Condition could not be created"
+      }
+    },
+    "deleteDialog": {
+      "title": "Delete time condition?",
+      "description": "Delete \"{{name}}\"? Its schedule-based routing rules will be removed.",
+      "cancel": "Cancel",
+      "delete": "Delete Condition",
+      "deleting": "Deleting…",
+      "toast": {
+        "deleted": "Time Condition deleted",
+        "deleteFailed": "Time Condition could not be deleted"
+      }
+    }
+  },
   "recordings": {
     "label": "Recordings",
     "title": "Call Recordings & Audio Prompts",
@@ -174,8 +475,251 @@
       "uploadRecording": "Upload Recording"
     }
   },
-  "mail": "Mail",
-  "subscriptions": "Subscriptions",
-  "system": "System",
+  "subscriptions": {
+    "title": "Subscription Management",
+    "subtitle": "Track subscription status, remaining days, reminders, and renewal activity.",
+    "headTitle": "Subscriptions — Flex Contact Center",
+    "metrics": {
+      "totalAccounts": "Total Accounts",
+      "active": "Active",
+      "expiringSoon": "Expiring Soon (≤5d)",
+      "expiringActionNeeded": "Action needed",
+      "expired": "Expired",
+      "totalSeats": "Total Seats"
+    },
+    "showing_one": "Showing {{count}} subscription",
+    "showing_other": "Showing {{count}} subscriptions",
+    "updated": "Updated {{time}}",
+    "toast": {
+      "queuedWarning": "Reminder email queued, but Mail Server is disconnected. Configure SMTP to deliver.",
+      "sent": "Reminder notification sent to {{email}}",
+      "sendFailed": "Failed to send reminder",
+      "renewed": "Renewed {{account}} for +{{months}} {{unit}}",
+      "renewFailed": "Renewal failed",
+      "month_one": "month",
+      "month_other": "months"
+    },
+    "empty": {
+      "title": "No Subscriptions Found",
+      "description": "No subscription records match your current search and filter criteria."
+    },
+    "columns": {
+      "accountContact": "Account & Contact",
+      "planSeats": "Plan & Seats",
+      "billing": "Billing",
+      "expires": "Expires",
+      "remainingTime": "Remaining Time",
+      "status": "Status",
+      "reminders": "Reminders",
+      "seats": "{{count}} seats",
+      "autoRenew": "Auto-renew",
+      "manual": "Manual",
+      "days_one": "{{count}} day",
+      "days_other": "{{count}} days",
+      "zeroDays": "0 days"
+    },
+    "reminders": {
+      "sent": "Reminder sent",
+      "due": "Due (≤5d)",
+      "notSent": "Not sent"
+    },
+    "actions": {
+      "inspect": "Inspect subscription",
+      "sendReminder": "Send reminder notice",
+      "renew": "Renew subscription",
+      "inspectAria": "Inspect {{account}}",
+      "reminderAria": "Send reminder to {{account}}",
+      "renewAria": "Renew {{account}}"
+    },
+    "toolbar": {
+      "searchPlaceholder": "Search account, email, or plan...",
+      "searchAriaLabel": "Search subscriptions",
+      "allStatuses": "All Statuses",
+      "allPlans": "All Plans",
+      "clear": "Clear",
+      "statusOptions": {
+        "active": "Active",
+        "expiring": "Expiring Soon (≤5 days)",
+        "expired": "Expired",
+        "trial": "Trial"
+      },
+      "planOptions": {
+        "starter": "Starter",
+        "professional": "Professional",
+        "enterprise": "Enterprise",
+        "custom": "Custom"
+      }
+    },
+    "detail": {
+      "meta_one": "{{plan}} Plan · {{seats}} Seats · {{days}} day remaining",
+      "meta_other": "{{plan}} Plan · {{seats}} Seats · {{days}} days remaining",
+      "sendReminder": "Send Reminder Email",
+      "renew": "Renew Subscription",
+      "statusLabel": "Subscription Status",
+      "daysRemaining_one": "{{count}} day",
+      "daysRemaining_other": "{{count}} days",
+      "remainingUntilExpiry": "remaining until expiry",
+      "expiresOn": "Expires on {{date}}",
+      "accountContract": "Account & Contract",
+      "subscriptionId": "Subscription ID",
+      "billingContact": "Billing Contact",
+      "tierPlan": "Tier & Plan",
+      "seatAllocation": "Seat Allocation",
+      "seatAllocationValue_one": "{{count}} agent license",
+      "seatAllocationValue_other": "{{count}} agent licenses",
+      "contractAmount": "Contract Amount",
+      "renewalPolicy": "Renewal Policy",
+      "autoRenewActive": "Automatic renewal active",
+      "manualRenewal": "Manual invoice renewal",
+      "lastPayment": "Last Payment",
+      "notificationDelivery": "Notification Delivery",
+      "mailConfig": "Mail Config",
+      "smtpServer": "SMTP Server:",
+      "connectedActive": "Connected & Active",
+      "disconnected": "Disconnected / Untested",
+      "expiryReminder": "5-Day Expiry Reminder:",
+      "expiryNotice": "Expiry Notice:",
+      "sent": "Sent",
+      "sentAt": "Sent ({{date}})",
+      "none": "None"
+    },
+    "dialog": {
+      "title": "Renew Subscription",
+      "description": "Extend active access and reset notification flags for \"{{account}}\" ({{plan}} Plan, {{seats}} seats).",
+      "renewalTerm": "Renewal Term Extension",
+      "oneMonth": "+1 Month ({{price}})",
+      "threeMonths": "+3 Months (Quarterly)",
+      "twelveMonths": "+12 Months (1 Year - Annual)",
+      "cancel": "Cancel",
+      "confirm": "Confirm Renewal"
+    },
+    "status": {
+      "active": "Active",
+      "expiring": "Expiring ({{days}}d)",
+      "expired": "Expired",
+      "trial": "Trial"
+    },
+    "mailNotice": {
+      "title": "Email Notifications Inactive",
+      "description": "Automated 5-day expiry reminders and payment confirmations require a connected Mail Configuration.",
+      "configure": "Configure Mail Server"
+    }
+  },
+  "mail": {
+    "title": "Mail Configuration",
+    "subtitle": "Configure and test the SMTP server used for system notifications and alerts.",
+    "headTitle": "Mail Configuration — Flex Contact Center",
+    "crossLink": {
+      "description": "Mail delivery powers 5-day expiration reminders and payment confirmations for accounts.",
+      "viewSubscriptions": "View Subscriptions"
+    },
+    "form": {
+      "senderIdentity": "Sender Identity",
+      "senderIdentityDescription": "Configure the sender name and address displayed on automated emails.",
+      "fromName": "From Name",
+      "fromNamePlaceholder": "e.g. Flex Contact Center",
+      "fromEmail": "From Email Address",
+      "fromEmailPlaceholder": "notifications@yourdomain.com",
+      "replyTo": "Reply-To Address",
+      "replyToOptional": "(Optional)",
+      "replyToPlaceholder": "support@yourdomain.com",
+      "smtpSettings": "SMTP Server Settings",
+      "smtpSettingsDescription": "Configure SMTP host, authentication, port, and transport security.",
+      "smtpHost": "SMTP Host",
+      "smtpHostPlaceholder": "e.g. smtp.office365.com or smtp.sendgrid.net",
+      "port": "Port",
+      "portPlaceholder": "587",
+      "encryption": "Encryption Security",
+      "encryptionOptions": {
+        "tls": "TLS (Recommended - Port 587)",
+        "ssl": "SSL (Port 465)",
+        "none": "None (Unencrypted - Port 25)"
+      },
+      "username": "SMTP Username",
+      "usernamePlaceholder": "username or api key",
+      "password": "SMTP Password",
+      "passwordPlaceholderUnchanged": "•••••••• (unchanged)",
+      "passwordPlaceholderNew": "Enter SMTP password",
+      "passwordHintHasPassword": "Leave blank to preserve stored secret.",
+      "passwordHintNoPassword": "Password will be stored securely write-only.",
+      "enableDelivery": "Enable Mail Delivery",
+      "enableDeliveryDescription": "Allow system to send automated subscription reminders, alerts, and reports.",
+      "save": "Save Mail Configuration",
+      "saving": "Saving Settings...",
+      "errors": {
+        "fromName": "From Name is required.",
+        "fromAddress": "From Address is required.",
+        "smtpHost": "SMTP Host is required.",
+        "port": "Port must be between 1 and 65535.",
+        "username": "Username is required."
+      },
+      "toast": {
+        "saved": "Mail configuration saved successfully",
+        "saveFailed": "Failed to save mail configuration"
+      }
+    },
+    "banner": {
+      "testing": "Testing SMTP server connectivity...",
+      "disabled": "Mail delivery is currently Disabled. System notifications will not be sent.",
+      "disabledLabel": "Disabled",
+      "connected": "Mail Server Connected & Active",
+      "connectedDescription": "Ready for automated subscription reminders, agent alerts, and reports.",
+      "verified": "Verified {{time}}",
+      "failed": "Connection Failed",
+      "failedFallback": "Could not connect to the configured SMTP server.",
+      "tested": "Tested {{time}}",
+      "notTested": "SMTP Configuration has not been tested. Run Test Connection to verify deliverability.",
+      "notTestedAction": "Test Connection"
+    },
+    "testConnection": {
+      "title": "Test Connection",
+      "description": "Verify socket handshake, SSL/TLS negotiation, and credentials without sending an email.",
+      "verified": "Connection Verified",
+      "failed": "Connection Failed",
+      "latency": "Latency: {{value}}ms",
+      "verifying": "Verifying Handshake...",
+      "run": "Run Test Connection"
+    },
+    "testEmail": {
+      "title": "Send Test Email",
+      "description": "Dispatch an actual test email to verify mailbox receipt, reverse-DNS, and spam filters.",
+      "dispatched": "Email Dispatched",
+      "sendFailed": "Send Failed",
+      "messageId": "Message ID: {{id}}",
+      "recipient": "Recipient Address",
+      "recipientPlaceholder": "admin@example.com",
+      "invalidRecipient": "Please enter a valid recipient email address.",
+      "dispatching": "Dispatching...",
+      "send": "Send Test Email"
+    }
+  },
+  "system": {
+    "title": "System & Infrastructure",
+    "subtitle": "Platform Health, Backups, TLS Certificates & Gateway Connections",
+    "headTitle": "System & Infrastructure — Flex Contact Center",
+    "refresh": "Refresh Status",
+    "refreshing": "Refreshing...",
+    "infrastructureHealth": "Infrastructure Health Overview",
+    "metrics": {
+      "operational": "Operational",
+      "operationalDescription": "Services fully functional",
+      "degraded": "Degraded",
+      "degradedDescription": "Services with elevated latency",
+      "down": "Down",
+      "downDescription": "Services unreachable",
+      "uptime": "Uptime (30d) — Sample",
+      "uptimeDescription": "Sample / POC data — not live SLA telemetry."
+    },
+    "serverResources": "Server Resources",
+    "backupStatus": "Backup Status",
+    "serviceHealthMatrix": "Service Health Matrix",
+    "table": {
+      "service": "Service",
+      "status": "Status",
+      "latency": "Latency",
+      "lastChecked": "Last Checked"
+    },
+    "footer": "POC mock data — sample service, resource and backup metrics; not live telephony or SLA telemetry."
+  },
   "ai": "AI Center"
 }

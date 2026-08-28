@@ -1,5 +1,6 @@
 import { RiAddLine, RiSearchLine } from '@remixicon/react';
 import React, { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexErrorState } from '@/components/flex/flex-error-state';
 import { Button } from '@/components/ui/button';
@@ -14,6 +15,7 @@ import { IVRTable } from '@/features/routing/ivr/ivr-table';
 import { RoutingShell } from '@/features/routing/routing-shell';
 
 export function IVRPage() {
+    const { t } = useTranslation('administration');
     const [records, setRecords] = useState<IVRRecord[]>(() => routingRepository.queryIVRs());
     const [search, setSearch] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -34,12 +36,12 @@ export function IVRPage() {
             try {
                 setRecords(routingRepository.queryIVRs());
             } catch {
-                setError('IVR data could not be retrieved.');
+                setError(t('ivr.error.generic'));
             }
 
             setIsLoading(false);
         }, 350);
-    }, []);
+    }, [t]);
 
     const openCreate = () => {
         setEditingId(undefined);
@@ -71,12 +73,12 @@ export function IVRPage() {
 
     return (
         <RoutingShell
-            title="IVR"
-            subtitle="Configure interactive voice response menus."
+            title={t('ivr.title')}
+            subtitle={t('ivr.subtitle')}
             actions={
                 <Button size="sm" className="gap-1.5 text-xs" onClick={openCreate}>
                     <RiAddLine className="size-4" />
-                    Add IVR
+                    {t('ivr.actions.addIVR')}
                 </Button>
             }
         >
@@ -86,19 +88,19 @@ export function IVRPage() {
                     <Input
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        placeholder="Search IVR menus..."
-                        aria-label="Search IVR menus"
+                        placeholder={t('ivr.toolbar.searchPlaceholder')}
+                        aria-label={t('ivr.toolbar.searchAriaLabel')}
                         className="pl-9 h-9 text-xs"
                     />
                 </div>
 
                 {error ? (
                     <FlexErrorState
-                        title="Couldn't load IVR menus"
+                        title={t('ivr.error.title')}
                         description={error}
                         action={
                             <Button variant="outline" size="sm" className="text-xs" onClick={refresh}>
-                                Try Again
+                                {t('ivr.error.retry')}
                             </Button>
                         }
                     />
@@ -110,16 +112,16 @@ export function IVRPage() {
                     </div>
                 ) : filtered.length === 0 ? (
                     <FlexEmptyState
-                        title={records.length === 0 ? 'No IVR menus configured' : 'No IVR menus match your search'}
+                        title={records.length === 0 ? t('ivr.empty.noIVRTitle') : t('ivr.empty.noMatchTitle')}
                         description={
                             records.length === 0
-                                ? 'Create an IVR menu to route callers by keypress.'
-                                : 'Try changing your search.'
+                                ? t('ivr.empty.noIVRDescription')
+                                : t('ivr.empty.noMatchDescription')
                         }
                         action={
                             records.length === 0 ? (
                                 <Button variant="outline" size="sm" className="text-xs" onClick={openCreate}>
-                                    Add IVR
+                                    {t('ivr.empty.addIVR')}
                                 </Button>
                             ) : undefined
                         }
@@ -129,7 +131,7 @@ export function IVRPage() {
                 )}
 
                 <p className="text-[10px] text-flex-text-muted">
-                    POC mock adapter — `RoutingRepository` boundary; replace with the real routing backend in rollout.
+                    {t('ivr.footerHint')}
                 </p>
             </div>
 

@@ -1,6 +1,7 @@
 import { RiFilter3Line, RiFilterOffLine, RiSearchLine } from '@remixicon/react';
 import type { Table } from '@tanstack/react-table';
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { DataGridFeatures } from '@/components/reui/data-grid/data-grid';
 import { DataGridColumnVisibility } from '@/components/reui/data-grid/data-grid-column-visibility';
 import type { Filter, FilterFieldConfig } from '@/components/reui/filters';
@@ -32,6 +33,7 @@ export function AgentMonitoringToolbar({
     hasActiveFilters,
     onClearFilters,
 }: AgentMonitoringToolbarProps) {
+    const { t } = useTranslation('supervision');
     const hasPopoverFilters = filters.some(
         (filter) =>
             filter.values?.length > 0 &&
@@ -42,7 +44,7 @@ export function AgentMonitoringToolbar({
         () => [
             {
                 key: 'state',
-                label: 'State',
+                label: t('monitoring.toolbar.stateLabel'),
                 type: 'select',
                 searchable: true,
                 className: 'w-[180px]',
@@ -53,14 +55,14 @@ export function AgentMonitoringToolbar({
             },
             {
                 key: 'queue',
-                label: 'Queue',
+                label: t('monitoring.toolbar.queueLabel'),
                 type: 'select',
                 searchable: true,
                 className: 'w-[200px]',
                 options: queues.map((queue) => ({ value: queue, label: queue })),
             },
         ],
-        [queues],
+        [queues, t],
     );
 
     return (
@@ -75,7 +77,7 @@ export function AgentMonitoringToolbar({
                     trigger={
                         <Button variant="outline" size="sm" className="gap-1.5 text-xs">
                             <RiFilter3Line className="size-3.5" />
-                            Filters
+                            {t('monitoring.toolbar.filters')}
                             {hasPopoverFilters && (
                                 <span className="size-1.5 rounded-full bg-primary" />
                             )}
@@ -85,7 +87,7 @@ export function AgentMonitoringToolbar({
                 {hasActiveFilters && (
                     <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={onClearFilters}>
                         <RiFilterOffLine className="size-3.5" />
-                        Clear
+                        {t('monitoring.toolbar.clear')}
                     </Button>
                 )}
             </div>
@@ -97,16 +99,16 @@ export function AgentMonitoringToolbar({
                     <Input
                         value={search}
                         onChange={(e) => onSearchChange(e.target.value)}
-                        placeholder="Search agents by name or extension..."
+                        placeholder={t('monitoring.toolbar.searchPlaceholder')}
                         className="pl-8"
                         size="sm"
-                        aria-label="Search agents"
+                        aria-label={t('monitoring.toolbar.searchAriaLabel')}
                     />
                 </div>
 
                 <DataGridColumnVisibility
                     table={table}
-                    trigger={<Button variant="outline" size="sm" className="gap-1.5 text-xs">Columns</Button>}
+                    trigger={<Button variant="outline" size="sm" className="gap-1.5 text-xs">{t('monitoring.toolbar.columns')}</Button>}
                 />
             </div>
         </div>

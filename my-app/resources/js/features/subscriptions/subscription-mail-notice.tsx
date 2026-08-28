@@ -1,5 +1,6 @@
 import { RiAlertLine, RiArrowRightLine } from '@remixicon/react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import type { MailConnectionStatus } from '@/domain/mail-types';
 
@@ -8,6 +9,7 @@ export interface SubscriptionMailNoticeProps {
 }
 
 export function SubscriptionMailNotice({ mailStatus }: SubscriptionMailNoticeProps) {
+    const { t } = useTranslation('administration');
     if (mailStatus.isReady) {
         return null;
     }
@@ -18,10 +20,10 @@ export function SubscriptionMailNotice({ mailStatus }: SubscriptionMailNoticePro
                 <RiAlertLine className="size-4 text-warning shrink-0 mt-0.5" />
                 <div className="flex flex-col gap-0.5">
                     <span className="font-semibold text-flex-text-primary">
-                        Email Notifications Inactive
+                        {t('subscriptions.mailNotice.title')}
                     </span>
                     <span className="text-flex-text-muted">
-                        Automated 5-day expiry reminders and payment confirmations require a connected Mail Configuration.
+                        {t('subscriptions.mailNotice.description')}
                     </span>
                 </div>
             </div>
@@ -34,7 +36,7 @@ export function SubscriptionMailNotice({ mailStatus }: SubscriptionMailNoticePro
                     window.location.href = '/admin/mail-config';
                 }}
             >
-                Configure Mail Server
+                {t('subscriptions.mailNotice.configure')}
                 <RiArrowRightLine className="size-3.5" />
             </Button>
         </div>

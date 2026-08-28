@@ -83,7 +83,75 @@
       "queueWaiting_other": "{{queue}}: {{count}} calls waiting with no available agents"
     }
   },
-  "monitoring": "Agent Monitoring",
+  "monitoring": {
+    "label": "Agent Monitoring",
+    "title": "Agent Monitoring",
+    "subtitle": "Live agent activity and supervisor intervention.",
+    "headTitle": "Agent Monitoring — Flex Contact Center",
+    "error": {
+      "title": "Agent monitoring unavailable",
+      "description": "Failed to load live agent activity.",
+      "retry": "Retry"
+    },
+    "empty": {
+      "filteredTitle": "No agents match your filters",
+      "filteredDescription": "Try a different search or clear your filters.",
+      "noAgentsTitle": "No agents online",
+      "noAgentsDescription": "Agent activity will appear here once agents come online.",
+      "rosterTitle": "No agents online",
+      "rosterDescription": "Agent activity will appear here once agents come online.",
+      "clearFilters": "Clear filters"
+    },
+    "toolbar": {
+      "filters": "Filters",
+      "clear": "Clear",
+      "searchPlaceholder": "Search agents by name or extension...",
+      "searchAriaLabel": "Search agents",
+      "columns": "Columns",
+      "stateLabel": "State",
+      "queueLabel": "Queue"
+    },
+    "columns": {
+      "agent": "Agent",
+      "ext": "Ext.",
+      "queue": "Queue",
+      "state": "State",
+      "stateTime": "State Time",
+      "currentCall": "Current Call",
+      "callsToday": "Calls Today",
+      "aht": "AHT"
+    },
+    "summary": {
+      "talking": {
+        "label": "Talking",
+        "description": "Agents on active call"
+      },
+      "ready": {
+        "label": "Ready",
+        "description": "Available for incoming calls"
+      },
+      "ringing": {
+        "label": "Ringing",
+        "description": "Agents on inbound ring"
+      },
+      "wrapUp": {
+        "label": "Wrap-Up",
+        "description": "Post-call work"
+      },
+      "break": {
+        "label": "Break",
+        "description": "Away on break"
+      },
+      "notReady": {
+        "label": "Not Ready",
+        "description": "Unavailable for calls"
+      },
+      "offline": {
+        "label": "Offline",
+        "description": "Not currently logged in"
+      }
+    }
+  },
   "cdr": {
     "title": "Call Detail Records",
     "titleLong": "Call Detail Records (CDR)",
@@ -211,7 +279,9 @@
     "footerHint": "POC mock adapter — `CampaignRepository` boundary; replace with the real campaigns backend in rollout."
   },
   "reports": {
-    "title": "Reports",
+    "title": "Reports & Analytics",
+    "subtitle": "Operational and historical reporting across FLEX.",
+    "headTitle": "Reports & Analytics — Flex Contact Center",
     "scheduled": "Scheduled",
     "running": "Running",
     "completed": "Completed",

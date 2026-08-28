@@ -102,9 +102,310 @@
       "editAria": "Hariri {{name}}"
     }
   },
-  "ivr": "IVR",
-  "timeGroups": "Vikundi vya Muda",
-  "timeConditions": "Masharti ya Muda",
+  "ivr": {
+    "label": "IVR",
+    "title": "IVR",
+    "subtitle": "Configure interactive voice response menus.",
+    "headTitle": "IVR — Flex Contact Center",
+    "actions": {
+      "addIVR": "Add IVR"
+    },
+    "toolbar": {
+      "searchPlaceholder": "Search IVR menus...",
+      "searchAriaLabel": "Search IVR menus"
+    },
+    "error": {
+      "title": "Couldn't load IVR menus",
+      "retry": "Try Again",
+      "generic": "IVR data could not be retrieved."
+    },
+    "empty": {
+      "noIVRTitle": "No IVR menus configured",
+      "noIVRDescription": "Create an IVR menu to route callers by keypress.",
+      "noMatchTitle": "No IVR menus match your search",
+      "noMatchDescription": "Try changing your search.",
+      "addIVR": "Add IVR",
+      "clearFilters": "Clear filters"
+    },
+    "footerHint": "POC mock adapter — `RoutingRepository` boundary; replace with the real routing backend in rollout.",
+    "columns": {
+      "ivr": "IVR",
+      "prompt": "Prompt",
+      "entries": "Entries",
+      "defaultDestination": "Default Destination",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "table": {
+      "view": "View",
+      "edit": "Edit",
+      "viewAria": "View {{name}}",
+      "editAria": "Edit {{name}}"
+    },
+    "detail": {
+      "titleFallback": "IVR",
+      "status": "Status",
+      "prompt": "Prompt",
+      "defaultDestination": "Default Destination",
+      "menuEntries": "Menu Entries",
+      "key": "Key",
+      "label": "Label",
+      "destination": "Destination",
+      "editIVR": "Edit IVR",
+      "delete": "Delete"
+    },
+    "form": {
+      "addTitle": "Add IVR",
+      "editTitle": "Edit IVR",
+      "description": "Configure the IVR menu, prompt, and routing destinations.",
+      "general": "General",
+      "ivrName": "IVR Name",
+      "ivrNamePlaceholder": "e.g. Main Menu",
+      "promptLabel": "Prompt / Recording",
+      "selectRecording": "Select a recording",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "menuEntries": "Menu Entries",
+      "key": "Key",
+      "label": "Label",
+      "destination": "Destination",
+      "entryKeyPlaceholder": "1",
+      "entryLabelPlaceholder": "e.g. Sales",
+      "entryKeyAria": "Entry {{index}} key",
+      "entryLabelAria": "Entry {{index}} label",
+      "removeEntryAria": "Remove entry {{index}}",
+      "addEntry": "Add Entry",
+      "fallbackDestination": "Fallback Destination",
+      "defaultDestination": "Default Destination",
+      "cancel": "Cancel",
+      "saving": "Saving…",
+      "saveIVR": "Save IVR",
+      "createIVR": "Create IVR",
+      "validation": {
+        "nameRequired": "IVR name is required.",
+        "duplicateKeys": "Menu entry keys must be unique."
+      },
+      "toast": {
+        "saved": "IVR saved",
+        "created": "IVR created",
+        "saveFailed": "IVR could not be saved",
+        "createFailed": "IVR could not be created"
+      }
+    },
+    "deleteDialog": {
+      "title": "Delete IVR?",
+      "description": "Delete \"{{name}}\"? Its menu entries and destinations will be removed.",
+      "cancel": "Cancel",
+      "delete": "Delete IVR",
+      "deleting": "Deleting…",
+      "toast": {
+        "deleted": "IVR deleted",
+        "deleteFailed": "IVR could not be deleted"
+      }
+    }
+  },
+  "timeGroups": {
+    "label": "Time Groups",
+    "title": "Time Groups",
+    "subtitle": "Define reusable schedules for time-based routing.",
+    "headTitle": "Time Groups — Flex Contact Center",
+    "actions": {
+      "addTimeGroup": "Add Time Group"
+    },
+    "toolbar": {
+      "searchPlaceholder": "Search time groups...",
+      "searchAriaLabel": "Search time groups"
+    },
+    "error": {
+      "title": "Couldn't load time groups",
+      "retry": "Try Again",
+      "generic": "Time Group data could not be retrieved."
+    },
+    "empty": {
+      "noTimeGroupsTitle": "No time groups configured",
+      "noTimeGroupsDescription": "Create a reusable schedule for time-based routing.",
+      "noMatchTitle": "No time groups match your search",
+      "noMatchDescription": "Try changing your search.",
+      "addTimeGroup": "Add Time Group",
+      "clearFilters": "Clear filters"
+    },
+    "footerHint": "POC mock adapter — `RoutingRepository` boundary; replace with the real routing backend in rollout.",
+    "columns": {
+      "timeGroup": "Time Group",
+      "schedule": "Schedule",
+      "entries": "Entries",
+      "usedBy": "Used By",
+      "actions": "Actions"
+    },
+    "table": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "editAria": "Edit {{name}}",
+      "deleteAria": "Delete {{name}}",
+      "usedBy_one": "{{count}} condition",
+      "usedBy_other": "{{count}} conditions",
+      "notUsed": "Not used"
+    },
+    "form": {
+      "addTitle": "Add Time Group",
+      "editTitle": "Edit Time Group",
+      "description": "Define a reusable schedule for time-based routing.",
+      "general": "General",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "e.g. Business Hours",
+      "scheduleHint": "Schedule times are evaluated in the tenant timezone. Configured values are stored as entered.",
+      "scheduleEntries": "Schedule Entries",
+      "addSchedule": "Add Schedule",
+      "cancel": "Cancel",
+      "saving": "Saving…",
+      "saveTimeGroup": "Save Time Group",
+      "createTimeGroup": "Create Time Group",
+      "validation": {
+        "descriptionRequired": "Description is required.",
+        "atLeastOneEntry": "Add at least one schedule entry."
+      },
+      "toast": {
+        "updated": "Time Group updated",
+        "created": "Time Group created",
+        "saveFailed": "Time Group could not be saved",
+        "createFailed": "Time Group could not be created"
+      }
+    },
+    "deleteDialog": {
+      "title": "Delete time group?",
+      "description": "Delete \"{{name}}\"? Its schedule definition will be removed.",
+      "blockedDescription": "This Time Group is currently used by {{count}} time conditions and cannot be deleted.",
+      "cancel": "Cancel",
+      "delete": "Delete Time Group",
+      "deleting": "Deleting…",
+      "toast": {
+        "deleted": "Time Group deleted",
+        "deleteFailed": "Time Group could not be deleted"
+      }
+    },
+    "editor": {
+      "scheduleEntry": "Schedule Entry {{index}}",
+      "hours": "Hours",
+      "to": "to",
+      "weekdays": "Weekdays",
+      "monthDays": "Month Days",
+      "monthsOfYear": "Months of Year",
+      "removeEntryAria": "Remove schedule entry {{index}}",
+      "startTimeAria": "Entry {{index}} start time",
+      "endTimeAria": "Entry {{index}} end time",
+      "weekdaysShort": {
+        "sun": "Sun",
+        "mon": "Mon",
+        "tue": "Tue",
+        "wed": "Wed",
+        "thu": "Thu",
+        "fri": "Fri",
+        "sat": "Sat"
+      }
+    },
+    "summary": {
+      "noEntries": "No schedule entries",
+      "entries_other": "{{count}} schedule entries",
+      "everyDay": "Every day",
+      "day": "Day {{days}}",
+      "monthPrefix": "M{{month}}"
+    }
+  },
+  "timeConditions": {
+    "label": "Time Conditions",
+    "title": "Time Conditions",
+    "subtitle": "Route calls by date, time, and schedule.",
+    "headTitle": "Time Conditions — Flex Contact Center",
+    "actions": {
+      "addTimeCondition": "Add Time Condition"
+    },
+    "toolbar": {
+      "searchPlaceholder": "Search conditions...",
+      "searchAriaLabel": "Search conditions"
+    },
+    "error": {
+      "title": "Couldn't load time conditions",
+      "retry": "Try Again",
+      "generic": "Time Condition data could not be retrieved."
+    },
+    "empty": {
+      "noConditionsTitle": "No time conditions configured",
+      "noConditionsDescription": "Create a condition to route calls by schedule.",
+      "noMatchTitle": "No conditions match your search",
+      "noMatchDescription": "Try changing your search.",
+      "addTimeCondition": "Add Time Condition",
+      "clearFilters": "Clear filters"
+    },
+    "footerHint": "POC mock adapter — `RoutingRepository` boundary; replace with the real routing backend in rollout.",
+    "columns": {
+      "condition": "Condition",
+      "timeGroup": "Time Group",
+      "matchDestination": "Match Destination",
+      "fallback": "Fallback",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "table": {
+      "view": "View",
+      "edit": "Edit",
+      "viewAria": "View {{name}}",
+      "editAria": "Edit {{name}}"
+    },
+    "detail": {
+      "titleFallback": "Time Condition",
+      "status": "Status",
+      "timeGroup": "Time Group",
+      "whenMatches": "When schedule matches",
+      "whenNotMatches": "When schedule does not match",
+      "unknownDeleted": "Unknown / deleted",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "form": {
+      "addTitle": "Add Time Condition",
+      "editTitle": "Edit Time Condition",
+      "description": "Define when this condition routes and where calls go.",
+      "general": "General",
+      "conditionName": "Condition Name",
+      "conditionNamePlaceholder": "e.g. Business Hours Routing",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "schedule": "Schedule",
+      "timeGroup": "Time Group",
+      "selectTimeGroup": "Select a time group",
+      "scheduleHint": "This condition controls where calls are routed during the configured schedule.",
+      "routing": "Routing",
+      "whenMatches": "When schedule matches",
+      "whenNotMatches": "When schedule does not match",
+      "cancel": "Cancel",
+      "saving": "Saving…",
+      "saveCondition": "Save Condition",
+      "createCondition": "Create Condition",
+      "validation": {
+        "nameRequired": "Condition name is required.",
+        "timeGroupRequired": "Select a Time Group."
+      },
+      "toast": {
+        "updated": "Time Condition updated",
+        "created": "Time Condition created",
+        "saveFailed": "Time Condition could not be saved",
+        "createFailed": "Time Condition could not be created"
+      }
+    },
+    "deleteDialog": {
+      "title": "Delete time condition?",
+      "description": "Delete \"{{name}}\"? Its schedule-based routing rules will be removed.",
+      "cancel": "Cancel",
+      "delete": "Delete Condition",
+      "deleting": "Deleting…",
+      "toast": {
+        "deleted": "Time Condition deleted",
+        "deleteFailed": "Time Condition could not be deleted"
+      }
+    }
+  },
   "recordings": {
     "label": "Rekodi",
     "title": "Rekodi za Simu na Sauti za Matangazo",
@@ -174,8 +475,251 @@
       "uploadRecording": "Pakia Rekodi"
     }
   },
-  "mail": "Barua Pepe",
-  "subscriptions": "Usajili",
-  "system": "Mfumo",
+  "subscriptions": {
+    "title": "Usimamizi wa Usajili",
+    "subtitle": "Fuatilia hali ya usajili, siku zilizobaki, vikumbusho na shughuli za upya.",
+    "headTitle": "Usajili — Flex Contact Center",
+    "metrics": {
+      "totalAccounts": "Jumla ya Akaunti",
+      "active": "Amilifu",
+      "expiringSoon": "Inaisha Karibuni (≤5s)",
+      "expiringActionNeeded": "Hatua inahitajika",
+      "expired": "Imeisha",
+      "totalSeats": "Jumla ya Viti"
+    },
+    "showing_one": "Inaonyesha usajili {{count}}",
+    "showing_other": "Inaonyesha usajili {{count}}",
+    "updated": "Imeboreshwa {{time}}",
+    "toast": {
+      "queuedWarning": "Barua ya kikumbusho imewekwa foleni, lakini Seva ya Barua imekatika. Sanidi SMTP kutuma.",
+      "sent": "Arifa ya kikumbusho imetumwa kwa {{email}}",
+      "sendFailed": "Imeshindwa kutuma kikumbusho",
+      "renewed": "Usajili wa {{account}} umeongezwa kwa +{{months}} {{unit}}",
+      "renewFailed": "Upya umeshindwa",
+      "month_one": "mwezi",
+      "month_other": "miezi"
+    },
+    "empty": {
+      "title": "Hakuna Usajili Uliopatikana",
+      "description": "Hakuna rekodi za usajili zinazolingana na utafutaji na vichujio vyako."
+    },
+    "columns": {
+      "accountContact": "Akaunti na Mawasiliano",
+      "planSeats": "Mpango na Viti",
+      "billing": "Malipo",
+      "expires": "Inaisha",
+      "remainingTime": "Muda Uliobaki",
+      "status": "Hali",
+      "reminders": "Vikumbusho",
+      "seats": "viti {{count}}",
+      "autoRenew": "Kujiongeza kiotomatiki",
+      "manual": "Mwongozo",
+      "days_one": "siku {{count}}",
+      "days_other": "siku {{count}}",
+      "zeroDays": "siku 0"
+    },
+    "reminders": {
+      "sent": "Kikumbusho kimetumwa",
+      "due": "Inastahili (≤5s)",
+      "notSent": "Hakijatumwa"
+    },
+    "actions": {
+      "inspect": "Kagua usajili",
+      "sendReminder": "Tuma kikumbusho",
+      "renew": "Ongeza muda wa usajili",
+      "inspectAria": "Kagua {{account}}",
+      "reminderAria": "Tuma kikumbusho kwa {{account}}",
+      "renewAria": "Ongeza muda wa {{account}}"
+    },
+    "toolbar": {
+      "searchPlaceholder": "Tafuta akaunti, barua pepe au mpango...",
+      "searchAriaLabel": "Tafuta usajili",
+      "allStatuses": "Hali Zote",
+      "allPlans": "Mipango Yote",
+      "clear": "Ondoa",
+      "statusOptions": {
+        "active": "Amilifu",
+        "expiring": "Inaisha Karibuni (≤siku 5)",
+        "expired": "Imeisha",
+        "trial": "Jaribio"
+      },
+      "planOptions": {
+        "starter": "Starter",
+        "professional": "Professional",
+        "enterprise": "Enterprise",
+        "custom": "Custom"
+      }
+    },
+    "detail": {
+      "meta_one": "Mpango {{plan}} · Viti {{seats}} · siku {{days}} iliyobaki",
+      "meta_other": "Mpango {{plan}} · Viti {{seats}} · siku {{days}} zilizobaki",
+      "sendReminder": "Tuma Barua ya Kikumbusho",
+      "renew": "Ongeza Muda wa Usajili",
+      "statusLabel": "Hali ya Usajili",
+      "daysRemaining_one": "siku {{count}}",
+      "daysRemaining_other": "siku {{count}}",
+      "remainingUntilExpiry": "zilizobaki hadi kuisha",
+      "expiresOn": "Inaisha {{date}}",
+      "accountContract": "Akaunti na Mkataba",
+      "subscriptionId": "Kitambulisho cha Usajili",
+      "billingContact": "Mawasiliano ya Malipo",
+      "tierPlan": "Kiwango na Mpango",
+      "seatAllocation": "Ugawaji wa Viti",
+      "seatAllocationValue_one": "leseni {{count}} ya wakala",
+      "seatAllocationValue_other": "leseni {{count}} za wakala",
+      "contractAmount": "Kiasi cha Mkataba",
+      "renewalPolicy": "Sera ya Upya",
+      "autoRenewActive": "Upya wa kiotomatiki umewashwa",
+      "manualRenewal": "Upya wa mwongozo kwa ankara",
+      "lastPayment": "Malipo ya Mwisho",
+      "notificationDelivery": "Uwasilishaji wa Arifa",
+      "mailConfig": "Usanidi wa Barua",
+      "smtpServer": "Seva ya SMTP:",
+      "connectedActive": "Imeunganishwa na Amilifu",
+      "disconnected": "Imekatika / Haijajaribiwa",
+      "expiryReminder": "Kikumbusho cha Siku 5:",
+      "expiryNotice": "Taarifa ya Kuisha:",
+      "sent": "Imetumwa",
+      "sentAt": "Imetumwa ({{date}})",
+      "none": "Hakuna"
+    },
+    "dialog": {
+      "title": "Ongeza Muda wa Usajili",
+      "description": "Ongeza ufikiaji na weka upya alama za arifa kwa \"{{account}}\" (Mpango {{plan}}, viti {{seats}}).",
+      "renewalTerm": "Muda wa Nyongeza",
+      "oneMonth": "+Mwezi 1 ({{price}})",
+      "threeMonths": "+Miezi 3 (Robo Mwaka)",
+      "twelveMonths": "+Miezi 12 (Mwaka 1 - Mwaka)",
+      "cancel": "Ghairi",
+      "confirm": "Thibitisha Upya"
+    },
+    "status": {
+      "active": "Amilifu",
+      "expiring": "Inaisha (siku {{days}})",
+      "expired": "Imeisha",
+      "trial": "Jaribio"
+    },
+    "mailNotice": {
+      "title": "Arifa za Barua Pepe Hazifanyi Kazi",
+      "description": "Vikumbusho vya kiotomatiki vya siku 5 na uthibitisho wa malipo vinahitaji Usanidi wa Barua uliounganishwa.",
+      "configure": "Sanidi Seva ya Barua"
+    }
+  },
+  "mail": {
+    "title": "Usanidi wa Barua Pepe",
+    "subtitle": "Sanidi na jaribu seva ya SMTP kwa arifa za mfumo.",
+    "headTitle": "Usanidi wa Barua Pepe — Flex Contact Center",
+    "crossLink": {
+      "description": "Uwasilishaji wa barua huwezesha vikumbusho vya siku 5 na uthibitisho wa malipo.",
+      "viewSubscriptions": "Angalia Usajili"
+    },
+    "form": {
+      "senderIdentity": "Utambulisho wa Mtumaji",
+      "senderIdentityDescription": "Sanidi jina na anwani inayoonyeshwa kwenye barua za kiotomatiki.",
+      "fromName": "Jina la Mtumaji",
+      "fromNamePlaceholder": "mf. Flex Contact Center",
+      "fromEmail": "Anwani ya Barua ya Mtumaji",
+      "fromEmailPlaceholder": "notifications@yourdomain.com",
+      "replyTo": "Anwani ya Kujibu",
+      "replyToOptional": "(Hiari)",
+      "replyToPlaceholder": "support@yourdomain.com",
+      "smtpSettings": "Mipangilio ya Seva ya SMTP",
+      "smtpSettingsDescription": "Sanidi mwenyeji wa SMTP, uthibitisho, lango na usalama.",
+      "smtpHost": "Mwenyeji wa SMTP",
+      "smtpHostPlaceholder": "mf. smtp.office365.com au smtp.sendgrid.net",
+      "port": "Lango",
+      "portPlaceholder": "587",
+      "encryption": "Usalama wa Usimbaji",
+      "encryptionOptions": {
+        "tls": "TLS (Inapendekezwa - Lango 587)",
+        "ssl": "SSL (Lango 465)",
+        "none": "Hakuna (Haijasimbwa - Lango 25)"
+      },
+      "username": "Jina la Mtumiaji la SMTP",
+      "usernamePlaceholder": "jina la mtumiaji au ufunguo wa API",
+      "password": "Nenosiri la SMTP",
+      "passwordPlaceholderUnchanged": "•••••••• (haijabadilika)",
+      "passwordPlaceholderNew": "Weka nenosiri la SMTP",
+      "passwordHintHasPassword": "Acha tupu kuhifadhi siri iliyohifadhiwa.",
+      "passwordHintNoPassword": "Nenosiri litahifadhiwa kwa usalama kama maandishi ya siri.",
+      "enableDelivery": "Wezesha Uwasilishaji wa Barua",
+      "enableDeliveryDescription": "Ruhusu mfumo kutuma vikumbusho, arifa na ripoti kiotomatiki.",
+      "save": "Hifadhi Usanidi wa Barua",
+      "saving": "Inahifadhi...",
+      "errors": {
+        "fromName": "Jina la Mtumaji linahitajika.",
+        "fromAddress": "Anwani ya Mtumaji inahitajika.",
+        "smtpHost": "Mwenyeji wa SMTP unahitajika.",
+        "port": "Lango lazima liwe kati ya 1 na 65535.",
+        "username": "Jina la mtumiaji linahitajika."
+      },
+      "toast": {
+        "saved": "Usanidi wa barua umehifadhiwa kwa mafanikio",
+        "saveFailed": "Imeshindwa kuhifadhi usanidi wa barua"
+      }
+    },
+    "banner": {
+      "testing": "Inajaribu muunganisho wa SMTP...",
+      "disabled": "Uwasilishaji wa barua umezimwa kwa sasa. Hakuna arifa zitatumwa.",
+      "disabledLabel": "Imezimwa",
+      "connected": "Seva ya Barua Imeunganishwa na Inafanya Kazi",
+      "connectedDescription": "Tayari kwa vikumbusho, arifa na ripoti za kiotomatiki.",
+      "verified": "Imethibitishwa {{time}}",
+      "failed": "Muunganisho Umeshindwa",
+      "failedFallback": "Haijaweza kuunganisha na seva ya SMTP iliyosanidiwa.",
+      "tested": "Imejaribiwa {{time}}",
+      "notTested": "Usanidi wa SMTP haujajaribiwa. Endesha Jaribio la Muunganisho kuthibitisha.",
+      "notTestedAction": "Jaribio la Muunganisho"
+    },
+    "testConnection": {
+      "title": "Jaribio la Muunganisho",
+      "description": "Thibitisha muunganisho wa soketi na uthibitisho bila kutuma barua.",
+      "verified": "Muunganisho Umethibitishwa",
+      "failed": "Muunganisho Umeshindwa",
+      "latency": "Muda wa kusubiri: {{value}}ms",
+      "verifying": "Inathibitisha...",
+      "run": "Endesha Jaribio la Muunganisho"
+    },
+    "testEmail": {
+      "title": "Tuma Barua ya Majaribio",
+      "description": "Tuma barua halisi ya majaribio kuthibitisha upokeaji na vichujio vya taka.",
+      "dispatched": "Barua Imetumwa",
+      "sendFailed": "Kutuma Kumeshindwa",
+      "messageId": "Kitambulisho cha Ujumbe: {{id}}",
+      "recipient": "Anwani ya Mpokeaji",
+      "recipientPlaceholder": "admin@example.com",
+      "invalidRecipient": "Tafadhali weka anwani sahihi ya barua pepe.",
+      "dispatching": "Inatuma...",
+      "send": "Tuma Barua ya Majaribio"
+    }
+  },
+  "system": {
+    "title": "Mfumo na Miundombinu",
+    "subtitle": "Afya ya Jukwaa, Hifadhi Nakala, Vyeti vya TLS na Miunganisho ya Lango",
+    "headTitle": "Mfumo na Miundombinu — Flex Contact Center",
+    "refresh": "Onyesha Hali Upya",
+    "refreshing": "Inaonyesha upya...",
+    "infrastructureHealth": "Muhtasari wa Afya ya Miundombinu",
+    "metrics": {
+      "operational": "Inafanya Kazi",
+      "operationalDescription": "Huduma zinazofanya kazi kikamilifu",
+      "degraded": "Iliyodhoofika",
+      "degradedDescription": "Huduma zenye muda mrefu wa kusubiri",
+      "down": "Imesimama",
+      "downDescription": "Huduma zisizoweza kufikiwa",
+      "uptime": "Uptime (siku 30) — Sampuli",
+      "uptimeDescription": "Data ya sampuli / POC — si telemetria halisi ya SLA."
+    },
+    "serverResources": "Rasilimali za Seva",
+    "backupStatus": "Hali ya Hifadhi Nakala",
+    "serviceHealthMatrix": "Jedwali la Afya ya Huduma",
+    "table": {
+      "service": "Huduma",
+      "status": "Hali",
+      "latency": "Muda wa Kusubiri",
+      "lastChecked": "Iliangaliwa Mwisho"
+    },
+    "footer": "Data ya POC — vipimo vya sampuli; si telemetria halisi ya simu au SLA."
+  },
   "ai": "Kituo cha AI"
 }

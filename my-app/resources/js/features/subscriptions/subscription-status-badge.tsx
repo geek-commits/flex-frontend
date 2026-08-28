@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexStatus } from '@/components/flex/flex-status';
 import type { SubscriptionStatus } from '@/domain/subscription-types';
 
@@ -9,10 +10,11 @@ export interface SubscriptionStatusBadgeProps {
 }
 
 export function SubscriptionStatusBadge({ status, remainingDays, className = '' }: SubscriptionStatusBadgeProps) {
+    const { t } = useTranslation('administration');
     if (status === 'active') {
         return (
             <FlexStatus tone="success" className={className}>
-                Active
+                {t('subscriptions.status.active')}
             </FlexStatus>
         );
     }
@@ -20,7 +22,7 @@ export function SubscriptionStatusBadge({ status, remainingDays, className = '' 
     if (status === 'expiring') {
         return (
             <FlexStatus tone="warning" className={className}>
-                Expiring {remainingDays !== undefined ? `(${remainingDays}d)` : ''}
+                {remainingDays !== undefined ? t('subscriptions.status.expiring', { days: remainingDays }) : t('subscriptions.status.active')}
             </FlexStatus>
         );
     }
@@ -28,7 +30,7 @@ export function SubscriptionStatusBadge({ status, remainingDays, className = '' 
     if (status === 'expired') {
         return (
             <FlexStatus tone="danger" className={className}>
-                Expired
+                {t('subscriptions.status.expired')}
             </FlexStatus>
         );
     }
@@ -36,7 +38,7 @@ export function SubscriptionStatusBadge({ status, remainingDays, className = '' 
     if (status === 'trial') {
         return (
             <FlexStatus tone="info" className={className}>
-                Trial
+                {t('subscriptions.status.trial')}
             </FlexStatus>
         );
     }

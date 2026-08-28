@@ -1,5 +1,6 @@
 import { RiAddLine, RiCloseLine } from '@remixicon/react';
 import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -43,6 +44,7 @@ export interface IVRFormSheetProps {
 }
 
 export function IVRFormSheet({ open, onOpenChange, editing, onSaved }: IVRFormSheetProps) {
+    const { t } = useTranslation('administration');
     const [draft, setDraft] = useState<IVRDraft>(() => seedDraft(editing));
     const [nameError, setNameError] = useState<string>();
     const [saving, setSaving] = useState(false);
@@ -81,7 +83,7 @@ export function IVRFormSheet({ open, onOpenChange, editing, onSaved }: IVRFormSh
 
     const handleSave = () => {
         if (!draft.name.trim()) {
-            setNameError('IVR name is required.');
+            setNameError(t('ivr.form.validation.nameRequired'));
 
             return;
         }
@@ -90,7 +92,7 @@ export function IVRFormSheet({ open, onOpenChange, editing, onSaved }: IVRFormSh
         const duplicateKey = keys.length !== new Set(keys).size;
 
         if (duplicateKey) {
-            toast.error('Menu entry keys must be unique.');
+            toast.error(t('ivr.form.validation.duplicateKeys'));
 
             return;
         }
@@ -100,13 +102,13 @@ export function IVRFormSheet({ open, onOpenChange, editing, onSaved }: IVRFormSh
             try {
                 if (editing) {
                     routingRepository.updateIVR(editing.id, draft);
-                    toast.success('IVR saved');
+                    toast.success(t('ivr.form.toast.saved'));
                 } else {
                     routingRepository.createIVR(draft);
-                    toast.success('IVR created');
+                    toast.success(t('ivr.form.toast.created'));
                 }
             } catch {
-                toast.error(editing ? 'IVR could not be saved' : 'IVR could not be created');
+                toast.error(editing ? t('ivr.form.toast.saveFailed') : t('ivr.form.toast.createFailed'));
             }
 
             setSaving(false);
@@ -119,32 +121,32 @@ export function IVRFormSheet({ open, onOpenChange, editing, onSaved }: IVRFormSh
         <Sheet open={open} onOpenChange={handleOpenChange}>
             <SheetContent className="w-full sm:max-w-xl overflow-y-auto">
                 <SheetHeader>
-                    <SheetTitle>{editing ? 'Edit IVR' : 'Add IVR'}</SheetTitle>
-                    <SheetDescription>Configure the IVR menu, prompt, and routing destinations.</SheetDescription>
+                    <SheetTitle>{editing ? t('ivr.form.editTitle') : t('ivr.form.addTitle')}</SheetTitle>
+                    <SheetDescription>{t('ivr.form.description')}</SheetDescription>
                 </SheetHeader>
 
                 <div className="flex-1 overflow-y-auto px-4 pb-4 flex flex-col gap-5">
-                    <RoutingFormSection title="General">
+                    <RoutingFormSection title={t('ivr.form.general')}>
                         <div className="flex flex-col gap-1.5">
                             <Label htmlFor="ivr-name" className="text-xs font-semibold">
-                                IVR Name
+                                {t('ivr.form.ivrName')}
                             </Label>
                             <Input
                                 id="ivr-name"
                                 value={draft.name}
                                 onChange={(e) => updateDraft({ name: e.target.value })}
-                                placeholder="e.g. Main Menu"
+                                placeholder={t('ivr.form.ivrNamePlaceholder')}
                                 aria-invalid={!!nameError}
                             />
                             {nameError && <p className="text-xs text-destructive">{nameError}</p>}
                         </div>
                         <div className="flex flex-col gap-1.5">
                             <Label htmlFor="ivr-prompt" className="text-xs font-semibold">
-                                Prompt / Recording
+                                {t('ivr.form.promptLabel')}
                             </Label>
                             <Select value={draft.prompt || undefined} onValueChange={(value) => updateDraft({ prompt: value ?? '' })}>
                                 <SelectTrigger id="ivr-prompt" className="w-full">
-                                    <SelectValue placeholder="Select a recording" />
+                                    <SelectValue placeholder={t('ivr.form.selectRecording')} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     {PROMPT_OPTIONS.map((prompt) => (
@@ -157,26 +159,26 @@ export function IVRFormSheet({ open, onOpenChange, editing, onSaved }: IVRFormSh
                         </div>
                         <div className="flex flex-col gap-1.5">
                             <Label htmlFor="ivr-status" className="text-xs font-semibold">
-                                Status
+                                {t('ivr.form.status')}
                             </Label>
                             <Select value={draft.status} onValueChange={(value) => updateDraft({ status: (value as 'active' | 'inactive') ?? 'active' })}>
                                 <SelectTrigger id="ivr-status" className="w-full">
                                     <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="active" className="text-xs capitalize">Active</SelectItem>
-                                    <SelectItem value="inactive" className="text-xs capitalize">Inactive</SelectItem>
+                                    <SelectItem value="active" className="text-xs capitalize">{t('ivr.form.active')}</SelectItem>
+                                    <SelectItem value="inactive" className="text-xs capitalize">{t('ivr.form.inactive')}</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
                     </RoutingFormSection>
 
-                    <RoutingFormSection title="Menu Entries">
+                    <RoutingFormSection title={t('ivr.form.menuEntries')}>
                         <div className="flex flex-col gap-2">
                             <div className="grid grid-cols-[3rem_1fr_1.2fr_auto] gap-2 items-center text-[10px] font-semibold uppercase tracking-wider text-flex-text-muted">
-                                <span>Key</span>
-                                <span>Label</span>
-                                <span>Destination</span>
+                                <span>{t('ivr.form.key')}</span>
+                                <span>{t('ivr.form.label')}</span>
+                                <span>{t('ivr.form.destination')}</span>
                                 <span />
                             </div>
                             {draft.entries.map((entry, index) => (
@@ -184,16 +186,16 @@ export function IVRFormSheet({ open, onOpenChange, editing, onSaved }: IVRFormSh
                                     <Input
                                         value={entry.key}
                                         onChange={(e) => updateEntry(index, { key: e.target.value })}
-                                        placeholder="1"
+                                        placeholder={t('ivr.form.entryKeyPlaceholder')}
                                         className="h-9 text-xs"
-                                        aria-label={`Entry ${index + 1} key`}
+                                        aria-label={t('ivr.form.entryKeyAria', { index: index + 1 })}
                                     />
                                     <Input
                                         value={entry.label}
                                         onChange={(e) => updateEntry(index, { label: e.target.value })}
-                                        placeholder="e.g. Sales"
+                                        placeholder={t('ivr.form.entryLabelPlaceholder')}
                                         className="h-9 text-xs"
-                                        aria-label={`Entry ${index + 1} label`}
+                                        aria-label={t('ivr.form.entryLabelAria', { index: index + 1 })}
                                     />
                                     <RoutingDestinationSelect
                                         label=""
@@ -203,7 +205,7 @@ export function IVRFormSheet({ open, onOpenChange, editing, onSaved }: IVRFormSh
                                     <Button
                                         variant="ghost"
                                         size="icon-xs"
-                                        aria-label={`Remove entry ${index + 1}`}
+                                        aria-label={t('ivr.form.removeEntryAria', { index: index + 1 })}
                                         onClick={() => removeEntry(index)}
                                     >
                                         <RiCloseLine className="size-3.5" />
@@ -212,15 +214,15 @@ export function IVRFormSheet({ open, onOpenChange, editing, onSaved }: IVRFormSh
                             ))}
                             <Button variant="outline" size="sm" className="gap-1.5 text-xs w-fit" onClick={addEntry}>
                                 <RiAddLine className="size-3.5" />
-                                Add Entry
+                                {t('ivr.form.addEntry')}
                             </Button>
                         </div>
                     </RoutingFormSection>
 
-                    <RoutingFormSection title="Fallback Destination">
+                    <RoutingFormSection title={t('ivr.form.fallbackDestination')}>
                         <RoutingDestinationSelect
                             id="ivr-fallback"
-                            label="Default Destination"
+                            label={t('ivr.form.defaultDestination')}
                             value={draft.defaultDestination}
                             onChange={(destination) =>
                                 updateDraft({ defaultDestination: destination ?? { type: 'Queue', value: '' } })
@@ -231,10 +233,10 @@ export function IVRFormSheet({ open, onOpenChange, editing, onSaved }: IVRFormSh
 
                 <SheetFooter className="border-t border-border px-4 py-3">
                     <Button variant="outline" onClick={() => handleOpenChange(false)} disabled={saving}>
-                        Cancel
+                        {t('ivr.form.cancel')}
                     </Button>
                     <Button onClick={handleSave} disabled={saving}>
-                        {saving ? 'Saving…' : editing ? 'Save IVR' : 'Create IVR'}
+                        {saving ? t('ivr.form.saving') : editing ? t('ivr.form.saveIVR') : t('ivr.form.createIVR')}
                     </Button>
                 </SheetFooter>
             </SheetContent>

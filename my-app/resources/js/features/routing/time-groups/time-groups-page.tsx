@@ -1,5 +1,6 @@
 import { RiAddLine, RiSearchLine } from '@remixicon/react';
 import React, { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexErrorState } from '@/components/flex/flex-error-state';
 import { Button } from '@/components/ui/button';
@@ -13,6 +14,7 @@ import { TimeGroupFormSheet } from '@/features/routing/time-groups/time-group-fo
 import { TimeGroupTable } from '@/features/routing/time-groups/time-group-table';
 
 export function TimeGroupsPage() {
+    const { t } = useTranslation('administration');
     const [records, setRecords] = useState<TimeGroupRecord[]>(() => routingRepository.queryTimeGroups());
     const [search, setSearch] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -31,12 +33,12 @@ export function TimeGroupsPage() {
             try {
                 setRecords(routingRepository.queryTimeGroups());
             } catch {
-                setError('Time Group data could not be retrieved.');
+                setError(t('timeGroups.error.generic'));
             }
 
             setIsLoading(false);
         }, 350);
-    }, []);
+    }, [t]);
 
     const openCreate = () => {
         setEditingId(undefined);
@@ -64,12 +66,12 @@ export function TimeGroupsPage() {
 
     return (
         <RoutingShell
-            title="Time Groups"
-            subtitle="Define reusable schedules for time-based routing."
+            title={t('timeGroups.title')}
+            subtitle={t('timeGroups.subtitle')}
             actions={
                 <Button size="sm" className="gap-1.5 text-xs" onClick={openCreate}>
                     <RiAddLine className="size-4" />
-                    Add Time Group
+                    {t('timeGroups.actions.addTimeGroup')}
                 </Button>
             }
         >
@@ -79,19 +81,19 @@ export function TimeGroupsPage() {
                     <Input
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        placeholder="Search time groups..."
-                        aria-label="Search time groups"
+                        placeholder={t('timeGroups.toolbar.searchPlaceholder')}
+                        aria-label={t('timeGroups.toolbar.searchAriaLabel')}
                         className="pl-9 h-9 text-xs"
                     />
                 </div>
 
                 {error ? (
                     <FlexErrorState
-                        title="Couldn't load time groups"
+                        title={t('timeGroups.error.title')}
                         description={error}
                         action={
                             <Button variant="outline" size="sm" className="text-xs" onClick={refresh}>
-                                Try Again
+                                {t('timeGroups.error.retry')}
                             </Button>
                         }
                     />
@@ -103,16 +105,16 @@ export function TimeGroupsPage() {
                     </div>
                 ) : filtered.length === 0 ? (
                     <FlexEmptyState
-                        title={records.length === 0 ? 'No time groups configured' : 'No time groups match your search'}
+                        title={records.length === 0 ? t('timeGroups.empty.noTimeGroupsTitle') : t('timeGroups.empty.noMatchTitle')}
                         description={
                             records.length === 0
-                                ? 'Create a reusable schedule for time-based routing.'
-                                : 'Try changing your search.'
+                                ? t('timeGroups.empty.noTimeGroupsDescription')
+                                : t('timeGroups.empty.noMatchDescription')
                         }
                         action={
                             records.length === 0 ? (
                                 <Button variant="outline" size="sm" className="text-xs" onClick={openCreate}>
-                                    Add Time Group
+                                    {t('timeGroups.empty.addTimeGroup')}
                                 </Button>
                             ) : undefined
                         }
@@ -122,7 +124,7 @@ export function TimeGroupsPage() {
                 )}
 
                 <p className="text-[10px] text-flex-text-muted">
-                    POC mock adapter — `RoutingRepository` boundary; replace with the real routing backend in rollout.
+                    {t('timeGroups.footerHint')}
                 </p>
             </div>
 
