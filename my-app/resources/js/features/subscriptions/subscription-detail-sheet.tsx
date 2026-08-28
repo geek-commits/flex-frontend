@@ -40,11 +40,13 @@ export function SubscriptionDetailSheet({
     onRenew,
 }: SubscriptionDetailSheetProps) {
     const { t } = useTranslation('administration');
+
     if (!record) {
         return null;
     }
 
     const metaKey = record.remainingDays === 1 ? 'subscriptions.detail.meta_one' : 'subscriptions.detail.meta_other';
+
     return (
         <FlexDetailSheet
             open={open}

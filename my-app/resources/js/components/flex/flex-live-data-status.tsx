@@ -31,7 +31,10 @@ export function FlexLiveDataStatus({
     // This provides native en/sw/fr support and avoids maintaining a custom
     // date-fns Swahili locale shim.
     const relativeTime = useMemo(() => {
-        if (!lastUpdated) return '';
+        if (!lastUpdated) {
+return '';
+}
+
         const diffMs = lastUpdated.getTime() - Date.now();
         const abs = Math.abs(diffMs);
         const sec = Math.round(diffMs / 1000);
@@ -40,6 +43,7 @@ export function FlexLiveDataStatus({
         const day = Math.round(diffMs / 86_400_000);
         let value: number;
         let unit: Intl.RelativeTimeFormatUnit;
+
         if (abs < 60_000) {
             value = sec;
             unit = 'second';
@@ -53,7 +57,9 @@ export function FlexLiveDataStatus({
             value = day;
             unit = 'day';
         }
+
         const intlLocale = LOCALE_CONFIG[locale]?.formatLocale ?? 'en-GB';
+
         // Map to Intl expected: en → en, sw-TZ → sw-TZ, fr-FR → fr-FR all valid
         try {
             return new Intl.RelativeTimeFormat(intlLocale, { numeric: 'auto' }).format(value, unit);

@@ -15,6 +15,7 @@ export interface PermissionsTableProps {
  */
 export function PermissionsTable({ records, isLoading, emptyMessage }: PermissionsTableProps) {
     const { t } = useTranslation('administration');
+
     if (isLoading) {
         return (
             <div className="flex flex-col gap-2">

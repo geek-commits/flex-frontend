@@ -39,6 +39,7 @@ export function resolveCustomerTimeline(phoneOrHandle: string): { displayName: s
                 sourceRecordId: r.id,
                 permissions: ['cdr.view'],
             });
+
             if (displayName === phoneOrHandle) {
                 displayName = r.customerPhone;
             }
@@ -49,6 +50,7 @@ export function resolveCustomerTimeline(phoneOrHandle: string): { displayName: s
     for (const c of socialRepository.getInbox().conversations as SocialConversation[]) {
         const participantNorm = normalizePhone(c.participant);
         const nameNorm = (c.displayName ?? '').toLowerCase();
+
         if (participantNorm === normalized || nameNorm === normalized.toLowerCase()) {
             items.push({
                 id: `social-${c.id}`,
@@ -83,5 +85,6 @@ export function resolveCustomerTimeline(phoneOrHandle: string): { displayName: s
     }
 
     items.sort((a, b) => new Date(b.occurredAt).getTime() - new Date(a.occurredAt).getTime());
+
     return { displayName, phone: isPhone ? phoneOrHandle : normalized, items };
 }

@@ -1,29 +1,33 @@
 "use client"
 
+import { RiUserLine, RiMailLine, RiBuilding4Line, RiMapPinLine, RiFilter3Line, RiFilterOffLine, RiErrorWarningLine } from "@remixicon/react"
+import type {
+  ColumnDef,
+  PaginationState,
+  SortingState} from "@tanstack/react-table";
+import {
+  useTable,
+} from "@tanstack/react-table"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { Alert, AlertTitle } from "@/components/reui/alert"
 import { Badge } from "@/components/reui/badge"
 import {
   DataGrid,
   DataGridContainer,
-  dataGridFeatures,
-  type DataGridFeatures,
+  dataGridFeatures
+  
 } from "@/components/reui/data-grid/data-grid"
+import type {DataGridFeatures} from "@/components/reui/data-grid/data-grid";
 import { DataGridColumnHeader } from "@/components/reui/data-grid/data-grid-column-header"
 import { DataGridPagination } from "@/components/reui/data-grid/data-grid-pagination"
 import { DataGridTable } from "@/components/reui/data-grid/data-grid-table"
 import {
   createFilter,
-  Filters,
-  type Filter,
-  type FilterFieldConfig,
+  Filters
+  
+  
 } from "@/components/reui/filters"
-import {
-  ColumnDef,
-  PaginationState,
-  SortingState,
-  useTable,
-} from "@tanstack/react-table"
+import type {Filter, FilterFieldConfig} from "@/components/reui/filters";
 
 import {
   Avatar,
@@ -33,7 +37,6 @@ import {
 import { Button } from "@/components/ui/button"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Skeleton } from "@/components/ui/skeleton"
-import { RiUserLine, RiMailLine, RiBuilding4Line, RiMapPinLine, RiFilter3Line, RiFilterOffLine, RiErrorWarningLine } from "@remixicon/react"
 
 interface IData {
   id: string
@@ -281,21 +284,26 @@ const getActiveFilters = (filters: Filter[]) => {
     const { values } = filter
 
     // Check if filter has meaningful values
-    if (!values || values.length === 0) return false
+    if (!values || values.length === 0) {
+return false
+}
 
     // For text/string values, check if they're not empty strings
     if (
       values.every((value) => typeof value === "string" && value.trim() === "")
-    )
-      return false
+    ) {
+return false
+}
 
     // For number values, check if they're not null/undefined
-    if (values.every((value) => value === null || value === undefined))
-      return false
+    if (values.every((value) => value === null || value === undefined)) {
+return false
+}
 
     // For arrays, check if they're not empty
-    if (values.every((value) => Array.isArray(value) && value.length === 0))
-      return false
+    if (values.every((value) => Array.isArray(value) && value.length === 0)) {
+return false
+}
 
     return true
   })
@@ -525,15 +533,19 @@ export function Pattern() {
             if (values.length >= 2) {
               const min = Number(values[0])
               const max = Number(values[1])
+
               return Number(fieldValue) >= min && Number(fieldValue) <= max
             }
+
             return true
           case "not_between":
             if (values.length >= 2) {
               const min = Number(values[0])
               const max = Number(values[1])
+
               return Number(fieldValue) < min || Number(fieldValue) > max
             }
+
             return true
           case "before":
             return new Date(String(fieldValue)) < new Date(String(values[0]))

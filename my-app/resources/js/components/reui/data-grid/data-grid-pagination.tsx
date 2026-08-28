@@ -1,9 +1,9 @@
 "use client"
 
+import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react"
 import type { JSX, ReactNode } from "react"
 import { useDataGrid } from "@/components/reui/data-grid/data-grid"
 
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
   Select,
@@ -13,7 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Skeleton } from "@/components/ui/skeleton"
-import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react"
+import { cn } from "@/lib/utils"
 
 interface DataGridPaginationProps {
   sizes?: number[]
@@ -79,6 +79,7 @@ function DataGridPagination(props: DataGridPaginationProps): JSX.Element {
   // Render page buttons based on the current group
   const renderPageButtons = () => {
     const buttons = []
+
     for (let i = currentGroupStart; i < currentGroupEnd; i++) {
       buttons.push(
         <Button
@@ -98,6 +99,7 @@ function DataGridPagination(props: DataGridPaginationProps): JSX.Element {
         </Button>
       )
     }
+
     return buttons
   }
 
@@ -115,6 +117,7 @@ function DataGridPagination(props: DataGridPaginationProps): JSX.Element {
         </Button>
       )
     }
+
     return null
   }
 
@@ -132,6 +135,7 @@ function DataGridPagination(props: DataGridPaginationProps): JSX.Element {
         </Button>
       )
     }
+
     return null
   }
 

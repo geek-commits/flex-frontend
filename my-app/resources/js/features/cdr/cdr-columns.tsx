@@ -29,6 +29,7 @@ export function cdrColumns(t: TFunction, onViewRecord?: (record: CDRRecord) => v
     const recordingUnavailable = (
         <span className="text-flex-text-muted italic text-[10px]">{t('cdr.recording.noRecording')}</span>
     );
+
     return [
         {
             accessorKey: 'date',

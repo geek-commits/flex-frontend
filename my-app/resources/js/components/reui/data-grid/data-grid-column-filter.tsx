@@ -1,9 +1,9 @@
+import { RiAddCircleLine, RiCheckLine } from "@remixicon/react"
+import type { Column } from "@tanstack/react-table"
 import { useMemo, useState } from "react"
 import { Badge } from "@/components/reui/badge"
 import type { DataGridFeatures } from "@/components/reui/data-grid/data-grid"
-import type { Column } from "@tanstack/react-table"
 
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -12,7 +12,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { Separator } from "@/components/ui/separator"
-import { RiAddCircleLine, RiCheckLine } from "@remixicon/react"
+import { cn } from "@/lib/utils"
 
 interface DataGridColumnFilterProps<TData extends object, TValue> {
   column?: Column<DataGridFeatures, TData, TValue>
@@ -37,7 +37,10 @@ function DataGridColumnFilter<TData extends object, TValue>({
   const [searchQuery, setSearchQuery] = useState("")
 
   const filteredOptions = useMemo(() => {
-    if (!searchQuery) return options
+    if (!searchQuery) {
+return options
+}
+
     return options.filter((option) =>
       option.label.toLowerCase().includes(searchQuery.toLowerCase())
     )
@@ -108,11 +111,13 @@ function DataGridColumnFilter<TData extends object, TValue>({
                   } else {
                     selectedValues.add(option.value)
                   }
+
                   const filterValues = Array.from(selectedValues)
                   column?.setFilterValue(
                     filterValues.length ? filterValues : undefined
                   )
                 }
+
                 return (
                   <div
                     key={option.value}

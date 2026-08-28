@@ -17,8 +17,12 @@ let longTimer: number | null = null;
 let el: HTMLElement | null = null;
 
 function getEl(): HTMLElement | null {
-    if (el) return el;
+    if (el) {
+return el;
+}
+
     el = document.getElementById('flex-boot-loader') as HTMLElement | null;
+
     return el;
 }
 
@@ -28,14 +32,20 @@ function isReducedMotion(): boolean {
 
 function localizeLoader() {
     const loaderEl = getEl();
-    if (!loaderEl) return;
+
+    if (!loaderEl) {
+return;
+}
+
     try {
         // eslint-disable-next-line @typescript-eslint/no-require-imports
         const i18n = require('@/i18n').default;
+
         if (i18n?.t) {
             const loadingLabel = i18n.t('preloader.loadingFlex', { ns: 'common', defaultValue: 'Loading FLEX' });
             loaderEl.setAttribute('aria-label', loadingLabel);
             const hint = loaderEl.querySelector('[data-long-load]') as HTMLElement | null;
+
             if (hint) {
                 const longText = i18n.t('preloader.longLoad', { ns: 'common', defaultValue: 'FLEX is taking longer than expected.' });
                 hint.textContent = longText;
@@ -49,9 +59,16 @@ function localizeLoader() {
 export const bootLoader = {
     /** Ensure reveal timer is armed — call on script load. */
     init() {
-        if (typeof document === 'undefined') return;
+        if (typeof document === 'undefined') {
+return;
+}
+
         el = getEl();
-        if (!el) return;
+
+        if (!el) {
+return;
+}
+
         localizeLoader();
         // start hidden, reveal only if still not ready after threshold
         revealTimer = window.setTimeout(() => {
@@ -66,28 +83,49 @@ export const bootLoader = {
         longTimer = window.setTimeout(() => {
             if (state === 'visible') {
                 const hint = el?.querySelector('[data-long-load]') as HTMLElement | null;
-                if (hint) hint.classList.remove('hidden');
+
+                if (hint) {
+hint.classList.remove('hidden');
+}
             }
         }, LONG_LOAD_MS);
     },
 
     /** Call when locale + React root are ready and meaningful UI can paint. */
     ready() {
-        if (typeof document === 'undefined') return;
+        if (typeof document === 'undefined') {
+return;
+}
+
         el = getEl();
-        if (!el) return;
+
+        if (!el) {
+return;
+}
+
         // if never revealed (fast boot), remove immediately without flash
         if (state === 'hidden') {
-            if (revealTimer) window.clearTimeout(revealTimer);
-            if (longTimer) window.clearTimeout(longTimer);
+            if (revealTimer) {
+window.clearTimeout(revealTimer);
+}
+
+            if (longTimer) {
+window.clearTimeout(longTimer);
+}
+
             el.remove();
             state = 'leaving';
             setTimeout(() => {
                 state = 'hidden';
             }, FADE_MS);
+
             return;
         }
-        if (state !== 'visible') return;
+
+        if (state !== 'visible') {
+return;
+}
+
         const elapsed = visibleSince ? Date.now() - visibleSince : MIN_VISIBLE_MS;
         const remaining = Math.max(0, MIN_VISIBLE_MS - elapsed);
         // respect reduced motion: skip full animation wait, fade still 150ms
@@ -103,27 +141,49 @@ export const bootLoader = {
                 state = 'hidden';
             }, fade);
         }, remaining);
-        if (longTimer) window.clearTimeout(longTimer);
-        if (revealTimer) window.clearTimeout(revealTimer);
+
+        if (longTimer) {
+window.clearTimeout(longTimer);
+}
+
+        if (revealTimer) {
+window.clearTimeout(revealTimer);
+}
     },
 
     fail() {
         el = getEl();
-        if (!el) return;
+
+        if (!el) {
+return;
+}
+
         state = 'failed';
-        if (revealTimer) window.clearTimeout(revealTimer);
-        if (longTimer) window.clearTimeout(longTimer);
+
+        if (revealTimer) {
+window.clearTimeout(revealTimer);
+}
+
+        if (longTimer) {
+window.clearTimeout(longTimer);
+}
+
         el.classList.add('is-visible', 'is-failed');
         el.setAttribute('role', 'status');
         // Localize failure label if i18n is available; fallback to English.
         let failedLabel = 'FLEX failed to start';
+
         try {
             // eslint-disable-next-line @typescript-eslint/no-require-imports
             const i18n = require('@/i18n').default;
-            if (i18n?.t) failedLabel = i18n.t('preloader.failedToStart', { ns: 'common', defaultValue: failedLabel });
+
+            if (i18n?.t) {
+failedLabel = i18n.t('preloader.failedToStart', { ns: 'common', defaultValue: failedLabel });
+}
         } catch {
             // ignore — keep English fallback
         }
+
         el.setAttribute('aria-label', failedLabel);
     },
 
@@ -131,8 +191,15 @@ export const bootLoader = {
     _reset() {
         state = 'hidden';
         visibleSince = null;
-        if (revealTimer) window.clearTimeout(revealTimer);
-        if (longTimer) window.clearTimeout(longTimer);
+
+        if (revealTimer) {
+window.clearTimeout(revealTimer);
+}
+
+        if (longTimer) {
+window.clearTimeout(longTimer);
+}
+
         revealTimer = null;
         longTimer = null;
     },

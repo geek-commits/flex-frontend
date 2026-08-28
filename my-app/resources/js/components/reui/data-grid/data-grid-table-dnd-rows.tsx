@@ -1,6 +1,37 @@
 "use client"
 
 import {
+  closestCenter,
+  DndContext,
+  DragOverlay,
+  KeyboardSensor,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors
+  
+  
+  
+  
+  
+  
+  
+  
+} from "@dnd-kit/core"
+import type {CollisionDetection, DragCancelEvent, DragEndEvent, DragMoveEvent, DragOverEvent, DragStartEvent, Modifier, UniqueIdentifier} from "@dnd-kit/core";
+import { restrictToVerticalAxis } from "@dnd-kit/modifiers"
+import {
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable
+  
+} from "@dnd-kit/sortable"
+import type {SortingStrategy} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities"
+import { RiDraggable } from "@remixicon/react"
+import { flexRender } from "@tanstack/react-table"
+import type { Cell, HeaderGroup, Row } from "@tanstack/react-table"
+import {
   createContext,
   memo,
   useCallback,
@@ -12,6 +43,7 @@ import {
   useState,
 } from "react"
 import type { CSSProperties, ReactNode } from "react"
+import { createPortal } from "react-dom"
 import { useDataGrid } from "@/components/reui/data-grid/data-grid"
 import type {
   DataGridFeatures,
@@ -36,39 +68,9 @@ import {
   DataGridTableRowSpacer,
   DataGridTableViewport,
 } from "@/components/reui/data-grid/data-grid-table"
-import {
-  closestCenter,
-  DndContext,
-  DragOverlay,
-  KeyboardSensor,
-  MouseSensor,
-  TouchSensor,
-  useSensor,
-  useSensors,
-  type CollisionDetection,
-  type DragCancelEvent,
-  type DragEndEvent,
-  type DragMoveEvent,
-  type DragOverEvent,
-  type DragStartEvent,
-  type Modifier,
-  type UniqueIdentifier,
-} from "@dnd-kit/core"
-import { restrictToVerticalAxis } from "@dnd-kit/modifiers"
-import {
-  SortableContext,
-  sortableKeyboardCoordinates,
-  useSortable,
-  type SortingStrategy,
-} from "@dnd-kit/sortable"
-import { CSS } from "@dnd-kit/utilities"
-import { flexRender } from "@tanstack/react-table"
-import type { Cell, HeaderGroup, Row } from "@tanstack/react-table"
-import { createPortal } from "react-dom"
 
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { RiDraggable } from "@remixicon/react"
+import { cn } from "@/lib/utils"
 
 // Context to share sortable listeners from row to handle
 type SortableContextValue = ReturnType<typeof useSortable>
@@ -352,7 +354,9 @@ function DataGridTableDndRowsBody<TData extends object>({
     )
   }
 
-  if (!table.getRowModel().rows.length) return <DataGridTableEmpty />
+  if (!table.getRowModel().rows.length) {
+return <DataGridTableEmpty />
+}
 
   return (
     <SortableContext items={dataIds} strategy={sortingStrategy}>
@@ -462,8 +466,10 @@ function DataGridTableDndRows<TData extends object>({
   const pickUpRow = useCallback((id: UniqueIdentifier) => {
     const container = tableContainerRef.current
     const head = container?.querySelector("thead tr")
+
     if (!container || !head) {
       setCarried(null)
+
       return
     }
 
@@ -514,7 +520,9 @@ function DataGridTableDndRows<TData extends object>({
   )
 
   useEffect(() => {
-    if (!isDraggingRow) return
+    if (!isDraggingRow) {
+return
+}
 
     const { body, documentElement } = document
     const previousBodyCursor = body.style.cursor

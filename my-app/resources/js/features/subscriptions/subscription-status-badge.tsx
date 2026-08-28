@@ -11,6 +11,7 @@ export interface SubscriptionStatusBadgeProps {
 
 export function SubscriptionStatusBadge({ status, remainingDays, className = '' }: SubscriptionStatusBadgeProps) {
     const { t } = useTranslation('administration');
+
     if (status === 'active') {
         return (
             <FlexStatus tone="success" className={className}>

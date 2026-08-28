@@ -5,6 +5,7 @@ import { AgentDashboardPage } from '@/features/agent-dashboard/agent-dashboard-p
 
 export default function AgentDashboardIndex() {
     const { t } = useTranslation('agent');
+
     return (
         <>
             <Head title={t('dashboard.headTitle')} />

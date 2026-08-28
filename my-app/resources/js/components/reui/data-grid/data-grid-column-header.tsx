@@ -1,5 +1,8 @@
 "use client"
 
+import { RiArrowDownLine, RiArrowUpLine, RiExpandUpDownLine, RiCheckLine, RiContractLeftLine, RiContractRightLine, RiArrowLeftLine, RiArrowRightLine, RiEqualizer2Line, RiUnpinLine } from "@remixicon/react"
+import { Subscribe } from "@tanstack/react-table"
+import type { Column } from "@tanstack/react-table"
 import { memo, useMemo } from "react"
 import type { HTMLAttributes, ReactNode } from "react"
 import {
@@ -7,10 +10,7 @@ import {
   useDataGrid,
 } from "@/components/reui/data-grid/data-grid"
 import type { DataGridFeatures } from "@/components/reui/data-grid/data-grid"
-import { Subscribe } from "@tanstack/react-table"
-import type { Column } from "@tanstack/react-table"
 
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -25,7 +25,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { RiArrowDownLine, RiArrowUpLine, RiExpandUpDownLine, RiCheckLine, RiContractLeftLine, RiContractRightLine, RiArrowLeftLine, RiArrowRightLine, RiEqualizer2Line, RiUnpinLine } from "@remixicon/react"
+import { cn } from "@/lib/utils"
 
 interface DataGridColumnHeaderProps<
   TData extends object,
@@ -128,6 +128,7 @@ function DataGridColumnHeaderInner<TData extends object, TValue>({
       if (hasPreviousSection) {
         items.push(<DropdownMenuSeparator key="sep-sort" />)
       }
+
       items.push(
         <DropdownMenuItem
           key="sort-asc"
@@ -172,6 +173,7 @@ function DataGridColumnHeaderInner<TData extends object, TValue>({
       if (hasPreviousSection) {
         items.push(<DropdownMenuSeparator key="sep-pin" />)
       }
+
       items.push(
         <DropdownMenuItem
           key="pin-left"
@@ -202,6 +204,7 @@ function DataGridColumnHeaderInner<TData extends object, TValue>({
       if (hasPreviousSection) {
         items.push(<DropdownMenuSeparator key="sep-move" />)
       }
+
       items.push(
         <DropdownMenuItem
           key="move-left"
@@ -242,6 +245,7 @@ function DataGridColumnHeaderInner<TData extends object, TValue>({
       if (hasPreviousSection) {
         items.push(<DropdownMenuSeparator key="sep-visibility" />)
       }
+
       items.push(
         <DropdownMenuSub key="visibility">
           <DropdownMenuSubTrigger>

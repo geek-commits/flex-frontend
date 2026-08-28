@@ -26,6 +26,7 @@ export function TimeGroupTable({ records, onEdit, onDelete }: TimeGroupTableProp
         { key: 'usedBy', label: t('timeGroups.columns.usedBy'), align: 'end' },
         { key: 'actions', label: '', align: 'center' },
     ];
+
     return (
         <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
             <div className="overflow-x-auto">

@@ -1,4 +1,26 @@
 import {
+  closestCenter,
+  DndContext,
+  KeyboardSensor,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors
+  
+  
+} from "@dnd-kit/core"
+import type {DragEndEvent, Modifier} from "@dnd-kit/core";
+import {
+  horizontalListSortingStrategy,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+} from "@dnd-kit/sortable"
+import { CSS } from "@dnd-kit/utilities"
+import { RiDraggable } from "@remixicon/react"
+import { flexRender } from "@tanstack/react-table"
+import type { Cell, Header, HeaderGroup, Row } from "@tanstack/react-table"
+import {
   Fragment,
   memo,
   useEffect,
@@ -32,29 +54,8 @@ import {
   DataGridTableRowSpacer,
   DataGridTableViewport,
 } from "@/components/reui/data-grid/data-grid-table"
-import {
-  closestCenter,
-  DndContext,
-  KeyboardSensor,
-  MouseSensor,
-  TouchSensor,
-  useSensor,
-  useSensors,
-  type DragEndEvent,
-  type Modifier,
-} from "@dnd-kit/core"
-import {
-  horizontalListSortingStrategy,
-  SortableContext,
-  sortableKeyboardCoordinates,
-  useSortable,
-} from "@dnd-kit/sortable"
-import { CSS } from "@dnd-kit/utilities"
-import { flexRender } from "@tanstack/react-table"
-import type { Cell, Header, HeaderGroup, Row } from "@tanstack/react-table"
 
 import { Button } from "@/components/ui/button"
-import { RiDraggable } from "@remixicon/react"
 
 function DataGridTableDndHeader<TData extends object>({
   header,
@@ -184,7 +185,9 @@ function DataGridTableDndBodyRows<TData extends object>({
     )
   }
 
-  if (!table.getRowModel().rows.length) return <DataGridTableEmpty />
+  if (!table.getRowModel().rows.length) {
+return <DataGridTableEmpty />
+}
 
   return (
     <>
@@ -244,7 +247,9 @@ function DataGridTableDnd<TData extends object>({
   )
 
   useEffect(() => {
-    if (!isDraggingColumn) return
+    if (!isDraggingColumn) {
+return
+}
 
     const { body, documentElement } = document
     const previousBodyCursor = body.style.cursor

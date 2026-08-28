@@ -27,6 +27,7 @@ export function IVRTable({ records, onView, onEdit }: IVRTableProps) {
         { key: 'status', label: t('ivr.columns.status'), align: 'start' },
         { key: 'actions', label: '', align: 'center' },
     ];
+
     return (
         <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
             <div className="overflow-x-auto">

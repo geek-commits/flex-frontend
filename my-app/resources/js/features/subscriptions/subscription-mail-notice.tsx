@@ -10,6 +10,7 @@ export interface SubscriptionMailNoticeProps {
 
 export function SubscriptionMailNotice({ mailStatus }: SubscriptionMailNoticeProps) {
     const { t } = useTranslation('administration');
+
     if (mailStatus.isReady) {
         return null;
     }

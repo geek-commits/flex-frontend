@@ -8,6 +8,7 @@ import AppLayout from '@/layouts/app-layout';
 export default function ExceptionsPage() {
     // Deterministic placeholder — exceptions derived from real metrics when thresholds exist (§66)
     const exceptions: { id: string; title: string; detail: string; href: string }[] = [];
+
     return (
         <AppLayout breadcrumbs={[{ title: 'Exceptions', href: '/supervision/exceptions' }]}>
             <Head title="Exceptions — Flex" />

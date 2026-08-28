@@ -33,6 +33,7 @@ export function ScheduleEntryEditor({ index, value, onChange, onRemove, removabl
         { value: 5, label: t('timeGroups.editor.weekdaysShort.fri') },
         { value: 6, label: t('timeGroups.editor.weekdaysShort.sat') },
     ];
+
     return (
         <div className="rounded-lg border border-border p-3 flex flex-col gap-3">
             <div className="flex items-center justify-between">

@@ -1,7 +1,5 @@
 "use client"
 
-import { createContext, useContext, useEffect, useMemo, useRef } from "react"
-import type { ReactNode } from "react"
 import {
   columnFacetingFeature,
   columnFilteringFeature,
@@ -40,6 +38,8 @@ import type {
   Table,
   TableFeatures,
 } from "@tanstack/react-table"
+import { createContext, useContext, useEffect, useMemo, useRef } from "react"
+import type { ReactNode } from "react"
 
 import { cn } from "@/lib/utils"
 
@@ -186,7 +186,7 @@ export const dataGridFeatures = tableFeatures({
     text: sortFn_text,
     textCaseSensitive: sortFn_textCaseSensitive,
   },
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   columnMeta: metaHelper<DataGridColumnMeta<any>>(),
 })
 
@@ -213,9 +213,17 @@ export function getColumnHeaderLabel<TData extends RowData, TValue>(
   column: Column<DataGridFeatures, TData, TValue>
 ): string {
   const meta = column.columnDef.meta as { headerTitle?: string } | undefined
-  if (typeof meta?.headerTitle === "string") return meta.headerTitle
+
+  if (typeof meta?.headerTitle === "string") {
+return meta.headerTitle
+}
+
   const defHeader = column.columnDef.header
-  if (typeof defHeader === "string") return defHeader
+
+  if (typeof defHeader === "string") {
+return defHeader
+}
+
   return String(column.id)
 }
 
@@ -294,7 +302,9 @@ function createDataGridAutoSizeController<TData extends object>(
         applied = null
       }
 
-      if (fillWidth <= 0) return false
+      if (fillWidth <= 0) {
+return false
+}
 
       const autoSizeColumn = table
         .getVisibleLeafColumns()
@@ -318,6 +328,7 @@ function createDataGridAutoSizeController<TData extends object>(
       // to survive that. An explicit reset clears the entry and re-arms the
       // fill, which is what makes double-click-to-reset still work.
       const currentSize = columnSizing[autoSizeColumn.id]
+
       if (currentSize !== undefined && currentSize !== applied?.grown) {
         return false
       }
@@ -336,9 +347,11 @@ function createDataGridAutoSizeController<TData extends object>(
       applied = { columnId: autoSizeColumn.id, base, grown }
       table.setColumnSizing((old) => {
         const next = { ...old, [autoSizeColumn.id]: grown }
+
         if (revert && next[revert.columnId] === revert.grown) {
           next[revert.columnId] = revert.base
         }
+
         return next
       })
 
@@ -402,7 +415,7 @@ export interface DataGridProps<
 }
 
 const DataGridContext = createContext<
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   DataGridContextProps<any> | undefined
 >(undefined)
 
@@ -413,15 +426,17 @@ const DataGridContext = createContext<
  * unifies with a concrete row type the way it did on v8.
  */
 function useDataGrid<
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   TData extends object = any,
 >(): DataGridContextProps<TData> {
   const context = useContext(DataGridContext) as
     | DataGridContextProps<TData>
     | undefined
+
   if (!context) {
     throw new Error("useDataGrid must be used within a DataGridProvider")
   }
+
   return context
 }
 
@@ -459,8 +474,14 @@ function DataGridProvider<TData extends object>({
       : undefined
 
   useEffect(() => {
-    if (!resizeMode) return
-    if (table.options.columnResizeMode === resizeMode) return
+    if (!resizeMode) {
+return
+}
+
+    if (table.options.columnResizeMode === resizeMode) {
+return
+}
+
     table.setOptions((old) => ({ ...old, columnResizeMode: resizeMode }))
   }, [table, resizeMode])
 

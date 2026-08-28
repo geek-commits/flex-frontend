@@ -14,6 +14,7 @@ export function ShellProvider({ children }: { children: React.ReactNode }) {
     const [open, setOpen] = useState<boolean>(() => {
         try {
             const v = localStorage.getItem(STORAGE_KEY);
+
             return v ? JSON.parse(v) : true;
         } catch {
             return true;
@@ -39,9 +40,11 @@ export function ShellProvider({ children }: { children: React.ReactNode }) {
 
 export function useShell(): ShellContextValue {
     const ctx = useContext(ShellContext);
+
     if (!ctx) {
         // fallback to open when outside provider (e.g. tests)
         return { contextSidebarOpen: true, setContextSidebarOpen: () => {}, toggleContextSidebar: () => {} };
     }
+
     return ctx;
 }

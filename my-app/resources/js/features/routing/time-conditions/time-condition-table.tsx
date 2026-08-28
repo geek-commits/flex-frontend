@@ -29,6 +29,7 @@ export function TimeConditionTable({ records, onView, onEdit }: TimeConditionTab
         { key: 'status', label: t('timeConditions.columns.status'), align: 'start' },
         { key: 'actions', label: '', align: 'center' },
     ];
+
     return (
         <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
             <div className="overflow-x-auto">

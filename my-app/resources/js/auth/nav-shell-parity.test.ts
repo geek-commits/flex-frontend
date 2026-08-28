@@ -1,11 +1,12 @@
 import { describe, expect, it } from 'vitest';
+import { CONSOLE_MODULES } from '@/domain/modules';
 import { NAVIGATION, ROLE_CAPABILITIES } from './capabilities';
 import { FLEX_DOMAINS, isActiveRoute } from './nav-domains';
-import { CONSOLE_MODULES } from '@/domain/modules';
 
 function visibleHrefsForRole(role: keyof typeof ROLE_CAPABILITIES) {
     const caps = ROLE_CAPABILITIES[role];
     const has = (c: string) => (caps as string[]).includes(c);
+
     return FLEX_DOMAINS.flatMap((domain) =>
         !has(domain.capability)
             ? []
@@ -19,6 +20,7 @@ function visibleGroupsForDomain(domainId: string, role: keyof typeof ROLE_CAPABI
     const domain = FLEX_DOMAINS.find((d) => d.id === domainId);
     const caps = ROLE_CAPABILITIES[role];
     const has = (c: string) => (caps as string[]).includes(c);
+
     if (!domain || !has(domain.capability)) {
         return [];
     }
@@ -70,6 +72,7 @@ describe('nav shell parity', () => {
     describe('agent sidebar (plan 58)', () => {
         it('contains expected agent routes', () => {
             const hrefs = new Set(visibleHrefsForRole('agent'));
+
             for (const href of ['/agent/dashboard', '/agent', '/agent/social', '/agent/missed-calls', '/agent/troubleshooting', '/agent/support']) {
                 expect(hrefs.has(href), `agent should see ${href}`).toBe(true);
             }
@@ -86,6 +89,7 @@ describe('nav shell parity', () => {
     describe('supervisor administration sidebar (plan 59)', () => {
         it('visible contains operational subset', () => {
             const hrefs = new Set(visibleHrefsForRole('supervisor'));
+
             for (const h of ['/admin/console', '/admin/users', '/admin/queues', '/admin/ivr', '/admin/time-groups', '/admin/time-conditions', '/admin/recordings']) {
                 expect(hrefs.has(h), `supervisor visible ${h}`).toBe(true);
             }
@@ -93,6 +97,7 @@ describe('nav shell parity', () => {
 
         it('hidden does not contain administrator-only routes', () => {
             const hrefs = new Set(visibleHrefsForRole('supervisor'));
+
             for (const h of ['/admin/roles', '/admin/subscription', '/admin/mail-config', '/admin/system', '/admin/ai', '/admin/tenants']) {
                 expect(hrefs.has(h), `supervisor hidden ${h}`).toBe(false);
             }
@@ -112,6 +117,7 @@ describe('nav shell parity', () => {
     describe('administrator sidebar (plan 60)', () => {
         it('visible contains full administration', () => {
             const hrefs = new Set(visibleHrefsForRole('admin'));
+
             for (const h of [
                 '/admin/console',
                 '/admin/users',
@@ -141,9 +147,11 @@ describe('nav shell parity', () => {
             const derivedHrefs = new Set(FLEX_DOMAINS.flatMap((d) => d.groups.flatMap((g) => g.items.map((i) => i.href))));
             derivedHrefs.add('/settings/profile');
             const navHrefs = NAVIGATION.map((n) => n.href);
+
             for (const href of navHrefs) {
                 expect(derivedHrefs.has(href), `NAVIGATION href ${href} should be in FLEX_DOMAINS or shared`).toBe(true);
             }
+
             for (const href of derivedHrefs) {
                 expect(navHrefs.includes(href), `FLEX_DOMAIN href ${href} should appear in NAVIGATION`).toBe(true);
             }

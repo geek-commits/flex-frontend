@@ -29,6 +29,7 @@ export function AgentDashboardHeader({
     connectionState,
 }: AgentDashboardHeaderProps) {
     const { t } = useTranslation('navigation');
+
     return (
         <header className="h-11 bg-flex-workspace-surface border-b border-flex-workspace-divider px-4 flex items-center justify-between gap-3 sticky top-0 z-20 shrink-0 select-none">
             <div className="min-w-0">

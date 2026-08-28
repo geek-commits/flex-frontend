@@ -26,6 +26,7 @@ function DetailRow({ label, children }: { label: string; children: React.ReactNo
 /** IVR detail — inspection with menu entries and default destination. */
 export function IVRDetailSheet({ ivr, onOpenChange, onEdit, onDelete }: IVRDetailSheetProps) {
     const { t } = useTranslation('administration');
+
     return (
         <FlexDetailSheet
             open={!!ivr}

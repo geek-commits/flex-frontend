@@ -20,6 +20,7 @@ export interface RolesTableProps {
  */
 export function RolesTable({ records, isLoading, emptyMessage, onEdit }: RolesTableProps) {
     const { t } = useTranslation('administration');
+
     if (isLoading) {
         return (
             <div className="flex flex-col gap-2">

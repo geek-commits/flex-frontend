@@ -46,6 +46,7 @@ function CurrentCallCell({ row }: { row: MonitoringAgentRow }) {
 
 export function monitoringColumns(t?: (key: string) => string): ColumnDef<DataGridFeatures, MonitoringAgentRow>[] {
     const tt = t ?? ((k: string) => k);
+
     return [
         {
             accessorKey: 'name',

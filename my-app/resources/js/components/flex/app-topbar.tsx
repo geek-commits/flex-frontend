@@ -1,6 +1,7 @@
 import { Link, usePage } from '@inertiajs/react';
 import { RiWifiLine, RiMenuLine } from '@remixicon/react';
 import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useCapabilities } from '@/auth/capabilities';
 import { FLEX_DOMAINS, isActiveRoute } from '@/auth/nav-domains';
 import { FlexBrandLogo } from '@/components/flex/brand';
@@ -8,14 +9,13 @@ import { useBrandIntroReplayGuard } from '@/components/flex/brand/use-brand-intr
 import { FlexProfileMenu } from '@/components/flex/flex-profile-menu';
 import { GlobalSearchTrigger } from '@/components/flex/global-search';
 import { FlexIcon } from '@/components/flex/iconography';
+import { LanguageSwitcher } from '@/components/language-switcher';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { LanguageSwitcher } from '@/components/language-switcher';
 import { TenantContextIndicator } from '@/features/tenants/tenant-context-indicator';
 import { agentStateMap, connectionStateMap } from '@/lib/status-styles';
 import type { AgentState, ConnectionState } from '@/types/flex';
-import { useTranslation } from 'react-i18next';
 
 export interface AppTopbarProps {
     title?: string;

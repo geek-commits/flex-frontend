@@ -47,6 +47,7 @@ export function MessageTimeline({
     onRetry,
 }: MessageTimelineProps) {
     const { t } = useTranslation('supervision');
+
     if (error) {
         return (
             <FlexEmptyState

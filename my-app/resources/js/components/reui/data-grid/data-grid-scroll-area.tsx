@@ -1,7 +1,7 @@
+import { ScrollArea as ScrollAreaPrimitive } from "@base-ui/react/scroll-area"
 import { useCallback, useEffect, useRef, useState } from "react"
 import type { PointerEvent, ReactNode } from "react"
 import { useDataGrid } from "@/components/reui/data-grid/data-grid"
-import { ScrollArea as ScrollAreaPrimitive } from "@base-ui/react/scroll-area"
 
 import { cn } from "@/lib/utils"
 
@@ -129,13 +129,18 @@ function DataGridScrollArea({
   const setOverlayRef = useCallback((node: HTMLDivElement | null) => {
     overlayRef.current = node
 
-    if (node) applyMetrics(node, metricsRef.current)
+    if (node) {
+applyMetrics(node, metricsRef.current)
+}
   }, [])
 
   const resetMetrics = useCallback(() => {
     if (!areMetricsEqual(INITIAL_METRICS, metricsRef.current)) {
       metricsRef.current = INITIAL_METRICS
-      if (overlayRef.current) applyMetrics(overlayRef.current, INITIAL_METRICS)
+
+      if (overlayRef.current) {
+applyMetrics(overlayRef.current, INITIAL_METRICS)
+}
     }
 
     setHasCustomVerticalOverflow((prev) => (prev ? false : prev))
@@ -147,6 +152,7 @@ function DataGridScrollArea({
 
     if (!container || !viewport || !usesCustomVerticalScrollbar) {
       resetMetrics()
+
       return
     }
 
@@ -204,12 +210,15 @@ function DataGridScrollArea({
 
     if (!areMetricsEqual(nextMetrics, metricsRef.current)) {
       metricsRef.current = nextMetrics
+
       // Scoped to the overlay, never to the container. These four properties
       // inherit, and thumbTop changes on essentially every scroll frame, so
       // writing them on the element that wraps the whole grid invalidates
       // computed style for every row and cell each frame. The overlay subtree
       // is their only reader.
-      if (overlayRef.current) applyMetrics(overlayRef.current, nextMetrics)
+      if (overlayRef.current) {
+applyMetrics(overlayRef.current, nextMetrics)
+}
     }
 
     setHasCustomVerticalOverflow((prev) =>
@@ -223,10 +232,13 @@ function DataGridScrollArea({
     const container = containerRef.current
     const viewport = viewportRef.current
 
-    if (!container || !viewport) return
+    if (!container || !viewport) {
+return
+}
 
     if (!usesCustomVerticalScrollbar) {
       resetMetrics()
+
       return
     }
 
@@ -285,6 +297,7 @@ function DataGridScrollArea({
     // would otherwise never be observed and the custom scrollbar would
     // overlap the sticky header. One-shot: disconnects once resolved.
     let mutationObserver: MutationObserver | null = null
+
     if (!resolvedOnMount && typeof MutationObserver !== "undefined") {
       mutationObserver = new MutationObserver(() => {
         if (resolveObservedElements()) {
@@ -314,13 +327,16 @@ function DataGridScrollArea({
     const viewport = viewportRef.current
     const { thumbHeight, trackHeight } = metricsRef.current
 
-    if (!viewport) return
+    if (!viewport) {
+return
+}
 
     const maxScroll = Math.max(0, viewport.scrollHeight - viewport.clientHeight)
     const maxThumbTop = Math.max(0, trackHeight - thumbHeight)
 
     if (maxScroll === 0 || maxThumbTop === 0) {
       viewport.scrollTop = 0
+
       return
     }
 
@@ -331,7 +347,9 @@ function DataGridScrollArea({
   const handleThumbPointerDown = (event: PointerEvent<HTMLDivElement>) => {
     const viewport = viewportRef.current
 
-    if (!viewport) return
+    if (!viewport) {
+return
+}
 
     event.preventDefault()
     event.stopPropagation()
@@ -359,7 +377,9 @@ function DataGridScrollArea({
     const maxThumbTop = Math.max(0, trackHeight - thumbHeight)
     const maxScroll = Math.max(0, viewport.scrollHeight - viewport.clientHeight)
 
-    if (maxThumbTop === 0 || maxScroll === 0) return
+    if (maxThumbTop === 0 || maxScroll === 0) {
+return
+}
 
     const deltaY = event.clientY - dragState.startY
     const nextScrollTop =
@@ -369,14 +389,19 @@ function DataGridScrollArea({
   }
 
   const handleThumbPointerUp = (event: PointerEvent<HTMLDivElement>) => {
-    if (dragRef.current?.pointerId !== event.pointerId) return
+    if (dragRef.current?.pointerId !== event.pointerId) {
+return
+}
+
     clearDragState()
   }
 
   const handleTrackPointerDown = (event: PointerEvent<HTMLDivElement>) => {
     const { thumbHeight } = metricsRef.current
 
-    if (event.target !== event.currentTarget) return
+    if (event.target !== event.currentTarget) {
+return
+}
 
     event.preventDefault()
     event.stopPropagation()

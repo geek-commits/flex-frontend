@@ -5,6 +5,7 @@ import { AgentWorkspacePage } from '@/features/agent-workspace/agent-workspace-p
 
 export default function AgentWorkspaceIndex() {
     const { t } = useTranslation('agent');
+
     return (
         <>
             <Head title={t('workspace.headTitle')} />

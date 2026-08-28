@@ -118,6 +118,7 @@ function AgentMonitoringContent() {
 
 export function AgentMonitoringPage() {
     const { t } = useTranslation('supervision');
+
     return (
         <DashboardProvider>
             <AdminShell

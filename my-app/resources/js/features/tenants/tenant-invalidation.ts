@@ -20,18 +20,22 @@ const registry = new Set<Invalidatable>();
 
 export function registerInvalidatable(handle: Invalidatable): () => void {
     registry.add(handle);
+
     return () => registry.delete(handle);
 }
 
 export function invalidateOnTenantChange(scope: InvalidationScope): InvalidationResult {
     let queriesInvalidated = 0;
-    let subscriptionsTornDown = 0;
+    const subscriptionsTornDown = 0;
+
     for (const handle of registry) {
         const n = handle.onTenantChange?.(scope);
+
         if (typeof n === 'number') {
             queriesInvalidated += n;
         }
         // subscriptionsTornDown is incremented by realtime channels that expose a count
     }
+
     return { queriesInvalidated, subscriptionsTornDown };
 }

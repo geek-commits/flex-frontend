@@ -25,6 +25,7 @@ export interface AgentMonitoringRosterProps {
  */
 export function AgentMonitoringRoster({ table, rows, isLoading }: AgentMonitoringRosterProps) {
     const { t } = useTranslation('supervision');
+
     return (
         <DataGrid
             table={table}

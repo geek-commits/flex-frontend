@@ -1,3 +1,12 @@
+import { RiCornerUpLeftLine, RiCornerUpRightLine, RiArrowLeftSLine, RiArrowRightSLine, RiCloseLine } from "@remixicon/react"
+import {
+  addMonths,
+  format,
+  isBefore,
+  isSameMonth,
+  parse,
+  subMonths,
+} from "date-fns"
 import type { ChangeEvent, ComponentProps } from "react"
 import {
   createContext,
@@ -7,24 +16,15 @@ import {
   useMemo,
   useState,
 } from "react"
-import {
-  addMonths,
-  format,
-  isBefore,
-  isSameMonth,
-  parse,
-  subMonths,
-} from "date-fns"
 import type { DateRange, DayButton } from "react-day-picker"
 
-import { useIsMobile } from "@/hooks/use-mobile"
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Calendar, CalendarDayButton } from "@/components/ui/calendar"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { RiCornerUpLeftLine, RiCornerUpRightLine, RiArrowLeftSLine, RiArrowRightSLine, RiCloseLine } from "@remixicon/react"
+import { useIsMobile } from "@/hooks/use-mobile"
+import { cn } from "@/lib/utils"
 
 export interface DateSelectorI18nConfig {
   // Labels
@@ -182,9 +182,11 @@ export function formatDateValue(
     if (startDate && endDate) {
       return `${format(startDate, dayDateFormat)} - ${format(endDate, dayDateFormat)}`
     }
+
     if (startDate) {
       return format(startDate, dayDateFormat)
     }
+
     return ""
   }
 
@@ -192,9 +194,11 @@ export function formatDateValue(
     if (rangeStart && rangeEnd) {
       return `${i18n.monthsShort[rangeStart.value]} ${rangeStart.year} - ${i18n.monthsShort[rangeEnd.value]} ${rangeEnd.year}`
     }
+
     if (year !== undefined && month !== undefined) {
       return `${i18n.monthsShort[month]} ${year}`
     }
+
     return ""
   }
 
@@ -202,9 +206,11 @@ export function formatDateValue(
     if (rangeStart && rangeEnd) {
       return `${i18n.quarters[rangeStart.value]} ${rangeStart.year} - ${i18n.quarters[rangeEnd.value]} ${rangeEnd.year}`
     }
+
     if (year !== undefined && quarter !== undefined) {
       return `${i18n.quarters[quarter]} ${year}`
     }
+
     return ""
   }
 
@@ -212,9 +218,11 @@ export function formatDateValue(
     if (rangeStart && rangeEnd) {
       return `${i18n.halfYears[rangeStart.value]} ${rangeStart.year} - ${i18n.halfYears[rangeEnd.value]} ${rangeEnd.year}`
     }
+
     if (year !== undefined && halfYear !== undefined) {
       return `${i18n.halfYears[halfYear]} ${year}`
     }
+
     return ""
   }
 
@@ -222,9 +230,11 @@ export function formatDateValue(
     if (rangeStart && rangeEnd) {
       return `${rangeStart.year} - ${rangeEnd.year}`
     }
+
     if (year !== undefined) {
       return `${year}`
     }
+
     return ""
   }
 
@@ -261,8 +271,14 @@ export function useDateSelector({
   const currentYear = baseYear ?? new Date().getFullYear()
 
   const validDefaultPeriodType = useMemo(() => {
-    if (!periodTypes || periodTypes.length === 0) return defaultPeriodType
-    if (periodTypes.includes(defaultPeriodType)) return defaultPeriodType
+    if (!periodTypes || periodTypes.length === 0) {
+return defaultPeriodType
+}
+
+    if (periodTypes.includes(defaultPeriodType)) {
+return defaultPeriodType
+}
+
     return periodTypes[0]
   }, [periodTypes, defaultPeriodType])
 
@@ -310,6 +326,7 @@ export function useDateSelector({
         (_, i) => minYear + i
       )
     }
+
     return Array.from(
       { length: yearRange },
       (_, i) => currentYear - Math.floor(yearRange / 2) + i
@@ -384,12 +401,22 @@ export function useDateSelector({
           setRangeStart({ year, value })
           setRangeEnd(undefined)
           setSelectedYear(year)
-          if (periodType === "month") setSelectedMonth(value)
-          if (periodType === "quarter") setSelectedQuarter(value)
-          if (periodType === "half-year") setSelectedHalfYear(value)
+
+          if (periodType === "month") {
+setSelectedMonth(value)
+}
+
+          if (periodType === "quarter") {
+setSelectedQuarter(value)
+}
+
+          if (periodType === "half-year") {
+setSelectedHalfYear(value)
+}
         } else {
           const startKey = rangeStart.year * 100 + rangeStart.value
           const endKey = year * 100 + value
+
           if (endKey < startKey) {
             setRangeEnd(rangeStart)
             setRangeStart({ year, value })
@@ -399,9 +426,19 @@ export function useDateSelector({
         }
       } else {
         setSelectedYear(year)
-        if (periodType === "month") setSelectedMonth(value)
-        if (periodType === "quarter") setSelectedQuarter(value)
-        if (periodType === "half-year") setSelectedHalfYear(value)
+
+        if (periodType === "month") {
+setSelectedMonth(value)
+}
+
+        if (periodType === "quarter") {
+setSelectedQuarter(value)
+}
+
+        if (periodType === "half-year") {
+setSelectedHalfYear(value)
+}
+
         setRangeStart(undefined)
         setRangeEnd(undefined)
       }
@@ -444,7 +481,10 @@ export function useDateSelector({
   const handleFilterTypeChange = useCallback(
     (type: DateSelectorFilterType) => {
       // Don't allow changes if presetMode is set
-      if (presetMode !== undefined) return
+      if (presetMode !== undefined) {
+return
+}
+
       setFilterType(type)
       clearSelection()
     },
@@ -453,10 +493,14 @@ export function useDateSelector({
 
   const isInRange = useCallback(
     (year: number, value: number) => {
-      if (!rangeStart || !rangeEnd) return false
+      if (!rangeStart || !rangeEnd) {
+return false
+}
+
       const key = year * 100 + value
       const startKey = rangeStart.year * 100 + rangeStart.value
       const endKey = rangeEnd.year * 100 + rangeEnd.value
+
       return key >= startKey && key <= endKey
     },
     [rangeStart, rangeEnd]
@@ -464,7 +508,10 @@ export function useDateSelector({
 
   const isYearInRange = useCallback(
     (year: number) => {
-      if (!rangeStart || !rangeEnd) return false
+      if (!rangeStart || !rangeEnd) {
+return false
+}
+
       return year >= rangeStart.year && year <= rangeEnd.year
     },
     [rangeStart, rangeEnd]
@@ -805,11 +852,13 @@ function DateSelectorDayPicker({
   const formatters = {
     formatWeekdayName: (date: Date) => {
       const dayIndex = date.getDay()
+
       return i18n.weekdaysShort[dayIndex] || i18n.weekdays[dayIndex]
     },
     formatMonthCaption: (date: Date) => {
       const monthIndex = date.getMonth()
       const year = date.getFullYear()
+
       return `${i18n.months[monthIndex]} ${year}`
     },
   }
@@ -1095,11 +1144,14 @@ export function DateSelector({
     if (dayDateFormats && dayDateFormats.length > 0) {
       // Use provided formats, with dayDateFormat first if not already included
       const formats = [...dayDateFormats]
+
       if (!formats.includes(dayDateFormat)) {
         formats.unshift(dayDateFormat)
       }
+
       return formats
     }
+
     // Default formats: use dayDateFormat first, then common alternatives
     const defaultFormats = [
       dayDateFormat,
@@ -1108,6 +1160,7 @@ export function DateSelector({
       "MM-dd-yyyy",
       "dd-MM-yyyy",
     ]
+
     // Remove duplicates while preserving order
     return Array.from(new Set(defaultFormats))
   }, [dayDateFormat, dayDateFormats])
@@ -1115,14 +1168,18 @@ export function DateSelector({
   // Parse input text to DateSelectorValue
   const parseInputValue = useCallback(
     (text: string): DateSelectorValue | null => {
-      if (!text.trim()) return null
+      if (!text.trim()) {
+return null
+}
 
       const trimmed = text.trim()
 
       // Try parsing as year (e.g., "2025")
       const yearMatch = trimmed.match(/^\d{4}$/)
+
       if (yearMatch) {
         const year = parseInt(yearMatch[0])
+
         if (year >= 1900 && year <= 2100) {
           return {
             period: "year",
@@ -1134,11 +1191,13 @@ export function DateSelector({
 
       // Try parsing as quarter (e.g., "Q4", "Q1 2025")
       const quarterMatch = trimmed.match(/^Q([1-4])(?:\s+(\d{4}))?$/i)
+
       if (quarterMatch) {
         const quarter = parseInt(quarterMatch[1]) - 1
         const year = quarterMatch[2]
           ? parseInt(quarterMatch[2])
           : new Date().getFullYear()
+
         if (year >= 1900 && year <= 2100) {
           return {
             period: "quarter",
@@ -1153,6 +1212,7 @@ export function DateSelector({
       for (const dateFormat of dateFormats) {
         try {
           const parsed = parse(trimmed, dateFormat, new Date())
+
           if (!isNaN(parsed.getTime())) {
             return {
               period: "day",
@@ -1177,6 +1237,7 @@ export function DateSelector({
 
       // Try to parse the input
       const parsed = parseInputValue(newValue)
+
       if (parsed) {
         onChange?.(parsed)
       }
@@ -1186,6 +1247,7 @@ export function DateSelector({
 
   const handleInputBlur = useCallback(() => {
     setIsInputFocused(false)
+
     // Reset to display value if parsing failed
     if (!parseInputValue(inputValue)) {
       setInputValue(displayValue)

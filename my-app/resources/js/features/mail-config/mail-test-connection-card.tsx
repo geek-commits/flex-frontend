@@ -22,6 +22,7 @@ export function MailTestConnectionCard({
     onTest,
 }: MailTestConnectionCardProps) {
     const { t } = useTranslation('administration');
+
     return (
         <Card className="h-full flex flex-col justify-between">
             <CardHeader className="pb-3">

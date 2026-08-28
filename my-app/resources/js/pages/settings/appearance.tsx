@@ -6,6 +6,7 @@ import { edit as editAppearance } from '@/routes/appearance';
 
 export default function Appearance() {
     const { t } = useTranslation('common');
+
     return (
         <>
             <Head title={t('settings.appearanceHeadTitle')} />

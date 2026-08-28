@@ -16,6 +16,7 @@ export function useSavedViews(tenantId: string, ownerId: string, dataset: string
         try {
             const raw = localStorage.getItem(KEY(tenantId, ownerId));
             const parsed = raw ? (JSON.parse(raw) as SavedView[]) : [];
+
             return parsed.filter((v) => v.dataset === dataset && v.version === 1);
         } catch {
             return [];
@@ -30,6 +31,7 @@ export function useSavedViews(tenantId: string, ownerId: string, dataset: string
             const updated = [...all, next];
             localStorage.setItem(KEY(tenantId, ownerId), JSON.stringify(updated));
             setViews((v) => [...v, next]);
+
             return next;
         },
         [tenantId, ownerId, dataset],

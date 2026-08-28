@@ -14,6 +14,7 @@ export default function HealthPage() {
         { name: 'Dashboard realtime', state: 'Operational' },
         { name: 'Agent Assist', state: 'Operational' },
     ];
+
     return (
         <AppLayout breadcrumbs={[{ title: t('health.title'), href: '/admin/health' }]}>
             <Head title={t('health.headTitle')} />

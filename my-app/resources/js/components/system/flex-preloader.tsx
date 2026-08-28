@@ -10,7 +10,10 @@ type FlexPreloaderProps = {
 
 export function FlexPreloader({ visible = true, leaving = false, failed = false, onRetry }: FlexPreloaderProps) {
     const { t } = useTranslation('common');
-    if (!visible && !leaving && !failed) return null;
+
+    if (!visible && !leaving && !failed) {
+return null;
+}
 
     return (
         <div

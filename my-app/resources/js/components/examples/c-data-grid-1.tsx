@@ -1,19 +1,21 @@
+import type {
+  ColumnDef,
+  PaginationState,
+  SortingState} from "@tanstack/react-table";
+import {
+  useTable,
+} from "@tanstack/react-table"
 import { useMemo, useState } from "react"
 import {
   DataGrid,
   DataGridContainer,
-  dataGridFeatures,
-  type DataGridFeatures,
+  dataGridFeatures
+  
 } from "@/components/reui/data-grid/data-grid"
+import type {DataGridFeatures} from "@/components/reui/data-grid/data-grid";
 import { DataGridPagination } from "@/components/reui/data-grid/data-grid-pagination"
 import { DataGridScrollArea } from "@/components/reui/data-grid/data-grid-scroll-area"
 import { DataGridTable } from "@/components/reui/data-grid/data-grid-table"
-import {
-  ColumnDef,
-  PaginationState,
-  SortingState,
-  useTable,
-} from "@tanstack/react-table"
 
 const users = [
   {

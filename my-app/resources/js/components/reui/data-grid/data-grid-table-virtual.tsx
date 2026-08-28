@@ -1,5 +1,13 @@
 "use client"
 
+import { flexRender } from "@tanstack/react-table"
+import type { Column, Row } from "@tanstack/react-table"
+import { useVirtualizer } from "@tanstack/react-virtual"
+import type {
+  VirtualItem,
+  Virtualizer,
+  VirtualizerOptions,
+} from "@tanstack/react-virtual"
 import { memo, useCallback, useEffect, useRef, useState } from "react"
 import type { CSSProperties, ReactNode } from "react"
 import { useDataGrid } from "@/components/reui/data-grid/data-grid"
@@ -27,17 +35,9 @@ import {
   getPinningStyles,
   hasDataGridTableRightPinnedColumns,
 } from "@/components/reui/data-grid/data-grid-table"
-import { flexRender } from "@tanstack/react-table"
-import type { Column, Row } from "@tanstack/react-table"
-import { useVirtualizer } from "@tanstack/react-virtual"
-import type {
-  VirtualItem,
-  Virtualizer,
-  VirtualizerOptions,
-} from "@tanstack/react-virtual"
 
-import { cn } from "@/lib/utils"
 import { Spinner } from "@/components/ui/spinner"
+import { cn } from "@/lib/utils"
 
 type DataGridTableVirtualScrollElements = {
   containerElement: HTMLDivElement | null
@@ -116,7 +116,9 @@ function getDataGridTableScrollTarget({
             viewportTopOffset -
             Math.max(0, (visibleHeight - rowHeight) / 2)
 
-  if (targetTop === null) return null
+  if (targetTop === null) {
+return null
+}
 
   return Math.min(
     Math.max(0, targetTop),
@@ -133,13 +135,17 @@ function getDataGridTableHeaderOffset({
   headerSticky: boolean
   scrollElement: HTMLElement
 }) {
-  if (!headerSticky) return 0
+  if (!headerSticky) {
+return 0
+}
 
   const headerElement = containerElement.querySelector<HTMLElement>(
     ':scope > [data-slot="data-grid-table"] > thead'
   )
 
-  if (!headerElement) return 0
+  if (!headerElement) {
+return 0
+}
 
   const scrollRect = scrollElement.getBoundingClientRect()
   const headerRect = headerElement.getBoundingClientRect()
@@ -147,7 +153,9 @@ function getDataGridTableHeaderOffset({
   const overlapsViewportTop =
     headerRect.top <= scrollRect.top + 0.5 && headerBottomOffset > 0
 
-  if (!overlapsViewportTop) return 0
+  if (!overlapsViewportTop) {
+return 0
+}
 
   return Math.min(scrollElement.clientHeight, Math.max(0, headerBottomOffset))
 }
@@ -191,13 +199,17 @@ function scrollDataGridTableRowIntoView({
   scrollElement: HTMLElement | null
   virtualizer?: DataGridTableVirtualizerInstance
 }) {
-  if (!containerElement || !scrollElement) return false
+  if (!containerElement || !scrollElement) {
+return false
+}
 
   const rowElement = containerElement.querySelector<HTMLTableRowElement>(
     `:scope > [data-slot="data-grid-table"] > tbody > tr[data-index="${rowIndex}"]`
   )
 
-  if (!rowElement) return false
+  if (!rowElement) {
+return false
+}
 
   const scrollRect = scrollElement.getBoundingClientRect()
   const rowRect = rowElement.getBoundingClientRect()
@@ -390,7 +402,9 @@ function DataGridTableVirtualSpacer<TData extends object>({
   table: DataGridTableInstance<TData>
   height: number
 }) {
-  if (height <= 0) return null
+  if (height <= 0) {
+return null
+}
 
   return (
     <DataGridTableVirtualUtilityRow
@@ -505,7 +519,9 @@ function DataGridTableVirtualBody<TData extends object>({
     virtualItems.forEach((virtualRow) => {
       const row = centerRows[virtualRow.index]
 
-      if (!row) return
+      if (!row) {
+return
+}
 
       renderedRows.push(
         <DataGridTableRenderedRow
@@ -653,7 +669,9 @@ function DataGridTableVirtual<TData extends object>({
     (index: number) => {
       const row = centerRows[index]
 
-      if (!row) return index
+      if (!row) {
+return index
+}
 
       return customGetItemKey?.(index, row) ?? row.id ?? index
     },
@@ -739,7 +757,10 @@ function DataGridTableVirtual<TData extends object>({
 
     const scrollElement = resolveScrollElement()
     const containerElement = viewportElements.containerElement
-    if (!containerElement || !scrollElement) return
+
+    if (!containerElement || !scrollElement) {
+return
+}
 
     const headerSticky = renderHeader && !!props.tableLayout?.headerSticky
     const nextRequest: DataGridTableVirtualScrollRequest = {
@@ -753,7 +774,9 @@ function DataGridTableVirtual<TData extends object>({
       scrollElement,
     }
 
-    if (isSameDataGridTableScrollRequest(previousRequest, nextRequest)) return
+    if (isSameDataGridTableScrollRequest(previousRequest, nextRequest)) {
+return
+}
 
     pendingScrollToRowIndexRef.current = null
 
@@ -770,10 +793,13 @@ function DataGridTableVirtual<TData extends object>({
 
     if (rowWasHandled) {
       lastScrollRequestRef.current = nextRequest
+
       return
     }
 
-    if (!isVirtualizationEnabled) return
+    if (!isVirtualizationEnabled) {
+return
+}
 
     pendingScrollToRowIndexRef.current = scrollToRowIndex
     lastScrollRequestRef.current = nextRequest
@@ -830,9 +856,14 @@ function DataGridTableVirtual<TData extends object>({
     }
 
     const lastItem = virtualItems[virtualItems.length - 1]
-    if (!lastItem) return
 
-    if (fetchMoreFiredAtCountRef.current === centerRows.length) return
+    if (!lastItem) {
+return
+}
+
+    if (fetchMoreFiredAtCountRef.current === centerRows.length) {
+return
+}
 
     if (lastItem.index >= centerRows.length - 1 - resolvedFetchMoreOffset) {
       fetchMoreFiredAtCountRef.current = centerRows.length

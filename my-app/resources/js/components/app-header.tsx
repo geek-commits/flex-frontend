@@ -3,6 +3,7 @@ import { BookOpen, Folder, Menu, Search } from 'lucide-react';
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import { FlexBrandLogo } from '@/components/flex/brand';
 import { FlexIcon } from '@/components/flex/iconography';
+import { LanguageSwitcher } from '@/components/language-switcher';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -10,7 +11,6 @@ import {
     DropdownMenuContent,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { LanguageSwitcher } from '@/components/language-switcher';
 import {
     NavigationMenu,
     NavigationMenuItem,

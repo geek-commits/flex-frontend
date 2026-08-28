@@ -47,6 +47,7 @@ export function LanguageSwitcher({ className, variant = 'default' }: LanguageSwi
                 {SUPPORTED_LOCALES.map((code) => {
                     const meta = LOCALE_CONFIG[code as FlexLocale];
                     const isActive = locale === code;
+
                     // Full visible language names per spec, no flags
                     return (
                         <DropdownMenuItem

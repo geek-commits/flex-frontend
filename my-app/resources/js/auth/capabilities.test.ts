@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
+import { CONSOLE_MODULES } from '@/domain/modules';
 import { NAVIGATION, ROLE_CAPABILITIES } from './capabilities';
 import { FLEX_DOMAINS } from './nav-domains';
-import { CONSOLE_MODULES } from '@/domain/modules';
 
 describe('capabilities', () => {
     it('super-admin has all capabilities', () => {
@@ -11,9 +11,11 @@ describe('capabilities', () => {
 
     it('agent has frontline capabilities', () => {
         const caps = ROLE_CAPABILITIES.agent;
+
         for (const c of ['agent.workspace', 'agent.dashboard.view', 'social.view', 'call.manager', 'missed-calls.view', 'troubleshooting.view', 'support.view'] as const) {
             expect(caps).toContain(c);
         }
+
         for (const c of ['dashboard.view', 'console.view', 'roles.manage', 'tenants.manage'] as const) {
             expect(caps).not.toContain(c);
         }
@@ -21,9 +23,11 @@ describe('capabilities', () => {
 
     it('supervisor has operational capabilities', () => {
         const caps = ROLE_CAPABILITIES.supervisor;
+
         for (const c of ['dashboard.view', 'monitor.view', 'console.view', 'cdr.view', 'campaigns.view', 'campaigns.manage', 'reports.view'] as const) {
             expect(caps).toContain(c);
         }
+
         for (const c of ['roles.manage', 'tenants.manage', 'agent.workspace'] as const) {
             expect(caps).not.toContain(c);
         }
@@ -31,15 +35,18 @@ describe('capabilities', () => {
 
     it('admin has supervisor set plus roles', () => {
         const caps = ROLE_CAPABILITIES.admin;
+
         for (const c of ['dashboard.view', 'monitor.view', 'console.view', 'cdr.view', 'campaigns.view', 'campaigns.manage', 'reports.view', 'roles.manage', 'settings.manage', 'system.view'] as const) {
             expect(caps).toContain(c);
         }
+
         expect(caps).not.toContain('tenants.manage');
         expect(caps).not.toContain('agent.workspace');
     });
 
     it('NAVIGATION entries all reference a known capability', () => {
         const all = new Set(ROLE_CAPABILITIES['super-admin']);
+
         for (const entry of NAVIGATION) {
             expect(all.has(entry.capability), `${entry.title} capability ${entry.capability} must be in ALL`).toBe(true);
         }

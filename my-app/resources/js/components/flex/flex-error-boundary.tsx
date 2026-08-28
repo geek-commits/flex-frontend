@@ -13,6 +13,7 @@ export class FlexErrorBoundary extends React.Component<Props, State> {
 
     static getDerivedStateFromError(error: unknown): State {
         const cid = (error as Record<string, unknown>)?.correlationId as string | undefined;
+
         return { hasError: true, correlationId: cid };
     }
 
@@ -33,6 +34,7 @@ export class FlexErrorBoundary extends React.Component<Props, State> {
                 )
             );
         }
+
         return this.props.children;
     }
 }

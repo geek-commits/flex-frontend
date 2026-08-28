@@ -1,4 +1,5 @@
-import { lazy, Suspense, type ReactNode } from 'react';
+import { lazy, Suspense  } from 'react';
+import type {ReactNode} from 'react';
 
 // Workspace-only providers (tooltip, global search, toaster, active-call
 // island) are code-split and mounted only inside the workspace shells, so a
@@ -22,8 +23,8 @@ const GlobalSearchProvider = lazy(() =>
 const Toaster = lazy(() =>
     import('@/components/ui/sonner').then((m) => ({ default: m.Toaster }))
 );
-import { AgentAssistSessionProvider } from '@/features/agent-workspace/agent-assist/agent-assist-session-context';
 import { FlexCallIsland } from '@/components/flex/flex-call-island';
+import { AgentAssistSessionProvider } from '@/features/agent-workspace/agent-assist/agent-assist-session-context';
 
 export function AppProviders({ children }: { children: ReactNode }) {
     return (

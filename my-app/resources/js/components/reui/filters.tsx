@@ -1,6 +1,9 @@
 "use client"
 "use no memo"
 
+import { useRender } from "@base-ui/react/use-render"
+import { RiErrorWarningLine, RiCloseLine, RiCheckLine, RiAddLine } from "@remixicon/react"
+import { cva } from "class-variance-authority"
 import type React from "react"
 import {
   createContext,
@@ -12,10 +15,7 @@ import {
   useRef,
   useState,
 } from "react"
-import { useRender } from "@base-ui/react/use-render"
-import { cva } from "class-variance-authority"
 
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
   ButtonGroup,
@@ -48,7 +48,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { RiErrorWarningLine, RiCloseLine, RiCheckLine, RiAddLine } from "@remixicon/react"
+import { cn } from "@/lib/utils"
 
 // i18n Configuration Interface
 export interface FilterI18nConfig {
@@ -267,14 +267,19 @@ function FilterInput<T = unknown>({
       const timer = setTimeout(() => {
         inputRef.current?.focus()
       }, 300)
+
       return () => clearTimeout(timer)
     }
   }, [props.autoFocus])
 
   // Validation function to check if input matches pattern
   const validateInput = (value: string, pattern?: string): boolean => {
-    if (!pattern || !value) return true
+    if (!pattern || !value) {
+return true
+}
+
     const regex = new RegExp(pattern)
+
     return regex.test(value)
   }
 
@@ -296,6 +301,7 @@ function FilterInput<T = unknown>({
       // If there's a custom validation function, use it
       if (field?.validation) {
         const result = field.validation(value)
+
         // Handle both boolean and object return types
         if (typeof result === "boolean") {
           valid = result
@@ -568,10 +574,12 @@ const flattenFields = <T = unknown,>(
     if (isFieldGroup(item)) {
       return [...acc, ...item.fields]
     }
+
     // Handle group-level fields (new structure)
     if (isGroupLevelField(item)) {
       return [...acc, ...item.fields!]
     }
+
     return [...acc, item]
   }, [])
 }
@@ -580,12 +588,14 @@ const getFieldsMap = <T = unknown,>(
   fields: FilterFieldsConfig<T>
 ): Record<string, FilterFieldConfig<T>> => {
   const flatFields = flattenFields(fields)
+
   return flatFields.reduce(
     (acc, field) => {
       // Only add fields that have a key (skip group-level configurations)
       if (field.key) {
         acc[field.key] = field
       }
+
       return acc
     },
     {} as Record<string, FilterFieldConfig<T>>
@@ -621,10 +631,12 @@ const getFieldOptionCache = <T = unknown,>(
   field: FilterFieldConfig<T>
 ): Map<T, FilterOption<T>> => {
   let cache = fieldOptionCaches.get(field as object)
+
   if (!cache) {
     cache = new Map()
     fieldOptionCaches.set(field as object, cache)
   }
+
   return cache as Map<T, FilterOption<T>>
 }
 
@@ -643,6 +655,7 @@ function useFieldOptions<T = unknown>(
   // (static fields never read this cache, so skip the work for them).
   if (isAsync && field.options) {
     const cache = getFieldOptionCache(field)
+
     for (const opt of field.options) {
       cache.set(opt.value, opt)
     }
@@ -657,8 +670,12 @@ function useFieldOptions<T = unknown>(
   // Debounce the query for async fields to avoid a request per keystroke.
   const [debouncedQuery, setDebouncedQuery] = useState(searchInput)
   useEffect(() => {
-    if (!isAsync) return
+    if (!isAsync) {
+return
+}
+
     const timer = setTimeout(() => setDebouncedQuery(searchInput), 250)
+
     return () => clearTimeout(timer)
   }, [searchInput, isAsync])
 
@@ -668,9 +685,15 @@ function useFieldOptions<T = unknown>(
   const loaderRef = useRef(field.loadOptions)
   loaderRef.current = field.loadOptions
   useEffect(() => {
-    if (!isAsync || !enabled) return
+    if (!isAsync || !enabled) {
+return
+}
+
     const loader = loaderRef.current
-    if (!loader) return
+
+    if (!loader) {
+return
+}
 
     const requestId = ++requestIdRef.current
     let cancelled = false
@@ -680,13 +703,23 @@ function useFieldOptions<T = unknown>(
       .then(() => loader(debouncedQuery))
       .then((result) => {
         // Ignore stale responses (out-of-order guard).
-        if (cancelled || requestId !== requestIdRef.current) return
+        if (cancelled || requestId !== requestIdRef.current) {
+return
+}
+
         const cache = getFieldOptionCache(field)
-        for (const opt of result) cache.set(opt.value, opt)
+
+        for (const opt of result) {
+cache.set(opt.value, opt)
+}
+
         setState({ options: result, loading: false, error: false })
       })
       .catch(() => {
-        if (cancelled || requestId !== requestIdRef.current) return
+        if (cancelled || requestId !== requestIdRef.current) {
+return
+}
+
         setState((prev) => ({ ...prev, loading: false, error: true }))
       })
 
@@ -698,6 +731,7 @@ function useFieldOptions<T = unknown>(
   const resolveSelected = useCallback(
     (values: T[]): FilterOption<T>[] => {
       const cache = getFieldOptionCache(field)
+
       return values.map(
         (value) => cache.get(value) ?? { value, label: String(value) }
       )
@@ -770,7 +804,9 @@ const getOperatorsForField = <T = unknown,>(
   values: T[],
   i18n: FilterI18nConfig
 ): FilterOperator[] => {
-  if (field.operators) return field.operators
+  if (field.operators) {
+return field.operators
+}
 
   const operators = createOperatorsFromI18n(i18n)
 
@@ -962,7 +998,10 @@ function SelectOptionsPopover<T = unknown>({
     } else {
       onChange(next)
     }
-    if (!isMultiSelect) handleClose()
+
+    if (!isMultiSelect) {
+handleClose()
+}
   }
 
   const renderOptionItem = (option: FilterOption<T>, overallIndex: number) => {
@@ -984,7 +1023,9 @@ function SelectOptionsPopover<T = unknown>({
           option.className
         )}
         onSelect={(e) => {
-          if (isMultiSelect) e.preventDefault()
+          if (isMultiSelect) {
+e.preventDefault()
+}
         }}
         onCheckedChange={() => toggleOption(option)}
       >
@@ -1025,6 +1066,7 @@ function SelectOptionsPopover<T = unknown>({
             onKeyDown={(e) => {
               if (e.key === "ArrowDown") {
                 e.preventDefault()
+
                 if (allFilteredOptions.length > 0) {
                   setHighlightedIndex((prev) =>
                     prev < allFilteredOptions.length - 1 ? prev + 1 : 0
@@ -1032,6 +1074,7 @@ function SelectOptionsPopover<T = unknown>({
                 }
               } else if (e.key === "ArrowUp") {
                 e.preventDefault()
+
                 if (allFilteredOptions.length > 0) {
                   setHighlightedIndex((prev) =>
                     prev > 0 ? prev - 1 : allFilteredOptions.length - 1
@@ -1043,6 +1086,7 @@ function SelectOptionsPopover<T = unknown>({
               } else if (e.key === "Enter" && highlightedIndex >= 0) {
                 e.preventDefault()
                 const option = allFilteredOptions[highlightedIndex]
+
                 if (option) {
                   const isSelected = effectiveValues.includes(option.value as T)
                   const next = isSelected
@@ -1065,9 +1109,13 @@ function SelectOptionsPopover<T = unknown>({
                   } else {
                     onChange(next)
                   }
-                  if (!isMultiSelect) handleClose()
+
+                  if (!isMultiSelect) {
+handleClose()
+}
                 }
               }
+
               e.stopPropagation()
             }}
           />
@@ -1143,6 +1191,7 @@ function SelectOptionsPopover<T = unknown>({
       open={open}
       onOpenChange={(open) => {
         setOpen(open)
+
         if (!open) {
           setTimeout(() => setSearchInput(""), 200)
         }
@@ -1265,14 +1314,17 @@ export const FiltersContent = <T = unknown,>({
         filters.map((filter) => {
           if (filter.id === filterId) {
             const updatedFilter = { ...filter, ...updates }
+
             if (
               updates.operator === "empty" ||
               updates.operator === "not_empty"
             ) {
               updatedFilter.values = [] as T[]
             }
+
             return updatedFilter
           }
+
           return filter
         })
       )
@@ -1299,7 +1351,10 @@ export const FiltersContent = <T = unknown,>({
     >
       {filters.map((filter) => {
         const field = fieldsMap[filter.field]
-        if (!field) return null
+
+        if (!field) {
+return null
+}
 
         return (
           <ButtonGroup
@@ -1422,16 +1477,25 @@ function FilterSubmenuContent<T = unknown>({
     // stay labelled), then the loader's already-query-filtered results.
     if (isAsync) {
       const selectedSet = new Set(currentValues)
+
       return [
         ...resolveSelected(currentValues),
         ...resolvedOptions.filter((option) => !selectedSet.has(option.value)),
       ]
     }
+
     return (
       field.options?.filter((option) => {
         const isSelected = currentValues.includes(option.value)
-        if (isSelected) return true
-        if (!searchInput) return true
+
+        if (isSelected) {
+return true
+}
+
+        if (!searchInput) {
+return true
+}
+
         return option.label.toLowerCase().includes(searchInput.toLowerCase())
       }) || []
     )
@@ -1463,7 +1527,9 @@ function FilterSubmenuContent<T = unknown>({
           option.className
         )}
         onSelect={(e) => {
-          if (isMultiSelect) e.preventDefault()
+          if (isMultiSelect) {
+e.preventDefault()
+}
         }}
         onCheckedChange={() => onToggle(option.value as T, isSelected)}
       >
@@ -1513,6 +1579,7 @@ function FilterSubmenuContent<T = unknown>({
             onKeyDown={(e) => {
               if (e.key === "ArrowDown") {
                 e.preventDefault()
+
                 if (filteredOptions.length > 0) {
                   setHighlightedIndex((prev) =>
                     prev < filteredOptions.length - 1 ? prev + 1 : 0
@@ -1520,6 +1587,7 @@ function FilterSubmenuContent<T = unknown>({
                 }
               } else if (e.key === "ArrowUp") {
                 e.preventDefault()
+
                 if (filteredOptions.length > 0) {
                   setHighlightedIndex((prev) =>
                     prev > 0 ? prev - 1 : filteredOptions.length - 1
@@ -1531,11 +1599,13 @@ function FilterSubmenuContent<T = unknown>({
               } else if (e.key === "Enter" && highlightedIndex >= 0) {
                 e.preventDefault()
                 const option = filteredOptions[highlightedIndex]
+
                 if (option) {
                   onToggle(
                     option.value as T,
                     currentValues.includes(option.value)
                   )
+
                   if (!isMultiSelect) {
                     onBack?.()
                   }
@@ -1544,6 +1614,7 @@ function FilterSubmenuContent<T = unknown>({
                 e.preventDefault()
                 onClose?.()
               }
+
               e.stopPropagation()
             }}
           />
@@ -1560,6 +1631,7 @@ function FilterSubmenuContent<T = unknown>({
             if (field.searchable === false) {
               if (e.key === "ArrowDown") {
                 e.preventDefault()
+
                 if (filteredOptions.length > 0) {
                   setHighlightedIndex((prev) =>
                     prev < filteredOptions.length - 1 ? prev + 1 : 0
@@ -1567,6 +1639,7 @@ function FilterSubmenuContent<T = unknown>({
                 }
               } else if (e.key === "ArrowUp") {
                 e.preventDefault()
+
                 if (filteredOptions.length > 0) {
                   setHighlightedIndex((prev) =>
                     prev > 0 ? prev - 1 : filteredOptions.length - 1
@@ -1578,11 +1651,13 @@ function FilterSubmenuContent<T = unknown>({
               } else if (e.key === "Enter" && highlightedIndex >= 0) {
                 e.preventDefault()
                 const option = filteredOptions[highlightedIndex]
+
                 if (option) {
                   onToggle(
                     option.value as T,
                     currentValues.includes(option.value)
                   )
+
                   if (!isMultiSelect) {
                     onBack?.()
                   }
@@ -1591,6 +1666,7 @@ function FilterSubmenuContent<T = unknown>({
                 e.preventDefault()
                 onClose?.()
               }
+
               e.stopPropagation()
             }
           }}
@@ -1657,7 +1733,9 @@ export function Filters<T = unknown>({
   const rootId = useId()
 
   useEffect(() => {
-    if (!enableShortcut) return
+    if (!enableShortcut) {
+return
+}
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (
@@ -1674,6 +1752,7 @@ export function Filters<T = unknown>({
     }
 
     window.addEventListener("keydown", handleKeyDown)
+
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [enableShortcut, shortcutKey, addFilterOpen])
 
@@ -1713,6 +1792,7 @@ export function Filters<T = unknown>({
       const timer = setTimeout(() => {
         setLastAddedFilterId(null)
       }, 1000)
+
       return () => clearTimeout(timer)
     }
   }, [lastAddedFilterId])
@@ -1736,14 +1816,17 @@ export function Filters<T = unknown>({
         filters.map((filter) => {
           if (filter.id === filterId) {
             const updatedFilter = { ...filter, ...updates }
+
             if (
               updates.operator === "empty" ||
               updates.operator === "not_empty"
             ) {
               updatedFilter.values = [] as T[]
             }
+
             return updatedFilter
           }
+
           return filter
         })
       )
@@ -1761,6 +1844,7 @@ export function Filters<T = unknown>({
   const addFilter = useCallback(
     (fieldKey: string) => {
       const field = fieldsMap[fieldKey]
+
       if (field && field.key) {
         const defaultOperator =
           field.defaultOperator ||
@@ -1782,9 +1866,16 @@ export function Filters<T = unknown>({
 
   const selectableFields = useMemo(() => {
     const flatFields = flattenFields(fields)
+
     return flatFields.filter((field) => {
-      if (!field.key || field.type === "separator") return false
-      if (allowMultiple) return true
+      if (!field.key || field.type === "separator") {
+return false
+}
+
+      if (allowMultiple) {
+return true
+}
+
       return !filters.some((filter) => filter.field === field.key)
     })
   }, [fields, filters, allowMultiple])
@@ -1837,6 +1928,7 @@ export function Filters<T = unknown>({
             open={addFilterOpen}
             onOpenChange={(open) => {
               setAddFilterOpen(open)
+
               if (!open) {
                 setMenuSearchInput("")
                 setSessionFilterIds({})
@@ -1879,6 +1971,7 @@ export function Filters<T = unknown>({
                       onKeyDown={(e) => {
                         if (e.key === "ArrowDown") {
                           e.preventDefault()
+
                           if (filteredFields.length > 0) {
                             setHighlightedIndex((prev) =>
                               prev < filteredFields.length - 1 ? prev + 1 : 0
@@ -1886,6 +1979,7 @@ export function Filters<T = unknown>({
                           }
                         } else if (e.key === "ArrowUp") {
                           e.preventDefault()
+
                           if (filteredFields.length > 0) {
                             setHighlightedIndex((prev) =>
                               prev > 0 ? prev - 1 : filteredFields.length - 1
@@ -1908,6 +2002,7 @@ export function Filters<T = unknown>({
                             setActiveMenu(field.key || "root")
                           } else if (e.key === "ArrowLeft") {
                             e.preventDefault()
+
                             if (openSubMenu) {
                               setOpenSubMenu(null)
                               setActiveMenu("root")
@@ -1916,11 +2011,13 @@ export function Filters<T = unknown>({
                         } else if (e.key === "Enter" && highlightedIndex >= 0) {
                           e.preventDefault()
                           const field = filteredFields[highlightedIndex]
+
                           if (field.key) {
                             const hasSubMenu =
                               (field.type === "select" ||
                                 field.type === "multiselect") &&
                               fieldHasOptions(field)
+
                             if (!hasSubMenu) {
                               addFilter(field.key)
                             } else {
@@ -1936,6 +2033,7 @@ export function Filters<T = unknown>({
                         } else if (e.key === "Escape") {
                           setAddFilterOpen(false)
                         }
+
                         e.stopPropagation()
                       }}
                     />
@@ -2115,7 +2213,11 @@ export function Filters<T = unknown>({
 
         {filters.map((filter) => {
           const field = fieldsMap[filter.field]
-          if (!field) return null
+
+          if (!field) {
+return null
+}
+
           return (
             <ButtonGroup
               key={filter.id}

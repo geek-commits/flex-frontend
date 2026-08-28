@@ -34,6 +34,7 @@ export function RecoveryTable({
     emptyMessage,
 }: RecoveryTableProps) {
     const { t } = useTranslation('agent');
+
     if (error) {
         return (
             <FlexErrorState

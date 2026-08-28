@@ -8,12 +8,14 @@ import type { SocialMessage } from './social-types';
 export function dedupeMessages(messages: SocialMessage[]): SocialMessage[] {
     const seen = new Set<string>();
     const out: SocialMessage[] = [];
+
     for (const m of messages) {
         if (!seen.has(m.id)) {
             seen.add(m.id);
             out.push(m);
         }
     }
+
     return out;
 }
 

@@ -7,9 +7,9 @@ import { useCallIslandDrag } from '@/components/flex/call-island/use-call-island
 import { useCallIslandMetrics } from '@/components/flex/call-island/use-call-island-metrics';
 import { useCallIslandSafeZones } from '@/components/flex/call-island/use-call-island-safe-zones';
 import { DynamicIsland } from '@/components/smoothui/dynamic-island';
+import { useAgentAssistSessionOptional } from '@/features/agent-workspace/agent-assist/agent-assist-session-context';
 import { useActiveCallPresentation } from '@/features/agent-workspace/state/use-active-call-presentation';
 import type { ActiveCallPresentation } from '@/features/agent-workspace/state/use-active-call-presentation';
-import { useAgentAssistSessionOptional } from '@/features/agent-workspace/agent-assist/agent-assist-session-context';
 import { useCallTimer } from '@/features/dashboard/use-call-timer';
 
 const STATE_DOT_COLOR: Record<string, string> = {
@@ -75,6 +75,7 @@ function FlexCallIslandSurface({ call }: { call: ActiveCallPresentation }) {
         }
 
         const finals = assist.segments.filter((s) => s.status === 'final');
+
         return finals.length ? finals[finals.length - 1] : null;
     }, [assist?.segments]);
 
@@ -118,9 +119,11 @@ function FlexCallIslandSurface({ call }: { call: ActiveCallPresentation }) {
     const handleOpenAssist = useCallback(
         (event: React.MouseEvent<HTMLButtonElement>) => {
             event.stopPropagation();
+
             try {
                 assist?.openAssist();
             } catch {}
+
             router.visit('/agent');
         },
         [assist],
