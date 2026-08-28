@@ -2,8 +2,8 @@ import { Link, router, usePage } from '@inertiajs/react';
 import { RiLogoutBoxRLine, RiShieldUserLine, RiSettings4Line, RiUserSettingsLine, RiStore3Line } from '@remixicon/react';
 import React, { useState } from 'react';
 import { useCapabilities } from '@/auth/capabilities';
+import { AccountAvatar } from '@/components/flex/account-avatar';
 import { MyRoleAccess } from '@/components/flex/my-role-access';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -61,20 +61,14 @@ export function FlexProfileMenu() {
                     className="flex items-center justify-center size-8 rounded-full bg-transparent p-0 outline-none transition-colors hover:bg-flex-layer-hover focus-visible:ring-2 focus-visible:ring-ring"
                     aria-label="Open profile menu"
                 >
-                    <Avatar size="default" className="size-8">
-                        {user.avatar ? <AvatarImage src={user.avatar} alt="" /> : null}
-                        <AvatarFallback>{initials}</AvatarFallback>
-                    </Avatar>
+                    <AccountAvatar size="default" className="size-8" src={user.avatar ?? null} initials={initials} alt="" />
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent align="end" sideOffset={8} className="w-72">
                     <DropdownMenuGroup>
                         <DropdownMenuLabel className="p-0 font-normal">
                             <div className="flex items-center gap-3 px-2 py-2">
-                                <Avatar size="lg">
-                                    {user.avatar ? <AvatarImage src={user.avatar} alt={user.name} /> : null}
-                                    <AvatarFallback>{initials}</AvatarFallback>
-                                </Avatar>
+                                <AccountAvatar size="lg" src={user.avatar ?? null} initials={initials} alt={user.name ?? ''} />
                                 <div className="min-w-0">
                                     <div className="truncate text-sm font-semibold text-foreground" title={user.name}>
                                         {user.name}

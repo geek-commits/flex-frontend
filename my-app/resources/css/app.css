@@ -347,7 +347,12 @@
     --flex-switch-active: #0077E6;
     --flex-text-primary: #333333;
     --flex-text-muted: #777777;
-    --flex-avatar-gradient: linear-gradient(135deg, #0077E6 0%, #00B8DB 50%, #7C3AED 100%); /* blue/cyan/violet fallback */
+    /* Account avatar fallback — canonical layered blue/cyan/violet/magenta (scope: signed-in account only) */
+    --flex-account-avatar-gradient:
+        radial-gradient(circle at 82% 22%, rgba(214, 72, 255, 0.95) 0%, rgba(157, 68, 246, 0.78) 24%, transparent 48%),
+        radial-gradient(circle at 68% 78%, rgba(55, 214, 255, 0.92) 0%, rgba(47, 151, 255, 0.68) 30%, transparent 55%),
+        linear-gradient(135deg, #0F5BFF 0%, #315FF4 38%, #654AF2 67%, #9C42EE 100%);
+    --flex-avatar-gradient: var(--flex-account-avatar-gradient); /* legacy alias — do not use for new generic avatars */
     --chart-background:
         var(--flex-workspace-surface);
     --chart-foreground:
