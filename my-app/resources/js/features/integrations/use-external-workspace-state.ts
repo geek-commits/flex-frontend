@@ -4,7 +4,8 @@ import type {ExternalWorkspaceConfig} from './external-workspace-config';
 
 export type ExternalWorkspaceStatus =
     | 'loading'
-    | 'connected'
+    | 'connected' // legacy alias for 'loaded' — onLoad is not proof of auth/health; keep for compat
+    | 'loaded' // neutral: iframe document loaded (may be blocked page); not proof of connected/healthy
     | 'unavailable'
     | 'retrying'
     | 'mock'
@@ -84,7 +85,8 @@ applyMissing();
     }, [configPath, applyConfig, applyMissing]);
 
     const handleFrameLoad = useCallback(() => {
-        setStatus((prev) => (prev === 'loading' ? 'connected' : prev));
+        // Neutral: browser refusal/error document can still fire onLoad — not proof of connected/healthy/auth.
+        setStatus((prev) => (prev === 'loading' ? 'loaded' : prev));
     }, []);
 
     const handleFrameError = useCallback(() => {

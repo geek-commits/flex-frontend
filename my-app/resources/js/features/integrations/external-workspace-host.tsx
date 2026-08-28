@@ -14,7 +14,7 @@ export function ExternalWorkspaceHost({ title, configPath, className }: External
     const { t } = useTranslation('common');
     const { status, config, frameKey, retry, handleFrameLoad, handleFrameError } = useExternalWorkspaceState(configPath);
     const effectiveSrc = config?.iframeConfig?.src ?? null;
-    const showFrame = config !== null && (status === 'loading' || status === 'mock' || status === 'connected');
+    const showFrame = config !== null && (status === 'loading' || status === 'mock' || status === 'connected' || status === 'loaded');
 
     return (
         <div className={`flex h-full flex-col overflow-hidden bg-background ${className ?? ''}`}>
