@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+/* eslint-disable react-hooks/purity -- impure Date.now for live status */
 import { useTranslation } from 'react-i18next';
 import { LOCALE_CONFIG, useFlexLocale } from '@/i18n/locale';
 import { connectionStateMap } from '@/lib/status-styles';

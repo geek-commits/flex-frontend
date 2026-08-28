@@ -1,4 +1,6 @@
 "use client"
+/* eslint-disable react-hooks/incompatible-library, react-hooks/exhaustive-deps -- TanStack Virtual useVirtualizer incompatible with compiler, virtualItems dep intentional */
+// Waiver: data-grid vendor implementation uses manual memoization, refs during render, impure helpers for virtualization; suppression safer than refactor per FLEX_REPOSITORY_LINT:12
 
 import { flexRender } from "@tanstack/react-table"
 import type { Column, Row } from "@tanstack/react-table"

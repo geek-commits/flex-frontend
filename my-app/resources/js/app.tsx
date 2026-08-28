@@ -1,10 +1,10 @@
 import { createInertiaApp } from '@inertiajs/react';
 import { lazy } from 'react';
 import { CapabilityProvider } from '@/auth/capabilities';
+import { bootLoader } from '@/boot/boot-loader';
 import { TenantContextProvider } from '@/features/tenants/tenant-context';
 import { initializeTheme } from '@/hooks/use-appearance';
 import '@/i18n';
-import { bootLoader } from '@/boot/boot-loader';
 
 // Auth and app layouts are code-split so a public/auth page never downloads
 // the full application shell (sidebar, user menu, mobile navigation).

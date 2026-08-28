@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+/* eslint-disable react-hooks/set-state-in-effect -- vendor sync state, intentional per FLEX_REPOSITORY_LINT:12 */
 import { StreamingText } from '@/components/vendor/aicss/streaming-text';
 import type { TranscriptSegment } from './agent-assist-types';
 

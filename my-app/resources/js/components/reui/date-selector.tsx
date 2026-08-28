@@ -1,4 +1,5 @@
 import { RiCornerUpLeftLine, RiCornerUpRightLine, RiArrowLeftSLine, RiArrowRightSLine, RiCloseLine } from "@remixicon/react"
+/* eslint-disable react-hooks/set-state-in-effect -- vendor sync state, intentional per FLEX_REPOSITORY_LINT:12 */
 import {
   addMonths,
   format,

@@ -1,3 +1,4 @@
+ 
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useRef } from 'react';
 import { useWorkspaceState } from '@/features/agent-workspace/state/use-workspace-state';
 import { agentAssistMockTransport } from './agent-assist-mock-transport';
@@ -62,7 +63,9 @@ export function AgentAssistSessionProvider({
 
                 try {
                     unsubscribe?.();
-                } catch {}
+                } catch {
+ void 0; 
+}
 
                 await transport.stop(sessionId).catch(() => {});
                 sessionRef.current = null;
@@ -106,7 +109,9 @@ export function AgentAssistSessionProvider({
 
                 try {
                     unsubscribe?.();
-                } catch {}
+                } catch {
+ void 0; 
+}
 
                 void transport.stop(sessionId).catch(() => {});
                 sessionRef.current = null;

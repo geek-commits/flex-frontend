@@ -1,4 +1,5 @@
 import { router, usePage } from '@inertiajs/react';
+/* eslint-disable react-hooks/preserve-manual-memoization, no-empty -- vendor island memo */
 import { RiPhoneLine, RiArrowRightLine, RiSparklingLine } from '@remixicon/react';
 import { motion } from 'motion/react';
 import React, { useCallback, useMemo, useState } from 'react';

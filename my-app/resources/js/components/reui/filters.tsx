@@ -1,4 +1,6 @@
 "use client"
+/* eslint-disable react-hooks/refs, react-hooks/exhaustive-deps -- vendor filters sync */
+/* eslint-disable react-hooks/set-state-in-effect -- vendor data-grid filters sync state intentionally */
 "use no memo"
 
 import { useRender } from "@base-ui/react/use-render"

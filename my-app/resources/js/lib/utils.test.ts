@@ -1,13 +1,14 @@
+/* eslint-disable no-constant-binary-expression -- test verifies falsy handling with constant && */
 import { describe, expect, it } from 'vitest';
 import { cn, toUrl } from './utils';
 
 describe('cn', () => {
     it('merges tailwind classes', () => {
-        expect(cn('px-2', 'px-4')).toBe('px-4');
+expect(cn('px-2', 'px-4')).toBe('px-4');
     });
 
     it('handles conditional classes', () => {
-        expect(cn('a', false && 'b', 'c')).toBe('a c');
+expect(cn('a', false && 'b', 'c')).toBe('a c');
     });
 });
 

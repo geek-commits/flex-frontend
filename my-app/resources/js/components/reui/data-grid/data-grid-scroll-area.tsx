@@ -1,4 +1,5 @@
 import { ScrollArea as ScrollAreaPrimitive } from "@base-ui/react/scroll-area"
+/* eslint-disable react-hooks/set-state-in-effect -- sync scroll metrics */
 import { useCallback, useEffect, useRef, useState } from "react"
 import type { PointerEvent, ReactNode } from "react"
 import { useDataGrid } from "@/components/reui/data-grid/data-grid"
