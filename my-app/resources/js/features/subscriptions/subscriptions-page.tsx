@@ -66,7 +66,6 @@ export function SubscriptionsPage() {
         const res = renewSubscription(record.id, months);
 
         if (res.ok) {
-            const unit = t(`subscriptions.toast.month_${months === 1 ? 'one' : 'other'}`, { count: months, defaultValue: months === 1 ? 'month' : 'months' });
             // Use custom key: subscriptions.toast.month_one/other maps to month label via t
             const monthLabel = months === 1 ? t('subscriptions.toast.month_one') : t('subscriptions.toast.month_other');
             toast.success(

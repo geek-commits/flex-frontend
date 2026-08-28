@@ -83,6 +83,7 @@ export const reportRepository: ReportRepository = {
         };
     },
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async exportReport(reportId: ReportId, format: string, _query: ReportQuery) {
         // POC MOCK — no real file is produced. A real adapter would call the
         // export endpoint with tenant/auth and return a protected download URL.

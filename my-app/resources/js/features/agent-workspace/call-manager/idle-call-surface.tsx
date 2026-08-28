@@ -1,5 +1,5 @@
 import { RiPhoneLine, RiSearchLine } from '@remixicon/react';
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Input } from '@/components/ui/input';
 import type { CallHistoryEntry, CallTarget } from '../state/workspace-types';

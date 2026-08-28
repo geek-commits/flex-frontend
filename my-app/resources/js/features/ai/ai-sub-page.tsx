@@ -1,7 +1,6 @@
 import { Head } from '@inertiajs/react';
 import React from 'react';
 import { AdminShell } from '@/layouts/admin-shell';
-import { AI_CONTEXT_GROUPS } from './ai-ia';
 
 export interface AiSubPageProps {
     title: string;

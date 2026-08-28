@@ -3,7 +3,6 @@ import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexPageContent } from '@/components/flex/flex-page-content';
 import { FlexPageHeader } from '@/components/flex/flex-page-header';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { resolveCustomerTimeline } from '@/features/customer-360/customer-360-repository';
 import AppLayout from '@/layouts/app-layout';

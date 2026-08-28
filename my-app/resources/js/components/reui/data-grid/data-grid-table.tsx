@@ -22,7 +22,7 @@ import type {
   DataGridTableInstance,
 } from "@/components/reui/data-grid/data-grid"
 import { flexRender, Subscribe } from "@tanstack/react-table"
-import type { Cell, Column, Header, Row, Table } from "@tanstack/react-table"
+import type { Cell, Column, Header, Row } from "@tanstack/react-table"
 
 import { cn } from "@/lib/utils"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -775,6 +775,7 @@ function DataGridTableHead({ children }: { children: ReactNode }) {
 
 function DataGridTableHeadRow({
   children,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   rowId,
 }: {
   children: ReactNode
@@ -1267,6 +1268,7 @@ function DataGridTableBodyRowSkeletonCell<TData extends object>({
 }
 
 function DataGridTableBodyRow<TData extends object>({
+
   children,
   row,
   pinnedBoundary,
@@ -1832,6 +1834,7 @@ const MemoizedDataGridTableBodyRows = memo(
   (_prev, next) => !!next.table.state.columnResizing.isResizingColumn
 ) as typeof DataGridTableBodyRows
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function DataGridTableHeader<TData extends object>() {
   const { table, props } = useDataGrid()
   const mergedHeaderGroups = getDataGridTableMergedHeaderGroups(table)
@@ -1901,6 +1904,7 @@ function DataGridTableHeader<TData extends object>() {
   )
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function DataGridTable<TData extends object>({
   footerContent,
   renderHeader = true,

@@ -51,13 +51,7 @@ import {
 } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import { flexRender } from "@tanstack/react-table"
-import type {
-  Cell,
-  Header,
-  HeaderGroup,
-  Row,
-  Table,
-} from "@tanstack/react-table"
+import type { Cell, Header, HeaderGroup, Row } from "@tanstack/react-table"
 
 import { Button } from "@/components/ui/button"
 import { RiDraggable } from "@remixicon/react"
