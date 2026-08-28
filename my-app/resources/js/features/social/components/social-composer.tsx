@@ -1,5 +1,6 @@
 import { RiSendPlaneLine } from '@remixicon/react';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
@@ -21,6 +22,7 @@ export interface SocialComposerProps {
  * instead of leaving a silent disabled composer.
  */
 export function SocialComposer({ disabled, disabledReason, sending, error, onSend }: SocialComposerProps) {
+    const { t } = useTranslation('supervision');
     const [draft, setDraft] = useState('');
 
     const handleSend = () => {
@@ -54,29 +56,29 @@ export function SocialComposer({ disabled, disabledReason, sending, error, onSen
                                 handleSend();
                             }
                         }}
-                        placeholder="Type a reply…"
+                        placeholder={t('social.composer.placeholder')}
                         rows={1}
                         className="min-h-[44px] max-h-32 border-0 bg-transparent px-3 py-2.5 text-sm focus-visible:ring-0 focus-visible:border-0"
                         disabled={disabled}
-                        aria-label="Reply message"
+                        aria-label={t('social.composer.replyAriaLabel')}
                     />
                 </div>
                 <Button
                     type="button"
                     onClick={handleSend}
                     disabled={disabled || sending || draft.trim().length === 0}
-                    aria-label="Send reply"
+                    aria-label={t('social.composer.sendAriaLabel')}
                     className={cn('h-11 shrink-0')}
                 >
                     {sending ? (
                         <span className="flex items-center gap-1.5">
                             <span className="size-3.5 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                            Sending
+                            {t('social.composer.sending')}
                         </span>
                     ) : (
                         <span className="flex items-center gap-1.5">
                             <RiSendPlaneLine className="size-4" />
-                            Send
+                            {t('social.composer.send')}
                         </span>
                     )}
                 </Button>

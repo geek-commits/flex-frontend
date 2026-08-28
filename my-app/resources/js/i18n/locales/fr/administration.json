@@ -1,5 +1,35 @@
 {
-  "console": "Console de gestion",
+  "console": {
+    "title": "Console de gestion",
+    "subtitle": "Administration centrale de FLEX.",
+    "headTitle": "Console de gestion — Flex Contact Center"
+  },
+  "health": {
+    "title": "Santé opérationnelle",
+    "headTitle": "Santé opérationnelle — Flex",
+    "description": "État réel des services pour diagnostics autorisés."
+  },
+  "settings": {
+    "title": "Paramètres système",
+    "subtitle": "Configurer le moteur téléphonique, les médias, la sécurité et les paramètres de routage",
+    "headTitle": "Paramètres système — Flex Contact Center",
+    "catalogTitle": "Catalogue des paramètres",
+    "catalogDescription": "Gérez tous les paramètres centraux du centre de contacts."
+  },
+  "placeholder": {
+    "headTitle": "{{title}} — Flex Contact Center",
+    "fallbackTitle": "Module",
+    "backToSettings": "Retour aux paramètres",
+    "backToConsole": "Retour à la console de gestion",
+    "returnToSettings": "Retour aux paramètres",
+    "returnToConsole": "Retour à la console de gestion",
+    "comingSoon": "Bientôt disponible",
+    "comingSoonDescription": "Le module {{title}} est prévu mais pas encore implémenté dans ce POC. Les fonctionnalités existantes ne sont pas affectées.",
+    "notAccessible": "Non accessible",
+    "moduleNotFound": "Module introuvable",
+    "noPermission": "Vous n’avez pas la permission d’accéder à {{title}}.",
+    "notFoundDescription": "Le module demandé n’existe pas ou son adresse a changé."
+  },
   "users": {
     "title": "Utilisateurs",
     "subtitle": "Gérez les comptes utilisateurs et les accès.",
@@ -49,7 +79,98 @@
       "deleted": "supprimé"
     }
   },
-  "roles": "Rôles et autorisations",
+  "roles": {
+    "title": "Rôles et autorisations",
+    "subtitle": "Gérez les rôles, les autorisations et l'accès des administrateurs.",
+    "headTitle": "Rôles et autorisations — Flex Contact Center",
+    "tabs": {
+      "roles": "Rôles",
+      "permissions": "Autorisations"
+    },
+    "description": "Les rôles définissent les autorisations accordées aux utilisateurs de ce tenant.",
+    "permissionsDescription": "Définitions des autorisations existantes dans ce système, groupées par module.",
+    "refresh": "Actualiser",
+    "addRole": "Ajouter un rôle",
+    "addPermission": "Ajouter une autorisation",
+    "tryAgain": "Réessayer",
+    "footerHint": "Adaptateur POC — limite `AccessRepository` ; remplacer par le backend réel des rôles lors du déploiement.",
+    "permissionsFooterHint": "Adaptateur POC — limite `AccessRepository` ; remplacer par le backend réel des autorisations lors du déploiement.",
+    "error": {
+      "rolesTitle": "Impossible de charger les rôles",
+      "permissionsTitle": "Impossible de charger les autorisations",
+      "generic": "Les données des rôles n'ont pas pu être récupérées.",
+      "permissionsGeneric": "Les données des autorisations n'ont pas pu être récupérées."
+    },
+    "empty": {
+      "noRolesTitle": "Aucun rôle pour l'instant",
+      "noRolesDescription": "Ajoutez votre premier rôle pour définir l'accès des utilisateurs.",
+      "noPermissionsTitle": "Aucune autorisation pour l'instant",
+      "noPermissionsDescription": "Ajoutez votre première définition d'autorisation."
+    },
+    "columns": {
+      "role": "Rôle",
+      "permissions": "Autorisations",
+      "users": "Utilisateurs",
+      "actions": "Actions",
+      "permission": "Autorisation",
+      "type": "Type",
+      "module": "Module"
+    },
+    "table": {
+      "noPermissions": "Aucune autorisation",
+      "editRole": "Modifier le rôle",
+      "editRoleAria": "Modifier {{name}}"
+    },
+    "form": {
+      "editTitle": "Modifier le rôle",
+      "addTitle": "Ajouter un rôle",
+      "editDescription": "Mettez à jour le nom du rôle et les autorisations attribuées.",
+      "createDescription": "Créez un rôle et attribuez des autorisations.",
+      "roleNameLabel": "Nom du rôle",
+      "roleNamePlaceholder": "ex. Superviseur Facturation",
+      "permissionsLabel": "Autorisations",
+      "selectedCount": "{{count}} sélectionnées",
+      "searchPlaceholder": "Rechercher des autorisations…",
+      "unknownWarning": "{{count}} autorisation{{pluralSuffix}} supplémentaire du backend est conservée et ne sera pas supprimée lors de l'enregistrement.",
+      "unknownWarning_one": "{{count}} autorisation supplémentaire du backend est conservée et ne sera pas supprimée lors de l'enregistrement.",
+      "unknownWarning_other": "{{count}} autorisations supplémentaires du backend sont conservées et ne seront pas supprimées lors de l'enregistrement.",
+      "assignedWarning": "Ce rôle est attribué à {{count}} utilisateur{{pluralSuffix}}. Les modifications affecteront leur accès.",
+      "assignedWarning_one": "Ce rôle est attribué à {{count}} utilisateur. Les modifications affecteront son accès.",
+      "assignedWarning_other": "Ce rôle est attribué à {{count}} utilisateurs. Les modifications affecteront leur accès.",
+      "noMatch": "Aucune autorisation ne correspond à « {{search}} ».",
+      "cancel": "Annuler",
+      "saving": "Enregistrement…",
+      "saveRole": "Enregistrer le rôle",
+      "createRole": "Créer le rôle",
+      "validation": {
+        "nameRequired": "Le nom du rôle est requis."
+      },
+      "toast": {
+        "saved": "Rôle enregistré",
+        "created": "Rôle créé",
+        "saveFailed": "Le rôle n'a pas pu être enregistré",
+        "createFailed": "Le rôle n'a pas pu être créé"
+      }
+    },
+    "permissionForm": {
+      "addTitle": "Ajouter une autorisation",
+      "addDescription": "Ajoutez une nouvelle définition d'autorisation à ce système.",
+      "nameLabel": "Nom de l'autorisation",
+      "namePlaceholder": "ex. Voir les rapports de facturation",
+      "typeLabel": "Type d'autorisation",
+      "cancel": "Annuler",
+      "saving": "Enregistrement…",
+      "save": "Enregistrer",
+      "validation": {
+        "nameRequired": "Le nom de l'autorisation est requis.",
+        "duplicate": "Une autorisation avec ce nom existe déjà."
+      },
+      "toast": {
+        "added": "Autorisation ajoutée",
+        "addFailed": "L'autorisation n'a pas pu être ajoutée"
+      }
+    }
+  },
   "queues": {
     "label": "Files d'attente",
     "title": "Files d'attente",

@@ -2,6 +2,7 @@ import { Head } from '@inertiajs/react';
 import type { PaginationState, SortingState } from '@tanstack/react-table';
 import { useTable } from '@tanstack/react-table';
 import React, { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexWorkbenchShell } from '@/components/flex/flex-workbench-shell';
 import { dataGridFeatures } from '@/components/reui/data-grid/data-grid';
@@ -20,6 +21,7 @@ import { AgentShell } from '@/layouts/agent-shell';
  * workspace store. Table, filters and pagination share one white workbench.
  */
 export function RecoveryPage() {
+    const { t } = useTranslation('agent');
     const { records, allRecords, query, setQuery, isLoading, error, refresh, getById, mutate, currentAgent, summary, lastUpdated } = useRecoveryData();
     const [detailId, setDetailId] = useState<string>();
     const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
@@ -34,8 +36,8 @@ export function RecoveryPage() {
     }, [mutate]);
 
     const columns = useMemo(
-        () => recoveryColumns(currentAgent, handleRecordChanged),
-        [currentAgent, handleRecordChanged]
+        () => recoveryColumns(currentAgent, handleRecordChanged, t),
+        [currentAgent, handleRecordChanged, t]
     );
 
     const [columnOrder, setColumnOrder] = useState<string[]>(() => columns.map((column) => column.id as string));
@@ -54,22 +56,22 @@ export function RecoveryPage() {
     });
 
     return (
-        <AgentShell title="Missed Calls & Voicemail">
-            <Head title="Missed Calls & Voicemail — Flex Contact Center" />
+        <AgentShell title={t('recovery.title')}>
+            <Head title={t('recovery.headTitle')} />
 
             <div className="flex w-full flex-col gap-[var(--flex-space-section)]">
                 <div className="flex flex-wrap items-center gap-4 text-xs text-flex-text-muted">
                     <span>
-                        <span className="font-semibold text-flex-text-primary">{summary.unclaimedCount}</span> unresolved
+                        <span className="font-semibold text-flex-text-primary">{summary.unclaimedCount}</span> {t('recovery.summary.unresolved')}
                     </span>
                     <span>
-                        <span className="font-semibold text-flex-text-primary">{summary.claimedByMeCount}</span> claimed by me
+                        <span className="font-semibold text-flex-text-primary">{summary.claimedByMeCount}</span> {t('recovery.summary.claimedByMe')}
                     </span>
                     <span>
-                        <span className="font-semibold text-flex-text-primary">{summary.voicemailCount}</span> with voicemail
+                        <span className="font-semibold text-flex-text-primary">{summary.voicemailCount}</span> {t('recovery.summary.withVoicemail')}
                     </span>
                     <span className="ml-auto">
-                        Updated {lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        {t('recovery.summary.updated', { time: lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) })}
                     </span>
                 </div>
 
@@ -97,11 +99,11 @@ export function RecoveryPage() {
                         onRowClick={(record) => setDetailId(record.id)}
                         emptyMessage={
                             <FlexEmptyState
-                                title="No missed calls to recover"
-                                description="New missed calls will appear here when follow-up is needed."
+                                title={t('recovery.empty.noMissedCalls')}
+                                description={t('recovery.empty.noMissedCallsDescription')}
                                 action={
                                     <Button variant="outline" size="sm" className="text-xs" onClick={() => setQuery({})}>
-                                        Clear filters
+                                        {t('recovery.clearFilters')}
                                     </Button>
                                 }
                             />

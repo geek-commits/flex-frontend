@@ -48,7 +48,15 @@
     "call": "Piga simu",
     "clear": "Futa"
   },
+  "workspace": {
+    "title": "Nafasi ya Wakala",
+    "headTitle": "Nafasi ya Wakala — Flex Contact Center"
+  },
+  "social": {
+    "headTitle": "Kikasha cha Mitandao — Flex Contact Center"
+  },
   "dashboard": {
+    "headTitle": "Dashibodi ya Wakala — Flex Contact Center",
     "queuePressure": {
       "title": "Msongamano wa Foleni",
       "subtitle": "Simu zinazosubiri na upatikanaji",
@@ -81,5 +89,95 @@
     "openDetails": "Fungua maelezo ya simu",
     "closeDetails": "Funga maelezo ya simu",
     "assistLiveLabel": "Msaada unaendelea"
+  },
+  "recovery": {
+    "title": "Simu Zilizokosekana na Voicemail",
+    "headTitle": "Simu Zilizokosekana na Voicemail — Flex Contact Center",
+    "summary": {
+      "unresolved": "hazijatatuliwa",
+      "claimedByMe": "nimezichukua mimi",
+      "withVoicemail": "na voicemail",
+      "updated": "Imeboreshwa {{time}}"
+    },
+    "error": {
+      "title": "Imeshindwa kupakia simu zilizokosekana",
+      "generic": "Simu zilizokosekana hazikuweza kupatikana."
+    },
+    "retry": "Jaribu tena",
+    "clearFilters": "Ondoa vichujio",
+    "empty": {
+      "noMissedCalls": "Hakuna simu zilizokosekana za kurejesha",
+      "noMissedCallsDescription": "Simu mpya zilizokosekana zitaonekana hapa zinapohitaji ufuatiliaji."
+    },
+    "columns": {
+      "customerPhone": "Mteja / Simu",
+      "missedAt": "Ilipokosekana",
+      "queue": "Foleni",
+      "category": "Kategoria",
+      "attempts": "Majaribio",
+      "voicemail": "Voicemail",
+      "ownership": "Umiliki",
+      "status": "Hali",
+      "action": "Kitendo"
+    },
+    "unknownCustomer": "Mteja asiyejulikana",
+    "today": "Leo",
+    "yesterday": "Jana",
+    "toolbar": {
+      "statusLabel": "Hali",
+      "queueLabel": "Foleni",
+      "ownershipLabel": "Umiliki",
+      "voicemailLabel": "Voicemail",
+      "allStatuses": "Hali zote",
+      "allQueues": "Foleni zote",
+      "all": "Zote",
+      "claimedByMe": "Nilizochukua mimi",
+      "unclaimed": "Haijachukuliwa",
+      "withVoicemail": "Na voicemail",
+      "withoutVoicemail": "Bila voicemail",
+      "clear": "Ondoa",
+      "searchPlaceholder": "Tafuta nambari ya simu au foleni...",
+      "searchAriaLabel": "Tafuta simu zilizokosekana",
+      "columns": "Safu",
+      "refresh": "Onyesha upya"
+    },
+    "status": {
+      "unhandled": "Haijashughulikiwa",
+      "callbackScheduled": "Kurudi kupangwa",
+      "resolved": "Imetatuliwa"
+    },
+    "ownership": {
+      "unclaimed": "Haijachukuliwa",
+      "claimedByYou": "Umeichukua wewe",
+      "claimedBy": "Imechukiwa na {{name}}"
+    },
+    "callback": {
+      "callBack": "Piga tena",
+      "starting": "Inaanza…",
+      "callBackAria": "Mpigie {{name}}",
+      "noPhone": "Hakuna nambari ya simu",
+      "resolved": "Imetatuliwa",
+      "claimedBy": "Imechukiwa na {{name}}",
+      "callActive": "Simu tayari inafanya kazi",
+      "started": "Kurudi kumeanza"
+    },
+    "detail": {
+      "unknownCustomer": "Mteja asiyejulikana",
+      "phone": "Simu",
+      "missedAt": "Ilipokosekana",
+      "queue": "Foleni",
+      "category": "Kategoria",
+      "status": "Hali",
+      "ownership": "Umiliki",
+      "attempts": "Majaribio",
+      "voicemail": "Voicemail",
+      "attemptHistory": "Historia ya Majaribio",
+      "noAttempts": "Hakuna majaribio bado."
+    },
+    "voicemail": {
+      "noVoicemail": "—",
+      "playAria": "Cheza voicemail{{label}}",
+      "pauseAria": "Sitisha voicemail{{label}}"
+    }
   }
 }

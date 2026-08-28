@@ -334,5 +334,57 @@
       "callsToday": "Calls Today",
       "aht": "AHT"
     }
+  },
+  "social": {
+    "title": "Social Inbox",
+    "inbox": "Inbox",
+    "contextTitle": "Conversation Context",
+    "selectConversation": "Select a conversation to view and reply.",
+    "ariaLabel": "Social conversations",
+    "listRoleLabel": "Social conversations",
+    "backToConversations": "Back to conversations",
+    "viewContext": "View conversation context",
+    "followUp": "Follow-up",
+    "followUpSet": "Follow-up set",
+    "markFollowUp": "Mark follow-up",
+    "escalate": "Escalate",
+    "escalated": "Escalated",
+    "escalatedToSupervisor": "Escalated to supervisor",
+    "unread": "Unread",
+    "channelFilter": {
+      "all": "All"
+    },
+    "empty": {
+      "noConversations": "No conversations yet",
+      "noChannelConversations": "No {{channel}} conversations",
+      "allDescription": "Incoming social messages will appear here.",
+      "filteredDescription": "No conversations match this channel filter."
+    },
+    "timeline": {
+      "loadErrorTitle": "Couldn't load this conversation",
+      "retry": "Retry",
+      "loading": "Loading conversation…",
+      "noMessagesTitle": "No messages yet",
+      "noMessagesDescription": "This conversation has no messages.",
+      "messagesLabel": "Conversation messages"
+    },
+    "composer": {
+      "placeholder": "Type a reply…",
+      "replyAriaLabel": "Reply message",
+      "sendAriaLabel": "Send reply",
+      "send": "Send",
+      "sending": "Sending"
+    },
+    "contextPane": {
+      "contact": "Contact",
+      "channel": "Channel",
+      "followUp": "Follow-up",
+      "escalation": "Escalation",
+      "activity": "Activity",
+      "started": "Started",
+      "lastActivity": "Last activity",
+      "notEscalated": "Not escalated",
+      "none": "None"
+    }
   }
 }

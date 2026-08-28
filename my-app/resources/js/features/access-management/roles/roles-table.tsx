@@ -1,5 +1,6 @@
 import { RiEditLine } from '@remixicon/react';
 import type { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import type { RoleRecord } from '@/features/access-management/shared/permission-catalog';
@@ -18,6 +19,7 @@ export interface RolesTableProps {
  * come from real POC data; nothing is invented.
  */
 export function RolesTable({ records, isLoading, emptyMessage, onEdit }: RolesTableProps) {
+    const { t } = useTranslation('administration');
     if (isLoading) {
         return (
             <div className="flex flex-col gap-2">
@@ -37,10 +39,10 @@ export function RolesTable({ records, isLoading, emptyMessage, onEdit }: RolesTa
             <table className="flex-table-grid w-full text-sm">
                 <thead>
                     <tr className="border-b border-border bg-muted/40 text-left">
-                        <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap text-start">Role</th>
-                        <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap text-end">Permissions</th>
-                        <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap text-end">Users</th>
-                        <th className="px-4 py-2.5 text-center text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap">Actions</th>
+                        <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap text-start">{t('roles.columns.role')}</th>
+                        <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap text-end">{t('roles.columns.permissions')}</th>
+                        <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap text-end">{t('roles.columns.users')}</th>
+                        <th className="px-4 py-2.5 text-center text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap">{t('roles.columns.actions')}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -64,7 +66,7 @@ export function RolesTable({ records, isLoading, emptyMessage, onEdit }: RolesTa
                                     >
                                         {role.permissions.length > 0
                                             ? Array.from(new Set(role.permissions.map(permissionModuleLabel))).join(' · ')
-                                            : 'No permissions'}
+                                            : t('roles.table.noPermissions')}
                                     </span>
                                 </div>
                             </td>
@@ -75,8 +77,8 @@ export function RolesTable({ records, isLoading, emptyMessage, onEdit }: RolesTa
                                 <Button
                                     variant="ghost"
                                     size="icon-xs"
-                                    title="Edit role"
-                                    aria-label={`Edit ${role.name}`}
+                                    title={t('roles.table.editRole')}
+                                    aria-label={t('roles.table.editRoleAria', { name: role.name })}
                                     onClick={() => onEdit(role)}
                                 >
                                     <RiEditLine className="size-3.5" />

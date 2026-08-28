@@ -334,5 +334,57 @@
       "callsToday": "Simu Leo",
       "aht": "AHT"
     }
+  },
+  "social": {
+    "title": "Kikasha cha Jamii",
+    "inbox": "Kikasha",
+    "contextTitle": "Muktadha wa Mazungumzo",
+    "selectConversation": "Chagua mazungumzo ili kutazama na kujibu.",
+    "ariaLabel": "Mazungumzo ya kijamii",
+    "listRoleLabel": "Mazungumzo ya kijamii",
+    "backToConversations": "Rudi kwenye mazungumzo",
+    "viewContext": "Tazama muktadha wa mazungumzo",
+    "followUp": "Ufuatiliaji",
+    "followUpSet": "Ufuatiliaji umewekwa",
+    "markFollowUp": "Weka ufuatiliaji",
+    "escalate": "Peleka kwa msimamizi",
+    "escalated": "Imepelekwa",
+    "escalatedToSupervisor": "Imepelekwa kwa msimamizi",
+    "unread": "Haijasomwa",
+    "channelFilter": {
+      "all": "Zote"
+    },
+    "empty": {
+      "noConversations": "Hakuna mazungumzo bado",
+      "noChannelConversations": "Hakuna mazungumzo ya {{channel}}",
+      "allDescription": "Ujumbe wa kijamii utaonekana hapa.",
+      "filteredDescription": "Hakuna mazungumzo yanayolingana na kichujio hiki."
+    },
+    "timeline": {
+      "loadErrorTitle": "Imeshindwa kupakia mazungumzo haya",
+      "retry": "Jaribu tena",
+      "loading": "Inapakia mazungumzo…",
+      "noMessagesTitle": "Hakuna ujumbe bado",
+      "noMessagesDescription": "Mazungumzo haya hayana ujumbe.",
+      "messagesLabel": "Ujumbe wa mazungumzo"
+    },
+    "composer": {
+      "placeholder": "Andika jibu…",
+      "replyAriaLabel": "Ujumbe wa jibu",
+      "sendAriaLabel": "Tuma jibu",
+      "send": "Tuma",
+      "sending": "Inatuma"
+    },
+    "contextPane": {
+      "contact": "Mawasiliano",
+      "channel": "Chaneli",
+      "followUp": "Ufuatiliaji",
+      "escalation": "Upelekaji",
+      "activity": "Shughuli",
+      "started": "Ilianza",
+      "lastActivity": "Shughuli ya mwisho",
+      "notEscalated": "Haijapelekwa",
+      "none": "Hakuna"
+    }
   }
 }

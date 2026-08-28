@@ -45,5 +45,17 @@
     "en": "English",
     "sw": "Kiswahili",
     "fr": "Français"
+  },
+  "preloader": {
+    "loadingFlex": "Inapakia FLEX",
+    "longLoad": "FLEX inachukua muda mrefu kuliko ilivyotarajiwa.",
+    "failedToStart": "FLEX imeshindwa kuanza",
+    "couldntStart": "FLEX haikuweza kuanza.",
+    "retry": "Jaribu tena"
+  },
+  "settings": {
+    "profileHeadTitle": "Mipangilio ya wasifu",
+    "appearanceHeadTitle": "Mipangilio ya muonekano",
+    "securityHeadTitle": "Mipangilio ya usalama"
   }
 }

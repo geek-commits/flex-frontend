@@ -48,7 +48,15 @@
     "call": "Call",
     "clear": "Clear"
   },
+  "workspace": {
+    "title": "Agent Workspace",
+    "headTitle": "Agent Workspace — Flex Contact Center"
+  },
+  "social": {
+    "headTitle": "Social Inbox — Flex Contact Center"
+  },
   "dashboard": {
+    "headTitle": "Agent Dashboard — Flex Contact Center",
     "queuePressure": {
       "title": "Queue Pressure",
       "subtitle": "Waiting calls and availability",
@@ -81,5 +89,95 @@
     "openDetails": "Open call details",
     "closeDetails": "Close call details",
     "assistLiveLabel": "Assist live"
+  },
+  "recovery": {
+    "title": "Missed Calls & Voicemail",
+    "headTitle": "Missed Calls & Voicemail — Flex Contact Center",
+    "summary": {
+      "unresolved": "unresolved",
+      "claimedByMe": "claimed by me",
+      "withVoicemail": "with voicemail",
+      "updated": "Updated {{time}}"
+    },
+    "error": {
+      "title": "Couldn't load missed calls",
+      "generic": "Missed calls could not be retrieved."
+    },
+    "retry": "Try Again",
+    "clearFilters": "Clear filters",
+    "empty": {
+      "noMissedCalls": "No missed calls to recover",
+      "noMissedCallsDescription": "New missed calls will appear here when follow-up is needed."
+    },
+    "columns": {
+      "customerPhone": "Customer / Phone",
+      "missedAt": "Missed At",
+      "queue": "Queue",
+      "category": "Category",
+      "attempts": "Attempts",
+      "voicemail": "Voicemail",
+      "ownership": "Ownership",
+      "status": "Status",
+      "action": "Action"
+    },
+    "unknownCustomer": "Unknown customer",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "toolbar": {
+      "statusLabel": "Status",
+      "queueLabel": "Queue",
+      "ownershipLabel": "Ownership",
+      "voicemailLabel": "Voicemail",
+      "allStatuses": "All statuses",
+      "allQueues": "All queues",
+      "all": "All",
+      "claimedByMe": "Claimed by me",
+      "unclaimed": "Unclaimed",
+      "withVoicemail": "With voicemail",
+      "withoutVoicemail": "Without voicemail",
+      "clear": "Clear",
+      "searchPlaceholder": "Search phone number or queue...",
+      "searchAriaLabel": "Search missed calls",
+      "columns": "Columns",
+      "refresh": "Refresh"
+    },
+    "status": {
+      "unhandled": "Unhandled",
+      "callbackScheduled": "Callback Scheduled",
+      "resolved": "Resolved"
+    },
+    "ownership": {
+      "unclaimed": "Unclaimed",
+      "claimedByYou": "Claimed by you",
+      "claimedBy": "Claimed by {{name}}"
+    },
+    "callback": {
+      "callBack": "Call Back",
+      "starting": "Starting…",
+      "callBackAria": "Call back {{name}}",
+      "noPhone": "No phone number",
+      "resolved": "Resolved",
+      "claimedBy": "Claimed by {{name}}",
+      "callActive": "Call already active",
+      "started": "Callback started"
+    },
+    "detail": {
+      "unknownCustomer": "Unknown customer",
+      "phone": "Phone",
+      "missedAt": "Missed At",
+      "queue": "Queue",
+      "category": "Category",
+      "status": "Status",
+      "ownership": "Ownership",
+      "attempts": "Attempts",
+      "voicemail": "Voicemail",
+      "attemptHistory": "Attempt History",
+      "noAttempts": "No attempts yet."
+    },
+    "voicemail": {
+      "noVoicemail": "—",
+      "playAria": "Play voicemail{{label}}",
+      "pauseAria": "Pause voicemail{{label}}"
+    }
   }
 }

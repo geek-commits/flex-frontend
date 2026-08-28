@@ -1,5 +1,35 @@
 {
-  "console": "Management Console",
+  "console": {
+    "title": "Management Console",
+    "subtitle": "Central administration for FLEX.",
+    "headTitle": "Management Console — Flex Contact Center"
+  },
+  "health": {
+    "title": "Operational Health",
+    "headTitle": "Operational Health — Flex",
+    "description": "Real service status for authorized diagnostics."
+  },
+  "settings": {
+    "title": "System Settings",
+    "subtitle": "Configure Telephony Engine, Media, Security & Routing Parameters",
+    "headTitle": "System Settings — Flex Contact Center",
+    "catalogTitle": "Settings Catalog",
+    "catalogDescription": "Manage all core contact center parameters."
+  },
+  "placeholder": {
+    "headTitle": "{{title}} — Flex Contact Center",
+    "fallbackTitle": "Module",
+    "backToSettings": "Back to Settings",
+    "backToConsole": "Back to Management Console",
+    "returnToSettings": "Return to Settings",
+    "returnToConsole": "Return to Management Console",
+    "comingSoon": "Coming soon",
+    "comingSoonDescription": "The {{title}} module is planned but not yet implemented in this POC. Existing contact-center functionality is unaffected.",
+    "notAccessible": "Not accessible",
+    "moduleNotFound": "Module not found",
+    "noPermission": "You don't have permission to access {{title}}.",
+    "notFoundDescription": "The requested module does not exist or its address changed."
+  },
   "users": {
     "title": "Users",
     "subtitle": "Manage user accounts and access.",
@@ -49,7 +79,98 @@
       "deleted": "deleted"
     }
   },
-  "roles": "Roles & Permissions",
+  "roles": {
+    "title": "Roles & Permissions",
+    "subtitle": "Manage roles, permissions, and access for administrators.",
+    "headTitle": "Roles & Permissions — Flex Contact Center",
+    "tabs": {
+      "roles": "Roles",
+      "permissions": "Permissions"
+    },
+    "description": "Roles define the permissions granted to users within this tenant.",
+    "permissionsDescription": "Permission definitions that exist in this system, grouped by module.",
+    "refresh": "Refresh",
+    "addRole": "Add Role",
+    "addPermission": "Add Permission",
+    "tryAgain": "Try again",
+    "footerHint": "POC mock adapter — `AccessRepository` boundary; replace with the real roles backend in rollout.",
+    "permissionsFooterHint": "POC mock adapter — `AccessRepository` boundary; replace with the real permissions backend in rollout.",
+    "error": {
+      "rolesTitle": "Couldn't load roles",
+      "permissionsTitle": "Couldn't load permissions",
+      "generic": "Role data could not be retrieved.",
+      "permissionsGeneric": "Permission data could not be retrieved."
+    },
+    "empty": {
+      "noRolesTitle": "No roles yet",
+      "noRolesDescription": "Add your first role to define access for users.",
+      "noPermissionsTitle": "No permissions yet",
+      "noPermissionsDescription": "Add your first permission definition."
+    },
+    "columns": {
+      "role": "Role",
+      "permissions": "Permissions",
+      "users": "Users",
+      "actions": "Actions",
+      "permission": "Permission",
+      "type": "Type",
+      "module": "Module"
+    },
+    "table": {
+      "noPermissions": "No permissions",
+      "editRole": "Edit role",
+      "editRoleAria": "Edit {{name}}"
+    },
+    "form": {
+      "editTitle": "Edit Role",
+      "addTitle": "Add Role",
+      "editDescription": "Update the role name and assigned permissions.",
+      "createDescription": "Create a role and assign permissions.",
+      "roleNameLabel": "Role name",
+      "roleNamePlaceholder": "e.g. Billing Supervisor",
+      "permissionsLabel": "Permissions",
+      "selectedCount": "{{count}} selected",
+      "searchPlaceholder": "Search permissions…",
+      "unknownWarning": "{{count}} additional permission{{pluralSuffix}} from the backend is being preserved and will not be removed on save.",
+      "unknownWarning_one": "{{count}} additional permission from the backend is being preserved and will not be removed on save.",
+      "unknownWarning_other": "{{count}} additional permissions from the backend is being preserved and will not be removed on save.",
+      "assignedWarning": "This role is assigned to {{count}} user{{pluralSuffix}}. Changes will affect their access.",
+      "assignedWarning_one": "This role is assigned to {{count}} user. Changes will affect their access.",
+      "assignedWarning_other": "This role is assigned to {{count}} users. Changes will affect their access.",
+      "noMatch": "No permissions match \"{{search}}\".",
+      "cancel": "Cancel",
+      "saving": "Saving…",
+      "saveRole": "Save Role",
+      "createRole": "Create Role",
+      "validation": {
+        "nameRequired": "Role name is required."
+      },
+      "toast": {
+        "saved": "Role saved",
+        "created": "Role created",
+        "saveFailed": "Role could not be saved",
+        "createFailed": "Role could not be created"
+      }
+    },
+    "permissionForm": {
+      "addTitle": "Add Permission",
+      "addDescription": "Add a new permission definition to this system.",
+      "nameLabel": "Permission name",
+      "namePlaceholder": "e.g. View Billing Reports",
+      "typeLabel": "Permission type",
+      "cancel": "Cancel",
+      "saving": "Saving…",
+      "save": "Save",
+      "validation": {
+        "nameRequired": "Permission name is required.",
+        "duplicate": "A permission with this name already exists."
+      },
+      "toast": {
+        "added": "Permission added",
+        "addFailed": "Permission could not be added"
+      }
+    }
+  },
   "queues": {
     "label": "Queues",
     "title": "Queues",

@@ -1,6 +1,7 @@
 import { usePage } from '@inertiajs/react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexDetailSheet } from '@/components/flex/flex-detail-sheet';
 import { FlexWorkbenchShell } from '@/components/flex/flex-workbench-shell';
 import { AgentOperationalHeader } from '@/features/agent-workspace/agent-operational-header';
@@ -25,6 +26,7 @@ import { useSocialWorkspace } from './use-social-workspace';
  * owner; conversation data from the social repository.
  */
 export function SocialWorkspacePage() {
+    const { t } = useTranslation('supervision');
     const { auth } = usePage().props;
     const agentName = (auth as { user?: { name?: string } } | undefined)?.user?.name ?? 'Agent';
     const { agentState, agentStatePending, connection, setAgentState } =
@@ -62,7 +64,7 @@ export function SocialWorkspacePage() {
         <AgentShell
             topbar={
                 <AgentOperationalHeader
-                    title="Social Inbox"
+                    title={t('social.title')}
                     agentState={agentState}
                     onAgentStateChange={setAgentState}
                     pendingState={agentStatePending}
@@ -99,7 +101,7 @@ export function SocialWorkspacePage() {
                             ) : (
                                 <div className="flex-1 flex items-center justify-center p-4">
                                     <p className="text-sm text-muted-foreground">
-                                        Select a conversation to view and reply.
+                                        {t('social.selectConversation')}
                                     </p>
                                 </div>
                             )}
@@ -150,7 +152,7 @@ export function SocialWorkspacePage() {
                     <FlexDetailSheet
                         open={contextOpen}
                         onOpenChange={setContextOpen}
-                        title="Conversation Context"
+                        title={t('social.contextTitle')}
                         meta={`${getContactName(activeConversation)} · ${SOCIAL_CHANNEL_META[activeConversation.channel].label}`}
                         widthClass="sm:max-w-sm"
                     >

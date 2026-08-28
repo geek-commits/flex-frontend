@@ -1,6 +1,7 @@
 import { Head } from '@inertiajs/react';
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { ModuleDirectory } from '@/components/flex/module-directory';
 import type { ModuleItem } from '@/components/flex/module-directory';
@@ -10,18 +11,19 @@ import { AdminShell } from '@/layouts/admin-shell';
 
 
 export default function SettingsDirectoryPage() {
+    const { t } = useTranslation('administration');
     const modules: ModuleItem[] = SETTINGS_MODULES;
 
     return (
         <AdminShell
-            title="System Settings"
-            subtitle="Configure Telephony Engine, Media, Security & Routing Parameters"
+            title={t('settings.title')}
+            subtitle={t('settings.subtitle')}
             
         >
-            <Head title="System Settings — Flex Contact Center" />
+            <Head title={t('settings.headTitle')} />
             <ModuleDirectory
-                title="Settings Catalog"
-                description="Manage all core contact center parameters."
+                title={t('settings.catalogTitle')}
+                description={t('settings.catalogDescription')}
                 modules={modules}
             />
         </AdminShell>

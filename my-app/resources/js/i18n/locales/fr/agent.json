@@ -48,7 +48,15 @@
     "call": "Appeler",
     "clear": "Effacer"
   },
+  "workspace": {
+    "title": "Espace agent",
+    "headTitle": "Espace agent — Flex Contact Center"
+  },
+  "social": {
+    "headTitle": "Boîte sociale — Flex Contact Center"
+  },
   "dashboard": {
+    "headTitle": "Tableau de bord agent — Flex Contact Center",
     "queuePressure": {
       "title": "Pression des files",
       "subtitle": "Appels en attente et disponibilité",
@@ -81,5 +89,95 @@
     "openDetails": "Ouvrir les détails de l'appel",
     "closeDetails": "Fermer les détails de l'appel",
     "assistLiveLabel": "Assistance en direct"
+  },
+  "recovery": {
+    "title": "Appels manqués et messagerie",
+    "headTitle": "Appels manqués et messagerie — Flex Contact Center",
+    "summary": {
+      "unresolved": "non résolus",
+      "claimedByMe": "pris par moi",
+      "withVoicemail": "avec messagerie",
+      "updated": "Mis à jour {{time}}"
+    },
+    "error": {
+      "title": "Impossible de charger les appels manqués",
+      "generic": "Les appels manqués n'ont pas pu être récupérés."
+    },
+    "retry": "Réessayer",
+    "clearFilters": "Effacer les filtres",
+    "empty": {
+      "noMissedCalls": "Aucun appel manqué à récupérer",
+      "noMissedCallsDescription": "Les nouveaux appels manqués apparaîtront ici lorsqu'un suivi est nécessaire."
+    },
+    "columns": {
+      "customerPhone": "Client / Téléphone",
+      "missedAt": "Manqué à",
+      "queue": "File",
+      "category": "Catégorie",
+      "attempts": "Tentatives",
+      "voicemail": "Messagerie",
+      "ownership": "Propriété",
+      "status": "Statut",
+      "action": "Action"
+    },
+    "unknownCustomer": "Client inconnu",
+    "today": "Aujourd'hui",
+    "yesterday": "Hier",
+    "toolbar": {
+      "statusLabel": "Statut",
+      "queueLabel": "File",
+      "ownershipLabel": "Propriété",
+      "voicemailLabel": "Messagerie",
+      "allStatuses": "Tous les statuts",
+      "allQueues": "Toutes les files",
+      "all": "Tous",
+      "claimedByMe": "Pris par moi",
+      "unclaimed": "Non pris",
+      "withVoicemail": "Avec messagerie",
+      "withoutVoicemail": "Sans messagerie",
+      "clear": "Effacer",
+      "searchPlaceholder": "Rechercher par téléphone ou file...",
+      "searchAriaLabel": "Rechercher les appels manqués",
+      "columns": "Colonnes",
+      "refresh": "Actualiser"
+    },
+    "status": {
+      "unhandled": "Non traité",
+      "callbackScheduled": "Rappel planifié",
+      "resolved": "Résolu"
+    },
+    "ownership": {
+      "unclaimed": "Non pris",
+      "claimedByYou": "Pris par vous",
+      "claimedBy": "Pris par {{name}}"
+    },
+    "callback": {
+      "callBack": "Rappeler",
+      "starting": "Démarrage…",
+      "callBackAria": "Rappeler {{name}}",
+      "noPhone": "Pas de numéro",
+      "resolved": "Résolu",
+      "claimedBy": "Pris par {{name}}",
+      "callActive": "Appel déjà actif",
+      "started": "Rappel démarré"
+    },
+    "detail": {
+      "unknownCustomer": "Client inconnu",
+      "phone": "Téléphone",
+      "missedAt": "Manqué à",
+      "queue": "File",
+      "category": "Catégorie",
+      "status": "Statut",
+      "ownership": "Propriété",
+      "attempts": "Tentatives",
+      "voicemail": "Messagerie",
+      "attemptHistory": "Historique des tentatives",
+      "noAttempts": "Aucune tentative pour l'instant."
+    },
+    "voicemail": {
+      "noVoicemail": "—",
+      "playAria": "Lire la messagerie{{label}}",
+      "pauseAria": "Mettre en pause{{label}}"
+    }
   }
 }

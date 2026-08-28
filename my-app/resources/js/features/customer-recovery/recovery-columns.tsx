@@ -7,7 +7,7 @@ import { RecoveryStatus } from '@/features/customer-recovery/recovery-status';
 import type { RecoveryRecord } from '@/features/customer-recovery/recovery-types';
 import { VoicemailPlayer } from '@/features/customer-recovery/voicemail-player';
 
-function formatMissedAt(value: string): string {
+function formatMissedAt(value: string, t: (key: string) => string): string {
     const date = new Date(value);
 
     if (Number.isNaN(date.getTime())) {
@@ -22,11 +22,11 @@ function formatMissedAt(value: string): string {
     yesterday.setDate(today.getDate() - 1);
 
     if (sameDay) {
-        return `Today, ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+        return `${t('recovery.today')}, ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
     }
 
     if (date.toDateString() === yesterday.toDateString()) {
-        return `Yesterday, ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+        return `${t('recovery.yesterday')}, ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
     }
 
     return date.toLocaleDateString([], { day: 'numeric', month: 'short' }) + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -35,48 +35,49 @@ function formatMissedAt(value: string): string {
 export function recoveryColumns(
     currentAgent: { id: string; name: string },
     onRecordChanged: (record: RecoveryRecord) => void,
+    t: (key: string, options?: Record<string, unknown>) => string,
 ): ColumnDef<DataGridFeatures, RecoveryRecord>[] {
     return [
         {
             accessorKey: 'phoneNumber',
             id: 'customer',
-            header: ({ column }) => <DataGridColumnHeader title="Customer / Phone" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('recovery.columns.customerPhone')} column={column} />,
             cell: ({ row }) => (
                 <div className="flex min-w-0 flex-col">
                     <span className="truncate text-[13px] font-medium text-flex-text-primary">
-                        {row.original.customerName ?? 'Unknown customer'}
+                        {row.original.customerName ?? t('recovery.unknownCustomer')}
                     </span>
                     <span className="flex-numeric text-xs text-flex-text-muted">{row.original.phoneNumber}</span>
                 </div>
             ),
             size: 260,
             enableSorting: true,
-            meta: { kind: 'identity', align: 'start', headerTitle: 'Customer / Phone' },
+            meta: { kind: 'identity', align: 'start', headerTitle: t('recovery.columns.customerPhone') },
         },
         {
             accessorKey: 'missedAt',
             id: 'missedAt',
-            header: ({ column }) => <DataGridColumnHeader title="Missed At" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('recovery.columns.missedAt')} column={column} />,
             cell: ({ getValue }) => (
-                <span className="flex-numeric text-xs whitespace-nowrap text-flex-text-muted">{formatMissedAt(getValue() as string)}</span>
+                <span className="flex-numeric text-xs whitespace-nowrap text-flex-text-muted">{formatMissedAt(getValue() as string, t)}</span>
             ),
             size: 160,
             enableSorting: true,
-            meta: { kind: 'date', align: 'start', headerTitle: 'Missed At' },
+            meta: { kind: 'date', align: 'start', headerTitle: t('recovery.columns.missedAt') },
         },
         {
             accessorKey: 'queueName',
             id: 'queue',
-            header: ({ column }) => <DataGridColumnHeader title="Queue" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('recovery.columns.queue')} column={column} />,
             cell: ({ getValue }) => <span className="text-xs text-flex-text-primary">{getValue() as string}</span>,
             size: 220,
             enableSorting: true,
-            meta: { kind: 'text', align: 'start', headerTitle: 'Queue' },
+            meta: { kind: 'text', align: 'start', headerTitle: t('recovery.columns.queue') },
         },
         {
             accessorKey: 'category',
             id: 'category',
-            header: 'Category',
+            header: t('recovery.columns.category'),
             cell: ({ getValue }) => <span className="text-xs text-flex-text-primary">{getValue() as string}</span>,
             size: 200,
             meta: { kind: 'text', align: 'start' },
@@ -84,14 +85,14 @@ export function recoveryColumns(
         {
             accessorKey: 'attempts',
             id: 'attempts',
-            header: 'Attempts',
+            header: t('recovery.columns.attempts'),
             cell: ({ getValue }) => <span className="flex-numeric text-xs text-flex-text-primary">{getValue() as number}</span>,
             size: 88,
             meta: { kind: 'numeric', align: 'end' },
         },
         {
             id: 'voicemail',
-            header: 'Voicemail',
+            header: t('recovery.columns.voicemail'),
             cell: ({ row }) => (
                 <VoicemailPlayer
                     voicemail={row.original.voicemail}
@@ -104,7 +105,7 @@ export function recoveryColumns(
         },
         {
             id: 'ownership',
-            header: 'Ownership',
+            header: t('recovery.columns.ownership'),
             cell: ({ row }) => <RecoveryOwnership record={row.original} currentAgentId={currentAgent.id} />,
             size: 220,
             meta: { kind: 'text', align: 'start' },
@@ -112,15 +113,15 @@ export function recoveryColumns(
         {
             accessorKey: 'status',
             id: 'status',
-            header: ({ column }) => <DataGridColumnHeader title="Status" column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('recovery.columns.status')} column={column} />,
             cell: ({ row }) => <RecoveryStatus status={row.original.status} />,
             size: 200,
             enableSorting: true,
-            meta: { kind: 'status', align: 'start', headerTitle: 'Status' },
+            meta: { kind: 'status', align: 'start', headerTitle: t('recovery.columns.status') },
         },
         {
             id: 'action',
-            header: 'Action',
+            header: t('recovery.columns.action'),
             cell: ({ row }) => (
                 <CallbackAction
                     record={row.original}

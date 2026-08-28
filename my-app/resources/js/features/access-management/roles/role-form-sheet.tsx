@@ -1,5 +1,6 @@
 import { RiSearchLine } from '@remixicon/react';
 import React, { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -31,6 +32,7 @@ export interface RoleFormSheetProps {
 }
 
 export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleFormSheetProps) {
+    const { t } = useTranslation('administration');
     const [draft, setDraft] = useState<RoleDraft>(() => seedDraft(editing));
     const [search, setSearch] = useState('');
     const [nameError, setNameError] = useState<string>();
@@ -84,7 +86,7 @@ export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleForm
 
     const handleSave = () => {
         if (!draft.name.trim()) {
-            setNameError('Role name is required.');
+            setNameError(t('roles.form.validation.nameRequired'));
 
             return;
         }
@@ -97,16 +99,16 @@ export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleForm
                         name: draft.name.trim(),
                         permissions: draft.permissions,
                     });
-                    toast.success('Role saved');
+                    toast.success(t('roles.form.toast.saved'));
                 } else {
                     accessRepository.createRole({
                         name: draft.name.trim(),
                         permissions: draft.permissions,
                     });
-                    toast.success('Role created');
+                    toast.success(t('roles.form.toast.created'));
                 }
             } catch {
-                toast.error(editing ? 'Role could not be saved' : 'Role could not be created');
+                toast.error(editing ? t('roles.form.toast.saveFailed') : t('roles.form.toast.createFailed'));
             }
 
             setSaving(false);
@@ -119,22 +121,22 @@ export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleForm
         <Sheet open={open} onOpenChange={handleOpenChange}>
             <SheetContent className="w-full sm:max-w-md">
                 <SheetHeader>
-                    <SheetTitle>{editing ? 'Edit Role' : 'Add Role'}</SheetTitle>
+                    <SheetTitle>{editing ? t('roles.form.editTitle') : t('roles.form.addTitle')}</SheetTitle>
                     <SheetDescription>
-                        {editing ? 'Update the role name and assigned permissions.' : 'Create a role and assign permissions.'}
+                        {editing ? t('roles.form.editDescription') : t('roles.form.createDescription')}
                     </SheetDescription>
                 </SheetHeader>
 
                 <div className="flex-1 overflow-y-auto px-4 pb-4 flex flex-col gap-4">
                     <div className="flex flex-col gap-1.5">
                         <Label htmlFor="role-name" className="text-xs font-semibold">
-                            Role name
+                            {t('roles.form.roleNameLabel')}
                         </Label>
                         <Input
                             id="role-name"
                             value={draft.name}
                             onChange={(e) => updateDraft({ name: e.target.value })}
-                            placeholder="e.g. Billing Supervisor"
+                            placeholder={t('roles.form.roleNamePlaceholder')}
                             aria-invalid={!!nameError}
                         />
                         {nameError && <p className="text-xs text-destructive">{nameError}</p>}
@@ -142,21 +144,20 @@ export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleForm
 
                     {editing && editing.userCount > 0 && (
                         <p className="rounded-md border border-flex-status-warning-bg bg-flex-status-warning-bg px-3 py-2 text-xs text-flex-status-warning">
-                            This role is assigned to {editing.userCount} user{editing.userCount === 1 ? '' : 's'}.
-                            Changes will affect their access.
+                            {t('roles.form.assignedWarning', { count: editing.userCount, pluralSuffix: editing.userCount === 1 ? '' : 's' })}
                         </p>
                     )}
 
                     <div className="flex flex-col gap-3">
                         <div className="flex items-center justify-between gap-2">
-                            <Label className="text-xs font-semibold">Permissions</Label>
-                            <span className="text-xs text-flex-text-muted">{selectedCount} selected</span>
+                            <Label className="text-xs font-semibold">{t('roles.form.permissionsLabel')}</Label>
+                            <span className="text-xs text-flex-text-muted">{t('roles.form.selectedCount', { count: selectedCount })}</span>
                         </div>
 
                         <div className="relative">
                             <RiSearchLine className="absolute left-2.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
                             <Input
-                                placeholder="Search permissions…"
+                                placeholder={t('roles.form.searchPlaceholder')}
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                                 className="pl-9 h-9 text-xs"
@@ -165,8 +166,7 @@ export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleForm
 
                         {unknownPermissions.length > 0 && (
                             <p className="rounded-md border border-flex-status-warning-bg bg-flex-status-warning-bg px-3 py-2 text-xs text-flex-status-warning">
-                                {unknownPermissions.length} additional permission{unknownPermissions.length === 1 ? '' : 's'} from the
-                                backend is being preserved and will not be removed on save.
+                                {t('roles.form.unknownWarning', { count: unknownPermissions.length, pluralSuffix: unknownPermissions.length === 1 ? '' : 's' })}
                             </p>
                         )}
 
@@ -198,7 +198,7 @@ export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleForm
 
                             {filteredGroups.length === 0 && (
                                 <p className="px-2 py-4 text-center text-xs text-flex-text-muted">
-                                    No permissions match &quot;{search}&quot;.
+                                    {t('roles.form.noMatch', { search })}
                                 </p>
                             )}
                         </div>
@@ -207,10 +207,10 @@ export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleForm
 
                 <SheetFooter className="border-t border-border px-4 py-3">
                     <Button variant="outline" onClick={() => handleOpenChange(false)} disabled={saving}>
-                        Cancel
+                        {t('roles.form.cancel')}
                     </Button>
                     <Button onClick={handleSave} disabled={saving}>
-                        {saving ? 'Saving…' : editing ? 'Save Role' : 'Create Role'}
+                        {saving ? t('roles.form.saving') : editing ? t('roles.form.saveRole') : t('roles.form.createRole')}
                     </Button>
                 </SheetFooter>
             </SheetContent>

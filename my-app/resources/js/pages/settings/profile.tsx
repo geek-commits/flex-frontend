@@ -1,5 +1,6 @@
 import { Form, Head, usePage } from '@inertiajs/react';
 import { Link } from '@inertiajs/react';
+import { useTranslation } from 'react-i18next';
 import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileController';
 import DeleteUser from '@/components/delete-user';
 import InputError from '@/components/input-error';
@@ -23,12 +24,13 @@ export default function Profile({
     status?: string;
 }) {
     const { auth } = usePage<PageProps>().props;
+    const { t } = useTranslation('common');
 
     return (
         <>
-            <Head title="Profile settings" />
+            <Head title={t('settings.profileHeadTitle')} />
 
-            <h1 className="sr-only">Profile settings</h1>
+            <h1 className="sr-only">{t('settings.profileHeadTitle')}</h1>
 
             <div className="flex flex-col gap-6">
                 <SettingsCard
@@ -134,4 +136,4 @@ Profile.layout = {
             href: edit(),
         },
     ],
-};
+} as unknown as { breadcrumbs: { title: string; href: string }[] };

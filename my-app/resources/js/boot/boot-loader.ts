@@ -26,12 +26,33 @@ function isReducedMotion(): boolean {
     return typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
+function localizeLoader() {
+    const loaderEl = getEl();
+    if (!loaderEl) return;
+    try {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
+        const i18n = require('@/i18n').default;
+        if (i18n?.t) {
+            const loadingLabel = i18n.t('preloader.loadingFlex', { ns: 'common', defaultValue: 'Loading FLEX' });
+            loaderEl.setAttribute('aria-label', loadingLabel);
+            const hint = loaderEl.querySelector('[data-long-load]') as HTMLElement | null;
+            if (hint) {
+                const longText = i18n.t('preloader.longLoad', { ns: 'common', defaultValue: 'FLEX is taking longer than expected.' });
+                hint.textContent = longText;
+            }
+        }
+    } catch {
+        // keep English fallback
+    }
+}
+
 export const bootLoader = {
     /** Ensure reveal timer is armed — call on script load. */
     init() {
         if (typeof document === 'undefined') return;
         el = getEl();
         if (!el) return;
+        localizeLoader();
         // start hidden, reveal only if still not ready after threshold
         revealTimer = window.setTimeout(() => {
             if (state === 'hidden') {
@@ -94,7 +115,16 @@ export const bootLoader = {
         if (longTimer) window.clearTimeout(longTimer);
         el.classList.add('is-visible', 'is-failed');
         el.setAttribute('role', 'status');
-        el.setAttribute('aria-label', 'FLEX failed to start');
+        // Localize failure label if i18n is available; fallback to English.
+        let failedLabel = 'FLEX failed to start';
+        try {
+            // eslint-disable-next-line @typescript-eslint/no-require-imports
+            const i18n = require('@/i18n').default;
+            if (i18n?.t) failedLabel = i18n.t('preloader.failedToStart', { ns: 'common', defaultValue: failedLabel });
+        } catch {
+            // ignore — keep English fallback
+        }
+        el.setAttribute('aria-label', failedLabel);
     },
 
     /** For tests: reset state. */

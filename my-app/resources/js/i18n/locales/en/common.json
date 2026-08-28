@@ -45,5 +45,17 @@
     "en": "English",
     "sw": "Kiswahili",
     "fr": "Français"
+  },
+  "preloader": {
+    "loadingFlex": "Loading FLEX",
+    "longLoad": "FLEX is taking longer than expected.",
+    "failedToStart": "FLEX failed to start",
+    "couldntStart": "FLEX couldn’t start.",
+    "retry": "Retry"
+  },
+  "settings": {
+    "profileHeadTitle": "Profile settings",
+    "appearanceHeadTitle": "Appearance settings",
+    "securityHeadTitle": "Security settings"
   }
 }

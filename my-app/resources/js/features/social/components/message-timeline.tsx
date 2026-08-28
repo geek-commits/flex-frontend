@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import type { SocialConversation, SocialMessage } from '../social-types';
@@ -45,10 +46,11 @@ export function MessageTimeline({
     error,
     onRetry,
 }: MessageTimelineProps) {
+    const { t } = useTranslation('supervision');
     if (error) {
         return (
             <FlexEmptyState
-                title="Couldn't load this conversation"
+                title={t('social.timeline.loadErrorTitle')}
                 description={error}
                 action={
                     onRetry ? (
@@ -57,7 +59,7 @@ export function MessageTimeline({
                             onClick={onRetry}
                             className="rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:bg-primary/90"
                         >
-                            Retry
+                            {t('social.timeline.retry')}
                         </button>
                     ) : undefined
                 }
@@ -67,14 +69,14 @@ export function MessageTimeline({
     }
 
     if (loading) {
-        return <div className="p-4 text-xs text-muted-foreground">Loading conversation…</div>;
+        return <div className="p-4 text-xs text-muted-foreground">{t('social.timeline.loading')}</div>;
     }
 
     if (messages.length === 0) {
         return (
             <FlexEmptyState
-                title="No messages yet"
-                description="This conversation has no messages."
+                title={t('social.timeline.noMessagesTitle')}
+                description={t('social.timeline.noMessagesDescription')}
                 className="py-10"
             />
         );
@@ -84,7 +86,7 @@ export function MessageTimeline({
         <div
             className="flex flex-col gap-3 overflow-y-auto p-4 min-h-0"
             role="log"
-            aria-label="Conversation messages"
+            aria-label={t('social.timeline.messagesLabel')}
         >
             {messages.map((message, index) => {
                 const previous = messages[index - 1];

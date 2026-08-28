@@ -334,5 +334,57 @@
       "callsToday": "Appels aujourd'hui",
       "aht": "AHT"
     }
+  },
+  "social": {
+    "title": "Boîte sociale",
+    "inbox": "Boîte de réception",
+    "contextTitle": "Contexte de la conversation",
+    "selectConversation": "Sélectionnez une conversation pour afficher et répondre.",
+    "ariaLabel": "Conversations sociales",
+    "listRoleLabel": "Conversations sociales",
+    "backToConversations": "Retour aux conversations",
+    "viewContext": "Voir le contexte de la conversation",
+    "followUp": "Suivi",
+    "followUpSet": "Suivi défini",
+    "markFollowUp": "Marquer pour suivi",
+    "escalate": "Escalader",
+    "escalated": "Escaladé",
+    "escalatedToSupervisor": "Escaladé au superviseur",
+    "unread": "Non lu",
+    "channelFilter": {
+      "all": "Tous"
+    },
+    "empty": {
+      "noConversations": "Aucune conversation pour l'instant",
+      "noChannelConversations": "Aucune conversation {{channel}}",
+      "allDescription": "Les messages sociaux entrants apparaîtront ici.",
+      "filteredDescription": "Aucune conversation ne correspond à ce filtre."
+    },
+    "timeline": {
+      "loadErrorTitle": "Impossible de charger cette conversation",
+      "retry": "Réessayer",
+      "loading": "Chargement de la conversation…",
+      "noMessagesTitle": "Aucun message pour l'instant",
+      "noMessagesDescription": "Cette conversation n'a aucun message.",
+      "messagesLabel": "Messages de la conversation"
+    },
+    "composer": {
+      "placeholder": "Tapez une réponse…",
+      "replyAriaLabel": "Message de réponse",
+      "sendAriaLabel": "Envoyer la réponse",
+      "send": "Envoyer",
+      "sending": "Envoi en cours"
+    },
+    "contextPane": {
+      "contact": "Contact",
+      "channel": "Canal",
+      "followUp": "Suivi",
+      "escalation": "Escalade",
+      "activity": "Activité",
+      "started": "Début",
+      "lastActivity": "Dernière activité",
+      "notEscalated": "Non escaladé",
+      "none": "Aucun"
+    }
   }
 }

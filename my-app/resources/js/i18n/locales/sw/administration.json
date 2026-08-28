@@ -1,5 +1,35 @@
 {
-  "console": "Dashibodi ya Usimamizi",
+  "console": {
+    "title": "Dashibodi ya Usimamizi",
+    "subtitle": "Usimamizi mkuu wa FLEX.",
+    "headTitle": "Dashibodi ya Usimamizi — Flex Contact Center"
+  },
+  "health": {
+    "title": "Afya ya Uendeshaji",
+    "headTitle": "Afya ya Uendeshaji — Flex",
+    "description": "Hali halisi ya huduma kwa uchunguzi ulioidhinishwa."
+  },
+  "settings": {
+    "title": "Mipangilio ya Mfumo",
+    "subtitle": "Sanidi Injini ya Simu, Media, Usalama na Vigezo vya Uelekezaji",
+    "headTitle": "Mipangilio ya Mfumo — Flex Contact Center",
+    "catalogTitle": "Katalogi ya Mipangilio",
+    "catalogDescription": "Simamia vigezo vyote vya msingi vya kituo cha mawasiliano."
+  },
+  "placeholder": {
+    "headTitle": "{{title}} — Flex Contact Center",
+    "fallbackTitle": "Moduli",
+    "backToSettings": "Rudi kwenye Mipangilio",
+    "backToConsole": "Rudi kwenye Dashibodi ya Usimamizi",
+    "returnToSettings": "Rudi kwenye Mipangilio",
+    "returnToConsole": "Rudi kwenye Dashibodi ya Usimamizi",
+    "comingSoon": "Inakuja hivi karibuni",
+    "comingSoonDescription": "Moduli ya {{title}} imepangwa lakini bado haijatekelezwa katika POC hii. Utendaji wa kituo cha mawasiliano haujaathirika.",
+    "notAccessible": "Haipatikani",
+    "moduleNotFound": "Moduli haikupatikana",
+    "noPermission": "Huna ruhusa ya kufikia {{title}}.",
+    "notFoundDescription": "Moduli iliyoombwa haipo au anwani yake imebadilika."
+  },
   "users": {
     "title": "Watumiaji",
     "subtitle": "Simamia akaunti za watumiaji na ufikiaji.",
@@ -49,7 +79,98 @@
       "deleted": "imefutwa"
     }
   },
-  "roles": "Majukumu na Ruhusa",
+  "roles": {
+    "title": "Majukumu na Ruhusa",
+    "subtitle": "Simamia majukumu, ruhusa na ufikiaji kwa wasimamizi.",
+    "headTitle": "Majukumu na Ruhusa — Flex Contact Center",
+    "tabs": {
+      "roles": "Majukumu",
+      "permissions": "Ruhusa"
+    },
+    "description": "Majukumu hufafanua ruhusa zinazotolewa kwa watumiaji ndani ya mpangilio huu.",
+    "permissionsDescription": "Ufafanuzi wa ruhusa zilizopo kwenye mfumo huu, zikipangwa kwa moduli.",
+    "refresh": "Onyesha upya",
+    "addRole": "Ongeza Jukumu",
+    "addPermission": "Ongeza Ruhusa",
+    "tryAgain": "Jaribu tena",
+    "footerHint": "Adapta ya POC — mpaka wa `AccessRepository`; badilisha na backend halisi ya majukumu wakati wa uzinduzi.",
+    "permissionsFooterHint": "Adapta ya POC — mpaka wa `AccessRepository`; badilisha na backend halisi ya ruhusa wakati wa uzinduzi.",
+    "error": {
+      "rolesTitle": "Imeshindwa kupakia majukumu",
+      "permissionsTitle": "Imeshindwa kupakia ruhusa",
+      "generic": "Data ya majukumu haikupatikana.",
+      "permissionsGeneric": "Data ya ruhusa haikupatikana."
+    },
+    "empty": {
+      "noRolesTitle": "Hakuna majukumu bado",
+      "noRolesDescription": "Ongeza jukumu lako la kwanza ili kufafanua ufikiaji kwa watumiaji.",
+      "noPermissionsTitle": "Hakuna ruhusa bado",
+      "noPermissionsDescription": "Ongeza ufafanuzi wako wa kwanza wa ruhusa."
+    },
+    "columns": {
+      "role": "Jukumu",
+      "permissions": "Ruhusa",
+      "users": "Watumiaji",
+      "actions": "Vitendo",
+      "permission": "Ruhusa",
+      "type": "Aina",
+      "module": "Moduli"
+    },
+    "table": {
+      "noPermissions": "Hakuna ruhusa",
+      "editRole": "Hariri jukumu",
+      "editRoleAria": "Hariri {{name}}"
+    },
+    "form": {
+      "editTitle": "Hariri Jukumu",
+      "addTitle": "Ongeza Jukumu",
+      "editDescription": "Sasisha jina la jukumu na ruhusa zilizopangwa.",
+      "createDescription": "Unda jukumu na pangilia ruhusa.",
+      "roleNameLabel": "Jina la jukumu",
+      "roleNamePlaceholder": "mf. Msimamizi wa Malipo",
+      "permissionsLabel": "Ruhusa",
+      "selectedCount": "{{count}} zimechaguliwa",
+      "searchPlaceholder": "Tafuta ruhusa…",
+      "unknownWarning": "ruhusa {{count}} ya ziada kutoka backend inahifadhiwa na haitaondolewa wakati wa kuhifadhi.",
+      "unknownWarning_one": "ruhusa {{count}} ya ziada kutoka backend inahifadhiwa na haitaondolewa wakati wa kuhifadhi.",
+      "unknownWarning_other": "ruhusa {{count}} za ziada kutoka backend zinahifadhiwa na hazitaondolewa wakati wa kuhifadhi.",
+      "assignedWarning": "Jukumu hili limepangiwa watumiaji {{count}}. Mabadiliko yataathiri ufikiaji wao.",
+      "assignedWarning_one": "Jukumu hili limepangiwa mtumiaji {{count}}. Mabadiliko yataathiri ufikiaji wake.",
+      "assignedWarning_other": "Jukumu hili limepangiwa watumiaji {{count}}. Mabadiliko yataathiri ufikiaji wao.",
+      "noMatch": "Hakuna ruhusa inayolingana na \"{{search}}\".",
+      "cancel": "Ghairi",
+      "saving": "Inahifadhi…",
+      "saveRole": "Hifadhi Jukumu",
+      "createRole": "Unda Jukumu",
+      "validation": {
+        "nameRequired": "Jina la jukumu linahitajika."
+      },
+      "toast": {
+        "saved": "Jukumu limehifadhiwa",
+        "created": "Jukumu limeundwa",
+        "saveFailed": "Jukumu halikuweza kuhifadhiwa",
+        "createFailed": "Jukumu halikuweza kuundwa"
+      }
+    },
+    "permissionForm": {
+      "addTitle": "Ongeza Ruhusa",
+      "addDescription": "Ongeza ufafanuzi mpya wa ruhusa kwenye mfumo huu.",
+      "nameLabel": "Jina la ruhusa",
+      "namePlaceholder": "mf. Tazama Ripoti za Malipo",
+      "typeLabel": "Aina ya ruhusa",
+      "cancel": "Ghairi",
+      "saving": "Inahifadhi…",
+      "save": "Hifadhi",
+      "validation": {
+        "nameRequired": "Jina la ruhusa linahitajika.",
+        "duplicate": "Ruhusa yenye jina hili tayari ipo."
+      },
+      "toast": {
+        "added": "Ruhusa imeongezwa",
+        "addFailed": "Ruhusa haikuweza kuongezwa"
+      }
+    }
+  },
   "queues": {
     "label": "Foleni",
     "title": "Foleni",

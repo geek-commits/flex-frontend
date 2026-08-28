@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Skeleton } from '@/components/ui/skeleton';
 import type { PermissionDefinition } from '@/features/access-management/shared/permission-catalog';
 
@@ -13,6 +14,7 @@ export interface PermissionsTableProps {
  * definitions, so this table is read-only by design (plan §63, §65).
  */
 export function PermissionsTable({ records, isLoading, emptyMessage }: PermissionsTableProps) {
+    const { t } = useTranslation('administration');
     if (isLoading) {
         return (
             <div className="flex flex-col gap-2">
@@ -32,9 +34,9 @@ export function PermissionsTable({ records, isLoading, emptyMessage }: Permissio
             <table className="flex-table-grid w-full text-sm">
                 <thead>
                     <tr className="border-b border-border bg-muted/40 text-left">
-                        <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap text-start">Permission</th>
-                        <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap text-start">Type</th>
-                        <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap text-start">Module</th>
+                        <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap text-start">{t('roles.columns.permission')}</th>
+                        <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap text-start">{t('roles.columns.type')}</th>
+                        <th className="px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted whitespace-nowrap text-start">{t('roles.columns.module')}</th>
                     </tr>
                 </thead>
                 <tbody>

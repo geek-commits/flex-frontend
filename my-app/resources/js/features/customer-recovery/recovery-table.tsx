@@ -1,5 +1,6 @@
 import type { Table } from '@tanstack/react-table';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexErrorState } from '@/components/flex/flex-error-state';
 import {
@@ -32,14 +33,15 @@ export function RecoveryTable({
     onRowClick,
     emptyMessage,
 }: RecoveryTableProps) {
+    const { t } = useTranslation('agent');
     if (error) {
         return (
             <FlexErrorState
-                title="Couldn't load missed calls"
+                title={t('recovery.error.title')}
                 description={error}
                 action={
                     <Button variant="outline" size="sm" className="text-xs" onClick={onRefresh}>
-                        Try Again
+                        {t('recovery.retry')}
                     </Button>
                 }
             />
@@ -55,8 +57,8 @@ export function RecoveryTable({
             emptyMessage={
                 emptyMessage ?? (
                     <FlexEmptyState
-                        title="No missed calls to recover"
-                        description="New missed calls will appear here when follow-up is needed."
+                        title={t('recovery.empty.noMissedCalls')}
+                        description={t('recovery.empty.noMissedCallsDescription')}
                     />
                 )
             }
