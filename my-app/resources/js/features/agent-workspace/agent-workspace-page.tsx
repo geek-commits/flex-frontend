@@ -1,5 +1,5 @@
-import { AgentShell } from '@/layouts/agent-shell';
 import { ExternalWorkspaceHost } from '@/features/integrations/external-workspace-host';
+import { AgentShell } from '@/layouts/agent-shell';
 import { AgentAssistDock } from './agent-assist/agent-assist-dock';
 import { AgentOperationalHeader } from './agent-operational-header';
 import { CallManager } from './call-manager/call-manager';

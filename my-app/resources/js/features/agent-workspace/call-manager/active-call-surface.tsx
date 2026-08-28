@@ -13,12 +13,12 @@ import {
 } from '@remixicon/react';
 import { motion, useReducedMotion } from 'motion/react';
 import React, { useMemo, useState } from 'react';
-import { useAgentAssistSessionOptional } from '../agent-assist/agent-assist-session-context';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useCallTimer } from '@/features/dashboard/use-call-timer';
 import { cn } from '@/lib/utils';
 import type { CallState } from '@/types/flex';
+import { useAgentAssistSessionOptional } from '../agent-assist/agent-assist-session-context';
 import {
     buildTransferTargets,
     filterTransferTargets,

@@ -15,6 +15,7 @@ export interface ConnectionStatusProps {
  */
 export function ConnectionStatus({ state, className }: ConnectionStatusProps) {
     const { t } = useTranslation();
+
     if (state === 'live') {
         return null;
     }

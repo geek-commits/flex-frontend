@@ -1,7 +1,8 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useRef } from 'react';
 import { useWorkspaceState } from '@/features/agent-workspace/state/use-workspace-state';
 import { agentAssistMockTransport } from './agent-assist-mock-transport';
-import { assistReducer, INITIAL_ASSIST_STATE, type AssistState } from './agent-assist-reducer';
+import { assistReducer, INITIAL_ASSIST_STATE  } from './agent-assist-reducer';
+import type {AssistState} from './agent-assist-reducer';
 import type { AgentAssistTransport } from './agent-assist-transport';
 
 interface AgentAssistSessionContextValue extends AssistState {
@@ -34,11 +35,13 @@ export function AgentAssistSessionProvider({
         if (!hasCall || !activeCallId) {
             if (sessionRef.current) {
                 const { sessionId, unsubscribe } = sessionRef.current;
+
                 try {
                     unsubscribe?.();
                 } catch {
                     // transport never degrades telephony
                 }
+
                 void transport.stop(sessionId).catch(() => {});
                 sessionRef.current = null;
                 dispatch({ type: 'SESSION_END' });
@@ -56,9 +59,11 @@ export function AgentAssistSessionProvider({
         const kickoff = async () => {
             if (sessionRef.current) {
                 const { sessionId, unsubscribe } = sessionRef.current;
+
                 try {
                     unsubscribe?.();
                 } catch {}
+
                 await transport.stop(sessionId).catch(() => {});
                 sessionRef.current = null;
             }
@@ -98,9 +103,11 @@ export function AgentAssistSessionProvider({
         return () => {
             if (sessionRef.current) {
                 const { sessionId, unsubscribe } = sessionRef.current;
+
                 try {
                     unsubscribe?.();
                 } catch {}
+
                 void transport.stop(sessionId).catch(() => {});
                 sessionRef.current = null;
             }
@@ -130,6 +137,7 @@ export function AgentAssistSessionProvider({
 
 export function useAgentAssistSession(): AgentAssistSessionContextValue {
     const ctx = useContext(AgentAssistSessionContext);
+
     if (!ctx) {
         throw new Error('useAgentAssistSession must be used within AgentAssistSessionProvider');
     }

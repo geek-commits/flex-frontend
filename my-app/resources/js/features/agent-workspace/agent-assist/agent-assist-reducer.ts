@@ -51,8 +51,10 @@ export type AssistAction =
 
 function upsertSegment(segments: TranscriptSegment[], segment: TranscriptSegment): TranscriptSegment[] {
     const idx = segments.findIndex((s) => s.id === segment.id);
+
     if (idx !== -1) {
         const existing = segments[idx] as TranscriptSegment;
+
         if (existing.text === segment.text && existing.status === segment.status) {
             return segments;
         }
@@ -62,11 +64,13 @@ function upsertSegment(segments: TranscriptSegment[], segment: TranscriptSegment
         next[idx] = segment;
         // Keep sort stable by startedAt then id
         next.sort((a, b) => a.startedAt - b.startedAt || a.id.localeCompare(b.id));
+
         return next;
     }
 
     const next = [...segments, segment];
     next.sort((a, b) => a.startedAt - b.startedAt || a.id.localeCompare(b.id));
+
     return next;
 }
 
@@ -85,12 +89,15 @@ export function assistReducer(state: AssistState, action: AssistAction): AssistS
             return { ...INITIAL_ASSIST_STATE };
         case 'TRANSPORT_STATE': {
             let sessionState = state.sessionState;
+
             if (state.sessionState === 'starting' && action.state === 'streaming') {
                 sessionState = 'active';
             }
+
             if (action.state === 'offline' || action.state === 'stalled') {
                 // session stays active but transport reflects issue
             }
+
             return { ...state, transportState: action.state, sessionState };
         }
         case 'LANGUAGE':
@@ -98,23 +105,29 @@ export function assistReducer(state: AssistState, action: AssistAction): AssistS
         case 'TRANSCRIPT_SEGMENT': {
             const segments = upsertSegment(state.segments, action.segment);
             const didChange = segments !== state.segments;
+
             if (!didChange) {
                 return state;
             }
+
             // Auto-open once per call when first final becomes useful
             let isOpen = state.isOpen;
             let hasAutoOpened = state.hasAutoOpened;
+
             if (!state.hasAutoOpened && !state.isMinimized && action.segment.status === 'final') {
                 isOpen = true;
                 hasAutoOpened = true;
             }
+
             // Transition starting→active on first streaming segment if not already
             let sessionState = state.sessionState;
+
             if (state.sessionState === 'starting' && state.transportState === 'streaming') {
                 sessionState = 'active';
             } else if (state.sessionState === 'starting') {
                 sessionState = 'active';
             }
+
             return { ...state, segments, isOpen, hasAutoOpened, sessionState };
         }
         case 'SUGGESTION': {

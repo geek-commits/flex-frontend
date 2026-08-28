@@ -13,6 +13,7 @@ export function AgentAssistTranscript({ segments }: AgentAssistTranscriptProps) 
 
     useEffect(() => {
         const el = scrollerRef.current;
+
         if (!el) {
             return;
         }
@@ -20,6 +21,7 @@ export function AgentAssistTranscript({ segments }: AgentAssistTranscriptProps) 
         const onScroll = () => {
             const near = el.scrollHeight - el.scrollTop - el.clientHeight < 40;
             setIsNearBottom(near);
+
             if (near) {
                 setShowJump(false);
             }
@@ -36,6 +38,7 @@ export function AgentAssistTranscript({ segments }: AgentAssistTranscriptProps) 
         } else {
             // New final arrived while user scrolled up — show jump affordance
             const hasFinal = segments.some((s) => s.status === 'final');
+
             if (hasFinal && !isNearBottom) {
                 setShowJump(true);
             }
@@ -101,6 +104,7 @@ export function AgentAssistTranscript({ segments }: AgentAssistTranscriptProps) 
                             if (scrollerRef.current) {
                                 scrollerRef.current.scrollTop = scrollerRef.current.scrollHeight;
                             }
+
                             setShowJump(false);
                         }}
                         className="rounded-full bg-card px-3 py-1 text-xs font-medium shadow-md border border-flex-workspace-divider"

@@ -34,6 +34,7 @@ export function IdleCallSurface({
     const { t } = useTranslation('agent');
     const [historyFilter, setHistoryFilter] = useState<HistoryFilter>('all');
     const [searchQuery, setSearchQuery] = useState('');
+
     return (
         <>
             <div className="flex items-center border-b border-border bg-muted/20 px-2 shrink-0">
@@ -110,14 +111,25 @@ export function IdleCallSurface({
 
                         {(() => {
                             const filtered = history.filter((log) => {
-                                if (historyFilter === 'missed' && log.outcome !== 'missed') return false;
-                                if (historyFilter === 'outgoing' && !(log.direction === 'outbound' || log.outcome === 'outgoing')) return false;
+                                if (historyFilter === 'missed' && log.outcome !== 'missed') {
+return false;
+}
+
+                                if (historyFilter === 'outgoing' && !(log.direction === 'outbound' || log.outcome === 'outgoing')) {
+return false;
+}
+
                                 if (searchQuery.trim()) {
                                     const q = searchQuery.toLowerCase();
-                                    if (!log.target.label.toLowerCase().includes(q) && !(log.target.phone ?? '').toLowerCase().includes(q)) return false;
+
+                                    if (!log.target.label.toLowerCase().includes(q) && !(log.target.phone ?? '').toLowerCase().includes(q)) {
+return false;
+}
                                 }
+
                                 return true;
                             });
+
                             if (history.length === 0) {
                                 return (
                                     <p className="text-xs text-muted-foreground text-center py-6">
@@ -125,6 +137,7 @@ export function IdleCallSurface({
                                     </p>
                                 );
                             }
+
                             if (filtered.length === 0) {
                                 return (
                                     <p className="text-xs text-muted-foreground text-center py-6">
@@ -132,6 +145,7 @@ export function IdleCallSurface({
                                     </p>
                                 );
                             }
+
                             return filtered.map((log) => (
                                 <button
                                     key={log.id}

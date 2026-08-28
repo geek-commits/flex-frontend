@@ -3,11 +3,13 @@ import { RiMenuLine } from '@remixicon/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCapabilities } from '@/auth/capabilities';
+import { isActiveRoute } from '@/auth/nav-domains';
 import { FlexBrandLogo } from '@/components/flex/brand';
 import { useBrandIntroReplayGuard } from '@/components/flex/brand/use-brand-intro-replay-guard';
 import { FlexProfileMenu } from '@/components/flex/flex-profile-menu';
 import { GlobalSearchTrigger } from '@/components/flex/global-search';
 import { FlexIcon } from '@/components/flex/iconography';
+import { LanguageSwitcher } from '@/components/language-switcher';
 import { Button } from '@/components/ui/button';
 import {
     Sheet,
@@ -16,8 +18,6 @@ import {
     SheetTitle,
     SheetTrigger,
 } from '@/components/ui/sheet';
-import { isActiveRoute } from '@/auth/nav-domains';
-import { LanguageSwitcher } from '@/components/language-switcher';
 import type { AgentState, ConnectionState } from '@/types/flex';
 import { AgentStateControl } from './agent-state-control';
 import { ConnectionStatus } from './connection-status';

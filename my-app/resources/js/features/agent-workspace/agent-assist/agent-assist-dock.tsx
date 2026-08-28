@@ -3,10 +3,10 @@ import { useId } from 'react';
 import { Button } from '@/components/ui/button';
 import { ThinkingState } from '@/components/vendor/aicss/thinking-state';
 import { cn } from '@/lib/utils';
+import { useAgentAssistSession } from './agent-assist-session-context';
 import { AgentAssistStatus } from './agent-assist-status';
 import { AgentAssistSuggestions } from './agent-assist-suggestions';
 import { AgentAssistTranscript } from './agent-assist-transcript';
-import { useAgentAssistSession } from './agent-assist-session-context';
 
 export interface AgentAssistDockProps {
     /** Close/minimize callback — caller may also use session minimize */

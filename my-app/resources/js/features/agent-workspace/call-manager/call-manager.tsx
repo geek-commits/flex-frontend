@@ -6,12 +6,12 @@ import {
 } from '@remixicon/react';
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AgentAssistMobileView } from '../agent-assist/agent-assist-dock';
-import { useAgentAssistSessionOptional } from '../agent-assist/agent-assist-session-context';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
 import type { CallState } from '@/types/flex';
+import { AgentAssistMobileView } from '../agent-assist/agent-assist-dock';
+import { useAgentAssistSessionOptional } from '../agent-assist/agent-assist-session-context';
 import { WORKSPACE_TIMINGS } from '../state/mock-workspace-state';
 import { useWorkspaceState } from '../state/use-workspace-state';
 import type { CallTarget } from '../state/workspace-types';
@@ -70,6 +70,7 @@ export function CallManager() {
         if (!assist) {
             return;
         }
+
         if (assist.isOpen) {
             assist.minimizeAssist();
         } else {
@@ -183,6 +184,7 @@ export function CallManager() {
         const handleAssistFromCall = () => {
             if (isMobile && showAssistToggle) {
                 setMobileAssistMode(true);
+
                 // Ensure session is open so transcript streams (if not, open)
                 if (assist && !assist.isOpen) {
                     assist.openAssist();

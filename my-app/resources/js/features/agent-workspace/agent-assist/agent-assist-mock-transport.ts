@@ -116,6 +116,7 @@ export class AgentAssistMockTransport implements AgentAssistTransport {
 
     subscribe(sessionId: string, handlers: AgentAssistEventHandlers): () => void {
         const session = this.sessions.get(sessionId);
+
         if (!session) {
             return () => {};
         }
@@ -134,12 +135,15 @@ export class AgentAssistMockTransport implements AgentAssistTransport {
 
     async stop(sessionId: string): Promise<void> {
         const session = this.sessions.get(sessionId);
+
         if (!session) {
             return;
         }
+
         for (const t of session.timers) {
             clearTimeout(t);
         }
+
         session.timers.clear();
         this.sessions.delete(sessionId);
     }
@@ -153,6 +157,7 @@ export class AgentAssistMockTransport implements AgentAssistTransport {
             this.emitForSession(session, (h) =>
                 h.onError?.({ code: 'assist_session_start_failed', message: 'Assist unavailable for this call.' }),
             );
+
             return;
         }
 
@@ -174,9 +179,11 @@ export class AgentAssistMockTransport implements AgentAssistTransport {
         if (session.mode === 'stalled') {
             this.schedule(session, 1400, () => {
                 const seg = fixture.segments[0];
+
                 if (!seg) {
                     return;
                 }
+
                 const segment: TranscriptSegment = {
                     id: `seg-${session.sessionId}-0`,
                     speaker: seg.speaker,
@@ -203,6 +210,7 @@ export class AgentAssistMockTransport implements AgentAssistTransport {
             if (idx === 0 && fixture.segments.length > 1 && fixture.segments[1]?.status === 'interim') {
                 // Interim steps already modeled as separate entries — emit sequentially
             }
+
             this.schedule(session, delay, () => {
                 const segment: TranscriptSegment = {
                     id: `seg-${session.sessionId}-${seg.status === 'interim' && idx < 2 ? 0 : idx}`,
@@ -231,6 +239,7 @@ export class AgentAssistMockTransport implements AgentAssistTransport {
         // Simulate a reconnect window: emit transport reconnecting at ~8s, then replay final dups
         this.schedule(session, 8500, () => {
             const currentHandlers = [...session.handlers];
+
             if (currentHandlers.length === 0) {
                 return;
             }
