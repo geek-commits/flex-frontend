@@ -137,7 +137,7 @@ function FlexCallIslandSurface({ call }: { call: ActiveCallPresentation }) {
                 style={{ x: drag.x, y: drag.y }}
                 role="button"
                 tabIndex={0}
-                aria-label={`Active call with ${displayName}. ${expanded ? t('dynamicIsland.closeDetails') : t('dynamicIsland.openDetails')}`}
+                aria-label={`${t('dynamicIsland.activeCallWith', { name: displayName })}. ${expanded ? t('dynamicIsland.closeDetails') : t('dynamicIsland.openDetails')}`}
                 aria-expanded={expanded}
                 className="pointer-events-auto absolute top-0 left-0 cursor-grab rounded-[32px] bg-flex-call-island text-flex-call-island-text shadow-flex-overlay outline-none focus-visible:ring-2 focus-visible:ring-flex-brand active:cursor-grabbing"
                 onClick={handleToggle}

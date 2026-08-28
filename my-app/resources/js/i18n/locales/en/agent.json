@@ -82,6 +82,7 @@
     "inbound": "Inbound",
     "outbound": "Outbound",
     "activeCall": "Active call",
+    "activeCallWith": "Active call with {{name}}",
     "assistLive": "Assist live",
     "detectingLanguage": "Detecting language…",
     "openAssist": "Open Assist",

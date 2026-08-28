@@ -82,6 +82,7 @@
     "inbound": "Inayoingia",
     "outbound": "Inayotoka",
     "activeCall": "Simu inayoendelea",
+    "activeCallWith": "Simu inayoendelea na {{name}}",
     "assistLive": "Msaada unaendelea",
     "detectingLanguage": "Inatambua lugha…",
     "openAssist": "Fungua Msaada",
