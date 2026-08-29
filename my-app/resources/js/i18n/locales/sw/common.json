@@ -56,6 +56,14 @@
   "settings": {
     "profileHeadTitle": "Mipangilio ya wasifu",
     "appearanceHeadTitle": "Mipangilio ya muonekano",
-    "securityHeadTitle": "Mipangilio ya usalama"
+    "securityHeadTitle": "Mipangilio ya usalama",
+    "title": "Mipangilio",
+    "description": "Simamia wasifu na mipangilio ya akaunti yako",
+    "ariaLabel": "Mipangilio",
+    "navigation": {
+      "profile": "Wasifu",
+      "security": "Usalama",
+      "appearance": "Muonekano"
+    }
   }
 }

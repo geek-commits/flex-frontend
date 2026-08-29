@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react';
 import type { PropsWithChildren } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexIcon } from '@/components/flex/iconography';
 import Heading from '@/components/heading';
 import { Button } from '@/components/ui/button';
@@ -11,19 +12,19 @@ import { edit } from '@/routes/profile';
 import { edit as editSecurity } from '@/routes/security';
 import type { NavItem } from '@/types';
 
-const sidebarNavItems: NavItem[] = [
+const sidebarNavItems: Array<{ titleKey: string; href: NavItem['href']; icon: NavItem['icon'] }> = [
     {
-        title: 'Profile',
+        titleKey: 'settings.navigation.profile',
         href: edit(),
         icon: null,
     },
     {
-        title: 'Security',
+        titleKey: 'settings.navigation.security',
         href: editSecurity(),
         icon: null,
     },
     {
-        title: 'Appearance',
+        titleKey: 'settings.navigation.appearance',
         href: editAppearance(),
         icon: null,
     },
@@ -31,19 +32,20 @@ const sidebarNavItems: NavItem[] = [
 
 export default function SettingsLayout({ children }: PropsWithChildren) {
     const { isCurrentOrParentUrl } = useCurrentUrl();
+    const { t } = useTranslation('common');
 
     return (
         <div className="px-4 py-6">
             <Heading
-                title="Settings"
-                description="Manage your profile and account settings"
+                title={t('settings.title')}
+                description={t('settings.description')}
             />
 
             <div className="flex flex-col lg:flex-row lg:space-x-12">
                 <aside className="w-full max-w-xl lg:w-48">
                     <nav
                         className="flex flex-col space-y-1 space-x-0"
-                        aria-label="Settings"
+                        aria-label={t('settings.ariaLabel')}
                     >
                         {sidebarNavItems.map((item, index) => (
                             <Button
@@ -60,7 +62,7 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
                                 ) : (
                                     item.icon && <item.icon className="h-4 w-4" />
                                 )}
-                                {item.title}
+                                {t(item.titleKey)}
                             </Button>
                         ))}
                     </nav>

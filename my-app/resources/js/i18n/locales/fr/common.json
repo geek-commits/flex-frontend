@@ -56,6 +56,14 @@
   "settings": {
     "profileHeadTitle": "Paramètres du profil",
     "appearanceHeadTitle": "Paramètres d’apparence",
-    "securityHeadTitle": "Paramètres de sécurité"
+    "securityHeadTitle": "Paramètres de sécurité",
+    "title": "Paramètres",
+    "description": "Gérez votre profil et les paramètres de votre compte",
+    "ariaLabel": "Paramètres",
+    "navigation": {
+      "profile": "Profil",
+      "security": "Sécurité",
+      "appearance": "Apparence"
+    }
   }
 }
