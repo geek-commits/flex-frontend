@@ -1,5 +1,6 @@
 import { RiLoginCircleLine, RiMore2Line, RiUserStarLine } from '@remixicon/react';
 import type { ColumnDef } from '@tanstack/react-table';
+import type { TFunction } from 'i18next';
 import { FlexStatus } from '@/components/flex/flex-status';
 import { SearchHighlight } from '@/components/flex/search-highlight';
 import type { DataGridFeatures } from '@/components/reui/data-grid/data-grid';
@@ -26,9 +27,8 @@ export interface TenantRowHandlers {
     onSetStatus: (tenant: TenantRecord, status: TenantStatus) => void;
 }
 
-type TFunction = any;
 
-export function tenantColumns(t: TFunction, handlers: TenantRowHandlers): ColumnDef<DataGridFeatures, TenantRecord>[] {
+export function tenantColumns(t: TFunction<'platform', undefined>, handlers: TenantRowHandlers): ColumnDef<DataGridFeatures, TenantRecord>[] {
     const { onView, onEdit, onEnter, onSetStatus } = handlers;
 
     return [

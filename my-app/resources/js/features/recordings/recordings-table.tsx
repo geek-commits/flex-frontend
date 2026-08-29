@@ -5,6 +5,7 @@ import {
     RiEyeLine,
 } from '@remixicon/react';
 import type { ColumnDef, Table } from '@tanstack/react-table';
+import type { TFunction } from 'i18next';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
@@ -32,7 +33,8 @@ export interface RecordingsTableProps {
     onDelete: (record: RecordingRecord) => void;
 }
 
-type TFunction = any;
+
+type TF = TFunction<'administration', undefined>;
 
 const CATEGORY_TONE: Record<RecordingCategory, 'info' | 'warning' | 'neutral' | 'success' | 'danger'> = {
     'ivr-prompt': 'info',
@@ -55,7 +57,7 @@ function formatBytes(bytes: number): string {
 }
 
 export function buildRecordingsColumns(
-    t: TFunction,
+    t: TF,
     deps: {
         onRowClick: (record: RecordingRecord) => void;
         onEdit: (record: RecordingRecord) => void;

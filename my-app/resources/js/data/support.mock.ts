@@ -1,4 +1,4 @@
-import type { SupportData } from '@/features/support/support-types';
+import type { SupportCategory, SupportData } from '@/features/support/support-types';
 
 /**
  * Deterministic Quick Support mock dataset for the POC.
@@ -10,21 +10,21 @@ import type { SupportData } from '@/features/support/support-types';
  */
 
 export const SUPPORT_MOCK: SupportData = {
-    categories: ['Audio / Hardware', 'Telephony / Routing', 'CRM / Integration', 'Account & Login'],
+    categories: ['audioHardware', 'telephonyRouting', 'crmIntegration', 'accountLogin'] as SupportCategory[],
     tickets: [
         {
             id: 'TICK-1024',
             subject: 'Headset audio crackling on WebRTC softphone',
-            category: 'Audio / Hardware',
+            category: 'audioHardware',
             status: 'in-progress',
-            createdAt: '2026-08-07 11:30',
+            createdAt: '2026-08-07T11:30:00.000Z',
         },
         {
             id: 'TICK-1019',
             subject: 'DID route failover test inquiry',
-            category: 'Telephony / Routing',
+            category: 'telephonyRouting',
             status: 'resolved',
-            createdAt: '2026-08-05 09:14',
+            createdAt: '2026-08-05T09:14:00.000Z',
         },
     ],
 };

@@ -91,6 +91,29 @@
     "closeDetails": "Fermer les détails de l'appel",
     "assistLiveLabel": "Assistance en direct"
   },
+  "support": {
+    "title": "Assistance Rapide Flex",
+    "headTitle": "Assistance Rapide — Flex Contact Center",
+    "submitTicket": "Soumettre un ticket",
+    "issueCategory": "Catégorie du problème",
+    "subjectLabel": "Objet / Résumé bref",
+    "placeholder": "Décrivez le problème...",
+    "submit": "Soumettre le ticket",
+    "myTickets": "Mes tickets soumis",
+    "emptyTitle": "Aucun ticket soumis pour l'instant",
+    "emptyDescription": "Soumettez un ticket pour suivre vos demandes d'assistance ici.",
+    "status": {
+      "open": "Ouvert",
+      "inProgress": "En cours",
+      "resolved": "Résolu"
+    },
+    "categories": {
+      "audioHardware": "Audio / Matériel",
+      "telephonyRouting": "Téléphonie / Routage",
+      "crmIntegration": "CRM / Intégration",
+      "accountLogin": "Compte et connexion"
+    }
+  },
   "recovery": {
     "title": "Appels manqués et messagerie",
     "headTitle": "Appels manqués et messagerie — Flex Contact Center",

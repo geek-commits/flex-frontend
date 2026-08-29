@@ -1,4 +1,5 @@
 import type { ColumnDef } from '@tanstack/react-table';
+import type { TFunction } from 'i18next';
 import { FlexStatus } from '@/components/flex/flex-status';
 import type { FlexStatusTone } from '@/components/flex/flex-status';
 import type { DataGridFeatures } from '@/components/reui/data-grid/data-grid';
@@ -7,7 +8,8 @@ import { Skeleton } from '@/components/ui/skeleton';
 import type { ActiveCall } from '@/features/dashboard/dashboard-types';
 import { useCallTimer } from '@/features/dashboard/use-call-timer';
 
-type TFn = any;
+
+type TFn = TFunction<'supervision', undefined>;
 
 const CALL_STATE_TONES: Record<ActiveCall['state'], FlexStatusTone> = {
     ringing: 'info',

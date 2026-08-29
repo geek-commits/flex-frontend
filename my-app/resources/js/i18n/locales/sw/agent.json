@@ -91,6 +91,29 @@
     "closeDetails": "Funga maelezo ya simu",
     "assistLiveLabel": "Msaada unaendelea"
   },
+  "support": {
+    "title": "Msaada wa Haraka wa Flex",
+    "headTitle": "Msaada wa Haraka — Flex Contact Center",
+    "submitTicket": "Wasilisha Tiketi",
+    "issueCategory": "Kategoria ya Tatizo",
+    "subjectLabel": "Mada / Muhtasari Mfupi",
+    "placeholder": "Eleza tatizo...",
+    "submit": "Wasilisha Tiketi",
+    "myTickets": "Tiketi Zangu Zilizowasilishwa",
+    "emptyTitle": "Hakuna tiketi zilizowasilishwa bado",
+    "emptyDescription": "Wasilisha tiketi kufuatilia maombi yako ya msaada hapa.",
+    "status": {
+      "open": "Wazi",
+      "inProgress": "Inashughulikiwa",
+      "resolved": "Imetatuliwa"
+    },
+    "categories": {
+      "audioHardware": "Sauti / Vifaa",
+      "telephonyRouting": "Simu / Uelekezaji",
+      "crmIntegration": "CRM / Muunganisho",
+      "accountLogin": "Akaunti na Kuingia"
+    }
+  },
   "recovery": {
     "title": "Simu Zilizokosekana na Voicemail",
     "headTitle": "Simu Zilizokosekana na Voicemail — Flex Contact Center",

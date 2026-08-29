@@ -1,5 +1,6 @@
 import { RiEyeLine, RiPlayFill } from '@remixicon/react';
 import type { ColumnDef } from '@tanstack/react-table';
+import type { TFunction } from 'i18next';
 import { FlexStatus  } from '@/components/flex/flex-status';
 import type {FlexStatusTone} from '@/components/flex/flex-status';
 import { SearchHighlight } from '@/components/flex/search-highlight';
@@ -9,7 +10,8 @@ import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import type { CDRRecord } from '@/domain/types';
 
-type TFunction = any;
+
+type TF = TFunction<'supervision', undefined>;
 
 export const CDR_STATUS_TONE: Record<CDRRecord['status'], FlexStatusTone> = {
     answered: 'success',
@@ -25,7 +27,7 @@ export const formatDuration = (sec: number) => {
     return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
 };
 
-export function cdrColumns(t: TFunction, onViewRecord?: (record: CDRRecord) => void): ColumnDef<DataGridFeatures, CDRRecord>[] {
+export function cdrColumns(t: TF, onViewRecord?: (record: CDRRecord) => void): ColumnDef<DataGridFeatures, CDRRecord>[] {
     const recordingUnavailable = (
         <span className="text-flex-text-muted italic text-[10px]">{t('cdr.recording.noRecording')}</span>
     );

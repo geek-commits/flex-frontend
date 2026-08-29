@@ -1,5 +1,6 @@
 import { RiDeleteBin6Line, RiEditLine, RiEyeLine, RiPauseFill, RiPlayFill } from '@remixicon/react';
 import type { ColumnDef } from '@tanstack/react-table';
+import type { TFunction } from 'i18next';
 import { FlexStatus } from '@/components/flex/flex-status';
 import { SearchHighlight } from '@/components/flex/search-highlight';
 import type { DataGridFeatures } from '@/components/reui/data-grid/data-grid';
@@ -19,9 +20,10 @@ export interface CampaignRowHandlers {
     statusBusyId?: string;
 }
 
-type TFunction = any;
 
-export function campaignColumns(t: TFunction, handlers: CampaignRowHandlers): ColumnDef<DataGridFeatures, CampaignRecord>[] {
+type TF = TFunction<'supervision', undefined>;
+
+export function campaignColumns(t: TF, handlers: CampaignRowHandlers): ColumnDef<DataGridFeatures, CampaignRecord>[] {
     const { onView, onEdit, onToggleStatus, onDelete, statusBusyId } = handlers;
 
     return [

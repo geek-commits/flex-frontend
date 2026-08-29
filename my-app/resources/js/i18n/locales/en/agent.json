@@ -91,6 +91,29 @@
     "closeDetails": "Close call details",
     "assistLiveLabel": "Assist live"
   },
+  "support": {
+    "title": "Flex Quick Support",
+    "headTitle": "Quick Support — Flex Contact Center",
+    "submitTicket": "Submit a Ticket",
+    "issueCategory": "Issue Category",
+    "subjectLabel": "Subject / Brief Summary",
+    "placeholder": "Describe the issue...",
+    "submit": "Submit Ticket",
+    "myTickets": "My Submitted Tickets",
+    "emptyTitle": "No tickets submitted yet",
+    "emptyDescription": "Submit a ticket to track your technical support requests here.",
+    "status": {
+      "open": "Open",
+      "inProgress": "In Progress",
+      "resolved": "Resolved"
+    },
+    "categories": {
+      "audioHardware": "Audio / Hardware",
+      "telephonyRouting": "Telephony / Routing",
+      "crmIntegration": "CRM / Integration",
+      "accountLogin": "Account & Login"
+    }
+  },
   "recovery": {
     "title": "Missed Calls & Voicemail",
     "headTitle": "Missed Calls & Voicemail — Flex Contact Center",

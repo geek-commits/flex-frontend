@@ -1,5 +1,6 @@
 import { RiEditLine, RiEyeLine } from '@remixicon/react';
 import type { ColumnDef } from '@tanstack/react-table';
+import type { TFunction } from 'i18next';
 import { FlexStatus } from '@/components/flex/flex-status';
 import { SearchHighlight } from '@/components/flex/search-highlight';
 import type { DataGridFeatures } from '@/components/reui/data-grid/data-grid';
@@ -15,9 +16,10 @@ export interface UserRowHandlers {
     onEdit: (user: UserAccount) => void;
 }
 
-type TFunction = any;
 
-export function userColumns(t: TFunction, handlers: UserRowHandlers): ColumnDef<DataGridFeatures, UserAccount>[] {
+type TF = TFunction<'administration', undefined>;
+
+export function userColumns(t: TF, handlers: UserRowHandlers): ColumnDef<DataGridFeatures, UserAccount>[] {
     const { onView, onEdit } = handlers;
 
     return [

@@ -1,4 +1,5 @@
 import type { ColumnDef } from '@tanstack/react-table';
+import type { TFunction } from 'i18next';
 import { FlexStatus } from '@/components/flex/flex-status';
 import type { FlexStatusTone } from '@/components/flex/flex-status';
 import type { DataGridFeatures } from '@/components/reui/data-grid/data-grid';
@@ -8,7 +9,8 @@ import type { AgentRosterEntry } from '@/features/dashboard/dashboard-types';
 import { useStateTimer } from '@/features/dashboard/use-state-timer';
 import { agentStateMap } from '@/lib/status-styles';
 
-type TFn = any;
+
+type TFn = TFunction<'supervision', undefined>;
 
 const AGENT_STATE_TONES: Record<AgentRosterEntry['state'], FlexStatusTone> = {
     ready: 'success',
