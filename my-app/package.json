@@ -13,6 +13,7 @@
         "types:check": "tsc --noEmit",
         "test": "vitest run",
         "test:watch": "vitest",
+        "i18n:audit": "node scripts/i18n-audit.mjs",
         "perf:audit": "node scripts/perf-audit.mjs",
         "icons:audit": "python3 resources/assets/flex/brand/validate-svg-sources.py resources/assets/flex/brand && python3 resources/assets/flex/icons/validate-flex-icons.py resources/assets/flex/icons"
     },
