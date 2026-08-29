@@ -65,5 +65,12 @@
       "security": "Usalama",
       "appearance": "Muonekano"
     }
+  },
+  "welcome": {
+    "headTitle": "Karibu",
+    "description": "Kituo cha kisasa cha mawasiliano kwa mawakala, wasimamizi na wasimamizi wakuu.",
+    "login": "Ingia",
+    "register": "Jisajili",
+    "rights": "Haki zote zimehifadhiwa."
   }
 }

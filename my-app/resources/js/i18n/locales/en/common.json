@@ -65,5 +65,12 @@
       "security": "Security",
       "appearance": "Appearance"
     }
+  },
+  "welcome": {
+    "headTitle": "Welcome",
+    "description": "A modern, high-utility contact center for agents, supervisors and administrators.",
+    "login": "Log in",
+    "register": "Register",
+    "rights": "All rights reserved."
   }
 }

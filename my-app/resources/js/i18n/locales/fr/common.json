@@ -65,5 +65,12 @@
       "security": "Sécurité",
       "appearance": "Apparence"
     }
+  },
+  "welcome": {
+    "headTitle": "Bienvenue",
+    "description": "Un centre de contact moderne et performant pour les agents, superviseurs et administrateurs.",
+    "login": "Se connecter",
+    "register": "S’inscrire",
+    "rights": "Tous droits réservés."
   }
 }
