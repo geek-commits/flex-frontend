@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import type { CDRRecord } from '@/domain/types';
 
-type TFunction = (key: string, options?: Record<string, unknown>) => string;
+type TFunction = any;
 
 export const CDR_STATUS_TONE: Record<CDRRecord['status'], FlexStatusTone> = {
     answered: 'success',

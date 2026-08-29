@@ -28,13 +28,13 @@ export function ExternalWorkspaceHost({ title, configPath, className, chrome = '
                             <Button
                                 variant="ghost"
                                 size="icon-sm"
-                                aria-label={t('common:actions.openExternally', 'Open externally')}
+                                aria-label={t('actions.openExternally', 'Open externally')}
                                 onClick={() => window.open(effectiveSrc, '_blank', 'noopener,noreferrer')}
                             >
                                 <RiExternalLinkLine className="size-4" />
                             </Button>
                         )}
-                        <Button variant="ghost" size="icon-sm" aria-label={t('common:actions.refresh', 'Reload')} onClick={retry}>
+                        <Button variant="ghost" size="icon-sm" aria-label={t('actions.refresh', 'Reload')} onClick={retry}>
                             <RiRefreshLine className="size-4" />
                         </Button>
                     </div>
@@ -47,29 +47,29 @@ export function ExternalWorkspaceHost({ title, configPath, className, chrome = '
                     <div role="status" className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 bg-background/80 backdrop-blur-sm px-4 text-center">
                         <div className="size-5 animate-spin rounded-full border-2 border-primary border-t-transparent" aria-hidden="true" />
                         <span className="text-xs text-flex-text-muted">
-                            {status === 'loading' ? t('common:status.loading', 'Loading workspace...') : t('common:status.reconnecting', 'Reconnecting workspace...')}
+                            {status === 'loading' ? t('status.loading', 'Loading workspace...') : t('status.reconnecting', 'Reconnecting workspace...')}
                         </span>
                     </div>
                 )}
 
                 {status === 'configuration-missing' && (
                     <div role="alert" className="flex flex-1 flex-col items-center justify-center gap-3 p-6 text-center">
-                        <p className="text-sm font-medium text-flex-text-primary">{t('common:status.configurationMissing')}</p>
-                        <p className="max-w-md text-xs text-flex-text-muted">{configPath} {t('common:status.configurationMissingDescription')}</p>
+                        <p className="text-sm font-medium text-flex-text-primary">{t('status.configurationMissing')}</p>
+                        <p className="max-w-md text-xs text-flex-text-muted">{configPath} {t('status.configurationMissingDescription')}</p>
                         <Button onClick={retry} size="sm">
-                            {t('common:actions.retry')}
+                            {t('actions.retry')}
                         </Button>
                     </div>
                 )}
 
                 {status === 'unavailable' && (
                     <div role="alert" className="flex flex-1 flex-col items-center justify-center gap-3 p-6 text-center">
-                        <p className="text-sm font-medium text-flex-text-primary">{t('common:status.unavailable', 'Workspace unavailable')}</p>
-                        <p className="max-w-md text-xs text-flex-text-muted">{t('common:status.unavailableDescription', 'External workspace is unavailable. Telephony and Call Manager keep working independently.')}</p>
+                        <p className="text-sm font-medium text-flex-text-primary">{t('status.unavailable', 'Workspace unavailable')}</p>
+                        <p className="max-w-md text-xs text-flex-text-muted">{t('status.unavailableDescription', 'External workspace is unavailable. Telephony and Call Manager keep working independently.')}</p>
                         <div className="flex items-center gap-2">
                             {effectiveSrc && (
                                 <Button variant="outline" size="sm" onClick={() => window.open(effectiveSrc, '_blank', 'noopener,noreferrer')}>
-                                    {t('common:actions.openExternally', 'Open externally')}
+                                    {t('actions.openExternally', 'Open externally')}
                                 </Button>
                             )}
                             <Button onClick={retry} size="sm">

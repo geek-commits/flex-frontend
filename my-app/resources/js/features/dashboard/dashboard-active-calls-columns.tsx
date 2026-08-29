@@ -7,7 +7,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import type { ActiveCall } from '@/features/dashboard/dashboard-types';
 import { useCallTimer } from '@/features/dashboard/use-call-timer';
 
-type TFn = (key: string, opts?: Record<string, unknown>) => string;
+type TFn = any;
 
 const CALL_STATE_TONES: Record<ActiveCall['state'], FlexStatusTone> = {
     ringing: 'info',

@@ -137,9 +137,10 @@ return;
     // 3. Update cookie for Laravel backend
     setCookie(COOKIE_NAME, locale);
 
-    // 4. Update html tag lang attribute
+    // 4. Update html tag lang/dir attributes
     if (typeof document !== 'undefined') {
         document.documentElement.lang = locale;
+        document.documentElement.dir = i18n.dir(locale);
     }
 }
 

@@ -15,7 +15,7 @@ export interface UserRowHandlers {
     onEdit: (user: UserAccount) => void;
 }
 
-type TFunction = (key: string, options?: Record<string, unknown>) => string;
+type TFunction = any;
 
 export function userColumns(t: TFunction, handlers: UserRowHandlers): ColumnDef<DataGridFeatures, UserAccount>[] {
     const { onView, onEdit } = handlers;

@@ -26,7 +26,7 @@ export interface TenantRowHandlers {
     onSetStatus: (tenant: TenantRecord, status: TenantStatus) => void;
 }
 
-type TFunction = (key: string, options?: Record<string, unknown>) => string;
+type TFunction = any;
 
 export function tenantColumns(t: TFunction, handlers: TenantRowHandlers): ColumnDef<DataGridFeatures, TenantRecord>[] {
     const { onView, onEdit, onEnter, onSetStatus } = handlers;

@@ -76,13 +76,20 @@ void i18n
         resources,
         lng: getInitialLocale(),
         fallbackLng: DEFAULT_LOCALE,
+        supportedLngs: ['en', 'sw', 'fr'],
+        load: 'languageOnly',
         defaultNS,
+        returnNull: false,
+        returnEmptyString: false,
         interpolation: {
             escapeValue: false,
         },
+        react: {
+            useSuspense: false,
+        },
     });
 
-// Synchronize <html lang> with the resolved locale immediately after init.
+// Synchronize <html lang/dir> with the resolved locale immediately after init.
 // This runs before any React render because app.tsx imports this module
 // as a side-effect prior to createInertiaApp. Inline allowlist avoids
 // circular import with locale.ts (which itself imports i18n).
@@ -90,7 +97,9 @@ if (typeof document !== 'undefined') {
     const raw = i18n.language || DEFAULT_LOCALE;
     const normalized = raw.split('-')[0].toLowerCase();
     const isSupported = (v: string) => ['en', 'sw', 'fr'].includes(v);
-    document.documentElement.lang = isSupported(normalized) ? normalized : DEFAULT_LOCALE;
+    const resolved = isSupported(normalized) ? normalized : DEFAULT_LOCALE;
+    document.documentElement.lang = resolved;
+    document.documentElement.dir = i18n.dir(resolved);
 }
 
 export default i18n;

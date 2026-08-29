@@ -19,7 +19,7 @@ export interface CampaignRowHandlers {
     statusBusyId?: string;
 }
 
-type TFunction = (key: string, options?: Record<string, unknown>) => string;
+type TFunction = any;
 
 export function campaignColumns(t: TFunction, handlers: CampaignRowHandlers): ColumnDef<DataGridFeatures, CampaignRecord>[] {
     const { onView, onEdit, onToggleStatus, onDelete, statusBusyId } = handlers;

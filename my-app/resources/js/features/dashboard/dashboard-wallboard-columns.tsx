@@ -8,7 +8,7 @@ import type { AgentRosterEntry } from '@/features/dashboard/dashboard-types';
 import { useStateTimer } from '@/features/dashboard/use-state-timer';
 import { agentStateMap } from '@/lib/status-styles';
 
-type TFn = (key: string, opts?: Record<string, unknown>) => string;
+type TFn = any;
 
 const AGENT_STATE_TONES: Record<AgentRosterEntry['state'], FlexStatusTone> = {
     ready: 'success',

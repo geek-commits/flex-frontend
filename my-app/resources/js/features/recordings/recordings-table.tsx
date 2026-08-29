@@ -32,7 +32,7 @@ export interface RecordingsTableProps {
     onDelete: (record: RecordingRecord) => void;
 }
 
-type TFunction = (key: string, options?: Record<string, unknown>) => string;
+type TFunction = any;
 
 const CATEGORY_TONE: Record<RecordingCategory, 'info' | 'warning' | 'neutral' | 'success' | 'danger'> = {
     'ivr-prompt': 'info',
