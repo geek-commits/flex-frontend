@@ -114,6 +114,84 @@
       "accountLogin": "Akaunti na Kuingia"
     }
   },
+  "troubleshooting": {
+    "title": "Utatuzi na Uchunguzi",
+    "headTitle": "Utatuzi — Flex Contact Center",
+    "audioDeviceSelection": "Uteuzi wa Kifaa cha Sauti",
+    "microphoneInput": "Kipaza Sauti cha Ingizo",
+    "speakerOutput": "Pato la Spika",
+    "defaultMicrophone": "Maikrofoni Chaguo-msingi",
+    "usbHeadsetMic": "Maikrofoni ya Kifaa cha Kichwa USB (Plantronics)",
+    "builtInMicrophone": "Maikrofoni ya Ndani",
+    "defaultSpeakers": "Spika Chaguo-msingi",
+    "usbHeadsetSpeaker": "Spika ya Kifaa cha Kichwa USB (Plantronics)",
+    "builtInSpeakers": "Spika za Ndani",
+    "playTestTone": "Cheza Toni ya Majaribio",
+    "verifySpeaker": "Thibitisha sauti ya spika inasikika",
+    "fullDiagnosticSuite": "Seti Kamili ya Uchunguzi",
+    "pass_one": "Imefaulu {{count}}",
+    "pass_other": "Zimefaulu {{count}}",
+    "warn_one": "Tahadhari {{count}}",
+    "warn_other": "Tahadhari {{count}}",
+    "fail_one": "Imeshindwa {{count}}",
+    "fail_other": "Zimeshindwa {{count}}",
+    "running": "Inaendeshwa...",
+    "runAllChecks": "Endesha Ukaguzi Wote",
+    "notRun": "Haijaendeshwa",
+    "resultPass": "Imefaulu",
+    "resultWarn": "Tahadhari",
+    "resultFail": "Imeshindwa",
+    "stillExperiencing": "Bado unakumbana na matatizo?",
+    "contactAdminDescription": "Wasiliana na msimamizi wa mfumo au wasilisha tiketi ya msaada na ripoti ya uchunguzi hapo juu.",
+    "contactSupport": "Wasiliana na Msaada wa IT"
+  },
+  "diagnostics": {
+    "checks": {
+      "networkConnectivity": {
+        "label": "Muunganisho wa Mtandao",
+        "description": "Ufikiaji wa TCP/IP kwa seva ya mawasiliano ya Flex"
+      },
+      "webrtcIce": {
+        "label": "Wagombea wa WebRTC ICE",
+        "description": "Muunganisho wa ICE STUN/TURN na ukusanyaji wa wagombea"
+      },
+      "sipRegistration": {
+        "label": "Usajili wa SIP",
+        "description": "Usajili wa akaunti ya SIP ya wakala kwenye PBX"
+      },
+      "microphonePermission": {
+        "label": "Ruhusa ya Maikrofoni",
+        "description": "Ufikiaji wa maikrofoni ya kivinjari kwa ingizo la sauti"
+      },
+      "audioCodec": {
+        "label": "Kodeki ya Sauti (OPUS)",
+        "description": "Majadiliano ya kodeki ya OPUS na sehemu ya mbali"
+      },
+      "bandwidth": {
+        "label": "Utoshelevu wa Kipimo Data",
+        "description": "Kasi ya upakuaji kwa usambazaji wa sauti wa VoIP"
+      },
+      "tlsCertificate": {
+        "label": "Usalama wa TLS / DTLS",
+        "description": "Usafiri salama wa midia (SRTP) na mawasiliano (WSS)"
+      },
+      "jitterBuffer": {
+        "label": "Jitter na Upotevu wa Pakiti",
+        "description": "Afya ya bafa ya jitter na kipimo cha upotevu wa pakiti"
+      }
+    },
+    "panel": {
+      "networkStatus": "Hali ya Mtandao",
+      "stable": "Imara",
+      "rtt": "Muda wa Kurudi (RTT):",
+      "bandwidthJitter": "Kipimo Data na Jitter",
+      "downlink": "Upakuaji",
+      "audioJitter": "Jitter ya Sauti:",
+      "audioDevice": "Kifaa cha Sauti",
+      "microphone": "Maikrofoni",
+      "runCheck": "Endesha Ukaguzi"
+    }
+  },
   "recovery": {
     "title": "Simu Zilizokosekana na Voicemail",
     "headTitle": "Simu Zilizokosekana na Voicemail — Flex Contact Center",

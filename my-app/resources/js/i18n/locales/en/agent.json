@@ -114,6 +114,84 @@
       "accountLogin": "Account & Login"
     }
   },
+  "troubleshooting": {
+    "title": "Troubleshooting & Diagnostics",
+    "headTitle": "Troubleshooting — Flex Contact Center",
+    "audioDeviceSelection": "Audio Device Selection",
+    "microphoneInput": "Microphone Input",
+    "speakerOutput": "Speaker Output",
+    "defaultMicrophone": "Default Microphone",
+    "usbHeadsetMic": "USB Headset Mic (Plantronics)",
+    "builtInMicrophone": "Built-in Microphone",
+    "defaultSpeakers": "Default Speakers",
+    "usbHeadsetSpeaker": "USB Headset Speaker (Plantronics)",
+    "builtInSpeakers": "Built-in Speakers",
+    "playTestTone": "Play Test Tone",
+    "verifySpeaker": "Verify speaker output is audible",
+    "fullDiagnosticSuite": "Full Diagnostic Suite",
+    "pass_one": "{{count}} Pass",
+    "pass_other": "{{count}} Pass",
+    "warn_one": "{{count}} Warn",
+    "warn_other": "{{count}} Warn",
+    "fail_one": "{{count}} Fail",
+    "fail_other": "{{count}} Fail",
+    "running": "Running...",
+    "runAllChecks": "Run All Checks",
+    "notRun": "Not run",
+    "resultPass": "Pass",
+    "resultWarn": "Warn",
+    "resultFail": "Fail",
+    "stillExperiencing": "Still experiencing issues?",
+    "contactAdminDescription": "Contact your system administrator or submit a support ticket with the diagnostic report above.",
+    "contactSupport": "Contact IT Support"
+  },
+  "diagnostics": {
+    "checks": {
+      "networkConnectivity": {
+        "label": "Network Connectivity",
+        "description": "TCP/IP reachability to Flex signaling server"
+      },
+      "webrtcIce": {
+        "label": "WebRTC ICE Candidates",
+        "description": "ICE STUN/TURN connectivity and candidate gathering"
+      },
+      "sipRegistration": {
+        "label": "SIP Registration",
+        "description": "Agent SIP account registration on PBX"
+      },
+      "microphonePermission": {
+        "label": "Microphone Permission",
+        "description": "Browser microphone access for audio input"
+      },
+      "audioCodec": {
+        "label": "Audio Codec (OPUS)",
+        "description": "OPUS codec negotiation with remote endpoint"
+      },
+      "bandwidth": {
+        "label": "Bandwidth Adequacy",
+        "description": "Downlink speed for VoIP audio transmission"
+      },
+      "tlsCertificate": {
+        "label": "TLS / DTLS Security",
+        "description": "Secure media transport (SRTP) and signaling (WSS)"
+      },
+      "jitterBuffer": {
+        "label": "Jitter & Packet Loss",
+        "description": "Audio jitter buffer health and packet loss measurement"
+      }
+    },
+    "panel": {
+      "networkStatus": "Network Status",
+      "stable": "Stable",
+      "rtt": "Round Trip Time (RTT):",
+      "bandwidthJitter": "Bandwidth & Jitter",
+      "downlink": "Downlink",
+      "audioJitter": "Audio Jitter:",
+      "audioDevice": "Audio Device",
+      "microphone": "Microphone",
+      "runCheck": "Run Check"
+    }
+  },
   "recovery": {
     "title": "Missed Calls & Voicemail",
     "headTitle": "Missed Calls & Voicemail — Flex Contact Center",

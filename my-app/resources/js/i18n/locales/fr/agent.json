@@ -114,6 +114,84 @@
       "accountLogin": "Compte et connexion"
     }
   },
+  "troubleshooting": {
+    "title": "Dépannage et Diagnostics",
+    "headTitle": "Dépannage — Flex Contact Center",
+    "audioDeviceSelection": "Sélection du périphérique audio",
+    "microphoneInput": "Entrée microphone",
+    "speakerOutput": "Sortie haut-parleur",
+    "defaultMicrophone": "Microphone par défaut",
+    "usbHeadsetMic": "Micro-casque USB (Plantronics)",
+    "builtInMicrophone": "Microphone intégré",
+    "defaultSpeakers": "Haut-parleurs par défaut",
+    "usbHeadsetSpeaker": "Haut-parleur casque USB (Plantronics)",
+    "builtInSpeakers": "Haut-parleurs intégrés",
+    "playTestTone": "Jouer la tonalité de test",
+    "verifySpeaker": "Vérifiez que la sortie haut-parleur est audible",
+    "fullDiagnosticSuite": "Suite de diagnostics complète",
+    "pass_one": "{{count}} Réussite",
+    "pass_other": "{{count}} Réussites",
+    "warn_one": "{{count}} Avertissement",
+    "warn_other": "{{count}} Avertissements",
+    "fail_one": "{{count}} Échec",
+    "fail_other": "{{count}} Échecs",
+    "running": "En cours...",
+    "runAllChecks": "Exécuter tous les tests",
+    "notRun": "Non exécuté",
+    "resultPass": "Réussite",
+    "resultWarn": "Avertissement",
+    "resultFail": "Échec",
+    "stillExperiencing": "Toujours des problèmes ?",
+    "contactAdminDescription": "Contactez votre administrateur système ou soumettez un ticket d'assistance avec le rapport ci-dessus.",
+    "contactSupport": "Contacter le support IT"
+  },
+  "diagnostics": {
+    "checks": {
+      "networkConnectivity": {
+        "label": "Connectivité réseau",
+        "description": "Accessibilité TCP/IP au serveur de signalisation Flex"
+      },
+      "webrtcIce": {
+        "label": "Candidats ICE WebRTC",
+        "description": "Connectivité ICE STUN/TURN et collecte des candidats"
+      },
+      "sipRegistration": {
+        "label": "Enregistrement SIP",
+        "description": "Enregistrement du compte SIP de l'agent sur le PBX"
+      },
+      "microphonePermission": {
+        "label": "Autorisation microphone",
+        "description": "Accès microphone du navigateur pour l'entrée audio"
+      },
+      "audioCodec": {
+        "label": "Codec audio (OPUS)",
+        "description": "Négociation du codec OPUS avec le point distant"
+      },
+      "bandwidth": {
+        "label": "Adéquation de la bande passante",
+        "description": "Débit descendant pour la transmission audio VoIP"
+      },
+      "tlsCertificate": {
+        "label": "Sécurité TLS / DTLS",
+        "description": "Transport média sécurisé (SRTP) et signalisation (WSS)"
+      },
+      "jitterBuffer": {
+        "label": "Gigue et perte de paquets",
+        "description": "Santé du tampon de gigue et mesure de perte de paquets"
+      }
+    },
+    "panel": {
+      "networkStatus": "État du réseau",
+      "stable": "Stable",
+      "rtt": "Temps aller-retour (RTT) :",
+      "bandwidthJitter": "Bande passante et gigue",
+      "downlink": "Liaison descendante",
+      "audioJitter": "Gigue audio :",
+      "audioDevice": "Périphérique audio",
+      "microphone": "Microphone",
+      "runCheck": "Exécuter le test"
+    }
+  },
   "recovery": {
     "title": "Appels manqués et messagerie",
     "headTitle": "Appels manqués et messagerie — Flex Contact Center",

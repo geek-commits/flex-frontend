@@ -4,8 +4,8 @@ export type DiagnosticResult = 'pass' | 'warn' | 'fail' | 'pending';
 
 export interface DiagnosticCheck {
     id: string;
-    label: string;
-    description: string;
+    labelKey: string;
+    descriptionKey: string;
     icon: FlexIconName;
     result: DiagnosticResult;
     detail?: string;
