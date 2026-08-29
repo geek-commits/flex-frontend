@@ -1,6 +1,6 @@
 # FLEX i18n Literal Audit — Report Mode (Phase 2)
 
-**Generated:** 2026-08-29T06:43:20.886Z **SHA:** local **Files scanned:** 629 **Hits:** 528
+**Generated:** 2026-08-29T07:17:29.151Z **SHA:** local **Files scanned:** 629 **Hits:** 486
 
 > Classification per §107: TRANSLATE / RUNTIME_DATA / TECHNICAL / BRAND / EXTERNAL / FALSE_POSITIVE — triage before CI gate.
 
@@ -37,12 +37,6 @@
 | components/flex/context-sidebar.tsx | 56 | aria-label | `aria-label="Hide sidebar"` |
 | components/flex/context-sidebar.tsx | 57 | title | `title="Hide sidebar"` |
 | components/flex/date-range-select.tsx | 44 | aria-label | `aria-label="Clear date range"` |
-| components/flex/diagnostic-panel.tsx | 28 | JSX text | `Network Status` |
-| components/flex/diagnostic-panel.tsx | 36 | JSX text | `Stable` |
-| components/flex/diagnostic-panel.tsx | 50 | JSX text | `Bandwidth & Jitter` |
-| components/flex/diagnostic-panel.tsx | 58 | JSX text | `Downlink` |
-| components/flex/diagnostic-panel.tsx | 70 | JSX text | `Audio Device` |
-| components/flex/diagnostic-panel.tsx | 85 | JSX text | `Run Check` |
 | components/flex/flex-app-shell.tsx | 61 | aria-label | `aria-label="Show sidebar"` |
 | components/flex/flex-app-shell.tsx | 62 | title | `title="Show sidebar"` |
 | components/flex/flex-loading-state.tsx | 16 | aria-label | `aria-label="Loading"` |
@@ -237,22 +231,18 @@
 | features/customer-recovery/recovery-toolbar.tsx | 141 | JSX text | `Refresh` |
 | features/customer-recovery/recovery-toolbar.tsx | 122 | placeholder | `placeholder="Search phone number or queue..."` |
 | features/customer-recovery/recovery-toolbar.tsx | 123 | aria-label | `aria-label="Search missed calls"` |
-| features/dashboard/dashboard-active-calls-columns.tsx | 126 | title | `title="Customer"` |
-| features/dashboard/dashboard-active-calls-columns.tsx | 135 | title | `title="Agent"` |
-| features/dashboard/dashboard-active-calls-columns.tsx | 146 | title | `title="Queue"` |
-| features/dashboard/dashboard-active-calls-columns.tsx | 168 | title | `title="Duration"` |
-| features/dashboard/dashboard-active-calls-columns.tsx | 177 | title | `title="State"` |
+| features/dashboard/dashboard-active-calls-columns.tsx | 128 | title | `title="Customer"` |
+| features/dashboard/dashboard-active-calls-columns.tsx | 137 | title | `title="Agent"` |
+| features/dashboard/dashboard-active-calls-columns.tsx | 148 | title | `title="Queue"` |
+| features/dashboard/dashboard-active-calls-columns.tsx | 170 | title | `title="Duration"` |
+| features/dashboard/dashboard-active-calls-columns.tsx | 179 | title | `title="State"` |
 | features/dashboard/dashboard-types.ts | 61 | JSX text | `Promise` |
-| features/dashboard/dashboard-wallboard-columns.tsx | 153 | title | `title="Agent"` |
-| features/dashboard/dashboard-wallboard-columns.tsx | 175 | title | `title="Queue"` |
-| features/dashboard/dashboard-wallboard-columns.tsx | 186 | title | `title="State"` |
-| features/dashboard/dashboard-wallboard-columns.tsx | 195 | title | `title="State Time"` |
-| features/dashboard/dashboard-wallboard-columns.tsx | 204 | title | `title="Current Call"` |
-| features/dashboard/dashboard-wallboard-columns.tsx | 213 | title | `title="Calls Today"` |
-| features/management-console/console-module-directory.tsx | 43 | title | `title="No administration modules are available for this account."` |
-| features/management-console/console-module-directory.tsx | 60 | title | `title="No administration modules are available for this account."` |
-| features/management-console/console-search.tsx | 28 | aria-label | `aria-label="Search administration modules and settings"` |
-| features/management-console/console-search.tsx | 35 | aria-label | `aria-label="Clear search"` |
+| features/dashboard/dashboard-wallboard-columns.tsx | 155 | title | `title="Agent"` |
+| features/dashboard/dashboard-wallboard-columns.tsx | 177 | title | `title="Queue"` |
+| features/dashboard/dashboard-wallboard-columns.tsx | 188 | title | `title="State"` |
+| features/dashboard/dashboard-wallboard-columns.tsx | 197 | title | `title="State Time"` |
+| features/dashboard/dashboard-wallboard-columns.tsx | 206 | title | `title="Current Call"` |
+| features/dashboard/dashboard-wallboard-columns.tsx | 215 | title | `title="Calls Today"` |
 | features/recordings/recording-delete-dialog.tsx | 40 | JSX text | `Delete Recording` |
 | features/recordings/recording-delete-dialog.tsx | 42 | JSX text | `Are you sure you want to delete` |
 | features/recordings/recording-delete-dialog.tsx | 57 | JSX text | `Deleting this asset may cause callers to hear silence or encounter routing error` |
@@ -393,8 +383,6 @@
 | hooks/use-two-factor-auth.ts | 17 | JSX text | `Promise` |
 | layouts/auth/auth-split-layout.tsx | 24 | JSX text | `FLEX Contact Center` |
 | layouts/auth/auth-split-layout.tsx | 51 | aria-label | `aria-label="FLEX Contact Center Overview"` |
-| layouts/settings/layout.tsx | 38 | title | `title="Settings"` |
-| layouts/settings/layout.tsx | 46 | aria-label | `aria-label="Settings"` |
 | pages/admin/ai/assist.tsx | 21 | JSX text | `Enablement` |
 | pages/admin/ai/assist.tsx | 27 | JSX text | `Agent Assist enabled` |
 | pages/admin/ai/assist.tsx | 45 | JSX text | `Runtime Metrics` |
@@ -474,40 +462,36 @@
 | pages/admin/cdr-detail.tsx | 108 | JSX text | `Recording` |
 | pages/admin/cdr-detail.tsx | 140 | JSX text | `Call Timeline` |
 | pages/admin/cdr-detail.tsx | 42 | title | `title="Call Detail Record"` |
-| pages/agent/support.tsx | 47 | JSX text | `Submit a Ticket` |
-| pages/agent/support.tsx | 53 | JSX text | `Issue Category` |
-| pages/agent/support.tsx | 69 | JSX text | `Subject / Brief Summary` |
-| pages/agent/support.tsx | 80 | JSX text | `Submit Ticket` |
-| pages/agent/support.tsx | 88 | JSX text | `My Submitted Tickets` |
-| pages/agent/support.tsx | 39 | title | `title="Flex Quick Support"` |
-| pages/agent/support.tsx | 40 | title | `title="Quick Support — Flex Contact Center"` |
-| pages/agent/support.tsx | 71 | placeholder | `placeholder="Describe the issue..."` |
-| pages/agent/support.tsx | 95 | title | `title="No tickets submitted yet"` |
-| pages/agent/troubleshooting.tsx | 62 | JSX text | `Audio Device Selection` |
-| pages/agent/troubleshooting.tsx | 69 | JSX text | `Microphone Input` |
-| pages/agent/troubleshooting.tsx | 75 | JSX text | `Default Microphone` |
-| pages/agent/troubleshooting.tsx | 76 | JSX text | `USB Headset Mic (Plantronics)` |
-| pages/agent/troubleshooting.tsx | 77 | JSX text | `Built-in Microphone` |
-| pages/agent/troubleshooting.tsx | 82 | JSX text | `Speaker Output` |
-| pages/agent/troubleshooting.tsx | 88 | JSX text | `Default Speakers` |
-| pages/agent/troubleshooting.tsx | 89 | JSX text | `USB Headset Speaker (Plantronics)` |
-| pages/agent/troubleshooting.tsx | 90 | JSX text | `Built-in Speakers` |
-| pages/agent/troubleshooting.tsx | 98 | JSX text | `Play Test Tone` |
-| pages/agent/troubleshooting.tsx | 100 | JSX text | `Verify speaker output is audible` |
-| pages/agent/troubleshooting.tsx | 110 | JSX text | `Full Diagnostic Suite` |
-| pages/agent/troubleshooting.tsx | 156 | JSX text | `Not run` |
-| pages/agent/troubleshooting.tsx | 171 | JSX text | `Contact your system administrator or submit a support ticket with the diagnostic` |
-| pages/agent/troubleshooting.tsx | 177 | JSX text | `Contact IT Support` |
-| pages/agent/troubleshooting.tsx | 50 | title | `title="Troubleshooting & Diagnostics"` |
-| pages/agent/troubleshooting.tsx | 52 | title | `title="Troubleshooting — Flex Contact Center"` |
 | pages/customers/show.tsx | 23 | JSX text | `Open Workspace` |
 | pages/customers/show.tsx | 30 | JSX text | `Customer ID` |
 | pages/customers/show.tsx | 35 | JSX text | `All activity` |
 | pages/customers/show.tsx | 38 | title | `title="No activity yet"` |
 | pages/dev/brand-preview.tsx | 28 | JSX text | `Play` |
 | pages/dev/brand-preview.tsx | 31 | JSX text | `Pause` |
-
-*Truncated 28 more hits*
+| pages/dev/brand-preview.tsx | 34 | JSX text | `Resume` |
+| pages/dev/brand-preview.tsx | 40 | JSX text | `Stop` |
+| pages/dev/brand-preview.tsx | 98 | JSX text | `FLEX brand preview (dev only)` |
+| pages/dev/brand-preview.tsx | 99 | JSX text | `Canonical wordmark animation surfaces. Not part of production navigation.` |
+| pages/dev/brand-preview.tsx | 119 | JSX text | `Compact monogram (no animation, 30px).` |
+| pages/dev/brand-preview.tsx | 94 | title | `title="Brand preview (dev)"` |
+| pages/settings/appearance.tsx | 18 | title | `title="Appearance settings"` |
+| pages/settings/profile.tsx | 50 | JSX text | `Name` |
+| pages/settings/profile.tsx | 69 | JSX text | `Email address` |
+| pages/settings/profile.tsx | 117 | JSX text | `Save` |
+| pages/settings/profile.tsx | 37 | title | `title="Profile"` |
+| pages/settings/profile.tsx | 59 | placeholder | `placeholder="Full name"` |
+| pages/settings/profile.tsx | 79 | placeholder | `placeholder="Email address"` |
+| pages/settings/security.tsx | 62 | JSX text | `Current password` |
+| pages/settings/security.tsx | 79 | JSX text | `New password` |
+| pages/settings/security.tsx | 95 | JSX text | `Confirm password` |
+| pages/settings/security.tsx | 117 | JSX text | `Save` |
+| pages/settings/security.tsx | 34 | title | `title="Update password"` |
+| pages/settings/security.tsx | 72 | placeholder | `placeholder="Current password"` |
+| pages/settings/security.tsx | 87 | placeholder | `placeholder="New password"` |
+| pages/settings/security.tsx | 104 | placeholder | `placeholder="Confirm password"` |
+| pages/supervision/exceptions.tsx | 14 | title | `title="Exceptions — Flex"` |
+| pages/supervision/exceptions.tsx | 15 | title | `title="Exception Center"` |
+| pages/supervision/exceptions.tsx | 20 | title | `title="No exceptions"` |
 
 ## Next
 

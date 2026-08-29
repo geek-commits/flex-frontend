@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { Capability } from '@/auth/capabilities';
 import type { ModuleEntry } from '@/domain/modules';
 
@@ -9,9 +10,14 @@ export function filterModulesByPermission(modules: ModuleEntry[], has: (capabili
 
 /**
  * Filter an administration module list against a search query.
- * Matches label, description, category, and configured keywords.
+ * Matches translated label, description, category, and configured keywords.
+ * When `t` is provided, haystack uses translated values so SW/FR search works.
  */
-export function filterModulesByQuery(modules: ModuleEntry[], query: string): ModuleEntry[] {
+export function filterModulesByQuery(
+    modules: ModuleEntry[],
+    query: string,
+    t?: (key: string) => string
+): ModuleEntry[] {
     const needle = query.trim().toLocaleLowerCase();
 
     if (!needle) {
@@ -20,9 +26,9 @@ export function filterModulesByQuery(modules: ModuleEntry[], query: string): Mod
 
     return modules.filter((module) => {
         const haystack = [
-            module.title,
-            module.description,
-            module.category,
+            t ? t(module.titleKey) : module.title,
+            t ? t(module.descriptionKey) : module.description,
+            t ? t(module.categoryKey) : module.category,
             ...(module.keywords ?? []),
         ]
             .join(' ')
@@ -48,12 +54,14 @@ export interface UseVisibleModulesParams {
  * from a search-empty one without filtering the registry twice.
  */
 export function useVisibleModules({ modules, query, has }: UseVisibleModulesParams): { permittedModules: ModuleEntry[]; visibleModules: ModuleEntry[] } {
+    const { t } = useTranslation('administration');
+
     return useMemo(() => {
         const permittedModules = filterModulesByPermission(modules, has);
 
         return {
             permittedModules,
-            visibleModules: filterModulesByQuery(permittedModules, query),
+            visibleModules: filterModulesByQuery(permittedModules, query, t as (k: string) => string),
         };
-    }, [modules, query, has]);
+    }, [modules, query, has, t]);
 }

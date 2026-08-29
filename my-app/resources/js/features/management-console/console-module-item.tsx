@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react';
 import { RiArrowRightSLine } from '@remixicon/react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexIcon } from '@/components/flex/iconography';
 import type { ModuleEntry } from '@/domain/modules';
 
@@ -13,6 +14,7 @@ export interface ConsoleModuleItemProps {
  * The entire row is the link; destinations are internal FLEX routes.
  */
 export function ConsoleModuleItem({ module }: ConsoleModuleItemProps) {
+    const { t } = useTranslation('administration');
 
     return (
         <Link
@@ -27,10 +29,10 @@ export function ConsoleModuleItem({ module }: ConsoleModuleItemProps) {
             </span>
             <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                 <span className="text-[length:var(--flex-font-size-card-title)] font-semibold leading-tight text-foreground">
-                    {module.title}
+                    {t(module.titleKey)}
                 </span>
                 <span className="truncate text-[length:var(--flex-font-size-caption)] leading-snug text-muted-foreground">
-                    {module.description}
+                    {t(module.descriptionKey)}
                 </span>
             </span>
             <RiArrowRightSLine

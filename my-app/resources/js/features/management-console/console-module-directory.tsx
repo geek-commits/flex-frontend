@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import type { ModuleEntry } from '@/domain/modules';
 import { ConsoleModuleSection } from '@/features/management-console/console-module-section';
@@ -20,11 +21,12 @@ export interface ConsoleModuleDirectoryProps {
  * role that can see nothing is never told its search simply had no hits.
  */
 export function ConsoleModuleDirectory({ modules, query, hasPermittedModules = true }: ConsoleModuleDirectoryProps) {
+    const { t } = useTranslation('administration');
     const sections = useMemo(() => {
         const groups = new Map<string, ModuleEntry[]>();
 
         for (const module of modules) {
-            const category = module.category;
+            const category = t(module.categoryKey);
 
             if (!groups.has(category)) {
                 groups.set(category, []);
@@ -34,14 +36,14 @@ export function ConsoleModuleDirectory({ modules, query, hasPermittedModules = t
         }
 
         return Array.from(groups.entries()).map(([title, items]) => ({ title, items }));
-    }, [modules]);
+    }, [modules, t]);
 
     if (sections.length === 0) {
         if (!hasPermittedModules) {
             return (
                 <FlexEmptyState
-                    title="No administration modules are available for this account."
-                    description="Your role does not grant access to any administration modules."
+                    title={t('console.empty.noModules')}
+                    description={t('console.empty.noAccess')}
                 />
             );
         }
@@ -49,16 +51,16 @@ export function ConsoleModuleDirectory({ modules, query, hasPermittedModules = t
         if (query?.trim()) {
             return (
                 <FlexEmptyState
-                    title={`No modules match "${query.trim()}".`}
-                    description="Try another search term."
+                    title={t('console.empty.noMatch', { query: query.trim() })}
+                    description={t('console.empty.tryAnother')}
                 />
             );
         }
 
         return (
             <FlexEmptyState
-                title="No administration modules are available for this account."
-                description="Your role does not grant access to any administration modules."
+                title={t('console.empty.noModules')}
+                description={t('console.empty.noAccess')}
             />
         );
     }

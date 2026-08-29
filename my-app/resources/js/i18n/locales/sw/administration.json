@@ -2,7 +2,18 @@
   "console": {
     "title": "Dashibodi ya Usimamizi",
     "subtitle": "Usimamizi mkuu wa FLEX.",
-    "headTitle": "Dashibodi ya Usimamizi — Flex Contact Center"
+    "headTitle": "Dashibodi ya Usimamizi — Flex Contact Center",
+    "empty": {
+      "noModules": "Hakuna moduli za usimamizi zinazopatikana kwa akaunti hii.",
+      "noAccess": "Jukumu lako halikupi ufikiaji wa moduli zozote za usimamizi.",
+      "noMatch": "Hakuna moduli zinazolingana na \"{{query}}\".",
+      "tryAnother": "Jaribu neno lingine la utafutaji."
+    },
+    "search": {
+      "placeholder": "Tafuta moduli na mipangilio...",
+      "ariaLabel": "Tafuta moduli za usimamizi na mipangilio",
+      "clear": "Ondoa utafutaji"
+    }
   },
   "health": {
     "title": "Afya ya Uendeshaji",
@@ -842,5 +853,138 @@
     },
     "footer": "Data ya POC — vipimo vya sampuli; si telemetria halisi ya simu au SLA."
   },
-  "ai": "Kituo cha AI"
+  "ai": "Kituo cha AI",
+  "modules": {
+    "tenants": {
+      "title": "Tenants & Multi-Org",
+      "description": "Manage tenant accounts, organizations, and domain isolation."
+    },
+    "agents": {
+      "title": "Agents & Proficiencies",
+      "description": "Configure agent profiles, extension mapping, and skill routing."
+    },
+    "users": {
+      "title": "Users & Roles",
+      "description": "Role-based access control, credentials, and security policies."
+    },
+    "roles": {
+      "title": "Roles & Permissions",
+      "description": "Granular policy management for admin and supervisory roles."
+    },
+    "subscriptions": {
+      "title": "Subscriptions",
+      "description": "Track subscription status, remaining days, reminders, and renewal activity."
+    },
+    "cdr": {
+      "title": "Call Records (CDR)",
+      "description": "Search, filter, and inspect granular telephony logs and recordings."
+    },
+    "call-campaigns": {
+      "title": "Call Campaigns",
+      "description": "Outbound campaign management, schedules, and analytics."
+    },
+    "queue": {
+      "title": "Queues & SLA",
+      "description": "Configure inbound queues, wrap-up rules, and SLA targets."
+    },
+    "ivr": {
+      "title": "IVR Trees",
+      "description": "Build interactive voice response menus and keypress flows."
+    },
+    "time-groups": {
+      "title": "Time Groups",
+      "description": "Reusable schedule definitions for time-based routing."
+    },
+    "recordings": {
+      "title": "Audio & Recordings",
+      "description": "Manage system audio prompts, greetings, IVR recordings, and hold music."
+    },
+    "call-stats": {
+      "title": "Call Statistics",
+      "description": "Real-time performance analytics, call volumes, and metrics."
+    },
+    "reports": {
+      "title": "Reports & Analytics",
+      "description": "Generate, schedule, and export operational PDF/Excel reports."
+    },
+    "charts": {
+      "title": "Flex Charts",
+      "description": "Visual analytics dashboard for supervisory overview."
+    },
+    "survey-monitoring": {
+      "title": "Survey Monitoring",
+      "description": "Customer CSAT/NPS survey feedback and scorecards."
+    },
+    "inbound-routes": {
+      "title": "Inbound Routes",
+      "description": "DID pattern routing, time conditions, and destination rules."
+    },
+    "time-conditions": {
+      "title": "Time Conditions",
+      "description": "Schedule working hours, holidays, and off-hour routing."
+    },
+    "system-settings": {
+      "title": "System & Infrastructure",
+      "description": "Service health, server resources, backup status, and gateway connections."
+    },
+    "mail-config": {
+      "title": "Mail Configuration",
+      "description": "Configure and test SMTP server settings for system alerts and notifications."
+    },
+    "security": {
+      "title": "Security & Audit",
+      "description": "IP access controls, firewall rules, and audit trail logs."
+    },
+    "backups": {
+      "title": "Backups & Storage",
+      "description": "Database snapshot archives, retention, and disaster recovery."
+    },
+    "global-settings": {
+      "title": "Settings",
+      "description": "Profile, account security, and application preferences."
+    },
+    "moh": {
+      "title": "Music On Hold (MOH)",
+      "description": "Manage audio playlists played while callers are queued or on hold."
+    },
+    "tones": {
+      "title": "Tones & Frequencies",
+      "description": "Country-specific ringback, busy, and dialtone frequency profiles."
+    },
+    "agent-states": {
+      "title": "Agent States & Reasons",
+      "description": "Custom pause codes, break reasons, and wrap-up status labels."
+    },
+    "departments": {
+      "title": "Departments",
+      "description": "Organizational units, cost center allocations, and supervisors."
+    },
+    "survey": {
+      "title": "CSAT / Survey Config",
+      "description": "Post-call survey prompts, scoring rules, and rating thresholds."
+    },
+    "cdr-config": {
+      "title": "CDR Configuration",
+      "description": "Log storage parameters, anonymization rules, and purging schedules."
+    },
+    "global-config": {
+      "title": "Global System Config",
+      "description": "Core application settings, default locale, and time zone offsets."
+    },
+    "outbound-routes": {
+      "title": "Outbound Routes",
+      "description": "Dial plan prefixes, trunk failover priorities, and rate limits."
+    },
+    "categories": {
+      "coreAdministration": "Utawala Msingi",
+      "telephonyOperations": "Simu na Uendeshaji",
+      "analyticsQuality": "Uchanganuzi na Ubora",
+      "systemConfiguration": "Usanidi wa Mfumo",
+      "telephonySettings": "Mipangilio ya Simu",
+      "routingTrunks": "Uelekezaji na Trunks",
+      "mediaAudio": "Midia na Sauti",
+      "operationalPolicies": "Sera za Uendeshaji",
+      "systemSecurity": "Mfumo na Usalama"
+    }
+  }
 }
