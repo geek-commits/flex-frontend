@@ -22,6 +22,7 @@ export function AiSubPage({ title, subtitle, titleKey, subtitleKey, actions, chi
     const resolvedTitle = titleKey ? t(titleKey) : title;
     // @ts-expect-error — pending Batch 10-11 typed union
     const resolvedSubtitle = subtitleKey ? t(subtitleKey) : subtitle;
+
     return (
         // @ts-expect-error — pending Batch 10-11 typed union
         <AdminShell title={resolvedTitle} subtitle={resolvedSubtitle} actions={actions}>

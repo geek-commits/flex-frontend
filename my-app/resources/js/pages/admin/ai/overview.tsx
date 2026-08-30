@@ -9,18 +9,21 @@ import { AiSubPage } from '@/features/ai/ai-sub-page';
 import { AIFeatureStatusGrid } from '@/features/ai/components/ai-feature-status-grid';
 import { useAiCenter } from '@/features/ai/use-ai-center';
 
-const formatNumber = (value: number) => value.toLocaleString('en-US');
+const formatNumber = (value: number, locale: string) =>
+    new Intl.NumberFormat(locale).format(value);
 
-const formatTokens = (value: number | null) =>
-    value === null ? null : value >= 1_000_000 ? `${(value / 1_000_000).toFixed(1)}M` : formatNumber(value);
+const formatTokens = (value: number | null, locale: string) =>
+    value === null ? null : value >= 1_000_000 ? `${(value / 1_000_000).toFixed(1)}M` : formatNumber(value, locale);
 
-const formatCost = (value: number | null) => (value === null ? null : `$${value.toFixed(2)}`);
+const formatCost = (value: number | null, locale: string) =>
+    value === null ? null : new Intl.NumberFormat(locale, { style: 'currency', currency: 'USD', currencyDisplay: 'symbol' }).format(value);
 
 export default function AiOverviewPage() {
-    const { t } = useTranslation('administration');
+    const { t, i18n } = useTranslation('administration');
     const { data } = useAiCenter();
     const [refreshing, setRefreshing] = useState(false);
     const { snapshot, features, knowledgeVaults, knowledgeItems } = data;
+    const locale = i18n.language;
 
     const handleRefresh = () => {
         setRefreshing(true);
@@ -54,23 +57,39 @@ export default function AiOverviewPage() {
                     <MetricGroup>
                         <MetricCard
                             title={t('ai.overview.aiSessionsToday')}
-                            value={snapshot.sessionsToday === null ? null : formatNumber(snapshot.sessionsToday)}
-                            description={t('ai.overview.aiSessionsTodayDescription', { defaultValue: 'Real-time agent co-pilot interactions' })}
+                            value={
+                                snapshot.sessionsToday === null ? null : formatNumber(snapshot.sessionsToday, locale)
+                            }
+                            description={t('ai.overview.aiSessionsTodayDescription', {
+                                defaultValue: 'Real-time agent co-pilot interactions',
+                            })}
                         />
                         <MetricCard
                             title={t('ai.overview.assistAdoptionRate')}
-                            value={snapshot.assistAdoptionRate === null ? null : `${snapshot.assistAdoptionRate}%`}
-                            description={t('ai.overview.assistAdoptionRateDescription', { defaultValue: 'Agents accepting AI suggestions' })}
+                            value={
+                                snapshot.assistAdoptionRate === null
+                                    ? null
+                                    : new Intl.NumberFormat(locale, { style: 'percent', maximumFractionDigits: 0 }).format(
+                                          snapshot.assistAdoptionRate / 100
+                                      )
+                            }
+                            description={t('ai.overview.assistAdoptionRateDescription', {
+                                defaultValue: 'Agents accepting AI suggestions',
+                            })}
                         />
                         <MetricCard
                             title={t('ai.overview.totalTokensToday')}
-                            value={formatTokens(snapshot.totalTokensToday)}
-                            description={t('ai.overview.totalTokensTodayDescription', { defaultValue: 'Prompt & completion token volume' })}
+                            value={formatTokens(snapshot.totalTokensToday, locale)}
+                            description={t('ai.overview.totalTokensTodayDescription', {
+                                defaultValue: 'Prompt & completion token volume',
+                            })}
                         />
                         <MetricCard
                             title={t('ai.overview.estimatedCostToday')}
-                            value={formatCost(snapshot.estimatedCostToday)}
-                            description={t('ai.overview.estimatedCostTodayDescription', { defaultValue: 'Inference provider cost estimate' })}
+                            value={formatCost(snapshot.estimatedCostToday, locale)}
+                            description={t('ai.overview.estimatedCostTodayDescription', {
+                                defaultValue: 'Inference provider cost estimate',
+                            })}
                         />
                     </MetricGroup>
                 </div>
@@ -111,7 +130,9 @@ export default function AiOverviewPage() {
                                 <span className="text-[10px] uppercase font-semibold text-muted-foreground">
                                     {t('ai.overview.knowledgeItems')}
                                 </span>
-                                <span className="text-lg font-bold text-foreground">{formatNumber(knowledgeItems.length)}</span>
+                                <span className="text-lg font-bold text-foreground">
+                                    {formatNumber(knowledgeItems.length, locale)}
+                                </span>
                             </div>
                             <div className="p-3 rounded-lg bg-muted/40 border border-border flex flex-col">
                                 <span className="text-[10px] uppercase font-semibold text-muted-foreground">
@@ -125,7 +146,10 @@ export default function AiOverviewPage() {
                                 </span>
                                 <span className="text-sm font-semibold text-foreground">
                                     {snapshot.lastUpdatedAt
-                                        ? new Date(snapshot.lastUpdatedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                                        ? new Intl.DateTimeFormat(locale, {
+                                              hour: '2-digit',
+                                              minute: '2-digit',
+                                          }).format(new Date(snapshot.lastUpdatedAt))
                                         : t('ai.overview.noData')}
                                 </span>
                             </div>

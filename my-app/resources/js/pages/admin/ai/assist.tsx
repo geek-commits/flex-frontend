@@ -3,12 +3,10 @@ import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { StatusBadge } from '@/components/flex/status-badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Toggle } from '@/components/ui/toggle';
-import { useTranslation } from 'react-i18next';
 import { AiSubPage } from '@/features/ai/ai-sub-page';
 import { useAiCenter } from '@/features/ai/use-ai-center';
 
 export default function AiAssistPage() {
-    const { t } = useTranslation('administration');
     const { data, setAssistEnabled } = useAiCenter();
     const { assistConfig } = data;
 

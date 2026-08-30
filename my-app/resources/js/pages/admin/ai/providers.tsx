@@ -3,12 +3,10 @@ import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { StatusBadge } from '@/components/flex/status-badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useTranslation } from 'react-i18next';
 import { AiSubPage } from '@/features/ai/ai-sub-page';
 import { useAiCenter } from '@/features/ai/use-ai-center';
 
 export default function AiProvidersPage() {
-    const { t } = useTranslation('administration');
     const { data, testProviderConnection } = useAiCenter();
     const { providers } = data;
 
