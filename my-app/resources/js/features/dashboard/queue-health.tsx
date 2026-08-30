@@ -20,9 +20,7 @@ export function QueueHealth() {
 
     const rows = useMemo(() => data?.queueHealth ?? [], [data]);
 
-    const columns = queueColumns((key, fallback) =>
-        t(key, { defaultValue: fallback ?? key }),
-    );
+    const columns = useMemo(() => queueColumns(t), [t]);
     const table = useTable({
         features: dataGridFeatures,
         columns,
@@ -36,8 +34,8 @@ export function QueueHealth() {
         return (
             <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
                 <FlexErrorState
-                    title={t('dashboard.queueHealth.errorTitle', { defaultValue: 'Queue health unavailable' })}
-                    description={t('dashboard.queueHealth.errorDescription', { defaultValue: 'Failed to load queue data' })}
+                    title={t('dashboard.queueHealth.errorTitle')}
+                    description={t('dashboard.queueHealth.errorDescription')}
                     action={
                         <Button onClick={() => window.location.reload()} size="sm">
                             {t('dashboard.live.retry')}
@@ -57,12 +55,11 @@ export function QueueHealth() {
             </div>
 
             <DataGrid
-                key={t('queue.columns.queue')}
                 table={table}
                 recordCount={rows.length}
                 isLoading={isLoading}
                 loadingMode="spinner"
-                emptyMessage={t('dashboard.queueHealth.empty', { defaultValue: 'No queue data available' })}
+                emptyMessage={t('dashboard.queueHealth.empty')}
                 tableLayout={{
                     columnsMovable: false,
                 }}

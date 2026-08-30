@@ -96,7 +96,7 @@ export function OperationsSummary() {
                 trend={
                     slaBelowTarget
                         ? {
-                              value: t('dashboard.metrics.sla.below', { value: SLA_TARGET - sla, defaultValue: `${SLA_TARGET - sla}% below` }),
+                              value: t('dashboard.metrics.sla.below', { value: SLA_TARGET - sla }),
                               positive: false,
                           }
                         : undefined

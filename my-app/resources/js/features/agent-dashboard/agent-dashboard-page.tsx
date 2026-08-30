@@ -42,22 +42,10 @@ export function AgentDashboardPage() {
                 <QueuePressureSection queues={data.queuePressure} />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <DeferredSectionCard
-                        title="Performance"
-                        section={data.deferred.performance}
-                    />
-                    <DeferredSectionCard
-                        title="Skills & Proficiency"
-                        section={data.deferred.skills}
-                    />
-                    <DeferredSectionCard
-                        title="Provider Minutes"
-                        section={data.deferred.providerMinutes}
-                    />
-                    <DeferredSectionCard
-                        title="System Notices"
-                        section={data.deferred.notices}
-                    />
+                    <DeferredSectionCard titleKey="dashboard.deferred.performance.title" section={data.deferred.performance} />
+                    <DeferredSectionCard titleKey="dashboard.deferred.skills.title" section={data.deferred.skills} />
+                    <DeferredSectionCard titleKey="dashboard.deferred.providerMinutes.title" section={data.deferred.providerMinutes} />
+                    <DeferredSectionCard titleKey="dashboard.deferred.notices.title" section={data.deferred.notices} />
                 </div>
             </div>
         </AgentShell>

@@ -74,6 +74,29 @@
         "sla": "SLA"
       },
       "empty": "Aucune donnée de file disponible."
+    },
+    "deferred": {
+      "performance": {
+        "title": "Performance",
+        "reason": "Les métriques de performance (appels traités, débit, taux de réponse, durée moyenne) nécessitent la comptabilité d’appels backend et ne sont pas encore disponibles."
+      },
+      "skills": {
+        "title": "Compétences et maîtrise",
+        "reason": "Les compétences sont configurées par les superviseurs et nécessitent une assignation backend ; elles ne sont pas encore disponibles."
+      },
+      "providerMinutes": {
+        "title": "Minutes fournisseur",
+        "reason": "La consommation des minutes fournisseur nécessite le reporting d’usage telco et n’est pas encore disponible."
+      },
+      "notices": {
+        "title": "Notifications système",
+        "reason": "Les notifications système nécessitent un flux backend et ne sont pas encore disponibles."
+      },
+      "notAvailable": "Pas encore disponible"
+    },
+    "status": {
+      "extension": "Poste",
+      "telephonySeparate": "La connexion téléphonique est séparée de l’état de disponibilité."
     }
   },
   "dynamicIsland": {

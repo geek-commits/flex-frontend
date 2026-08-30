@@ -38,32 +38,41 @@ function StateTimeCell({ row }: { row: MonitoringAgentRow }) {
     );
 }
 
-function CurrentCallCell({ row }: { row: MonitoringAgentRow }) {
+const CALL_DIRECTION_KEYS = {
+    inbound: 'monitoring.call.direction.inbound',
+    outbound: 'monitoring.call.direction.outbound',
+} as const;
+
+const CALL_STATE_KEYS = {
+    ringing: 'monitoring.call.state.ringing',
+    connected: 'monitoring.call.state.connected',
+    hold: 'monitoring.call.state.hold',
+    transferring: 'monitoring.call.state.transferring',
+} as const;
+
+function CurrentCallCell({ row, t }: { row: MonitoringAgentRow; t: TFn }) {
     if (!row.call) {
-        return (
-            <span className="text-flex-text-muted">—</span>
-        );
+        return <span className="text-flex-text-muted">—</span>;
     }
 
     const { direction, customer, state } = row.call;
 
     return (
         <span className="flex min-w-0 items-center gap-1.5">
-            <span className="shrink-0 capitalize text-flex-text-muted">{direction}</span>
+            <span className="shrink-0 capitalize text-flex-text-muted">{t(CALL_DIRECTION_KEYS[direction])}</span>
             <span className="min-w-0 truncate text-flex-text-primary">{customer.name}</span>
-            <span className="shrink-0 text-flex-text-muted">{state}</span>
+            <span className="shrink-0 text-flex-text-muted">{t(CALL_STATE_KEYS[state])}</span>
         </span>
     );
 }
 
-export function monitoringColumns(t?: TFn): ColumnDef<DataGridFeatures, MonitoringAgentRow>[] {
-    const tt = t ?? (((k: string) => k) as unknown as TFn);
+export function monitoringColumns(t: TFn): ColumnDef<DataGridFeatures, MonitoringAgentRow>[] {
 
     return [
         {
             accessorKey: 'name',
             id: 'name',
-            header: ({ column }) => <DataGridColumnHeader title={tt('monitoring.columns.agent')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('monitoring.columns.agent')} column={column} />,
             cell: ({ row }) => (
                 <span className="font-medium text-flex-text-primary">{row.original.name}</span>
             ),
@@ -74,7 +83,7 @@ export function monitoringColumns(t?: TFn): ColumnDef<DataGridFeatures, Monitori
         {
             accessorKey: 'extension',
             id: 'extension',
-            header: ({ column }) => <DataGridColumnHeader title={tt('monitoring.columns.ext')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('monitoring.columns.ext')} column={column} />,
             cell: ({ row }) => (
                 <span className="tabular-nums text-flex-text-muted">{row.original.extension}</span>
             ),
@@ -85,7 +94,7 @@ export function monitoringColumns(t?: TFn): ColumnDef<DataGridFeatures, Monitori
         {
             accessorKey: 'queue',
             id: 'queue',
-            header: ({ column }) => <DataGridColumnHeader title={tt('monitoring.columns.queue')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('monitoring.columns.queue')} column={column} />,
             cell: ({ row }) => (
                 <span className="text-flex-text-primary">{row.original.queue}</span>
             ),
@@ -96,10 +105,10 @@ export function monitoringColumns(t?: TFn): ColumnDef<DataGridFeatures, Monitori
         {
             accessorKey: 'state',
             id: 'state',
-            header: ({ column }) => <DataGridColumnHeader title={tt('monitoring.columns.state')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('monitoring.columns.state')} column={column} />,
             cell: ({ row }) => (
                 <FlexStatus tone={AGENT_STATE_TONES[row.original.state]} className="capitalize">
-                    {tt(MONITORING_SUMMARY_KEYS[row.original.state])}
+                    {t(MONITORING_SUMMARY_KEYS[row.original.state])}
                 </FlexStatus>
             ),
             size: 150,
@@ -109,7 +118,7 @@ export function monitoringColumns(t?: TFn): ColumnDef<DataGridFeatures, Monitori
         {
             accessorKey: 'stateSince',
             id: 'stateTime',
-            header: ({ column }) => <DataGridColumnHeader title={tt('monitoring.columns.stateTime')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('monitoring.columns.stateTime')} column={column} />,
             cell: ({ row }) => <StateTimeCell row={row.original} />,
             size: 116,
             enableSorting: true,
@@ -118,8 +127,8 @@ export function monitoringColumns(t?: TFn): ColumnDef<DataGridFeatures, Monitori
         {
             accessorKey: 'call',
             id: 'currentCall',
-            header: ({ column }) => <DataGridColumnHeader title={tt('monitoring.columns.currentCall')} column={column} />,
-            cell: ({ row }) => <CurrentCallCell row={row.original} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('monitoring.columns.currentCall')} column={column} />,
+            cell: ({ row }) => <CurrentCallCell row={row.original} t={t} />,
             size: 320,
             enableSorting: false,
             meta: { kind: 'text', align: 'start', skeleton: <Skeleton className="h-4 w-24" /> },
@@ -127,7 +136,7 @@ export function monitoringColumns(t?: TFn): ColumnDef<DataGridFeatures, Monitori
         {
             accessorKey: 'callsToday',
             id: 'callsToday',
-            header: ({ column }) => <DataGridColumnHeader title={tt('monitoring.columns.callsToday')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('monitoring.columns.callsToday')} column={column} />,
             cell: ({ row }) => (
                 <span className="font-medium tabular-nums text-flex-text-primary">{row.original.callsToday}</span>
             ),
@@ -138,7 +147,7 @@ export function monitoringColumns(t?: TFn): ColumnDef<DataGridFeatures, Monitori
         {
             accessorKey: 'aht',
             id: 'aht',
-            header: ({ column }) => <DataGridColumnHeader title={tt('monitoring.columns.aht')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('monitoring.columns.aht')} column={column} />,
             cell: ({ row }) => (
                 <span className="tabular-nums text-flex-text-primary">{row.original.aht}</span>
             ),

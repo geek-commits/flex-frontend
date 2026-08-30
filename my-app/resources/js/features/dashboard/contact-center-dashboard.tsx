@@ -41,9 +41,7 @@ function ContactCenterDashboardInner() {
                     <RiRefreshLine className="size-3.5" />
                     <span>{t('dashboard.refresh')}</span>
                     {isRefreshing && (
-                        <span className="text-[10px] text-muted-foreground">
-                            {t('dashboard.live.updating', { defaultValue: 'Updating…' })}
-                        </span>
+                        <span className="text-[10px] text-muted-foreground">{t('dashboard.live.updating')}</span>
                     )}
                 </Button>
             }

@@ -11,7 +11,8 @@
       "reconnecting": "Inaunganisha tena",
       "error": "Hitilafu",
       "retry": "Jaribu tena",
-      "updated": "Imeboreshwa {{time}}"
+      "updated": "Imeboreshwa {{time}}",
+      "updating": "Inasasisha…"
     },
     "metrics": {
       "talking": {
@@ -28,7 +29,8 @@
       },
       "sla": {
         "label": "SLA",
-        "description": "Lengo {{value}}%"
+        "description": "Lengo {{value}}%",
+        "below": "{{value}}% chini"
       },
       "queueHealth": {
         "title": "Afya ya Foleni",
@@ -80,7 +82,14 @@
     },
     "alert": {
       "queueWaiting_one": "{{queue}}: simu {{count}} inasubiri bila wakala",
-      "queueWaiting_other": "{{queue}}: simu {{count}} zinasubiri bila wakala"
+      "queueWaiting_other": "{{queue}}: simu {{count}} zinasubiri bila wakala",
+      "slaBelow": "{{queue}} SLA {{sla}}% (lengo {{target}}%) — {{waiting}} wanasubiri, {{available}} wanapatikana"
+    },
+    "allQueuesOk": "Foleni zote zinafanya kazi ndani ya malengo",
+    "queueHealth": {
+      "errorTitle": "Afya ya foleni haipatikani",
+      "errorDescription": "Imeshindwa kupakia data ya foleni",
+      "empty": "Hakuna data ya foleni inayopatikana"
     }
   },
   "monitoring": {
@@ -149,6 +158,18 @@
       "offline": {
         "label": "Offline",
         "description": "Not currently logged in"
+      }
+    },
+    "call": {
+      "direction": {
+        "inbound": "Inayoingia",
+        "outbound": "Inayotoka"
+      },
+      "state": {
+        "ringing": "Inalia",
+        "connected": "Imeunganishwa",
+        "hold": "Imesimamishwa",
+        "transferring": "Inahamisha"
       }
     }
   },
@@ -385,6 +406,16 @@
       "lastActivity": "Shughuli ya mwisho",
       "notEscalated": "Haijapelekwa",
       "none": "Hakuna"
+    }
+  },
+  "exceptions": {
+    "breadcrumb": "Hitilafu",
+    "headTitle": "Hitilafu — Flex",
+    "title": "Kituo cha Hitilafu",
+    "description": "Matatizo yanayohitaji umakini — yanatokana na vipimo vilivyopo.",
+    "empty": {
+      "title": "Hakuna hitilafu",
+      "description": "Hakuna hitilafu zinazotokana na vizingiti. SLA, msongamano wa foleni au hitilafu za kampeni zikivunja vizingiti, zinaonekana hapa."
     }
   }
 }

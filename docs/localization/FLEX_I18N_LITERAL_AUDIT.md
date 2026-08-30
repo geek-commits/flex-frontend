@@ -1,6 +1,6 @@
 # FLEX i18n Literal Audit — Report Mode (Phase 2)
 
-**Generated:** 2026-08-30T21:13:51.305Z **SHA:** local **Files scanned:** 634 **Hits:** 381
+**Generated:** 2026-08-30T21:38:11.475Z **SHA:** local **Files scanned:** 638 **Hits:** 361
 
 > Classification per §107: TRANSLATE / RUNTIME_DATA / TECHNICAL / BRAND / EXTERNAL / FALSE_POSITIVE — triage before CI gate.
 
@@ -110,12 +110,6 @@
 | features/access-management/users/user-form-sheet.tsx | 222 | placeholder | `placeholder="Select an organization"` |
 | features/access-management/users/user-lifecycle-dialog.tsx | 92 | JSX text | `Cancel` |
 | features/access-management/users/user-reset-password-dialog.tsx | 53 | JSX text | `Cancel` |
-| features/agent-dashboard/agent-dashboard-page.tsx | 46 | title | `title="Performance"` |
-| features/agent-dashboard/agent-dashboard-page.tsx | 50 | title | `title="Skills & Proficiency"` |
-| features/agent-dashboard/agent-dashboard-page.tsx | 54 | title | `title="Provider Minutes"` |
-| features/agent-dashboard/agent-dashboard-page.tsx | 58 | title | `title="System Notices"` |
-| features/agent-dashboard/sections/agent-status.tsx | 45 | JSX text | `Telephony connection is separate from availability state.` |
-| features/agent-dashboard/sections/deferred-section.tsx | 24 | title | `title="Not available yet"` |
 | features/agent-workspace/agent-assist/agent-assist-dock.tsx | 36 | JSX text | `Agent Assist` |
 | features/agent-workspace/agent-assist/agent-assist-dock.tsx | 73 | JSX text | `Assist unavailable` |
 | features/agent-workspace/agent-assist/agent-assist-dock.tsx | 75 | JSX text | `Call remains fully operational.` |
@@ -199,18 +193,7 @@
 | features/customer-recovery/recovery-toolbar.tsx | 141 | JSX text | `Refresh` |
 | features/customer-recovery/recovery-toolbar.tsx | 122 | placeholder | `placeholder="Search phone number or queue..."` |
 | features/customer-recovery/recovery-toolbar.tsx | 123 | aria-label | `aria-label="Search missed calls"` |
-| features/dashboard/dashboard-active-calls-columns.tsx | 136 | title | `title="Customer"` |
-| features/dashboard/dashboard-active-calls-columns.tsx | 145 | title | `title="Agent"` |
-| features/dashboard/dashboard-active-calls-columns.tsx | 156 | title | `title="Queue"` |
-| features/dashboard/dashboard-active-calls-columns.tsx | 178 | title | `title="Duration"` |
-| features/dashboard/dashboard-active-calls-columns.tsx | 187 | title | `title="State"` |
 | features/dashboard/dashboard-types.ts | 61 | JSX text | `Promise` |
-| features/dashboard/dashboard-wallboard-columns.tsx | 162 | title | `title="Agent"` |
-| features/dashboard/dashboard-wallboard-columns.tsx | 184 | title | `title="Queue"` |
-| features/dashboard/dashboard-wallboard-columns.tsx | 195 | title | `title="State"` |
-| features/dashboard/dashboard-wallboard-columns.tsx | 204 | title | `title="State Time"` |
-| features/dashboard/dashboard-wallboard-columns.tsx | 213 | title | `title="Current Call"` |
-| features/dashboard/dashboard-wallboard-columns.tsx | 222 | title | `title="Calls Today"` |
 | features/recordings/recording-delete-dialog.tsx | 40 | JSX text | `Delete Recording` |
 | features/recordings/recording-delete-dialog.tsx | 42 | JSX text | `Are you sure you want to delete` |
 | features/recordings/recording-delete-dialog.tsx | 57 | JSX text | `Deleting this asset may cause callers to hear silence or encounter routing error` |
@@ -384,9 +367,6 @@
 | pages/dev/brand-preview.tsx | 99 | JSX text | `Canonical wordmark animation surfaces. Not part of production navigation.` |
 | pages/dev/brand-preview.tsx | 119 | JSX text | `Compact monogram (no animation, 30px).` |
 | pages/dev/brand-preview.tsx | 94 | title | `title="Brand preview (dev)"` |
-| pages/supervision/exceptions.tsx | 14 | title | `title="Exceptions — Flex"` |
-| pages/supervision/exceptions.tsx | 15 | title | `title="Exception Center"` |
-| pages/supervision/exceptions.tsx | 20 | title | `title="No exceptions"` |
 
 ## Next
 

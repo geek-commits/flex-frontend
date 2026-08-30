@@ -53,14 +53,6 @@ function TranslatedStateCell({ call, t }: { call: ActiveCall; t: TFn }) {
     );
 }
 
-function StateCell({ call }: { call: ActiveCall }) {
-    return (
-        <FlexStatus tone={CALL_STATE_TONES[call.state]} className="capitalize">
-            {call.state}
-        </FlexStatus>
-    );
-}
-
 function DirectionCell({ call, t }: { call: ActiveCall; t: TFn }) {
     return <span className="capitalize text-flex-text-muted">{t(ACTIVE_CALL_DIRECTION_KEYS[call.direction])}</span>;
 }
@@ -121,71 +113,6 @@ export function activeCallColumnsTranslated(t: TFn): ColumnDef<DataGridFeatures,
             id: 'state',
             header: ({ column }) => <DataGridColumnHeader title={t('activeCalls.columns.state')} column={column} />,
             cell: ({ row }) => <TranslatedStateCell call={row.original} t={t} />,
-            size: 150,
-            enableSorting: false,
-            meta: { kind: 'status', align: 'start', skeleton: <Skeleton className="h-4 w-16 rounded-full" /> },
-        },
-    ];
-}
-
-export function activeCallColumns(): ColumnDef<DataGridFeatures, ActiveCall>[] {
-    return [
-        {
-            accessorKey: 'customer',
-            id: 'customer',
-            header: ({ column }) => <DataGridColumnHeader title="Customer" column={column} />,
-            cell: ({ row }) => <CustomerCell call={row.original} />,
-            size: 220,
-            enableSorting: false,
-            meta: { kind: 'identity', align: 'start', skeleton: <Skeleton className="h-9 w-28" /> },
-        },
-        {
-            accessorKey: 'agent',
-            id: 'agent',
-            header: ({ column }) => <DataGridColumnHeader title="Agent" column={column} />,
-            cell: ({ row }) => (
-                <span className="text-flex-text-primary">{row.original.agent.name}</span>
-            ),
-            size: 170,
-            enableSorting: false,
-            meta: { kind: 'text', align: 'start', skeleton: <Skeleton className="h-4 w-24" /> },
-        },
-        {
-            accessorKey: 'queue',
-            id: 'queue',
-            header: ({ column }) => <DataGridColumnHeader title="Queue" column={column} />,
-            cell: ({ row }) => (
-                <span className="text-flex-text-primary">{row.original.queue}</span>
-            ),
-            size: 200,
-            enableSorting: false,
-            meta: { kind: 'text', align: 'start', skeleton: <Skeleton className="h-4 w-20" /> },
-        },
-        {
-            accessorKey: 'direction',
-            id: 'direction',
-            header: ({ column }) => <DataGridColumnHeader title="Dir." column={column} />,
-            cell: ({ row }) => (
-                <span className="capitalize text-flex-text-muted">{row.original.direction}</span>
-            ),
-            size: 96,
-            enableSorting: false,
-            meta: { kind: 'text', align: 'start', skeleton: <Skeleton className="h-4 w-16" /> },
-        },
-        {
-            accessorKey: 'duration',
-            id: 'duration',
-            header: ({ column }) => <DataGridColumnHeader title="Duration" column={column} />,
-            cell: ({ row }) => <DurationCell call={row.original} />,
-            size: 112,
-            enableSorting: false,
-            meta: { kind: 'duration', align: 'end', skeleton: <Skeleton className="h-4 w-16" /> },
-        },
-        {
-            accessorKey: 'state',
-            id: 'state',
-            header: ({ column }) => <DataGridColumnHeader title="State" column={column} />,
-            cell: ({ row }) => <StateCell call={row.original} />,
             size: 150,
             enableSorting: false,
             meta: { kind: 'status', align: 'start', skeleton: <Skeleton className="h-4 w-16 rounded-full" /> },

@@ -22,7 +22,7 @@ export function OperationalException() {
             exceptions.push({
                 id: `sla-${q.queue}`,
                 tone: 'warning',
-                message: t('dashboard.alert.slaBelow', { queue: q.queue, sla: q.sla, target: SLA_TARGET, waiting: q.waiting, available: q.availableAgents, defaultValue: `${q.queue} SLA ${q.sla}% (target ${SLA_TARGET}%) — ${q.waiting} waiting, ${q.availableAgents} available` }),
+                message: t('dashboard.alert.slaBelow', { queue: q.queue, sla: q.sla, target: SLA_TARGET, waiting: q.waiting, available: q.availableAgents }),
             });
         }
 
@@ -43,7 +43,7 @@ export function OperationalException() {
                 aria-live="polite"
             >
                 <RiCheckLine className="size-3.5 text-status-live" />
-                <span>{t('dashboard.allQueuesOk', { defaultValue: 'All queues operating within targets' })}</span>
+                <span>{t('dashboard.allQueuesOk')}</span>
             </div>
         );
     }

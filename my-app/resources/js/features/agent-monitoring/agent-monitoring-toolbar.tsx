@@ -34,6 +34,7 @@ export function AgentMonitoringToolbar({
     onClearFilters,
 }: AgentMonitoringToolbarProps) {
     const { t } = useTranslation('supervision');
+    const { t: tAgent } = useTranslation('agent');
     const hasPopoverFilters = filters.some(
         (filter) =>
             filter.values?.length > 0 &&
@@ -50,7 +51,7 @@ export function AgentMonitoringToolbar({
                 className: 'w-[180px]',
                 options: MONITORING_STATE_ORDER.map((state) => ({
                     value: state,
-                    label: agentStateMap[state].label,
+                    label: tAgent(agentStateMap[state].labelKey),
                 })),
             },
             {
@@ -62,7 +63,7 @@ export function AgentMonitoringToolbar({
                 options: queues.map((queue) => ({ value: queue, label: queue })),
             },
         ],
-        [queues, t],
+        [queues, t, tAgent],
     );
 
     return (

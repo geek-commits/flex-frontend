@@ -74,6 +74,29 @@
         "sla": "SLA"
       },
       "empty": "No queue data available."
+    },
+    "deferred": {
+      "performance": {
+        "title": "Performance",
+        "reason": "Performance metrics (calls handled, call rate, answer rate, average handling time) require backend call accounting and are not available yet."
+      },
+      "skills": {
+        "title": "Skills & Proficiency",
+        "reason": "Skills and proficiency are configured by supervisors and require a backend skills assignment; they are not available yet."
+      },
+      "providerMinutes": {
+        "title": "Provider Minutes",
+        "reason": "Provider minutes consumption requires telco usage reporting and is not available yet."
+      },
+      "notices": {
+        "title": "System Notices",
+        "reason": "System notices require a backend notifications feed and are not available yet."
+      },
+      "notAvailable": "Not available yet"
+    },
+    "status": {
+      "extension": "Extension",
+      "telephonySeparate": "Telephony connection is separate from availability state."
     }
   },
   "dynamicIsland": {

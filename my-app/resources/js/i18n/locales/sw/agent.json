@@ -74,6 +74,29 @@
         "sla": "SLA"
       },
       "empty": "Hakuna data ya foleni."
+    },
+    "deferred": {
+      "performance": {
+        "title": "Utendaji",
+        "reason": "Vipimo vya utendaji (simu zilizoshughulikiwa, kiwango cha simu, kiwango cha kujibu, muda wa kushughulikia) vinahitaji uhasibu wa simu wa backend na bado havipatikani."
+      },
+      "skills": {
+        "title": "Ujuzi na Umahiri",
+        "reason": "Ujuzi na umahiri husanidiwa na wasimamizi na huhitaji mgawo wa ujuzi wa backend; bado havipatikani."
+      },
+      "providerMinutes": {
+        "title": "Dakika za Mtoa Huduma",
+        "reason": "Matumizi ya dakika za mtoa huduma yanahitaji ripoti ya matumizi ya telco na bado hayapatikani."
+      },
+      "notices": {
+        "title": "Notisi za Mfumo",
+        "reason": "Notisi za mfumo zinahitaji mlisho wa arifa wa backend na bado hazipatikani."
+      },
+      "notAvailable": "Haijapatikana bado"
+    },
+    "status": {
+      "extension": "Kiambishi",
+      "telephonySeparate": "Muunganisho wa simu ni tofauti na hali ya upatikanaji."
     }
   },
   "dynamicIsland": {

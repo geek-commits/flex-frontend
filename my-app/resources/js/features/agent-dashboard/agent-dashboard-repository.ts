@@ -16,22 +16,22 @@ export interface AgentDashboardRepository {
 
 const DEFERRED_PERFORMANCE = {
     availability: 'deferred',
-    reason: 'Performance metrics (calls handled, call rate, answer rate, average handling time) require backend call accounting and are not available yet.',
+    reasonKey: 'dashboard.deferred.performance.reason',
 } as const;
 
 const DEFERRED_SKILLS = {
     availability: 'deferred',
-    reason: 'Skills and proficiency are configured by supervisors and require a backend skills assignment; they are not available yet.',
+    reasonKey: 'dashboard.deferred.skills.reason',
 } as const;
 
 const DEFERRED_PROVIDER_MINUTES = {
     availability: 'deferred',
-    reason: 'Provider minutes consumption requires telco usage reporting and is not available yet.',
+    reasonKey: 'dashboard.deferred.providerMinutes.reason',
 } as const;
 
 const DEFERRED_NOTICES = {
     availability: 'deferred',
-    reason: 'System notices require a backend notifications feed and are not available yet.',
+    reasonKey: 'dashboard.deferred.notices.reason',
 } as const;
 
 export const agentDashboardRepository: AgentDashboardRepository = {

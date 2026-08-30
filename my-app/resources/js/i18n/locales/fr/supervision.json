@@ -11,7 +11,8 @@
       "reconnecting": "Reconnexion",
       "error": "Erreur",
       "retry": "Réessayer",
-      "updated": "Mis à jour {{time}}"
+      "updated": "Mis à jour {{time}}",
+      "updating": "Mise à jour…"
     },
     "metrics": {
       "talking": {
@@ -28,7 +29,8 @@
       },
       "sla": {
         "label": "SLA",
-        "description": "Objectif {{value}}%"
+        "description": "Objectif {{value}}%",
+        "below": "{{value}}% en dessous"
       },
       "queueHealth": {
         "title": "État des files",
@@ -80,7 +82,14 @@
     },
     "alert": {
       "queueWaiting_one": "{{queue}} : {{count}} appel en attente sans agent disponible",
-      "queueWaiting_other": "{{queue}} : {{count}} appels en attente sans agent disponible"
+      "queueWaiting_other": "{{queue}} : {{count}} appels en attente sans agent disponible",
+      "slaBelow": "{{queue}} SLA {{sla}}% (cible {{target}}%) — {{waiting}} en attente, {{available}} disponibles"
+    },
+    "allQueuesOk": "Toutes les files fonctionnent dans les objectifs",
+    "queueHealth": {
+      "errorTitle": "État des files indisponible",
+      "errorDescription": "Échec du chargement des données de files",
+      "empty": "Aucune donnée de file disponible"
     }
   },
   "monitoring": {
@@ -149,6 +158,18 @@
       "offline": {
         "label": "Offline",
         "description": "Not currently logged in"
+      }
+    },
+    "call": {
+      "direction": {
+        "inbound": "Entrant",
+        "outbound": "Sortant"
+      },
+      "state": {
+        "ringing": "Sonnerie",
+        "connected": "Connecté",
+        "hold": "En attente",
+        "transferring": "Transfert"
       }
     }
   },
@@ -385,6 +406,16 @@
       "lastActivity": "Dernière activité",
       "notEscalated": "Non escaladé",
       "none": "Aucun"
+    }
+  },
+  "exceptions": {
+    "breadcrumb": "Exceptions",
+    "headTitle": "Exceptions — Flex",
+    "title": "Centre d’exceptions",
+    "description": "Problèmes nécessitant une attention — dérivés des métriques opérationnelles existantes.",
+    "empty": {
+      "title": "Aucune exception",
+      "description": "Aucune exception basée sur les seuils n’est active. Lorsque le SLA, l’arriéré des files ou les échecs de campagne dépassent les seuils, elles apparaissent ici."
     }
   }
 }

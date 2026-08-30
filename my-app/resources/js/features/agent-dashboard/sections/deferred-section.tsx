@@ -1,10 +1,11 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { Card, CardContent } from '@/components/ui/card';
-import type { DeferredSection } from '../agent-dashboard-types';
+import type { DeferredSection, DeferredTitleKey } from '../agent-dashboard-types';
 
 export interface DeferredSectionCardProps {
-    title: string;
+    titleKey: DeferredTitleKey;
     section: DeferredSection;
 }
 
@@ -13,18 +14,16 @@ export interface DeferredSectionCardProps {
  * renders an accurate empty state with the reason instead of fabricated data
  * (AGENTS.md: never invent domain metrics the runtime does not implement).
  */
-export function DeferredSectionCard({ title, section }: DeferredSectionCardProps) {
+export function DeferredSectionCard({ titleKey, section }: DeferredSectionCardProps) {
+    const { t } = useTranslation('agent');
+
     return (
         <Card className="bg-card border-border shadow-2xs">
             <CardContent className="p-4">
                 <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">
-                    {title}
+                    {t(titleKey)}
                 </div>
-                <FlexEmptyState
-                    title="Not available yet"
-                    description={section.reason}
-                    className="py-6"
-                />
+                <FlexEmptyState title={t('dashboard.deferred.notAvailable')} description={t(section.reasonKey)} className="py-6" />
             </CardContent>
         </Card>
     );

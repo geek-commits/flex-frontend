@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent } from '@/components/ui/card';
 import { ConnectionStatus } from '@/features/agent-workspace/connection-status';
 import { agentStateMap } from '@/lib/status-styles';
@@ -17,6 +18,7 @@ export interface AgentStatusSectionProps {
  * never treats Ready as Connected (see docs/design/domain/agent-state.md §19).
  */
 export function AgentStatusSection({ profile, agentState, connection }: AgentStatusSectionProps) {
+    const { t } = useTranslation('agent');
     const stateCfg = agentStateMap[agentState];
 
     return (
@@ -26,7 +28,7 @@ export function AgentStatusSection({ profile, agentState, connection }: AgentSta
                     <div className="min-w-0">
                         <div className="text-sm font-semibold text-foreground truncate">{profile.name}</div>
                         <div className="text-xs text-muted-foreground">
-                            Extension {profile.extension} · {profile.organization}
+                            {t('dashboard.status.extension')} {profile.extension} · {profile.organization}
                         </div>
                     </div>
 
@@ -35,16 +37,14 @@ export function AgentStatusSection({ profile, agentState, connection }: AgentSta
                             className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-semibold ${stateCfg.bgClass} ${stateCfg.textClass} ${stateCfg.borderClass}`}
                         >
                             <span className={`size-1.5 rounded-full ${stateCfg.dotClass}`} aria-hidden="true" />
-                            {stateCfg.label}
+                            {t(stateCfg.labelKey)}
                         </span>
                     </div>
                 </div>
 
                 <div className="flex items-center gap-2">
                     <ConnectionStatus state={connection} />
-                    <span className="text-[11px] text-muted-foreground">
-                        Telephony connection is separate from availability state.
-                    </span>
+                    <span className="text-[11px] text-muted-foreground">{t('dashboard.status.telephonySeparate')}</span>
                 </div>
             </CardContent>
         </Card>

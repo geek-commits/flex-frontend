@@ -11,7 +11,8 @@
       "reconnecting": "Reconnecting",
       "error": "Error",
       "retry": "Retry",
-      "updated": "Updated {{time}}"
+      "updated": "Updated {{time}}",
+      "updating": "Updating…"
     },
     "metrics": {
       "talking": {
@@ -28,7 +29,8 @@
       },
       "sla": {
         "label": "SLA",
-        "description": "Target {{value}}%"
+        "description": "Target {{value}}%",
+        "below": "{{value}}% below"
       },
       "queueHealth": {
         "title": "Queue Health",
@@ -80,7 +82,14 @@
     },
     "alert": {
       "queueWaiting_one": "{{queue}}: {{count}} call waiting with no available agents",
-      "queueWaiting_other": "{{queue}}: {{count}} calls waiting with no available agents"
+      "queueWaiting_other": "{{queue}}: {{count}} calls waiting with no available agents",
+      "slaBelow": "{{queue}} SLA {{sla}}% (target {{target}}%) — {{waiting}} waiting, {{available}} available"
+    },
+    "allQueuesOk": "All queues operating within targets",
+    "queueHealth": {
+      "errorTitle": "Queue health unavailable",
+      "errorDescription": "Failed to load queue data",
+      "empty": "No queue data available"
     }
   },
   "monitoring": {
@@ -149,6 +158,18 @@
       "offline": {
         "label": "Offline",
         "description": "Not currently logged in"
+      }
+    },
+    "call": {
+      "direction": {
+        "inbound": "Inbound",
+        "outbound": "Outbound"
+      },
+      "state": {
+        "ringing": "Ringing",
+        "connected": "Connected",
+        "hold": "On Hold",
+        "transferring": "Transferring"
       }
     }
   },
@@ -385,6 +406,16 @@
       "lastActivity": "Last activity",
       "notEscalated": "Not escalated",
       "none": "None"
+    }
+  },
+  "exceptions": {
+    "breadcrumb": "Exceptions",
+    "headTitle": "Exceptions — Flex",
+    "title": "Exception Center",
+    "description": "Problems requiring attention — derived from existing operational metrics.",
+    "empty": {
+      "title": "No exceptions",
+      "description": "No threshold-backed exceptions are active. When SLA, queue backlog, or campaign failures breach authoritative thresholds, they appear here."
     }
   }
 }
