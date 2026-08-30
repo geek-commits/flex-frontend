@@ -14,10 +14,7 @@ export default function Appearance() {
             <h1 className="sr-only">{t('settings.appearanceHeadTitle')}</h1>
 
             <div className="flex flex-col gap-6">
-                <SettingsCard
-                    title="Appearance settings"
-                    description="Update the appearance settings for your account"
-                >
+                <SettingsCard title={t('settings.appearance.title')} description={t('settings.appearance.description')}>
                     <AppearanceTabs />
                 </SettingsCard>
             </div>
@@ -28,8 +25,9 @@ export default function Appearance() {
 Appearance.layout = {
     breadcrumbs: [
         {
-            title: 'Appearance settings',
+            title: 'settings.appearance.breadcrumb',
+            titleKey: 'settings.appearance.breadcrumb',
             href: editAppearance(),
         },
     ],
-};
+} as unknown as { breadcrumbs: { title: string; titleKey?: string; href: string }[] };

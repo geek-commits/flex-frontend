@@ -76,6 +76,47 @@
       "verificationSent": "A new verification link has been sent to your email address.",
       "save": "Save",
       "breadcrumb": "Profile settings"
+    },
+    "security": {
+      "title": "Update password",
+      "description": "Ensure your account is using a long, random password to stay secure",
+      "currentPasswordLabel": "Current password",
+      "newPasswordLabel": "New password",
+      "confirmPasswordLabel": "Confirm password",
+      "currentPasswordPlaceholder": "Current password",
+      "newPasswordPlaceholder": "New password",
+      "confirmPasswordPlaceholder": "Confirm password",
+      "save": "Save",
+      "breadcrumb": "Security settings",
+      "twoFactorTitle": "Two-factor authentication",
+      "twoFactorDescription": "Manage your two-factor authentication settings",
+      "twoFactorEnabledDescription": "You will be prompted for a secure, random pin during login, which you can retrieve from the TOTP-supported application on your phone.",
+      "twoFactorDisabledDescription": "When you enable two-factor authentication, you will be prompted for a secure pin during login. This pin can be retrieved from a TOTP-supported application on your phone.",
+      "disable2FA": "Disable 2FA",
+      "enable2FA": "Enable 2FA",
+      "continueSetup": "Continue setup"
+    },
+    "appearance": {
+      "title": "Appearance settings",
+      "description": "Update the appearance settings for your account",
+      "breadcrumb": "Appearance settings",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System",
+      "ariaLabel": "Appearance"
+    },
+    "deleteUser": {
+      "title": "Delete account",
+      "description": "Delete your account and all of its resources",
+      "warning": "Warning",
+      "warningDescription": "Please proceed with caution, this cannot be undone.",
+      "trigger": "Delete account",
+      "dialogTitle": "Are you sure you want to delete your account?",
+      "dialogDescription": "Once your account is deleted, all of its resources and data will also be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Password",
+      "cancel": "Cancel",
+      "confirm": "Delete account"
     }
   },
   "welcome": {

@@ -30,20 +30,13 @@ export default function Security(props: Props) {
             <h1 className="sr-only">{t('settings.securityHeadTitle')}</h1>
 
             <div className="flex flex-col gap-6">
-                <SettingsCard
-                    title="Update password"
-                    description="Ensure your account is using a long, random password to stay secure"
-                >
+                <SettingsCard title={t('settings.security.title')} description={t('settings.security.description')}>
                     <Form
                         {...SecurityController.update.form()}
                         options={{
                             preserveScroll: true,
                         }}
-                        resetOnError={[
-                            'password',
-                            'password_confirmation',
-                            'current_password',
-                        ]}
+                        resetOnError={['password', 'password_confirmation', 'current_password']}
                         resetOnSuccess
                         onError={(errors) => {
                             if (errors.password) {
@@ -59,9 +52,7 @@ export default function Security(props: Props) {
                         {({ errors, processing }) => (
                             <>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="current_password">
-                                        Current password
-                                    </Label>
+                                    <Label htmlFor="current_password">{t('settings.security.currentPasswordLabel')}</Label>
 
                                     <PasswordInput
                                         id="current_password"
@@ -69,14 +60,14 @@ export default function Security(props: Props) {
                                         name="current_password"
                                         className="mt-1 block w-full"
                                         autoComplete="current-password"
-                                        placeholder="Current password"
+                                        placeholder={t('settings.security.currentPasswordPlaceholder')}
                                     />
 
                                     <InputError message={errors.current_password} />
                                 </div>
 
                                 <div className="grid gap-2">
-                                    <Label htmlFor="password">New password</Label>
+                                    <Label htmlFor="password">{t('settings.security.newPasswordLabel')}</Label>
 
                                     <PasswordInput
                                         id="password"
@@ -84,7 +75,7 @@ export default function Security(props: Props) {
                                         name="password"
                                         className="mt-1 block w-full"
                                         autoComplete="new-password"
-                                        placeholder="New password"
+                                        placeholder={t('settings.security.newPasswordPlaceholder')}
                                         passwordrules={props.passwordRules}
                                     />
 
@@ -92,30 +83,23 @@ export default function Security(props: Props) {
                                 </div>
 
                                 <div className="grid gap-2">
-                                    <Label htmlFor="password_confirmation">
-                                        Confirm password
-                                    </Label>
+                                    <Label htmlFor="password_confirmation">{t('settings.security.confirmPasswordLabel')}</Label>
 
                                     <PasswordInput
                                         id="password_confirmation"
                                         name="password_confirmation"
                                         className="mt-1 block w-full"
                                         autoComplete="new-password"
-                                        placeholder="Confirm password"
+                                        placeholder={t('settings.security.confirmPasswordPlaceholder')}
                                         passwordrules={props.passwordRules}
                                     />
 
-                                    <InputError
-                                        message={errors.password_confirmation}
-                                    />
+                                    <InputError message={errors.password_confirmation} />
                                 </div>
 
                                 <div className="flex items-center gap-4">
-                                    <Button
-                                        disabled={processing}
-                                        data-test="update-password-button"
-                                    >
-                                        Save
+                                    <Button disabled={processing} data-test="update-password-button">
+                                        {t('settings.security.save')}
                                     </Button>
                                 </div>
                             </>
@@ -130,10 +114,7 @@ export default function Security(props: Props) {
                 twoFactorEnabled={props.twoFactorEnabled}
             />
 
-            <ManagePasskeys
-                canManagePasskeys={props.canManagePasskeys}
-                passkeys={props.passkeys}
-            />
+            <ManagePasskeys canManagePasskeys={props.canManagePasskeys} passkeys={props.passkeys} />
         </>
     );
 }
@@ -141,8 +122,9 @@ export default function Security(props: Props) {
 Security.layout = {
     breadcrumbs: [
         {
-            title: 'Security settings',
+            title: 'settings.security.breadcrumb',
+            titleKey: 'settings.security.breadcrumb',
             href: edit(),
         },
     ],
-};
+} as unknown as { breadcrumbs: { title: string; titleKey?: string; href: string }[] };

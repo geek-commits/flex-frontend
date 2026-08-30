@@ -76,6 +76,47 @@
       "verificationSent": "Kiungo kipya cha uthibitisho kimetumwa kwa anwani yako ya barua pepe.",
       "save": "Hifadhi",
       "breadcrumb": "Mipangilio ya wasifu"
+    },
+    "security": {
+      "title": "Sasisha nenosiri",
+      "description": "Hakikisha akaunti yako inatumia nenosiri ndefu la nasibu ili kuwa salama",
+      "currentPasswordLabel": "Nenosiri la sasa",
+      "newPasswordLabel": "Nenosiri jipya",
+      "confirmPasswordLabel": "Thibitisha nenosiri",
+      "currentPasswordPlaceholder": "Nenosiri la sasa",
+      "newPasswordPlaceholder": "Nenosiri jipya",
+      "confirmPasswordPlaceholder": "Thibitisha nenosiri",
+      "save": "Hifadhi",
+      "breadcrumb": "Mipangilio ya usalama",
+      "twoFactorTitle": "Uthibitishaji wa hatua mbili",
+      "twoFactorDescription": "Simamia mipangilio ya uthibitishaji wa hatua mbili",
+      "twoFactorEnabledDescription": "Utaombwa kuweka pini salama ya nasibu wakati wa kuingia, ambayo unaweza kuipata kutoka programu inayotumia TOTP kwenye simu yako.",
+      "twoFactorDisabledDescription": "Unapowasha uthibitishaji wa hatua mbili, utaombwa kuweka pini salama wakati wa kuingia. Pini hii inaweza kupatikana kutoka programu inayotumia TOTP kwenye simu yako.",
+      "disable2FA": "Zima 2FA",
+      "enable2FA": "Washa 2FA",
+      "continueSetup": "Endelea na usanidi"
+    },
+    "appearance": {
+      "title": "Mipangilio ya muonekano",
+      "description": "Sasisha mipangilio ya muonekano kwa akaunti yako",
+      "breadcrumb": "Mipangilio ya muonekano",
+      "light": "Mwanga",
+      "dark": "Giza",
+      "system": "Mfumo",
+      "ariaLabel": "Muonekano"
+    },
+    "deleteUser": {
+      "title": "Futa akaunti",
+      "description": "Futa akaunti yako na rasilimali zote",
+      "warning": "Tahadhari",
+      "warningDescription": "Tafadhali endelea kwa tahadhari, hii haiwezi kutenduliwa.",
+      "trigger": "Futa akaunti",
+      "dialogTitle": "Una uhakika unataka kufuta akaunti yako?",
+      "dialogDescription": "Mara akaunti yako itakapofutwa, rasilimali zote na data zitafutwa kabisa. Tafadhali weka nenosiri lako kuthibitisha ungependa kufuta akaunti yako kabisa.",
+      "passwordLabel": "Nenosiri",
+      "passwordPlaceholder": "Nenosiri",
+      "cancel": "Ghairi",
+      "confirm": "Futa akaunti"
     }
   },
   "welcome": {

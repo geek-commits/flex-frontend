@@ -76,6 +76,47 @@
       "verificationSent": "Un nouveau lien de vérification a été envoyé à votre adresse e-mail.",
       "save": "Enregistrer",
       "breadcrumb": "Paramètres du profil"
+    },
+    "security": {
+      "title": "Mettre à jour le mot de passe",
+      "description": "Assurez-vous que votre compte utilise un mot de passe long et aléatoire pour rester sécurisé",
+      "currentPasswordLabel": "Mot de passe actuel",
+      "newPasswordLabel": "Nouveau mot de passe",
+      "confirmPasswordLabel": "Confirmer le mot de passe",
+      "currentPasswordPlaceholder": "Mot de passe actuel",
+      "newPasswordPlaceholder": "Nouveau mot de passe",
+      "confirmPasswordPlaceholder": "Confirmer le mot de passe",
+      "save": "Enregistrer",
+      "breadcrumb": "Paramètres de sécurité",
+      "twoFactorTitle": "Authentification à deux facteurs",
+      "twoFactorDescription": "Gérez vos paramètres d'authentification à deux facteurs",
+      "twoFactorEnabledDescription": "Il vous sera demandé un code PIN sécurisé et aléatoire lors de la connexion, que vous pouvez récupérer depuis l'application compatible TOTP sur votre téléphone.",
+      "twoFactorDisabledDescription": "Lorsque vous activez l'authentification à deux facteurs, il vous sera demandé un code PIN sécurisé lors de la connexion. Ce code peut être récupéré depuis une application compatible TOTP sur votre téléphone.",
+      "disable2FA": "Désactiver 2FA",
+      "enable2FA": "Activer 2FA",
+      "continueSetup": "Continuer la configuration"
+    },
+    "appearance": {
+      "title": "Paramètres d'apparence",
+      "description": "Mettez à jour les paramètres d'apparence de votre compte",
+      "breadcrumb": "Paramètres d'apparence",
+      "light": "Clair",
+      "dark": "Sombre",
+      "system": "Système",
+      "ariaLabel": "Apparence"
+    },
+    "deleteUser": {
+      "title": "Supprimer le compte",
+      "description": "Supprimez votre compte et toutes ses ressources",
+      "warning": "Avertissement",
+      "warningDescription": "Veuillez procéder avec prudence, cette action est irréversible.",
+      "trigger": "Supprimer le compte",
+      "dialogTitle": "Êtes-vous sûr de vouloir supprimer votre compte ?",
+      "dialogDescription": "Une fois votre compte supprimé, toutes ses ressources et données seront définitivement supprimées. Veuillez saisir votre mot de passe pour confirmer.",
+      "passwordLabel": "Mot de passe",
+      "passwordPlaceholder": "Mot de passe",
+      "cancel": "Annuler",
+      "confirm": "Supprimer le compte"
     }
   },
   "welcome": {

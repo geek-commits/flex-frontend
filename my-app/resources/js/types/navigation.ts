@@ -1,8 +1,8 @@
 import type { InertiaLinkProps } from '@inertiajs/react';
+import type { TFunction } from 'i18next';
 import type { ComponentType } from 'react';
 import type { FlexIconName } from '@/components/flex/iconography';
 
-import type { TFunction } from 'i18next';
 
 export type BreadcrumbItem = {
     title: string;
