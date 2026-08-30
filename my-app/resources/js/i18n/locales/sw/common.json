@@ -64,6 +64,18 @@
       "profile": "Wasifu",
       "security": "Usalama",
       "appearance": "Muonekano"
+    },
+    "profile": {
+      "title": "Wasifu",
+      "description": "Sasisha jina lako na anwani ya barua pepe",
+      "nameLabel": "Jina",
+      "fullNamePlaceholder": "Jina kamili",
+      "emailLabel": "Anwani ya barua pepe",
+      "emailPlaceholder": "Anwani ya barua pepe",
+      "emailUnverified": "Anwani yako ya barua pepe haijathibitishwa. <resend>Bofya hapa kutuma tena barua pepe ya uthibitisho.</resend>",
+      "verificationSent": "Kiungo kipya cha uthibitisho kimetumwa kwa anwani yako ya barua pepe.",
+      "save": "Hifadhi",
+      "breadcrumb": "Mipangilio ya wasifu"
     }
   },
   "welcome": {

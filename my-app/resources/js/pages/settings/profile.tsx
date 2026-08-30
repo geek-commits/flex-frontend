@@ -1,6 +1,6 @@
 import { Form, Head, usePage } from '@inertiajs/react';
 import { Link } from '@inertiajs/react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileController';
 import DeleteUser from '@/components/delete-user';
 import InputError from '@/components/input-error';
@@ -33,10 +33,7 @@ export default function Profile({
             <h1 className="sr-only">{t('settings.profileHeadTitle')}</h1>
 
             <div className="flex flex-col gap-6">
-                <SettingsCard
-                    title="Profile"
-                    description="Update your name and email address"
-                >
+                <SettingsCard title={t('settings.profile.title')} description={t('settings.profile.description')}>
                     <Form
                         {...ProfileController.update.form()}
                         options={{
@@ -47,7 +44,7 @@ export default function Profile({
                         {({ processing, errors }) => (
                             <>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="name">Name</Label>
+                                    <Label htmlFor="name">{t('settings.profile.nameLabel')}</Label>
 
                                     <Input
                                         id="name"
@@ -56,17 +53,14 @@ export default function Profile({
                                         name="name"
                                         required
                                         autoComplete="name"
-                                        placeholder="Full name"
+                                        placeholder={t('settings.profile.fullNamePlaceholder')}
                                     />
 
-                                    <InputError
-                                        className="mt-2"
-                                        message={errors.name}
-                                    />
+                                    <InputError className="mt-2" message={errors.name} />
                                 </div>
 
                                 <div className="grid gap-2">
-                                    <Label htmlFor="email">Email address</Label>
+                                    <Label htmlFor="email">{t('settings.profile.emailLabel')}</Label>
 
                                     <Input
                                         id="email"
@@ -76,46 +70,41 @@ export default function Profile({
                                         name="email"
                                         required
                                         autoComplete="username"
-                                        placeholder="Email address"
+                                        placeholder={t('settings.profile.emailPlaceholder')}
                                     />
 
-                                    <InputError
-                                        className="mt-2"
-                                        message={errors.email}
-                                    />
+                                    <InputError className="mt-2" message={errors.email} />
                                 </div>
 
-                                {mustVerifyEmail &&
-                                    auth.user.email_verified_at === null && (
-                                        <div>
-                                            <p className="-mt-4 text-sm text-muted-foreground">
-                                                Your email address is unverified.{' '}
-                                                <Link
-                                                    href={send()}
-                                                    as="button"
-                                                    className="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
-                                                >
-                                                    Click here to re-send the
-                                                    verification email.
-                                                </Link>
-                                            </p>
+                                {mustVerifyEmail && auth.user.email_verified_at === null && (
+                                    <div>
+                                        <p className="-mt-4 text-sm text-muted-foreground">
+                                            <Trans
+                                                ns="common"
+                                                i18nKey="settings.profile.emailUnverified"
+                                                components={{
+                                                    resend: (
+                                                        <Link
+                                                            href={send()}
+                                                            as="button"
+                                                            className="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
+                                                        />
+                                                    ),
+                                                }}
+                                            />
+                                        </p>
 
-                                            {status ===
-                                                'verification-link-sent' && (
-                                                <div className="mt-2 text-sm font-medium text-status-live">
-                                                    A new verification link has been
-                                                    sent to your email address.
-                                                </div>
-                                            )}
-                                        </div>
-                                    )}
+                                        {status === 'verification-link-sent' && (
+                                            <div className="mt-2 text-sm font-medium text-status-live">
+                                                {t('settings.profile.verificationSent')}
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
 
                                 <div className="flex items-center gap-4">
-                                    <Button
-                                        disabled={processing}
-                                        data-test="update-profile-button"
-                                    >
-                                        Save
+                                    <Button disabled={processing} data-test="update-profile-button">
+                                        {t('settings.profile.save')}
                                     </Button>
                                 </div>
                             </>
@@ -132,8 +121,9 @@ export default function Profile({
 Profile.layout = {
     breadcrumbs: [
         {
-            title: 'Profile settings',
+            title: 'settings.profile.breadcrumb',
+            titleKey: 'settings.profile.breadcrumb',
             href: edit(),
         },
     ],
-} as unknown as { breadcrumbs: { title: string; href: string }[] };
+} as unknown as { breadcrumbs: { title: string; titleKey?: string; href: string }[] };

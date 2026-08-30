@@ -64,6 +64,18 @@
       "profile": "Profile",
       "security": "Security",
       "appearance": "Appearance"
+    },
+    "profile": {
+      "title": "Profile",
+      "description": "Update your name and email address",
+      "nameLabel": "Name",
+      "fullNamePlaceholder": "Full name",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "Email address",
+      "emailUnverified": "Your email address is unverified. <resend>Click here to re-send the verification email.</resend>",
+      "verificationSent": "A new verification link has been sent to your email address.",
+      "save": "Save",
+      "breadcrumb": "Profile settings"
     }
   },
   "welcome": {
