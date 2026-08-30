@@ -872,7 +872,11 @@
       "updatedToday": "Updated Today",
       "lastUpdated": "Last Updated",
       "noData": "No data",
-      "precisionValue": "Usahihi — {{value}}%"
+      "precisionValue": "Usahihi — {{value}}%",
+      "aiSessionsTodayDescription": "Mwingiliano wa wakala na msaidizi wa AI kwa wakati halisi",
+      "assistAdoptionRateDescription": "Wakala wanaokubali mapendekezo ya AI",
+      "totalTokensTodayDescription": "Jumla ya tokeni za prompt na majibu",
+      "estimatedCostTodayDescription": "Makadirio ya gharama ya mtoa huduma"
     },
     "knowledge": {
       "title": "Knowledge Base",
@@ -880,7 +884,16 @@
       "emptyTitle": "No knowledge vaults",
       "emptyDescription": "Create a knowledge vault to get started.",
       "reindex": "Reindex",
-      "index": "Index"
+      "index": "Index",
+      "vaultsTitle": "Vaulti za Maarifa",
+      "itemsTitle": "Vipengee vya Maarifa",
+      "vaultMeta": "{{queue}} · vipengee {{count}} · {{updated}} vilivyosasishwa leo",
+      "vaultMeta_one": "{{queue}} · kipengee {{count}} · {{updated}} kilichosasishwa leo",
+      "vaultMeta_other": "{{queue}} · vipengee {{count}} · {{updated}} vilivyosasishwa leo",
+      "indexed": "Imeorodheshwa",
+      "pending": "Inasubiri",
+      "emptyItemsTitle": "Hakuna vipengee vya maarifa",
+      "emptyItemsDescription": "Vipengee vya maarifa vilivyoorodheshwa vitaonekana hapa."
     },
     "assist": {
       "title": "Agent Assist",
@@ -888,13 +901,29 @@
       "enabled": "Agent Assist enabled",
       "disabled": "Agent Assist disabled",
       "enabledLabel": "Enabled",
-      "disabledLabel": "Disabled"
+      "disabledLabel": "Disabled",
+      "enablementTitle": "Uwezeshaji",
+      "enablementDescription": "Mapendekezo ni ya usanidi tu katika POC hii; hakuna maudhui ya mapendekezo yanayobuniwa.",
+      "toggleAria": "Geuza Msaada wa Wakala",
+      "metricsTitle": "Vipimo vya Muda wa Utekelezaji",
+      "metrics": {
+        "status": "Hali",
+        "adoptionRate": "Kiwango cha Matumizi",
+        "noData": "Hakuna data"
+      },
+      "emptyTitle": "Mapendekezo ya Msaada wa Wakala hayajaundwa",
+      "emptyDescription": "Maudhui ya mapendekezo, mrejesho na muda wa kusubiri huhitaji runtime halisi ya Msaada wa Wakala. POC hii inaonyesha usanidi tu."
     },
     "voice": {
       "title": "Virtual Assistants",
       "subtitle": "Manage virtual assistants and voice configuration",
       "enabled": "Virtual assistants are enabled.",
-      "disabled": "Virtual assistants are disabled."
+      "disabled": "Virtual assistants are disabled.",
+      "statusTitle": "Hali",
+      "enabledDescription": "Wasaidizi pepe wamewezeshwa.",
+      "disabledDescription": "Usanidi unahitajika kabla ya kutumia kipengele hiki.",
+      "emptyTitle": "Voice AI ni ya usanidi tu",
+      "emptyDescription": "Hakuna mjenzi wa boti ya Voice AI wala usanidi wa sauti unaoendeshwa. Muunganisho wa mtoa huduma na usanidi salama wa simu unahitajika."
     },
     "usage": {
       "title": "Usage & Costs",
@@ -902,27 +931,51 @@
       "queue": "Queue",
       "sessions": "Sessions",
       "tokens": "Tokens",
-      "estimatedCost": "Est. Cost"
+      "estimatedCost": "Est. Cost",
+      "usageTitle": "Matumizi",
+      "emptyTitle": "Hakuna data ya matumizi",
+      "emptyDescription": "Rekodi za matumizi na gharama zitaonekana hapa.",
+      "table": {
+        "queue": "Foleni",
+        "sessions": "Vipindi",
+        "tokens": "Tokeni",
+        "estimatedCost": "Gharama Kadiria"
+      },
+      "noData": "Hakuna data"
     },
     "providers": {
       "title": "Providers & Models",
       "subtitle": "Configure AI providers and models",
       "emptyTitle": "No providers configured",
       "emptyDescription": "Add a provider to get started.",
-      "testConnection": "Test connection"
+      "testConnection": "Test connection",
+      "providersTitle": "Watoa Huduma",
+      "modelLabel": "Modeli: {{model}}",
+      "secretConfigured": "Siri imesanidiwa",
+      "noSecret": "Hakuna siri iliyosanidiwa"
     },
     "audit": {
       "title": "AI Audit",
       "subtitle": "AI audit log and compliance",
       "auditLog": "Audit Log",
       "emptyTitle": "No audit records",
-      "emptyDescription": "Audit events will appear here."
+      "emptyDescription": "Usanidi wa AI na historia ya vitendo vitaonekana hapa.",
+      "auditLogTitle": "Logi ya Ukaguzi"
     },
     "settings": {
       "title": "AI Settings",
       "subtitle": "Global AI Center configuration",
       "globalEnabled": "Global AI Center is enabled",
-      "globalDisabled": "Global AI Center is disabled"
+      "globalDisabled": "Global AI Center is disabled",
+      "globalTitle": "AI ya Jumla",
+      "dependenciesTitle": "Vitegemezi",
+      "emptyNotesTitle": "Hakuna maelezo ya vitegemezi",
+      "emptyNotesDescription": "Vitegemezi vya usanidi vitaonekana hapa.",
+      "emptyConfigTitle": "Mipangilio ni ya usanidi tu",
+      "emptyConfigDescription": "Mageuzi ya mbele hayawezi kupita mamlaka ya backend. Mipangilio ya AI ya mpangaji na swichi za vipengele huhitaji runtime halisi."
+    },
+    "common": {
+      "noData": "Hakuna data"
     }
   },
   "modules": {

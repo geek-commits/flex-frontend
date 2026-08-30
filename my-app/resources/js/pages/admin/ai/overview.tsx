@@ -59,9 +59,7 @@ export default function AiOverviewPage() {
                             value={
                                 snapshot.sessionsToday === null ? null : formatNumber(snapshot.sessionsToday, locale)
                             }
-                            description={t('ai.overview.aiSessionsTodayDescription', {
-                                defaultValue: 'Real-time agent co-pilot interactions',
-                            })}
+                            description={t('ai.overview.aiSessionsTodayDescription')}
                         />
                         <MetricCard
                             title={t('ai.overview.assistAdoptionRate')}
@@ -72,23 +70,17 @@ export default function AiOverviewPage() {
                                           snapshot.assistAdoptionRate / 100
                                       )
                             }
-                            description={t('ai.overview.assistAdoptionRateDescription', {
-                                defaultValue: 'Agents accepting AI suggestions',
-                            })}
+                            description={t('ai.overview.assistAdoptionRateDescription')}
                         />
                         <MetricCard
                             title={t('ai.overview.totalTokensToday')}
                             value={formatTokens(snapshot.totalTokensToday, locale)}
-                            description={t('ai.overview.totalTokensTodayDescription', {
-                                defaultValue: 'Prompt & completion token volume',
-                            })}
+                            description={t('ai.overview.totalTokensTodayDescription')}
                         />
                         <MetricCard
                             title={t('ai.overview.estimatedCostToday')}
                             value={formatCost(snapshot.estimatedCostToday, locale)}
-                            description={t('ai.overview.estimatedCostTodayDescription', {
-                                defaultValue: 'Inference provider cost estimate',
-                            })}
+                            description={t('ai.overview.estimatedCostTodayDescription')}
                         />
                     </MetricGroup>
                 </div>

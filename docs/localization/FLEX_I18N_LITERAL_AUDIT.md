@@ -1,6 +1,6 @@
 # FLEX i18n Literal Audit — Report Mode (Phase 2)
 
-**Generated:** 2026-08-30T20:35:08.931Z **SHA:** local **Files scanned:** 629 **Hits:** 409
+**Generated:** 2026-08-30T20:54:09.411Z **SHA:** local **Files scanned:** 629 **Hits:** 381
 
 > Classification per §107: TRANSLATE / RUNTIME_DATA / TECHNICAL / BRAND / EXTERNAL / FALSE_POSITIVE — triage before CI gate.
 
@@ -351,34 +351,6 @@
 | hooks/use-two-factor-auth.ts | 17 | JSX text | `Promise` |
 | layouts/auth/auth-split-layout.tsx | 33 | JSX text | `FLEX Contact Center` |
 | layouts/auth/auth-split-layout.tsx | 60 | aria-label | `aria-label="FLEX Contact Center Overview"` |
-| pages/admin/ai/assist.tsx | 22 | JSX text | `Enablement` |
-| pages/admin/ai/assist.tsx | 28 | JSX text | `Agent Assist enabled` |
-| pages/admin/ai/assist.tsx | 46 | JSX text | `Runtime Metrics` |
-| pages/admin/ai/assist.tsx | 52 | JSX text | `Status` |
-| pages/admin/ai/assist.tsx | 58 | JSX text | `Adoption Rate` |
-| pages/admin/ai/assist.tsx | 37 | aria-label | `aria-label="Toggle Agent Assist"` |
-| pages/admin/ai/assist.tsx | 67 | title | `title="Agent Assist suggestions are not modeled"` |
-| pages/admin/ai/audit.tsx | 23 | JSX text | `Audit Log` |
-| pages/admin/ai/audit.tsx | 30 | title | `title="No audit records"` |
-| pages/admin/ai/knowledge.tsx | 23 | JSX text | `Knowledge Vaults` |
-| pages/admin/ai/knowledge.tsx | 64 | JSX text | `Knowledge Items` |
-| pages/admin/ai/knowledge.tsx | 30 | title | `title="No knowledge vaults"` |
-| pages/admin/ai/knowledge.tsx | 71 | title | `title="No knowledge items"` |
-| pages/admin/ai/providers.tsx | 22 | JSX text | `Providers` |
-| pages/admin/ai/providers.tsx | 58 | JSX text | `Test connection` |
-| pages/admin/ai/providers.tsx | 29 | title | `title="No providers configured"` |
-| pages/admin/ai/settings.tsx | 20 | JSX text | `Global AI` |
-| pages/admin/ai/settings.tsx | 33 | JSX text | `Dependencies` |
-| pages/admin/ai/settings.tsx | 40 | title | `title="No dependency notes"` |
-| pages/admin/ai/settings.tsx | 55 | title | `title="Settings are configuration-only"` |
-| pages/admin/ai/usage.tsx | 23 | JSX text | `Usage` |
-| pages/admin/ai/usage.tsx | 37 | JSX text | `Queue` |
-| pages/admin/ai/usage.tsx | 38 | JSX text | `Sessions` |
-| pages/admin/ai/usage.tsx | 39 | JSX text | `Tokens` |
-| pages/admin/ai/usage.tsx | 40 | JSX text | `Est. Cost` |
-| pages/admin/ai/usage.tsx | 30 | title | `title="No usage data"` |
-| pages/admin/ai/voice.tsx | 21 | JSX text | `Status` |
-| pages/admin/ai/voice.tsx | 49 | title | `title="Voice AI is configuration-only"` |
 | pages/admin/campaign-detail.tsx | 40 | JSX text | `Campaign` |
 | pages/admin/campaign-detail.tsx | 101 | JSX text | `Edit` |
 | pages/admin/campaign-detail.tsx | 110 | JSX text | `Delete` |

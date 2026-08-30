@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { StatusBadge } from '@/components/flex/status-badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -6,6 +7,7 @@ import { AiSubPage } from '@/features/ai/ai-sub-page';
 import { useAiCenter } from '@/features/ai/use-ai-center';
 
 export default function AiVoicePage() {
+    const { t } = useTranslation('administration');
     const { data } = useAiCenter();
     const { voiceConfig } = data;
 
@@ -18,7 +20,7 @@ export default function AiVoicePage() {
                 <Card className="bg-card border-border shadow-2xs">
                     <CardHeader className="p-4 pb-2 border-b border-border">
                         <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                            Status
+                            {t('ai.voice.statusTitle')}
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="p-4 flex flex-col gap-3">
@@ -28,9 +30,7 @@ export default function AiVoicePage() {
                                 status={voiceConfig.enabled ? 'enabled' : 'configuration-required'}
                             />
                             <span className="text-sm text-muted-foreground">
-                                {voiceConfig.enabled
-                                    ? 'Virtual assistants are enabled.'
-                                    : 'Configuration required before this feature can be used.'}
+                                {voiceConfig.enabled ? t('ai.voice.enabledDescription') : t('ai.voice.disabledDescription')}
                             </span>
                         </div>
 
@@ -45,8 +45,8 @@ export default function AiVoicePage() {
                 </Card>
 
                 <FlexEmptyState
-                    title="Voice AI is configuration-only"
-                    description="No runtime Voice AI bot builder or speech/voice configuration exists. A provider connection and telephony-safe configuration are required."
+                    title={t('ai.voice.emptyTitle')}
+                    description={t('ai.voice.emptyDescription')}
                     className="py-10"
                 />
             </div>

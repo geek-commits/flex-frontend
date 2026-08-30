@@ -1,15 +1,18 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { AiSubPage } from '@/features/ai/ai-sub-page';
 import { useAiCenter } from '@/features/ai/use-ai-center';
 
-const formatTime = (iso: string) =>
-    new Date(iso).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-
 export default function AiAuditPage() {
+    const { t, i18n } = useTranslation('administration');
     const { data } = useAiCenter();
     const { audit } = data;
+    const locale = i18n.language;
+
+    const formatTime = (iso: string) =>
+        new Date(iso).toLocaleString(locale, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
 
     return (
         <AiSubPage
@@ -20,14 +23,14 @@ export default function AiAuditPage() {
                 <Card className="bg-card border-border shadow-2xs">
                     <CardHeader className="p-4 pb-2 border-b border-border">
                         <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                            Audit Log
+                            {t('ai.audit.auditLogTitle')}
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="p-0">
                         {audit.length === 0 ? (
                             <FlexEmptyState
-                                title="No audit records"
-                                description="AI configuration and action history will appear here."
+                                title={t('ai.audit.emptyTitle')}
+                                description={t('ai.audit.emptyDescription')}
                                 className="py-10"
                             />
                         ) : (

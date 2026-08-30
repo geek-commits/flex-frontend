@@ -1,15 +1,35 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { AiSubPage } from '@/features/ai/ai-sub-page';
 import { useAiCenter } from '@/features/ai/use-ai-center';
 
-const formatTokens = (value: number | null) =>
-    value === null ? 'No data' : value >= 1_000_000 ? `${(value / 1_000_000).toFixed(1)}M` : value.toLocaleString('en-US');
-
 export default function AiUsagePage() {
+    const { t, i18n } = useTranslation('administration');
     const { data } = useAiCenter();
     const { usage } = data;
+    const locale = i18n.language;
+
+    const formatTokens = (value: number | null) => {
+        if (value === null) {
+            return t('ai.usage.noData');
+        }
+
+        if (value >= 1_000_000) {
+            return `${(value / 1_000_000).toFixed(1)}M`;
+        }
+
+        return new Intl.NumberFormat(locale).format(value);
+    };
+
+    const formatCost = (value: number | null) => {
+        if (value === null) {
+            return t('ai.usage.noData');
+        }
+
+        return new Intl.NumberFormat(locale, { style: 'currency', currency: 'USD', currencyDisplay: 'symbol' }).format(value);
+    };
 
     return (
         <AiSubPage
@@ -20,23 +40,23 @@ export default function AiUsagePage() {
                 <Card className="bg-card border-border shadow-2xs">
                     <CardHeader className="p-4 pb-2 border-b border-border">
                         <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                            Usage
+                            {t('ai.usage.usageTitle')}
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="p-0">
                         {usage.length === 0 ? (
                             <FlexEmptyState
-                                title="No usage data"
-                                description="Usage and cost records will appear here."
+                                title={t('ai.usage.emptyTitle')}
+                                description={t('ai.usage.emptyDescription')}
                                 className="py-10"
                             />
                         ) : (
                             <div className="divide-y divide-border">
                                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 px-4 py-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                                    <span>Queue</span>
-                                    <span>Sessions</span>
-                                    <span>Tokens</span>
-                                    <span>Est. Cost</span>
+                                    <span>{t('ai.usage.table.queue')}</span>
+                                    <span>{t('ai.usage.table.sessions')}</span>
+                                    <span>{t('ai.usage.table.tokens')}</span>
+                                    <span>{t('ai.usage.table.estimatedCost')}</span>
                                 </div>
                                 {usage.map((row) => (
                                     <div
@@ -44,11 +64,11 @@ export default function AiUsagePage() {
                                         className="grid grid-cols-2 sm:grid-cols-4 gap-3 px-4 py-3 items-center"
                                     >
                                         <span className="text-sm font-medium text-foreground">{row.queue}</span>
-                                        <span className="text-sm text-muted-foreground">{row.sessions}</span>
-                                        <span className="text-sm text-muted-foreground">{formatTokens(row.tokens)}</span>
-                                        <span className="text-sm font-semibold text-foreground">
-                                            {row.costUsd === null ? 'No data' : `$${row.costUsd.toFixed(2)}`}
+                                        <span className="text-sm text-muted-foreground">
+                                            {new Intl.NumberFormat(locale).format(row.sessions)}
                                         </span>
+                                        <span className="text-sm text-muted-foreground">{formatTokens(row.tokens)}</span>
+                                        <span className="text-sm font-semibold text-foreground">{formatCost(row.costUsd)}</span>
                                     </div>
                                 ))}
                             </div>

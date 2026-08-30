@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { StatusBadge } from '@/components/flex/status-badge';
 import { Button } from '@/components/ui/button';
@@ -7,6 +8,7 @@ import { AiSubPage } from '@/features/ai/ai-sub-page';
 import { useAiCenter } from '@/features/ai/use-ai-center';
 
 export default function AiProvidersPage() {
+    const { t } = useTranslation('administration');
     const { data, testProviderConnection } = useAiCenter();
     const { providers } = data;
 
@@ -19,14 +21,14 @@ export default function AiProvidersPage() {
                 <Card className="bg-card border-border shadow-2xs">
                     <CardHeader className="p-4 pb-2 border-b border-border">
                         <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                            Providers
+                            {t('ai.providers.providersTitle')}
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="p-0">
                         {providers.length === 0 ? (
                             <FlexEmptyState
-                                title="No providers configured"
-                                description="Connected inference providers will appear here."
+                                title={t('ai.providers.emptyTitle')}
+                                description={t('ai.providers.emptyDescription')}
                                 className="py-10"
                             />
                         ) : (
@@ -38,8 +40,10 @@ export default function AiProvidersPage() {
                                                 {provider.name}
                                             </span>
                                             <span className="text-[11px] text-muted-foreground">
-                                                Model: {provider.model} ·{' '}
-                                                {provider.secretConfigured ? 'Secret configured' : 'No secret configured'}
+                                                {t('ai.providers.modelLabel', { model: provider.model })} ·{' '}
+                                                {provider.secretConfigured
+                                                    ? t('ai.providers.secretConfigured')
+                                                    : t('ai.providers.noSecret')}
                                             </span>
                                         </div>
                                         <div className="flex items-center gap-2 shrink-0">
@@ -55,7 +59,7 @@ export default function AiProvidersPage() {
                                                 className="text-xs"
                                                 onClick={() => testProviderConnection(provider.id)}
                                             >
-                                                Test connection
+                                                {t('ai.providers.testConnection')}
                                             </Button>
                                         </div>
                                     </div>

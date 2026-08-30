@@ -872,7 +872,11 @@
       "updatedToday": "Updated Today",
       "lastUpdated": "Last Updated",
       "noData": "No data",
-      "precisionValue": "Precision — {{value}}%"
+      "precisionValue": "Precision — {{value}}%",
+      "aiSessionsTodayDescription": "Real-time agent co-pilot interactions",
+      "assistAdoptionRateDescription": "Agents accepting AI suggestions",
+      "totalTokensTodayDescription": "Prompt & completion token volume",
+      "estimatedCostTodayDescription": "Inference provider cost estimate"
     },
     "knowledge": {
       "title": "Knowledge Base",
@@ -880,7 +884,16 @@
       "emptyTitle": "No knowledge vaults",
       "emptyDescription": "Create a knowledge vault to get started.",
       "reindex": "Reindex",
-      "index": "Index"
+      "index": "Index",
+      "vaultsTitle": "Knowledge Vaults",
+      "itemsTitle": "Knowledge Items",
+      "vaultMeta": "{{queue}} · {{count}} items · {{updated}} updated today",
+      "vaultMeta_one": "{{queue}} · {{count}} item · {{updated}} updated today",
+      "vaultMeta_other": "{{queue}} · {{count}} items · {{updated}} updated today",
+      "indexed": "Indexed",
+      "pending": "Pending",
+      "emptyItemsTitle": "No knowledge items",
+      "emptyItemsDescription": "Indexed knowledge items will appear here."
     },
     "assist": {
       "title": "Agent Assist",
@@ -888,13 +901,29 @@
       "enabled": "Agent Assist enabled",
       "disabled": "Agent Assist disabled",
       "enabledLabel": "Enabled",
-      "disabledLabel": "Disabled"
+      "disabledLabel": "Disabled",
+      "enablementTitle": "Enablement",
+      "enablementDescription": "Suggestions are configuration-only in this POC; no suggestion content is invented.",
+      "toggleAria": "Toggle Agent Assist",
+      "metricsTitle": "Runtime Metrics",
+      "metrics": {
+        "status": "Status",
+        "adoptionRate": "Adoption Rate",
+        "noData": "No data"
+      },
+      "emptyTitle": "Agent Assist suggestions are not modeled",
+      "emptyDescription": "Suggestion content, feedback, and latency require a real Agent Assist runtime. This POC exposes configuration only."
     },
     "voice": {
       "title": "Virtual Assistants",
       "subtitle": "Manage virtual assistants and voice configuration",
       "enabled": "Virtual assistants are enabled.",
-      "disabled": "Virtual assistants are disabled."
+      "disabled": "Virtual assistants are disabled.",
+      "statusTitle": "Status",
+      "enabledDescription": "Virtual assistants are enabled.",
+      "disabledDescription": "Configuration required before this feature can be used.",
+      "emptyTitle": "Voice AI is configuration-only",
+      "emptyDescription": "No runtime Voice AI bot builder or speech/voice configuration exists. A provider connection and telephony-safe configuration are required."
     },
     "usage": {
       "title": "Usage & Costs",
@@ -902,27 +931,51 @@
       "queue": "Queue",
       "sessions": "Sessions",
       "tokens": "Tokens",
-      "estimatedCost": "Est. Cost"
+      "estimatedCost": "Est. Cost",
+      "usageTitle": "Usage",
+      "emptyTitle": "No usage data",
+      "emptyDescription": "Usage and cost records will appear here.",
+      "table": {
+        "queue": "Queue",
+        "sessions": "Sessions",
+        "tokens": "Tokens",
+        "estimatedCost": "Est. Cost"
+      },
+      "noData": "No data"
     },
     "providers": {
       "title": "Providers & Models",
       "subtitle": "Configure AI providers and models",
       "emptyTitle": "No providers configured",
       "emptyDescription": "Add a provider to get started.",
-      "testConnection": "Test connection"
+      "testConnection": "Test connection",
+      "providersTitle": "Providers",
+      "modelLabel": "Model: {{model}}",
+      "secretConfigured": "Secret configured",
+      "noSecret": "No secret configured"
     },
     "audit": {
       "title": "AI Audit",
       "subtitle": "AI audit log and compliance",
       "auditLog": "Audit Log",
       "emptyTitle": "No audit records",
-      "emptyDescription": "Audit events will appear here."
+      "emptyDescription": "AI configuration and action history will appear here.",
+      "auditLogTitle": "Audit Log"
     },
     "settings": {
       "title": "AI Settings",
       "subtitle": "Global AI Center configuration",
       "globalEnabled": "Global AI Center is enabled",
-      "globalDisabled": "Global AI Center is disabled"
+      "globalDisabled": "Global AI Center is disabled",
+      "globalTitle": "Global AI",
+      "dependenciesTitle": "Dependencies",
+      "emptyNotesTitle": "No dependency notes",
+      "emptyNotesDescription": "Configuration dependencies will appear here.",
+      "emptyConfigTitle": "Settings are configuration-only",
+      "emptyConfigDescription": "Frontend toggles never override backend authority. Tenant AI settings and feature toggles require the real runtime."
+    },
+    "common": {
+      "noData": "No data"
     }
   },
   "modules": {

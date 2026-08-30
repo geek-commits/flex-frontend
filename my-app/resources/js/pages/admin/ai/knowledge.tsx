@@ -1,5 +1,6 @@
 import { RiRefreshLine } from '@remixicon/react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -7,6 +8,7 @@ import { AiSubPage } from '@/features/ai/ai-sub-page';
 import { useAiCenter } from '@/features/ai/use-ai-center';
 
 export default function AiKnowledgePage() {
+    const { t } = useTranslation('administration');
     const { data, reindexVault } = useAiCenter();
     const { knowledgeItems, knowledgeVaults } = data;
 
@@ -20,14 +22,14 @@ export default function AiKnowledgePage() {
                 <Card className="bg-card border-border shadow-2xs">
                     <CardHeader className="p-4 pb-2 border-b border-border">
                         <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                            Knowledge Vaults
+                            {t('ai.knowledge.vaultsTitle')}
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="p-4 flex flex-col gap-3">
                         {knowledgeVaults.length === 0 ? (
                             <FlexEmptyState
-                                title="No knowledge vaults"
-                                description="Indexed knowledge will appear here once configured."
+                                title={t('ai.knowledge.emptyTitle')}
+                                description={t('ai.knowledge.emptyDescription')}
                                 className="py-8"
                             />
                         ) : (
@@ -39,7 +41,11 @@ export default function AiKnowledgePage() {
                                     <div className="flex flex-col gap-0.5 min-w-0">
                                         <span className="text-sm font-semibold text-foreground truncate">{vault.name}</span>
                                         <span className="text-[11px] text-muted-foreground">
-                                            {vault.queue} · {vault.itemCount} items · {vault.updatedToday} updated today
+                                            {t('ai.knowledge.vaultMeta', {
+                                                queue: vault.queue,
+                                                count: vault.itemCount,
+                                                updated: vault.updatedToday,
+                                            })}
                                         </span>
                                     </div>
                                     <Button
@@ -49,7 +55,7 @@ export default function AiKnowledgePage() {
                                         onClick={() => reindexVault(vault.id)}
                                     >
                                         <RiRefreshLine className="size-3.5" />
-                                        {vault.indexed ? 'Reindex' : 'Index'}
+                                        {vault.indexed ? t('ai.knowledge.reindex') : t('ai.knowledge.index')}
                                     </Button>
                                 </div>
                             ))
@@ -61,14 +67,14 @@ export default function AiKnowledgePage() {
                 <Card className="bg-card border-border shadow-2xs">
                     <CardHeader className="p-4 pb-2 border-b border-border">
                         <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                            Knowledge Items
+                            {t('ai.knowledge.itemsTitle')}
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="p-0">
                         {knowledgeItems.length === 0 ? (
                             <FlexEmptyState
-                                title="No knowledge items"
-                                description="Indexed knowledge items will appear here."
+                                title={t('ai.knowledge.emptyItemsTitle')}
+                                description={t('ai.knowledge.emptyItemsDescription')}
                                 className="py-8"
                             />
                         ) : (
@@ -86,7 +92,7 @@ export default function AiKnowledgePage() {
                                                 item.indexed ? 'text-status-live' : 'text-status-disconnected'
                                             }`}
                                         >
-                                            {item.indexed ? 'Indexed' : 'Pending'}
+                                            {item.indexed ? t('ai.knowledge.indexed') : t('ai.knowledge.pending')}
                                         </span>
                                     </div>
                                 ))}
