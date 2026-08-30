@@ -20,7 +20,19 @@
     },
     "pocRole": "POC role:",
     "pocAria": "POC role switcher",
-    "keyboard": "↑↓ navigate · ↵ open · esc close"
+    "keyboard": "↑↓ navigate · ↵ open · esc close",
+    "records": {
+      "cdrSubtitle": "CDR • {{agent}} • {{queue}}",
+      "campaignSubtitle": "Campaign • {{destination}}",
+      "agentSubtitle": "Agent • ext {{extension}} • {{queue}}"
+    },
+    "roles": {
+      "superAdmin": "SuperAdmin",
+      "admin": "Admin",
+      "supervisor": "Supervisor",
+      "agent": "Agent"
+    },
+    "noResultsForQuery": "No results found for “{{query}}”."
   },
   "domains": {
     "agent": "Agent",

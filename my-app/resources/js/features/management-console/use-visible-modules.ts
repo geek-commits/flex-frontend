@@ -1,7 +1,10 @@
+import type { TFunction } from 'i18next';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { Capability } from '@/auth/capabilities';
 import type { ModuleEntry } from '@/domain/modules';
+
+type AdminT = TFunction<'administration', undefined>;
 
 /** Filter an administration module list to those the role can reach. */
 export function filterModulesByPermission(modules: ModuleEntry[], has: (capability: Capability) => boolean): ModuleEntry[] {
@@ -11,13 +14,9 @@ export function filterModulesByPermission(modules: ModuleEntry[], has: (capabili
 /**
  * Filter an administration module list against a search query.
  * Matches translated label, description, category, and configured keywords.
- * When `t` is provided, haystack uses translated values so SW/FR search works.
+ * Haystack is always translated so SW/FR search works.
  */
-export function filterModulesByQuery(
-    modules: ModuleEntry[],
-    query: string,
-    t?: (key: string) => string
-): ModuleEntry[] {
+export function filterModulesByQuery(modules: ModuleEntry[], query: string, t: AdminT): ModuleEntry[] {
     const needle = query.trim().toLocaleLowerCase();
 
     if (!needle) {
@@ -26,9 +25,9 @@ export function filterModulesByQuery(
 
     return modules.filter((module) => {
         const haystack = [
-            t ? t(module.titleKey) : module.title,
-            t ? t(module.descriptionKey) : module.description,
-            t ? t(module.categoryKey) : module.category,
+            t(module.titleKey),
+            t(module.descriptionKey),
+            t(module.categoryKey),
             ...(module.keywords ?? []),
         ]
             .join(' ')
@@ -53,7 +52,10 @@ export interface UseVisibleModulesParams {
  * Returning both lists lets callers distinguish a permission-empty directory
  * from a search-empty one without filtering the registry twice.
  */
-export function useVisibleModules({ modules, query, has }: UseVisibleModulesParams): { permittedModules: ModuleEntry[]; visibleModules: ModuleEntry[] } {
+export function useVisibleModules({ modules, query, has }: UseVisibleModulesParams): {
+    permittedModules: ModuleEntry[];
+    visibleModules: ModuleEntry[];
+} {
     const { t } = useTranslation('administration');
 
     return useMemo(() => {
@@ -61,7 +63,7 @@ export function useVisibleModules({ modules, query, has }: UseVisibleModulesPara
 
         return {
             permittedModules,
-            visibleModules: filterModulesByQuery(permittedModules, query, t as (k: string) => string),
+            visibleModules: filterModulesByQuery(permittedModules, query, t),
         };
     }, [modules, query, has, t]);
 }

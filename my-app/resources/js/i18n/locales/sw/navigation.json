@@ -20,7 +20,19 @@
     },
     "pocRole": "Jukumu la POC:",
     "pocAria": "Kibadili cha jukumu la POC",
-    "keyboard": "↑↓ sogeza · ↵ fungua · esc funga"
+    "keyboard": "↑↓ sogeza · ↵ fungua · esc funga",
+    "records": {
+      "cdrSubtitle": "CDR • {{agent}} • {{queue}}",
+      "campaignSubtitle": "Kampeni • {{destination}}",
+      "agentSubtitle": "Wakala • ext {{extension}} • {{queue}}"
+    },
+    "roles": {
+      "superAdmin": "SuperAdmin",
+      "admin": "Admin",
+      "supervisor": "Supervisor",
+      "agent": "Wakala"
+    },
+    "noResultsForQuery": "Hakuna matokeo kwa “{{query}}”."
   },
   "domains": {
     "agent": "Wakala",

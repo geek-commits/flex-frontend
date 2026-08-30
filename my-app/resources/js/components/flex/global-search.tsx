@@ -1,9 +1,5 @@
 import { router, usePage } from '@inertiajs/react';
-import {
-    RiSearchLine,
-    RiAppsLine,
-
-} from '@remixicon/react';
+import { RiSearchLine, RiAppsLine } from '@remixicon/react';
 import type { TFunction } from 'i18next';
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -49,11 +45,11 @@ interface SearchRecord {
 
 type NavT = TFunction<'navigation', undefined>;
 
-const ROLE_OPTIONS: { value: Role; label: string }[] = [
-    { value: 'super-admin', label: 'SuperAdmin' },
-    { value: 'admin', label: 'Admin' },
-    { value: 'supervisor', label: 'Supervisor' },
-    { value: 'agent', label: 'Agent' },
+const ROLE_OPTIONS: { value: Role; labelKey: 'search.roles.superAdmin' | 'search.roles.admin' | 'search.roles.supervisor' | 'search.roles.agent' }[] = [
+    { value: 'super-admin', labelKey: 'search.roles.superAdmin' },
+    { value: 'admin', labelKey: 'search.roles.admin' },
+    { value: 'supervisor', labelKey: 'search.roles.supervisor' },
+    { value: 'agent', labelKey: 'search.roles.agent' },
 ];
 
 function useNavSubtitle(t: NavT): Map<string, string> {
@@ -83,14 +79,14 @@ function matches(text: string, query: string) {
     return text.toLocaleLowerCase().includes(query.toLocaleLowerCase());
 }
 
-function buildRecordIndex(): Omit<SearchRecord, 'group'>[] {
+function buildRecordIndex(t: NavT): Omit<SearchRecord, 'group'>[] {
     const records: Omit<SearchRecord, 'group'>[] = [];
 
     for (const cdr of CDR_MOCK_RECORDS) {
         records.push({
             kind: 'record',
             title: cdr.customerPhone,
-            subtitle: `CDR • ${cdr.agentName} • ${cdr.queueName}`,
+            subtitle: t('search.records.cdrSubtitle', { agent: cdr.agentName, queue: cdr.queueName }),
             href: '/admin/cdr',
             icon: 'call-records',
         });
@@ -100,7 +96,7 @@ function buildRecordIndex(): Omit<SearchRecord, 'group'>[] {
         records.push({
             kind: 'record',
             title: campaign.title,
-            subtitle: `Campaign • ${campaign.destination}`,
+            subtitle: t('search.records.campaignSubtitle', { destination: campaign.destination }),
             href: '/admin/campaigns',
             icon: 'campaigns',
         });
@@ -110,7 +106,7 @@ function buildRecordIndex(): Omit<SearchRecord, 'group'>[] {
         records.push({
             kind: 'record',
             title: agent.name,
-            subtitle: `Agent • ext ${agent.extension} • ${agent.queue}`,
+            subtitle: t('search.records.agentSubtitle', { extension: agent.extension, queue: agent.queue }),
             href: '/agent',
             icon: 'agents',
         });
@@ -165,8 +161,9 @@ export function useGlobalSearch(): GlobalSearchContextValue {
 function GlobalSearchDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
     const { has, role, setRole } = useCapabilities();
     const { url } = usePage();
-    const { t } = useTranslation('navigation');
-    const navSubtitleByHref = useNavSubtitle(t);
+    const { t: tNav } = useTranslation('navigation');
+    const { t: tAdmin } = useTranslation('administration');
+    const navSubtitleByHref = useNavSubtitle(tNav);
     const [query, setQuery] = useState('');
 
     const handleOpenChange = (next: boolean) => {
@@ -181,82 +178,82 @@ function GlobalSearchDialog({ open, onOpenChange }: { open: boolean; onOpenChang
         () =>
             NAVIGATION.filter((entry) => has(entry.capability)).map((entry) => ({
                 ...entry,
-                title: t(entry.titleKey),
+                title: tNav(entry.titleKey),
                 subtitle: navSubtitleByHref.get(entry.href),
             })),
-        [has, t, navSubtitleByHref],
+        [has, tNav, navSubtitleByHref],
     );
-    const recordIndex = useMemo(() => buildRecordIndex(), []);
+    const recordIndex = useMemo(() => buildRecordIndex(tNav), [tNav]);
     const moduleIndex = useMemo(() => {
         const navigationHrefs = new Set(visibleNavigation.map((entry) => entry.href));
 
         return filterModulesByPermission(CONSOLE_MODULES, has).filter((module) => !navigationHrefs.has(module.href));
     }, [has, visibleNavigation]);
-    const filteredModules = filterModulesByQuery(moduleIndex, query);
+    const filteredModules = useMemo(() => filterModulesByQuery(moduleIndex, query, tAdmin), [moduleIndex, query, tAdmin]);
 
     const filteredRecords = recordIndex
         .filter((record) => {
             if (record.kind === 'navigation') {
-return true;
-}
+                return true;
+            }
 
             return query.trim().length > 0 && matches(record.title, query.trim());
         })
         .filter((record) => {
             if (record.kind !== 'record') {
-return true;
-}
+                return true;
+            }
 
             if (record.href === '/admin/cdr' && !has('cdr.view')) {
-return false;
-}
+                return false;
+            }
 
             if (record.href === '/admin/campaigns' && !has('campaigns.view')) {
-return false;
-}
+                return false;
+            }
 
             if (record.href === '/agent' && !has('agent.workspace')) {
-return false;
-}
+                return false;
+            }
 
             return true;
         })
         .slice(0, 8);
 
-    const actionIndex = useMemo(() => buildActionIndex(t), [t]);
+    const actionIndex = useMemo(() => buildActionIndex(tNav), [tNav]);
 
     const grouped = {
         navigation: visibleNavigation.map((entry) => ({
             ...entry,
-            group: t('search.groups.navigation'),
+            group: tNav('search.groups.navigation'),
             kind: 'navigation' as const,
         })),
         modules: filteredModules.map((module) => ({
             kind: 'navigation' as const,
-            title: module.title,
-            subtitle: module.category,
+            title: tAdmin(module.titleKey),
+            subtitle: tAdmin(module.categoryKey),
             href: module.href,
-            group: t('search.groups.modules'),
+            group: tNav('search.groups.modules'),
             icon: module.icon,
         })),
         actions: actionIndex
             .filter((a) => {
                 if (a.href.startsWith('/admin/campaigns') && !has('campaigns.view')) {
-return false;
-}
+                    return false;
+                }
 
                 if (a.href.startsWith('/admin/reports') && !has('reports.view')) {
-return false;
-}
+                    return false;
+                }
 
                 if (a.href.startsWith('/admin/settings') && !has('settings.manage')) {
-return false;
-}
+                    return false;
+                }
 
                 return true;
             })
-            .map((a) => ({ ...a, group: t('search.groups.actions') })),
-        records: filteredRecords.filter((r) => r.kind === 'record').map((r) => ({ ...r, group: t('search.groups.records') })),
+            .map((a) => ({ ...a, group: tNav('search.groups.actions') })),
+        records: filteredRecords.filter((r) => r.kind === 'record').map((r) => ({ ...r, group: tNav('search.groups.records') })),
     };
 
     const run = (href: string) => {
@@ -265,90 +262,90 @@ return false;
     };
 
     return (
-        <CommandDialog open={open} onOpenChange={handleOpenChange} title={t('search.dialogTitle')} description={t('search.dialogDescription')}>
+        <CommandDialog open={open} onOpenChange={handleOpenChange} title={tNav('search.dialogTitle')} description={tNav('search.dialogDescription')}>
             <Command>
-                <CommandInput placeholder={t('search.placeholder')} value={query} onValueChange={setQuery} autoFocus />
+                <CommandInput placeholder={tNav('search.placeholder')} value={query} onValueChange={setQuery} autoFocus />
                 <CommandList>
-                <CommandEmpty>{t('search.noResults')} &quot;{query}&quot;.</CommandEmpty>
+                    <CommandEmpty>{tNav('search.noResultsForQuery', { query })}</CommandEmpty>
 
-                {grouped.navigation.length > 0 && (
-                    <CommandGroup heading={t('search.groups.navigation')}>
-                        {grouped.navigation.map((item) => {
-                            return (
-                                <CommandItem key={item.href} value={`nav ${item.title}`} onSelect={() => run(item.href)}>
-                                    <FlexIcon name={item.icon} className="size-4 text-muted-foreground" />
-                                    <div className="flex min-w-0 flex-col">
-                                        <SearchHighlight text={item.title as string} query={query} />
-                                        {item.subtitle && (
-                                            <span className="text-xs text-muted-foreground truncate">{item.subtitle}</span>
-                                        )}
-                                    </div>
-                                </CommandItem>
-                            );
-                        })}
-                    </CommandGroup>
-                )}
+                    {grouped.navigation.length > 0 && (
+                        <CommandGroup heading={tNav('search.groups.navigation')}>
+                            {grouped.navigation.map((item) => {
+                                return (
+                                    <CommandItem key={item.href} value={`nav ${item.title}`} onSelect={() => run(item.href)}>
+                                        <FlexIcon name={item.icon} className="size-4 text-muted-foreground" />
+                                        <div className="flex min-w-0 flex-col">
+                                            <SearchHighlight text={item.title} query={query} />
+                                            {item.subtitle && (
+                                                <span className="text-xs text-muted-foreground truncate">{item.subtitle}</span>
+                                            )}
+                                        </div>
+                                    </CommandItem>
+                                );
+                            })}
+                        </CommandGroup>
+                    )}
 
-                {grouped.modules.length > 0 && (
-                    <CommandGroup heading={t('search.groups.modules')}>
-                        {grouped.modules.map((item) => {
-                            return (
-                                <CommandItem key={item.href} value={`module ${item.title}`} onSelect={() => run(item.href)}>
-                                    <FlexIcon name={item.icon} className="size-4 text-muted-foreground" />
-                                    <SearchHighlight text={item.title} query={query} />
-                                    <span className="text-[10px] text-muted-foreground uppercase">{item.subtitle}</span>
-                                </CommandItem>
-                            );
-                        })}
-                    </CommandGroup>
-                )}
+                    {grouped.modules.length > 0 && (
+                        <CommandGroup heading={tNav('search.groups.modules')}>
+                            {grouped.modules.map((item) => {
+                                return (
+                                    <CommandItem key={item.href} value={`module ${item.title}`} onSelect={() => run(item.href)}>
+                                        <FlexIcon name={item.icon} className="size-4 text-muted-foreground" />
+                                        <SearchHighlight text={item.title} query={query} />
+                                        <span className="text-[10px] text-muted-foreground uppercase">{item.subtitle}</span>
+                                    </CommandItem>
+                                );
+                            })}
+                        </CommandGroup>
+                    )}
 
-                {grouped.actions.length > 0 && (
-                    <CommandGroup heading={t('search.groups.actions')}>
-                        {grouped.actions.map((item) => {
-                            const Icon = item.icon;
+                    {grouped.actions.length > 0 && (
+                        <CommandGroup heading={tNav('search.groups.actions')}>
+                            {grouped.actions.map((item) => {
+                                const Icon = item.icon;
 
-                            return (
-                                <CommandItem key={item.title} value={`action ${item.title}`} onSelect={() => run(item.href)}>
-                                    {typeof Icon === 'string' ? <FlexIcon name={Icon} className="size-4 text-muted-foreground" /> : <Icon className="size-4 text-muted-foreground" />}
-                                    <SearchHighlight text={item.title} query={query} />
-                                </CommandItem>
-                            );
-                        })}
-                    </CommandGroup>
-                )}
+                                return (
+                                    <CommandItem key={item.title} value={`action ${item.title}`} onSelect={() => run(item.href)}>
+                                        {typeof Icon === 'string' ? <FlexIcon name={Icon} className="size-4 text-muted-foreground" /> : <Icon className="size-4 text-muted-foreground" />}
+                                        <SearchHighlight text={item.title} query={query} />
+                                    </CommandItem>
+                                );
+                            })}
+                        </CommandGroup>
+                    )}
 
-                {grouped.records.length > 0 && (
-                    <CommandGroup heading={t('search.groups.records')}>
-                        {grouped.records.map((record, index) => {
-                            const Icon = record.icon;
+                    {grouped.records.length > 0 && (
+                        <CommandGroup heading={tNav('search.groups.records')}>
+                            {grouped.records.map((record, index) => {
+                                const Icon = record.icon;
 
-                            return (
-                                <CommandItem key={`record-${index}`} value={`record ${record.title} ${record.subtitle}`} onSelect={() => run(record.href)}>
-                                    {typeof Icon === 'string' ? <FlexIcon name={Icon} className="size-4 text-muted-foreground" /> : <Icon className="size-4 text-muted-foreground" />}
-                                    <div className="flex flex-col min-w-0">
-                                        <span className="truncate" title={record.title}>
-                                            <SearchHighlight text={record.title} query={query} />
-                                        </span>
-                                        {record.subtitle && (
-                                            <span className="text-xs text-muted-foreground truncate" title={record.subtitle}>
-                                                <SearchHighlight text={record.subtitle} query={query} />
+                                return (
+                                    <CommandItem key={`record-${index}`} value={`record ${record.title} ${record.subtitle}`} onSelect={() => run(record.href)}>
+                                        {typeof Icon === 'string' ? <FlexIcon name={Icon} className="size-4 text-muted-foreground" /> : <Icon className="size-4 text-muted-foreground" />}
+                                        <div className="flex flex-col min-w-0">
+                                            <span className="truncate" title={record.title}>
+                                                <SearchHighlight text={record.title} query={query} />
                                             </span>
-                                        )}
-                                    </div>
-                                </CommandItem>
-                            );
-                        })}
-                    </CommandGroup>
-                )}
-            </CommandList>
+                                            {record.subtitle && (
+                                                <span className="text-xs text-muted-foreground truncate" title={record.subtitle}>
+                                                    <SearchHighlight text={record.subtitle} query={query} />
+                                                </span>
+                                            )}
+                                        </div>
+                                    </CommandItem>
+                                );
+                            })}
+                        </CommandGroup>
+                    )}
+                </CommandList>
 
                 <CommandSeparator />
                 <div className="flex items-center justify-between px-3 py-2 text-[10px] text-muted-foreground">
                     <div className="flex items-center gap-1.5">
                         <RiAppsLine className="size-3" />
-                        <span>{t('search.pocRole')}</span>
-                        <div className="flex items-center gap-0.5" role="group" aria-label={t('search.pocAria')}>
+                        <span>{tNav('search.pocRole')}</span>
+                        <div className="flex items-center gap-0.5" role="group" aria-label={tNav('search.pocAria')}>
                             {ROLE_OPTIONS.map((option) => (
                                 <button
                                     key={option.value}
@@ -368,12 +365,12 @@ return false;
                                             : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                                     }`}
                                 >
-                                    {option.label}
+                                    {tNav(option.labelKey)}
                                 </button>
                             ))}
                         </div>
                     </div>
-                    <span className="hidden sm:inline">{t('search.keyboard')}</span>
+                    <span className="hidden sm:inline">{tNav('search.keyboard')}</span>
                 </div>
             </Command>
         </CommandDialog>

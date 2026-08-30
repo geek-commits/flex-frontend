@@ -20,7 +20,19 @@
     },
     "pocRole": "Rôle POC :",
     "pocAria": "Sélecteur de rôle POC",
-    "keyboard": "↑↓ naviguer · ↵ ouvrir · esc fermer"
+    "keyboard": "↑↓ naviguer · ↵ ouvrir · esc fermer",
+    "records": {
+      "cdrSubtitle": "CDR • {{agent}} • {{queue}}",
+      "campaignSubtitle": "Campagne • {{destination}}",
+      "agentSubtitle": "Agent • ext {{extension}} • {{queue}}"
+    },
+    "roles": {
+      "superAdmin": "SuperAdmin",
+      "admin": "Admin",
+      "supervisor": "Superviseur",
+      "agent": "Agent"
+    },
+    "noResultsForQuery": "Aucun résultat pour « {{query}} »."
   },
   "domains": {
     "agent": "Agent",
