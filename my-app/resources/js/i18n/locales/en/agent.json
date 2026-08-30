@@ -1,6 +1,7 @@
 {
   "status": {
     "ready": "Ready",
+    "talking": "Talking",
     "notReady": "Not Ready",
     "break": "Break",
     "wrapUp": "Wrap Up",
@@ -129,10 +130,13 @@
     "playTestTone": "Play Test Tone",
     "verifySpeaker": "Verify speaker output is audible",
     "fullDiagnosticSuite": "Full Diagnostic Suite",
+    "pass": "{{count}} Pass",
     "pass_one": "{{count}} Pass",
     "pass_other": "{{count}} Pass",
+    "warn": "{{count}} Warn",
     "warn_one": "{{count}} Warn",
     "warn_other": "{{count}} Warn",
+    "fail": "{{count}} Fail",
     "fail_one": "{{count}} Fail",
     "fail_other": "{{count}} Fail",
     "running": "Running...",

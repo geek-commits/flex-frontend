@@ -4,7 +4,7 @@ import { statusToneClasses } from '@/lib/status-styles';
 
 export type FlexStatusTone = 'success' | 'warning' | 'danger' | 'info' | 'neutral';
 
-const TONE_TO_CLASSES: Record<FlexStatusTone, (typeof statusToneClasses)['live']> = {
+const TONE_TO_CLASSES: Record<FlexStatusTone, (typeof statusToneClasses)[keyof typeof statusToneClasses]> = {
     success: statusToneClasses.live,
     warning: statusToneClasses.stale,
     danger: statusToneClasses.disconnected,

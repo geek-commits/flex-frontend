@@ -4,6 +4,7 @@ import {
     RiAppsLine,
 
 } from '@remixicon/react';
+import type { TFunction } from 'i18next';
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NAVIGATION, useCapabilities } from '@/auth/capabilities';
@@ -46,6 +47,8 @@ interface SearchRecord {
     icon: FlexIconName | React.ComponentType<{ className?: string }>;
 }
 
+type NavT = TFunction<'navigation', undefined>;
+
 const ROLE_OPTIONS: { value: Role; label: string }[] = [
     { value: 'super-admin', label: 'SuperAdmin' },
     { value: 'admin', label: 'Admin' },
@@ -53,7 +56,7 @@ const ROLE_OPTIONS: { value: Role; label: string }[] = [
     { value: 'agent', label: 'Agent' },
 ];
 
-function useNavSubtitle(t: (k: string) => string): Map<string, string> {
+function useNavSubtitle(t: NavT): Map<string, string> {
     return useMemo(
         () =>
             new Map<string, string>([
@@ -70,7 +73,7 @@ function useNavSubtitle(t: (k: string) => string): Map<string, string> {
                         ),
                     ),
                 ),
-                ['/settings/profile', t('navigation:groups.system')],
+                ['/settings/profile', t('groups.system')],
             ]),
         [t],
     );
@@ -116,7 +119,7 @@ function buildRecordIndex(): Omit<SearchRecord, 'group'>[] {
     return records;
 }
 
-function buildActionIndex(t: (k: string) => string): Omit<SearchRecord, 'group'>[] {
+function buildActionIndex(t: NavT): Omit<SearchRecord, 'group'>[] {
     return [
         { kind: 'action', title: t('search.actions.newCampaign'), subtitle: t('search.actions.newCampaignSubtitle'), href: '/admin/campaigns', icon: 'campaigns' },
         { kind: 'action', title: t('search.actions.manageQueues'), subtitle: t('search.actions.manageQueuesSubtitle'), href: '/admin/settings/queues', icon: 'routes' },
@@ -153,8 +156,8 @@ export function useGlobalSearch(): GlobalSearchContextValue {
     const ctx = useContext(GlobalSearchContext);
 
     if (!ctx) {
-throw new Error('useGlobalSearch must be used within a GlobalSearchProvider');
-}
+        throw new Error('useGlobalSearch must be used within a GlobalSearchProvider');
+    }
 
     return ctx;
 }

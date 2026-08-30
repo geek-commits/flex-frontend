@@ -40,6 +40,7 @@ const IN_CALL_STATES = new Set([
  */
 export function CallManager() {
     const { t } = useTranslation('agent');
+    const { t: tCommon } = useTranslation('common');
     const ws = useWorkspaceState();
     const assist = useAgentAssistSessionOptional();
     const [dialNumber, setDialNumber] = useState('');
@@ -207,7 +208,7 @@ export function CallManager() {
                     <button
                         type="button"
                         onClick={() => setCollapsedCallState(null)}
-                        aria-label={`${t('callManager.title')}: ${stateLabel}. ${t('common:actions.open', 'Open call controls')}`}
+                        aria-label={`${t('callManager.title')}: ${stateLabel}. ${tCommon('actions.open', 'Open call controls')}`}
                         className="flex h-14 shrink-0 items-center gap-2 border-t border-border bg-card px-3 text-left text-xs select-none"
                     >
                         <RiPhoneLine className="size-4 shrink-0 text-primary" />
@@ -281,7 +282,7 @@ export function CallManager() {
                                     <Button
                                         variant="ghost"
                                         size="icon-sm"
-                                        aria-label={t('common:actions.close', 'Collapse Call Manager')}
+                                        aria-label={tCommon('actions.close', 'Collapse Call Manager')}
                                         onClick={() => setCollapsedCallState(callState)}
                                     >
                                         <RiCloseLine className="size-4" />

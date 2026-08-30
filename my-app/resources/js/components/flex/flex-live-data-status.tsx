@@ -26,7 +26,7 @@ export function FlexLiveDataStatus({
     const { t } = useTranslation('supervision');
     const { locale } = useFlexLocale();
     const tone = connectionStateMap[connectionState];
-    const label = tone.labelKey ? t(tone.labelKey as string, tone.label) : tone.label;
+    const label = tone.labelKey ? t(tone.labelKey) : tone.label;
 
     // Relative-time localization uses the platform Intl.RelativeTimeFormat API.
     // This provides native en/sw/fr support and avoids maintaining a custom

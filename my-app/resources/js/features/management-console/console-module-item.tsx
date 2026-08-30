@@ -29,10 +29,16 @@ export function ConsoleModuleItem({ module }: ConsoleModuleItemProps) {
             </span>
             <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                 <span className="text-[length:var(--flex-font-size-card-title)] font-semibold leading-tight text-foreground">
-                    {t(module.titleKey)}
+                    {
+                        // @ts-expect-error — ModuleTitleKey interim until strict union fully covers administration
+                        t(module.titleKey)
+                    }
                 </span>
                 <span className="truncate text-[length:var(--flex-font-size-caption)] leading-snug text-muted-foreground">
-                    {t(module.descriptionKey)}
+                    {
+                        // @ts-expect-error — ModuleDescriptionKey interim
+                        t(module.descriptionKey)
+                    }
                 </span>
             </span>
             <RiArrowRightSLine

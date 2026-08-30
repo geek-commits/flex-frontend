@@ -98,9 +98,11 @@ export const ROLE_CAPABILITIES: Record<Role, Capability[]> = {
     ],
 };
 
+import type { NavItemKey } from '@/auth/nav-domains';
+
 export interface NavEntry {
     title: string;
-    titleKey: string;
+    titleKey: NavItemKey;
     href: string;
     icon: FlexIconName;
     capability: Capability;
@@ -140,7 +142,7 @@ function deriveNavigation(): NavEntry[] {
     // Shared non-domain route (Settings/Profile) — not part of the main domain tree (§24).
     flat.push({
         title: 'Settings',
-        titleKey: 'navigation:items.settings',
+        titleKey: 'items.settings',
         href: '/settings/profile',
         icon: 'settings',
         capability: 'settings.manage',

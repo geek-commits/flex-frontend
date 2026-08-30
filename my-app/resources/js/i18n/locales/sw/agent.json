@@ -1,11 +1,12 @@
 {
   "status": {
     "ready": "Tayari",
-    "notReady": "Haitayari",
+    "talking": "Anaongea",
+    "notReady": "Hayupo Tayari",
     "break": "Mapumziko",
     "wrapUp": "Kuhitimisha",
     "offline": "Nje ya mtandao",
-    "busy": "Kwenye shughuli",
+    "busy": "Ameshikika",
     "inCall": "Kwenye simu",
     "ringing": "Inalia"
   },
@@ -129,10 +130,13 @@
     "playTestTone": "Cheza Toni ya Majaribio",
     "verifySpeaker": "Thibitisha sauti ya spika inasikika",
     "fullDiagnosticSuite": "Seti Kamili ya Uchunguzi",
+    "pass": "Imefaulu {{count}}",
     "pass_one": "Imefaulu {{count}}",
     "pass_other": "Zimefaulu {{count}}",
+    "warn": "Tahadhari {{count}}",
     "warn_one": "Tahadhari {{count}}",
     "warn_other": "Tahadhari {{count}}",
+    "fail": "Imeshindwa {{count}}",
     "fail_one": "Imeshindwa {{count}}",
     "fail_other": "Zimeshindwa {{count}}",
     "running": "Inaendeshwa...",

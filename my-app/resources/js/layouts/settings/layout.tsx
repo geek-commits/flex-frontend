@@ -12,7 +12,9 @@ import { edit } from '@/routes/profile';
 import { edit as editSecurity } from '@/routes/security';
 import type { NavItem } from '@/types';
 
-const sidebarNavItems: Array<{ titleKey: string; href: NavItem['href']; icon: NavItem['icon'] }> = [
+type SettingsNavKey = 'settings.navigation.profile' | 'settings.navigation.security' | 'settings.navigation.appearance';
+
+const sidebarNavItems: Array<{ titleKey: SettingsNavKey; href: NavItem['href']; icon: NavItem['icon'] }> = [
     {
         titleKey: 'settings.navigation.profile',
         href: edit(),

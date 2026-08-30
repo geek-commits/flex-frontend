@@ -94,7 +94,7 @@ export function AgentOperationalHeader({
                                             name={item.icon}
                                             className="size-4"
                                         />
-                                        <span>{t(item.titleKey as string)}</span>
+                                        <span>{t(item.titleKey)}</span>
                                     </Link>
                                 );
                             })}

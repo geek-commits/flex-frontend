@@ -12,10 +12,12 @@ export interface ContactCenterTrafficDatum {
     [key: string]: unknown;
 }
 
+export type TrafficSeriesKey = 'dashboard.traffic.answered' | 'dashboard.traffic.missed';
+
 /** Series labels shown in legend/tooltip — never raw API keys. */
-export const TRAFFIC_SERIES: (FlexBarSeries & { labelKey?: string })[] = [
-    { dataKey: 'answered', label: 'Answered', labelKey: 'supervision:dashboard.traffic.answered', color: 'var(--flex-chart-bar)' },
-    { dataKey: 'missed', label: 'Missed', labelKey: 'supervision:dashboard.traffic.missed', color: 'var(--status-disconnected)' },
+export const TRAFFIC_SERIES: (FlexBarSeries & { labelKey?: TrafficSeriesKey })[] = [
+    { dataKey: 'answered', label: 'Answered', labelKey: 'dashboard.traffic.answered', color: 'var(--flex-chart-bar)' },
+    { dataKey: 'missed', label: 'Missed', labelKey: 'dashboard.traffic.missed', color: 'var(--status-disconnected)' },
 ];
 
 export function toTrafficData(volume: DailyCallVolume[] | undefined): ContactCenterTrafficDatum[] {

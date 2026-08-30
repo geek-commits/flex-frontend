@@ -33,12 +33,22 @@ function DurationCell({ call }: { call: ActiveCall }) {
     return <span className="tabular-nums text-flex-text-primary">{duration}</span>;
 }
 
-function TranslatedStateCell({ call, t }: { call: ActiveCall; t: TFn }) {
-    const key = `supervision:activeCalls.state.${call.state}`;
+const ACTIVE_CALL_STATE_KEYS = {
+    ringing: 'activeCalls.state.ringing',
+    connected: 'activeCalls.state.connected',
+    hold: 'activeCalls.state.hold',
+    transferring: 'activeCalls.state.transferring',
+} as const;
 
+const ACTIVE_CALL_DIRECTION_KEYS = {
+    inbound: 'activeCalls.direction.inbound',
+    outbound: 'activeCalls.direction.outbound',
+} as const;
+
+function TranslatedStateCell({ call, t }: { call: ActiveCall; t: TFn }) {
     return (
         <FlexStatus tone={CALL_STATE_TONES[call.state]} className="capitalize">
-            {t(key)}
+            {t(ACTIVE_CALL_STATE_KEYS[call.state])}
         </FlexStatus>
     );
 }
@@ -52,9 +62,7 @@ function StateCell({ call }: { call: ActiveCall }) {
 }
 
 function DirectionCell({ call, t }: { call: ActiveCall; t: TFn }) {
-    const key = `supervision:activeCalls.direction.${call.direction}`;
-
-    return <span className="capitalize text-flex-text-muted">{t(key)}</span>;
+    return <span className="capitalize text-flex-text-muted">{t(ACTIVE_CALL_DIRECTION_KEYS[call.direction])}</span>;
 }
 
 export function activeCallColumnsTranslated(t: TFn): ColumnDef<DataGridFeatures, ActiveCall>[] {
@@ -62,7 +70,7 @@ export function activeCallColumnsTranslated(t: TFn): ColumnDef<DataGridFeatures,
         {
             accessorKey: 'customer',
             id: 'customer',
-            header: ({ column }) => <DataGridColumnHeader title={t('supervision:activeCalls.columns.customer')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('activeCalls.columns.customer')} column={column} />,
             cell: ({ row }) => <CustomerCell call={row.original} />,
             size: 220,
             enableSorting: false,
@@ -71,7 +79,7 @@ export function activeCallColumnsTranslated(t: TFn): ColumnDef<DataGridFeatures,
         {
             accessorKey: 'agent',
             id: 'agent',
-            header: ({ column }) => <DataGridColumnHeader title={t('supervision:activeCalls.columns.agent')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('activeCalls.columns.agent')} column={column} />,
             cell: ({ row }) => (
                 <span className="text-flex-text-primary">{row.original.agent.name}</span>
             ),
@@ -82,7 +90,7 @@ export function activeCallColumnsTranslated(t: TFn): ColumnDef<DataGridFeatures,
         {
             accessorKey: 'queue',
             id: 'queue',
-            header: ({ column }) => <DataGridColumnHeader title={t('supervision:activeCalls.columns.queue')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('activeCalls.columns.queue')} column={column} />,
             cell: ({ row }) => (
                 <span className="text-flex-text-primary">{row.original.queue}</span>
             ),
@@ -93,7 +101,7 @@ export function activeCallColumnsTranslated(t: TFn): ColumnDef<DataGridFeatures,
         {
             accessorKey: 'direction',
             id: 'direction',
-            header: ({ column }) => <DataGridColumnHeader title={t('supervision:activeCalls.columns.direction')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('activeCalls.columns.direction')} column={column} />,
             cell: ({ row }) => <DirectionCell call={row.original} t={t} />,
             size: 96,
             enableSorting: false,
@@ -102,7 +110,7 @@ export function activeCallColumnsTranslated(t: TFn): ColumnDef<DataGridFeatures,
         {
             accessorKey: 'duration',
             id: 'duration',
-            header: ({ column }) => <DataGridColumnHeader title={t('supervision:activeCalls.columns.duration')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('activeCalls.columns.duration')} column={column} />,
             cell: ({ row }) => <DurationCell call={row.original} />,
             size: 112,
             enableSorting: false,
@@ -111,7 +119,7 @@ export function activeCallColumnsTranslated(t: TFn): ColumnDef<DataGridFeatures,
         {
             accessorKey: 'state',
             id: 'state',
-            header: ({ column }) => <DataGridColumnHeader title={t('supervision:activeCalls.columns.state')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('activeCalls.columns.state')} column={column} />,
             cell: ({ row }) => <TranslatedStateCell call={row.original} t={t} />,
             size: 150,
             enableSorting: false,

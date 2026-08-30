@@ -1,4 +1,5 @@
 import type { ColumnDef } from '@tanstack/react-table';
+import type { TFunction } from 'i18next';
 import { FlexStatus } from '@/components/flex/flex-status';
 import type { FlexStatusTone } from '@/components/flex/flex-status';
 import type { DataGridFeatures } from '@/components/reui/data-grid/data-grid';
@@ -7,6 +8,18 @@ import { Skeleton } from '@/components/ui/skeleton';
 import type { MonitoringAgentRow } from '@/features/agent-monitoring/use-agent-monitoring';
 import { useStateTimer } from '@/features/dashboard/use-state-timer';
 import { agentStateMap } from '@/lib/status-styles';
+
+type TFn = TFunction<'supervision', undefined>;
+
+const MONITORING_SUMMARY_KEYS = {
+    ready: 'monitoring.summary.ready.label',
+    talking: 'monitoring.summary.talking.label',
+    ringing: 'monitoring.summary.ringing.label',
+    'wrap-up': 'monitoring.summary.wrapUp.label',
+    break: 'monitoring.summary.break.label',
+    'not-ready': 'monitoring.summary.notReady.label',
+    offline: 'monitoring.summary.offline.label',
+} as const;
 
 const AGENT_STATE_TONES: Record<MonitoringAgentRow['state'], FlexStatusTone> = {
     ready: 'success',
@@ -44,8 +57,8 @@ function CurrentCallCell({ row }: { row: MonitoringAgentRow }) {
     );
 }
 
-export function monitoringColumns(t?: (key: string) => string): ColumnDef<DataGridFeatures, MonitoringAgentRow>[] {
-    const tt = t ?? ((k: string) => k);
+export function monitoringColumns(t?: TFn): ColumnDef<DataGridFeatures, MonitoringAgentRow>[] {
+    const tt = t ?? (((k: string) => k) as unknown as TFn);
 
     return [
         {
@@ -87,7 +100,7 @@ export function monitoringColumns(t?: (key: string) => string): ColumnDef<DataGr
             header: ({ column }) => <DataGridColumnHeader title={tt('monitoring.columns.state')} column={column} />,
             cell: ({ row }) => (
                 <FlexStatus tone={AGENT_STATE_TONES[row.original.state]} className="capitalize">
-                    {agentStateMap[row.original.state].label}
+                    {tt(MONITORING_SUMMARY_KEYS[row.original.state])}
                 </FlexStatus>
             ),
             size: 150,

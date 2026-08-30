@@ -73,7 +73,7 @@ export function ExternalWorkspaceHost({ title, configPath, className, chrome = '
                                 </Button>
                             )}
                             <Button onClick={retry} size="sm">
-                                {t('common:actions.retry', 'Retry')}
+                                {t('actions.retry', 'Retry')}
                             </Button>
                         </div>
                     </div>

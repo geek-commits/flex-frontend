@@ -1,4 +1,5 @@
 import type { ColumnDef } from '@tanstack/react-table';
+import type { TFunction } from 'i18next';
 import type { DataGridFeatures } from '@/components/reui/data-grid/data-grid';
 import { DataGridColumnHeader } from '@/components/reui/data-grid/data-grid-column-header';
 import { CallbackAction } from '@/features/customer-recovery/callback-action';
@@ -7,7 +8,9 @@ import { RecoveryStatus } from '@/features/customer-recovery/recovery-status';
 import type { RecoveryRecord } from '@/features/customer-recovery/recovery-types';
 import { VoicemailPlayer } from '@/features/customer-recovery/voicemail-player';
 
-function formatMissedAt(value: string, t: (key: string) => string): string {
+type AgentT = TFunction<'agent', undefined>;
+
+function formatMissedAt(value: string, t: AgentT): string {
     const date = new Date(value);
 
     if (Number.isNaN(date.getTime())) {
@@ -35,7 +38,7 @@ function formatMissedAt(value: string, t: (key: string) => string): string {
 export function recoveryColumns(
     currentAgent: { id: string; name: string },
     onRecordChanged: (record: RecoveryRecord) => void,
-    t: (key: string, options?: Record<string, unknown>) => string,
+    t: AgentT,
 ): ColumnDef<DataGridFeatures, RecoveryRecord>[] {
     return [
         {

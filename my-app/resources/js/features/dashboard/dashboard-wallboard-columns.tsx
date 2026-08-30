@@ -38,13 +38,20 @@ function CurrentCallCell({ agent }: { agent: AgentRosterEntry }) {
     return <span className="tabular-nums text-flex-text-primary">{agent.callDuration}</span>;
 }
 
-function TranslatedStateCell({ agent, t }: { agent: AgentRosterEntry; t: TFn }) {
-    const cfg = agentStateMap[agent.state];
-    const label = cfg.labelKey ? t(cfg.labelKey) : cfg.label;
+const MONITORING_SUMMARY_KEYS = {
+    ready: 'monitoring.summary.ready.label',
+    talking: 'monitoring.summary.talking.label',
+    ringing: 'monitoring.summary.ringing.label',
+    'wrap-up': 'monitoring.summary.wrapUp.label',
+    break: 'monitoring.summary.break.label',
+    'not-ready': 'monitoring.summary.notReady.label',
+    offline: 'monitoring.summary.offline.label',
+} as const;
 
+function TranslatedStateCell({ agent, t }: { agent: AgentRosterEntry; t: TFn }) {
     return (
         <FlexStatus tone={AGENT_STATE_TONES[agent.state]} className="capitalize">
-            {label}
+            {t(MONITORING_SUMMARY_KEYS[agent.state])}
         </FlexStatus>
     );
 }
@@ -64,7 +71,7 @@ export function wallboardColumnsTranslated(t: TFn): ColumnDef<DataGridFeatures, 
         {
             accessorKey: 'name',
             id: 'name',
-            header: ({ column }) => <DataGridColumnHeader title={t('supervision:wallboard.columns.agent')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('wallboard.columns.agent')} column={column} />,
             cell: ({ row }) => (
                 <span className="font-medium text-flex-text-primary">{row.original.name}</span>
             ),
@@ -75,7 +82,7 @@ export function wallboardColumnsTranslated(t: TFn): ColumnDef<DataGridFeatures, 
         {
             accessorKey: 'extension',
             id: 'extension',
-            header: ({ column }) => <DataGridColumnHeader title={t('supervision:wallboard.columns.ext')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('wallboard.columns.ext')} column={column} />,
             cell: ({ row }) => (
                 <span className="tabular-nums text-flex-text-muted">{row.original.extension}</span>
             ),
@@ -86,7 +93,7 @@ export function wallboardColumnsTranslated(t: TFn): ColumnDef<DataGridFeatures, 
         {
             accessorKey: 'queue',
             id: 'queue',
-            header: ({ column }) => <DataGridColumnHeader title={t('supervision:wallboard.columns.queue')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('wallboard.columns.queue')} column={column} />,
             cell: ({ row }) => (
                 <span className="text-flex-text-primary">{row.original.queue}</span>
             ),
@@ -97,7 +104,7 @@ export function wallboardColumnsTranslated(t: TFn): ColumnDef<DataGridFeatures, 
         {
             accessorKey: 'state',
             id: 'state',
-            header: ({ column }) => <DataGridColumnHeader title={t('supervision:wallboard.columns.state')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('wallboard.columns.state')} column={column} />,
             cell: ({ row }) => <TranslatedStateCell agent={row.original} t={t} />,
             size: 150,
             enableSorting: false,
@@ -106,7 +113,7 @@ export function wallboardColumnsTranslated(t: TFn): ColumnDef<DataGridFeatures, 
         {
             accessorKey: 'stateSince',
             id: 'stateTime',
-            header: ({ column }) => <DataGridColumnHeader title={t('supervision:wallboard.columns.stateTime')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('wallboard.columns.stateTime')} column={column} />,
             cell: ({ row }) => <StateTimeCell agent={row.original} />,
             size: 116,
             enableSorting: false,
@@ -115,7 +122,7 @@ export function wallboardColumnsTranslated(t: TFn): ColumnDef<DataGridFeatures, 
         {
             accessorKey: 'callDuration',
             id: 'currentCall',
-            header: ({ column }) => <DataGridColumnHeader title={t('supervision:wallboard.columns.currentCall')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('wallboard.columns.currentCall')} column={column} />,
             cell: ({ row }) => <CurrentCallCell agent={row.original} />,
             size: 320,
             enableSorting: false,
@@ -124,7 +131,7 @@ export function wallboardColumnsTranslated(t: TFn): ColumnDef<DataGridFeatures, 
         {
             accessorKey: 'callsToday',
             id: 'callsToday',
-            header: ({ column }) => <DataGridColumnHeader title={t('supervision:wallboard.columns.callsToday')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('wallboard.columns.callsToday')} column={column} />,
             cell: ({ row }) => (
                 <span className="font-medium tabular-nums text-flex-text-primary">{row.original.callsToday}</span>
             ),
@@ -135,7 +142,7 @@ export function wallboardColumnsTranslated(t: TFn): ColumnDef<DataGridFeatures, 
         {
             accessorKey: 'aht',
             id: 'aht',
-            header: ({ column }) => <DataGridColumnHeader title={t('supervision:wallboard.columns.aht')} column={column} />,
+            header: ({ column }) => <DataGridColumnHeader title={t('wallboard.columns.aht')} column={column} />,
             cell: ({ row }) => (
                 <span className="tabular-nums text-flex-text-primary">{row.original.aht}</span>
             ),

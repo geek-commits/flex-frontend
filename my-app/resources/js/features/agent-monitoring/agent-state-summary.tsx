@@ -15,10 +15,28 @@ import { MONITORING_STATE_ORDER } from '@/features/agent-monitoring/use-agent-mo
 import { useAgentMonitoring } from '@/features/agent-monitoring/use-agent-monitoring';
 import type { AgentState } from '@/features/dashboard/dashboard-types';
 
+type MonitoringSummaryLabelKey =
+    | 'monitoring.summary.talking.label'
+    | 'monitoring.summary.ready.label'
+    | 'monitoring.summary.ringing.label'
+    | 'monitoring.summary.wrapUp.label'
+    | 'monitoring.summary.break.label'
+    | 'monitoring.summary.notReady.label'
+    | 'monitoring.summary.offline.label';
+
+type MonitoringSummaryDescKey =
+    | 'monitoring.summary.talking.description'
+    | 'monitoring.summary.ready.description'
+    | 'monitoring.summary.ringing.description'
+    | 'monitoring.summary.wrapUp.description'
+    | 'monitoring.summary.break.description'
+    | 'monitoring.summary.notReady.description'
+    | 'monitoring.summary.offline.description';
+
 interface SummaryState {
     state: AgentState;
-    label: string;
-    description: string;
+    label: MonitoringSummaryLabelKey;
+    description: MonitoringSummaryDescKey;
     icon: React.ComponentType<{ className?: string }>;
 }
 

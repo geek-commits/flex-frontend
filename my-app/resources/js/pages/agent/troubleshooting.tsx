@@ -20,12 +20,12 @@ const RESULT_TONE: Record<DiagnosticResult, FlexStatusTone> = {
     pending: 'neutral',
 };
 
-const RESULT_KEY: Record<DiagnosticResult, string> = {
+const RESULT_KEY = {
     pass: 'troubleshooting.resultPass',
     warn: 'troubleshooting.resultWarn',
     fail: 'troubleshooting.resultFail',
     pending: 'troubleshooting.notRun',
-};
+} as const;
 
 export default function TroubleshootingPage() {
     const { t } = useTranslation('agent');

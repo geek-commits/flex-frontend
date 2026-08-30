@@ -14,7 +14,8 @@ export interface ConnectionStatusProps {
  * (docs/design/domain/agent-state.md §19 — Ready is not the same as Connected).
  */
 export function ConnectionStatus({ state, className }: ConnectionStatusProps) {
-    const { t } = useTranslation();
+    const { t } = useTranslation('supervision');
+    const { t: tCommon } = useTranslation('common');
 
     if (state === 'live') {
         return null;
@@ -26,8 +27,8 @@ export function ConnectionStatus({ state, className }: ConnectionStatusProps) {
     return (
         <div
             role="status"
-            aria-label={`${t('common:status.connected')}: ${label}`}
-            title={`${t('common:status.connected')}: ${label}`}
+            aria-label={`${tCommon('status.connected')}: ${label}`}
+            title={`${tCommon('status.connected')}: ${label}`}
             className={`flex items-center gap-1.5 rounded-md border px-2 py-1 text-xs font-medium sm:px-2.5 ${cfg.bgClass} ${cfg.textClass} ${cfg.borderClass} ${className ?? ''}`}
         >
             <RiWifiLine className="size-3.5" />

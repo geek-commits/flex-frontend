@@ -1,16 +1,91 @@
 import type { Capability } from '@/auth/capabilities';
 import type { FlexIconName } from '@/components/flex/iconography';
 
+export type ModuleTitleKey =
+    | 'modules.tenants.title'
+    | 'modules.agents.title'
+    | 'modules.users.title'
+    | 'modules.roles.title'
+    | 'modules.subscriptions.title'
+    | 'modules.cdr.title'
+    | 'modules.call-campaigns.title'
+    | 'modules.queue.title'
+    | 'modules.queues.title'
+    | 'modules.ivr.title'
+    | 'modules.time-groups.title'
+    | 'modules.recordings.title'
+    | 'modules.call-stats.title'
+    | 'modules.reports.title'
+    | 'modules.charts.title'
+    | 'modules.survey-monitoring.title'
+    | 'modules.inbound-routes.title'
+    | 'modules.time-conditions.title'
+    | 'modules.system-settings.title'
+    | 'modules.mail-config.title'
+    | 'modules.security.title'
+    | 'modules.backups.title'
+    | 'modules.global-settings.title'
+    | 'modules.moh.title'
+    | 'modules.tones.title'
+    | 'modules.agent-states.title'
+    | 'modules.departments.title'
+    | 'modules.survey.title'
+    | 'modules.cdr-config.title'
+    | 'modules.global-config.title'
+    | 'modules.outbound-routes.title';
+export type ModuleDescriptionKey =
+    | 'modules.tenants.description'
+    | 'modules.agents.description'
+    | 'modules.users.description'
+    | 'modules.roles.description'
+    | 'modules.subscriptions.description'
+    | 'modules.cdr.description'
+    | 'modules.call-campaigns.description'
+    | 'modules.queue.description'
+    | 'modules.queues.description'
+    | 'modules.ivr.description'
+    | 'modules.time-groups.description'
+    | 'modules.recordings.description'
+    | 'modules.call-stats.description'
+    | 'modules.reports.description'
+    | 'modules.charts.description'
+    | 'modules.survey-monitoring.description'
+    | 'modules.inbound-routes.description'
+    | 'modules.time-conditions.description'
+    | 'modules.system-settings.description'
+    | 'modules.mail-config.description'
+    | 'modules.security.description'
+    | 'modules.backups.description'
+    | 'modules.global-settings.description'
+    | 'modules.moh.description'
+    | 'modules.tones.description'
+    | 'modules.agent-states.description'
+    | 'modules.departments.description'
+    | 'modules.survey.description'
+    | 'modules.cdr-config.description'
+    | 'modules.global-config.description'
+    | 'modules.outbound-routes.description';
+export type ModuleCategoryKey =
+    | 'modules.categories.coreAdministration'
+    | 'modules.categories.telephonyOperations'
+    | 'modules.categories.analyticsQuality'
+    | 'modules.categories.systemConfiguration'
+    | 'modules.categories.telephonySettings'
+    | 'modules.categories.routingTrunks'
+    | 'modules.categories.mediaAudio'
+    | 'modules.categories.operationalPolicies'
+    | 'modules.categories.systemSecurity';
+
 export interface ModuleEntry {
     id: string;
     href: string;
     title: string;
-    titleKey: string;
+    titleKey: ModuleTitleKey;
     description: string;
-    descriptionKey: string;
+    descriptionKey: ModuleDescriptionKey;
     icon: FlexIconName;
     category: string;
-    categoryKey: string;
+    categoryKey: ModuleCategoryKey;
     badge?: string;
     capability?: Capability;
     /** Search terms that describe what an administrator manages here. */
