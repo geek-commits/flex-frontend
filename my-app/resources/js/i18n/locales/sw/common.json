@@ -152,7 +152,17 @@
       "confirmPlaceholder": "123456",
       "confirm": "Thibitisha",
       "cancel": "Ghairi",
-      "codeRequired": "Nambari inahitajika"
+      "codeRequired": "Nambari inahitajika",
+      "setupModalTitleEnabled": "Uthibitishaji wa hatua mbili umewashwa",
+      "setupModalDescriptionEnabled": "Uthibitishaji wa hatua mbili sasa umewashwa. Changanua msimbo wa QR au weka ufunguo wa usanidi kwenye programu yako ya uthibitishaji.",
+      "setupModalTitleVerify": "Thibitisha nambari ya uthibitisho",
+      "setupModalDescriptionVerify": "Weka nambari ya tarakimu 6 kutoka kwenye programu yako ya uthibitishaji",
+      "setupModalTitleEnable": "Washa uthibitishaji wa hatua mbili",
+      "setupModalDescriptionEnable": "Kumaliza kuwasha uthibitishaji wa hatua mbili, changanua msimbo wa QR au weka ufunguo wa usanidi kwenye programu yako ya uthibitishaji",
+      "orEnterManually": "au, weka nambari mwenyewe",
+      "close": "Funga",
+      "continue": "Endelea",
+      "back": "Nyuma"
     },
     "passwordInput": {
       "show": "Onyesha nenosiri",

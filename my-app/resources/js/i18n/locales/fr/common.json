@@ -152,7 +152,17 @@
       "confirmPlaceholder": "123456",
       "confirm": "Confirmer",
       "cancel": "Annuler",
-      "codeRequired": "Le code est requis"
+      "codeRequired": "Le code est requis",
+      "setupModalTitleEnabled": "Authentification à deux facteurs activée",
+      "setupModalDescriptionEnabled": "L'authentification à deux facteurs est maintenant activée. Scannez le QR code ou saisissez la clé de configuration dans votre application d'authentification.",
+      "setupModalTitleVerify": "Vérifier le code d'authentification",
+      "setupModalDescriptionVerify": "Saisissez le code à 6 chiffres de votre application d'authentification",
+      "setupModalTitleEnable": "Activer l'authentification à deux facteurs",
+      "setupModalDescriptionEnable": "Pour terminer l'activation, scannez le QR code ou saisissez la clé de configuration dans votre application d'authentification",
+      "orEnterManually": "ou, saisissez le code manuellement",
+      "close": "Fermer",
+      "continue": "Continuer",
+      "back": "Retour"
     },
     "passwordInput": {
       "show": "Afficher le mot de passe",

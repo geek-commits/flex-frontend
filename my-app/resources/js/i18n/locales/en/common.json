@@ -152,7 +152,17 @@
       "confirmPlaceholder": "123456",
       "confirm": "Confirm",
       "cancel": "Cancel",
-      "codeRequired": "Code is required"
+      "codeRequired": "Code is required",
+      "setupModalTitleEnabled": "Two-factor authentication enabled",
+      "setupModalDescriptionEnabled": "Two-factor authentication is now enabled. Scan the QR code or enter the setup key in your authenticator app.",
+      "setupModalTitleVerify": "Verify authentication code",
+      "setupModalDescriptionVerify": "Enter the 6-digit code from your authenticator app",
+      "setupModalTitleEnable": "Enable two-factor authentication",
+      "setupModalDescriptionEnable": "To finish enabling two-factor authentication, scan the QR code or enter the setup key in your authenticator app",
+      "orEnterManually": "or, enter the code manually",
+      "close": "Close",
+      "continue": "Continue",
+      "back": "Back"
     },
     "passwordInput": {
       "show": "Show password",
