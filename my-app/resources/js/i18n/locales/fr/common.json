@@ -167,6 +167,21 @@
     "passwordInput": {
       "show": "Afficher le mot de passe",
       "hide": "Masquer le mot de passe"
+    },
+    "customers": {
+      "breadcrumb": "Clients",
+      "customer360Title": "{{name}} — Customer 360",
+      "openWorkspace": "Ouvrir l'espace de travail",
+      "customerId": "ID client",
+      "events": "{{count}} événements",
+      "events_one": "{{count}} événement",
+      "events_other": "{{count}} événements",
+      "allActivity": "Toute l'activité",
+      "noActivityTitle": "Aucune activité pour l'instant",
+      "noActivityDescription": "Ce client n'a aucun appel, conversation ou rappel lié dans le jeu de données actuel.",
+      "openCdr": "Ouvrir CDR",
+      "openConversation": "Ouvrir la conversation",
+      "openRecovery": "Ouvrir la récupération"
     }
   },
   "welcome": {

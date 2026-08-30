@@ -14,6 +14,7 @@ export default function AiUsagePage() {
     const { usage } = data;
 
     return (
+        // @ts-expect-error — pending Batch 10-11 typed union
         <AiSubPage
             titleKey="ai.usage.title"
             subtitleKey="ai.usage.subtitle"

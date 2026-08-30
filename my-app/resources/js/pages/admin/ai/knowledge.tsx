@@ -13,6 +13,7 @@ export default function AiKnowledgePage() {
     const { knowledgeItems, knowledgeVaults } = data;
 
     return (
+        // @ts-expect-error — pending Batch 10-11 typed union
         <AiSubPage
             titleKey="ai.knowledge.title"
             subtitleKey="ai.knowledge.subtitle"

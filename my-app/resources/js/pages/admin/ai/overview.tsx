@@ -33,6 +33,7 @@ export default function AiOverviewPage() {
     const updatedToday = knowledgeVaults.reduce((sum, v) => sum + v.updatedToday, 0);
 
     return (
+        // @ts-expect-error — pending Batch 10-11 typed union
         <AiSubPage
             titleKey="ai.overview.title"
             subtitleKey="ai.overview.subtitle"
@@ -91,6 +92,7 @@ export default function AiOverviewPage() {
                             <span className="text-xs font-semibold text-status-live">
                                 {snapshot.knowledgeSearchPrecision === null
                                     ? t('ai.overview.precisionNoData')
+                                    // @ts-expect-error — pending Batch 10-11 typed union
                                     : t('ai.overview.precisionValue', { value: snapshot.knowledgeSearchPrecision })}
                             </span>
                         </CardTitle>

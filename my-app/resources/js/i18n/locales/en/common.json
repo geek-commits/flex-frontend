@@ -167,6 +167,21 @@
     "passwordInput": {
       "show": "Show password",
       "hide": "Hide password"
+    },
+    "customers": {
+      "breadcrumb": "Customers",
+      "customer360Title": "{{name}} — Customer 360",
+      "openWorkspace": "Open Workspace",
+      "customerId": "Customer ID",
+      "events": "{{count}} events",
+      "events_one": "{{count}} event",
+      "events_other": "{{count}} events",
+      "allActivity": "All activity",
+      "noActivityTitle": "No activity yet",
+      "noActivityDescription": "This customer has no linked calls, conversations, or callbacks in the current dataset.",
+      "openCdr": "Open CDR",
+      "openConversation": "Open Conversation",
+      "openRecovery": "Open Recovery"
     }
   },
   "welcome": {
