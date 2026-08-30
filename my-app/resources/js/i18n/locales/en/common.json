@@ -117,6 +117,46 @@
       "passwordPlaceholder": "Password",
       "cancel": "Cancel",
       "confirm": "Delete account"
+    },
+    "passkeys": {
+      "title": "Passkeys",
+      "description": "Manage your passkeys for passwordless sign-in",
+      "emptyTitle": "No passkeys yet",
+      "emptyDescription": "Add a passkey to sign in without a password",
+      "remove": "Remove",
+      "removeTitle": "Remove passkey",
+      "removeDescription": "Are you sure you want to remove the \"{{name}}\" passkey? You will no longer be able to use it to sign in.",
+      "cancel": "Cancel",
+      "removeConfirm": "Remove passkey",
+      "removing": "Removing...",
+      "added": "Added {{date}}",
+      "lastUsed": "Last used {{date}}",
+      "register": "Register passkey",
+      "registerDescription": "Create a new passkey for this device",
+      "registerButton": "Register",
+      "registering": "Registering..."
+    },
+    "twoFactor": {
+      "recoveryCodesTitle": "Recovery codes",
+      "recoveryCodesDescription": "Store these recovery codes securely. They can be used to regain access if you lose your two-factor device.",
+      "regenerate": "Regenerate codes",
+      "regenerating": "Regenerating...",
+      "copy": "Copy",
+      "copied": "Copied",
+      "show": "Show",
+      "hide": "Hide",
+      "setupTitle": "Two-factor setup",
+      "setupDescription": "Scan the QR code with your authenticator app or enter the manual key.",
+      "manualKey": "Manual setup key",
+      "confirmCode": "Confirmation code",
+      "confirmPlaceholder": "123456",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "codeRequired": "Code is required"
+    },
+    "passwordInput": {
+      "show": "Show password",
+      "hide": "Hide password"
     }
   },
   "welcome": {

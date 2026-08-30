@@ -117,6 +117,46 @@
       "passwordPlaceholder": "Nenosiri",
       "cancel": "Ghairi",
       "confirm": "Futa akaunti"
+    },
+    "passkeys": {
+      "title": "Passkeys",
+      "description": "Simamia passkeys zako kwa kuingia bila nenosiri",
+      "emptyTitle": "Hakuna passkeys bado",
+      "emptyDescription": "Ongeza passkey kuingia bila nenosiri",
+      "remove": "Ondoa",
+      "removeTitle": "Ondoa passkey",
+      "removeDescription": "Una uhakika unataka kuondoa passkey ya \"{{name}}\"? Hutaweza kuitumia tena kuingia.",
+      "cancel": "Ghairi",
+      "removeConfirm": "Ondoa passkey",
+      "removing": "Inaondoa...",
+      "added": "Imeongezwa {{date}}",
+      "lastUsed": "Ilitumika mwisho {{date}}",
+      "register": "Sajili passkey",
+      "registerDescription": "Unda passkey mpya kwa kifaa hiki",
+      "registerButton": "Sajili",
+      "registering": "Inasajili..."
+    },
+    "twoFactor": {
+      "recoveryCodesTitle": "Nambari za urejeshaji",
+      "recoveryCodesDescription": "Hifadhi nambari hizi za urejeshaji kwa usalama. Zinaweza kutumika kurejesha ufikiaji ukipoteza kifaa chako cha hatua mbili.",
+      "regenerate": "Unda upya nambari",
+      "regenerating": "Inaunda upya...",
+      "copy": "Nakili",
+      "copied": "Imenakiliwa",
+      "show": "Onyesha",
+      "hide": "Ficha",
+      "setupTitle": "Usanidi wa hatua mbili",
+      "setupDescription": "Changanua msimbo wa QR na programu yako ya uthibitishaji au weka ufunguo wa mwongozo.",
+      "manualKey": "Ufunguo wa usanidi wa mwongozo",
+      "confirmCode": "Nambari ya uthibitisho",
+      "confirmPlaceholder": "123456",
+      "confirm": "Thibitisha",
+      "cancel": "Ghairi",
+      "codeRequired": "Nambari inahitajika"
+    },
+    "passwordInput": {
+      "show": "Onyesha nenosiri",
+      "hide": "Ficha nenosiri"
     }
   },
   "welcome": {

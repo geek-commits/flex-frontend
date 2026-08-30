@@ -117,6 +117,46 @@
       "passwordPlaceholder": "Mot de passe",
       "cancel": "Annuler",
       "confirm": "Supprimer le compte"
+    },
+    "passkeys": {
+      "title": "Passkeys",
+      "description": "Gérez vos passkeys pour une connexion sans mot de passe",
+      "emptyTitle": "Aucune passkey pour l'instant",
+      "emptyDescription": "Ajoutez une passkey pour vous connecter sans mot de passe",
+      "remove": "Supprimer",
+      "removeTitle": "Supprimer la passkey",
+      "removeDescription": "Êtes-vous sûr de vouloir supprimer la passkey « {{name}} » ? Vous ne pourrez plus l'utiliser pour vous connecter.",
+      "cancel": "Annuler",
+      "removeConfirm": "Supprimer la passkey",
+      "removing": "Suppression...",
+      "added": "Ajouté {{date}}",
+      "lastUsed": "Dernière utilisation {{date}}",
+      "register": "Enregistrer une passkey",
+      "registerDescription": "Créez une nouvelle passkey pour cet appareil",
+      "registerButton": "Enregistrer",
+      "registering": "Enregistrement..."
+    },
+    "twoFactor": {
+      "recoveryCodesTitle": "Codes de récupération",
+      "recoveryCodesDescription": "Conservez ces codes de récupération en lieu sûr. Ils permettent de retrouver l'accès si vous perdez votre appareil à deux facteurs.",
+      "regenerate": "Régénérer les codes",
+      "regenerating": "Régénération...",
+      "copy": "Copier",
+      "copied": "Copié",
+      "show": "Afficher",
+      "hide": "Masquer",
+      "setupTitle": "Configuration à deux facteurs",
+      "setupDescription": "Scannez le QR code avec votre application d'authentification ou saisissez la clé manuelle.",
+      "manualKey": "Clé de configuration manuelle",
+      "confirmCode": "Code de confirmation",
+      "confirmPlaceholder": "123456",
+      "confirm": "Confirmer",
+      "cancel": "Annuler",
+      "codeRequired": "Le code est requis"
+    },
+    "passwordInput": {
+      "show": "Afficher le mot de passe",
+      "hide": "Masquer le mot de passe"
     }
   },
   "welcome": {
