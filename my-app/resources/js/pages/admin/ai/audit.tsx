@@ -12,7 +12,6 @@ export default function AiAuditPage() {
     const { audit } = data;
 
     return (
-        // @ts-expect-error — pending Batch 10-11 typed union
         <AiSubPage
             titleKey="ai.audit.title"
             subtitleKey="ai.audit.subtitle"

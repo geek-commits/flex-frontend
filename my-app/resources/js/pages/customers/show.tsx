@@ -11,8 +11,7 @@ import AppLayout from '@/layouts/app-layout';
 export default function Customer360Page() {
     const { t, i18n } = useTranslation('common');
     const { props } = usePage<{ customer: string }>();
-    const raw = (props.customer as unknown) ?? '';
-    // @ts-expect-error — customers.* interim until common keys fully typed (Batch 10)
+    const raw = String(props.customer ?? '');
     const customerId = decodeURIComponent(raw);
     const { displayName, phone, items } = resolveCustomerTimeline(customerId);
 
@@ -21,27 +20,18 @@ export default function Customer360Page() {
     return (
         <AppLayout
             breadcrumbs={[
-                // @ts-expect-error — customers.* interim until common keys fully typed (Batch 10)
                 { title: t('customers.breadcrumb'), href: '/customers' },
                 { title: displayName, href: `/customers/${encodeURIComponent(customerId)}` },
             ]}
         >
-            <Head
-                title={
-                    // @ts-expect-error — customers.* interim until common keys fully typed (Batch 10)
-                    t('customers.customer360Title', { name: displayName })
-                }
-            />
+            <Head title={t('customers.customer360Title', { name: displayName })} />
             <FlexPageHeader
                 title={displayName}
                 description={phone}
                 actions={
                     <div className="flex gap-2">
                         <Link href="/agent" className="inline-flex h-8 items-center rounded-md border px-3 text-sm">
-                            {
-                                // @ts-expect-error — customers.* interim until common keys fully typed (Batch 10)
-                                t('customers.openWorkspace')
-                            }
+                            {t('customers.openWorkspace')}
                         </Link>
                     </div>
                 }
@@ -50,33 +40,20 @@ export default function Customer360Page() {
                 <Card>
                     <CardContent className="pt-6">
                         <div className="flex items-center gap-2 mb-4">
-                            <span className="text-sm font-medium">
-                                {
-                                    // @ts-expect-error — customers.* interim until common keys fully typed (Batch 10)
-                                    t('customers.customerId')
-                                }
-                            </span>
+                            <span className="text-sm font-medium">{t('customers.customerId')}</span>
                             <code className="text-xs bg-muted px-2 py-1 rounded">{customerId}</code>
                             <Badge variant="outline" className="ml-auto capitalize">
-                                {
-                                    // @ts-expect-error — customers.* interim until common keys fully typed (Batch 10)
-                                    t('customers.events', { count: filtered.length })
-                                }
+                                {t('customers.events', { count: filtered.length })}
                             </Badge>
                         </div>
                         <div className="flex gap-1 mb-4">
                             <Badge variant="secondary" className="text-xs">
-                                {
-                                    // @ts-expect-error — customers.* interim until common keys fully typed (Batch 10)
-                                    t('customers.allActivity')
-                                }
+                                {t('customers.allActivity')}
                             </Badge>
                         </div>
                         {filtered.length === 0 ? (
                             <FlexEmptyState
-                                // @ts-expect-error — customers.* interim until common keys fully typed (Batch 10)
                                 title={t('customers.noActivityTitle')}
-                                // @ts-expect-error — customers.* interim until common keys fully typed (Batch 10)
                                 description={t('customers.noActivityDescription')}
                             />
                         ) : (
@@ -105,12 +82,9 @@ export default function Customer360Page() {
                                                 className="text-xs text-primary hover:underline mt-1 inline-block"
                                             >
                                                 {item.type === 'call'
-                                                    // @ts-expect-error — customers.* interim until common keys fully typed (Batch 10)
                                                     ? t('customers.openCdr')
                                                     : item.type === 'social'
-                                                      // @ts-expect-error — customers.* interim until common keys fully typed (Batch 10)
                                                       ? t('customers.openConversation')
-                                                      // @ts-expect-error — customers.* interim until common keys fully typed (Batch 10)
                                                       : t('customers.openRecovery')}{' '}
                                                 →
                                             </Link>

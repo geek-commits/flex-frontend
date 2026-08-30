@@ -181,7 +181,6 @@ function GlobalSearchDialog({ open, onOpenChange }: { open: boolean; onOpenChang
         () =>
             NAVIGATION.filter((entry) => has(entry.capability)).map((entry) => ({
                 ...entry,
-                // @ts-expect-error — pending Batch 4B-4C typed union
                 title: t(entry.titleKey),
                 subtitle: navSubtitleByHref.get(entry.href),
             })),

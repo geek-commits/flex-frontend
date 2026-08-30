@@ -1,5 +1,6 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { FLEX_DOMAINS } from '@/auth/nav-domains';
+import type { NavItemKey } from '@/auth/nav-domains';
 import type { FlexIconName } from '@/components/flex/iconography';
 
 /**
@@ -100,7 +101,7 @@ export const ROLE_CAPABILITIES: Record<Role, Capability[]> = {
 
 export interface NavEntry {
     title: string;
-    titleKey: string;
+    titleKey: NavItemKey;
     href: string;
     icon: FlexIconName;
     capability: Capability;

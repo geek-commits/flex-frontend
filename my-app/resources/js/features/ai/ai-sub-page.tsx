@@ -3,11 +3,29 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { AdminShell } from '@/layouts/admin-shell';
 
+export type AiPageKey =
+    | 'ai.overview.title'
+    | 'ai.overview.subtitle'
+    | 'ai.knowledge.title'
+    | 'ai.knowledge.subtitle'
+    | 'ai.assist.title'
+    | 'ai.assist.subtitle'
+    | 'ai.voice.title'
+    | 'ai.voice.subtitle'
+    | 'ai.usage.title'
+    | 'ai.usage.subtitle'
+    | 'ai.providers.title'
+    | 'ai.providers.subtitle'
+    | 'ai.audit.title'
+    | 'ai.audit.subtitle'
+    | 'ai.settings.title'
+    | 'ai.settings.subtitle';
+
 export interface AiSubPageProps {
-    title: string;
+    title?: string;
     subtitle?: string;
-    titleKey?: string;
-    subtitleKey?: string;
+    titleKey?: AiPageKey;
+    subtitleKey?: AiPageKey;
     actions?: React.ReactNode;
     children: React.ReactNode;
 }
@@ -16,15 +34,12 @@ export interface AiSubPageProps {
  * Shared shell for every AI Center sub-route. Renders the canonical AdminShell
  * with the AI Operations context sidebar and a consistent H1/head.
  */
-export function AiSubPage({ title, subtitle, titleKey, subtitleKey, actions, children }: AiSubPageProps) {
+export function AiSubPage({ title = '', subtitle, titleKey, subtitleKey, actions, children }: AiSubPageProps) {
     const { t } = useTranslation('administration');
-    // @ts-expect-error — pending Batch 10-11 typed union
     const resolvedTitle = titleKey ? t(titleKey) : title;
-    // @ts-expect-error — pending Batch 10-11 typed union
     const resolvedSubtitle = subtitleKey ? t(subtitleKey) : subtitle;
 
     return (
-        // @ts-expect-error — pending Batch 10-11 typed union
         <AdminShell title={resolvedTitle} subtitle={resolvedSubtitle} actions={actions}>
             <Head title={`${resolvedTitle} — Flex Contact Center`} />
             {children}

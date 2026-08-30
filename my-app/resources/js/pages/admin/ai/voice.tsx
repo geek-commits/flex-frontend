@@ -10,7 +10,6 @@ export default function AiVoicePage() {
     const { voiceConfig } = data;
 
     return (
-        // @ts-expect-error — pending Batch 10-11 typed union
         <AiSubPage
             titleKey="ai.voice.title"
             subtitleKey="ai.voice.subtitle"

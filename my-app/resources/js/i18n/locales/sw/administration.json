@@ -871,7 +871,8 @@
       "knowledgeItems": "Knowledge Items",
       "updatedToday": "Updated Today",
       "lastUpdated": "Last Updated",
-      "noData": "No data"
+      "noData": "No data",
+      "precisionValue": "Usahihi — {{value}}%"
     },
     "knowledge": {
       "title": "Knowledge Base",
@@ -1055,6 +1056,10 @@
       "mediaAudio": "Midia na Sauti",
       "operationalPolicies": "Sera za Uendeshaji",
       "systemSecurity": "Mfumo na Usalama"
+    },
+    "queues": {
+      "title": "Queues & SLA",
+      "description": "Configure inbound queues, wrap-up rules, and SLA targets."
     }
   }
 }

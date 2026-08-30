@@ -11,7 +11,6 @@ export default function AiAssistPage() {
     const { assistConfig } = data;
 
     return (
-        // @ts-expect-error — pending Batch 10-11 typed union
         <AiSubPage
             titleKey="ai.assist.title"
             subtitleKey="ai.assist.subtitle"

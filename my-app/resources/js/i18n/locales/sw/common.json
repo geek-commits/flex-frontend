@@ -190,5 +190,20 @@
     "login": "Ingia",
     "register": "Jisajili",
     "rights": "Haki zote zimehifadhiwa."
+  },
+  "customers": {
+    "breadcrumb": "Wateja",
+    "customer360Title": "{{name}} — Customer 360",
+    "openWorkspace": "Fungua Nafasi ya Kazi",
+    "customerId": "Kitambulisho cha Mteja",
+    "events": "matukio {{count}}",
+    "events_one": "tukio {{count}}",
+    "events_other": "matukio {{count}}",
+    "allActivity": "Shughuli zote",
+    "noActivityTitle": "Hakuna shughuli bado",
+    "noActivityDescription": "Mteja huyu hana simu, mazungumzo au marejesho yaliyounganishwa katika dataset ya sasa.",
+    "openCdr": "Fungua CDR",
+    "openConversation": "Fungua Mazungumzo",
+    "openRecovery": "Fungua Urejeshaji"
   }
 }

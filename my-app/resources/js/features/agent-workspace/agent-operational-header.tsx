@@ -94,12 +94,7 @@ export function AgentOperationalHeader({
                                             name={item.icon}
                                             className="size-4"
                                         />
-                                        <span>
-                                            {
-                                                // @ts-expect-error — NavItemKey interim until navigation keys fully typed
-                                                t(item.titleKey)
-                                            }
-                                        </span>
+                                        <span>{t(item.titleKey)}</span>
                                     </Link>
                                 );
                             })}

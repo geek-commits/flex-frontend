@@ -9,7 +9,6 @@ export default function AiSettingsPage() {
     const { settings } = data;
 
     return (
-        // @ts-expect-error — pending Batch 10-11 typed union
         <AiSubPage
             titleKey="ai.settings.title"
             subtitleKey="ai.settings.subtitle"

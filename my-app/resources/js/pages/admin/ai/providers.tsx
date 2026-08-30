@@ -11,7 +11,6 @@ export default function AiProvidersPage() {
     const { providers } = data;
 
     return (
-        // @ts-expect-error — pending Batch 10-11 typed union
         <AiSubPage
             titleKey="ai.providers.title"
             subtitleKey="ai.providers.subtitle"

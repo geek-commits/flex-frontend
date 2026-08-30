@@ -871,7 +871,8 @@
       "knowledgeItems": "Knowledge Items",
       "updatedToday": "Updated Today",
       "lastUpdated": "Last Updated",
-      "noData": "No data"
+      "noData": "No data",
+      "precisionValue": "Precision — {{value}}%"
     },
     "knowledge": {
       "title": "Knowledge Base",
@@ -1055,6 +1056,10 @@
       "mediaAudio": "Media & Audio",
       "operationalPolicies": "Operational Policies",
       "systemSecurity": "System & Security"
+    },
+    "queues": {
+      "title": "Queues & SLA",
+      "description": "Configure inbound queues, wrap-up rules, and SLA targets."
     }
   }
 }
