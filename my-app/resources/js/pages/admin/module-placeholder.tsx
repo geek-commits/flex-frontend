@@ -20,12 +20,12 @@ export default function ModulePlaceholderPage() {
 
     const accessible = !module?.capability || has(module.capability);
 
+    const moduleTitle = module ? t(module.titleKey) : t('placeholder.fallbackTitle');
+    const moduleDescription = module ? t(module.descriptionKey) : t('placeholder.fallbackDescription');
+
     return (
-        <AdminShell
-            title={module?.title ?? t('placeholder.fallbackTitle')}
-            subtitle={module?.description ?? 'This module is not part of the current POC.'}
-        >
-            <Head title={t('placeholder.headTitle', { title: module?.title ?? t('placeholder.fallbackTitle') })} />
+        <AdminShell title={moduleTitle} subtitle={moduleDescription}>
+            <Head title={t('placeholder.headTitle', { title: moduleTitle })} />
 
             <div className="flex flex-col gap-4 w-full">
                 <Button
@@ -48,7 +48,7 @@ export default function ModulePlaceholderPage() {
                                 <div className="flex flex-col gap-1 max-w-md">
                                     <h2 className="text-base font-semibold text-foreground">{t('placeholder.comingSoon')}</h2>
                                     <p className="text-xs text-muted-foreground">
-                                        {t('placeholder.comingSoonDescription', { title: module.title })}
+                                        {t('placeholder.comingSoonDescription', { title: moduleTitle })}
                                     </p>
                                 </div>
                             </>
@@ -63,7 +63,7 @@ export default function ModulePlaceholderPage() {
                                     </h2>
                                     <p className="text-xs text-muted-foreground">
                                         {module
-                                            ? t('placeholder.noPermission', { title: module.title })
+                                            ? t('placeholder.noPermission', { title: moduleTitle })
                                             : t('placeholder.notFoundDescription')}
                                     </p>
                                 </div>

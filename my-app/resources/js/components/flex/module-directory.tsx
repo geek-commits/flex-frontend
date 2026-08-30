@@ -1,9 +1,11 @@
 import { Link } from '@inertiajs/react';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { FlexIconName } from '@/components/flex/iconography';
 import { FlexIcon } from '@/components/flex/iconography';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import type { ModuleEntry } from '@/domain/modules';
 
 export interface ModuleItem {
     id: string;
@@ -18,21 +20,21 @@ export interface ModuleItem {
 export interface ModuleDirectoryProps {
     title: string;
     description?: string;
-    modules: ModuleItem[];
+    modules: ModuleEntry[];
 }
 
 export function ModuleDirectory({ title, description, modules }: ModuleDirectoryProps) {
+    const { t } = useTranslation('administration');
     const [search, setSearch] = useState('');
 
-    const filteredModules = modules.filter(
-        (m) =>
-            m.title.toLowerCase().includes(search.toLowerCase()) ||
-            m.description?.toLowerCase().includes(search.toLowerCase()) ||
-            m.category?.toLowerCase().includes(search.toLowerCase())
-    );
+    const filteredModules = modules.filter((m) => {
+        const haystack = [t(m.titleKey), t(m.descriptionKey), t(m.categoryKey), ...(m.keywords ?? [])].join(' ').toLocaleLowerCase();
+
+        return haystack.includes(search.toLocaleLowerCase());
+    });
 
     // Group by category if available
-    const categories = Array.from(new Set(filteredModules.map((m) => m.category || 'General Modules')));
+    const categories = Array.from(new Set(filteredModules.map((m) => t(m.categoryKey) || 'General Modules')));
 
     return (
         <div className="flex flex-col gap-6 w-full">
@@ -57,9 +59,7 @@ export function ModuleDirectory({ title, description, modules }: ModuleDirectory
 
             {/* Grid of Categories & Modules */}
             {categories.map((category) => {
-                const categoryModules = filteredModules.filter(
-                    (m) => (m.category || 'General Modules') === category
-                );
+                const categoryModules = filteredModules.filter((m) => (t(m.categoryKey) || 'General Modules') === category);
 
                 return (
                     <div key={category} className="flex flex-col gap-3">
@@ -79,7 +79,7 @@ export function ModuleDirectory({ title, description, modules }: ModuleDirectory
                                                 <div className="flex flex-col min-w-0 flex-1">
                                                     <div className="flex items-center justify-between gap-1">
                                                         <span className="text-xs font-semibold text-foreground truncate group-hover:text-primary transition-colors">
-                                                            {mod.title}
+                                                            {t(mod.titleKey)}
                                                         </span>
                                                         {mod.badge && (
                                                             <span className="px-1.5 py-0.2 text-[9px] font-bold rounded-full bg-muted text-muted-foreground uppercase">
@@ -87,11 +87,9 @@ export function ModuleDirectory({ title, description, modules }: ModuleDirectory
                                                             </span>
                                                         )}
                                                     </div>
-                                                    {mod.description && (
-                                                        <p className="text-[11px] text-muted-foreground mt-0.5 line-clamp-2">
-                                                            {mod.description}
-                                                        </p>
-                                                    )}
+                                                    <p className="text-[11px] text-muted-foreground mt-0.5 line-clamp-2">
+                                                        {t(mod.descriptionKey)}
+                                                    </p>
                                                 </div>
                                             </CardContent>
                                         </Card>

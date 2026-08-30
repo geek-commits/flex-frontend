@@ -39,7 +39,8 @@
     "notAccessible": "Non accessible",
     "moduleNotFound": "Module introuvable",
     "noPermission": "Vous n’avez pas la permission d’accéder à {{title}}.",
-    "notFoundDescription": "Le module demandé n’existe pas ou son adresse a changé."
+    "notFoundDescription": "Le module demandé n’existe pas ou son adresse a changé.",
+    "fallbackDescription": "Ce module ne fait pas partie du POC actuel."
   },
   "users": {
     "title": "Utilisateurs",

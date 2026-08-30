@@ -1,6 +1,6 @@
 # FLEX i18n Literal Audit — Report Mode (Phase 2)
 
-**Generated:** 2026-08-30T21:02:07.479Z **SHA:** local **Files scanned:** 631 **Hits:** 381
+**Generated:** 2026-08-30T21:13:51.305Z **SHA:** local **Files scanned:** 634 **Hits:** 381
 
 > Classification per §107: TRANSLATE / RUNTIME_DATA / TECHNICAL / BRAND / EXTERNAL / FALSE_POSITIVE — triage before CI gate.
 
@@ -36,7 +36,7 @@
 | components/flex/flex-profile-menu.tsx | 150 | JSX text | `Tenant administration` |
 | components/flex/flex-profile-menu.tsx | 171 | JSX text | `Sign out` |
 | components/flex/flex-profile-menu.tsx | 62 | aria-label | `aria-label="Open profile menu"` |
-| components/flex/module-directory.tsx | 49 | placeholder | `placeholder="Search modules..."` |
+| components/flex/module-directory.tsx | 51 | placeholder | `placeholder="Search modules..."` |
 | components/flex/my-role-access.tsx | 90 | JSX text | `Read-only view of your assigned role and effective access.` |
 | components/flex/my-role-access.tsx | 98 | JSX text | `Role` |
 | components/flex/my-role-access.tsx | 104 | JSX text | `Scope` |

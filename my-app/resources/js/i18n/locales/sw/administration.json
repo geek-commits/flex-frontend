@@ -39,7 +39,8 @@
     "notAccessible": "Haipatikani",
     "moduleNotFound": "Moduli haikupatikana",
     "noPermission": "Huna ruhusa ya kufikia {{title}}.",
-    "notFoundDescription": "Moduli iliyoombwa haipo au anwani yake imebadilika."
+    "notFoundDescription": "Moduli iliyoombwa haipo au anwani yake imebadilika.",
+    "fallbackDescription": "Moduli hii si sehemu ya POC ya sasa."
   },
   "users": {
     "title": "Watumiaji",
