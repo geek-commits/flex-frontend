@@ -1,4 +1,5 @@
 import { Link } from '@inertiajs/react';
+import { useTranslation } from 'react-i18next';
 import { FlexBrandLogo } from '@/components/flex/brand';
 import { LanguageSwitcher } from '@/components/language-switcher';
 import { home } from '@/routes';
@@ -7,9 +8,17 @@ import type { AuthLayoutProps } from '@/types';
 export default function AuthSplitLayout({
     children,
     title,
+    titleKey,
     description,
+    descriptionKey,
     visual,
 }: AuthLayoutProps) {
+    const { t: tAuth } = useTranslation('auth');
+    const resolvedTitle = titleKey ? tAuth(titleKey) : title;
+    const resolvedDescription = descriptionKey ? tAuth(descriptionKey) : description;
+    const resolvedVisualHeadline = visual?.headlineKey ? tAuth(visual.headlineKey) : visual?.headline;
+    const resolvedVisualDescription = visual?.descriptionKey ? tAuth(visual.descriptionKey) : visual?.description;
+
     return (
         <main className="min-h-svh bg-background p-3 sm:p-4 lg:p-6">
             <div className="grid min-h-[calc(100svh-1.5rem)] sm:min-h-[calc(100svh-2rem)] lg:min-h-[calc(100svh-3rem)] w-full lg:grid-cols-[44%_56%] xl:grid-cols-[42%_58%]">
@@ -28,14 +37,14 @@ export default function AuthSplitLayout({
 
                     <div className="mx-auto w-full max-w-sm py-8 sm:py-12">
                         <div className="mb-6 space-y-2 text-left">
-                            {title && (
+                            {resolvedTitle && (
                                 <h1 className="text-2xl font-semibold tracking-tight text-foreground">
-                                    {title}
+                                    {resolvedTitle}
                                 </h1>
                             )}
-                            {description && (
+                            {resolvedDescription && (
                                 <p className="text-sm text-muted-foreground">
-                                    {description}
+                                    {resolvedDescription}
                                 </p>
                             )}
                         </div>
@@ -61,16 +70,16 @@ export default function AuthSplitLayout({
                         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent" />
 
                         {/* Image Panel Caption */}
-                        {(visual.headline || visual.description) && (
+                        {(resolvedVisualHeadline || resolvedVisualDescription) && (
                             <div className="relative z-10 max-w-lg space-y-2 text-white">
-                                {visual.headline && (
+                                {resolvedVisualHeadline && (
                                     <h2 className="text-xl font-semibold tracking-tight leading-snug xl:text-2xl">
-                                        {visual.headline}
+                                        {resolvedVisualHeadline}
                                     </h2>
                                 )}
-                                {visual.description && (
+                                {resolvedVisualDescription && (
                                     <p className="text-sm text-zinc-200 leading-relaxed">
-                                        {visual.description}
+                                        {resolvedVisualDescription}
                                     </p>
                                 )}
                             </div>
@@ -81,4 +90,3 @@ export default function AuthSplitLayout({
         </main>
     );
 }
-

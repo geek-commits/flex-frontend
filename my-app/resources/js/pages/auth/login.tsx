@@ -121,13 +121,13 @@ export default function Login({ status, canResetPassword }: Props) {
 }
 
 Login.layout = {
-    title: 'Welcome back',
-    description: 'Sign in to your FLEX workspace.',
+    titleKey: 'login.title',
+    descriptionKey: 'login.description',
     visual: {
         src: '/images/auth/contact-center-login.png',
         alt: '',
-        headline: 'Customer conversations. One connected workspace.',
-        description: 'Calls, social channels and customer context in one place.',
+        headlineKey: 'login.visualHeadline',
+        descriptionKey: 'login.visualDescription',
     },
 };
 
