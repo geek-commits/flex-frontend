@@ -7,7 +7,6 @@ import { DataGridColumnHeader } from '@/components/reui/data-grid/data-grid-colu
 import { Skeleton } from '@/components/ui/skeleton';
 import type { MonitoringAgentRow } from '@/features/agent-monitoring/use-agent-monitoring';
 import { useStateTimer } from '@/features/dashboard/use-state-timer';
-import { agentStateMap } from '@/lib/status-styles';
 
 type TFn = TFunction<'supervision', undefined>;
 

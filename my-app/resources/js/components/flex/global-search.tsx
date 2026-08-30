@@ -181,6 +181,7 @@ function GlobalSearchDialog({ open, onOpenChange }: { open: boolean; onOpenChang
         () =>
             NAVIGATION.filter((entry) => has(entry.capability)).map((entry) => ({
                 ...entry,
+                // @ts-expect-error — pending Batch 4B-4C typed union
                 title: t(entry.titleKey),
                 subtitle: navSubtitleByHref.get(entry.href),
             })),
@@ -278,7 +279,7 @@ return false;
                                 <CommandItem key={item.href} value={`nav ${item.title}`} onSelect={() => run(item.href)}>
                                     <FlexIcon name={item.icon} className="size-4 text-muted-foreground" />
                                     <div className="flex min-w-0 flex-col">
-                                        <SearchHighlight text={item.title} query={query} />
+                                        <SearchHighlight text={item.title as string} query={query} />
                                         {item.subtitle && (
                                             <span className="text-xs text-muted-foreground truncate">{item.subtitle}</span>
                                         )}

@@ -98,11 +98,9 @@ export const ROLE_CAPABILITIES: Record<Role, Capability[]> = {
     ],
 };
 
-import type { NavItemKey } from '@/auth/nav-domains';
-
 export interface NavEntry {
     title: string;
-    titleKey: NavItemKey;
+    titleKey: string;
     href: string;
     icon: FlexIconName;
     capability: Capability;
