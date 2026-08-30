@@ -853,7 +853,77 @@
     },
     "footer": "Data ya POC — vipimo vya sampuli; si telemetria halisi ya simu au SLA."
   },
-  "ai": "Kituo cha AI",
+  "ai": {
+    "title": "AI Center",
+    "overview": {
+      "title": "AI Center",
+      "subtitle": "AI operations overview — what is enabled, what needs configuration, and usage",
+      "refreshStats": "Refresh Stats",
+      "usageSnapshot": "Today's Usage Snapshot",
+      "aiSessionsToday": "AI Sessions Today",
+      "assistAdoptionRate": "Assist Adoption Rate",
+      "totalTokensToday": "Total Tokens Today",
+      "estimatedCostToday": "Est. Cost Today",
+      "featureStatus": "AI Feature Status",
+      "knowledgeCoverage": "Knowledge Base Coverage",
+      "precisionNoData": "Precision — no data",
+      "activeVaults": "Active KB Vaults",
+      "knowledgeItems": "Knowledge Items",
+      "updatedToday": "Updated Today",
+      "lastUpdated": "Last Updated",
+      "noData": "No data"
+    },
+    "knowledge": {
+      "title": "Knowledge Base",
+      "subtitle": "Manage knowledge vaults and indexed content",
+      "emptyTitle": "No knowledge vaults",
+      "emptyDescription": "Create a knowledge vault to get started.",
+      "reindex": "Reindex",
+      "index": "Index"
+    },
+    "assist": {
+      "title": "Agent Assist",
+      "subtitle": "Configure assist behavior and prompts",
+      "enabled": "Agent Assist enabled",
+      "disabled": "Agent Assist disabled",
+      "enabledLabel": "Enabled",
+      "disabledLabel": "Disabled"
+    },
+    "voice": {
+      "title": "Virtual Assistants",
+      "subtitle": "Manage virtual assistants and voice configuration",
+      "enabled": "Virtual assistants are enabled.",
+      "disabled": "Virtual assistants are disabled."
+    },
+    "usage": {
+      "title": "Usage & Costs",
+      "subtitle": "AI usage and cost analytics",
+      "queue": "Queue",
+      "sessions": "Sessions",
+      "tokens": "Tokens",
+      "estimatedCost": "Est. Cost"
+    },
+    "providers": {
+      "title": "Providers & Models",
+      "subtitle": "Configure AI providers and models",
+      "emptyTitle": "No providers configured",
+      "emptyDescription": "Add a provider to get started.",
+      "testConnection": "Test connection"
+    },
+    "audit": {
+      "title": "AI Audit",
+      "subtitle": "AI audit log and compliance",
+      "auditLog": "Audit Log",
+      "emptyTitle": "No audit records",
+      "emptyDescription": "Audit events will appear here."
+    },
+    "settings": {
+      "title": "AI Settings",
+      "subtitle": "Global AI Center configuration",
+      "globalEnabled": "Global AI Center is enabled",
+      "globalDisabled": "Global AI Center is disabled"
+    }
+  },
   "modules": {
     "tenants": {
       "title": "Tenants & Multi-Org",

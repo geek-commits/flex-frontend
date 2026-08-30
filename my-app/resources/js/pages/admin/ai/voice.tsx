@@ -2,17 +2,19 @@ import React from 'react';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { StatusBadge } from '@/components/flex/status-badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useTranslation } from 'react-i18next';
 import { AiSubPage } from '@/features/ai/ai-sub-page';
 import { useAiCenter } from '@/features/ai/use-ai-center';
 
 export default function AiVoicePage() {
+    const { t } = useTranslation('administration');
     const { data } = useAiCenter();
     const { voiceConfig } = data;
 
     return (
         <AiSubPage
-            title="Virtual Assistants"
-            subtitle="Autonomous conversational AI for tier-1 inbound inquiries"
+            titleKey="ai.voice.title"
+            subtitleKey="ai.voice.subtitle"
         >
             <div className="flex flex-col gap-6 w-full">
                 <Card className="bg-card border-border shadow-2xs">

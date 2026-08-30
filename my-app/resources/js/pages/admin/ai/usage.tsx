@@ -1,6 +1,7 @@
 import React from 'react';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useTranslation } from 'react-i18next';
 import { AiSubPage } from '@/features/ai/ai-sub-page';
 import { useAiCenter } from '@/features/ai/use-ai-center';
 
@@ -8,13 +9,14 @@ const formatTokens = (value: number | null) =>
     value === null ? 'No data' : value >= 1_000_000 ? `${(value / 1_000_000).toFixed(1)}M` : value.toLocaleString('en-US');
 
 export default function AiUsagePage() {
+    const { t } = useTranslation('administration');
     const { data } = useAiCenter();
     const { usage } = data;
 
     return (
         <AiSubPage
-            title="Usage & Costs"
-            subtitle="Inference session, token, and cost volume"
+            titleKey="ai.usage.title"
+            subtitleKey="ai.usage.subtitle"
         >
             <div className="flex flex-col gap-6 w-full">
                 <Card className="bg-card border-border shadow-2xs">

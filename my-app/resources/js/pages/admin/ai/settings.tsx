@@ -1,17 +1,19 @@
 import React from 'react';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useTranslation } from 'react-i18next';
 import { AiSubPage } from '@/features/ai/ai-sub-page';
 import { useAiCenter } from '@/features/ai/use-ai-center';
 
 export default function AiSettingsPage() {
+    const { t } = useTranslation('administration');
     const { data } = useAiCenter();
     const { settings } = data;
 
     return (
         <AiSubPage
-            title="AI Settings"
-            subtitle="Global and tenant AI configuration"
+            titleKey="ai.settings.title"
+            subtitleKey="ai.settings.subtitle"
         >
             <div className="flex flex-col gap-6 w-full">
                 <Card className="bg-card border-border shadow-2xs">

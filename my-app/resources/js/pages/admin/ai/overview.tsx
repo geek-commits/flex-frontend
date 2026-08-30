@@ -1,5 +1,6 @@
 import { RiRefreshLine } from '@remixicon/react';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexIcon } from '@/components/flex/iconography';
 import { MetricCard, MetricGroup } from '@/components/flex/metric-card';
 import { Button } from '@/components/ui/button';
@@ -16,6 +17,7 @@ const formatTokens = (value: number | null) =>
 const formatCost = (value: number | null) => (value === null ? null : `$${value.toFixed(2)}`);
 
 export default function AiOverviewPage() {
+    const { t } = useTranslation('administration');
     const { data } = useAiCenter();
     const [refreshing, setRefreshing] = useState(false);
     const { snapshot, features, knowledgeVaults, knowledgeItems } = data;
@@ -32,90 +34,97 @@ export default function AiOverviewPage() {
 
     return (
         <AiSubPage
-            title="AI Center"
-            subtitle="AI operations overview — what is enabled, what needs configuration, and usage"
+            titleKey="ai.overview.title"
+            subtitleKey="ai.overview.subtitle"
             actions={
                 <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={handleRefresh}>
                     <RiRefreshLine className={`size-3.5 ${refreshing ? 'animate-spin' : ''}`} />
-                    <span>Refresh Stats</span>
+                    <span>{t('ai.overview.refreshStats')}</span>
                 </Button>
             }
         >
             <div className="flex flex-col gap-6 w-full">
-                {/* Snapshot metrics */}
                 <div className="flex flex-col gap-2.5">
                     <h2 className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
                         <FlexIcon name="ai-snapshot" className="text-primary" />
-                        <span>Today&apos;s Usage Snapshot</span>
+                        <span>{t('ai.overview.usageSnapshot')}</span>
                     </h2>
 
                     <MetricGroup>
                         <MetricCard
-                            title="AI Sessions Today"
+                            title={t('ai.overview.aiSessionsToday')}
                             value={snapshot.sessionsToday === null ? null : formatNumber(snapshot.sessionsToday)}
-                            description="Real-time agent co-pilot interactions"
+                            description={t('ai.overview.aiSessionsTodayDescription', { defaultValue: 'Real-time agent co-pilot interactions' })}
                         />
                         <MetricCard
-                            title="Assist Adoption Rate"
+                            title={t('ai.overview.assistAdoptionRate')}
                             value={snapshot.assistAdoptionRate === null ? null : `${snapshot.assistAdoptionRate}%`}
-                            description="Agents accepting AI suggestions"
+                            description={t('ai.overview.assistAdoptionRateDescription', { defaultValue: 'Agents accepting AI suggestions' })}
                         />
                         <MetricCard
-                            title="Total Tokens Today"
+                            title={t('ai.overview.totalTokensToday')}
                             value={formatTokens(snapshot.totalTokensToday)}
-                            description="Prompt & completion token volume"
+                            description={t('ai.overview.totalTokensTodayDescription', { defaultValue: 'Prompt & completion token volume' })}
                         />
                         <MetricCard
-                            title="Est. Cost Today"
+                            title={t('ai.overview.estimatedCostToday')}
                             value={formatCost(snapshot.estimatedCostToday)}
-                            description="Inference provider cost estimate"
+                            description={t('ai.overview.estimatedCostTodayDescription', { defaultValue: 'Inference provider cost estimate' })}
                         />
                     </MetricGroup>
                 </div>
 
-                {/* Feature status */}
                 <div className="flex flex-col gap-3">
                     <h2 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                        AI Feature Status
+                        {t('ai.overview.featureStatus')}
                     </h2>
                     <AIFeatureStatusGrid features={features} />
                 </div>
 
-                {/* Knowledge base impact */}
                 <Card className="bg-card border-border shadow-2xs">
                     <CardHeader className="p-4 pb-2 border-b border-border">
                         <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center justify-between">
                             <span className="flex items-center gap-1.5">
                                 <FlexIcon name="knowledge-base" className="text-primary" />
-                                Knowledge Base Coverage
+                                {t('ai.overview.knowledgeCoverage')}
                             </span>
                             <span className="text-xs font-semibold text-status-live">
                                 {snapshot.knowledgeSearchPrecision === null
-                                    ? 'Precision — no data'
-                                    : `${snapshot.knowledgeSearchPrecision}% Search Precision`}
+                                    ? t('ai.overview.precisionNoData')
+                                    : t('ai.overview.precisionValue', { value: snapshot.knowledgeSearchPrecision })}
                             </span>
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="p-4">
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                             <div className="p-3 rounded-lg bg-muted/40 border border-border flex flex-col">
-                                <span className="text-[10px] uppercase font-semibold text-muted-foreground">Active KB Vaults</span>
-                                <span className="text-lg font-bold text-foreground">{indexedVaults} / {knowledgeVaults.length}</span>
+                                <span className="text-[10px] uppercase font-semibold text-muted-foreground">
+                                    {t('ai.overview.activeVaults')}
+                                </span>
+                                <span className="text-lg font-bold text-foreground">
+                                    {indexedVaults} / {knowledgeVaults.length}
+                                </span>
                             </div>
                             <div className="p-3 rounded-lg bg-muted/40 border border-border flex flex-col">
-                                <span className="text-[10px] uppercase font-semibold text-muted-foreground">Knowledge Items</span>
+                                <span className="text-[10px] uppercase font-semibold text-muted-foreground">
+                                    {t('ai.overview.knowledgeItems')}
+                                </span>
                                 <span className="text-lg font-bold text-foreground">{formatNumber(knowledgeItems.length)}</span>
                             </div>
                             <div className="p-3 rounded-lg bg-muted/40 border border-border flex flex-col">
-                                <span className="text-[10px] uppercase font-semibold text-muted-foreground">Updated Today</span>
+                                <span className="text-[10px] uppercase font-semibold text-muted-foreground">
+                                    {t('ai.overview.updatedToday')}
+                                </span>
                                 <span className="text-lg font-bold text-status-live">{updatedToday}</span>
                             </div>
                             <div className="p-3 rounded-lg bg-muted/40 border border-border flex flex-col">
-                                <span className="text-[10px] uppercase font-semibold text-muted-foreground">Last Updated</span>
+                                <span className="text-[10px] uppercase font-semibold text-muted-foreground">
+                                    {t('ai.overview.lastUpdated')}
+                                </span>
                                 <span className="text-sm font-semibold text-foreground">
                                     {snapshot.lastUpdatedAt
                                         ? new Date(snapshot.lastUpdatedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                                        : 'No data'}
+                                        : t('ai.overview.noData')}
                                 </span>
                             </div>
                         </div>

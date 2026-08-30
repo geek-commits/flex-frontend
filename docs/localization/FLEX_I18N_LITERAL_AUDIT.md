@@ -1,6 +1,6 @@
 # FLEX i18n Literal Audit — Report Mode (Phase 2)
 
-**Generated:** 2026-08-29T07:17:29.151Z **SHA:** local **Files scanned:** 629 **Hits:** 486
+**Generated:** 2026-08-30T11:18:11.893Z **SHA:** local **Files scanned:** 629 **Hits:** 439
 
 > Classification per §107: TRANSLATE / RUNTIME_DATA / TECHNICAL / BRAND / EXTERNAL / FALSE_POSITIVE — triage before CI gate.
 
@@ -10,15 +10,6 @@
 | components/app-header.tsx | 85 | aria-label | `aria-label="Toggle navigation menu"` |
 | components/app-header.tsx | 185 | aria-label | `aria-label="Search"` |
 | components/app-sidebar.tsx | 54 | aria-label | `aria-label="FLEX home"` |
-| components/appearance-tabs.tsx | 22 | aria-label | `aria-label="Appearance"` |
-| components/delete-user.tsx | 31 | JSX text | `Warning` |
-| components/delete-user.tsx | 32 | JSX text | `Please proceed with caution, this cannot be undone.` |
-| components/delete-user.tsx | 43 | JSX text | `Delete account` |
-| components/delete-user.tsx | 74 | JSX text | `Password` |
-| components/delete-user.tsx | 97 | JSX text | `Cancel` |
-| components/delete-user.tsx | 108 | JSX text | `Delete account` |
-| components/delete-user.tsx | 26 | title | `title="Delete account"` |
-| components/delete-user.tsx | 82 | placeholder | `placeholder="Password"` |
 | components/examples/c-filters-7.tsx | 442 | JSX text | `Online` |
 | components/examples/c-filters-7.tsx | 452 | JSX text | `Away` |
 | components/examples/c-filters-7.tsx | 462 | JSX text | `Busy` |
@@ -51,22 +42,6 @@
 | components/flex/my-role-access.tsx | 104 | JSX text | `Scope` |
 | components/flex/my-role-access.tsx | 110 | JSX text | `Effective access` |
 | components/flex/primary-rail.tsx | 47 | aria-label | `aria-label="FLEX product domains"` |
-| components/manage-passkeys.tsx | 20 | JSX text | `No passkeys yet` |
-| components/manage-passkeys.tsx | 21 | JSX text | `Add a passkey to sign in without a password` |
-| components/manage-passkeys.tsx | 50 | title | `title="Passkeys"` |
-| components/manage-two-factor.tsx | 69 | JSX text | `Disable 2FA` |
-| components/manage-two-factor.tsx | 94 | JSX text | `Continue setup` |
-| components/manage-two-factor.tsx | 103 | JSX text | `Enable 2FA` |
-| components/manage-two-factor.tsx | 51 | title | `title="Two-factor authentication"` |
-| components/passkey-item.tsx | 68 | JSX text | `Remove` |
-| components/passkey-item.tsx | 73 | JSX text | `Remove passkey` |
-| components/passkey-item.tsx | 81 | JSX text | `Cancel` |
-| components/passkey-register.tsx | 61 | JSX text | `Passkeys are not supported in this browser.` |
-| components/passkey-register.tsx | 69 | JSX text | `Add passkey` |
-| components/passkey-register.tsx | 81 | JSX text | `Passkey name` |
-| components/passkey-register.tsx | 91 | JSX text | `A name helps you identify this passkey later.` |
-| components/passkey-register.tsx | 102 | JSX text | `Cancel` |
-| components/passkey-register.tsx | 87 | placeholder | `placeholder="e.g., MacBook Pro, iPhone"` |
 | components/reui/data-grid/data-grid-column-filter.tsx | 100 | JSX text | `No results found.` |
 | components/reui/data-grid/data-grid-column-filter.tsx | 178 | JSX text | `Clear filters` |
 | components/reui/data-grid/data-grid-column-header.tsx | 162 | JSX text | `Desc` |
@@ -83,15 +58,8 @@
 | components/reui/data-grid/data-grid.tsx | 291 | JSX text | `DataGridTableInstance` |
 | components/reui/filters.tsx | 517 | JSX text | `FilterOption` |
 | components/reui/filters.tsx | 622 | JSX text | `FilterOption` |
-| components/two-factor-recovery-codes.tsx | 17 | JSX text | `Promise` |
-| components/two-factor-recovery-codes.tsx | 95 | JSX text | `Regenerate codes` |
-| components/two-factor-recovery-codes.tsx | 151 | JSX text | `Regenerate codes` |
-| components/two-factor-recovery-codes.tsx | 115 | aria-label | `aria-label="Recovery codes"` |
-| components/two-factor-recovery-codes.tsx | 130 | aria-label | `aria-label="Loading recovery codes"` |
-| components/two-factor-setup-modal.tsx | 213 | JSX text | `Back` |
-| components/two-factor-setup-modal.tsx | 222 | JSX text | `Confirm` |
-| components/two-factor-setup-modal.tsx | 241 | JSX text | `Promise` |
-| components/two-factor-setup-modal.tsx | 128 | aria-label | `aria-label="Copy manual setup key"` |
+| components/two-factor-recovery-codes.tsx | 18 | JSX text | `Promise` |
+| components/two-factor-setup-modal.tsx | 243 | JSX text | `Promise` |
 | components/ui/breadcrumb.tsx | 96 | JSX text | `More` |
 | components/ui/breadcrumb.tsx | 8 | aria-label | `aria-label="breadcrumb"` |
 | components/ui/dialog.tsx | 73 | JSX text | `Close` |
@@ -231,18 +199,18 @@
 | features/customer-recovery/recovery-toolbar.tsx | 141 | JSX text | `Refresh` |
 | features/customer-recovery/recovery-toolbar.tsx | 122 | placeholder | `placeholder="Search phone number or queue..."` |
 | features/customer-recovery/recovery-toolbar.tsx | 123 | aria-label | `aria-label="Search missed calls"` |
-| features/dashboard/dashboard-active-calls-columns.tsx | 128 | title | `title="Customer"` |
-| features/dashboard/dashboard-active-calls-columns.tsx | 137 | title | `title="Agent"` |
-| features/dashboard/dashboard-active-calls-columns.tsx | 148 | title | `title="Queue"` |
-| features/dashboard/dashboard-active-calls-columns.tsx | 170 | title | `title="Duration"` |
-| features/dashboard/dashboard-active-calls-columns.tsx | 179 | title | `title="State"` |
+| features/dashboard/dashboard-active-calls-columns.tsx | 136 | title | `title="Customer"` |
+| features/dashboard/dashboard-active-calls-columns.tsx | 145 | title | `title="Agent"` |
+| features/dashboard/dashboard-active-calls-columns.tsx | 156 | title | `title="Queue"` |
+| features/dashboard/dashboard-active-calls-columns.tsx | 178 | title | `title="Duration"` |
+| features/dashboard/dashboard-active-calls-columns.tsx | 187 | title | `title="State"` |
 | features/dashboard/dashboard-types.ts | 61 | JSX text | `Promise` |
-| features/dashboard/dashboard-wallboard-columns.tsx | 155 | title | `title="Agent"` |
-| features/dashboard/dashboard-wallboard-columns.tsx | 177 | title | `title="Queue"` |
-| features/dashboard/dashboard-wallboard-columns.tsx | 188 | title | `title="State"` |
-| features/dashboard/dashboard-wallboard-columns.tsx | 197 | title | `title="State Time"` |
-| features/dashboard/dashboard-wallboard-columns.tsx | 206 | title | `title="Current Call"` |
-| features/dashboard/dashboard-wallboard-columns.tsx | 215 | title | `title="Calls Today"` |
+| features/dashboard/dashboard-wallboard-columns.tsx | 162 | title | `title="Agent"` |
+| features/dashboard/dashboard-wallboard-columns.tsx | 184 | title | `title="Queue"` |
+| features/dashboard/dashboard-wallboard-columns.tsx | 195 | title | `title="State"` |
+| features/dashboard/dashboard-wallboard-columns.tsx | 204 | title | `title="State Time"` |
+| features/dashboard/dashboard-wallboard-columns.tsx | 213 | title | `title="Current Call"` |
+| features/dashboard/dashboard-wallboard-columns.tsx | 222 | title | `title="Calls Today"` |
 | features/recordings/recording-delete-dialog.tsx | 40 | JSX text | `Delete Recording` |
 | features/recordings/recording-delete-dialog.tsx | 42 | JSX text | `Are you sure you want to delete` |
 | features/recordings/recording-delete-dialog.tsx | 57 | JSX text | `Deleting this asset may cause callers to hear silence or encounter routing error` |
@@ -381,8 +349,8 @@
 | hooks/use-two-factor-auth.ts | 15 | JSX text | `Promise` |
 | hooks/use-two-factor-auth.ts | 16 | JSX text | `Promise` |
 | hooks/use-two-factor-auth.ts | 17 | JSX text | `Promise` |
-| layouts/auth/auth-split-layout.tsx | 24 | JSX text | `FLEX Contact Center` |
-| layouts/auth/auth-split-layout.tsx | 51 | aria-label | `aria-label="FLEX Contact Center Overview"` |
+| layouts/auth/auth-split-layout.tsx | 33 | JSX text | `FLEX Contact Center` |
+| layouts/auth/auth-split-layout.tsx | 60 | aria-label | `aria-label="FLEX Contact Center Overview"` |
 | pages/admin/ai/assist.tsx | 21 | JSX text | `Enablement` |
 | pages/admin/ai/assist.tsx | 27 | JSX text | `Agent Assist enabled` |
 | pages/admin/ai/assist.tsx | 45 | JSX text | `Runtime Metrics` |
@@ -474,21 +442,6 @@
 | pages/dev/brand-preview.tsx | 99 | JSX text | `Canonical wordmark animation surfaces. Not part of production navigation.` |
 | pages/dev/brand-preview.tsx | 119 | JSX text | `Compact monogram (no animation, 30px).` |
 | pages/dev/brand-preview.tsx | 94 | title | `title="Brand preview (dev)"` |
-| pages/settings/appearance.tsx | 18 | title | `title="Appearance settings"` |
-| pages/settings/profile.tsx | 50 | JSX text | `Name` |
-| pages/settings/profile.tsx | 69 | JSX text | `Email address` |
-| pages/settings/profile.tsx | 117 | JSX text | `Save` |
-| pages/settings/profile.tsx | 37 | title | `title="Profile"` |
-| pages/settings/profile.tsx | 59 | placeholder | `placeholder="Full name"` |
-| pages/settings/profile.tsx | 79 | placeholder | `placeholder="Email address"` |
-| pages/settings/security.tsx | 62 | JSX text | `Current password` |
-| pages/settings/security.tsx | 79 | JSX text | `New password` |
-| pages/settings/security.tsx | 95 | JSX text | `Confirm password` |
-| pages/settings/security.tsx | 117 | JSX text | `Save` |
-| pages/settings/security.tsx | 34 | title | `title="Update password"` |
-| pages/settings/security.tsx | 72 | placeholder | `placeholder="Current password"` |
-| pages/settings/security.tsx | 87 | placeholder | `placeholder="New password"` |
-| pages/settings/security.tsx | 104 | placeholder | `placeholder="Confirm password"` |
 | pages/supervision/exceptions.tsx | 14 | title | `title="Exceptions — Flex"` |
 | pages/supervision/exceptions.tsx | 15 | title | `title="Exception Center"` |
 | pages/supervision/exceptions.tsx | 20 | title | `title="No exceptions"` |
