@@ -1,6 +1,6 @@
 # FLEX i18n Literal Audit — Report Mode (Phase 2)
 
-**Generated:** 2026-08-30T11:18:11.893Z **SHA:** local **Files scanned:** 629 **Hits:** 439
+**Generated:** 2026-08-30T20:35:08.931Z **SHA:** local **Files scanned:** 629 **Hits:** 409
 
 > Classification per §107: TRANSLATE / RUNTIME_DATA / TECHNICAL / BRAND / EXTERNAL / FALSE_POSITIVE — triage before CI gate.
 
@@ -351,60 +351,34 @@
 | hooks/use-two-factor-auth.ts | 17 | JSX text | `Promise` |
 | layouts/auth/auth-split-layout.tsx | 33 | JSX text | `FLEX Contact Center` |
 | layouts/auth/auth-split-layout.tsx | 60 | aria-label | `aria-label="FLEX Contact Center Overview"` |
-| pages/admin/ai/assist.tsx | 21 | JSX text | `Enablement` |
-| pages/admin/ai/assist.tsx | 27 | JSX text | `Agent Assist enabled` |
-| pages/admin/ai/assist.tsx | 45 | JSX text | `Runtime Metrics` |
-| pages/admin/ai/assist.tsx | 51 | JSX text | `Status` |
-| pages/admin/ai/assist.tsx | 57 | JSX text | `Adoption Rate` |
-| pages/admin/ai/assist.tsx | 15 | title | `title="Agent Assist"` |
-| pages/admin/ai/assist.tsx | 16 | title | `title="Real-time suggestions surfaced to agents during customer interactions"` |
-| pages/admin/ai/assist.tsx | 36 | aria-label | `aria-label="Toggle Agent Assist"` |
-| pages/admin/ai/assist.tsx | 66 | title | `title="Agent Assist suggestions are not modeled"` |
-| pages/admin/ai/audit.tsx | 22 | JSX text | `Audit Log` |
-| pages/admin/ai/audit.tsx | 16 | title | `title="AI Audit"` |
-| pages/admin/ai/audit.tsx | 17 | title | `title="AI configuration and action history"` |
-| pages/admin/ai/audit.tsx | 29 | title | `title="No audit records"` |
-| pages/admin/ai/knowledge.tsx | 22 | JSX text | `Knowledge Vaults` |
-| pages/admin/ai/knowledge.tsx | 63 | JSX text | `Knowledge Items` |
-| pages/admin/ai/knowledge.tsx | 15 | title | `title="Knowledge Base"` |
-| pages/admin/ai/knowledge.tsx | 16 | title | `title="Semantic search over indexed knowledge for agent response suggestions"` |
-| pages/admin/ai/knowledge.tsx | 29 | title | `title="No knowledge vaults"` |
-| pages/admin/ai/knowledge.tsx | 70 | title | `title="No knowledge items"` |
-| pages/admin/ai/overview.tsx | 40 | JSX text | `Refresh Stats` |
-| pages/admin/ai/overview.tsx | 78 | JSX text | `AI Feature Status` |
-| pages/admin/ai/overview.tsx | 89 | JSX text | `Knowledge Base Coverage` |
-| pages/admin/ai/overview.tsx | 102 | JSX text | `Active KB Vaults` |
-| pages/admin/ai/overview.tsx | 106 | JSX text | `Knowledge Items` |
-| pages/admin/ai/overview.tsx | 110 | JSX text | `Updated Today` |
-| pages/admin/ai/overview.tsx | 114 | JSX text | `Last Updated` |
-| pages/admin/ai/overview.tsx | 35 | title | `title="AI Center"` |
-| pages/admin/ai/overview.tsx | 36 | title | `title="AI operations overview — what is enabled, what needs configuration, and u` |
-| pages/admin/ai/overview.tsx | 54 | title | `title="AI Sessions Today"` |
-| pages/admin/ai/overview.tsx | 59 | title | `title="Assist Adoption Rate"` |
-| pages/admin/ai/overview.tsx | 64 | title | `title="Total Tokens Today"` |
-| pages/admin/ai/providers.tsx | 21 | JSX text | `Providers` |
-| pages/admin/ai/providers.tsx | 57 | JSX text | `Test connection` |
-| pages/admin/ai/providers.tsx | 15 | title | `title="Providers & Models"` |
-| pages/admin/ai/providers.tsx | 16 | title | `title="Connected inference providers and their models"` |
-| pages/admin/ai/providers.tsx | 28 | title | `title="No providers configured"` |
-| pages/admin/ai/settings.tsx | 19 | JSX text | `Global AI` |
-| pages/admin/ai/settings.tsx | 32 | JSX text | `Dependencies` |
-| pages/admin/ai/settings.tsx | 13 | title | `title="AI Settings"` |
-| pages/admin/ai/settings.tsx | 14 | title | `title="Global and tenant AI configuration"` |
-| pages/admin/ai/settings.tsx | 39 | title | `title="No dependency notes"` |
-| pages/admin/ai/settings.tsx | 54 | title | `title="Settings are configuration-only"` |
-| pages/admin/ai/usage.tsx | 22 | JSX text | `Usage` |
-| pages/admin/ai/usage.tsx | 36 | JSX text | `Queue` |
-| pages/admin/ai/usage.tsx | 37 | JSX text | `Sessions` |
-| pages/admin/ai/usage.tsx | 38 | JSX text | `Tokens` |
-| pages/admin/ai/usage.tsx | 39 | JSX text | `Est. Cost` |
-| pages/admin/ai/usage.tsx | 16 | title | `title="Usage & Costs"` |
-| pages/admin/ai/usage.tsx | 17 | title | `title="Inference session, token, and cost volume"` |
-| pages/admin/ai/usage.tsx | 29 | title | `title="No usage data"` |
-| pages/admin/ai/voice.tsx | 20 | JSX text | `Status` |
-| pages/admin/ai/voice.tsx | 14 | title | `title="Virtual Assistants"` |
-| pages/admin/ai/voice.tsx | 15 | title | `title="Autonomous conversational AI for tier-1 inbound inquiries"` |
-| pages/admin/ai/voice.tsx | 48 | title | `title="Voice AI is configuration-only"` |
+| pages/admin/ai/assist.tsx | 22 | JSX text | `Enablement` |
+| pages/admin/ai/assist.tsx | 28 | JSX text | `Agent Assist enabled` |
+| pages/admin/ai/assist.tsx | 46 | JSX text | `Runtime Metrics` |
+| pages/admin/ai/assist.tsx | 52 | JSX text | `Status` |
+| pages/admin/ai/assist.tsx | 58 | JSX text | `Adoption Rate` |
+| pages/admin/ai/assist.tsx | 37 | aria-label | `aria-label="Toggle Agent Assist"` |
+| pages/admin/ai/assist.tsx | 67 | title | `title="Agent Assist suggestions are not modeled"` |
+| pages/admin/ai/audit.tsx | 23 | JSX text | `Audit Log` |
+| pages/admin/ai/audit.tsx | 30 | title | `title="No audit records"` |
+| pages/admin/ai/knowledge.tsx | 23 | JSX text | `Knowledge Vaults` |
+| pages/admin/ai/knowledge.tsx | 64 | JSX text | `Knowledge Items` |
+| pages/admin/ai/knowledge.tsx | 30 | title | `title="No knowledge vaults"` |
+| pages/admin/ai/knowledge.tsx | 71 | title | `title="No knowledge items"` |
+| pages/admin/ai/providers.tsx | 22 | JSX text | `Providers` |
+| pages/admin/ai/providers.tsx | 58 | JSX text | `Test connection` |
+| pages/admin/ai/providers.tsx | 29 | title | `title="No providers configured"` |
+| pages/admin/ai/settings.tsx | 20 | JSX text | `Global AI` |
+| pages/admin/ai/settings.tsx | 33 | JSX text | `Dependencies` |
+| pages/admin/ai/settings.tsx | 40 | title | `title="No dependency notes"` |
+| pages/admin/ai/settings.tsx | 55 | title | `title="Settings are configuration-only"` |
+| pages/admin/ai/usage.tsx | 23 | JSX text | `Usage` |
+| pages/admin/ai/usage.tsx | 37 | JSX text | `Queue` |
+| pages/admin/ai/usage.tsx | 38 | JSX text | `Sessions` |
+| pages/admin/ai/usage.tsx | 39 | JSX text | `Tokens` |
+| pages/admin/ai/usage.tsx | 40 | JSX text | `Est. Cost` |
+| pages/admin/ai/usage.tsx | 30 | title | `title="No usage data"` |
+| pages/admin/ai/voice.tsx | 21 | JSX text | `Status` |
+| pages/admin/ai/voice.tsx | 49 | title | `title="Voice AI is configuration-only"` |
 | pages/admin/campaign-detail.tsx | 40 | JSX text | `Campaign` |
 | pages/admin/campaign-detail.tsx | 101 | JSX text | `Edit` |
 | pages/admin/campaign-detail.tsx | 110 | JSX text | `Delete` |
@@ -430,10 +404,6 @@
 | pages/admin/cdr-detail.tsx | 108 | JSX text | `Recording` |
 | pages/admin/cdr-detail.tsx | 140 | JSX text | `Call Timeline` |
 | pages/admin/cdr-detail.tsx | 42 | title | `title="Call Detail Record"` |
-| pages/customers/show.tsx | 23 | JSX text | `Open Workspace` |
-| pages/customers/show.tsx | 30 | JSX text | `Customer ID` |
-| pages/customers/show.tsx | 35 | JSX text | `All activity` |
-| pages/customers/show.tsx | 38 | title | `title="No activity yet"` |
 | pages/dev/brand-preview.tsx | 28 | JSX text | `Play` |
 | pages/dev/brand-preview.tsx | 31 | JSX text | `Pause` |
 | pages/dev/brand-preview.tsx | 34 | JSX text | `Resume` |
