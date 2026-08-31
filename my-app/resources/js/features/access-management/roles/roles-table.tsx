@@ -3,8 +3,9 @@ import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
+import { ROLE_LABEL_KEYS } from '@/features/access-management/shared/role-options';
 import type { RoleRecord } from '@/features/access-management/shared/permission-catalog';
-import { permissionModuleLabel } from '@/features/access-management/shared/permission-catalog';
+import { PERMISSION_MODULE_KEYS, PERMISSIONS } from '@/features/access-management/shared/permission-catalog';
 
 export interface RolesTableProps {
     records: RoleRecord[];
@@ -47,46 +48,54 @@ export function RolesTable({ records, isLoading, emptyMessage, onEdit }: RolesTa
                     </tr>
                 </thead>
                 <tbody>
-                    {records.map((role) => (
-                        <tr key={role.id} className="border-b border-border last:border-b-0 hover:bg-muted/30 transition-colors">
-                            <td className="px-4 py-3 text-start">
-                                <span className="font-semibold text-flex-text-primary">{role.name}</span>
-                            </td>
-                            <td className="px-4 py-3 text-end">
-                                <div className="flex items-center gap-2 justify-end">
-                                    <span className="inline-flex items-center rounded-full border border-border bg-muted px-2 py-0.5 text-[11px] font-semibold tabular-nums text-flex-text-primary">
-                                        {role.permissions.length}
-                                    </span>
-                                    <span
-                                        className="text-xs text-flex-text-muted truncate max-w-[180px]"
-                                        title={
-                                            role.permissions.length > 0
-                                                ? Array.from(new Set(role.permissions.map(permissionModuleLabel))).join(' · ')
-                                                : undefined
-                                        }
+                    {records.map((role) => {
+                        const displayName = role.kind === 'builtin' ? t(ROLE_LABEL_KEYS[role.id]) : role.name;
+                        const moduleKeys = Array.from(
+                            new Set(
+                                role.permissions
+                                    .map((pid) => {
+                                        const perm = PERMISSIONS.find((p) => p.id === pid);
+                                        return perm ? perm.moduleKey : PERMISSION_MODULE_KEYS.custom;
+                                    })
+                                    .map((k) => t(k)),
+                            ),
+                        ).join(' · ');
+
+                        return (
+                            <tr key={role.id} className="border-b border-border last:border-b-0 hover:bg-muted/30 transition-colors">
+                                <td className="px-4 py-3 text-start">
+                                    <span className="font-semibold text-flex-text-primary">{displayName}</span>
+                                </td>
+                                <td className="px-4 py-3 text-end">
+                                    <div className="flex items-center gap-2 justify-end">
+                                        <span className="inline-flex items-center rounded-full border border-border bg-muted px-2 py-0.5 text-[11px] font-semibold tabular-nums text-flex-text-primary">
+                                            {role.permissions.length}
+                                        </span>
+                                        <span
+                                            className="text-xs text-flex-text-muted truncate max-w-[180px]"
+                                            title={role.permissions.length > 0 ? moduleKeys : undefined}
+                                        >
+                                            {role.permissions.length > 0 ? moduleKeys : t('roles.table.noPermissions')}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td className="px-4 py-3 text-end">
+                                    <span className="text-xs tabular-nums text-flex-text-primary">{role.userCount}</span>
+                                </td>
+                                <td className="px-4 py-3 text-center">
+                                    <Button
+                                        variant="ghost"
+                                        size="icon-xs"
+                                        title={t('roles.table.editRole')}
+                                        aria-label={t('roles.table.editRoleAria', { name: displayName })}
+                                        onClick={() => onEdit(role)}
                                     >
-                                        {role.permissions.length > 0
-                                            ? Array.from(new Set(role.permissions.map(permissionModuleLabel))).join(' · ')
-                                            : t('roles.table.noPermissions')}
-                                    </span>
-                                </div>
-                            </td>
-                            <td className="px-4 py-3 text-end">
-                                <span className="text-xs tabular-nums text-flex-text-primary">{role.userCount}</span>
-                            </td>
-                            <td className="px-4 py-3 text-center">
-                                <Button
-                                    variant="ghost"
-                                    size="icon-xs"
-                                    title={t('roles.table.editRole')}
-                                    aria-label={t('roles.table.editRoleAria', { name: role.name })}
-                                    onClick={() => onEdit(role)}
-                                >
-                                    <RiEditLine className="size-3.5" />
-                                </Button>
-                            </td>
-                        </tr>
-                    ))}
+                                        <RiEditLine className="size-3.5" />
+                                    </Button>
+                                </td>
+                            </tr>
+                        );
+                    })}
                 </tbody>
             </table>
         </div>

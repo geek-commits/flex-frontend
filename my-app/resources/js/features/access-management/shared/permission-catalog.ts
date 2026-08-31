@@ -158,21 +158,29 @@ export interface PermissionDraft {
     type: string;
 }
 
-export interface RoleRecord {
+export type BuiltinRoleRecord = {
+    kind: 'builtin';
+    id: Role;
+    permissions: string[];
+    userCount: number;
+};
+
+export type CustomRoleRecord = {
+    kind: 'custom';
     id: string;
     name: string;
     permissions: string[];
     userCount: number;
-    kind?: 'builtin' | 'custom';
-}
+};
+
+export type RoleRecord = BuiltinRoleRecord | CustomRoleRecord;
 
 export function roleRecords(userCounts: Record<Role, number>): RoleRecord[] {
     return (Object.keys(ROLE_CAPABILITIES) as Role[]).map((id) => ({
+        kind: 'builtin' as const,
         id,
-        name: id,
         permissions: [...ROLE_CAPABILITIES[id]],
         userCount: userCounts[id] ?? 0,
-        kind: 'builtin' as const,
     }));
 }
 
