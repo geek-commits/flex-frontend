@@ -20,6 +20,13 @@ export const CDR_STATUS_TONE: Record<CDRRecord['status'], FlexStatusTone> = {
     transferred: 'info',
 };
 
+const CDR_STATUS_KEYS = {
+    answered: 'cdr.status.answered',
+    missed: 'cdr.status.missed',
+    voicemail: 'cdr.status.voicemail',
+    transferred: 'cdr.status.transferred',
+} as const;
+
 export const formatDuration = (sec: number) => {
     const m = Math.floor(sec / 60);
     const s = sec % 60;
@@ -104,7 +111,7 @@ export function cdrColumns(t: TF, onViewRecord?: (record: CDRRecord) => void): C
             header: ({ column }) => <DataGridColumnHeader title={t('cdr.columns.status')} column={column} />,
             cell: ({ row }) => (
                 <FlexStatus tone={CDR_STATUS_TONE[row.original.status]} className="capitalize">
-                    {row.original.status}
+                    {t(CDR_STATUS_KEYS[row.original.status])}
                 </FlexStatus>
             ),
             size: 120,

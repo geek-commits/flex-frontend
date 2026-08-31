@@ -1,6 +1,7 @@
 import { router } from '@inertiajs/react';
-import { RiExternalLinkLine, RiPlayFill, RiPauseLine } from '@remixicon/react';
+import { RiExternalLinkLine, RiPauseLine, RiPlayFill } from '@remixicon/react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexDetailSheet } from '@/components/flex/flex-detail-sheet';
 import { FlexStatus } from '@/components/flex/flex-status';
 import { Button } from '@/components/ui/button';
@@ -14,7 +15,15 @@ export interface CdrDetailSheetProps {
     onOpenChange: (open: boolean) => void;
 }
 
+const CDR_STATUS_KEYS = {
+    answered: 'cdr.status.answered',
+    missed: 'cdr.status.missed',
+    voicemail: 'cdr.status.voicemail',
+    transferred: 'cdr.status.transferred',
+} as const;
+
 export function CdrDetailSheet({ recordId, onOpenChange }: CdrDetailSheetProps) {
+    const { t } = useTranslation('supervision');
     const [record, setRecord] = useState<CDRRecord>();
     const [loadedId, setLoadedId] = useState<string>();
     const open = !!recordId;
@@ -33,12 +42,12 @@ export function CdrDetailSheet({ recordId, onOpenChange }: CdrDetailSheetProps) 
         <FlexDetailSheet
             open={open}
             onOpenChange={onOpenChange}
-            title={record?.customerPhone ?? 'Call detail'}
+            title={record?.customerPhone ?? t('cdr.detail.title')}
             meta={
                 record ? (
                     <div className="flex items-center gap-2">
                         <FlexStatus tone={CDR_STATUS_TONE[record.status]} className="capitalize">
-                            {record.status}
+                            {t(CDR_STATUS_KEYS[record.status])}
                         </FlexStatus>
                         <span>{record.date}</span>
                     </div>
@@ -54,7 +63,7 @@ export function CdrDetailSheet({ recordId, onOpenChange }: CdrDetailSheetProps) 
                             onClick={() => router.visit(`/admin/cdr/${record.id}`)}
                         >
                             <RiExternalLinkLine className="size-3.5" />
-                            Full detail
+                            {t('cdr.detail.fullDetail')}
                         </Button>
                     )}
                 </>
@@ -65,23 +74,23 @@ export function CdrDetailSheet({ recordId, onOpenChange }: CdrDetailSheetProps) 
                     {/* Meta grid */}
                     <div className="grid grid-cols-2 gap-3">
                         <div className="p-3 rounded-lg bg-muted/40 border border-border flex flex-col">
-                            <span className="text-[10px] uppercase font-semibold text-muted-foreground">Queue</span>
+                            <span className="text-[10px] uppercase font-semibold text-muted-foreground">{t('cdr.detail.queue')}</span>
                             <span className="text-sm font-semibold text-foreground truncate">{record.queueName}</span>
                         </div>
                         <div className="p-3 rounded-lg bg-muted/40 border border-border flex flex-col">
-                            <span className="text-[10px] uppercase font-semibold text-muted-foreground">Agent</span>
+                            <span className="text-[10px] uppercase font-semibold text-muted-foreground">{t('cdr.detail.agent')}</span>
                             <span className="text-sm font-semibold text-foreground truncate">{record.agentName}</span>
                         </div>
                         <div className="p-3 rounded-lg bg-muted/40 border border-border flex flex-col">
-                            <span className="text-[10px] uppercase font-semibold text-muted-foreground">Duration</span>
+                            <span className="text-[10px] uppercase font-semibold text-muted-foreground">{t('cdr.detail.duration')}</span>
                             <span className="text-sm font-semibold text-foreground font-mono flex-numeric">
                                 {formatDuration(record.durationSeconds)}
                             </span>
                         </div>
                         <div className="p-3 rounded-lg bg-muted/40 border border-border flex flex-col">
-                            <span className="text-[10px] uppercase font-semibold text-muted-foreground">Recording</span>
+                            <span className="text-[10px] uppercase font-semibold text-muted-foreground">{t('cdr.detail.recording')}</span>
                             <span className="text-sm font-semibold text-foreground">
-                                {record.hasRecording ? 'Available' : 'No recording'}
+                                {record.hasRecording ? t('cdr.detail.recordingAvailable') : t('cdr.detail.recordingNone')}
                             </span>
                         </div>
                     </div>
@@ -92,7 +101,8 @@ export function CdrDetailSheet({ recordId, onOpenChange }: CdrDetailSheetProps) 
                             <Button
                                 variant="outline"
                                 size="icon-sm"
-                                title={playing ? 'Pause' : 'Play'}
+                                title={t(playing ? 'cdr.detail.pause' : 'cdr.detail.play')}
+                                aria-label={t(playing ? 'cdr.detail.pause' : 'cdr.detail.play')}
                                 onClick={() => setPlaying((p) => !p)}
                             >
                                 {playing ? (
@@ -130,10 +140,14 @@ export function CdrDetailSheet({ recordId, onOpenChange }: CdrDetailSheetProps) 
                                     <div className={`pb-4 min-w-0 ${index === all.length - 1 ? 'pb-0' : ''}`}>
                                         <div className="flex items-center gap-2">
                                             <span className="font-mono text-[11px] text-muted-foreground flex-numeric">{event.at}</span>
-                                            <span className="text-xs font-semibold text-foreground">{event.title}</span>
+                                            <span className="text-xs font-semibold text-foreground">
+                                                {t(event.titleKey, event.titleParams)}
+                                            </span>
                                         </div>
-                                        {event.description && (
-                                            <p className="text-[11px] text-muted-foreground mt-0.5">{event.description}</p>
+                                        {event.descriptionKey && (
+                                            <p className="text-[11px] text-muted-foreground mt-0.5">
+                                                {t(event.descriptionKey, event.descriptionParams)}
+                                            </p>
                                         )}
                                     </div>
                                 </div>
@@ -142,7 +156,7 @@ export function CdrDetailSheet({ recordId, onOpenChange }: CdrDetailSheetProps) 
                     </div>
                 </>
             ) : (
-                <p className="text-xs text-flex-text-muted">Call record not found.</p>
+                <p className="text-xs text-flex-text-muted">{t('cdr.detail.notFound')}</p>
             )}
         </FlexDetailSheet>
     );

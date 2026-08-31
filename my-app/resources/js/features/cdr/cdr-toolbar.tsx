@@ -12,36 +12,6 @@ import type { CDRRecord } from '@/domain/types';
 
 export type QuickFilter = 'all' | 'today' | 'answered' | 'missed' | 'voicemail' | 'transferred';
 
-export const QUICK_FILTERS: { value: QuickFilter; label: string }[] = [
-    { value: 'all', label: 'All' },
-    { value: 'today', label: 'Today' },
-    { value: 'answered', label: 'Answered' },
-    { value: 'missed', label: 'Missed' },
-    { value: 'voicemail', label: 'Voicemail' },
-    { value: 'transferred', label: 'Transferred' },
-];
-
-export const CDR_FILTER_FIELDS: FilterFieldConfig[] = [
-    {
-        key: 'queue',
-        label: 'Queue',
-        type: 'select',
-        searchable: true,
-        className: 'w-[180px]',
-        options: ['Customer Support', 'Sales & Inquiries', 'Technical Escalations'].map((queue) => ({
-            value: queue,
-            label: queue,
-        })),
-    },
-    {
-        key: 'agent',
-        label: 'Agent',
-        type: 'text',
-        className: 'w-44',
-        placeholder: 'Search agent...',
-    },
-];
-
 export interface CdrToolbarProps {
     table: Table<DataGridFeatures, CDRRecord>;
     search: string;

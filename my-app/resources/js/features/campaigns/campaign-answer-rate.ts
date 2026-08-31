@@ -8,20 +8,20 @@ export function answerRateTone(
     answered: number,
     dialed: number,
     status: CampaignStatus
-): { text: string; className: string } {
+): { value: number | null; className: string } {
     if (dialed <= 0) {
-        return { text: status === 'draft' || status === 'scheduled' ? '—' : '0%', className: 'text-flex-text-muted' };
+        return { value: status === 'draft' || status === 'scheduled' ? null : 0, className: 'text-flex-text-muted' };
     }
 
     const rate = Math.round((answered / dialed) * 100);
 
     if (rate >= 85) {
-        return { text: `${rate}%`, className: 'text-status-live' };
+        return { value: rate, className: 'text-status-live' };
     }
 
     if (rate >= 70) {
-        return { text: `${rate}%`, className: 'text-status-stale' };
+        return { value: rate, className: 'text-status-stale' };
     }
 
-    return { text: `${rate}%`, className: 'text-destructive' };
+    return { value: rate, className: 'text-destructive' };
 }

@@ -229,6 +229,70 @@
       "missed": "Missed",
       "voicemail": "Voicemail",
       "transferred": "Transferred"
+    },
+    "detail": {
+      "title": "Call detail",
+      "queue": "Queue",
+      "agent": "Agent",
+      "duration": "Duration",
+      "recording": "Recording",
+      "recordingAvailable": "Available",
+      "recordingNone": "No recording",
+      "fullDetail": "Full detail",
+      "notFound": "Call record not found.",
+      "play": "Play",
+      "pause": "Pause"
+    },
+    "timeline": {
+      "callInitiated": {
+        "title": "Call initiated",
+        "description": "Inbound to {{queue}}"
+      },
+      "noAnswer": {
+        "title": "No answer",
+        "description": "Caller hung up before an agent could answer"
+      },
+      "callMissed": {
+        "title": "Call missed",
+        "description": "Logged to missed-calls for follow-up"
+      },
+      "voicemailLeft": {
+        "title": "Voicemail left",
+        "description": "Caller left a message on the queue voicemail"
+      },
+      "voicemailSaved": {
+        "title": "Voicemail saved"
+      },
+      "agentConnected": {
+        "title": "Agent connected",
+        "description": "{{agent}} accepted the call"
+      },
+      "callTransferred": {
+        "title": "Call transferred",
+        "description": "Transferred to another agent in {{queue}}"
+      },
+      "callEnded": {
+        "title": "Call ended",
+        "description": "Duration {{duration}}"
+      }
+    },
+    "status": {
+      "answered": "Answered",
+      "missed": "Missed",
+      "voicemail": "Voicemail",
+      "transferred": "Transferred"
+    },
+    "page": {
+      "title": "Call Detail Record",
+      "subtitleNotFound": "Record not found",
+      "back": "Back to Call Records",
+      "notFoundDetail": "Call record {{id}} could not be found.",
+      "recordingTitle": "Recording",
+      "timelineTitle": "Call Timeline",
+      "headTitle": "Call Detail {{id}} — Flex Contact Center"
+    },
+    "resultMeta": {
+      "shown": "{{shown}} of {{total}} records"
     }
   },
   "campaigns": {
@@ -295,9 +359,83 @@
       "started": "Campaign started",
       "paused": "Campaign paused",
       "deleted": "Campaign deleted",
-      "deleteFailed": "Campaign could not be deleted"
+      "deleteFailed": "Campaign could not be deleted",
+      "updated": "Campaign updated",
+      "created": "Campaign created"
     },
-    "footerHint": "POC mock adapter — `CampaignRepository` boundary; replace with the real campaigns backend in rollout."
+    "footerHint": "POC mock adapter — `CampaignRepository` boundary; replace with the real campaigns backend in rollout.",
+    "detail": {
+      "title": "Campaign detail",
+      "notFoundTitle": "Campaign",
+      "notFoundSubtitle": "Campaign not found",
+      "back": "Back to Campaigns",
+      "notFoundDetail": "Campaign {{id}} could not be found.",
+      "destination": "Destination",
+      "schedule": "Schedule",
+      "performance": "Performance",
+      "contacts": "Contacts",
+      "dialed": "Dialed",
+      "answered": "Answered",
+      "answerRate": "Answer rate",
+      "contactsShown": "Contacts ({{count}} shown)",
+      "table": {
+        "name": "Name",
+        "phone": "Phone",
+        "status": "Status",
+        "dialedAt": "Dialed At",
+        "duration": "Duration"
+      },
+      "fullDetail": "Full detail",
+      "edit": "Edit",
+      "delete": "Delete",
+      "pause": "Pause",
+      "start": "Start",
+      "progress": "{{dialed}}/{{total}} contacts dialed",
+      "deleteTitle": "Delete campaign",
+      "deleteDescription": "Are you sure you want to delete \"{{title}}\"? This action cannot be undone.",
+      "cancel": "Cancel",
+      "deleting": "Deleting…"
+    },
+    "form": {
+      "editTitle": "Edit Campaign",
+      "newTitle": "New Campaign",
+      "editDescription": "Update the campaign schedule and targets.",
+      "newDescription": "Create a new outbound call campaign.",
+      "titleLabel": "Title",
+      "titlePlaceholder": "e.g. Q4 Customer Feedback Survey",
+      "destinationLabel": "Destination",
+      "destinationPlaceholder": "Select a destination",
+      "scheduleLabel": "Schedule",
+      "statusLabel": "Status",
+      "contactsLabel": "Contacts",
+      "dialedLabel": "Dialed",
+      "answeredLabel": "Answered",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving…"
+    },
+    "validation": {
+      "titleRequired": "Title is required.",
+      "titleMin": "Title must be at least 3 characters.",
+      "destinationRequired": "Destination is required.",
+      "scheduleRequired": "Schedule time is required.",
+      "countsNegative": "Counts must be zero or greater.",
+      "dialedExceeds": "Dialed cannot exceed total contacts.",
+      "answeredExceeds": "Answered cannot exceed dialed."
+    },
+    "destination": {
+      "outboundIvr": "Outbound IVR Survey Queue",
+      "directDispatch": "Direct Agent Dispatch",
+      "broadcastPrompt": "Broadcast Audio Prompt",
+      "outboundSales": "Outbound Sales Queue"
+    },
+    "contactStatus": {
+      "answered": "answered",
+      "dialed": "dialed",
+      "queued": "queued",
+      "failed": "failed",
+      "not-answered": "not-answered"
+    }
   },
   "reports": {
     "title": "Reports & Analytics",

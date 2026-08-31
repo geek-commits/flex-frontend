@@ -11,11 +11,6 @@ import type { CampaignStatus } from '@/types/flex';
 
 export type CampaignStatusFilter = 'all' | CampaignStatus;
 
-export const CAMPAIGN_QUICK_FILTERS: { value: CampaignStatusFilter; label: string }[] = [
-    { value: 'all', label: 'All' },
-    ...CAMPAIGN_STATUS_OPTIONS.map((status) => ({ value: status as CampaignStatusFilter, label: status })),
-];
-
 export interface CampaignsToolbarProps {
     table: Table<DataGridFeatures, CampaignRecord>;
     search: string;

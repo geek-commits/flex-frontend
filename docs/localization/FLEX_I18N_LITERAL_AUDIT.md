@@ -1,6 +1,6 @@
 # FLEX i18n Literal Audit — Report Mode (Phase 2)
 
-**Generated:** 2026-08-30T21:38:11.475Z **SHA:** local **Files scanned:** 638 **Hits:** 361
+**Generated:** 2026-08-31T06:34:52.873Z **SHA:** local **Files scanned:** 638 **Hits:** 309
 
 > Classification per §107: TRANSLATE / RUNTIME_DATA / TECHNICAL / BRAND / EXTERNAL / FALSE_POSITIVE — triage before CI gate.
 
@@ -152,33 +152,6 @@
 | features/agent-workspace/call-manager/incoming-call-surface.tsx | 61 | aria-label | `aria-label="Answer call"` |
 | features/agent-workspace/call-manager/wrap-up-surface.tsx | 30 | JSX text | `Wrap Up` |
 | features/agent-workspace/call-manager/wrap-up-surface.tsx | 27 | aria-label | `aria-label="Wrap up"` |
-| features/campaigns/campaign-detail-sheet.tsx | 85 | JSX text | `Edit` |
-| features/campaigns/campaign-detail-sheet.tsx | 94 | JSX text | `Delete` |
-| features/campaigns/campaign-detail-sheet.tsx | 103 | JSX text | `Full detail` |
-| features/campaigns/campaign-detail-sheet.tsx | 115 | JSX text | `Destination` |
-| features/campaigns/campaign-detail-sheet.tsx | 121 | JSX text | `Schedule` |
-| features/campaigns/campaign-detail-sheet.tsx | 130 | JSX text | `Performance` |
-| features/campaigns/campaign-detail-sheet.tsx | 133 | JSX text | `Contacts` |
-| features/campaigns/campaign-detail-sheet.tsx | 139 | JSX text | `Dialed` |
-| features/campaigns/campaign-detail-sheet.tsx | 145 | JSX text | `Answered` |
-| features/campaigns/campaign-detail-sheet.tsx | 153 | JSX text | `Answer rate` |
-| features/campaigns/campaign-detail-sheet.tsx | 161 | JSX text | `Campaign not found.` |
-| features/campaigns/campaign-form-sheet.tsx | 158 | JSX text | `Title` |
-| features/campaigns/campaign-form-sheet.tsx | 172 | JSX text | `Destination` |
-| features/campaigns/campaign-form-sheet.tsx | 191 | JSX text | `Schedule` |
-| features/campaigns/campaign-form-sheet.tsx | 205 | JSX text | `Status` |
-| features/campaigns/campaign-form-sheet.tsx | 224 | JSX text | `Contacts` |
-| features/campaigns/campaign-form-sheet.tsx | 237 | JSX text | `Dialed` |
-| features/campaigns/campaign-form-sheet.tsx | 250 | JSX text | `Answered` |
-| features/campaigns/campaign-form-sheet.tsx | 271 | JSX text | `Cancel` |
-| features/campaigns/campaign-form-sheet.tsx | 165 | placeholder | `placeholder="e.g. Q4 Customer Feedback Survey"` |
-| features/campaigns/campaign-form-sheet.tsx | 177 | placeholder | `placeholder="Select a destination"` |
-| features/cdr/cdr-detail-sheet.tsx | 56 | JSX text | `Full detail` |
-| features/cdr/cdr-detail-sheet.tsx | 68 | JSX text | `Queue` |
-| features/cdr/cdr-detail-sheet.tsx | 72 | JSX text | `Agent` |
-| features/cdr/cdr-detail-sheet.tsx | 76 | JSX text | `Duration` |
-| features/cdr/cdr-detail-sheet.tsx | 82 | JSX text | `Recording` |
-| features/cdr/cdr-detail-sheet.tsx | 145 | JSX text | `Call record not found.` |
 | features/customer-recovery/attempt-history.tsx | 10 | JSX text | `No attempts yet.` |
 | features/customer-recovery/recovery-detail-sheet.tsx | 69 | JSX text | `Attempt History` |
 | features/customer-recovery/recovery-ownership.tsx | 15 | JSX text | `Unclaimed` |
@@ -334,31 +307,6 @@
 | hooks/use-two-factor-auth.ts | 17 | JSX text | `Promise` |
 | layouts/auth/auth-split-layout.tsx | 33 | JSX text | `FLEX Contact Center` |
 | layouts/auth/auth-split-layout.tsx | 60 | aria-label | `aria-label="FLEX Contact Center Overview"` |
-| pages/admin/campaign-detail.tsx | 40 | JSX text | `Campaign` |
-| pages/admin/campaign-detail.tsx | 101 | JSX text | `Edit` |
-| pages/admin/campaign-detail.tsx | 110 | JSX text | `Delete` |
-| pages/admin/campaign-detail.tsx | 169 | JSX text | `Name` |
-| pages/admin/campaign-detail.tsx | 170 | JSX text | `Phone` |
-| pages/admin/campaign-detail.tsx | 171 | JSX text | `Status` |
-| pages/admin/campaign-detail.tsx | 172 | JSX text | `Dialed At` |
-| pages/admin/campaign-detail.tsx | 173 | JSX text | `Duration` |
-| pages/admin/campaign-detail.tsx | 205 | JSX text | `Delete campaign` |
-| pages/admin/campaign-detail.tsx | 211 | JSX text | `Cancel` |
-| pages/admin/campaign-detail.tsx | 35 | title | `title="Campaign"` |
-| pages/admin/campaign-detail.tsx | 35 | title | `title="Campaign not found"` |
-| pages/admin/campaign-detail.tsx | 36 | title | `title="Campaign — Flex Contact Center"` |
-| pages/admin/campaign-detail.tsx | 152 | title | `title="Total Contacts"` |
-| pages/admin/campaign-detail.tsx | 153 | title | `title="Dialed"` |
-| pages/admin/campaign-detail.tsx | 154 | title | `title="Answered"` |
-| pages/admin/campaign-detail.tsx | 155 | title | `title="Answer Rate"` |
-| pages/admin/cdr-detail.tsx | 54 | JSX text | `Call record` |
-| pages/admin/cdr-detail.tsx | 85 | JSX text | `Queue` |
-| pages/admin/cdr-detail.tsx | 89 | JSX text | `Agent` |
-| pages/admin/cdr-detail.tsx | 93 | JSX text | `Duration` |
-| pages/admin/cdr-detail.tsx | 97 | JSX text | `Recording` |
-| pages/admin/cdr-detail.tsx | 108 | JSX text | `Recording` |
-| pages/admin/cdr-detail.tsx | 140 | JSX text | `Call Timeline` |
-| pages/admin/cdr-detail.tsx | 42 | title | `title="Call Detail Record"` |
 | pages/dev/brand-preview.tsx | 28 | JSX text | `Play` |
 | pages/dev/brand-preview.tsx | 31 | JSX text | `Pause` |
 | pages/dev/brand-preview.tsx | 34 | JSX text | `Resume` |

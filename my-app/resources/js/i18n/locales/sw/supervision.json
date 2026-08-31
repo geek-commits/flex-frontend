@@ -229,6 +229,70 @@
       "missed": "Zilizokosekana",
       "voicemail": "Voicemail",
       "transferred": "Zilizopelekwa"
+    },
+    "detail": {
+      "title": "Maelezo ya simu",
+      "queue": "Foleni",
+      "agent": "Wakala",
+      "duration": "Muda",
+      "recording": "Rekodi",
+      "recordingAvailable": "Inapatikana",
+      "recordingNone": "Hakuna rekodi",
+      "fullDetail": "Maelezo kamili",
+      "notFound": "Rekodi ya simu haikupatikana.",
+      "play": "Cheza",
+      "pause": "Sitisha"
+    },
+    "timeline": {
+      "callInitiated": {
+        "title": "Simu ilianzishwa",
+        "description": "Inayoingia kwenda {{queue}}"
+      },
+      "noAnswer": {
+        "title": "Hakuna jibu",
+        "description": "Mpigaji alikata kabla wakala hajajibu"
+      },
+      "callMissed": {
+        "title": "Simu ilikosa",
+        "description": "Imeorodheshwa kwenye missed-calls kwa ufuatiliaji"
+      },
+      "voicemailLeft": {
+        "title": "Ujumbe wa sauti umeachwa",
+        "description": "Mpigaji aliacha ujumbe kwenye voicemail ya foleni"
+      },
+      "voicemailSaved": {
+        "title": "Ujumbe wa sauti umehifadhiwa"
+      },
+      "agentConnected": {
+        "title": "Wakala ameunganishwa",
+        "description": "{{agent}} alipokea simu"
+      },
+      "callTransferred": {
+        "title": "Simu imehamishwa",
+        "description": "Imehamishwa kwa wakala mwingine katika {{queue}}"
+      },
+      "callEnded": {
+        "title": "Simu imekwisha",
+        "description": "Muda {{duration}}"
+      }
+    },
+    "status": {
+      "answered": "Imejibiwa",
+      "missed": "Imekosekana",
+      "voicemail": "Sauti",
+      "transferred": "Imehamishwa"
+    },
+    "page": {
+      "title": "Rekodi ya Maelezo ya Simu",
+      "subtitleNotFound": "Rekodi haikupatikana",
+      "back": "Rudi kwenye Kumbukumbu za Simu",
+      "notFoundDetail": "Rekodi ya simu {{id}} haikuweza kupatikana.",
+      "recordingTitle": "Rekodi",
+      "timelineTitle": "Mfululizo wa Simu",
+      "headTitle": "Maelezo ya Simu {{id}} — Flex Contact Center"
+    },
+    "resultMeta": {
+      "shown": "{{shown}} kati ya {{total}} rekodi"
     }
   },
   "campaigns": {
@@ -295,9 +359,83 @@
       "started": "Kampeni imeanzishwa",
       "paused": "Kampeni imesitishwa",
       "deleted": "Kampeni imefutwa",
-      "deleteFailed": "Kampeni haikuweza kufutwa"
+      "deleteFailed": "Kampeni haikuweza kufutwa",
+      "updated": "Kampeni imesasishwa",
+      "created": "Kampeni imeundwa"
     },
-    "footerHint": "Adapta ya POC — mpaka wa `CampaignRepository`; badilisha na backend halisi ya kampeni wakati wa uzinduzi."
+    "footerHint": "Adapta ya POC — mpaka wa `CampaignRepository`; badilisha na backend halisi ya kampeni wakati wa uzinduzi.",
+    "detail": {
+      "title": "Maelezo ya kampeni",
+      "notFoundTitle": "Kampeni",
+      "notFoundSubtitle": "Kampeni haikupatikana",
+      "back": "Rudi kwenye Kampeni",
+      "notFoundDetail": "Kampeni {{id}} haikuweza kupatikana.",
+      "destination": "Marudio",
+      "schedule": "Ratiba",
+      "performance": "Utendaji",
+      "contacts": "Anwani",
+      "dialed": "Zilizopigwa",
+      "answered": "Zilizojibiwa",
+      "answerRate": "Kiwango cha majibu",
+      "contactsShown": "Anwani ({{count}} zinaonyeshwa)",
+      "table": {
+        "name": "Jina",
+        "phone": "Simu",
+        "status": "Hali",
+        "dialedAt": "Iliyopigwa",
+        "duration": "Muda"
+      },
+      "fullDetail": "Maelezo kamili",
+      "edit": "Hariri",
+      "delete": "Futa",
+      "pause": "Sitisha",
+      "start": "Anza",
+      "progress": "{{dialed}}/{{total}} anwani zilizopigwa",
+      "deleteTitle": "Futa kampeni",
+      "deleteDescription": "Una uhakika unataka kufuta \"{{title}}\"? Kitendo hiki hakiwezi kutenduliwa.",
+      "cancel": "Ghairi",
+      "deleting": "Inafuta…"
+    },
+    "form": {
+      "editTitle": "Hariri Kampeni",
+      "newTitle": "Kampeni Mpya",
+      "editDescription": "Sasisha ratiba na malengo ya kampeni.",
+      "newDescription": "Unda kampeni mpya ya simu zinazotoka.",
+      "titleLabel": "Kichwa",
+      "titlePlaceholder": "mf. Utafiti wa Maoni ya Wateja Q4",
+      "destinationLabel": "Marudio",
+      "destinationPlaceholder": "Chagua marudio",
+      "scheduleLabel": "Ratiba",
+      "statusLabel": "Hali",
+      "contactsLabel": "Anwani",
+      "dialedLabel": "Zilizopigwa",
+      "answeredLabel": "Zilizojibiwa",
+      "cancel": "Ghairi",
+      "save": "Hifadhi",
+      "saving": "Inahifadhi…"
+    },
+    "validation": {
+      "titleRequired": "Kichwa kinahitajika.",
+      "titleMin": "Kichwa lazima kiwe angalau herufi 3.",
+      "destinationRequired": "Marudio yanahitajika.",
+      "scheduleRequired": "Muda wa ratiba unahitajika.",
+      "countsNegative": "Hesabu lazima ziwe sifuri au zaidi.",
+      "dialedExceeds": "Zilizopigwa haziwezi kuzidi jumla ya anwani.",
+      "answeredExceeds": "Zilizojibiwa haziwezi kuzidi zilizopigwa."
+    },
+    "destination": {
+      "outboundIvr": "Foleni ya Utafiti ya IVR ya Kutoka",
+      "directDispatch": "Utumaji wa Moja kwa Moja kwa Wakala",
+      "broadcastPrompt": "Arifa ya Sauti ya Utangazaji",
+      "outboundSales": "Foleni ya Mauzo ya Kutoka"
+    },
+    "contactStatus": {
+      "answered": "imejibiwa",
+      "dialed": "imepigwa",
+      "queued": "imepangwa",
+      "failed": "imeshindwa",
+      "not-answered": "haijajibiwa"
+    }
   },
   "reports": {
     "title": "Ripoti na Uchambuzi",

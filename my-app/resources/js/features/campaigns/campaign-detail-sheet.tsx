@@ -1,6 +1,7 @@
 import { router } from '@inertiajs/react';
-import { RiEditLine, RiExternalLinkLine, RiPauseFill, RiPlayFill, RiDeleteBin6Line } from '@remixicon/react';
+import { RiDeleteBin6Line, RiEditLine, RiExternalLinkLine, RiPauseFill, RiPlayFill } from '@remixicon/react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexDetailSheet } from '@/components/flex/flex-detail-sheet';
 import { FlexStatus } from '@/components/flex/flex-status';
 import { Button } from '@/components/ui/button';
@@ -19,9 +20,6 @@ export interface CampaignDetailSheetProps {
     statusBusy?: boolean;
 }
 
-/**
- * Contextual campaign detail sheet — shared FlexDetailSheet pattern, same as CDR.
- */
 export function CampaignDetailSheet({
     recordId,
     onOpenChange,
@@ -30,6 +28,7 @@ export function CampaignDetailSheet({
     onDelete,
     statusBusy = false,
 }: CampaignDetailSheetProps) {
+    const { t, i18n } = useTranslation('supervision');
     const [record, setRecord] = useState<CampaignRecord>();
     const [loadedId, setLoadedId] = useState<string>();
     const open = !!recordId;
@@ -43,20 +42,19 @@ export function CampaignDetailSheet({
         }
     }
 
-    const answerRate = record
-        ? answerRateTone(record.answeredCount, record.dialedCount, record.status)
-        : undefined;
+    const answerRate = record ? answerRateTone(record.answeredCount, record.dialedCount, record.status) : undefined;
+    const locale = i18n.language;
 
     return (
         <FlexDetailSheet
             open={open}
             onOpenChange={onOpenChange}
-            title={record?.title ?? 'Campaign detail'}
+            title={record?.title ?? t('campaigns.detail.title')}
             meta={
                 record ? (
                     <div className="flex items-center gap-2">
                         <FlexStatus tone={CAMPAIGN_STATUS_TONE[record.status]} className="capitalize">
-                            {record.status}
+                            {t(`campaigns.status.${record.status}` as const)}
                         </FlexStatus>
                         <span>{record.scheduleTime}</span>
                     </div>
@@ -78,12 +76,12 @@ export function CampaignDetailSheet({
                                 ) : (
                                     <RiPlayFill className="size-3.5 text-status-live" />
                                 )}
-                                {record.status === 'active' ? 'Pause' : 'Start'}
+                                {record.status === 'active' ? t('campaigns.detail.pause') : t('campaigns.detail.start')}
                             </Button>
                         )}
                         <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={() => onEdit(record)}>
                             <RiEditLine className="size-3.5" />
-                            Edit
+                            {t('campaigns.detail.edit')}
                         </Button>
                         <Button
                             variant="ghost"
@@ -92,7 +90,7 @@ export function CampaignDetailSheet({
                             onClick={() => onDelete(record)}
                         >
                             <RiDeleteBin6Line className="size-3.5" />
-                            Delete
+                            {t('campaigns.detail.delete')}
                         </Button>
                         <Button
                             variant="ghost"
@@ -101,7 +99,7 @@ export function CampaignDetailSheet({
                             onClick={() => router.visit(`/admin/campaigns/${record.id}`)}
                         >
                             <RiExternalLinkLine className="size-3.5" />
-                            Full detail
+                            {t('campaigns.detail.fullDetail')}
                         </Button>
                     </>
                 ) : undefined
@@ -112,53 +110,53 @@ export function CampaignDetailSheet({
                     {/* Overview */}
                     <div className="grid grid-cols-2 gap-3">
                         <div className="p-3 rounded-lg bg-muted/40 border border-border flex flex-col">
-                            <span className="text-[10px] uppercase font-semibold text-flex-text-muted">Destination</span>
-                            <span className="text-sm font-semibold text-flex-text-primary truncate">
-                                {record.destination}
-                            </span>
+                            <span className="text-[10px] uppercase font-semibold text-flex-text-muted">{t('campaigns.detail.destination')}</span>
+                            <span className="text-sm font-semibold text-flex-text-primary truncate">{record.destination}</span>
                         </div>
                         <div className="p-3 rounded-lg bg-muted/40 border border-border flex flex-col">
-                            <span className="text-[10px] uppercase font-semibold text-flex-text-muted">Schedule</span>
-                            <span className="text-sm font-semibold text-flex-text-primary font-mono flex-numeric">
-                                {record.scheduleTime}
-                            </span>
+                            <span className="text-[10px] uppercase font-semibold text-flex-text-muted">{t('campaigns.detail.schedule')}</span>
+                            <span className="text-sm font-semibold text-flex-text-primary font-mono flex-numeric">{record.scheduleTime}</span>
                         </div>
                     </div>
 
                     {/* Performance */}
                     <div className="flex flex-col gap-3">
-                        <span className="text-[10px] uppercase font-semibold text-flex-text-muted">Performance</span>
+                        <span className="text-[10px] uppercase font-semibold text-flex-text-muted">{t('campaigns.detail.performance')}</span>
                         <div className="grid grid-cols-3 gap-3">
                             <div className="p-3 rounded-lg bg-muted/40 border border-border flex flex-col">
-                                <span className="text-[10px] uppercase font-semibold text-flex-text-muted">Contacts</span>
+                                <span className="text-[10px] uppercase font-semibold text-flex-text-muted">{t('campaigns.detail.contacts')}</span>
                                 <span className="text-sm font-semibold text-flex-text-primary flex-numeric">
-                                    {record.totalContacts}
+                                    {new Intl.NumberFormat(locale).format(record.totalContacts)}
                                 </span>
                             </div>
                             <div className="p-3 rounded-lg bg-muted/40 border border-border flex flex-col">
-                                <span className="text-[10px] uppercase font-semibold text-flex-text-muted">Dialed</span>
+                                <span className="text-[10px] uppercase font-semibold text-flex-text-muted">{t('campaigns.detail.dialed')}</span>
                                 <span className="text-sm font-semibold text-flex-text-primary flex-numeric">
-                                    {record.dialedCount}
+                                    {new Intl.NumberFormat(locale).format(record.dialedCount)}
                                 </span>
                             </div>
                             <div className="p-3 rounded-lg bg-muted/40 border border-border flex flex-col">
-                                <span className="text-[10px] uppercase font-semibold text-flex-text-muted">Answered</span>
+                                <span className="text-[10px] uppercase font-semibold text-flex-text-muted">{t('campaigns.detail.answered')}</span>
                                 <span className="text-sm font-semibold text-flex-text-primary flex-numeric">
-                                    {record.answeredCount}
+                                    {new Intl.NumberFormat(locale).format(record.answeredCount)}
                                 </span>
                             </div>
                         </div>
                         {answerRate && (
                             <div className="flex items-center justify-between text-xs">
-                                <span className="text-flex-text-muted">Answer rate</span>
-                                <span className={`font-bold flex-numeric ${answerRate.className}`}>{answerRate.text}</span>
+                                <span className="text-flex-text-muted">{t('campaigns.detail.answerRate')}</span>
+                                <span className={`font-bold flex-numeric ${answerRate.className}`}>
+                                    {answerRate.value === null
+                                        ? '—'
+                                        : new Intl.NumberFormat(locale, { style: 'percent', maximumFractionDigits: 0 }).format(answerRate.value / 100)}
+                                </span>
                             </div>
                         )}
                         <CampaignProgress completed={record.dialedCount} total={record.totalContacts} />
                     </div>
                 </>
             ) : (
-                <p className="text-xs text-flex-text-muted">Campaign not found.</p>
+                <p className="text-xs text-flex-text-muted">{t('campaigns.detail.notFoundDetail', { id: recordId ?? '' })}</p>
             )}
         </FlexDetailSheet>
     );

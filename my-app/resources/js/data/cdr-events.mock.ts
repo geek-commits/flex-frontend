@@ -8,11 +8,32 @@ import type { StatusTone } from '@/lib/status-styles';
  * must provide the actual call events contract later.
  */
 
+export type TimelineTitleKey =
+    | 'cdr.timeline.callInitiated.title'
+    | 'cdr.timeline.noAnswer.title'
+    | 'cdr.timeline.callMissed.title'
+    | 'cdr.timeline.voicemailLeft.title'
+    | 'cdr.timeline.voicemailSaved.title'
+    | 'cdr.timeline.agentConnected.title'
+    | 'cdr.timeline.callTransferred.title'
+    | 'cdr.timeline.callEnded.title';
+
+export type TimelineDescriptionKey =
+    | 'cdr.timeline.callInitiated.description'
+    | 'cdr.timeline.noAnswer.description'
+    | 'cdr.timeline.callMissed.description'
+    | 'cdr.timeline.voicemailLeft.description'
+    | 'cdr.timeline.agentConnected.description'
+    | 'cdr.timeline.callTransferred.description'
+    | 'cdr.timeline.callEnded.description';
+
 export interface CallTimelineEvent {
     id: string;
     at: string;
-    title: string;
-    description?: string;
+    titleKey: TimelineTitleKey;
+    descriptionKey?: TimelineDescriptionKey;
+    titleParams?: Record<string, string | number>;
+    descriptionParams?: Record<string, string | number>;
     tone: StatusTone;
 }
 
@@ -21,8 +42,9 @@ export function getCallTimeline(record: CDRRecord): CallTimelineEvent[] {
         {
             id: `${record.id}-ring`,
             at: '00:00:00',
-            title: 'Call initiated',
-            description: `Inbound to ${record.queueName}`,
+            titleKey: 'cdr.timeline.callInitiated.title',
+            descriptionKey: 'cdr.timeline.callInitiated.description',
+            descriptionParams: { queue: record.queueName },
             tone: 'talking',
         },
     ];
@@ -31,15 +53,15 @@ export function getCallTimeline(record: CDRRecord): CallTimelineEvent[] {
         events.push({
             id: `${record.id}-noanswer`,
             at: '00:00:20',
-            title: 'No answer',
-            description: 'Caller hung up before an agent could answer',
+            titleKey: 'cdr.timeline.noAnswer.title',
+            descriptionKey: 'cdr.timeline.noAnswer.description',
             tone: 'disconnected',
         });
         events.push({
             id: `${record.id}-end`,
             at: '00:00:25',
-            title: 'Call missed',
-            description: 'Logged to missed-calls for follow-up',
+            titleKey: 'cdr.timeline.callMissed.title',
+            descriptionKey: 'cdr.timeline.callMissed.description',
             tone: 'stale',
         });
 
@@ -50,14 +72,14 @@ export function getCallTimeline(record: CDRRecord): CallTimelineEvent[] {
         events.push({
             id: `${record.id}-vm`,
             at: '00:00:22',
-            title: 'Voicemail left',
-            description: 'Caller left a message on the queue voicemail',
+            titleKey: 'cdr.timeline.voicemailLeft.title',
+            descriptionKey: 'cdr.timeline.voicemailLeft.description',
             tone: 'stale',
         });
         events.push({
             id: `${record.id}-end`,
             at: '00:00:25',
-            title: 'Voicemail saved',
+            titleKey: 'cdr.timeline.voicemailSaved.title',
             tone: 'neutral',
         });
 
@@ -67,8 +89,9 @@ export function getCallTimeline(record: CDRRecord): CallTimelineEvent[] {
     events.push({
         id: `${record.id}-connect`,
         at: '00:00:08',
-        title: 'Agent connected',
-        description: `${record.agentName} accepted the call`,
+        titleKey: 'cdr.timeline.agentConnected.title',
+        descriptionKey: 'cdr.timeline.agentConnected.description',
+        descriptionParams: { agent: record.agentName },
         tone: 'live',
     });
 
@@ -76,8 +99,9 @@ export function getCallTimeline(record: CDRRecord): CallTimelineEvent[] {
         events.push({
             id: `${record.id}-transfer`,
             at: '00:01:12',
-            title: 'Call transferred',
-            description: `Transferred to another agent in ${record.queueName}`,
+            titleKey: 'cdr.timeline.callTransferred.title',
+            descriptionKey: 'cdr.timeline.callTransferred.description',
+            descriptionParams: { queue: record.queueName },
             tone: 'talking',
         });
     }
@@ -86,12 +110,14 @@ export function getCallTimeline(record: CDRRecord): CallTimelineEvent[] {
     const minutes = Math.floor(duration / 60);
     const seconds = duration % 60;
     const endAt = `00:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    const durationStr = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
     events.push({
         id: `${record.id}-end`,
         at: endAt,
-        title: 'Call ended',
-        description: `Duration ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`,
+        titleKey: 'cdr.timeline.callEnded.title',
+        descriptionKey: 'cdr.timeline.callEnded.description',
+        descriptionParams: { duration: durationStr },
         tone: 'neutral',
     });
 

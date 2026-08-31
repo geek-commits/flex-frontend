@@ -11,6 +11,7 @@ import type { CampaignRecord } from '@/domain/types';
 import { answerRateTone } from '@/features/campaigns/campaign-answer-rate';
 import { CampaignProgress } from '@/features/campaigns/campaign-progress';
 import { CAMPAIGN_STATUS_TONE } from '@/features/campaigns/campaign-status';
+import i18n from '@/i18n';
 
 export interface CampaignRowHandlers {
     onView: (record: CampaignRecord) => void;
@@ -76,7 +77,15 @@ export function campaignColumns(t: TF, handlers: CampaignRowHandlers): ColumnDef
             cell: ({ row }) => {
                 const tone = answerRateTone(row.original.answeredCount, row.original.dialedCount, row.original.status);
 
-                return <span className={`font-bold text-xs flex-numeric ${tone.className}`}>{tone.text}</span>;
+                if (tone.value === null) {
+                    return <span className={`font-bold text-xs flex-numeric ${tone.className}`}>—</span>;
+                }
+
+                return (
+                    <span className={`font-bold text-xs flex-numeric ${tone.className}`}>
+                        {new Intl.NumberFormat(i18n.language, { style: 'percent', maximumFractionDigits: 0 }).format(tone.value / 100)}
+                    </span>
+                );
             },
             size: 110,
             enableSorting: true,

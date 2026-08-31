@@ -1,6 +1,7 @@
 import { Head, usePage } from '@inertiajs/react';
-import { RiPauseFill, RiPlayFill, RiEditLine, RiDeleteBin6Line, RiUserStarLine, RiPhoneLine, RiCheckboxCircleLine, RiTimeLine } from '@remixicon/react';
+import { RiCheckboxCircleLine, RiDeleteBin6Line, RiEditLine, RiPauseFill, RiPhoneLine, RiPlayFill, RiTimeLine, RiUserStarLine } from '@remixicon/react';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { BackLink } from '@/components/flex/back-link';
 import { MetricCard, MetricGroup } from '@/components/flex/metric-card';
@@ -23,22 +24,24 @@ const CONTACT_TONE: Record<string, string> = {
 };
 
 export default function CampaignDetailPage() {
+    const { t, i18n } = useTranslation('supervision');
     const campaignId = (usePage().props as { campaign?: string }).campaign ?? '';
     const campaign = campaignRepository.getById(campaignId);
 
     const [editOpen, setEditOpen] = useState(false);
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [deleting, setDeleting] = useState(false);
+    const locale = i18n.language;
 
     if (!campaign) {
         return (
-            <AdminShell title="Campaign" subtitle="Campaign not found">
-                <Head title="Campaign — Flex Contact Center" />
+            <AdminShell title={t('campaigns.detail.notFoundTitle')} subtitle={t('campaigns.detail.notFoundSubtitle')}>
+                <Head title={t('campaigns.detail.notFoundTitle') + ' — Flex Contact Center'} />
                 <div className="flex flex-col gap-4 w-full">
-                    <BackLink href="/admin/campaigns" label="Back to Campaigns" />
+                    <BackLink href="/admin/campaigns" label={t('campaigns.detail.back')} />
                     <Card className="bg-card border-border shadow-2xs">
                         <CardContent className="p-8 text-center text-sm text-muted-foreground">
-                            Campaign <span className="font-mono">{campaignId}</span> could not be found.
+                            {t('campaigns.detail.notFoundDetail', { id: campaignId })}
                         </CardContent>
                     </Card>
                 </div>
@@ -61,7 +64,7 @@ export default function CampaignDetailPage() {
             dialedCount: record.dialedCount,
             answeredCount: record.answeredCount,
         });
-        toast.success(nextStatus === 'active' ? 'Campaign started' : 'Campaign paused');
+        toast.success(t(nextStatus === 'active' ? 'campaigns.toast.started' : 'campaigns.toast.paused'));
         window.location.reload();
     };
 
@@ -71,7 +74,7 @@ export default function CampaignDetailPage() {
             campaignRepository.delete(campaign.id);
             setDeleting(false);
             setDeleteOpen(false);
-            toast.success('Campaign deleted');
+            toast.success(t('campaigns.toast.deleted'));
             window.location.assign('/admin/campaigns');
         }, 250);
     };
@@ -83,23 +86,18 @@ export default function CampaignDetailPage() {
             actions={
                 <div className="flex items-center gap-2">
                     {campaign.status === 'active' || campaign.status === 'paused' ? (
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            className="gap-1.5 text-xs"
-                            onClick={() => toggleStatus(campaign)}
-                        >
+                        <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={() => toggleStatus(campaign)}>
                             {campaign.status === 'active' ? (
                                 <RiPauseFill className="size-3.5 text-status-stale" />
                             ) : (
                                 <RiPlayFill className="size-3.5 text-status-live" />
                             )}
-                            {campaign.status === 'active' ? 'Pause' : 'Start'}
+                            {campaign.status === 'active' ? t('campaigns.detail.pause') : t('campaigns.detail.start')}
                         </Button>
                     ) : null}
                     <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={() => setEditOpen(true)}>
                         <RiEditLine className="size-3.5" />
-                        Edit
+                        {t('campaigns.detail.edit')}
                     </Button>
                     <Button
                         variant="outline"
@@ -108,7 +106,7 @@ export default function CampaignDetailPage() {
                         onClick={() => setDeleteOpen(true)}
                     >
                         <RiDeleteBin6Line className="size-3.5" />
-                        Delete
+                        {t('campaigns.detail.delete')}
                     </Button>
                 </div>
             }
@@ -116,7 +114,7 @@ export default function CampaignDetailPage() {
             <Head title={`${campaign.title} — Flex Contact Center`} />
 
             <div className="flex flex-col gap-5 w-full">
-                <BackLink href="/admin/campaigns" label="Back to Campaigns" />
+                <BackLink href="/admin/campaigns" label={t('campaigns.detail.back')} />
 
                 {/* Header card */}
                 <Card className="bg-card border-border shadow-2xs">
@@ -136,9 +134,9 @@ export default function CampaignDetailPage() {
                         <div className="flex flex-col gap-2">
                             <div className="flex items-center justify-between text-[11px]">
                                 <span className="text-muted-foreground">
-                                    {campaign.dialedCount}/{campaign.totalContacts} contacts dialed
+                                    {t('campaigns.detail.progress', { dialed: new Intl.NumberFormat(locale).format(campaign.dialedCount), total: new Intl.NumberFormat(locale).format(campaign.totalContacts) })}
                                 </span>
-                                <span className="font-bold text-foreground">{progressPct}%</span>
+                                <span className="font-bold text-foreground">{new Intl.NumberFormat(locale).format(progressPct)}%</span>
                             </div>
                             <div className="h-2 rounded-full bg-muted/60 overflow-hidden">
                                 <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${progressPct}%` }} />
@@ -149,28 +147,33 @@ export default function CampaignDetailPage() {
 
                 {/* Metrics */}
                 <MetricGroup>
-                    <MetricCard title="Total Contacts" value={campaign.totalContacts} description="In this campaign" icon={RiUserStarLine} />
-                    <MetricCard title="Dialed" value={campaign.dialedCount} description="Contacts attempted" icon={RiPhoneLine} />
-                    <MetricCard title="Answered" value={campaign.answeredCount} description="Connected calls" icon={RiCheckboxCircleLine} />
-                    <MetricCard title="Answer Rate" value={`${campaign.totalContacts > 0 ? `${answerRate}%` : '—'}`} description="Answered of dialed" icon={RiTimeLine} />
+                    <MetricCard title={t('campaigns.detail.contacts')} value={new Intl.NumberFormat(locale).format(campaign.totalContacts)} description={t('campaigns.detail.performance')} icon={RiUserStarLine} />
+                    <MetricCard title={t('campaigns.detail.dialed')} value={new Intl.NumberFormat(locale).format(campaign.dialedCount)} description={t('campaigns.detail.dialed')} icon={RiPhoneLine} />
+                    <MetricCard title={t('campaigns.detail.answered')} value={new Intl.NumberFormat(locale).format(campaign.answeredCount)} description={t('campaigns.detail.answered')} icon={RiCheckboxCircleLine} />
+                    <MetricCard
+                        title={t('campaigns.detail.answerRate')}
+                        value={campaign.dialedCount > 0 ? new Intl.NumberFormat(locale, { style: 'percent', maximumFractionDigits: 0 }).format(answerRate / 100) : '—'}
+                        description={t('campaigns.detail.answerRate')}
+                        icon={RiTimeLine}
+                    />
                 </MetricGroup>
 
                 {/* Contacts list */}
                 <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
                     <div className="border-b border-flex-workspace-divider p-4 pb-2">
                         <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                            Contacts ({contacts.length} shown)
+                            {t('campaigns.detail.contactsShown', { count: contacts.length })}
                         </h3>
                     </div>
                     <div className="p-0 overflow-x-auto">
                         <table className="flex-table-grid w-full text-left text-xs">
                             <thead>
                                 <tr className="border-b border-flex-workspace-divider text-muted-foreground font-semibold uppercase text-[10px]">
-                                    <th className="px-4 py-2.5">Name</th>
-                                    <th className="px-4 py-2.5">Phone</th>
-                                    <th className="px-4 py-2.5">Status</th>
-                                    <th className="px-4 py-2.5">Dialed At</th>
-                                    <th className="px-4 py-2.5">Duration</th>
+                                    <th className="px-4 py-2.5">{t('campaigns.detail.table.name')}</th>
+                                    <th className="px-4 py-2.5">{t('campaigns.detail.table.phone')}</th>
+                                    <th className="px-4 py-2.5">{t('campaigns.detail.table.status')}</th>
+                                    <th className="px-4 py-2.5">{t('campaigns.detail.table.dialedAt')}</th>
+                                    <th className="px-4 py-2.5">{t('campaigns.detail.table.duration')}</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-flex-workspace-divider">
@@ -180,7 +183,7 @@ export default function CampaignDetailPage() {
                                         <td className="px-4 py-2.5 font-mono text-muted-foreground">{contact.phone}</td>
                                         <td className="px-4 py-2.5">
                                             <span className={`capitalize font-semibold ${CONTACT_TONE[contact.status]}`}>
-                                                {contact.status}
+                                                {t(`campaigns.contactStatus.${contact.status}` as const)}
                                             </span>
                                         </td>
                                         <td className="px-4 py-2.5 font-mono text-muted-foreground">{contact.dialedAt ?? '—'}</td>
@@ -202,15 +205,13 @@ export default function CampaignDetailPage() {
             <AlertDialog open={deleteOpen} onOpenChange={setDeleteOpen}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Delete campaign</AlertDialogTitle>
-                        <AlertDialogDescription>
-                            Are you sure you want to delete &quot;{campaign.title}&quot;? This action cannot be undone.
-                        </AlertDialogDescription>
+                        <AlertDialogTitle>{t('campaigns.detail.deleteTitle')}</AlertDialogTitle>
+                        <AlertDialogDescription>{t('campaigns.detail.deleteDescription', { title: campaign.title })}</AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel disabled={deleting}>Cancel</AlertDialogCancel>
+                        <AlertDialogCancel disabled={deleting}>{t('campaigns.detail.cancel')}</AlertDialogCancel>
                         <AlertDialogAction variant="destructive" onClick={handleDelete} disabled={deleting}>
-                            {deleting ? 'Deleting…' : 'Delete campaign'}
+                            {deleting ? t('campaigns.detail.deleting') : t('campaigns.detail.delete')}
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>

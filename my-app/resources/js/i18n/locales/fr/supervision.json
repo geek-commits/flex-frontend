@@ -229,6 +229,70 @@
       "missed": "Manqués",
       "voicemail": "Messagerie",
       "transferred": "Transférés"
+    },
+    "detail": {
+      "title": "Détail d’appel",
+      "queue": "File",
+      "agent": "Agent",
+      "duration": "Durée",
+      "recording": "Enregistrement",
+      "recordingAvailable": "Disponible",
+      "recordingNone": "Aucun enregistrement",
+      "fullDetail": "Détail complet",
+      "notFound": "Enregistrement d’appel introuvable.",
+      "play": "Lecture",
+      "pause": "Pause"
+    },
+    "timeline": {
+      "callInitiated": {
+        "title": "Appel initié",
+        "description": "Entrant vers {{queue}}"
+      },
+      "noAnswer": {
+        "title": "Pas de réponse",
+        "description": "L’appelant a raccroché avant réponse"
+      },
+      "callMissed": {
+        "title": "Appel manqué",
+        "description": "Journalisé dans les appels manqués pour suivi"
+      },
+      "voicemailLeft": {
+        "title": "Message vocal laissé",
+        "description": "L’appelant a laissé un message"
+      },
+      "voicemailSaved": {
+        "title": "Message vocal enregistré"
+      },
+      "agentConnected": {
+        "title": "Agent connecté",
+        "description": "{{agent}} a pris l’appel"
+      },
+      "callTransferred": {
+        "title": "Appel transféré",
+        "description": "Transféré à un autre agent dans {{queue}}"
+      },
+      "callEnded": {
+        "title": "Appel terminé",
+        "description": "Durée {{duration}}"
+      }
+    },
+    "status": {
+      "answered": "Répondu",
+      "missed": "Manqué",
+      "voicemail": "Messagerie",
+      "transferred": "Transféré"
+    },
+    "page": {
+      "title": "Historique d’appel",
+      "subtitleNotFound": "Enregistrement introuvable",
+      "back": "Retour aux historiques",
+      "notFoundDetail": "L’enregistrement {{id}} est introuvable.",
+      "recordingTitle": "Enregistrement",
+      "timelineTitle": "Chronologie d’appel",
+      "headTitle": "Détail d’appel {{id}} — Flex Contact Center"
+    },
+    "resultMeta": {
+      "shown": "{{shown}} sur {{total}} enregistrements"
     }
   },
   "campaigns": {
@@ -295,9 +359,83 @@
       "started": "Campagne démarrée",
       "paused": "Campagne mise en pause",
       "deleted": "Campagne supprimée",
-      "deleteFailed": "La campagne n'a pas pu être supprimée"
+      "deleteFailed": "La campagne n'a pas pu être supprimée",
+      "updated": "Campagne mise à jour",
+      "created": "Campagne créée"
     },
-    "footerHint": "Adaptateur POC — limite `CampaignRepository` ; remplacer par le backend réel des campagnes lors du déploiement."
+    "footerHint": "Adaptateur POC — limite `CampaignRepository` ; remplacer par le backend réel des campagnes lors du déploiement.",
+    "detail": {
+      "title": "Détail de campagne",
+      "notFoundTitle": "Campagne",
+      "notFoundSubtitle": "Campagne introuvable",
+      "back": "Retour aux campagnes",
+      "notFoundDetail": "La campagne {{id}} est introuvable.",
+      "destination": "Destination",
+      "schedule": "Planification",
+      "performance": "Performance",
+      "contacts": "Contacts",
+      "dialed": "Composés",
+      "answered": "Répondus",
+      "answerRate": "Taux de réponse",
+      "contactsShown": "Contacts ({{count}} affichés)",
+      "table": {
+        "name": "Nom",
+        "phone": "Téléphone",
+        "status": "Statut",
+        "dialedAt": "Composé à",
+        "duration": "Durée"
+      },
+      "fullDetail": "Détail complet",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "pause": "Pause",
+      "start": "Démarrer",
+      "progress": "{{dialed}}/{{total}} contacts composés",
+      "deleteTitle": "Supprimer la campagne",
+      "deleteDescription": "Voulez-vous supprimer « {{title}} » ? Cette action est irréversible.",
+      "cancel": "Annuler",
+      "deleting": "Suppression…"
+    },
+    "form": {
+      "editTitle": "Modifier la campagne",
+      "newTitle": "Nouvelle campagne",
+      "editDescription": "Mettre à jour la planification et les cibles.",
+      "newDescription": "Créer une nouvelle campagne d’appels sortants.",
+      "titleLabel": "Titre",
+      "titlePlaceholder": "ex. Enquête Q4",
+      "destinationLabel": "Destination",
+      "destinationPlaceholder": "Sélectionner une destination",
+      "scheduleLabel": "Planification",
+      "statusLabel": "Statut",
+      "contactsLabel": "Contacts",
+      "dialedLabel": "Composés",
+      "answeredLabel": "Répondus",
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "saving": "Enregistrement…"
+    },
+    "validation": {
+      "titleRequired": "Le titre est requis.",
+      "titleMin": "Le titre doit avoir au moins 3 caractères.",
+      "destinationRequired": "La destination est requise.",
+      "scheduleRequired": "La planification est requise.",
+      "countsNegative": "Les compteurs doivent être zéro ou plus.",
+      "dialedExceeds": "Composés ne peut dépasser le total.",
+      "answeredExceeds": "Répondus ne peut dépasser composés."
+    },
+    "destination": {
+      "outboundIvr": "File d’enquête IVR sortante",
+      "directDispatch": "Distribution directe agent",
+      "broadcastPrompt": "Invite audio diffusée",
+      "outboundSales": "File de ventes sortantes"
+    },
+    "contactStatus": {
+      "answered": "répondu",
+      "dialed": "composé",
+      "queued": "en file",
+      "failed": "échoué",
+      "not-answered": "non répondu"
+    }
   },
   "reports": {
     "title": "Rapports et analytiques",

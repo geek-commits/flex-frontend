@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,7 +17,22 @@ const DESTINATION_OPTIONS = [
     'Direct Agent Dispatch',
     'Broadcast Audio Prompt',
     'Outbound Sales Queue',
-];
+] as const;
+
+const DESTINATION_LABEL_KEYS: Record<(typeof DESTINATION_OPTIONS)[number], 'campaigns.destination.outboundIvr' | 'campaigns.destination.directDispatch' | 'campaigns.destination.broadcastPrompt' | 'campaigns.destination.outboundSales'> = {
+    'Outbound IVR Survey Queue': 'campaigns.destination.outboundIvr',
+    'Direct Agent Dispatch': 'campaigns.destination.directDispatch',
+    'Broadcast Audio Prompt': 'campaigns.destination.broadcastPrompt',
+    'Outbound Sales Queue': 'campaigns.destination.outboundSales',
+};
+
+const STATUS_LABEL_KEYS: Record<CampaignStatus, 'campaigns.status.active' | 'campaigns.status.paused' | 'campaigns.status.scheduled' | 'campaigns.status.completed' | 'campaigns.status.draft'> = {
+    active: 'campaigns.status.active',
+    paused: 'campaigns.status.paused',
+    scheduled: 'campaigns.status.scheduled',
+    completed: 'campaigns.status.completed',
+    draft: 'campaigns.status.draft',
+};
 
 const EMPTY_DRAFT: CampaignDraft = {
     title: '',
@@ -47,33 +63,42 @@ function seedDraft(record: CampaignRecord | undefined): CampaignDraft {
     };
 }
 
-function validateDraft(draft: CampaignDraft): Partial<Record<keyof CampaignDraft, string>> {
-    const errors: Partial<Record<keyof CampaignDraft, string>> = {};
+type ValidationKey =
+    | 'campaigns.validation.titleRequired'
+    | 'campaigns.validation.titleMin'
+    | 'campaigns.validation.destinationRequired'
+    | 'campaigns.validation.scheduleRequired'
+    | 'campaigns.validation.countsNegative'
+    | 'campaigns.validation.dialedExceeds'
+    | 'campaigns.validation.answeredExceeds';
+
+function validateDraft(draft: CampaignDraft): Partial<Record<keyof CampaignDraft, ValidationKey>> {
+    const errors: Partial<Record<keyof CampaignDraft, ValidationKey>> = {};
 
     if (!draft.title.trim()) {
-        errors.title = 'Title is required.';
+        errors.title = 'campaigns.validation.titleRequired';
     } else if (draft.title.trim().length < 3) {
-        errors.title = 'Title must be at least 3 characters.';
+        errors.title = 'campaigns.validation.titleMin';
     }
 
     if (!draft.destination) {
-        errors.destination = 'Destination is required.';
+        errors.destination = 'campaigns.validation.destinationRequired';
     }
 
     if (!draft.scheduleTime) {
-        errors.scheduleTime = 'Schedule time is required.';
+        errors.scheduleTime = 'campaigns.validation.scheduleRequired';
     }
 
     if (draft.totalContacts < 0 || draft.dialedCount < 0 || draft.answeredCount < 0) {
-        errors.totalContacts = 'Counts must be zero or greater.';
+        errors.totalContacts = 'campaigns.validation.countsNegative';
     }
 
     if (draft.dialedCount > draft.totalContacts) {
-        errors.dialedCount = 'Dialed cannot exceed total contacts.';
+        errors.dialedCount = 'campaigns.validation.dialedExceeds';
     }
 
     if (draft.answeredCount > draft.dialedCount) {
-        errors.answeredCount = 'Answered cannot exceed dialed.';
+        errors.answeredCount = 'campaigns.validation.answeredExceeds';
     }
 
     return errors;
@@ -87,13 +112,15 @@ export interface CampaignFormSheetProps {
 }
 
 export function CampaignFormSheet({ open, onOpenChange, editing, onSaved }: CampaignFormSheetProps) {
+    const { t } = useTranslation('supervision');
+
     return (
         <Sheet open={open} onOpenChange={onOpenChange}>
             <SheetContent className="w-full sm:max-w-md">
                 <SheetHeader>
-                    <SheetTitle>{editing ? 'Edit Campaign' : 'New Campaign'}</SheetTitle>
+                    <SheetTitle>{editing ? t('campaigns.form.editTitle') : t('campaigns.form.newTitle')}</SheetTitle>
                     <SheetDescription>
-                        {editing ? 'Update the campaign schedule and targets.' : 'Create a new outbound call campaign.'}
+                        {editing ? t('campaigns.form.editDescription') : t('campaigns.form.newDescription')}
                     </SheetDescription>
                 </SheetHeader>
 
@@ -112,8 +139,9 @@ function CampaignFormFields({
     onClose: () => void;
     onSaved?: () => void;
 }) {
+    const { t } = useTranslation('supervision');
     const [draft, setDraft] = useState<CampaignDraft>(() => seedDraft(editing));
-    const [errors, setErrors] = useState<Partial<Record<keyof CampaignDraft, string>>>({});
+    const [errors, setErrors] = useState<Partial<Record<keyof CampaignDraft, ValidationKey>>>({});
     const [saving, setSaving] = useState(false);
 
     const updateDraft = useCallback((patch: Partial<CampaignDraft>) => {
@@ -139,10 +167,10 @@ function CampaignFormFields({
 
             if (editing) {
                 campaignRepository.update(editing.id, payload);
-                toast.success('Campaign updated');
+                toast.success(t('campaigns.toast.updated'));
             } else {
                 campaignRepository.create(payload);
-                toast.success('Campaign created');
+                toast.success(t('campaigns.toast.created'));
             }
 
             setSaving(false);
@@ -156,40 +184,40 @@ function CampaignFormFields({
             <div className="flex-1 overflow-y-auto px-4 pb-4 flex flex-col gap-4">
                 <div className="flex flex-col gap-1.5">
                     <Label htmlFor="campaign-title" className="text-xs font-semibold">
-                        Title
+                        {t('campaigns.form.titleLabel')}
                     </Label>
                     <Input
                         id="campaign-title"
                         value={draft.title}
                         onChange={(e) => updateDraft({ title: e.target.value })}
-                        placeholder="e.g. Q4 Customer Feedback Survey"
+                        placeholder={t('campaigns.form.titlePlaceholder')}
                         aria-invalid={!!errors.title}
                     />
-                    {errors.title && <p className="text-xs text-destructive">{errors.title}</p>}
+                    {errors.title && <p className="text-xs text-destructive">{t(errors.title)}</p>}
                 </div>
 
                 <div className="flex flex-col gap-1.5">
                     <Label htmlFor="campaign-destination" className="text-xs font-semibold">
-                        Destination
+                        {t('campaigns.form.destinationLabel')}
                     </Label>
                     <Select value={draft.destination || null} onValueChange={(value) => updateDraft({ destination: value ?? '' })}>
                         <SelectTrigger id="campaign-destination" className="w-full">
-                            <SelectValue placeholder="Select a destination" />
+                            <SelectValue placeholder={t('campaigns.form.destinationPlaceholder')} />
                         </SelectTrigger>
                         <SelectContent>
                             {DESTINATION_OPTIONS.map((destination) => (
                                 <SelectItem key={destination} value={destination} className="text-xs">
-                                    {destination}
+                                    {t(DESTINATION_LABEL_KEYS[destination])}
                                 </SelectItem>
                             ))}
                         </SelectContent>
                     </Select>
-                    {errors.destination && <p className="text-xs text-destructive">{errors.destination}</p>}
+                    {errors.destination && <p className="text-xs text-destructive">{t(errors.destination)}</p>}
                 </div>
 
                 <div className="flex flex-col gap-1.5">
                     <Label htmlFor="campaign-schedule" className="text-xs font-semibold">
-                        Schedule
+                        {t('campaigns.form.scheduleLabel')}
                     </Label>
                     <Input
                         id="campaign-schedule"
@@ -198,12 +226,12 @@ function CampaignFormFields({
                         onChange={(e) => updateDraft({ scheduleTime: e.target.value })}
                         aria-invalid={!!errors.scheduleTime}
                     />
-                    {errors.scheduleTime && <p className="text-xs text-destructive">{errors.scheduleTime}</p>}
+                    {errors.scheduleTime && <p className="text-xs text-destructive">{t(errors.scheduleTime)}</p>}
                 </div>
 
                 <div className="flex flex-col gap-1.5">
                     <Label htmlFor="campaign-status" className="text-xs font-semibold">
-                        Status
+                        {t('campaigns.form.statusLabel')}
                     </Label>
                     <Select value={draft.status} onValueChange={(value) => updateDraft({ status: (value as CampaignStatus) ?? 'draft' })}>
                         <SelectTrigger id="campaign-status" className="w-full">
@@ -212,7 +240,7 @@ function CampaignFormFields({
                         <SelectContent>
                             {CAMPAIGN_STATUS_OPTIONS.map((status) => (
                                 <SelectItem key={status} value={status} className="text-xs capitalize">
-                                    {status}
+                                    {t(STATUS_LABEL_KEYS[status])}
                                 </SelectItem>
                             ))}
                         </SelectContent>
@@ -222,7 +250,7 @@ function CampaignFormFields({
                 <div className="grid grid-cols-3 gap-3">
                     <div className="flex flex-col gap-1.5">
                         <Label htmlFor="campaign-contacts" className="text-xs font-semibold">
-                            Contacts
+                            {t('campaigns.form.contactsLabel')}
                         </Label>
                         <Input
                             id="campaign-contacts"
@@ -235,7 +263,7 @@ function CampaignFormFields({
                     </div>
                     <div className="flex flex-col gap-1.5">
                         <Label htmlFor="campaign-dialed" className="text-xs font-semibold">
-                            Dialed
+                            {t('campaigns.form.dialedLabel')}
                         </Label>
                         <Input
                             id="campaign-dialed"
@@ -248,7 +276,7 @@ function CampaignFormFields({
                     </div>
                     <div className="flex flex-col gap-1.5">
                         <Label htmlFor="campaign-answered" className="text-xs font-semibold">
-                            Answered
+                            {t('campaigns.form.answeredLabel')}
                         </Label>
                         <Input
                             id="campaign-answered"
@@ -262,17 +290,17 @@ function CampaignFormFields({
                 </div>
                 {(errors.totalContacts || errors.dialedCount || errors.answeredCount) && (
                     <p className="text-xs text-destructive">
-                        {errors.totalContacts || errors.dialedCount || errors.answeredCount}
+                        {t((errors.totalContacts || errors.dialedCount || errors.answeredCount)!)}
                     </p>
                 )}
             </div>
 
             <SheetFooter className="border-t border-border px-4 py-3">
                 <Button variant="outline" onClick={onClose} disabled={saving}>
-                    Cancel
+                    {t('campaigns.form.cancel')}
                 </Button>
                 <Button onClick={handleSave} disabled={saving}>
-                    {saving ? 'Saving…' : 'Save'}
+                    {saving ? t('campaigns.form.saving') : t('campaigns.form.save')}
                 </Button>
             </SheetFooter>
         </>
