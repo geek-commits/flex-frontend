@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import {
     AlertDialog,
@@ -24,6 +25,7 @@ export interface QueueDeleteDialogProps {
  * that incoming-call distribution for this queue will stop.
  */
 export function QueueDeleteDialog({ queue, onOpenChange, onDeleted }: QueueDeleteDialogProps) {
+    const { t } = useTranslation('administration');
     const [busy, setBusy] = useState(false);
 
     const open = !!queue;
@@ -37,9 +39,9 @@ export function QueueDeleteDialog({ queue, onOpenChange, onDeleted }: QueueDelet
         setTimeout(() => {
             try {
                 routingRepository.deleteQueue(queue.id);
-                toast.success('Queue deleted');
+                toast.success(t('queues.deleteDialog.toast.deleted'));
             } catch {
-                toast.error('Queue could not be deleted');
+                toast.error(t('queues.deleteDialog.toast.deleteFailed'));
             }
 
             setBusy(false);
@@ -52,16 +54,15 @@ export function QueueDeleteDialog({ queue, onOpenChange, onDeleted }: QueueDelet
         <AlertDialog open={open} onOpenChange={onOpenChange}>
             <AlertDialogContent>
                 <AlertDialogHeader>
-                    <AlertDialogTitle>Delete queue?</AlertDialogTitle>
+                    <AlertDialogTitle>{t('queues.deleteDialog.title')}</AlertDialogTitle>
                     <AlertDialogDescription>
-                        Delete &quot;{queue?.name}&quot; ({queue?.extension})? Incoming-call distribution for this queue
-                        will stop.
+                        {t('queues.deleteDialog.description', { name: queue?.name, extension: queue?.extension })}
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogCancel disabled={busy}>Cancel</AlertDialogCancel>
+                    <AlertDialogCancel disabled={busy}>{t('queues.deleteDialog.cancel')}</AlertDialogCancel>
                     <AlertDialogAction variant="destructive" onClick={handleConfirm} disabled={busy}>
-                        {busy ? 'Deleting…' : 'Delete Queue'}
+                        {busy ? t('queues.deleteDialog.deleting') : t('queues.deleteDialog.delete')}
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>

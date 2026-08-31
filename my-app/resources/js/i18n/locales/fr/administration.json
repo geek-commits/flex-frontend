@@ -352,7 +352,7 @@
     },
     "deleteDialog": {
       "title": "Supprimer la file",
-      "description": "Voulez-vous vraiment supprimer cette file ?",
+      "description": "Supprimer « {{name}} » ({{extension}}) ? La distribution des appels entrants pour cette file s'arrêtera.",
       "cancel": "Annuler",
       "delete": "Supprimer",
       "deleting": "Suppression…",
@@ -365,6 +365,30 @@
       "alreadyMember": "{{name}} est déjà membre de cette file.",
       "added": "{{name}} ajouté à la file",
       "removed": "{{name}} retiré de la file"
+    },
+    "members": {
+      "queueMembersTitle": "Membres de la file",
+      "assignedMembers": "Membres assignés ({{count}})",
+      "assignedMembers_one": "Membre assigné ({{count}})",
+      "assignedMembers_other": "Membres assignés ({{count}})",
+      "noMembers": "Aucun membre assigné à cette file.",
+      "addMember": "Ajouter un membre",
+      "searchPlaceholder": "Rechercher des agents...",
+      "searchAriaLabel": "Rechercher des agents",
+      "noMatch": "Aucun agent ne correspond à votre recherche.",
+      "allAssigned": "Tous les agents disponibles sont assignés.",
+      "add": "Ajouter",
+      "alreadyAssigned": "{{name}} est déjà membre de cette file.",
+      "added": "{{name}} ajouté à la file",
+      "removed": "{{name}} retiré de la file",
+      "removeAria": "Retirer {{name}}",
+      "addAria": "Ajouter {{name}}",
+      "table": {
+        "agent": "Agent",
+        "extension": "Poste",
+        "department": "Département",
+        "priority": "Priorité"
+      }
     }
   },
   "ivr": {
@@ -448,7 +472,7 @@
       "saveIVR": "Save IVR",
       "createIVR": "Create IVR",
       "validation": {
-        "nameRequired": "IVR name is required.",
+        "nameRequired": "Le nom IVR est requis.",
         "duplicateKeys": "Menu entry keys must be unique."
       },
       "toast": {
@@ -560,21 +584,23 @@
       "startTimeAria": "Entry {{index}} start time",
       "endTimeAria": "Entry {{index}} end time",
       "weekdaysShort": {
-        "sun": "Sun",
-        "mon": "Mon",
-        "tue": "Tue",
-        "wed": "Wed",
-        "thu": "Thu",
-        "fri": "Fri",
-        "sat": "Sat"
+        "sun": "Dim",
+        "mon": "Lun",
+        "tue": "Mar",
+        "wed": "Mer",
+        "thu": "Jeu",
+        "fri": "Ven",
+        "sat": "Sam"
       }
     },
     "summary": {
-      "noEntries": "No schedule entries",
-      "entries_other": "{{count}} schedule entries",
-      "everyDay": "Every day",
-      "day": "Day {{days}}",
-      "monthPrefix": "M{{month}}"
+      "noEntries": "Aucune entrée de planning",
+      "entries_other": "Entrées de planning {{count}}",
+      "everyDay": "Tous les jours",
+      "day": "Jour {{days}}",
+      "monthPrefix": "M{{month}}",
+      "entries": "Entrées de planning {{count}}",
+      "entries_one": "Entrée de planning {{count}}"
     }
   },
   "timeConditions": {
@@ -649,7 +675,7 @@
       "saveCondition": "Save Condition",
       "createCondition": "Create Condition",
       "validation": {
-        "nameRequired": "Condition name is required.",
+        "nameRequired": "Le nom de la condition est requis.",
         "timeGroupRequired": "Select a Time Group."
       },
       "toast": {

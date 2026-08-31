@@ -43,10 +43,12 @@ export interface IVRFormSheetProps {
     onSaved?: () => void;
 }
 
+type IvrValidationKey = 'ivr.form.validation.nameRequired';
+
 export function IVRFormSheet({ open, onOpenChange, editing, onSaved }: IVRFormSheetProps) {
     const { t } = useTranslation('administration');
     const [draft, setDraft] = useState<IVRDraft>(() => seedDraft(editing));
-    const [nameError, setNameError] = useState<string>();
+    const [nameError, setNameError] = useState<IvrValidationKey>();
     const [saving, setSaving] = useState(false);
 
     const updateDraft = useCallback((patch: Partial<IVRDraft>) => {
@@ -83,7 +85,7 @@ export function IVRFormSheet({ open, onOpenChange, editing, onSaved }: IVRFormSh
 
     const handleSave = () => {
         if (!draft.name.trim()) {
-            setNameError(t('ivr.form.validation.nameRequired'));
+            setNameError('ivr.form.validation.nameRequired');
 
             return;
         }
@@ -138,7 +140,7 @@ export function IVRFormSheet({ open, onOpenChange, editing, onSaved }: IVRFormSh
                                 placeholder={t('ivr.form.ivrNamePlaceholder')}
                                 aria-invalid={!!nameError}
                             />
-                            {nameError && <p className="text-xs text-destructive">{nameError}</p>}
+                            {nameError && <p className="text-xs text-destructive">{t(nameError)}</p>}
                         </div>
                         <div className="flex flex-col gap-1.5">
                             <Label htmlFor="ivr-prompt" className="text-xs font-semibold">

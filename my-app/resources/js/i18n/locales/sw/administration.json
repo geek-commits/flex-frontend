@@ -352,7 +352,7 @@
     },
     "deleteDialog": {
       "title": "Futa Foleni",
-      "description": "Una uhakika unataka kufuta foleni hii?",
+      "description": "Futa \"{{name}}\" ({{extension}})? Usambazaji wa simu zinazoingia kwa foleni hii utasitishwa.",
       "cancel": "Ghairi",
       "delete": "Futa",
       "deleting": "Inafuta…",
@@ -365,6 +365,30 @@
       "alreadyMember": "{{name}} tayari ni mwanachama wa foleni hii.",
       "added": "{{name}} ameongezwa kwenye foleni",
       "removed": "{{name}} ameondolewa kwenye foleni"
+    },
+    "members": {
+      "queueMembersTitle": "Wanachama wa Foleni",
+      "assignedMembers": "Wanachama Walioteuliwa ({{count}})",
+      "assignedMembers_one": "Mwanachama Aliyeteuliwa ({{count}})",
+      "assignedMembers_other": "Wanachama Walioteuliwa ({{count}})",
+      "noMembers": "Hakuna wanachama waliopewa foleni hii bado.",
+      "addMember": "Ongeza Mwanachama",
+      "searchPlaceholder": "Tafuta mawakala...",
+      "searchAriaLabel": "Tafuta mawakala",
+      "noMatch": "Hakuna mawakala wanaolingana na utafutaji wako.",
+      "allAssigned": "Mawakala wote waliopo wamepewa.",
+      "add": "Ongeza",
+      "alreadyAssigned": "{{name}} tayari ni mwanachama wa foleni hii.",
+      "added": "{{name}} ameongezwa kwenye foleni",
+      "removed": "{{name}} ameondolewa kwenye foleni",
+      "removeAria": "Ondoa {{name}}",
+      "addAria": "Ongeza {{name}}",
+      "table": {
+        "agent": "Wakala",
+        "extension": "Kiambishi",
+        "department": "Idara",
+        "priority": "Kipaumbele"
+      }
     }
   },
   "ivr": {
@@ -448,7 +472,7 @@
       "saveIVR": "Save IVR",
       "createIVR": "Create IVR",
       "validation": {
-        "nameRequired": "IVR name is required.",
+        "nameRequired": "Jina la IVR linahitajika.",
         "duplicateKeys": "Menu entry keys must be unique."
       },
       "toast": {
@@ -560,21 +584,23 @@
       "startTimeAria": "Entry {{index}} start time",
       "endTimeAria": "Entry {{index}} end time",
       "weekdaysShort": {
-        "sun": "Sun",
-        "mon": "Mon",
-        "tue": "Tue",
-        "wed": "Wed",
-        "thu": "Thu",
-        "fri": "Fri",
-        "sat": "Sat"
+        "sun": "Jpi",
+        "mon": "J2",
+        "tue": "J3",
+        "wed": "J4",
+        "thu": "Alh",
+        "fri": "Iju",
+        "sat": "J1"
       }
     },
     "summary": {
-      "noEntries": "No schedule entries",
-      "entries_other": "{{count}} schedule entries",
-      "everyDay": "Every day",
-      "day": "Day {{days}}",
-      "monthPrefix": "M{{month}}"
+      "noEntries": "Hakuna vipindi vya ratiba",
+      "entries_other": "Vipindi {{count}} vya ratiba",
+      "everyDay": "Kila siku",
+      "day": "Siku {{days}}",
+      "monthPrefix": "M{{month}}",
+      "entries": "Vipindi {{count}} vya ratiba",
+      "entries_one": "Kipindi {{count}} cha ratiba"
     }
   },
   "timeConditions": {
@@ -649,7 +675,7 @@
       "saveCondition": "Save Condition",
       "createCondition": "Create Condition",
       "validation": {
-        "nameRequired": "Condition name is required.",
+        "nameRequired": "Jina la sharti linahitajika.",
         "timeGroupRequired": "Select a Time Group."
       },
       "toast": {

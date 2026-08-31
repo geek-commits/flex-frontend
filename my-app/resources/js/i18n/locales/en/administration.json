@@ -352,7 +352,7 @@
     },
     "deleteDialog": {
       "title": "Delete Queue",
-      "description": "Are you sure you want to delete this queue?",
+      "description": "Delete \"{{name}}\" ({{extension}})? Incoming-call distribution for this queue will stop.",
       "cancel": "Cancel",
       "delete": "Delete",
       "deleting": "Deleting…",
@@ -365,6 +365,30 @@
       "alreadyMember": "{{name}} is already a member of this queue.",
       "added": "{{name}} added to queue",
       "removed": "{{name}} removed from queue"
+    },
+    "members": {
+      "queueMembersTitle": "Queue Members",
+      "assignedMembers": "Assigned Members ({{count}})",
+      "assignedMembers_one": "Assigned Members ({{count}})",
+      "assignedMembers_other": "Assigned Members ({{count}})",
+      "noMembers": "No members assigned to this queue yet.",
+      "addMember": "Add Member",
+      "searchPlaceholder": "Search agents...",
+      "searchAriaLabel": "Search agents",
+      "noMatch": "No agents match your search.",
+      "allAssigned": "All available agents are assigned.",
+      "add": "Add",
+      "alreadyAssigned": "{{name}} is already a member of this queue.",
+      "added": "{{name}} added to queue",
+      "removed": "{{name}} removed from queue",
+      "removeAria": "Remove {{name}}",
+      "addAria": "Add {{name}}",
+      "table": {
+        "agent": "Agent",
+        "extension": "Extension",
+        "department": "Department",
+        "priority": "Priority"
+      }
     }
   },
   "ivr": {
@@ -574,7 +598,9 @@
       "entries_other": "{{count}} schedule entries",
       "everyDay": "Every day",
       "day": "Day {{days}}",
-      "monthPrefix": "M{{month}}"
+      "monthPrefix": "M{{month}}",
+      "entries": "{{count}} schedule entries",
+      "entries_one": "{{count}} schedule entry"
     }
   },
   "timeConditions": {

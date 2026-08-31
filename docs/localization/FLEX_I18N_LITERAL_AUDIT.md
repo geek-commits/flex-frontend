@@ -1,6 +1,6 @@
 # FLEX i18n Literal Audit — Report Mode (Phase 2)
 
-**Generated:** 2026-08-31T06:51:58.245Z **SHA:** local **Files scanned:** 638 **Hits:** 292
+**Generated:** 2026-08-31T07:29:42.288Z **SHA:** local **Files scanned:** 639 **Hits:** 284
 
 > Classification per §107: TRANSLATE / RUNTIME_DATA / TECHNICAL / BRAND / EXTERNAL / FALSE_POSITIVE — triage before CI gate.
 
@@ -254,14 +254,6 @@
 | features/reports/viewers/queue-logs.tsx | 122 | JSX text | `No log events match these filters.` |
 | features/reports/viewers/queue-logs.tsx | 64 | placeholder | `placeholder="All agents"` |
 | features/reports/viewers/yearly-performance.tsx | 18 | JSX text | `Monthly Trend` |
-| features/routing/queues/queue-delete-dialog.tsx | 62 | JSX text | `Cancel` |
-| features/routing/queues/queue-detail-sheet.tsx | 37 | JSX text | `Members` |
-| features/routing/queues/queue-detail-sheet.tsx | 47 | JSX text | `Delete` |
-| features/routing/queues/queue-members-sheet.tsx | 80 | JSX text | `Queue Members` |
-| features/routing/queues/queue-members-sheet.tsx | 90 | JSX text | `No members assigned to this queue yet.` |
-| features/routing/queues/queue-members-sheet.tsx | 132 | JSX text | `Add Member` |
-| features/routing/queues/queue-members-sheet.tsx | 138 | placeholder | `placeholder="Search agents..."` |
-| features/routing/queues/queue-members-sheet.tsx | 139 | aria-label | `aria-label="Search agents"` |
 | features/social/social-integration-host.tsx | 13 | title | `title="Social Inbox"` |
 | features/social/social-integration-host.tsx | 21 | title | `title="Social Inbox"` |
 | features/subscriptions/subscription-toolbar.tsx | 72 | placeholder | `placeholder="Status"` |

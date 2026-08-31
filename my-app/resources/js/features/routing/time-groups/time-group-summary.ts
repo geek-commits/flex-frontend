@@ -1,38 +1,49 @@
+import type { TFunction } from 'i18next';
 import type { ScheduleEntry } from '@/domain/routing-types';
 
-const WEEKDAYS_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+type AdminT = TFunction<'administration', undefined>;
+
+const WEEKDAY_KEYS = [
+    'timeGroups.editor.weekdaysShort.sun',
+    'timeGroups.editor.weekdaysShort.mon',
+    'timeGroups.editor.weekdaysShort.tue',
+    'timeGroups.editor.weekdaysShort.wed',
+    'timeGroups.editor.weekdaysShort.thu',
+    'timeGroups.editor.weekdaysShort.fri',
+    'timeGroups.editor.weekdaysShort.sat',
+] as const;
 
 /** Human-readable summary of a single schedule entry. */
-export function formatScheduleEntry(entry: ScheduleEntry): string {
+export function formatScheduleEntry(entry: ScheduleEntry, t: AdminT): string {
     const days =
         entry.weekdays.length > 0
             ? entry.weekdays
                   .slice()
                   .sort((a, b) => a - b)
-                  .map((day) => WEEKDAYS_SHORT[day])
+                  .map((day) => t(WEEKDAY_KEYS[day]))
                   .join(', ')
             : entry.monthDays.length > 0
-              ? `Day ${entry.monthDays.slice().sort((a, b) => a - b).join(', ')}`
+              ? t('timeGroups.summary.day', { days: entry.monthDays.slice().sort((a, b) => a - b).join(', ') })
               : entry.months.length > 0
                 ? entry.months
                       .slice()
                       .sort((a, b) => a - b)
-                      .map((month) => `M${month}`)
+                      .map((month) => t('timeGroups.summary.monthPrefix', { month }))
                       .join(', ')
-                : 'Every day';
+                : t('timeGroups.summary.everyDay');
 
     return `${days} · ${entry.startTime}–${entry.endTime}`;
 }
 
 /** Concise summary for a time group (may show "N schedule entries" for complex groups). */
-export function formatTimeGroupSummary(entries: ScheduleEntry[]): string {
+export function formatTimeGroupSummary(entries: ScheduleEntry[], t: AdminT): string {
     if (entries.length === 0) {
-        return 'No schedule entries';
+        return t('timeGroups.summary.noEntries');
     }
 
     if (entries.length === 1) {
-        return formatScheduleEntry(entries[0]);
+        return formatScheduleEntry(entries[0], t);
     }
 
-    return `${entries.length} schedule entries`;
+    return t('timeGroups.summary.entries', { count: entries.length });
 }

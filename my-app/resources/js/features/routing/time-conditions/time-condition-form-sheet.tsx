@@ -41,10 +41,12 @@ export interface TimeConditionFormSheetProps {
     onSaved?: () => void;
 }
 
+type TimeConditionValidationKey = 'timeConditions.form.validation.nameRequired';
+
 export function TimeConditionFormSheet({ open, onOpenChange, editing, onSaved }: TimeConditionFormSheetProps) {
     const { t } = useTranslation('administration');
     const [draft, setDraft] = useState<TimeConditionDraft>(() => seedDraft(editing));
-    const [nameError, setNameError] = useState<string>();
+    const [nameError, setNameError] = useState<TimeConditionValidationKey>();
     const [saving, setSaving] = useState(false);
     const timeGroups = routingRepository.queryTimeGroups();
 
@@ -64,7 +66,7 @@ export function TimeConditionFormSheet({ open, onOpenChange, editing, onSaved }:
 
     const handleSave = () => {
         if (!draft.name.trim()) {
-            setNameError(t('timeConditions.form.validation.nameRequired'));
+            setNameError('timeConditions.form.validation.nameRequired');
 
             return;
         }
@@ -116,7 +118,7 @@ export function TimeConditionFormSheet({ open, onOpenChange, editing, onSaved }:
                                 placeholder={t('timeConditions.form.conditionNamePlaceholder')}
                                 aria-invalid={!!nameError}
                             />
-                            {nameError && <p className="text-xs text-destructive">{nameError}</p>}
+                            {nameError && <p className="text-xs text-destructive">{t(nameError)}</p>}
                         </div>
                         <div className="flex flex-col gap-1.5">
                             <Label htmlFor="tc-status" className="text-xs font-semibold">
@@ -146,7 +148,7 @@ export function TimeConditionFormSheet({ open, onOpenChange, editing, onSaved }:
                                 <SelectContent>
                                     {timeGroups.map((group) => (
                                         <SelectItem key={group.id} value={group.id} className="text-xs">
-                                            {group.description} · {formatTimeGroupSummary(group.entries)}
+                                            {group.description} · {formatTimeGroupSummary(group.entries, t)}
                                         </SelectItem>
                                     ))}
                                 </SelectContent>
