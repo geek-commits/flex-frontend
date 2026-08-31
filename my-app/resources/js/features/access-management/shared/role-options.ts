@@ -1,15 +1,24 @@
 import type { Role } from '@/auth/capabilities';
 
-/**
- * POC role vocabulary for access-management surfaces. Mirrors
- * `ROLE_CAPABILITIES` in `auth/capabilities.tsx`; presentation copy only.
- */
-export const ROLE_OPTIONS: { value: Role; label: string }[] = [
-    { value: 'super-admin', label: 'Super Administrator' },
-    { value: 'admin', label: 'Administrator' },
-    { value: 'supervisor', label: 'Supervisor' },
-    { value: 'agent', label: 'Agent' },
-];
+export type RoleLabelKey =
+    | 'users.roles.superAdmin'
+    | 'users.roles.admin'
+    | 'users.roles.supervisor'
+    | 'users.roles.agent';
+
+export const ROLE_LABEL_KEYS = {
+    'super-admin': 'users.roles.superAdmin',
+    admin: 'users.roles.admin',
+    supervisor: 'users.roles.supervisor',
+    agent: 'users.roles.agent',
+} as const satisfies Record<Role, RoleLabelKey>;
+
+export const ROLE_OPTIONS = [
+    { value: 'super-admin', labelKey: ROLE_LABEL_KEYS['super-admin'] },
+    { value: 'admin', labelKey: ROLE_LABEL_KEYS.admin },
+    { value: 'supervisor', labelKey: ROLE_LABEL_KEYS.supervisor },
+    { value: 'agent', labelKey: ROLE_LABEL_KEYS.agent },
+] as const;
 
 export const ROLE_TONE: Record<Role, 'primary' | 'neutral' | 'muted'> = {
     'super-admin': 'primary',

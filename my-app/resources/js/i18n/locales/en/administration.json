@@ -122,7 +122,9 @@
         "created": "User created. Temporary login instructions were sent by email.",
         "saveFailed": "User could not be saved"
       },
-      "roleWarning": "Changing the role will affect this user’s permissions."
+      "roleWarning": "Changing the role will affect this user’s permissions.",
+      "thisUser": "this user",
+      "roleChangeWarning": "Role change from {{from}} to {{to}} takes effect immediately and may change what {{name}} can access."
     },
     "detail": {
       "restoreUser": "Restore User",

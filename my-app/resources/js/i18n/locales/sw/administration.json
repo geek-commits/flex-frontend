@@ -122,7 +122,9 @@
         "created": "Mtumiaji ameundwa. Maelekezo ya kuingia kwa muda yametumwa kwa barua pepe.",
         "saveFailed": "Mtumiaji haukuweza kuhifadhiwa"
       },
-      "roleWarning": "Kubadilisha jukumu kutaathiri ruhusa za mtumiaji huyu."
+      "roleWarning": "Kubadilisha jukumu kutaathiri ruhusa za mtumiaji huyu.",
+      "thisUser": "mtumiaji huyu",
+      "roleChangeWarning": "Mabadiliko ya jukumu kutoka {{from}} hadi {{to}} yanaanza mara moja na yanaweza kubadilisha kile {{name}} anachoweza kufikia."
     },
     "detail": {
       "restoreUser": "Rejesha Mtumiaji",

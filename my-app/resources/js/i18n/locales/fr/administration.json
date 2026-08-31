@@ -122,7 +122,9 @@
         "created": "Utilisateur créé. Les instructions de connexion temporaire ont été envoyées par e-mail.",
         "saveFailed": "L'utilisateur n'a pas pu être enregistré"
       },
-      "roleWarning": "Changer le rôle affectera les autorisations de cet utilisateur."
+      "roleWarning": "Changer le rôle affectera les autorisations de cet utilisateur.",
+      "thisUser": "cet utilisateur",
+      "roleChangeWarning": "Le changement de rôle de {{from}} à {{to}} prend effet immédiatement et peut modifier ce que {{name}} peut accéder."
     },
     "detail": {
       "restoreUser": "Restaurer l'utilisateur",
