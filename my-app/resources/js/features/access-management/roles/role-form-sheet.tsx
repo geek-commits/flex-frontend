@@ -31,11 +31,13 @@ export interface RoleFormSheetProps {
     onSaved?: () => void;
 }
 
+type RoleValidationKey = 'roles.form.validation.nameRequired';
+
 export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleFormSheetProps) {
     const { t } = useTranslation('administration');
     const [draft, setDraft] = useState<RoleDraft>(() => seedDraft(editing));
     const [search, setSearch] = useState('');
-    const [nameError, setNameError] = useState<string>();
+    const [nameError, setNameError] = useState<RoleValidationKey>();
     const [saving, setSaving] = useState(false);
 
     const updateDraft = useCallback((patch: Partial<RoleDraft>) => {
@@ -57,14 +59,21 @@ export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleForm
     const filteredGroups = useMemo(() => {
         const needle = search.trim().toLowerCase();
         const source: PermissionDefinition[] = needle
-            ? PERMISSIONS.filter(
-                  (permission) =>
-                      permission.name.toLowerCase().includes(needle) || permission.module.toLowerCase().includes(needle)
-              )
+            ? PERMISSIONS.filter((permission) => {
+                  const name = permission.kind === 'builtin' ? t(permission.labelKey) : permission.name;
+                  const mod = t(permission.moduleKey);
+                  const typeLabel = permission.kind === 'builtin' ? t(permission.typeKey) : permission.type;
+                  return (
+                      name.toLowerCase().includes(needle) ||
+                      mod.toLowerCase().includes(needle) ||
+                      typeLabel.toLowerCase().includes(needle) ||
+                      permission.id.toLowerCase().includes(needle)
+                  );
+              })
             : PERMISSIONS;
 
         return permissionGroups(source);
-    }, [search]);
+    }, [search, t]);
 
     const selectedCount = draft.permissions.length;
 
@@ -86,7 +95,7 @@ export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleForm
 
     const handleSave = () => {
         if (!draft.name.trim()) {
-            setNameError(t('roles.form.validation.nameRequired'));
+            setNameError('roles.form.validation.nameRequired');
 
             return;
         }
@@ -139,12 +148,12 @@ export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleForm
                             placeholder={t('roles.form.roleNamePlaceholder')}
                             aria-invalid={!!nameError}
                         />
-                        {nameError && <p className="text-xs text-destructive">{nameError}</p>}
+                        {nameError && <p className="text-xs text-destructive">{t(nameError)}</p>}
                     </div>
 
                     {editing && editing.userCount > 0 && (
                         <p className="rounded-md border border-flex-status-warning-bg bg-flex-status-warning-bg px-3 py-2 text-xs text-flex-status-warning">
-                            {t('roles.form.assignedWarning', { count: editing.userCount, pluralSuffix: editing.userCount === 1 ? '' : 's' })}
+                            {t('roles.form.assignedWarning', { count: editing.userCount })}
                         </p>
                     )}
 
@@ -166,18 +175,19 @@ export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleForm
 
                         {unknownPermissions.length > 0 && (
                             <p className="rounded-md border border-flex-status-warning-bg bg-flex-status-warning-bg px-3 py-2 text-xs text-flex-status-warning">
-                                {t('roles.form.unknownWarning', { count: unknownPermissions.length, pluralSuffix: unknownPermissions.length === 1 ? '' : 's' })}
+                                {t('roles.form.unknownWarning', { count: unknownPermissions.length })}
                             </p>
                         )}
 
                         <div className="flex flex-col gap-3">
                             {filteredGroups.map((group) => (
-                                <div key={group.module} className="flex flex-col gap-1.5">
+                                <div key={group.moduleKey} className="flex flex-col gap-1.5">
                                     <p className="text-[11px] font-semibold uppercase tracking-wider text-flex-text-muted">
-                                        {group.module}
+                                        {t(group.moduleKey)}
                                     </p>
                                     {group.permissions.map((permission) => {
                                         const checked = draft.permissions.includes(permission.id);
+                                        const label = permission.kind === 'builtin' ? t(permission.labelKey) : permission.name;
 
                                         return (
                                             <label
@@ -187,9 +197,9 @@ export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleForm
                                                 <Checkbox
                                                     checked={checked}
                                                     onCheckedChange={() => togglePermission(permission.id)}
-                                                    aria-label={permission.name}
+                                                    aria-label={label}
                                                 />
-                                                <span className="text-xs text-flex-text-primary">{permission.name}</span>
+                                                <span className="text-xs text-flex-text-primary">{label}</span>
                                             </label>
                                         );
                                     })}

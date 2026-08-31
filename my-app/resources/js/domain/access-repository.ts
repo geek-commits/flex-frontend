@@ -194,9 +194,10 @@ export const accessRepository: AccessRepository = {
             .replace(/^-+|-+$/g, '');
 
         const permission: PermissionDefinition = {
+            kind: 'custom',
             id: slug ? `${slug}.${draft.type}` : `p${Date.now()}`,
             name: draft.name.trim(),
-            module: 'Custom',
+            moduleKey: 'roles.permissions.modules.custom',
             type: draft.type,
         };
 

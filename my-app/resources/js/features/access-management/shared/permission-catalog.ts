@@ -11,82 +11,147 @@ import { ROLE_CAPABILITIES } from '@/auth/capabilities';
  * authoritative for authorization.
  */
 
-export interface PermissionDefinition {
+export type PermissionType = 'view' | 'manage' | 'workspace' | 'manager';
+
+export type PermissionLabelKey =
+    | 'roles.permissions.catalog.dashboardView'
+    | 'roles.permissions.catalog.monitorView'
+    | 'roles.permissions.catalog.consoleView'
+    | 'roles.permissions.catalog.cdrView'
+    | 'roles.permissions.catalog.campaignsView'
+    | 'roles.permissions.catalog.campaignsManage'
+    | 'roles.permissions.catalog.reportsView'
+    | 'roles.permissions.catalog.aiView'
+    | 'roles.permissions.catalog.systemView'
+    | 'roles.permissions.catalog.settingsManage'
+    | 'roles.permissions.catalog.securityView'
+    | 'roles.permissions.catalog.rolesManage'
+    | 'roles.permissions.catalog.tenantsManage'
+    | 'roles.permissions.catalog.agentWorkspace'
+    | 'roles.permissions.catalog.agentDashboardView'
+    | 'roles.permissions.catalog.socialView'
+    | 'roles.permissions.catalog.callManager'
+    | 'roles.permissions.catalog.missedCallsView'
+    | 'roles.permissions.catalog.troubleshootingView'
+    | 'roles.permissions.catalog.supportView';
+
+export const PERMISSION_LABEL_KEYS: Record<Capability, PermissionLabelKey> = {
+    'dashboard.view': 'roles.permissions.catalog.dashboardView',
+    'monitor.view': 'roles.permissions.catalog.monitorView',
+    'console.view': 'roles.permissions.catalog.consoleView',
+    'cdr.view': 'roles.permissions.catalog.cdrView',
+    'campaigns.view': 'roles.permissions.catalog.campaignsView',
+    'campaigns.manage': 'roles.permissions.catalog.campaignsManage',
+    'reports.view': 'roles.permissions.catalog.reportsView',
+    'ai.view': 'roles.permissions.catalog.aiView',
+    'system.view': 'roles.permissions.catalog.systemView',
+    'settings.manage': 'roles.permissions.catalog.settingsManage',
+    'security.view': 'roles.permissions.catalog.securityView',
+    'roles.manage': 'roles.permissions.catalog.rolesManage',
+    'tenants.manage': 'roles.permissions.catalog.tenantsManage',
+    'agent.workspace': 'roles.permissions.catalog.agentWorkspace',
+    'agent.dashboard.view': 'roles.permissions.catalog.agentDashboardView',
+    'social.view': 'roles.permissions.catalog.socialView',
+    'call.manager': 'roles.permissions.catalog.callManager',
+    'missed-calls.view': 'roles.permissions.catalog.missedCallsView',
+    'troubleshooting.view': 'roles.permissions.catalog.troubleshootingView',
+    'support.view': 'roles.permissions.catalog.supportView',
+};
+
+export type PermissionModuleKey =
+    | 'roles.permissions.modules.dashboard'
+    | 'roles.permissions.modules.monitoring'
+    | 'roles.permissions.modules.managementConsole'
+    | 'roles.permissions.modules.callRecords'
+    | 'roles.permissions.modules.campaigns'
+    | 'roles.permissions.modules.reports'
+    | 'roles.permissions.modules.aiCenter'
+    | 'roles.permissions.modules.system'
+    | 'roles.permissions.modules.settings'
+    | 'roles.permissions.modules.security'
+    | 'roles.permissions.modules.rolesPermissions'
+    | 'roles.permissions.modules.platform'
+    | 'roles.permissions.modules.agentWorkspace'
+    | 'roles.permissions.modules.callManager'
+    | 'roles.permissions.modules.socialInbox'
+    | 'roles.permissions.modules.missedCalls'
+    | 'roles.permissions.modules.troubleshooting'
+    | 'roles.permissions.modules.support'
+    | 'roles.permissions.modules.custom';
+
+export const PERMISSION_MODULE_KEYS: Record<string, PermissionModuleKey> = {
+    dashboard: 'roles.permissions.modules.dashboard',
+    monitor: 'roles.permissions.modules.monitoring',
+    console: 'roles.permissions.modules.managementConsole',
+    cdr: 'roles.permissions.modules.callRecords',
+    campaigns: 'roles.permissions.modules.campaigns',
+    reports: 'roles.permissions.modules.reports',
+    ai: 'roles.permissions.modules.aiCenter',
+    system: 'roles.permissions.modules.system',
+    settings: 'roles.permissions.modules.settings',
+    security: 'roles.permissions.modules.security',
+    roles: 'roles.permissions.modules.rolesPermissions',
+    tenants: 'roles.permissions.modules.platform',
+    agent: 'roles.permissions.modules.agentWorkspace',
+    call: 'roles.permissions.modules.callManager',
+    social: 'roles.permissions.modules.socialInbox',
+    'missed-calls': 'roles.permissions.modules.missedCalls',
+    troubleshooting: 'roles.permissions.modules.troubleshooting',
+    support: 'roles.permissions.modules.support',
+    custom: 'roles.permissions.modules.custom',
+};
+
+export type PermissionTypeKey =
+    | 'roles.permissions.types.view'
+    | 'roles.permissions.types.manage'
+    | 'roles.permissions.types.workspace'
+    | 'roles.permissions.types.manager';
+
+export const PERMISSION_TYPE_KEYS: Record<PermissionType, PermissionTypeKey> = {
+    view: 'roles.permissions.types.view',
+    manage: 'roles.permissions.types.manage',
+    workspace: 'roles.permissions.types.workspace',
+    manager: 'roles.permissions.types.manager',
+};
+
+export type BuiltinPermissionDefinition = {
+    kind: 'builtin';
+    id: Capability;
+    labelKey: PermissionLabelKey;
+    moduleKey: PermissionModuleKey;
+    type: PermissionType;
+    typeKey: PermissionTypeKey;
+};
+
+export type CustomPermissionDefinition = {
+    kind: 'custom';
     id: string;
     name: string;
-    module: string;
-    /** Action suffix derived from the real capability token (`view` | `manage` | `workspace` | `manager`). */
+    moduleKey: PermissionModuleKey;
     type: string;
-}
-
-/** Human labels for each capability — display-only, derived 1:1 from the registry. */
-export const PERMISSION_LABELS: Record<Capability, string> = {
-    'dashboard.view': 'View Dashboard',
-    'monitor.view': 'View Agent Monitoring',
-    'console.view': 'View Management Console',
-    'cdr.view': 'View Call Records',
-    'campaigns.view': 'View Campaigns',
-    'campaigns.manage': 'Manage Campaigns',
-    'reports.view': 'View Reports',
-    'ai.view': 'View AI Center',
-    'system.view': 'View System & Infrastructure',
-    'settings.manage': 'Manage Settings',
-    'security.view': 'View Security',
-    'roles.manage': 'Manage Roles & Permissions',
-    'tenants.manage': 'Manage Tenants & Platform',
-    'agent.workspace': 'Use Agent Workspace',
-    'agent.dashboard.view': 'View Agent Dashboard',
-    'social.view': 'View Social Inbox',
-    'call.manager': 'Use Call Manager',
-    'missed-calls.view': 'View Missed Calls',
-    'troubleshooting.view': 'View Troubleshooting',
-    'support.view': 'View Quick Support',
 };
 
-/** Module derived from the capability token prefix. */
-const MODULE_BY_PREFIX: Record<string, string> = {
-    dashboard: 'Dashboard',
-    monitor: 'Monitoring',
-    console: 'Management Console',
-    cdr: 'Call Records',
-    campaigns: 'Campaigns',
-    reports: 'Reports',
-    ai: 'AI Center',
-    system: 'System',
-    settings: 'Settings',
-    security: 'Security',
-    roles: 'Roles & Permissions',
-    tenants: 'Platform',
-    agent: 'Agent Workspace',
-    call: 'Call Manager',
-    social: 'Social Inbox',
-    'missed-calls': 'Missed Calls',
-    troubleshooting: 'Troubleshooting',
-    support: 'Support',
-};
+export type PermissionDefinition = BuiltinPermissionDefinition | CustomPermissionDefinition;
 
-export const PERMISSIONS: PermissionDefinition[] = (Object.keys(PERMISSION_LABELS) as Capability[]).map((id) => {
+export const PERMISSIONS: PermissionDefinition[] = (Object.keys(PERMISSION_LABEL_KEYS) as Capability[]).map((id) => {
     const parts = id.split('.');
     const prefix = parts[0];
-    const type = parts[1] ?? prefix;
+    const rawType = (parts[1] ?? prefix) as PermissionType;
+    const type: PermissionType = rawType === 'view' || rawType === 'manage' || rawType === 'workspace' || rawType === 'manager' ? rawType : 'view';
 
     return {
+        kind: 'builtin',
         id,
-        name: PERMISSION_LABELS[id],
-        module: MODULE_BY_PREFIX[prefix] ?? prefix,
+        labelKey: PERMISSION_LABEL_KEYS[id],
+        moduleKey: PERMISSION_MODULE_KEYS[prefix] ?? PERMISSION_MODULE_KEYS.custom,
         type,
+        typeKey: PERMISSION_TYPE_KEYS[type],
     };
 });
 
-/** Distinct permission types present in the real capability set. */
-export const PERMISSION_TYPES: string[] = Array.from(new Set(PERMISSIONS.map((permission) => permission.type))).sort();
-
-/** Human module label for a permission id (derived from the token prefix). */
-export function permissionModuleLabel(id: string): string {
-    const prefix = id.split('.')[0];
-
-    return MODULE_BY_PREFIX[prefix] ?? prefix;
-}
+export const PERMISSION_TYPES: PermissionType[] = Array.from(
+    new Set(PERMISSIONS.filter((p): p is BuiltinPermissionDefinition => p.kind === 'builtin').map((p) => p.type)),
+).sort() as PermissionType[];
 
 export interface PermissionDraft {
     name: string;
@@ -97,16 +162,17 @@ export interface RoleRecord {
     id: string;
     name: string;
     permissions: string[];
-    /** Count of POC users currently assigned this role. */
     userCount: number;
+    kind?: 'builtin' | 'custom';
 }
 
 export function roleRecords(userCounts: Record<Role, number>): RoleRecord[] {
     return (Object.keys(ROLE_CAPABILITIES) as Role[]).map((id) => ({
         id,
-        name: id === 'super-admin' ? 'Super Administrator' : id === 'admin' ? 'Administrator' : id === 'supervisor' ? 'Supervisor' : 'Agent',
+        name: id,
         permissions: [...ROLE_CAPABILITIES[id]],
         userCount: userCounts[id] ?? 0,
+        kind: 'builtin' as const,
     }));
 }
 
@@ -116,15 +182,15 @@ export interface RoleDraft {
 }
 
 /** Modules with their permission options, in a stable order. */
-export function permissionGroups(permissions: PermissionDefinition[]): { module: string; permissions: PermissionDefinition[] }[] {
-    const byModule = new Map<string, PermissionDefinition[]>();
+export function permissionGroups(permissions: PermissionDefinition[]): { moduleKey: PermissionModuleKey; permissions: PermissionDefinition[] }[] {
+    const byModule = new Map<PermissionModuleKey, PermissionDefinition[]>();
 
     for (const permission of permissions) {
-        const list = byModule.get(permission.module) ?? [];
-
+        const key = permission.moduleKey;
+        const list = byModule.get(key) ?? [];
         list.push(permission);
-        byModule.set(permission.module, list);
+        byModule.set(key, list);
     }
 
-    return Array.from(byModule.entries()).map(([module, items]) => ({ module, permissions: items }));
+    return Array.from(byModule.entries()).map(([moduleKey, items]) => ({ moduleKey, permissions: items }));
 }
