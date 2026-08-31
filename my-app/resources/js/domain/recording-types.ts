@@ -59,6 +59,19 @@ export interface RecordingSummary {
     queueAudioCount: number;
 }
 
+export type RecordingMutationError =
+    | 'titleRequired'
+    | 'filenameRequired'
+    | 'notFound'
+    | 'titleEmpty'
+    | 'inUse';
+
 export type RecordingMutationResult =
     | { ok: true; record: RecordingRecord }
-    | { ok: false; reason: string };
+    | {
+          ok: false;
+          error: RecordingMutationError;
+          params?: {
+              usageNames?: string;
+          };
+      };

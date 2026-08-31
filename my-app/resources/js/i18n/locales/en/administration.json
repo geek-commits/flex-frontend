@@ -816,6 +816,13 @@
       "description": "Are you sure you want to delete this recording?",
       "cancel": "Cancel",
       "delete": "Delete"
+    },
+    "errors": {
+      "titleRequired": "Recording title is required.",
+      "filenameRequired": "Audio filename is required.",
+      "notFound": "Recording not found.",
+      "titleEmpty": "Recording title cannot be empty.",
+      "inUse": "Cannot delete recording: it is currently used by {{usageNames}}. Reassign or remove dependencies first."
     }
   },
   "subscriptions": {

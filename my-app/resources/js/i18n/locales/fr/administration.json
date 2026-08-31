@@ -816,6 +816,13 @@
       "description": "Voulez-vous vraiment supprimer cet enregistrement ?",
       "cancel": "Annuler",
       "delete": "Supprimer"
+    },
+    "errors": {
+      "titleRequired": "Le titre de l'enregistrement est requis.",
+      "filenameRequired": "Le nom du fichier audio est requis.",
+      "notFound": "Enregistrement introuvable.",
+      "titleEmpty": "Le titre ne peut pas être vide.",
+      "inUse": "Impossible de supprimer : utilisé par {{usageNames}}. Réaffectez d'abord."
     }
   },
   "subscriptions": {

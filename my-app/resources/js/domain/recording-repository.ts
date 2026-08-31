@@ -1,11 +1,5 @@
 import { RECORDINGS_MOCK_DATA } from '@/data/recordings.mock';
-import type {
-    RecordingDraft,
-    RecordingMutationResult,
-    RecordingQuery,
-    RecordingRecord,
-    RecordingSummary,
-} from '@/domain/recording-types';
+import type { RecordingDraft, RecordingMutationResult, RecordingQuery, RecordingRecord, RecordingSummary } from '@/domain/recording-types';
 
 /**
  * Call Recordings & System Audio repository boundary.
@@ -19,7 +13,7 @@ export interface RecordingRepository {
     createRecording(draft: RecordingDraft): RecordingMutationResult;
     updateRecording(id: string, patch: Partial<RecordingDraft>): RecordingMutationResult;
     replaceAudio(id: string, fileData: { filename: string; format: 'WAV' | 'MP3'; duration?: string; durationSeconds?: number; fileSizeBytes?: number; url?: string }): RecordingMutationResult;
-    deleteRecording(id: string, force?: boolean): { ok: boolean; reason?: string };
+    deleteRecording(id: string, force?: boolean): RecordingMutationResult;
     getSummary(): RecordingSummary;
 }
 
@@ -63,11 +57,11 @@ export const recordingRepository: RecordingRepository = {
 
     createRecording(draft: RecordingDraft): RecordingMutationResult {
         if (!draft.name.trim()) {
-            return { ok: false, reason: 'Recording title is required.' };
+            return { ok: false, error: 'titleRequired' };
         }
 
         if (!draft.filename.trim()) {
-            return { ok: false, reason: 'Audio filename is required.' };
+            return { ok: false, error: 'filenameRequired' };
         }
 
         const id = `rec-${Date.now()}`;
@@ -95,13 +89,13 @@ export const recordingRepository: RecordingRepository = {
         const index = recordings.findIndex((r) => r.id === id);
 
         if (index === -1) {
-            return { ok: false, reason: 'Recording not found.' };
+            return { ok: false, error: 'notFound' };
         }
 
         const existing = recordings[index];
 
         if (patch.name !== undefined && !patch.name.trim()) {
-            return { ok: false, reason: 'Recording title cannot be empty.' };
+            return { ok: false, error: 'titleEmpty' };
         }
 
         const updated: RecordingRecord = {
@@ -127,7 +121,7 @@ export const recordingRepository: RecordingRepository = {
         const index = recordings.findIndex((r) => r.id === id);
 
         if (index === -1) {
-            return { ok: false, reason: 'Recording not found.' };
+            return { ok: false, error: 'notFound' };
         }
 
         const existing = recordings[index];
@@ -147,11 +141,11 @@ export const recordingRepository: RecordingRepository = {
         return { ok: true, record: clone(updated) };
     },
 
-    deleteRecording(id: string, force = false): { ok: boolean; reason?: string } {
+    deleteRecording(id: string, force = false): RecordingMutationResult {
         const index = recordings.findIndex((r) => r.id === id);
 
         if (index === -1) {
-            return { ok: false, reason: 'Recording not found.' };
+            return { ok: false, error: 'notFound' };
         }
 
         const record = recordings[index];
@@ -161,13 +155,17 @@ export const recordingRepository: RecordingRepository = {
 
             return {
                 ok: false,
-                reason: `Cannot delete recording: it is currently used by ${usageNames}. Reassign or remove dependencies first.`,
+                error: 'inUse',
+                params: {
+                    usageNames,
+                },
             };
         }
 
+        const deleted = clone(record);
         recordings.splice(index, 1);
 
-        return { ok: true };
+        return { ok: true, record: deleted };
     },
 
     getSummary(): RecordingSummary {

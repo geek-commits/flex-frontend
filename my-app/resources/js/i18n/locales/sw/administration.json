@@ -816,6 +816,13 @@
       "description": "Una uhakika unataka kufuta rekodi hii?",
       "cancel": "Ghairi",
       "delete": "Futa"
+    },
+    "errors": {
+      "titleRequired": "Kichwa cha rekodi kinahitajika.",
+      "filenameRequired": "Jina la faili la sauti linahitajika.",
+      "notFound": "Rekodi haikupatikana.",
+      "titleEmpty": "Kichwa cha rekodi hakiwezi kuwa tupu.",
+      "inUse": "Haiwezi kufuta rekodi: inatumiwa na {{usageNames}}. Pangilia upya kwanza."
     }
   },
   "subscriptions": {

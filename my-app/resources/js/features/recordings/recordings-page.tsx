@@ -31,7 +31,7 @@ function formatBytes(bytes: number): string {
 }
 
 export function RecordingsPage() {
-    const { t } = useTranslation('administration');
+    const { t, i18n } = useTranslation('administration');
     const {
         records,
         summary,
@@ -77,12 +77,20 @@ export function RecordingsPage() {
         setDeleteOpen(true);
     }, []);
 
+    const RECORDING_MUTATION_ERROR_KEYS = {
+        titleRequired: 'recordings.errors.titleRequired',
+        filenameRequired: 'recordings.errors.filenameRequired',
+        notFound: 'recordings.errors.notFound',
+        titleEmpty: 'recordings.errors.titleEmpty',
+        inUse: 'recordings.errors.inUse',
+    } as const;
+
     const handleSaveDraft = (draft: RecordingDraft): boolean => {
         if (formMode === 'create') {
             const res = create(draft);
 
             if (!res.ok) {
-                toast.error(res.reason);
+                toast.error(t(RECORDING_MUTATION_ERROR_KEYS[res.error], res.params));
 
                 return false;
             }
@@ -94,7 +102,7 @@ export function RecordingsPage() {
             const res = update(editingRecord.id, draft);
 
             if (!res.ok) {
-                toast.error(res.reason);
+                toast.error(t(RECORDING_MUTATION_ERROR_KEYS[res.error], res.params));
 
                 return false;
             }
@@ -116,7 +124,7 @@ export function RecordingsPage() {
         const res = replaceAudio(id, fileData);
 
         if (!res.ok) {
-            toast.error(res.reason);
+            toast.error(t(RECORDING_MUTATION_ERROR_KEYS[res.error], res.params));
 
             return false;
         }
@@ -132,7 +140,7 @@ export function RecordingsPage() {
         const res = remove(record.id, force);
 
         if (!res.ok) {
-            toast.error(res.reason ?? t('recordings.toast.deleteFailed'));
+            toast.error(t(RECORDING_MUTATION_ERROR_KEYS[res.error], res.params));
 
             return;
         }
@@ -192,7 +200,11 @@ export function RecordingsPage() {
 
                 <div className="flex items-center justify-between text-xs text-flex-text-muted">
                     <span>{t('recordings.showing', { count: records.length })}</span>
-                    <span>{t('recordings.updated', { time: lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) })}</span>
+                    <span>
+                        {t('recordings.updated', {
+                            time: new Intl.DateTimeFormat(i18n.language, { hour: '2-digit', minute: '2-digit' }).format(lastUpdated),
+                        })}
+                    </span>
                 </div>
 
                 {/* Toolbar + Main Table */}
