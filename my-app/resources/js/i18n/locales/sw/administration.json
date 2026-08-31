@@ -132,7 +132,14 @@
       "editUser": "Hariri Mtumiaji",
       "deactivate": "Zima",
       "removeUser": "Ondoa Mtumiaji",
-      "cancel": "Ghairi"
+      "cancel": "Ghairi",
+      "status": "Hali",
+      "role": "Jukumu",
+      "username": "Jina la mtumiaji",
+      "organization": "Shirika",
+      "lastActivity": "Shughuli ya mwisho",
+      "created": "Imeundwa",
+      "fallbackTitle": "Mtumiaji"
     },
     "lifecycleDialog": {
       "deactivateSuccess": "{{name}} amezimwa",
@@ -143,6 +150,12 @@
     "resetPasswordDialog": {
       "success": "Kiungo cha kuweka upya nenosiri kimetumwa.",
       "failed": "Haikuweza kutuma kiungo cha kuweka upya nenosiri. Jaribu tena."
+    },
+    "roles": {
+      "superAdmin": "Msimamizi Mkuu",
+      "admin": "Msimamizi",
+      "supervisor": "Msimamizi",
+      "agent": "Wakala"
     }
   },
   "roles": {

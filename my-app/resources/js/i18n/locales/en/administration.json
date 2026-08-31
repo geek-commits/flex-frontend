@@ -132,7 +132,14 @@
       "editUser": "Edit User",
       "deactivate": "Deactivate",
       "removeUser": "Remove User",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "status": "Status",
+      "role": "Role",
+      "username": "Username",
+      "organization": "Organization",
+      "lastActivity": "Last activity",
+      "created": "Created",
+      "fallbackTitle": "User"
     },
     "lifecycleDialog": {
       "deactivateSuccess": "{{name}} deactivated",
@@ -143,6 +150,12 @@
     "resetPasswordDialog": {
       "success": "Password reset link sent.",
       "failed": "Couldn’t send the password reset link. Try again."
+    },
+    "roles": {
+      "superAdmin": "Super Administrator",
+      "admin": "Administrator",
+      "supervisor": "Supervisor",
+      "agent": "Agent"
     }
   },
   "roles": {

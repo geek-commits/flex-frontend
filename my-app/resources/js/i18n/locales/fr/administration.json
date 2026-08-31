@@ -132,7 +132,14 @@
       "editUser": "Modifier l'utilisateur",
       "deactivate": "Désactiver",
       "removeUser": "Supprimer l'utilisateur",
-      "cancel": "Annuler"
+      "cancel": "Annuler",
+      "status": "Statut",
+      "role": "Rôle",
+      "username": "Nom d'utilisateur",
+      "organization": "Organisation",
+      "lastActivity": "Dernière activité",
+      "created": "Créé",
+      "fallbackTitle": "Utilisateur"
     },
     "lifecycleDialog": {
       "deactivateSuccess": "{{name}} désactivé",
@@ -143,6 +150,12 @@
     "resetPasswordDialog": {
       "success": "Lien de réinitialisation envoyé.",
       "failed": "Impossible d'envoyer le lien de réinitialisation. Réessayez."
+    },
+    "roles": {
+      "superAdmin": "Super administrateur",
+      "admin": "Administrateur",
+      "supervisor": "Superviseur",
+      "agent": "Agent"
     }
   },
   "roles": {

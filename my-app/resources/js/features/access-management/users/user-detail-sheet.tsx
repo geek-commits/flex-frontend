@@ -1,12 +1,13 @@
 import { RiDeleteBin6Line, RiEditLine, RiLockPasswordLine, RiRefreshLine, RiUserForbidLine } from '@remixicon/react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexDetailSheet } from '@/components/flex/flex-detail-sheet';
 import { FlexStatus } from '@/components/flex/flex-status';
 import { Button } from '@/components/ui/button';
-import { roleLabels } from '@/domain/access-repository';
+import { ROLE_LABEL_KEYS } from '@/features/access-management/shared/role-options';
 import type { UserAccount } from '@/features/access-management/shared/types';
 import type { UserLifecycleAction } from '@/features/access-management/users/user-lifecycle-dialog';
-import { formatLastActivity, USER_STATUS_TONE } from '@/features/access-management/users/user-status';
+import { formatLastActivity, USER_STATUS_KEYS, USER_STATUS_TONE } from '@/features/access-management/users/user-status';
 
 export interface UserDetailSheetProps {
     user?: UserAccount;
@@ -26,11 +27,13 @@ function DetailRow({ label, children }: { label: string; children: React.ReactNo
 }
 
 export function UserDetailSheet({ user, onOpenChange, onEdit, onResetPassword, onLifecycle }: UserDetailSheetProps) {
+    const { t, i18n } = useTranslation('administration');
+
     return (
         <FlexDetailSheet
             open={!!user}
             onOpenChange={onOpenChange}
-            title={user?.name ?? 'User'}
+            title={user?.name ?? t('users.detail.fallbackTitle')}
             meta={user?.email}
             footer={
                 user && (onEdit || onResetPassword || onLifecycle) ? (
@@ -47,7 +50,7 @@ export function UserDetailSheet({ user, onOpenChange, onEdit, onResetPassword, o
                                     }}
                                 >
                                     <RiRefreshLine className="size-3.5" />
-                                    Restore User
+                                    {t('users.detail.restoreUser')}
                                 </Button>
                             )
                         ) : (
@@ -63,7 +66,7 @@ export function UserDetailSheet({ user, onOpenChange, onEdit, onResetPassword, o
                                         }}
                                     >
                                         <RiLockPasswordLine className="size-3.5" />
-                                        Send Password Reset Link
+                                        {t('users.detail.sendPasswordReset')}
                                     </Button>
                                 )}
                                 {onEdit && (
@@ -77,7 +80,7 @@ export function UserDetailSheet({ user, onOpenChange, onEdit, onResetPassword, o
                                         }}
                                     >
                                         <RiEditLine className="size-3.5" />
-                                        Edit User
+                                        {t('users.detail.editUser')}
                                     </Button>
                                 )}
                                 {user.status === 'active' && onLifecycle && (
@@ -91,7 +94,7 @@ export function UserDetailSheet({ user, onOpenChange, onEdit, onResetPassword, o
                                         }}
                                     >
                                         <RiUserForbidLine className="size-3.5" />
-                                        Deactivate
+                                        {t('users.detail.deactivate')}
                                     </Button>
                                 )}
                                 {onLifecycle && (
@@ -105,7 +108,7 @@ export function UserDetailSheet({ user, onOpenChange, onEdit, onResetPassword, o
                                         }}
                                     >
                                         <RiDeleteBin6Line className="size-3.5" />
-                                        Remove User
+                                        {t('users.detail.removeUser')}
                                     </Button>
                                 )}
                             </>
@@ -115,18 +118,18 @@ export function UserDetailSheet({ user, onOpenChange, onEdit, onResetPassword, o
             }
         >
             <div className="flex flex-col gap-3">
-                <DetailRow label="Status">
+                <DetailRow label={t('users.detail.status')}>
                     {user && (
                         <FlexStatus tone={USER_STATUS_TONE[user.status]} className="capitalize">
-                            {user.status}
+                            {t(USER_STATUS_KEYS[user.status])}
                         </FlexStatus>
                     )}
                 </DetailRow>
-                <DetailRow label="Role">{user && roleLabels[user.role]}</DetailRow>
-                <DetailRow label="Username">{user?.username ?? '—'}</DetailRow>
-                <DetailRow label="Organization">{user?.organization ?? '—'}</DetailRow>
-                <DetailRow label="Last activity">{user && formatLastActivity(user.lastActivity)}</DetailRow>
-                <DetailRow label="Created">{user && formatLastActivity(user.createdAt)}</DetailRow>
+                <DetailRow label={t('users.detail.role')}>{user && t(ROLE_LABEL_KEYS[user.role])}</DetailRow>
+                <DetailRow label={t('users.detail.username')}>{user?.username ?? '—'}</DetailRow>
+                <DetailRow label={t('users.detail.organization')}>{user?.organization ?? '—'}</DetailRow>
+                <DetailRow label={t('users.detail.lastActivity')}>{user && formatLastActivity(user.lastActivity, i18n.language)}</DetailRow>
+                <DetailRow label={t('users.detail.created')}>{user && formatLastActivity(user.createdAt, i18n.language)}</DetailRow>
             </div>
         </FlexDetailSheet>
     );

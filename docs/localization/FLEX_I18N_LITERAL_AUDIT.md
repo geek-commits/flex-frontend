@@ -1,6 +1,6 @@
 # FLEX i18n Literal Audit — Report Mode (Phase 2)
 
-**Generated:** 2026-08-31T08:08:05.242Z **SHA:** local **Files scanned:** 640 **Hits:** 262
+**Generated:** 2026-08-31T10:45:23.772Z **SHA:** local **Files scanned:** 640 **Hits:** 246
 
 > Classification per §107: TRANSLATE / RUNTIME_DATA / TECHNICAL / BRAND / EXTERNAL / FALSE_POSITIVE — triage before CI gate.
 
@@ -92,22 +92,6 @@
 | features/access-management/roles/roles-tab.tsx | 88 | JSX text | `Add Role` |
 | features/access-management/roles/roles-tab.tsx | 68 | title | `title="Couldn"` |
 | features/access-management/roles/roles-tab.tsx | 85 | title | `title="No roles yet"` |
-| features/access-management/users/user-detail-sheet.tsx | 49 | JSX text | `Restore User` |
-| features/access-management/users/user-detail-sheet.tsx | 65 | JSX text | `Send Password Reset Link` |
-| features/access-management/users/user-detail-sheet.tsx | 79 | JSX text | `Edit User` |
-| features/access-management/users/user-detail-sheet.tsx | 93 | JSX text | `Deactivate` |
-| features/access-management/users/user-detail-sheet.tsx | 107 | JSX text | `Remove User` |
-| features/access-management/users/user-form-sheet.tsx | 146 | JSX text | `Name` |
-| features/access-management/users/user-form-sheet.tsx | 160 | JSX text | `Email` |
-| features/access-management/users/user-form-sheet.tsx | 175 | JSX text | `Username` |
-| features/access-management/users/user-form-sheet.tsx | 189 | JSX text | `Role` |
-| features/access-management/users/user-form-sheet.tsx | 214 | JSX text | `Organization` |
-| features/access-management/users/user-form-sheet.tsx | 237 | JSX text | `Temporary credentials` |
-| features/access-management/users/user-form-sheet.tsx | 247 | JSX text | `Cancel` |
-| features/access-management/users/user-form-sheet.tsx | 153 | placeholder | `placeholder="e.g. Anisa Kiptoo"` |
-| features/access-management/users/user-form-sheet.tsx | 168 | placeholder | `placeholder="name@flexco.com"` |
-| features/access-management/users/user-form-sheet.tsx | 182 | placeholder | `placeholder="e.g. a.kiptoo"` |
-| features/access-management/users/user-form-sheet.tsx | 222 | placeholder | `placeholder="Select an organization"` |
 | features/access-management/users/user-lifecycle-dialog.tsx | 92 | JSX text | `Cancel` |
 | features/access-management/users/user-reset-password-dialog.tsx | 53 | JSX text | `Cancel` |
 | features/agent-workspace/agent-assist/agent-assist-dock.tsx | 36 | JSX text | `Agent Assist` |

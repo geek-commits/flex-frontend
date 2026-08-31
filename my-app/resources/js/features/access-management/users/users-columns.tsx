@@ -7,9 +7,10 @@ import type { DataGridFeatures } from '@/components/reui/data-grid/data-grid';
 import { DataGridColumnHeader } from '@/components/reui/data-grid/data-grid-column-header';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { roleLabels } from '@/domain/access-repository';
+import { ROLE_LABEL_KEYS } from '@/features/access-management/shared/role-options';
 import type { UserAccount } from '@/features/access-management/shared/types';
-import { formatLastActivity, USER_STATUS_TONE } from '@/features/access-management/users/user-status';
+import { formatLastActivity, USER_STATUS_KEYS, USER_STATUS_TONE } from '@/features/access-management/users/user-status';
+import i18n from '@/i18n';
 
 export interface UserRowHandlers {
     onView: (user: UserAccount) => void;
@@ -58,7 +59,7 @@ export function userColumns(t: TF, handlers: UserRowHandlers): ColumnDef<DataGri
             accessorKey: 'role',
             id: 'role',
             header: ({ column }) => <DataGridColumnHeader title={t('users.columns.role')} column={column} />,
-            cell: ({ row }) => <span className="text-xs text-flex-text-primary">{roleLabels[row.original.role]}</span>,
+            cell: ({ row }) => <span className="text-xs text-flex-text-primary">{t(ROLE_LABEL_KEYS[row.original.role])}</span>,
             size: 150,
             enableSorting: true,
             meta: { kind: 'text', align: 'start', skeleton: <Skeleton className="h-4 w-16" /> },
@@ -78,7 +79,7 @@ export function userColumns(t: TF, handlers: UserRowHandlers): ColumnDef<DataGri
             header: ({ column }) => <DataGridColumnHeader title={t('users.columns.status')} column={column} />,
             cell: ({ row }) => (
                 <FlexStatus tone={USER_STATUS_TONE[row.original.status]} className="capitalize">
-                    {t(`users.status.${row.original.status}`)}
+                    {t(USER_STATUS_KEYS[row.original.status])}
                 </FlexStatus>
             ),
             size: 110,
@@ -90,7 +91,7 @@ export function userColumns(t: TF, handlers: UserRowHandlers): ColumnDef<DataGri
             id: 'lastActivity',
             header: ({ column }) => <DataGridColumnHeader title={t('users.columns.lastActivity')} column={column} />,
             cell: ({ getValue }) => (
-                <span className="text-xs text-flex-text-muted">{formatLastActivity(getValue() as string | undefined)}</span>
+                <span className="text-xs text-flex-text-muted">{formatLastActivity(getValue() as string | undefined, i18n.language)}</span>
             ),
             size: 170,
             enableSorting: true,

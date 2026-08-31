@@ -6,20 +6,10 @@ import type { DataGridFeatures } from '@/components/reui/data-grid/data-grid';
 import { DataGridColumnVisibility } from '@/components/reui/data-grid/data-grid-column-visibility';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ROLE_OPTIONS } from '@/features/access-management/shared/role-options';
+import { ROLE_LABEL_KEYS } from '@/features/access-management/shared/role-options';
 import type { UserRoleFilter, UserStatusFilter } from '@/features/access-management/shared/types';
 import type { UserAccount } from '@/features/access-management/shared/types';
-import { USER_STATUS_OPTIONS } from '@/features/access-management/users/user-status';
-
-export const USER_STATUS_FILTERS: { value: UserStatusFilter; label: string }[] = [
-    { value: 'all', label: 'All' },
-    ...USER_STATUS_OPTIONS.map((status) => ({ value: status as UserStatusFilter, label: status })),
-];
-
-export const USER_ROLE_FILTERS: { value: UserRoleFilter; label: string }[] = [
-    { value: 'all', label: 'All roles' },
-    ...ROLE_OPTIONS,
-];
+import { USER_STATUS_KEYS, USER_STATUS_OPTIONS } from '@/features/access-management/users/user-status';
 
 export interface UsersToolbarProps {
     table: Table<DataGridFeatures, UserAccount>;
@@ -54,12 +44,15 @@ export function UsersToolbar({
 
     const statusFilters: { value: UserStatusFilter; label: string }[] = [
         { value: 'all', label: t('users.toolbar.all') },
-        ...USER_STATUS_OPTIONS.map((status) => ({ value: status as UserStatusFilter, label: t(`users.status.${status}`) })),
+        ...USER_STATUS_OPTIONS.map((status) => ({ value: status as UserStatusFilter, label: t(USER_STATUS_KEYS[status]) })),
     ];
 
     const roleFilters: { value: UserRoleFilter; label: string }[] = [
         { value: 'all', label: t('users.toolbar.allRoles') },
-        ...ROLE_OPTIONS.map((opt) => ({ value: opt.value as UserRoleFilter, label: opt.label })),
+        ...Object.entries(ROLE_LABEL_KEYS).map(([value, labelKey]) => ({
+            value: value as UserRoleFilter,
+            label: t(labelKey),
+        })),
     ];
 
     return (
