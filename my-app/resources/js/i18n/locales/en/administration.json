@@ -156,6 +156,40 @@
       "admin": "Administrator",
       "supervisor": "Supervisor",
       "agent": "Agent"
+    },
+    "lifecycle": {
+      "deactivate": {
+        "title": "Deactivate user?",
+        "description": "{{name}} will no longer be able to sign in. You can reactivate the user later.",
+        "confirm": "Deactivate",
+        "busy": "Deactivating…",
+        "success": "{{name}} deactivated"
+      },
+      "remove": {
+        "title": "Remove user?",
+        "description": "{{name}} will be removed from the active user list and can be restored later.",
+        "confirm": "Remove User",
+        "busy": "Removing…",
+        "success": "{{name}} removed"
+      },
+      "restore": {
+        "title": "Restore user?",
+        "description": "{{name}} will return to the active user list.",
+        "confirm": "Restore User",
+        "busy": "Restoring…",
+        "success": "{{name}} restored"
+      },
+      "cancel": "Cancel",
+      "actionFailed": "The action could not be completed. Try again."
+    },
+    "resetPassword": {
+      "title": "Send password reset link?",
+      "description": "A reset link will be sent to {{email}}. The user will set a new password through the link.",
+      "cancel": "Cancel",
+      "sending": "Sending…",
+      "send": "Send Reset Link",
+      "success": "Password reset link sent.",
+      "failed": "Couldn’t send the password reset link. Try again."
     }
   },
   "roles": {

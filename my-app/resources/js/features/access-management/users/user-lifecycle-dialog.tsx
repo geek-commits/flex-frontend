@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import {
     AlertDialog,
@@ -22,25 +23,32 @@ export interface UserLifecycleDialogProps {
     onCompleted?: () => void;
 }
 
-const ACTION_META: Record<UserLifecycleAction, { title: string; confirm: string; busy: string }> = {
+const USER_LIFECYCLE_KEYS = {
     deactivate: {
-        title: 'Deactivate user?',
-        confirm: 'Deactivate',
-        busy: 'Deactivating…',
+        title: 'users.lifecycle.deactivate.title',
+        description: 'users.lifecycle.deactivate.description',
+        confirm: 'users.lifecycle.deactivate.confirm',
+        busy: 'users.lifecycle.deactivate.busy',
+        success: 'users.lifecycle.deactivate.success',
     },
     remove: {
-        title: 'Remove user?',
-        confirm: 'Remove User',
-        busy: 'Removing…',
+        title: 'users.lifecycle.remove.title',
+        description: 'users.lifecycle.remove.description',
+        confirm: 'users.lifecycle.remove.confirm',
+        busy: 'users.lifecycle.remove.busy',
+        success: 'users.lifecycle.remove.success',
     },
     restore: {
-        title: 'Restore user?',
-        confirm: 'Restore User',
-        busy: 'Restoring…',
+        title: 'users.lifecycle.restore.title',
+        description: 'users.lifecycle.restore.description',
+        confirm: 'users.lifecycle.restore.confirm',
+        busy: 'users.lifecycle.restore.busy',
+        success: 'users.lifecycle.restore.success',
     },
-};
+} as const;
 
 export function UserLifecycleDialog({ user, action, onOpenChange, onCompleted }: UserLifecycleDialogProps) {
+    const { t } = useTranslation('administration');
     const [busy, setBusy] = useState(false);
 
     const open = !!user && !!action;
@@ -55,16 +63,16 @@ export function UserLifecycleDialog({ user, action, onOpenChange, onCompleted }:
             try {
                 if (action === 'deactivate') {
                     accessRepository.deactivateUser(user.id);
-                    toast.success(`${user.name} deactivated`);
+                    toast.success(t(USER_LIFECYCLE_KEYS.deactivate.success, { name: user.name }));
                 } else if (action === 'remove') {
                     accessRepository.softDeleteUser(user.id);
-                    toast.success(`${user.name} removed`);
+                    toast.success(t(USER_LIFECYCLE_KEYS.remove.success, { name: user.name }));
                 } else {
                     accessRepository.restoreUser(user.id);
-                    toast.success(`${user.name} restored`);
+                    toast.success(t(USER_LIFECYCLE_KEYS.restore.success, { name: user.name }));
                 }
             } catch {
-                toast.error('The action could not be completed. Try again.');
+                toast.error(t('users.lifecycle.actionFailed'));
             }
 
             setBusy(false);
@@ -73,25 +81,25 @@ export function UserLifecycleDialog({ user, action, onOpenChange, onCompleted }:
         }, 400);
     };
 
-    const meta = action ? ACTION_META[action] : ACTION_META.deactivate;
+    const meta = action ? USER_LIFECYCLE_KEYS[action] : USER_LIFECYCLE_KEYS.deactivate;
 
     return (
         <AlertDialog open={open} onOpenChange={onOpenChange}>
             <AlertDialogContent>
                 <AlertDialogHeader>
-                    <AlertDialogTitle>{meta.title}</AlertDialogTitle>
+                    <AlertDialogTitle>{t(meta.title)}</AlertDialogTitle>
                     <AlertDialogDescription>
                         {action === 'remove'
-                            ? `${user?.name} will be removed from the active user list and can be restored later.`
+                            ? t('users.lifecycle.remove.description', { name: user?.name })
                             : action === 'deactivate'
-                              ? `${user?.name} will no longer be able to sign in. You can reactivate the user later.`
-                              : `${user?.name} will return to the active user list.`}
+                              ? t('users.lifecycle.deactivate.description', { name: user?.name })
+                              : t('users.lifecycle.restore.description', { name: user?.name })}
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogCancel disabled={busy}>Cancel</AlertDialogCancel>
+                    <AlertDialogCancel disabled={busy}>{t('users.lifecycle.cancel')}</AlertDialogCancel>
                     <AlertDialogAction variant={action === 'restore' ? undefined : 'destructive'} onClick={handleConfirm} disabled={busy}>
-                        {busy ? meta.busy : meta.confirm}
+                        {busy ? t(meta.busy) : t(meta.confirm)}
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>

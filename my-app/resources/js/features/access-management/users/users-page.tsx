@@ -30,7 +30,8 @@ export function UsersPage() {
     const [roleFilter, setRoleFilter] = useState<UserRoleFilter>('all');
     const [records, setRecords] = useState<UserAccount[]>(() => accessRepository.queryUsers({}));
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<string>();
+    type UserErrorKey = 'users.error.generic';
+    const [error, setError] = useState<UserErrorKey>();
     const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
     const [sorting, setSorting] = useState<SortingState>([]);
 
@@ -47,7 +48,7 @@ export function UsersPage() {
             try {
                 setRecords(accessRepository.queryUsers({}));
             } catch {
-                setError(t('users.error.generic'));
+                setError('users.error.generic');
             }
 
             setIsLoading(false);
@@ -141,7 +142,7 @@ export function UsersPage() {
                 {error ? (
                     <FlexErrorState
                         title={t('users.error.title')}
-                        description={error}
+                        description={error ? t(error) : undefined}
                         action={
                             <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={refresh}>
                                 <RiRefreshLine className="size-3.5" />

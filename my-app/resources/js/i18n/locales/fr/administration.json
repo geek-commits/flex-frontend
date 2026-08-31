@@ -156,6 +156,40 @@
       "admin": "Administrateur",
       "supervisor": "Superviseur",
       "agent": "Agent"
+    },
+    "lifecycle": {
+      "deactivate": {
+        "title": "Désactiver l'utilisateur ?",
+        "description": "{{name}} ne pourra plus se connecter. Vous pourrez le réactiver plus tard.",
+        "confirm": "Désactiver",
+        "busy": "Désactivation…",
+        "success": "{{name}} désactivé"
+      },
+      "remove": {
+        "title": "Supprimer l'utilisateur ?",
+        "description": "{{name}} sera retiré de la liste et pourra être restauré plus tard.",
+        "confirm": "Supprimer l'utilisateur",
+        "busy": "Suppression…",
+        "success": "{{name}} supprimé"
+      },
+      "restore": {
+        "title": "Restaurer l'utilisateur ?",
+        "description": "{{name}} reviendra dans la liste active.",
+        "confirm": "Restaurer l'utilisateur",
+        "busy": "Restauration…",
+        "success": "{{name}} restauré"
+      },
+      "cancel": "Annuler",
+      "actionFailed": "L'action n'a pas pu être terminée. Réessayez."
+    },
+    "resetPassword": {
+      "title": "Envoyer le lien de réinitialisation ?",
+      "description": "Un lien sera envoyé à {{email}}. L'utilisateur définira un nouveau mot de passe via le lien.",
+      "cancel": "Annuler",
+      "sending": "Envoi…",
+      "send": "Envoyer le lien",
+      "success": "Lien de réinitialisation envoyé.",
+      "failed": "Impossible d'envoyer le lien. Réessayez."
     }
   },
   "roles": {

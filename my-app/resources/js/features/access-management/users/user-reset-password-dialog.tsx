@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import {
     AlertDialog,
@@ -19,6 +20,7 @@ export interface UserResetPasswordDialogProps {
 }
 
 export function UserResetPasswordDialog({ user, onOpenChange }: UserResetPasswordDialogProps) {
+    const { t } = useTranslation('administration');
     const [sending, setSending] = useState(false);
 
     const handleSend = () => {
@@ -30,9 +32,9 @@ export function UserResetPasswordDialog({ user, onOpenChange }: UserResetPasswor
         setTimeout(() => {
             try {
                 accessRepository.resetPasswordLink(user.id);
-                toast.success('Password reset link sent.');
+                toast.success(t('users.resetPassword.success'));
             } catch {
-                toast.error('Couldn’t send the password reset link. Try again.');
+                toast.error(t('users.resetPassword.failed'));
             }
 
             setSending(false);
@@ -44,15 +46,13 @@ export function UserResetPasswordDialog({ user, onOpenChange }: UserResetPasswor
         <AlertDialog open={!!user} onOpenChange={onOpenChange}>
             <AlertDialogContent>
                 <AlertDialogHeader>
-                    <AlertDialogTitle>Send password reset link?</AlertDialogTitle>
-                    <AlertDialogDescription>
-                        A reset link will be sent to {user?.email}. The user will set a new password through the link.
-                    </AlertDialogDescription>
+                    <AlertDialogTitle>{t('users.resetPassword.title')}</AlertDialogTitle>
+                    <AlertDialogDescription>{t('users.resetPassword.description', { email: user?.email })}</AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogCancel disabled={sending}>Cancel</AlertDialogCancel>
+                    <AlertDialogCancel disabled={sending}>{t('users.resetPassword.cancel')}</AlertDialogCancel>
                     <AlertDialogAction onClick={handleSend} disabled={sending}>
-                        {sending ? 'Sending…' : 'Send Reset Link'}
+                        {sending ? t('users.resetPassword.sending') : t('users.resetPassword.send')}
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>

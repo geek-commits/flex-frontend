@@ -156,6 +156,40 @@
       "admin": "Msimamizi",
       "supervisor": "Msimamizi",
       "agent": "Wakala"
+    },
+    "lifecycle": {
+      "deactivate": {
+        "title": "Zima mtumiaji?",
+        "description": "{{name}} hataweza kuingia tena. Unaweza kumwasisha tena baadaye.",
+        "confirm": "Zima",
+        "busy": "Inazima…",
+        "success": "{{name}} amezimwa"
+      },
+      "remove": {
+        "title": "Ondoa mtumiaji?",
+        "description": "{{name}} ataondolewa kwenye orodha ya watumiaji na anaweza kurejeshwa baadaye.",
+        "confirm": "Ondoa Mtumiaji",
+        "busy": "Inaondoa…",
+        "success": "{{name}} ameondolewa"
+      },
+      "restore": {
+        "title": "Rejesha mtumiaji?",
+        "description": "{{name}} atarudi kwenye orodha ya watumiaji.",
+        "confirm": "Rejesha Mtumiaji",
+        "busy": "Inarejesha…",
+        "success": "{{name}} amerejeshwa"
+      },
+      "cancel": "Ghairi",
+      "actionFailed": "Kitendo hakiwezi kukamilika. Jaribu tena."
+    },
+    "resetPassword": {
+      "title": "Tuma kiungo cha kuweka upya nenosiri?",
+      "description": "Kiungo cha kuweka upya kitatumwa kwa {{email}}. Mtumiaji ataweka nenosiri jipya kupitia kiungo.",
+      "cancel": "Ghairi",
+      "sending": "Inatuma…",
+      "send": "Tuma Kiungo cha Kuweka Upya",
+      "success": "Kiungo cha kuweka upya nenosiri kimetumwa.",
+      "failed": "Haikuweza kutuma kiungo cha kuweka upya nenosiri. Jaribu tena."
     }
   },
   "roles": {
