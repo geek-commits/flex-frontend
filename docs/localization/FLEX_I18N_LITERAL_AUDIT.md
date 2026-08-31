@@ -1,6 +1,6 @@
 # FLEX i18n Literal Audit — Report Mode (Phase 2)
 
-**Generated:** 2026-08-31T07:48:39.842Z **SHA:** local **Files scanned:** 639 **Hits:** 284
+**Generated:** 2026-08-31T08:08:05.242Z **SHA:** local **Files scanned:** 640 **Hits:** 262
 
 > Classification per §107: TRANSLATE / RUNTIME_DATA / TECHNICAL / BRAND / EXTERNAL / FALSE_POSITIVE — triage before CI gate.
 
@@ -167,28 +167,6 @@
 | features/customer-recovery/recovery-toolbar.tsx | 122 | placeholder | `placeholder="Search phone number or queue..."` |
 | features/customer-recovery/recovery-toolbar.tsx | 123 | aria-label | `aria-label="Search missed calls"` |
 | features/dashboard/dashboard-types.ts | 61 | JSX text | `Promise` |
-| features/recordings/recording-delete-dialog.tsx | 40 | JSX text | `Delete Recording` |
-| features/recordings/recording-delete-dialog.tsx | 42 | JSX text | `Are you sure you want to delete` |
-| features/recordings/recording-delete-dialog.tsx | 57 | JSX text | `Deleting this asset may cause callers to hear silence or encounter routing error` |
-| features/recordings/recording-delete-dialog.tsx | 64 | JSX text | `Cancel` |
-| features/recordings/recording-detail-sheet.tsx | 85 | JSX text | `Delete` |
-| features/recordings/recording-detail-sheet.tsx | 98 | JSX text | `Replace Audio` |
-| features/recordings/recording-detail-sheet.tsx | 109 | JSX text | `Edit Details` |
-| features/recordings/recording-detail-sheet.tsx | 119 | JSX text | `Audio Preview` |
-| features/recordings/recording-detail-sheet.tsx | 132 | JSX text | `Asset Metadata` |
-| features/recordings/recording-detail-sheet.tsx | 156 | JSX text | `Transcript & Script` |
-| features/recordings/recording-detail-sheet.tsx | 175 | JSX text | `This recording is currently unassigned to any IVR menu or Queue.` |
-| features/recordings/recording-detail-sheet.tsx | 193 | JSX text | `Configure` |
-| features/recordings/recording-form-sheet.tsx | 156 | JSX text | `Audio File (WAV / MP3)` |
-| features/recordings/recording-form-sheet.tsx | 184 | JSX text | `Click or drag to replace` |
-| features/recordings/recording-form-sheet.tsx | 188 | JSX text | `Choose audio file or drag & drop` |
-| features/recordings/recording-form-sheet.tsx | 191 | JSX text | `WAV or MP3 (max 20 MB)` |
-| features/recordings/recording-form-sheet.tsx | 202 | JSX text | `Recording Title` |
-| features/recordings/recording-form-sheet.tsx | 219 | JSX text | `Category` |
-| features/recordings/recording-form-sheet.tsx | 237 | JSX text | `Description & Script` |
-| features/recordings/recording-form-sheet.tsx | 253 | JSX text | `Cancel` |
-| features/recordings/recording-form-sheet.tsx | 212 | placeholder | `placeholder="e.g. Main Support Greeting"` |
-| features/recordings/recording-form-sheet.tsx | 244 | placeholder | `placeholder="Transcript, usage notes, or menu key instructions..."` |
 | features/reports/report-export-menu.tsx | 60 | JSX text | `Export as` |
 | features/reports/report-filter-bar.tsx | 45 | JSX text | `Period` |
 | features/reports/report-filter-bar.tsx | 55 | JSX text | `Year` |

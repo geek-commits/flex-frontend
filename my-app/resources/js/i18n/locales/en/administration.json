@@ -767,7 +767,7 @@
     },
     "form": {
       "uploadTitle": "Upload Audio Recording",
-      "replaceTitle": "Replace Audio",
+      "replaceTitle": "Replace Audio: {{name}}",
       "editTitle": "Edit Recording Details",
       "audioFileLabel": "Audio File",
       "clickOrDrag": "Click or drag to replace",
@@ -785,21 +785,32 @@
       "validation": {
         "supportedFormats": "Supported formats are WAV and MP3 only",
         "chooseFile": "Please choose a replacement audio file",
-        "titleRequired": "Recording title is required",
-        "fileRequired": "Audio file is required"
+        "titleRequired": "Recording title is required.",
+        "fileRequired": "Audio file is required.",
+        "unsupportedFormat": "Supported formats are WAV and MP3 only.",
+        "replacementRequired": "Please choose a replacement audio file."
       },
       "toast": {
         "replaced": "Audio file replaced successfully",
         "uploaded": "Audio recording uploaded",
         "updated": "Recording metadata updated"
-      }
+      },
+      "audioFile": "Audio File",
+      "dragReplace": "Click or drag to replace",
+      "wavMp3": "WAV or MP3 (max 20 MB)",
+      "createDescription": "Upload WAV or MP3 audio assets for IVR trees, queue prompts, and announcements.",
+      "replaceDescription": "Upload a new audio file while preserving existing routing associations and metadata.",
+      "editDescription": "Update title, category, or operational description for this recording.",
+      "uploadSaveToast": "Audio recording uploaded",
+      "replacedToast": "Audio file replaced successfully",
+      "updatedToast": "Recording metadata updated"
     },
     "categories": {
       "ivrPrompt": "IVR Prompt",
       "queueAnnouncement": "Queue Announcement",
       "voicemailGreeting": "Voicemail Greeting",
       "holdMusic": "Hold Music",
-      "systemAnnouncement": "System Announcement"
+      "systemAnnouncement": "System Notice"
     },
     "detail": {
       "deleteRecording": "Delete Recording",
@@ -809,7 +820,18 @@
       "transcript": "Transcript & Script",
       "replaceAudio": "Replace Audio",
       "editDetails": "Edit Details",
-      "configure": "Configure"
+      "configure": "Configure",
+      "delete": "Delete",
+      "filename": "Filename",
+      "category": "Category",
+      "duration": "Duration",
+      "formatEncoding": "Format & Encoding",
+      "fileSize": "File Size",
+      "lastModified": "Last Modified",
+      "routingUsages": "Routing Usages ({{count}})",
+      "routingUsages_one": "Routing Usages ({{count}})",
+      "routingUsages_other": "Routing Usages ({{count}})",
+      "unassigned": "This recording is currently unassigned to any IVR menu or Queue."
     },
     "deleteDialog": {
       "title": "Delete Recording",
@@ -823,6 +845,28 @@
       "notFound": "Recording not found.",
       "titleEmpty": "Recording title cannot be empty.",
       "inUse": "Cannot delete recording: it is currently used by {{usageNames}}. Reassign or remove dependencies first."
+    },
+    "usageTypes": {
+      "ivr": "IVR",
+      "queue": "Queue",
+      "timeCondition": "Time Condition",
+      "voicemail": "Voicemail"
+    },
+    "delete": {
+      "title": "Delete Recording",
+      "description": "Are you sure you want to delete \"{{name}}\" ({{filename}})? This action cannot be undone.",
+      "warningTitle": "Warning: Active Routing Dependencies",
+      "warningDescription": "This audio file is actively used by:",
+      "warningHint": "Deleting this asset may cause callers to hear silence or encounter routing errors.",
+      "cancel": "Cancel",
+      "deleteAnyway": "Delete Anyway",
+      "deleteRecording": "Delete Recording"
+    },
+    "player": {
+      "playAria": "Play {{name}}",
+      "pauseAria": "Pause {{name}}",
+      "audio": "audio",
+      "seekAria": "Seek audio position"
     }
   },
   "subscriptions": {

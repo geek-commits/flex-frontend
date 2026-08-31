@@ -1,5 +1,6 @@
 import { RiMusic2Line, RiUploadCloudLine } from '@remixicon/react';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,7 +8,9 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Textarea } from '@/components/ui/textarea';
+import { RECORDING_CATEGORY_KEYS  } from '@/domain/recording-types';
 import type { RecordingCategory, RecordingDraft, RecordingRecord } from '@/domain/recording-types';
+import type {RecordingCategoryKey} from '@/domain/recording-types';
 
 export interface RecordingFormSheetProps {
     open: boolean;
@@ -18,13 +21,11 @@ export interface RecordingFormSheetProps {
     onReplaceAudio?: (id: string, fileData: { filename: string; format: 'WAV' | 'MP3'; duration?: string; durationSeconds?: number; fileSizeBytes?: number; url?: string }) => boolean;
 }
 
-const CATEGORIES: { value: RecordingCategory; label: string }[] = [
-    { value: 'ivr-prompt', label: 'IVR Prompt' },
-    { value: 'queue-announcement', label: 'Queue Announcement' },
-    { value: 'voicemail-greeting', label: 'Voicemail Greeting' },
-    { value: 'hold-music', label: 'Hold Music' },
-    { value: 'system-announcement', label: 'System Notice' },
-];
+type RecordingValidationKey =
+    | 'recordings.form.validation.unsupportedFormat'
+    | 'recordings.form.validation.replacementRequired'
+    | 'recordings.form.validation.titleRequired'
+    | 'recordings.form.validation.fileRequired';
 
 function RecordingFormContent({
     mode,
@@ -39,6 +40,7 @@ function RecordingFormContent({
     onSave: (draft: RecordingDraft) => boolean;
     onReplaceAudio?: (id: string, fileData: { filename: string; format: 'WAV' | 'MP3'; duration?: string; durationSeconds?: number; fileSizeBytes?: number; url?: string }) => boolean;
 }) {
+    const { t } = useTranslation('administration');
     const [name, setName] = useState(editing?.name ?? '');
     const [category, setCategory] = useState<RecordingCategory>(editing?.category ?? 'ivr-prompt');
     const [description, setDescription] = useState(editing?.description ?? '');
@@ -47,15 +49,15 @@ function RecordingFormContent({
     const [duration] = useState(editing?.duration ?? '0:25');
     const [durationSeconds] = useState(editing?.durationSeconds ?? 25);
     const [fileSizeBytes, setFileSizeBytes] = useState(editing?.fileSizeBytes ?? 400000);
-    const [nameError, setNameError] = useState<string>();
-    const [fileError, setFileError] = useState<string>();
+    const [nameError, setNameError] = useState<RecordingValidationKey>();
+    const [fileError, setFileError] = useState<RecordingValidationKey>();
     const [isDragging, setIsDragging] = useState(false);
 
     const handleFileSelected = (file: File) => {
         const ext = file.name.split('.').pop()?.toUpperCase();
 
         if (ext !== 'WAV' && ext !== 'MP3') {
-            setFileError('Supported formats are WAV and MP3 only.');
+            setFileError('recordings.form.validation.unsupportedFormat');
 
             return;
         }
@@ -95,7 +97,7 @@ function RecordingFormContent({
 
         if (mode === 'replace') {
             if (!filename) {
-                setFileError('Please choose a replacement audio file.');
+                setFileError('recordings.form.validation.replacementRequired');
 
                 return;
             }
@@ -110,7 +112,7 @@ function RecordingFormContent({
                 });
 
                 if (success) {
-                    toast.success('Audio file replaced successfully');
+                    toast.success(t('recordings.form.replacedToast'));
                     onOpenChange(false);
                 }
             }
@@ -119,13 +121,13 @@ function RecordingFormContent({
         }
 
         if (!name.trim()) {
-            setNameError('Recording title is required.');
+            setNameError('recordings.form.validation.titleRequired');
 
             return;
         }
 
         if (mode === 'create' && !filename) {
-            setFileError('Audio file is required.');
+            setFileError('recordings.form.validation.fileRequired');
 
             return;
         }
@@ -144,7 +146,7 @@ function RecordingFormContent({
         const success = onSave(draft);
 
         if (success) {
-            toast.success(mode === 'create' ? 'Audio recording uploaded' : 'Recording metadata updated');
+            toast.success(t(mode === 'create' ? 'recordings.form.uploadSaveToast' : 'recordings.form.updatedToast'));
             onOpenChange(false);
         }
     };
@@ -153,7 +155,7 @@ function RecordingFormContent({
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 py-4 flex-1">
             {(mode === 'create' || mode === 'replace') && (
                 <div className="flex flex-col gap-1.5">
-                    <Label className="text-xs font-semibold">Audio File (WAV / MP3)</Label>
+                    <Label className="text-xs font-semibold">{t('recordings.form.audioFile')}</Label>
                     <label
                         htmlFor="rec-file-input"
                         onDragOver={(e) => {
@@ -181,18 +183,16 @@ function RecordingFormContent({
                         {filename ? (
                             <div className="flex flex-col items-center">
                                 <span className="text-xs font-medium text-flex-text-primary">{filename}</span>
-                                <span className="text-[11px] text-flex-text-muted">Click or drag to replace</span>
+                                <span className="text-[11px] text-flex-text-muted">{t('recordings.form.dragReplace')}</span>
                             </div>
                         ) : (
                             <div className="flex flex-col items-center">
-                                <span className="text-xs font-medium text-flex-text-primary">
-                                    Choose audio file or drag & drop
-                                </span>
-                                <span className="text-[11px] text-flex-text-muted">WAV or MP3 (max 20 MB)</span>
+                                <span className="text-xs font-medium text-flex-text-primary">{t('recordings.form.chooseFile')}</span>
+                                <span className="text-[11px] text-flex-text-muted">{t('recordings.form.wavMp3')}</span>
                             </div>
                         )}
                     </label>
-                    {fileError && <p className="text-[11px] text-destructive">{fileError}</p>}
+                    {fileError && <p className="text-[11px] text-destructive">{t(fileError)}</p>}
                 </div>
             )}
 
@@ -200,7 +200,7 @@ function RecordingFormContent({
                 <>
                     <div className="flex flex-col gap-1.5">
                         <Label htmlFor="rec-name" className="text-xs font-semibold">
-                            Recording Title
+                            {t('recordings.form.titleLabel')}
                         </Label>
                         <Input
                             id="rec-name"
@@ -209,24 +209,24 @@ function RecordingFormContent({
                                 setName(e.target.value);
                                 setNameError(undefined);
                             }}
-                            placeholder="e.g. Main Support Greeting"
+                            placeholder={t('recordings.form.titlePlaceholder')}
                             className="h-9 text-xs"
                         />
-                        {nameError && <p className="text-[11px] text-destructive">{nameError}</p>}
+                        {nameError && <p className="text-[11px] text-destructive">{t(nameError)}</p>}
                     </div>
 
                     <div className="flex flex-col gap-1.5">
                         <Label htmlFor="rec-category" className="text-xs font-semibold">
-                            Category
+                            {t('recordings.form.categoryLabel')}
                         </Label>
                         <Select value={category} onValueChange={(val) => setCategory(val as RecordingCategory)}>
                             <SelectTrigger id="rec-category" className="h-9 text-xs">
                                 <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                                {CATEGORIES.map((c) => (
-                                    <SelectItem key={c.value} value={c.value} className="text-xs">
-                                        {c.label}
+                                {(Object.keys(RECORDING_CATEGORY_KEYS) as RecordingCategory[]).map((cat) => (
+                                    <SelectItem key={cat} value={cat} className="text-xs">
+                                        {t(RECORDING_CATEGORY_KEYS[cat] as RecordingCategoryKey)}
                                     </SelectItem>
                                 ))}
                             </SelectContent>
@@ -235,13 +235,13 @@ function RecordingFormContent({
 
                     <div className="flex flex-col gap-1.5">
                         <Label htmlFor="rec-desc" className="text-xs font-semibold">
-                            Description & Script
+                            {t('recordings.form.descriptionLabel')}
                         </Label>
                         <Textarea
                             id="rec-desc"
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
-                            placeholder="Transcript, usage notes, or menu key instructions..."
+                            placeholder={t('recordings.form.descriptionPlaceholder')}
                             rows={3}
                             className="text-xs"
                         />
@@ -251,15 +251,11 @@ function RecordingFormContent({
 
             <SheetFooter className="mt-auto pt-4 border-t gap-2 sm:justify-end">
                 <Button type="button" variant="outline" size="sm" onClick={() => onOpenChange(false)}>
-                    Cancel
+                    {t('recordings.form.cancel')}
                 </Button>
                 <Button type="submit" size="sm" className="gap-1.5">
                     <RiMusic2Line className="size-3.5" />
-                    {mode === 'create'
-                        ? 'Upload & Save'
-                        : mode === 'replace'
-                          ? 'Confirm Replace'
-                          : 'Save Changes'}
+                    {mode === 'create' ? t('recordings.form.uploadSave') : mode === 'replace' ? t('recordings.form.confirmReplace') : t('recordings.form.saveChanges')}
                 </Button>
             </SheetFooter>
         </form>
@@ -274,23 +270,25 @@ export function RecordingFormSheet({
     onSave,
     onReplaceAudio,
 }: RecordingFormSheetProps) {
+    const { t } = useTranslation('administration');
+
     return (
         <Sheet open={open} onOpenChange={onOpenChange}>
             <SheetContent side="right" className="w-full sm:max-w-md flex flex-col p-6 overflow-y-auto">
                 <SheetHeader className="gap-1.5">
                     <SheetTitle>
                         {mode === 'create'
-                            ? 'Upload Audio Recording'
+                            ? t('recordings.form.uploadTitle')
                             : mode === 'replace'
-                              ? `Replace Audio: ${editing?.name}`
-                              : 'Edit Recording Details'}
+                              ? t('recordings.form.replaceTitle', { name: editing?.name })
+                              : t('recordings.form.editTitle')}
                     </SheetTitle>
                     <SheetDescription>
                         {mode === 'create'
-                            ? 'Upload WAV or MP3 audio assets for IVR trees, queue prompts, and announcements.'
+                            ? t('recordings.form.createDescription')
                             : mode === 'replace'
-                              ? 'Upload a new audio file while preserving existing routing associations and metadata.'
-                              : 'Update title, category, or operational description for this recording.'}
+                              ? t('recordings.form.replaceDescription')
+                              : t('recordings.form.editDescription')}
                     </SheetDescription>
                 </SheetHeader>
 

@@ -1,5 +1,6 @@
 import { RiPauseFill, RiPlayFill, RiVolumeUpLine } from '@remixicon/react';
 import React, { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 
 export interface RecordingAudioPlayerProps {
@@ -10,6 +11,7 @@ export interface RecordingAudioPlayerProps {
 }
 
 export function RecordingAudioPlayer({ url, duration, compact = true, name }: RecordingAudioPlayerProps) {
+    const { t } = useTranslation('administration');
     const audioRef = useRef<HTMLAudioElement>(null);
     const [playing, setPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
@@ -77,7 +79,11 @@ export function RecordingAudioPlayer({ url, duration, compact = true, name }: Re
                 type="button"
                 variant="outline"
                 size="icon-xs"
-                aria-label={playing ? `Pause ${name ?? 'audio'}` : `Play ${name ?? 'audio'}`}
+                aria-label={
+                    playing
+                        ? t('recordings.player.pauseAria', { name: name ?? t('recordings.player.audio') })
+                        : t('recordings.player.playAria', { name: name ?? t('recordings.player.audio') })
+                }
                 onClick={(e) => {
                     e.stopPropagation();
                     toggle();
@@ -94,6 +100,7 @@ export function RecordingAudioPlayer({ url, duration, compact = true, name }: Re
                         min={0}
                         max={totalDuration || 100}
                         value={currentTime}
+                        aria-label={t('recordings.player.seekAria')}
                         onChange={(e) => {
                             const time = Number(e.target.value);
 

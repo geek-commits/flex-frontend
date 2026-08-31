@@ -767,7 +767,7 @@
     },
     "form": {
       "uploadTitle": "Téléverser un enregistrement audio",
-      "replaceTitle": "Remplacer l'audio",
+      "replaceTitle": "Remplacer l'audio : {{name}}",
       "editTitle": "Modifier les détails de l'enregistrement",
       "audioFileLabel": "Fichier audio",
       "clickOrDrag": "Cliquer ou glisser pour remplacer",
@@ -785,14 +785,25 @@
       "validation": {
         "supportedFormats": "Les formats pris en charge sont WAV et MP3 uniquement",
         "chooseFile": "Veuillez choisir un fichier audio de remplacement",
-        "titleRequired": "Le titre de l'enregistrement est requis",
-        "fileRequired": "Le fichier audio est requis"
+        "titleRequired": "Le titre de l'enregistrement est requis.",
+        "fileRequired": "Le fichier audio est requis.",
+        "unsupportedFormat": "Les formats pris en charge sont WAV et MP3 uniquement.",
+        "replacementRequired": "Veuillez choisir un fichier audio de remplacement."
       },
       "toast": {
         "replaced": "Fichier audio remplacé avec succès",
         "uploaded": "Enregistrement audio téléversé",
         "updated": "Métadonnées de l'enregistrement mises à jour"
-      }
+      },
+      "audioFile": "Fichier audio",
+      "dragReplace": "Cliquer ou glisser pour remplacer",
+      "wavMp3": "WAV ou MP3 (max 20 Mo)",
+      "createDescription": "Téléversez des fichiers audio WAV ou MP3 pour les arbres IVR, les invites de file et les annonces.",
+      "replaceDescription": "Téléversez un nouveau fichier audio tout en préservant les associations de routage et les métadonnées.",
+      "editDescription": "Mettre à jour le titre, la catégorie ou la description opérationnelle pour cet enregistrement.",
+      "uploadSaveToast": "Enregistrement audio téléversé",
+      "replacedToast": "Fichier audio remplacé avec succès",
+      "updatedToast": "Métadonnées de l'enregistrement mises à jour"
     },
     "categories": {
       "ivrPrompt": "Invite IVR",
@@ -809,7 +820,18 @@
       "transcript": "Transcription et script",
       "replaceAudio": "Remplacer l'audio",
       "editDetails": "Modifier les détails",
-      "configure": "Configurer"
+      "configure": "Configurer",
+      "delete": "Supprimer",
+      "filename": "Nom du fichier",
+      "category": "Catégorie",
+      "duration": "Durée",
+      "formatEncoding": "Format et encodage",
+      "fileSize": "Taille du fichier",
+      "lastModified": "Dernière modification",
+      "routingUsages": "Utilisations de routage ({{count}})",
+      "routingUsages_one": "Utilisation de routage ({{count}})",
+      "routingUsages_other": "Utilisations de routage ({{count}})",
+      "unassigned": "Cet enregistrement n'est actuellement assigné à aucun menu IVR ou file."
     },
     "deleteDialog": {
       "title": "Supprimer l'enregistrement",
@@ -823,6 +845,28 @@
       "notFound": "Enregistrement introuvable.",
       "titleEmpty": "Le titre ne peut pas être vide.",
       "inUse": "Impossible de supprimer : utilisé par {{usageNames}}. Réaffectez d'abord."
+    },
+    "usageTypes": {
+      "ivr": "IVR",
+      "queue": "File",
+      "timeCondition": "Condition horaire",
+      "voicemail": "Messagerie"
+    },
+    "delete": {
+      "title": "Supprimer l'enregistrement",
+      "description": "Voulez-vous vraiment supprimer « {{name}} » ({{filename}}) ? Cette action est irréversible.",
+      "warningTitle": "Attention : Dépendances de routage actives",
+      "warningDescription": "Ce fichier audio est activement utilisé par :",
+      "warningHint": "Supprimer ce fichier peut amener les appelants à entendre le silence ou rencontrer des erreurs de routage.",
+      "cancel": "Annuler",
+      "deleteAnyway": "Supprimer quand même",
+      "deleteRecording": "Supprimer l'enregistrement"
+    },
+    "player": {
+      "playAria": "Lire {{name}}",
+      "pauseAria": "Mettre en pause {{name}}",
+      "audio": "audio",
+      "seekAria": "Chercher la position audio"
     }
   },
   "subscriptions": {

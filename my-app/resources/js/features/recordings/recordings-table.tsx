@@ -20,8 +20,10 @@ import { DataGridPagination } from '@/components/reui/data-grid/data-grid-pagina
 import { DataGridScrollArea } from '@/components/reui/data-grid/data-grid-scroll-area';
 import { DataGridTable } from '@/components/reui/data-grid/data-grid-table';
 import { Button } from '@/components/ui/button';
-import type { RecordingCategory, RecordingRecord } from '@/domain/recording-types';
+import { RECORDING_CATEGORY_KEYS, RECORDING_USAGE_TYPE_KEYS   } from '@/domain/recording-types';
+import type {RecordingCategory, RecordingRecord} from '@/domain/recording-types';
 import { RecordingAudioPlayer } from '@/features/recordings/recording-audio-player';
+import i18n from '@/i18n';
 
 export interface RecordingsTableProps {
     table: Table<DataGridFeatures, RecordingRecord>;
@@ -90,11 +92,10 @@ export function buildRecordingsColumns(
             header: ({ column }) => <DataGridColumnHeader title={t('recordings.columns.category')} column={column} />,
             cell: ({ row }) => {
                 const tone = CATEGORY_TONE[row.original.category] ?? 'neutral';
-                const label = t(`recordings.columns.categories.${row.original.category}`, { defaultValue: row.original.category });
 
                 return (
                     <FlexStatus tone={tone} className="text-[11px]">
-                        {label}
+                        {t(RECORDING_CATEGORY_KEYS[row.original.category])}
                     </FlexStatus>
                 );
             },
@@ -146,7 +147,7 @@ export function buildRecordingsColumns(
                             {t('recordings.columns.target', { count: usages.length })}
                         </span>
                         <span className="text-[11px] text-flex-text-muted truncate max-w-[120px]">
-                            ({usages.map((u) => u.type).join(', ')})
+                            ({usages.map((u) => t(RECORDING_USAGE_TYPE_KEYS[u.type])).join(', ')})
                         </span>
                     </div>
                 );
@@ -165,7 +166,7 @@ export function buildRecordingsColumns(
                     <span className="text-xs tabular-nums text-flex-text-muted whitespace-nowrap">
                         {Number.isNaN(date.getTime())
                             ? '—'
-                            : date.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' })}
+                            : new Intl.DateTimeFormat(i18n.language, { month: 'short', day: 'numeric', year: 'numeric' }).format(date)}
                     </span>
                 );
             },

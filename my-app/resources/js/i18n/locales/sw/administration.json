@@ -767,7 +767,7 @@
     },
     "form": {
       "uploadTitle": "Pakia Rekodi ya Sauti",
-      "replaceTitle": "Badilisha Sauti",
+      "replaceTitle": "Badilisha Sauti: {{name}}",
       "editTitle": "Hariri Maelezo ya Rekodi",
       "audioFileLabel": "Faili ya Sauti",
       "clickOrDrag": "Bofya au buruta ili kubadilisha",
@@ -785,14 +785,25 @@
       "validation": {
         "supportedFormats": "Miundo inayoungwa mkono ni WAV na MP3 pekee",
         "chooseFile": "Tafadhali chagua faili ya sauti ya kubadilisha",
-        "titleRequired": "Kichwa cha rekodi kinahitajika",
-        "fileRequired": "Faili ya sauti inahitajika"
+        "titleRequired": "Kichwa cha rekodi kinahitajika.",
+        "fileRequired": "Faili ya sauti inahitajika.",
+        "unsupportedFormat": "Miundo inayoungwa mkono ni WAV na MP3 pekee.",
+        "replacementRequired": "Tafadhali chagua faili ya sauti ya kubadilisha."
       },
       "toast": {
         "replaced": "Faili ya sauti imebadilishwa kwa mafanikio",
         "uploaded": "Rekodi ya sauti imepakiwa",
         "updated": "Metadata ya rekodi imesasishwa"
-      }
+      },
+      "audioFile": "Faili ya Sauti",
+      "dragReplace": "Bofya au buruta ili kubadilisha",
+      "wavMp3": "WAV au MP3 (hadi 20 MB)",
+      "createDescription": "Pakia faili za sauti za WAV au MP3 kwa miti ya IVR, arifa za foleni na matangazo.",
+      "replaceDescription": "Pakia faili mpya ya sauti huku ukihifadhi uhusiano wa uelekezaji na metadata.",
+      "editDescription": "Sasisha kichwa, kategoria au maelezo ya uendeshaji kwa rekodi hii.",
+      "uploadSaveToast": "Rekodi ya sauti imepakiwa",
+      "replacedToast": "Faili ya sauti imebadilishwa kwa mafanikio",
+      "updatedToast": "Metadata ya rekodi imesasishwa"
     },
     "categories": {
       "ivrPrompt": "Arifa ya IVR",
@@ -809,7 +820,18 @@
       "transcript": "Nakala na Hati",
       "replaceAudio": "Badilisha Sauti",
       "editDetails": "Hariri Maelezo",
-      "configure": "Sanidi"
+      "configure": "Sanidi",
+      "delete": "Futa",
+      "filename": "Jina la Faili",
+      "category": "Kategoria",
+      "duration": "Muda",
+      "formatEncoding": "Muundo na Usimbaji",
+      "fileSize": "Ukubwa wa Faili",
+      "lastModified": "Ilibadilishwa Mwisho",
+      "routingUsages": "Matumizi ya Uelekezaji ({{count}})",
+      "routingUsages_one": "Matumizi ya Uelekezaji ({{count}})",
+      "routingUsages_other": "Matumizi ya Uelekezaji ({{count}})",
+      "unassigned": "Rekodi hii kwa sasa haijapewa menyu yoyote ya IVR au Foleni."
     },
     "deleteDialog": {
       "title": "Futa Rekodi",
@@ -823,6 +845,28 @@
       "notFound": "Rekodi haikupatikana.",
       "titleEmpty": "Kichwa cha rekodi hakiwezi kuwa tupu.",
       "inUse": "Haiwezi kufuta rekodi: inatumiwa na {{usageNames}}. Pangilia upya kwanza."
+    },
+    "usageTypes": {
+      "ivr": "IVR",
+      "queue": "Foleni",
+      "timeCondition": "Sharti la Muda",
+      "voicemail": "Voicemail"
+    },
+    "delete": {
+      "title": "Futa Rekodi",
+      "description": "Una uhakika unataka kufuta \"{{name}}\" ({{filename}})? Kitendo hiki hakiwezi kutenduliwa.",
+      "warningTitle": "Onyo: Vitegemezi vya Uelekezaji Hai",
+      "warningDescription": "Faili hii ya sauti inatumiwa na:",
+      "warningHint": "Kufuta faili hii kunaweza kusababisha wapigaji kusikia ukimya au kukutana na hitilafu za uelekezaji.",
+      "cancel": "Ghairi",
+      "deleteAnyway": "Futa Hata Hivyo",
+      "deleteRecording": "Futa Rekodi"
+    },
+    "player": {
+      "playAria": "Cheza {{name}}",
+      "pauseAria": "Sitisha {{name}}",
+      "audio": "sauti",
+      "seekAria": "Tafuta nafasi ya sauti"
     }
   },
   "subscriptions": {

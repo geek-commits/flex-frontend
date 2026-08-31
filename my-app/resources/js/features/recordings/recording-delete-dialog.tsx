@@ -1,5 +1,6 @@
 import { RiAlertLine, RiDeleteBinLine } from '@remixicon/react';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -10,6 +11,7 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import { RECORDING_USAGE_TYPE_KEYS } from '@/domain/recording-types';
 import type { RecordingRecord } from '@/domain/recording-types';
 
 export interface RecordingDeleteDialogProps {
@@ -19,12 +21,9 @@ export interface RecordingDeleteDialogProps {
     onConfirm: (record: RecordingRecord, force: boolean) => void;
 }
 
-export function RecordingDeleteDialog({
-    record,
-    open,
-    onOpenChange,
-    onConfirm,
-}: RecordingDeleteDialogProps) {
+export function RecordingDeleteDialog({ record, open, onOpenChange, onConfirm }: RecordingDeleteDialogProps) {
+    const { t } = useTranslation('administration');
+
     if (!record) {
         return null;
     }
@@ -37,37 +36,35 @@ export function RecordingDeleteDialog({
                 <AlertDialogHeader className="gap-2">
                     <div className="flex items-center gap-2 text-destructive">
                         <RiAlertLine className="size-5" />
-                        <AlertDialogTitle>Delete Recording</AlertDialogTitle>
+                        <AlertDialogTitle>{t('recordings.delete.title')}</AlertDialogTitle>
                     </div>
                     <AlertDialogDescription className="text-xs text-flex-text-muted leading-relaxed">
-                        Are you sure you want to delete <span className="font-semibold text-flex-text-primary">"{record.name}"</span> ({record.filename})? This action cannot be undone.
+                        {t('recordings.delete.description', { name: record.name, filename: record.filename })}
                     </AlertDialogDescription>
 
                     {hasUsages && (
                         <div className="mt-2 p-3 bg-destructive/10 border border-destructive/20 rounded-md text-xs">
-                            <p className="font-semibold text-destructive mb-1">Warning: Active Routing Dependencies</p>
-                            <p className="text-flex-text-muted">
-                                This audio file is actively used by:
-                            </p>
+                            <p className="font-semibold text-destructive mb-1">{t('recordings.delete.warningTitle')}</p>
+                            <p className="text-flex-text-muted">{t('recordings.delete.warningDescription')}</p>
                             <ul className="list-disc list-inside mt-1 font-medium text-flex-text-primary">
                                 {record.usages.map((u, i) => (
-                                    <li key={i}>{u.type}: {u.name}</li>
+                                    <li key={i}>
+                                        {t(RECORDING_USAGE_TYPE_KEYS[u.type])}: {u.name}
+                                    </li>
                                 ))}
                             </ul>
-                            <p className="mt-2 text-destructive text-[11px]">
-                                Deleting this asset may cause callers to hear silence or encounter routing errors.
-                            </p>
+                            <p className="mt-2 text-destructive text-[11px]">{t('recordings.delete.warningHint')}</p>
                         </div>
                     )}
                 </AlertDialogHeader>
                 <AlertDialogFooter className="gap-2">
-                    <AlertDialogCancel className="text-xs h-9">Cancel</AlertDialogCancel>
+                    <AlertDialogCancel className="text-xs h-9">{t('recordings.delete.cancel')}</AlertDialogCancel>
                     <AlertDialogAction
                         className="text-xs h-9 bg-destructive hover:bg-destructive/90 gap-1.5"
                         onClick={() => onConfirm(record, true)}
                     >
                         <RiDeleteBinLine className="size-3.5" />
-                        {hasUsages ? 'Delete Anyway' : 'Delete Recording'}
+                        {hasUsages ? t('recordings.delete.deleteAnyway') : t('recordings.delete.deleteRecording')}
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>

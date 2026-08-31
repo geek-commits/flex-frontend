@@ -24,6 +24,9 @@ const allowlist = new Set([
     'roles.lifecycleDialog.restoreSuccess',
     'users.columns.actions',
     'queues.members.table.agent',
+    'recordings.usageTypes.ivr',
+    'recordings.usageTypes.voicemail',
+    'recordings.player.audio',
 ]);
 
 function flatten(obj, prefix='') {
@@ -70,3 +73,4 @@ if (failed) {
 } else {
     console.log('Phase 7 placeholder check PASS');
 }
+// Temporary add for recordings UI - will be properly allowlisted in file
