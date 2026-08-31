@@ -89,6 +89,58 @@
       "active": "amilifu",
       "inactive": "hana shughuli",
       "deleted": "imefutwa"
+    },
+    "form": {
+      "editTitle": "Edit User",
+      "addTitle": "Add User",
+      "editDescription": "Update user details and assignments.",
+      "addDescription": "Create a new user account.",
+      "nameLabel": "Name",
+      "namePlaceholder": "e.g. Anisa Kiptoo",
+      "emailLabel": "Email",
+      "emailPlaceholder": "name@flexco.com",
+      "usernameLabel": "Username",
+      "usernamePlaceholder": "e.g. a.kiptoo",
+      "roleLabel": "Role",
+      "organizationLabel": "Organization",
+      "organizationPlaceholder": "Select an organization",
+      "credentialsTitle": "Temporary credentials",
+      "credentialsDescription": "A temporary password will be generated and sent by email.",
+      "cancel": "Cancel",
+      "saving": "Saving…",
+      "saveChanges": "Save Changes",
+      "createUser": "Create User",
+      "validation": {
+        "nameRequired": "Name is required.",
+        "emailRequired": "Email is required.",
+        "emailInvalid": "Email is invalid.",
+        "usernameRequired": "Username is required.",
+        "organizationRequired": "Organization is required."
+      },
+      "toast": {
+        "updated": "User updated",
+        "created": "User created. Temporary login instructions were sent by email.",
+        "saveFailed": "User could not be saved"
+      },
+      "roleWarning": "Changing the role will affect this user’s permissions."
+    },
+    "detail": {
+      "restoreUser": "Restore User",
+      "sendPasswordReset": "Send Password Reset Link",
+      "editUser": "Edit User",
+      "deactivate": "Deactivate",
+      "removeUser": "Remove User",
+      "cancel": "Cancel"
+    },
+    "lifecycleDialog": {
+      "deactivateSuccess": "{{name}} deactivated",
+      "removeSuccess": "{{name}} removed",
+      "restoreSuccess": "{{name}} restored",
+      "actionFailed": "The action could not be completed. Try again."
+    },
+    "resetPasswordDialog": {
+      "success": "Password reset link sent.",
+      "failed": "Couldn’t send the password reset link. Try again."
     }
   },
   "roles": {
@@ -181,6 +233,12 @@
         "added": "Ruhusa imeongezwa",
         "addFailed": "Ruhusa haikuweza kuongezwa"
       }
+    },
+    "lifecycleDialog": {
+      "deactivateSuccess": "{{name}} deactivated",
+      "removeSuccess": "{{name}} removed",
+      "restoreSuccess": "{{name}} restored",
+      "actionFailed": "The action could not be completed. Try again."
     }
   },
   "queues": {
@@ -233,6 +291,80 @@
       "viewAria": "Angalia {{name}}",
       "membersAria": "Wanachama wa {{name}}",
       "editAria": "Hariri {{name}}"
+    },
+    "form": {
+      "editTitle": "Edit Queue",
+      "addTitle": "Add Queue",
+      "description": "Configure call distribution for this queue.",
+      "general": "General",
+      "queueNameLabel": "Queue Name",
+      "queueNamePlaceholder": "e.g. Customer Support",
+      "extensionLabel": "Extension / Number",
+      "extensionPlaceholder": "e.g. 7001",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Purpose of this queue",
+      "callDistribution": "Call Distribution",
+      "strategyLabel": "Strategy",
+      "ringTimeoutLabel": "Ring Timeout (seconds)",
+      "ringTimeoutHelp": "How long an agent is rung before the queue attempts the next action.",
+      "statusLabel": "Status",
+      "statusActive": "Active",
+      "statusInactive": "Inactive",
+      "cancel": "Cancel",
+      "saving": "Saving…",
+      "saveQueue": "Save Queue",
+      "createQueue": "Create Queue",
+      "validation": {
+        "nameRequired": "Queue name is required.",
+        "extensionRequired": "Queue extension is required."
+      },
+      "toast": {
+        "updated": "Queue updated",
+        "created": "Queue created",
+        "saveFailed": "Queue could not be saved",
+        "createFailed": "Queue could not be created"
+      }
+    },
+    "strategy": {
+      "ringAll": "Ring All",
+      "leastRecent": "Least Recent",
+      "fewestCalls": "Fewest Calls",
+      "random": "Random"
+    },
+    "detail": {
+      "membersTitle": "Members",
+      "queueMembersTitle": "Queue Members",
+      "noMembers": "No members assigned to this queue.",
+      "addMember": "Add Member",
+      "searchPlaceholder": "Search agents...",
+      "searchAriaLabel": "Search agents",
+      "cancel": "Cancel",
+      "title": "Foleni",
+      "members": "Wanachama",
+      "editQueue": "Hariri Foleni",
+      "delete": "Futa",
+      "status": "Hali",
+      "extension": "Kiambishi",
+      "strategy": "Mkakati",
+      "ringTimeout": "Muda wa Kulia",
+      "membersCount": "Wanachama",
+      "description": "Maelezo"
+    },
+    "deleteDialog": {
+      "title": "Delete Queue",
+      "description": "Are you sure you want to delete this queue?",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "deleting": "Deleting…",
+      "toast": {
+        "deleted": "Queue deleted",
+        "deleteFailed": "Queue could not be deleted"
+      }
+    },
+    "membersSheet": {
+      "alreadyMember": "{{name}} is already a member of this queue.",
+      "added": "{{name}} added to queue",
+      "removed": "{{name}} removed from queue"
     }
   },
   "ivr": {
@@ -606,6 +738,58 @@
       "searchAriaLabel": "Tafuta rekodi",
       "columns": "Safu",
       "uploadRecording": "Pakia Rekodi"
+    },
+    "form": {
+      "uploadTitle": "Upload Audio Recording",
+      "replaceTitle": "Replace Audio",
+      "editTitle": "Edit Recording Details",
+      "audioFileLabel": "Audio File",
+      "clickOrDrag": "Click or drag to replace",
+      "chooseFile": "Choose audio file or drag & drop",
+      "wavOrMp3": "WAV or MP3, up to 10MB",
+      "titleLabel": "Recording Title",
+      "titlePlaceholder": "e.g. Main Support Greeting",
+      "categoryLabel": "Category",
+      "descriptionLabel": "Description & Script",
+      "descriptionPlaceholder": "Transcript, usage notes, or menu key instructions...",
+      "cancel": "Cancel",
+      "uploadSave": "Upload & Save",
+      "confirmReplace": "Confirm Replace",
+      "saveChanges": "Save Changes",
+      "validation": {
+        "supportedFormats": "Supported formats are WAV and MP3 only",
+        "chooseFile": "Please choose a replacement audio file",
+        "titleRequired": "Recording title is required",
+        "fileRequired": "Audio file is required"
+      },
+      "toast": {
+        "replaced": "Audio file replaced successfully",
+        "uploaded": "Audio recording uploaded",
+        "updated": "Recording metadata updated"
+      }
+    },
+    "categories": {
+      "ivrPrompt": "IVR Prompt",
+      "queueAnnouncement": "Queue Announcement",
+      "voicemailGreeting": "Voicemail Greeting",
+      "holdMusic": "Hold Music",
+      "systemAnnouncement": "System Announcement"
+    },
+    "detail": {
+      "deleteRecording": "Delete Recording",
+      "deleteWarning": "Are you sure you want to delete this recording? This action cannot be undone.",
+      "audioPreview": "Audio Preview",
+      "assetMetadata": "Asset Metadata",
+      "transcript": "Transcript & Script",
+      "replaceAudio": "Replace Audio",
+      "editDetails": "Edit Details",
+      "configure": "Configure"
+    },
+    "deleteDialog": {
+      "title": "Delete Recording",
+      "description": "Are you sure you want to delete this recording?",
+      "cancel": "Cancel",
+      "delete": "Delete"
     }
   },
   "subscriptions": {
@@ -681,7 +865,9 @@
         "professional": "Professional",
         "enterprise": "Enterprise",
         "custom": "Custom"
-      }
+      },
+      "statusPlaceholder": "Status",
+      "planPlaceholder": "Plan"
     },
     "detail": {
       "meta_one": "Mpango {{plan}} · Viti {{seats}} · siku {{days}} iliyobaki",
@@ -1114,6 +1300,62 @@
     "queues": {
       "title": "Queues & SLA",
       "description": "Configure inbound queues, wrap-up rules, and SLA targets."
+    }
+  },
+  "tenants": {
+    "form": {
+      "editTitle": "Edit Tenant",
+      "addTitle": "Add Tenant",
+      "editDescription": "Update tenant details.",
+      "addDescription": "Create a new tenant account.",
+      "nameLabel": "Tenant Name",
+      "namePlaceholder": "e.g. Acme Contact Center",
+      "domainLabel": "Domain",
+      "domainPlaceholder": "e.g. acmecc.com",
+      "contactNameLabel": "Contact Name",
+      "contactNamePlaceholder": "e.g. Fatuma Ally",
+      "contactEmailLabel": "Contact Email",
+      "contactEmailPlaceholder": "admin@acmecc.com",
+      "phoneLabel": "Phone",
+      "phonePlaceholder": "+254 700 000 000",
+      "statusLabel": "Status",
+      "cancel": "Cancel",
+      "saving": "Saving…",
+      "saveTenant": "Save Tenant",
+      "createTenant": "Create Tenant",
+      "validation": {
+        "nameRequired": "Tenant name is required.",
+        "contactEmailRequired": "Contact email is required.",
+        "contactEmailInvalid": "Contact email is invalid.",
+        "domainRequired": "Domain is required.",
+        "contactNameRequired": "Contact name is required."
+      },
+      "toast": {
+        "updated": "Tenant updated",
+        "created": "Tenant created",
+        "saveFailed": "Tenant could not be saved"
+      }
+    },
+    "status": {
+      "active": "Active",
+      "suspended": "Suspended",
+      "pending": "Pending"
+    },
+    "context": {
+      "return": "Return",
+      "returnToPlatform": "Return to Platform scope",
+      "enterTenant": "Enter Tenant",
+      "editTenant": "Edit Tenant",
+      "cancel": "Cancel",
+      "returnAriaLabel": "Return to Platform scope"
+    },
+    "detail": {
+      "editTenant": "Edit Tenant"
+    },
+    "statusDialog": {
+      "enabled": "{{name}} enabled",
+      "disabled": "{{name}} disabled",
+      "actionFailed": "The action could not be completed. Try again."
     }
   }
 }

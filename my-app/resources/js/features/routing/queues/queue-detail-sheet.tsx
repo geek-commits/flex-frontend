@@ -1,8 +1,8 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlexDetailSheet } from '@/components/flex/flex-detail-sheet';
 import { Button } from '@/components/ui/button';
 import type { QueueRecord } from '@/domain/routing-types';
-import { QUEUE_STRATEGY_LABELS } from '@/features/routing/queues/queue-labels';
 import { RoutingStatusBadge } from '@/features/routing/shared/routing-status';
 
 export interface QueueDetailSheetProps {
@@ -24,28 +24,30 @@ function DetailRow({ label, children }: { label: string; children: React.ReactNo
 
 /** Queue detail — inspection with configuration, members, and danger zone. */
 export function QueueDetailSheet({ queue, onOpenChange, onEdit, onMembers, onDelete }: QueueDetailSheetProps) {
+    const { t } = useTranslation('administration');
+
     return (
         <FlexDetailSheet
             open={!!queue}
             onOpenChange={onOpenChange}
-            title={queue?.name ?? 'Queue'}
+            title={queue?.name ?? t('queues.detail.title')}
             meta={queue?.extension}
             footer={
                 queue ? (
                     <>
                         {onMembers && (
                             <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={() => onMembers(queue)}>
-                                Members
+                                {t('queues.detail.members')}
                             </Button>
                         )}
                         {onEdit && (
                             <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={() => onEdit(queue)}>
-                                Edit Queue
+                                {t('queues.detail.editQueue')}
                             </Button>
                         )}
                         {onDelete && (
                             <Button variant="outline" size="sm" className="gap-1.5 text-xs text-destructive" onClick={() => onDelete(queue)}>
-                                Delete
+                                {t('queues.detail.delete')}
                             </Button>
                         )}
                     </>
@@ -53,16 +55,14 @@ export function QueueDetailSheet({ queue, onOpenChange, onEdit, onMembers, onDel
             }
         >
             <div className="flex flex-col gap-3">
-                <DetailRow label="Status">
-                    {queue && <RoutingStatusBadge status={queue.status} />}
+                <DetailRow label={t('queues.detail.status')}>{queue && <RoutingStatusBadge status={queue.status} />}</DetailRow>
+                <DetailRow label={t('queues.detail.extension')}>{queue?.extension ?? '—'}</DetailRow>
+                <DetailRow label={t('queues.detail.strategy')}>
+                    {queue ? t(({ 'ring-all': 'queues.strategy.ringAll', 'least-recent': 'queues.strategy.leastRecent', 'fewest-calls': 'queues.strategy.fewestCalls', random: 'queues.strategy.random' } as const)[queue.strategy]) : '—'}
                 </DetailRow>
-                <DetailRow label="Extension">{queue?.extension ?? '—'}</DetailRow>
-                <DetailRow label="Strategy">{queue && QUEUE_STRATEGY_LABELS[queue.strategy]}</DetailRow>
-                <DetailRow label="Ring Timeout">{queue ? `${queue.ringTimeout}s` : '—'}</DetailRow>
-                <DetailRow label="Members">{queue?.memberCount ?? 0}</DetailRow>
-                {queue?.description && (
-                    <DetailRow label="Description">{queue.description}</DetailRow>
-                )}
+                <DetailRow label={t('queues.detail.ringTimeout')}>{queue ? `${queue.ringTimeout}s` : '—'}</DetailRow>
+                <DetailRow label={t('queues.detail.membersCount')}>{queue?.memberCount ?? 0}</DetailRow>
+                {queue?.description && <DetailRow label={t('queues.detail.description')}>{queue.description}</DetailRow>}
             </div>
         </FlexDetailSheet>
     );

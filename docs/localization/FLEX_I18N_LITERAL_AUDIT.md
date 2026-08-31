@@ -1,6 +1,6 @@
 # FLEX i18n Literal Audit — Report Mode (Phase 2)
 
-**Generated:** 2026-08-31T06:34:52.873Z **SHA:** local **Files scanned:** 638 **Hits:** 309
+**Generated:** 2026-08-31T06:51:58.245Z **SHA:** local **Files scanned:** 638 **Hits:** 292
 
 > Classification per §107: TRANSLATE / RUNTIME_DATA / TECHNICAL / BRAND / EXTERNAL / FALSE_POSITIVE — triage before CI gate.
 
@@ -257,23 +257,6 @@
 | features/routing/queues/queue-delete-dialog.tsx | 62 | JSX text | `Cancel` |
 | features/routing/queues/queue-detail-sheet.tsx | 37 | JSX text | `Members` |
 | features/routing/queues/queue-detail-sheet.tsx | 47 | JSX text | `Delete` |
-| features/routing/queues/queue-form-sheet.tsx | 106 | JSX text | `Configure call distribution for this queue.` |
-| features/routing/queues/queue-form-sheet.tsx | 112 | JSX text | `Queue Name` |
-| features/routing/queues/queue-form-sheet.tsx | 125 | JSX text | `Extension / Number` |
-| features/routing/queues/queue-form-sheet.tsx | 138 | JSX text | `Description` |
-| features/routing/queues/queue-form-sheet.tsx | 152 | JSX text | `Strategy` |
-| features/routing/queues/queue-form-sheet.tsx | 169 | JSX text | `Ring Timeout (seconds)` |
-| features/routing/queues/queue-form-sheet.tsx | 179 | JSX text | `How long an agent is rung before the queue attempts the next action.` |
-| features/routing/queues/queue-form-sheet.tsx | 187 | JSX text | `Status` |
-| features/routing/queues/queue-form-sheet.tsx | 195 | JSX text | `Active` |
-| features/routing/queues/queue-form-sheet.tsx | 196 | JSX text | `Inactive` |
-| features/routing/queues/queue-form-sheet.tsx | 204 | JSX text | `Cancel` |
-| features/routing/queues/queue-form-sheet.tsx | 110 | title | `title="General"` |
-| features/routing/queues/queue-form-sheet.tsx | 119 | placeholder | `placeholder="e.g. Customer Support"` |
-| features/routing/queues/queue-form-sheet.tsx | 132 | placeholder | `placeholder="e.g. 7001"` |
-| features/routing/queues/queue-form-sheet.tsx | 145 | placeholder | `placeholder="Purpose of this queue"` |
-| features/routing/queues/queue-form-sheet.tsx | 150 | title | `title="Call Distribution"` |
-| features/routing/queues/queue-form-sheet.tsx | 185 | title | `title="Status"` |
 | features/routing/queues/queue-members-sheet.tsx | 80 | JSX text | `Queue Members` |
 | features/routing/queues/queue-members-sheet.tsx | 90 | JSX text | `No members assigned to this queue yet.` |
 | features/routing/queues/queue-members-sheet.tsx | 132 | JSX text | `Add Member` |
