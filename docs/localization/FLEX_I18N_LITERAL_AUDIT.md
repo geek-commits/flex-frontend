@@ -1,6 +1,6 @@
 # FLEX i18n Literal Audit — Report Mode (Phase 2)
 
-**Generated:** 2026-08-31T10:45:23.772Z **SHA:** local **Files scanned:** 640 **Hits:** 246
+**Generated:** 2026-09-01T05:43:57.860Z **SHA:** local **Files scanned:** 641 **Hits:** 224
 
 > Classification per §107: TRANSLATE / RUNTIME_DATA / TECHNICAL / BRAND / EXTERNAL / FALSE_POSITIVE — triage before CI gate.
 
@@ -72,28 +72,6 @@
 | components/ui/spinner.tsx | 6 | aria-label | `aria-label="Loading"` |
 | components/user-menu-content.tsx | 46 | JSX text | `Settings` |
 | components/user-menu-content.tsx | 62 | JSX text | `Log out` |
-| features/access-management/roles/permission-form-sheet.tsx | 75 | JSX text | `Add Permission` |
-| features/access-management/roles/permission-form-sheet.tsx | 76 | JSX text | `Add a new permission definition to this system.` |
-| features/access-management/roles/permission-form-sheet.tsx | 81 | JSX text | `Permission name` |
-| features/access-management/roles/permission-form-sheet.tsx | 95 | JSX text | `Permission type` |
-| features/access-management/roles/permission-form-sheet.tsx | 114 | JSX text | `Cancel` |
-| features/access-management/roles/permission-form-sheet.tsx | 88 | placeholder | `placeholder="e.g. View Billing Reports"` |
-| features/access-management/roles/permissions-tab.tsx | 39 | JSX text | `Permission definitions that exist in this system, grouped by module.` |
-| features/access-management/roles/permissions-tab.tsx | 45 | JSX text | `Refresh` |
-| features/access-management/roles/permissions-tab.tsx | 49 | JSX text | `Add Permission` |
-| features/access-management/roles/permissions-tab.tsx | 60 | JSX text | `Try again` |
-| features/access-management/roles/permissions-tab.tsx | 75 | JSX text | `Add Permission` |
-| features/access-management/roles/permissions-tab.tsx | 56 | title | `title="Couldn"` |
-| features/access-management/roles/permissions-tab.tsx | 72 | title | `title="No permissions yet"` |
-| features/access-management/roles/roles-tab.tsx | 51 | JSX text | `Roles define the permissions granted to users within this tenant.` |
-| features/access-management/roles/roles-tab.tsx | 57 | JSX text | `Refresh` |
-| features/access-management/roles/roles-tab.tsx | 61 | JSX text | `Add Role` |
-| features/access-management/roles/roles-tab.tsx | 72 | JSX text | `Try again` |
-| features/access-management/roles/roles-tab.tsx | 88 | JSX text | `Add Role` |
-| features/access-management/roles/roles-tab.tsx | 68 | title | `title="Couldn"` |
-| features/access-management/roles/roles-tab.tsx | 85 | title | `title="No roles yet"` |
-| features/access-management/users/user-lifecycle-dialog.tsx | 92 | JSX text | `Cancel` |
-| features/access-management/users/user-reset-password-dialog.tsx | 53 | JSX text | `Cancel` |
 | features/agent-workspace/agent-assist/agent-assist-dock.tsx | 36 | JSX text | `Agent Assist` |
 | features/agent-workspace/agent-assist/agent-assist-dock.tsx | 73 | JSX text | `Assist unavailable` |
 | features/agent-workspace/agent-assist/agent-assist-dock.tsx | 75 | JSX text | `Call remains fully operational.` |

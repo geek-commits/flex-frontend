@@ -18,6 +18,10 @@ function seedDraft(editing?: RoleRecord): RoleDraft {
         return { ...EMPTY_DRAFT };
     }
 
+    if (editing.kind === 'builtin') {
+        return { name: '', permissions: [...editing.permissions] };
+    }
+
     return {
         name: editing.name,
         permissions: [...editing.permissions],
@@ -63,6 +67,7 @@ export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleForm
                   const name = permission.kind === 'builtin' ? t(permission.labelKey) : permission.name;
                   const mod = t(permission.moduleKey);
                   const typeLabel = permission.kind === 'builtin' ? t(permission.typeKey) : permission.type;
+
                   return (
                       name.toLowerCase().includes(needle) ||
                       mod.toLowerCase().includes(needle) ||
@@ -144,11 +149,19 @@ export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleForm
                         <Input
                             id="role-name"
                             value={draft.name}
-                            onChange={(e) => updateDraft({ name: e.target.value })}
+                            onChange={(e) => {
+                                if (editing?.kind !== 'builtin') {
+                                    updateDraft({ name: e.target.value });
+                                }
+                            }}
                             placeholder={t('roles.form.roleNamePlaceholder')}
                             aria-invalid={!!nameError}
+                            readOnly={editing?.kind === 'builtin'}
                         />
                         {nameError && <p className="text-xs text-destructive">{t(nameError)}</p>}
+                        {editing?.kind === 'builtin' && (
+                            <p className="text-xs text-flex-text-muted">{t('roles.form.builtinRoleHint')}</p>
+                        )}
                     </div>
 
                     {editing && editing.userCount > 0 && (
@@ -187,7 +200,7 @@ export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleForm
                                     </p>
                                     {group.permissions.map((permission) => {
                                         const checked = draft.permissions.includes(permission.id);
-                                        const label = permission.kind === 'builtin' ? t(permission.labelKey) : permission.name;
+                                        const label: string = permission.kind === 'builtin' ? t(permission.labelKey) : permission.name;
 
                                         return (
                                             <label

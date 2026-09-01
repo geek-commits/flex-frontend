@@ -218,7 +218,8 @@
       "noRolesTitle": "No roles yet",
       "noRolesDescription": "Add your first role to define access for users.",
       "noPermissionsTitle": "No permissions yet",
-      "noPermissionsDescription": "Add your first permission definition."
+      "noPermissionsDescription": "Add your first permission definition.",
+      "addRole": "Add Role"
     },
     "columns": {
       "role": "Role",
@@ -263,7 +264,8 @@
         "created": "Role created",
         "saveFailed": "Role could not be saved",
         "createFailed": "Role could not be created"
-      }
+      },
+      "builtinRoleHint": "Builtin role names cannot be changed. Only permissions can be modified."
     },
     "permissionForm": {
       "addTitle": "Add Permission",
@@ -288,6 +290,95 @@
       "removeSuccess": "{{name}} removed",
       "restoreSuccess": "{{name}} restored",
       "actionFailed": "The action could not be completed. Try again."
+    },
+    "permissions": {
+      "catalog": {
+        "dashboardView": "View Dashboard",
+        "monitorView": "View Agent Monitoring",
+        "consoleView": "View Management Console",
+        "cdrView": "View Call Records",
+        "campaignsView": "View Campaigns",
+        "campaignsManage": "Manage Campaigns",
+        "reportsView": "View Reports",
+        "aiView": "View AI Center",
+        "systemView": "View System & Infrastructure",
+        "settingsManage": "Manage Settings",
+        "securityView": "View Security",
+        "rolesManage": "Manage Roles & Permissions",
+        "tenantsManage": "Manage Tenants & Platform",
+        "agentWorkspace": "Use Agent Workspace",
+        "agentDashboardView": "View Agent Dashboard",
+        "socialView": "View Social Inbox",
+        "callManager": "Use Call Manager",
+        "missedCallsView": "View Missed Calls",
+        "troubleshootingView": "View Troubleshooting",
+        "supportView": "View Quick Support"
+      },
+      "modules": {
+        "dashboard": "Dashboard",
+        "monitoring": "Monitoring",
+        "managementConsole": "Management Console",
+        "callRecords": "Call Records",
+        "campaigns": "Campaigns",
+        "reports": "Reports",
+        "aiCenter": "AI Center",
+        "system": "System",
+        "settings": "Settings",
+        "security": "Security",
+        "rolesPermissions": "Roles & Permissions",
+        "platform": "Platform",
+        "agentWorkspace": "Agent Workspace",
+        "callManager": "Call Manager",
+        "socialInbox": "Social Inbox",
+        "missedCalls": "Missed Calls",
+        "troubleshooting": "Troubleshooting",
+        "support": "Support",
+        "custom": "Custom"
+      },
+      "types": {
+        "view": "View",
+        "manage": "Manage",
+        "workspace": "Workspace",
+        "manager": "Manager"
+      },
+      "toolbar": {
+        "refresh": "Refresh",
+        "addPermission": "Add Permission"
+      },
+      "error": {
+        "generic": "Permission data could not be retrieved.",
+        "permissionsGeneric": "Permission data could not be retrieved.",
+        "permissionsTitle": "Couldn't load permissions"
+      },
+      "empty": {
+        "title": "No permissions yet",
+        "description": "Add your first permission definition."
+      },
+      "columns": {
+        "permission": "Permission",
+        "type": "Type",
+        "module": "Module"
+      },
+      "form": {
+        "addTitle": "Add Permission",
+        "addDescription": "Add a new permission definition to this system.",
+        "nameLabel": "Permission name",
+        "namePlaceholder": "e.g. View Billing Reports",
+        "typeLabel": "Permission type",
+        "cancel": "Cancel",
+        "saving": "Saving…",
+        "save": "Save",
+        "validation": {
+          "nameRequired": "Permission name is required.",
+          "duplicate": "A permission with this name already exists."
+        },
+        "toast": {
+          "created": "Permission created",
+          "createFailed": "Permission could not be created"
+        }
+      },
+      "description": "Permission definitions that exist in this system, grouped by module.",
+      "tryAgain": "Try again"
     }
   },
   "queues": {

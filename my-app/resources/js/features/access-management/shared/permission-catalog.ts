@@ -136,7 +136,7 @@ export type PermissionDefinition = BuiltinPermissionDefinition | CustomPermissio
 export const PERMISSIONS: PermissionDefinition[] = (Object.keys(PERMISSION_LABEL_KEYS) as Capability[]).map((id) => {
     const parts = id.split('.');
     const prefix = parts[0];
-    const rawType = (parts[1] ?? prefix) as PermissionType;
+    const rawType = parts[parts.length - 1] as PermissionType;
     const type: PermissionType = rawType === 'view' || rawType === 'manage' || rawType === 'workspace' || rawType === 'manager' ? rawType : 'view';
 
     return {

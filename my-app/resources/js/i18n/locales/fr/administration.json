@@ -210,22 +210,23 @@
     "permissionsFooterHint": "Adaptateur POC — limite `AccessRepository` ; remplacer par le backend réel des autorisations lors du déploiement.",
     "error": {
       "rolesTitle": "Impossible de charger les rôles",
-      "permissionsTitle": "Impossible de charger les autorisations",
-      "generic": "Les données des rôles n'ont pas pu être récupérées.",
-      "permissionsGeneric": "Les données des autorisations n'ont pas pu être récupérées."
+      "permissionsTitle": "Impossible de charger les permissions",
+      "generic": "Les données des permissions n'ont pas pu être récupérées.",
+      "permissionsGeneric": "Les données des permissions n'ont pas pu être récupérées."
     },
     "empty": {
       "noRolesTitle": "Aucun rôle pour l'instant",
       "noRolesDescription": "Ajoutez votre premier rôle pour définir l'accès des utilisateurs.",
-      "noPermissionsTitle": "Aucune autorisation pour l'instant",
-      "noPermissionsDescription": "Ajoutez votre première définition d'autorisation."
+      "noPermissionsTitle": "Aucune permission pour l'instant",
+      "noPermissionsDescription": "Ajoutez votre première définition de permission pour commencer.",
+      "addRole": "Ajouter un rôle"
     },
     "columns": {
       "role": "Rôle",
       "permissions": "Autorisations",
       "users": "Utilisateurs",
       "actions": "Actions",
-      "permission": "Autorisation",
+      "permission": "Permission",
       "type": "Type",
       "module": "Module"
     },
@@ -243,14 +244,14 @@
       "roleNamePlaceholder": "ex. Superviseur Facturation",
       "permissionsLabel": "Autorisations",
       "selectedCount": "{{count}} sélectionnées",
-      "searchPlaceholder": "Rechercher des autorisations…",
-      "unknownWarning": "{{count}} autorisation{{pluralSuffix}} supplémentaire du backend est conservée et ne sera pas supprimée lors de l'enregistrement.",
-      "unknownWarning_one": "{{count}} autorisation supplémentaire du backend est conservée et ne sera pas supprimée lors de l'enregistrement.",
-      "unknownWarning_other": "{{count}} autorisations supplémentaires du backend sont conservées et ne seront pas supprimées lors de l'enregistrement.",
+      "searchPlaceholder": "Rechercher des permissions…",
+      "unknownWarning": "{{count}} permission{{pluralSuffix}} supplémentaire du backend est conservée et ne sera pas supprimée lors de l'enregistrement.",
+      "unknownWarning_one": "{{count}} permission supplémentaire du backend est conservée et ne sera pas supprimée lors de l'enregistrement.",
+      "unknownWarning_other": "{{count}} permissions supplémentaires du backend sont conservées et ne seront pas supprimées lors de l'enregistrement.",
       "assignedWarning": "Ce rôle est attribué à {{count}} utilisateur{{pluralSuffix}}. Les modifications affecteront leur accès.",
       "assignedWarning_one": "Ce rôle est attribué à {{count}} utilisateur. Les modifications affecteront son accès.",
       "assignedWarning_other": "Ce rôle est attribué à {{count}} utilisateurs. Les modifications affecteront leur accès.",
-      "noMatch": "Aucune autorisation ne correspond à « {{search}} ».",
+      "noMatch": "Aucune permission ne correspond à « {{search}} ».",
       "cancel": "Annuler",
       "saving": "Enregistrement…",
       "saveRole": "Enregistrer le rôle",
@@ -263,7 +264,8 @@
         "created": "Rôle créé",
         "saveFailed": "Le rôle n'a pas pu être enregistré",
         "createFailed": "Le rôle n'a pas pu être créé"
-      }
+      },
+      "builtinRoleHint": "Les noms de rôles intégrés ne peuvent pas être modifiés. Seules les permissions peuvent être modifiées."
     },
     "permissionForm": {
       "addTitle": "Ajouter une autorisation",
@@ -288,6 +290,95 @@
       "removeSuccess": "{{name}} removed",
       "restoreSuccess": "{{name}} restored",
       "actionFailed": "The action could not be completed. Try again."
+    },
+    "permissions": {
+      "catalog": {
+        "dashboardView": "Voir le tableau de bord",
+        "monitorView": "Voir la surveillance des agents",
+        "consoleView": "Voir la console de gestion",
+        "cdrView": "Voir les enregistrements d'appels",
+        "campaignsView": "Voir les campagnes",
+        "campaignsManage": "Gérer les campagnes",
+        "reportsView": "Voir les rapports",
+        "aiView": "Voir le centre d'IA",
+        "systemView": "Voir le système et l'infrastructure",
+        "settingsManage": "Gérer les paramètres",
+        "securityView": "Voir la sécurité",
+        "rolesManage": "Gérer les rôles et permissions",
+        "tenantsManage": "Gérer les locataires et la plateforme",
+        "agentWorkspace": "Utiliser l'espace de travail agent",
+        "agentDashboardView": "Voir le tableau de bord agent",
+        "socialView": "Voir la boîte sociale",
+        "callManager": "Utiliser le gestionnaire d'appels",
+        "missedCallsView": "Voir les appels manqués",
+        "troubleshootingView": "Voir le dépannage",
+        "supportView": "Voir le support rapide"
+      },
+      "modules": {
+        "dashboard": "Tableau de bord",
+        "monitoring": "Surveillance",
+        "managementConsole": "Console de gestion",
+        "callRecords": "Enregistrements d'appels",
+        "campaigns": "Campagnes",
+        "reports": "Rapports",
+        "aiCenter": "Centre d'IA",
+        "system": "Système",
+        "settings": "Paramètres",
+        "security": "Sécurité",
+        "rolesPermissions": "Rôles et permissions",
+        "platform": "Plateforme",
+        "agentWorkspace": "Espace de travail agent",
+        "callManager": "Gestionnaire d'appels",
+        "socialInbox": "Boîte de réception sociale",
+        "missedCalls": "Appels manqués",
+        "troubleshooting": "Dépannage",
+        "support": "Support",
+        "custom": "Personnalisé"
+      },
+      "types": {
+        "view": "Voir",
+        "manage": "Gérer",
+        "workspace": "Espace de travail",
+        "manager": "Gestionnaire"
+      },
+      "toolbar": {
+        "refresh": "Actualiser",
+        "addPermission": "Ajouter une permission"
+      },
+      "error": {
+        "generic": "Les données des permissions n'ont pas pu être récupérées.",
+        "permissionsGeneric": "Les données des permissions n'ont pas pu être récupérées.",
+        "permissionsTitle": "Impossible de charger les permissions"
+      },
+      "empty": {
+        "title": "Aucune permission pour l'instant",
+        "description": "Ajoutez votre première définition de permission pour commencer."
+      },
+      "columns": {
+        "permission": "Permission",
+        "type": "Type",
+        "module": "Module"
+      },
+      "form": {
+        "addTitle": "Ajouter une permission",
+        "addDescription": "Ajoutez une nouvelle définition de permission à ce système.",
+        "nameLabel": "Nom de la permission",
+        "namePlaceholder": "ex. Voir les rapports de facturation",
+        "typeLabel": "Type de permission",
+        "cancel": "Annuler",
+        "saving": "Enregistrement…",
+        "save": "Enregistrer",
+        "validation": {
+          "nameRequired": "Le nom de la permission est requis.",
+          "duplicate": "Une permission avec ce nom existe déjà."
+        },
+        "toast": {
+          "created": "Permission créée",
+          "createFailed": "La permission n'a pas pu être créée"
+        }
+      },
+      "description": "Les définitions de permissions existantes dans ce système, groupées par module.",
+      "tryAgain": "Réessayer"
     }
   },
   "queues": {

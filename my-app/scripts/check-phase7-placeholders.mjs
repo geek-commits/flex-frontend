@@ -18,15 +18,22 @@ const allowlist = new Set([
     'roles.columns.actions',
     'roles.columns.module',
     'roles.columns.type',
+    'roles.columns.permission',
     'roles.lifecycleDialog.actionFailed',
     'roles.lifecycleDialog.deactivateSuccess',
     'roles.lifecycleDialog.removeSuccess',
     'roles.lifecycleDialog.restoreSuccess',
     'users.columns.actions',
+    'roles.columns.permission',
     'queues.members.table.agent',
     'recordings.usageTypes.ivr',
     'recordings.usageTypes.voicemail',
     'recordings.player.audio',
+    'users.roles.agent',
+    'roles.permissions.modules.support',
+    'roles.permissions.columns.permission',
+    'roles.permissions.columns.type',
+    'roles.permissions.columns.module',
 ]);
 
 function flatten(obj, prefix='') {
@@ -74,3 +81,4 @@ if (failed) {
     console.log('Phase 7 placeholder check PASS');
 }
 // Temporary add for recordings UI - will be properly allowlisted in file
+// This is a duplicate entry for testing

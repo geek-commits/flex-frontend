@@ -22,12 +22,12 @@ describe('Global Search — locale-reactive templates', () => {
 
     it('module titles and categories are via administration translator', () => {
         // Administration module keys
-        expect(i18n.t('administration:modules.tenants.title', { lng: 'en' })).toBe('Tenants & Multi-Org');
-        expect(i18n.t('administration:modules.cdr.title', { lng: 'en' })).toBe('Call Records (CDR)');
-        expect(i18n.t('administration:modules.categories.coreAdministration', { lng: 'en' })).toBe('Core Administration');
+        expect(i18n.getFixedT('en', 'administration')('modules.tenants.title')).toBe('Tenants & Multi-Org');
+        expect(i18n.getFixedT('en', 'administration')('modules.cdr.title')).toBe('Call Records (CDR)');
+        expect(i18n.getFixedT('en', 'administration')('modules.categories.coreAdministration')).toBe('Core Administration');
         // Locale-aware: sw/fr return same English for now but key exists and is not fallback to English field
-        expect(i18n.t('administration:modules.tenants.title', { lng: 'sw' })).toBeDefined();
-        expect(i18n.t('administration:modules.tenants.title', { lng: 'fr' })).toBeDefined();
+        expect(i18n.getFixedT('sw', 'administration')('modules.tenants.title')).toBeDefined();
+        expect(i18n.getFixedT('fr', 'administration')('modules.tenants.title')).toBeDefined();
     });
 
     it('empty state uses whole translated interpolation', () => {

@@ -158,6 +158,7 @@ export const accessRepository: AccessRepository = {
 
     createRole(draft: RoleDraft) {
         const role: RoleRecord = {
+            kind: 'custom',
             id: `r${Date.now()}`,
             name: draft.name,
             permissions: draft.permissions,
@@ -176,7 +177,10 @@ export const accessRepository: AccessRepository = {
             return undefined;
         }
 
-        existing.name = draft.name;
+        if (existing.kind === 'custom') {
+            existing.name = draft.name;
+        }
+
         existing.permissions = draft.permissions;
 
         return existing;

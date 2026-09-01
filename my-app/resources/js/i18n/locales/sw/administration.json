@@ -211,14 +211,15 @@
     "error": {
       "rolesTitle": "Imeshindwa kupakia majukumu",
       "permissionsTitle": "Imeshindwa kupakia ruhusa",
-      "generic": "Data ya majukumu haikupatikana.",
+      "generic": "Data ya ruhusa haikupatikana.",
       "permissionsGeneric": "Data ya ruhusa haikupatikana."
     },
     "empty": {
       "noRolesTitle": "Hakuna majukumu bado",
       "noRolesDescription": "Ongeza jukumu lako la kwanza ili kufafanua ufikiaji kwa watumiaji.",
       "noPermissionsTitle": "Hakuna ruhusa bado",
-      "noPermissionsDescription": "Ongeza ufafanuzi wako wa kwanza wa ruhusa."
+      "noPermissionsDescription": "Ongeza ufafanuzi wako wa kwanza wa ruhusa ili kuanza.",
+      "addRole": "Ongeza Jukumu"
     },
     "columns": {
       "role": "Jukumu",
@@ -244,9 +245,9 @@
       "permissionsLabel": "Ruhusa",
       "selectedCount": "{{count}} zimechaguliwa",
       "searchPlaceholder": "Tafuta ruhusa…",
-      "unknownWarning": "ruhusa {{count}} ya ziada kutoka backend inahifadhiwa na haitaondolewa wakati wa kuhifadhi.",
-      "unknownWarning_one": "ruhusa {{count}} ya ziada kutoka backend inahifadhiwa na haitaondolewa wakati wa kuhifadhi.",
-      "unknownWarning_other": "ruhusa {{count}} za ziada kutoka backend zinahifadhiwa na hazitaondolewa wakati wa kuhifadhi.",
+      "unknownWarning": "{{count}} ruhusa{{pluralSuffix}} za ziada kutoka backend zinahifadhiwa na hazitaondolewa wakati wa kuhifadhi.",
+      "unknownWarning_one": "{{count}} ruhusa ya ziada kutoka backend inahifadhiwa na haitaondolewa wakati wa kuhifadhi.",
+      "unknownWarning_other": "{{count}} ruhusa za ziada kutoka backend zinahifadhiwa na hazitaondolewa wakati wa kuhifadhi.",
       "assignedWarning": "Jukumu hili limepangiwa watumiaji {{count}}. Mabadiliko yataathiri ufikiaji wao.",
       "assignedWarning_one": "Jukumu hili limepangiwa mtumiaji {{count}}. Mabadiliko yataathiri ufikiaji wake.",
       "assignedWarning_other": "Jukumu hili limepangiwa watumiaji {{count}}. Mabadiliko yataathiri ufikiaji wao.",
@@ -263,7 +264,8 @@
         "created": "Jukumu limeundwa",
         "saveFailed": "Jukumu halikuweza kuhifadhiwa",
         "createFailed": "Jukumu halikuweza kuundwa"
-      }
+      },
+      "builtinRoleHint": "Majina ya jukumu ya kawaida hayawahi kubadilika. Vinginevyo vibaliweza kubadilika."
     },
     "permissionForm": {
       "addTitle": "Ongeza Ruhusa",
@@ -288,6 +290,95 @@
       "removeSuccess": "{{name}} removed",
       "restoreSuccess": "{{name}} restored",
       "actionFailed": "The action could not be completed. Try again."
+    },
+    "permissions": {
+      "catalog": {
+        "dashboardView": "Tazama Dashibodi",
+        "monitorView": "Tazama Ufuatiliaji wa Wakala",
+        "consoleView": "Tazama Konsoli ya Usimamizi",
+        "cdrView": "Tazama Rekodi za Simu",
+        "campaignsView": "Tazama Kampeni",
+        "campaignsManage": "Simamia Kampeni",
+        "reportsView": "Tazama Ripoti",
+        "aiView": "Tazama Kituo cha AI",
+        "systemView": "Tazama Mfumo & Miundombinu",
+        "settingsManage": "Simamia Mipangilio",
+        "securityView": "Tazama Usalama",
+        "rolesManage": "Simamia Majukumu na Ruhusa",
+        "tenantsManage": "Simamia Wapangaji & Jukwaa",
+        "agentWorkspace": "Tumia Eneo la Kazi la Wakala",
+        "agentDashboardView": "Tazama Dashibodi ya Wakala",
+        "socialView": "Tazama Kikasha cha Mitandao",
+        "callManager": "Tumia Meneja wa Simu",
+        "missedCallsView": "Tazama Simu Zilizokosekana",
+        "troubleshootingView": "Tazama Utatuzi wa Matatizo",
+        "supportView": "Tazama Msaada wa Haraka"
+      },
+      "modules": {
+        "dashboard": "Dashibodi",
+        "monitoring": "Ufuatiliaji",
+        "managementConsole": "Konsoli ya Usimamizi",
+        "callRecords": "Rekodi za Simu",
+        "campaigns": "Kampeni",
+        "reports": "Ripoti",
+        "aiCenter": "Kituo cha AI",
+        "system": "Mfumo",
+        "settings": "Mipangilio",
+        "security": "Usalama",
+        "rolesPermissions": "Majukumu na Ruhusa",
+        "platform": "Jukwaa",
+        "agentWorkspace": "Eneo la Kazi la Wakala",
+        "callManager": "Meneja wa Simu",
+        "socialInbox": "Kikasha cha Mitandao",
+        "missedCalls": "Simu Zilizokosekana",
+        "troubleshooting": "Utatuzi wa Matatizo",
+        "support": "Msaada",
+        "custom": "Kipekee"
+      },
+      "types": {
+        "view": "Tazama",
+        "manage": "Simamia",
+        "workspace": "Eneo la Kazi",
+        "manager": "Meneja"
+      },
+      "toolbar": {
+        "refresh": "Onyesha upya",
+        "addPermission": "Ongeza Ruhusa"
+      },
+      "error": {
+        "generic": "Data ya ruhusa haikupatikana.",
+        "permissionsGeneric": "Data ya ruhusa haikupatikana.",
+        "permissionsTitle": "Imeshindwa kupakia ruhusa"
+      },
+      "empty": {
+        "title": "Hakuna ruhusa bado",
+        "description": "Ongeza ufafanuzi wako wa kwanza wa ruhusa ili kuanza."
+      },
+      "columns": {
+        "permission": "Ruhusa",
+        "type": "Aina",
+        "module": "Moduli"
+      },
+      "form": {
+        "addTitle": "Ongeza Ruhusa",
+        "addDescription": "Ongeza ufafanuzi mpya wa ruhusa kwenye mfumo huu.",
+        "nameLabel": "Jina la ruhusa",
+        "namePlaceholder": "mf. Tazama Ripoti za Malipo",
+        "typeLabel": "Aina ya ruhusa",
+        "cancel": "Ghairi",
+        "saving": "Inahifadhi…",
+        "save": "Hifadhi",
+        "validation": {
+          "nameRequired": "Jina la ruhusa linahitajika.",
+          "duplicate": "Ruhusa yenye jina hili tayari ipo."
+        },
+        "toast": {
+          "created": "Ruhusa imeongezwa",
+          "createFailed": "Ruhusa haikuweza kuongezwa"
+        }
+      },
+      "description": "Ufafanuzi wa ruhusa zilizopo kwenye mfumo huu, zikipangwa kwa moduli.",
+      "tryAgain": "Jaribu tena"
     }
   },
   "queues": {

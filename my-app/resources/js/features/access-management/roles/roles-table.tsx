@@ -3,9 +3,10 @@ import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { ROLE_LABEL_KEYS } from '@/features/access-management/shared/role-options';
+import { PERMISSION_MODULE_KEYS, PERMISSIONS  } from '@/features/access-management/shared/permission-catalog';
 import type { RoleRecord } from '@/features/access-management/shared/permission-catalog';
-import { PERMISSION_MODULE_KEYS, PERMISSIONS } from '@/features/access-management/shared/permission-catalog';
+import type {PermissionModuleKey} from '@/features/access-management/shared/permission-catalog';
+import { ROLE_LABEL_KEYS } from '@/features/access-management/shared/role-options';
 
 export interface RolesTableProps {
     records: RoleRecord[];
@@ -55,9 +56,10 @@ export function RolesTable({ records, isLoading, emptyMessage, onEdit }: RolesTa
                                 role.permissions
                                     .map((pid) => {
                                         const perm = PERMISSIONS.find((p) => p.id === pid);
+
                                         return perm ? perm.moduleKey : PERMISSION_MODULE_KEYS.custom;
                                     })
-                                    .map((k) => t(k)),
+                                    .map((k: PermissionModuleKey) => t(k)),
                             ),
                         ).join(' · ');
 
