@@ -10,6 +10,7 @@ import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetT
 import { accessRepository } from '@/domain/access-repository';
 import type { PermissionDefinition, RoleDraft, RoleRecord } from '@/features/access-management/shared/permission-catalog';
 import { PERMISSIONS, permissionGroups } from '@/features/access-management/shared/permission-catalog';
+import { ROLE_LABEL_KEYS } from '@/features/access-management/shared/role-options';
 
 const EMPTY_DRAFT: RoleDraft = { name: '', permissions: [] };
 
@@ -99,7 +100,9 @@ export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleForm
     };
 
     const handleSave = () => {
-        if (!draft.name.trim()) {
+        const isBuiltin = editing?.kind === 'builtin';
+
+        if (!isBuiltin && !draft.name.trim()) {
             setNameError('roles.form.validation.nameRequired');
 
             return;
@@ -148,7 +151,7 @@ export function RoleFormSheet({ open, onOpenChange, editing, onSaved }: RoleForm
                         </Label>
                         <Input
                             id="role-name"
-                            value={draft.name}
+                            value={editing?.kind === 'builtin' ? t(ROLE_LABEL_KEYS[editing.id]) : draft.name}
                             onChange={(e) => {
                                 if (editing?.kind !== 'builtin') {
                                     updateDraft({ name: e.target.value });

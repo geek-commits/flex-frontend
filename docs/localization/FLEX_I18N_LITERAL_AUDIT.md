@@ -1,6 +1,6 @@
 # FLEX i18n Literal Audit — Report Mode (Phase 2)
 
-**Generated:** 2026-09-01T05:43:57.860Z **SHA:** local **Files scanned:** 641 **Hits:** 224
+**Generated:** 2026-09-01T05:57:37.907Z **SHA:** local **Files scanned:** 642 **Hits:** 224
 
 > Classification per §107: TRANSLATE / RUNTIME_DATA / TECHNICAL / BRAND / EXTERNAL / FALSE_POSITIVE — triage before CI gate.
 
