@@ -5,9 +5,10 @@ import { useCapabilities } from '@/auth/capabilities';
 import { FLEX_DOMAINS, deriveActiveDomain } from '@/auth/nav-domains';
 import type { FlexIconName } from '@/components/flex/iconography';
 import { FlexIcon } from '@/components/flex/iconography';
-import { SidebarHeader, useSidebar } from '@/components/ui/sidebar';
+import { useSidebar } from '@/components/ui/sidebar';
 import { FileTree } from '@/components/unlumen-ui/file-tree';
 import type { FileTreeElement } from '@/components/unlumen-ui/file-tree';
+import { Sidebar001Content, Sidebar001Header } from '@/components/unlumen-ui/sidebar-001';
 
 function navigationIcon(name: FlexIconName) {
     return function NavigationIcon({ className }: { className?: string }) {
@@ -61,36 +62,40 @@ export function FlexNavigationFileTree() {
     if (state === 'collapsed') {
         return (
             <>
-                <SidebarHeader className="h-16 justify-center px-0">
+                <Sidebar001Header className="flex h-20 items-center justify-center px-0 py-0">
                     <img src="/images/brand/f-monogram.svg" alt="FLEX" className="size-9" />
-                </SidebarHeader>
-                <nav aria-label={t('aria.productDomains')} className="flex flex-col items-center gap-2 px-2 py-4">
-                    {FLEX_DOMAINS.filter((domain) => has(domain.capability)).map((domain) => {
-                        const active = activeDomain === domain.id;
+                </Sidebar001Header>
+                <Sidebar001Content className="py-0">
+                    <nav aria-label={t('aria.productDomains')} className="flex flex-col items-center gap-2 px-2 py-4">
+                        {FLEX_DOMAINS.filter((domain) => has(domain.capability)).map((domain) => {
+                            const active = activeDomain === domain.id;
 
-                        return (
-                            <a
-                                key={domain.id}
-                                href={domain.landingHref}
-                                aria-label={t(domain.labelKey)}
-                                title={t(domain.labelKey)}
-                                className={`flex size-10 items-center justify-center rounded-lg transition-colors ${active ? 'bg-sidebar-accent text-sidebar-accent-foreground' : 'text-sidebar-foreground/75 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground'}`}
-                            >
-                                <FlexIcon name={domain.icon} size="md" />
-                            </a>
-                        );
-                    })}
-                </nav>
+                            return (
+                                <a
+                                    key={domain.id}
+                                    href={domain.landingHref}
+                                    aria-label={t(domain.labelKey)}
+                                    title={t(domain.labelKey)}
+                                    className={`flex size-10 items-center justify-center rounded-lg transition-colors ${active ? 'bg-sidebar-accent text-sidebar-accent-foreground' : 'text-sidebar-foreground/75 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground'}`}
+                                >
+                                    <FlexIcon name={domain.icon} size="md" />
+                                </a>
+                            );
+                        })}
+                    </nav>
+                </Sidebar001Content>
             </>
         );
     }
 
     return (
         <>
-            <SidebarHeader className="h-16 justify-center px-6">
-                <img src="/images/brand/flex-logo.svg" alt="FLEX" className="h-12 w-auto" />
-            </SidebarHeader>
-            <FileTree elements={elements} showIcons defaultOpenIds={activeDomain ? [`domain:${activeDomain}`] : []} className="px-3 py-4" />
+            <Sidebar001Header className="flex h-24 items-center justify-center px-4 py-0">
+                <img src="/images/brand/flex-logo.svg" alt="FLEX" className="h-16 w-40 object-contain" />
+            </Sidebar001Header>
+            <Sidebar001Content className="py-0">
+                <FileTree elements={elements} showIcons defaultOpenIds={activeDomain ? [`domain:${activeDomain}`] : []} className="px-3 py-4" />
+            </Sidebar001Content>
         </>
     );
 }
