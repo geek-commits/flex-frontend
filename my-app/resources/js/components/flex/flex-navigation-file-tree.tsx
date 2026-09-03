@@ -5,7 +5,7 @@ import { useCapabilities } from '@/auth/capabilities';
 import { FLEX_DOMAINS, deriveActiveDomain } from '@/auth/nav-domains';
 import type { FlexIconName } from '@/components/flex/iconography';
 import { FlexIcon } from '@/components/flex/iconography';
-import { SidebarHeader, useSidebar } from '@/components/ui/sidebar';
+import { useSidebar } from '@/components/ui/sidebar';
 import { FileTree } from '@/components/unlumen-ui/file-tree';
 import type { FileTreeElement } from '@/components/unlumen-ui/file-tree';
 
@@ -60,11 +60,7 @@ export function FlexNavigationFileTree() {
 
     if (state === 'collapsed') {
         return (
-            <>
-                <SidebarHeader className="h-16 justify-center px-0">
-                    <img src="/images/brand/f-monogram.svg" alt="FLEX" className="size-9" />
-                </SidebarHeader>
-                <nav aria-label={t('aria.productDomains')} className="flex flex-col items-center gap-2 px-2 py-4">
+            <nav aria-label={t('aria.productDomains')} className="flex flex-col items-center gap-2 px-2 py-4">
                 {FLEX_DOMAINS.filter((domain) => has(domain.capability)).map((domain) => {
                     const active = activeDomain === domain.id;
 
@@ -80,17 +76,9 @@ export function FlexNavigationFileTree() {
                         </a>
                     );
                 })}
-                </nav>
-            </>
+            </nav>
         );
     }
 
-    return (
-        <>
-            <SidebarHeader className="h-16 justify-center px-6">
-                <img src="/images/brand/flex-logo.svg" alt="FLEX" className="h-12 w-auto" />
-            </SidebarHeader>
-            <FileTree elements={elements} showIcons defaultOpenIds={activeDomain ? [`domain:${activeDomain}`] : []} className="px-3 py-4" />
-        </>
-    );
+    return <FileTree elements={elements} showIcons defaultOpenIds={activeDomain ? [`domain:${activeDomain}`] : []} className="px-3 py-4" />;
 }
