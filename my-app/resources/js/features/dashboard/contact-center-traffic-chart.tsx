@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlexBarChart } from '@/components/flex/charts/flex-bar-chart';
+import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
     TRAFFIC_SERIES,
@@ -43,13 +44,13 @@ export function ContactCenterTrafficChart() {
                 <p className="text-xs text-flex-text-muted">
                     {t('dashboard.traffic.failed')}
                 </p>
-                <button
+                <Button
                     type="button"
-                    className="rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:bg-primary/90"
+                    size="sm"
                     onClick={() => window.location.reload()}
                 >
                     {t('dashboard.live.retry')}
-                </button>
+                </Button>
             </div>
         );
     }

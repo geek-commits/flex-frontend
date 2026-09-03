@@ -16,7 +16,7 @@ export function OperationsSummary() {
 
     if (!data) {
         return (
-            <FlexMetricStrip>
+            <FlexMetricStrip layout="grid">
                 <FlexMetricItem
                     label={t('dashboard.metrics.talking.label')}
                     value={isLoading ? undefined : 0}
@@ -65,7 +65,7 @@ export function OperationsSummary() {
     );
 
     return (
-        <FlexMetricStrip>
+        <FlexMetricStrip layout="grid">
             <FlexMetricItem
                 label={t('dashboard.metrics.talking.label')}
                 value={talking}
