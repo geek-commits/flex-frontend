@@ -18,9 +18,11 @@ Navigation is not a hard-coded list of routes. It is the intersection of the sig
 
 The frontend has a single navigation source of truth — `FLEX_DOMAINS` in `resources/js/auth/nav-domains.ts` — a domain-tree owning label, icon, landingHref, hrefPrefixes, groups and per-item `capability`. Consumers derive from it consistently:
 
-- `FlexNavigationTree` (`resources/js/components/flex/flex-navigation-tree.tsx`) — one permission-filtered tree rendered inside the shadcn off-canvas sidebar; domains, groups, and routes share the same hierarchy on desktop and mobile;
+- `PrimaryRail` — visible domains filtered by `has(domain.capability)`;
+- `ContextSidebar` — active domain's groups filtered by item capability;
 - `GlobalSearch` — navigation index derived from the domain tree with `Domain · Group` muted subtitles (no LIVE/AGENT suffix clutter);
-- `FlexAppShell` (`resources/js/components/flex/flex-app-shell.tsx`) — shared structural shell with one off-canvas navigation sidebar and topbar boundary, reused by both `AgentShell` and `AdminShell`.
+- Mobile Sheet — domain/group/route hierarchy identical to desktop (not a flat list);
+- `FlexAppShell` (`resources/js/components/flex/flex-app-shell.tsx`) — shared structural shell (rabast rail + contextual sidebar + collapse affordance + topbar boundary) reused by both `AgentShell` and `AdminShell`.
 
 `NAVIGATION` in `resources/js/auth/capabilities.tsx` is now derived flat from `FLEX_DOMAINS` (plus a small explicit shared route for Settings) for consumers that need a list — manual entries are not maintained. Every entry still declares `title`, `href`, `icon`, and `capability`; visibility is derived via `ROLE_CAPABILITIES[role]`; the backend has no roles/permissions yet (see `domain/permission-model.md`). Boundary-aware matching (`isActiveRoute`) is used for active state (exact or slash-boundary) — broad `startsWith` is prohibited.
 
@@ -77,7 +79,7 @@ Platform       Tenant Management*
 
 1. **Current route clearly indicated.** The active page must be identifiable in the rail/sidebar (e.g., active-item treatment). Users must never have to guess where they are.
 2. **Inaccessible routes excluded.** Entries the role cannot reach are removed, not shown disabled. Do not render dead navigation.
-3. **Global shell consistent.** The topbar/tree chrome stays consistent across pages within a workspace so orientation does not reset on navigation.
+3. **Global shell consistent.** The topbar/rail chrome stays consistent across pages within a workspace so orientation does not reset on navigation.
 4. **Agent mode prioritizes telephony state above generic navigation.** In the agent workspace, call state and availability may occupy the space generic admin navigation occupies elsewhere.
 5. **Super Admin tenant context always visible.** When tenant context exists, the current tenant is shown explicitly, not tucked into an avatar menu alone.
 6. **Identity is a single top-right control.** A canonical avatar + dropdown (`FlexProfileMenu`) owns account identity and access everywhere; the avatar never duplicates to the rail or sidebar footer. The menu separates identity (avatar, name, role) from role & access inspection and from tenant/platform context, which stays as an adjacent visible trigger (rule 5).

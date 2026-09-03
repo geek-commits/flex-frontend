@@ -13,7 +13,6 @@ Route: `/dashboard` · `features/dashboard/*` · page `pages/admin/contact-cente
 - **Partial failure** — sections render independently; a failed source does not blank healthy sections (`07-feedback-states.md`).
 - **Progressive loading** — the below-the-fold sections (traffic chart, queue health, active calls, agent wallboard) load asynchronously after first paint, each with a card skeleton fallback that reserves its height; the exception + metrics strip paints first (`12-quality-gates.md`).
 - **Chart restraint** — the call-volume chart shows the needed signal with no decorative animation or count-up effects (`05-motion.md`).
-- **Responsive composition** — traffic and queue health share a weighted desktop row (7/5) and collapse into a single-column flow on smaller screens; the surrounding shell uses one off-canvas navigation tree.
 
 ## Patterns to reuse
 

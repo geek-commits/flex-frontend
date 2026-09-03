@@ -1,5 +1,4 @@
 import React from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
 
 export interface FlexMetricItemProps {
     label: string;
@@ -27,9 +26,9 @@ export function FlexMetricItem({
 }: FlexMetricItemProps) {
     if (loading) {
         return (
-            <div className="flex min-w-0 flex-col gap-1 py-1">
-                <Skeleton className="h-3 w-20" />
-                <Skeleton className="h-6 w-12" />
+            <div className="flex flex-col gap-1 py-1 min-w-0">
+                <div className="h-3 w-20 rounded-sm bg-muted/70 animate-pulse" />
+                <div className="h-6 w-12 rounded-sm bg-muted/70 animate-pulse" />
             </div>
         );
     }
@@ -58,7 +57,7 @@ export function FlexMetricItem({
                     </span>
                 )}
             </div>
-            {description && <p className="text-[11px] leading-snug text-flex-text-muted">{description}</p>}
+            {description && <p className="text-[11px] text-flex-text-muted truncate">{description}</p>}
         </div>
     );
 }

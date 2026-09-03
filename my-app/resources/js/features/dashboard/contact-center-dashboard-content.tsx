@@ -55,20 +55,14 @@ export function ContactCenterDashboardContent() {
 
             <OperationsSummary />
 
-            <div className="grid grid-cols-1 gap-[var(--flex-space-section)] xl:grid-cols-12">
-                <div className="xl:col-span-7">
-                    <Suspense fallback={<CardSkeleton bodyClassName="aspect-[3/1]" />}>
-                        <ContactCenterTrafficChart />
-                    </Suspense>
-                </div>
-                <div className="xl:col-span-5">
-                    <Suspense fallback={<CardSkeleton bodyClassName="h-56" />}>
-                        <QueueHealth />
-                    </Suspense>
-                </div>
-            </div>
+            <Suspense fallback={<CardSkeleton bodyClassName="aspect-[3/1]" />}>
+                <ContactCenterTrafficChart />
+            </Suspense>
 
-            <div>
+            <div className="grid grid-cols-1 gap-[var(--flex-space-section)] lg:grid-cols-2">
+                <Suspense fallback={<CardSkeleton bodyClassName="h-56" />}>
+                    <QueueHealth />
+                </Suspense>
                 <Suspense fallback={<CardSkeleton bodyClassName="h-56" />}>
                     <ActiveCalls />
                 </Suspense>

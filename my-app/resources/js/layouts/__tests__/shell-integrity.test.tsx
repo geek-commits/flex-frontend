@@ -12,8 +12,6 @@ describe('shell integrity — one shell invariant (static audit)', () => {
         expect(content).toContain('data-flex-topbar');
         expect(content).toContain('data-flex-workspace');
         expect(content).toContain('data-flex-context-sidebar');
-        expect(content).toContain('FlexNavigationTree');
-        expect(content).toContain('collapsible="offcanvas"');
         // ensure no sensitive runtime leaked into attributes
         expect(content).not.toMatch(/data-flex-shell.*callId|tenantId|phone/i);
     });
