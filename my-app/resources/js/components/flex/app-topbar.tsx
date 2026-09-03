@@ -13,6 +13,8 @@ import { LanguageSwitcher } from '@/components/language-switcher';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { SidebarTrigger, useSidebar } from '@/components/ui/sidebar';
+import { SidebarToggleIcon } from '@/components/unlumen-ui/sidebar-toggle-icon';
 import { TenantContextIndicator } from '@/features/tenants/tenant-context-indicator';
 import { agentStateMap, connectionStateMap } from '@/lib/status-styles';
 import type { AgentState, ConnectionState } from '@/types/flex';
@@ -36,6 +38,7 @@ export function AppTopbar({
     const animateOnMount = useBrandIntroReplayGuard();
     const { has } = useCapabilities();
     const { t } = useTranslation('navigation');
+    const { state } = useSidebar();
 
     const currentAgentConfig = agentStateMap[agentState];
     const connConfig = connectionStateMap[connectionState];
@@ -58,6 +61,9 @@ export function AppTopbar({
         <header className="h-11 bg-flex-workspace-surface border-b border-flex-workspace-divider px-3 md:px-4 grid grid-cols-[1fr_auto_1fr] items-center sticky top-0 z-20 shrink-0 select-none">
             {/* Left slot — mobile drawer trigger (layout-balancing column on desktop) */}
             <div className="flex items-center gap-2.5 justify-self-start">
+                <SidebarTrigger className="hidden md:flex" aria-label={t('aria.toggleSidebar')}>
+                    <SidebarToggleIcon isOpen={state === 'expanded'} className="size-5" />
+                </SidebarTrigger>
                 <Sheet>
                     <SheetTrigger asChild>
                         <Button variant="ghost" size="icon-sm" className="md:hidden" aria-label="Open navigation">
