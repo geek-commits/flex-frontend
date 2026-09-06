@@ -16,15 +16,15 @@ Navigation is not a hard-coded list of routes. It is the intersection of the sig
 
 ## Runtime model
 
-The frontend has a single navigation source of truth — `FLEX_DOMAINS` in `resources/js/auth/nav-domains.ts` — a domain-tree owning label, icon, landingHref, hrefPrefixes, groups and per-item `capability`. Consumers derive from it consistently:
+The frontend has a single navigation source of truth — `FLEX_NAVIGATION_AREAS` in `resources/js/auth/nav-domains.ts`. It contains the four product workspaces plus the non-workspace Settings utility area. `FLEX_DOMAINS` remains the compatible workspace-only export. Each area owns its label, icon, landing route, groups, routes, aliases, placeholder status, and per-item `capability`. Consumers derive from it consistently:
 
-- `PrimaryRail` — visible domains filtered by `has(domain.capability)`;
-- `ContextSidebar` — active domain's groups filtered by item capability;
+- `PrimaryRail` — visible workspaces plus Settings, filtered by capability;
+- `ContextSidebar` — the active area's complete groups filtered by item capability;
 - `GlobalSearch` — navigation index derived from the domain tree with `Domain · Group` muted subtitles (no LIVE/AGENT suffix clutter);
 - Mobile Sheet — domain/group/route hierarchy identical to desktop (not a flat list);
-- `FlexAppShell` (`resources/js/components/flex/flex-app-shell.tsx`) — shared structural shell (rabast rail + contextual sidebar + collapse affordance + topbar boundary) reused by both `AgentShell` and `AdminShell`.
+- `FlexAppShell` (`resources/js/components/flex/flex-app-shell.tsx`) — the only signed-in structural shell, reused by Admin, Agent, settings, detail, and utility layouts.
 
-`NAVIGATION` in `resources/js/auth/capabilities.tsx` is now derived flat from `FLEX_DOMAINS` (plus a small explicit shared route for Settings) for consumers that need a list — manual entries are not maintained. Every entry still declares `title`, `href`, `icon`, and `capability`; visibility is derived via `ROLE_CAPABILITIES[role]`; the backend has no roles/permissions yet (see `domain/permission-model.md`). Boundary-aware matching (`isActiveRoute`) is used for active state (exact or slash-boundary) — broad `startsWith` is prohibited.
+`NAVIGATION` in `resources/js/auth/capabilities.tsx` is derived flat from the area registry for consumers that need a list — manual entries are not maintained. Account settings have no product capability requirement; operational settings retain their existing capability gates. Boundary-aware matching plus longest-route resolution ensures detail routes inherit one canonical parent rather than activating several prefixes.
 
 > Tenant context is **not implemented** in the current runtime, so navigation is not yet tenant-aware. The model below documents the intended design; tenant-aware navigation ships only when the backend provides tenant context (see `domain/tenant-context.md`).
 
@@ -65,13 +65,14 @@ Tenants
 Global Settings
 ```
 
-Actual visibility always depends on existing permissions. The current runtime ships these contextual groups derived from the domain tree:
+Actual visibility always depends on existing permissions. The runtime ships these contextual areas:
 
 ```text
 Agent          Overview (Agent Dashboard, Agent Workspace) · Engagement (Social Inbox, Callback & Voicemail) · Support (Troubleshooting, Quick Support)
 Supervision    (Overview: Contact Center Dashboard, Agent Monitoring) · Operations (CDR, Campaigns, Reports)
 Administration Overview (Management Console) · People (Users, Roles & Permissions*) · Routing (Queues, IVR, Time Groups, Time Conditions) · Media (Recordings) · System (Subscriptions*, Mail Configuration*, System & Infrastructure*, AI Center*)
 Platform       Tenant Management*
+Settings       Account (Profile, Security, Appearance) · Contact Center · Routing & Trunks · Media & Audio · Operational Policies · System & Security*
 * capability-gated; Administration System and Platform domain discriminate Supervisor vs Administrator vs Super Administrator
 ```
 
@@ -79,26 +80,27 @@ Platform       Tenant Management*
 
 ### Desktop shell anatomy
 
-Administration and Supervision routes render the desktop shell in three
-structural layers:
+Every signed-in product route renders one full-width header above three body columns:
 
 ```text
-PrimaryRail (56px) → ContextSidebar (250px) → Topbar + work surface
+GlobalHeader (56px, full width)
+└─ PrimaryRail (72px) → ContextSidebar (256px) → work surface
 ```
 
-- `PrimaryRail` exposes capability-filtered product domains; every icon has an
-  accessible name and tooltip.
-- `ContextSidebar` renders the active domain's visible route groups directly
-  from `FLEX_DOMAINS`; it can be collapsed by the user and its state persists.
-- The topbar owns the sidebar toggle, global search, language, real tenant
-  treatment, and profile controls. It does not add a fictional organisation
-  selector.
+- The header owns the canonical full FLEX wordmark, global search, language,
+  real tenant treatment, profile, and Agent operational controls where applicable.
+- `PrimaryRail` exposes capability-filtered product workspaces with persistent
+  icon labels; Settings is pinned at the bottom. The rail contains no monogram.
+- `ContextSidebar` renders all visible groups for the active area. It remains
+  open on desktop; selecting a rail area navigates to its first accessible route.
 - The route sidebar is the sole shell-level route navigation. Horizontal tabs
   are reserved for real, runtime-backed subviews within a page.
+- On mobile the two navigation levels become one hierarchical drawer sourced
+  from the identical registry.
 
 1. **Current route clearly indicated.** The active page must be identifiable in the rail/sidebar (e.g., active-item treatment). Users must never have to guess where they are.
 2. **Inaccessible routes excluded.** Entries the role cannot reach are removed, not shown disabled. Do not render dead navigation.
-3. **Global shell consistent.** The topbar/rail chrome stays consistent across pages within a workspace so orientation does not reset on navigation.
+3. **Global shell consistent.** Header, rail, contextual tree, and page-header band stay consistent across all signed-in pages so orientation does not reset on navigation.
 4. **Agent mode prioritizes telephony state above generic navigation.** In the agent workspace, call state and availability may occupy the space generic admin navigation occupies elsewhere.
 5. **Super Admin tenant context always visible.** When tenant context exists, the current tenant is shown explicitly, not tucked into an avatar menu alone.
 6. **Identity is a single top-right control.** A canonical avatar + dropdown (`FlexProfileMenu`) owns account identity and access everywhere; the avatar never duplicates to the rail or sidebar footer. The menu separates identity (avatar, name, role) from role & access inspection and from tenant/platform context, which stays as an adjacent visible trigger (rule 5).

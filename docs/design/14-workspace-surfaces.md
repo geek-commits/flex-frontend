@@ -146,9 +146,9 @@ All structural boundaries use semantic divider tokens:
 - `FlexGroupHeader` — `h-[43px] bg-flex-workspace-surface-muted border-b` group bar, label 14/500 muted + count pill.
 - `FlexListRow` — `min-h-11 py-3 px-[var(--flex-space-list-x)] border-b` row, title 13/400, ID 12/500 muted, hover `bg-flex-layer-hover`.
 - `FlexKanbanCard` / `FlexKanbanColumn` — `rounded-md border p-3` card, board column `w-[280px]`.
-- Shell widths: `PrimaryRail` `w-14` (56px) + `ContextSidebar` `w-[250px]` — verified against Plane (§2.3).
+- Shell geometry: full-width 56px global header above `PrimaryRail` (72px) + `ContextSidebar` (256px). Both navigation columns remain visible on desktop and start below the header.
 
-Topbar search: centered `w-[364px] h-7 rounded-lg bg-flex-workspace-surface-muted border-flex-workspace-divider` (`GlobalSearchTrigger`) — grid `1fr auto 1fr` centers within main-area width.
+Topbar search: centered `w-[364px] h-7 rounded-lg bg-flex-workspace-surface-muted border-flex-workspace-divider` (`GlobalSearchTrigger`) within the full-width global header.
 
 ## 9. Quality gates
 

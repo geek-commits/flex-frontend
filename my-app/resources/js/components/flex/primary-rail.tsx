@@ -2,106 +2,69 @@ import { Link, usePage } from '@inertiajs/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCapabilities } from '@/auth/capabilities';
-import { deriveActiveDomain, FLEX_DOMAINS } from '@/auth/nav-domains';
-import { FlexBrandMark } from '@/components/flex/brand';
+import {
+    FLEX_NAVIGATION_AREAS,
+    getFirstAccessibleHref,
+    resolveNavigationArea,
+} from '@/auth/nav-domains';
 import { FlexIcon } from '@/components/flex/iconography';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { useAppearance } from '@/hooks/use-appearance';
-
-export interface PrimaryRailProps {
-    currentPath?: string;
-    activeWorkspace?: 'admin' | 'agent';
-}
 
 /**
- * Primary FLEX app rail — major product domains only (Agent / Supervision /
- * Administration / Platform), gated by existing capabilities. Route-level
- * navigation lives in the contextual sidebar, not here.
+ * Permanent major-area rail. The reference shell keeps this level visually
+ * stable while the contextual tree changes beside it.
  */
-export function PrimaryRail({ currentPath, activeWorkspace = 'admin' }: PrimaryRailProps) {
-    void currentPath;
-    void activeWorkspace;
+export function PrimaryRail() {
     const { url } = usePage();
-    const { appearance, updateAppearance } = useAppearance();
     const { has } = useCapabilities();
     const { t } = useTranslation('navigation');
+    const activeArea = resolveNavigationArea(url);
+    const visibleAreas = FLEX_NAVIGATION_AREAS.filter(
+        (area) => !area.capability || has(area.capability),
+    );
+    const workspaceAreas = visibleAreas.filter(
+        (area) => area.kind === 'workspace',
+    );
+    const utilityAreas = visibleAreas.filter((area) => area.kind === 'utility');
 
-    const domains = FLEX_DOMAINS.filter((domain) => has(domain.capability));
-    const activeDomain = deriveActiveDomain(url);
+    const renderArea = (area: (typeof FLEX_NAVIGATION_AREAS)[number]) => {
+        const isActive = activeArea === area.id;
 
-    const toggleTheme = () => {
-        updateAppearance(appearance === 'dark' ? 'light' : 'dark');
+        return (
+            <Link
+                key={area.id}
+                href={getFirstAccessibleHref(area, has)}
+                aria-current={isActive ? 'page' : undefined}
+                className={`flex-focus-visible flex min-h-[54px] w-full flex-col items-center justify-center gap-1 rounded-md px-1.5 py-2 text-center transition-colors duration-[var(--flex-duration-fast)] ${
+                    isActive
+                        ? 'bg-flex-layer-selected text-flex-text-primary'
+                        : 'text-flex-text-tertiary hover:bg-flex-layer-hover hover:text-flex-text-primary'
+                }`}
+            >
+                <FlexIcon name={area.icon} className="size-[18px] shrink-0" />
+                <span className="max-w-full truncate text-[10px] leading-3 font-medium">
+                    {t(area.labelKey)}
+                </span>
+            </Link>
+        );
     };
 
     return (
-        <TooltipProvider delay={150}>
-            <aside data-flex-primary-rail className="w-14 hidden md:flex flex-col items-center justify-between py-3 bg-flex-workspace-surface border-r border-flex-workspace-divider h-screen sticky top-0 shrink-0 z-30 select-none">
-                {/* Top Section: Brand anchor & primary domain navigation */}
-                <div className="flex flex-col items-center gap-4 w-full">
-                    <Link href="/dashboard" className="p-1 hover:opacity-90 transition-opacity" title="Flex Contact Center">
-                        <FlexBrandMark size={24} standalone />
-                    </Link>
-
-                    <div className="w-8 h-px bg-flex-workspace-divider my-0.5" />
-
-                    <nav className="flex flex-col items-center gap-1.5 w-full px-2" aria-label="FLEX product domains">
-                        {domains.map((domain) => {
-                            const isActive = activeDomain === domain.id;
-                            const effectiveHref =
-                                domain.groups
-                                    .flatMap((group) => group.items)
-                                    .find((item) => !item.capability || has(item.capability))?.href ??
-                                domain.landingHref;
-
-                            return (
-                                <Tooltip key={domain.id}>
-                                    <TooltipTrigger
-                                        render={
-                                            <Link
-                                                href={effectiveHref}
-                                                aria-label={t(domain.labelKey)}
-                                                aria-current={isActive ? 'page' : undefined}
-                                                className={`relative flex items-center justify-center size-8 rounded-md transition-colors duration-[var(--flex-duration-fast)] flex-focus-visible ${
-                                                    isActive
-                                                        ? 'bg-flex-layer-selected text-flex-text-primary'
-                                                        : 'text-flex-text-tertiary hover:text-flex-text-primary hover:bg-flex-layer-hover'
-                                                }`}
-                                            >
-                                                <FlexIcon name={domain.icon} className="size-4" />
-                                            </Link>
-                                        }
-                                    />
-                                    <TooltipContent side="right" className="font-medium text-xs">
-                                        {t(domain.labelKey)}
-                                    </TooltipContent>
-                                </Tooltip>
-                            );
-                        })}
-                    </nav>
-                </div>
-
-                {/* Bottom Section: Theme */}
-                <div className="flex flex-col items-center gap-2 w-full px-2">
-                    <Tooltip>
-                        <TooltipTrigger
-                            render={
-                                <button
-                                    onClick={toggleTheme}
-                                    aria-label={appearance === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-                                    className="flex items-center justify-center size-8 rounded-md text-flex-text-tertiary hover:text-flex-text-primary hover:bg-flex-layer-hover transition-colors duration-[var(--flex-duration-fast)] flex-focus-visible"
-                                >
-                                    <FlexIcon name={appearance === 'dark' ? 'sun' : 'moon'} className="size-4" />
-                                </button>
-                            }
-                        />
-                        <TooltipContent side="right" className="text-xs font-medium">
-                            Toggle {appearance === 'dark' ? 'Light' : 'Dark'} Mode
-                        </TooltipContent>
-                    </Tooltip>
-
-                    <div className="w-8 h-px bg-flex-workspace-divider my-0.5" />
-                </div>
-            </aside>
-        </TooltipProvider>
+        <aside
+            data-flex-primary-rail
+            className="sticky top-0 z-20 hidden h-full w-[72px] shrink-0 flex-col justify-between border-r border-flex-workspace-divider bg-flex-workspace-surface px-1.5 py-2 select-none md:flex"
+        >
+            <nav
+                className="flex flex-col gap-1"
+                aria-label={t('aria.productDomains')}
+            >
+                {workspaceAreas.map(renderArea)}
+            </nav>
+            <nav
+                className="flex flex-col gap-1 border-t border-flex-workspace-divider pt-2"
+                aria-label={t('areas.settings')}
+            >
+                {utilityAreas.map(renderArea)}
+            </nav>
+        </aside>
     );
 }

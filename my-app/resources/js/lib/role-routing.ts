@@ -1,6 +1,10 @@
-import { ROLE_CAPABILITIES  } from '@/auth/capabilities';
-import type {Role} from '@/auth/capabilities';
-import { FLEX_DOMAINS, isActiveRoute } from '@/auth/nav-domains';
+import { ROLE_CAPABILITIES } from '@/auth/capabilities';
+import type { Role } from '@/auth/capabilities';
+import {
+    FLEX_NAVIGATION_AREAS,
+    resolveActiveNavigationHref,
+    resolveNavigationArea,
+} from '@/auth/nav-domains';
 
 const ROLE_LANDING: Record<Role, string> = {
     agent: '/agent/dashboard',
@@ -16,37 +20,32 @@ export function getSafeLandingForRole(role: Role): string {
 /** True if the given URL is visible for the target role's capability set. */
 export function isRouteAccessibleForRole(url: string, role: Role): boolean {
     const caps = ROLE_CAPABILITIES[role];
-    const path = url.split(/[?#]/)[0] ?? url;
+    const areaId = resolveNavigationArea(url);
 
-    for (const domain of FLEX_DOMAINS) {
-        if (!caps.includes(domain.capability)) {
-            const maybeInDomain = domain.groups.some((g) => g.items.some((item) => isActiveRoute(path, item.href)));
-
-            if (maybeInDomain) {
-                return false;
-            }
-
-            continue;
-        }
-
-        for (const group of domain.groups) {
-            for (const item of group.items) {
-                if (isActiveRoute(path, item.href)) {
-                    if (!item.capability) {
-                        return true;
-                    }
-
-                    return caps.includes(item.capability);
-                }
-            }
-        }
+    if (!areaId) {
+        return true;
     }
 
-    // Shared fallback: Settings (not in any FLEX_DOMAIN group beyond hrefPrefixes).
-    if (isActiveRoute(path, '/settings/profile')) {
-        return caps.includes('settings.manage');
+    const area = FLEX_NAVIGATION_AREAS.find(
+        (candidate) => candidate.id === areaId,
+    );
+
+    if (!area) {
+        return true;
     }
 
-    // Unknown route — treat as accessible (preserve provider state; let backend/404 handle).
+    if (area.capability && !caps.includes(area.capability)) {
+        return false;
+    }
+
+    const activeHref = resolveActiveNavigationHref(url, areaId);
+    const activeItem = area.groups
+        .flatMap((group) => group.items)
+        .find((item) => item.href === activeHref);
+
+    if (activeItem?.capability) {
+        return caps.includes(activeItem.capability);
+    }
+
     return true;
 }

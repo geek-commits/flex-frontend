@@ -1,94 +1,127 @@
 {
-  "search": {
-    "placeholder": "Rechercher dans FLEX",
-    "dialogTitle": "Recherche globale",
-    "dialogDescription": "Recherchez des pages, des actions et des fonctionnalités dans FLEX",
-    "noResults": "Aucun résultat trouvé",
+    "search": {
+        "placeholder": "Rechercher dans FLEX",
+        "dialogTitle": "Recherche globale",
+        "dialogDescription": "Recherchez des pages, des actions et des fonctionnalités dans FLEX",
+        "noResults": "Aucun résultat trouvé",
+        "groups": {
+            "navigation": "Navigation",
+            "modules": "Modules",
+            "actions": "Actions",
+            "records": "Enregistrements"
+        },
+        "actions": {
+            "newCampaign": "Nouvelle campagne",
+            "newCampaignSubtitle": "Créer une campagne d'appels sortants",
+            "manageQueues": "Gérer les files",
+            "manageQueuesSubtitle": "Stratégies de files et objectifs SLA",
+            "viewReports": "Voir les rapports",
+            "viewReportsSubtitle": "Moteur de rapports et analytique"
+        },
+        "pocRole": "Rôle POC :",
+        "pocAria": "Sélecteur de rôle POC",
+        "keyboard": "↑↓ naviguer · ↵ ouvrir · esc fermer",
+        "records": {
+            "cdrSubtitle": "CDR • {{agent}} • {{queue}}",
+            "campaignSubtitle": "Campagne • {{destination}}",
+            "agentSubtitle": "Agent • ext {{extension}} • {{queue}}"
+        },
+        "roles": {
+            "superAdmin": "SuperAdmin",
+            "admin": "Admin",
+            "supervisor": "Superviseur",
+            "agent": "Agent"
+        },
+        "noResultsForQuery": "Aucun résultat pour « {{query}} »."
+    },
+    "domains": {
+        "agent": "Agent",
+        "supervision": "Supervision",
+        "administration": "Administration",
+        "platform": "Plateforme"
+    },
+    "areas": {
+        "settings": "Paramètres"
+    },
     "groups": {
-      "navigation": "Navigation",
-      "modules": "Modules",
-      "actions": "Actions",
-      "records": "Enregistrements"
+        "account": "Compte",
+        "analytics": "Analytique",
+        "contactCenter": "Centre de contact",
+        "engagement": "Engagement",
+        "support": "Assistance",
+        "operations": "Opérations",
+        "overview": "Aperçu",
+        "people": "Utilisateurs",
+        "routing": "Routage",
+        "media": "Médias",
+        "operationalPolicies": "Politiques opérationnelles",
+        "routingTrunks": "Routage et trunks",
+        "system": "Système",
+        "systemSecurity": "Système et sécurité"
     },
-    "actions": {
-      "newCampaign": "Nouvelle campagne",
-      "newCampaignSubtitle": "Créer une campagne d'appels sortants",
-      "manageQueues": "Gérer les files",
-      "manageQueuesSubtitle": "Stratégies de files et objectifs SLA",
-      "viewReports": "Voir les rapports",
-      "viewReportsSubtitle": "Moteur de rapports et analytique"
+    "items": {
+        "agentDashboard": "Tableau de bord agent",
+        "agentWorkspace": "Espace de travail agent",
+        "socialInbox": "Boîte de réception sociale",
+        "missedCalls": "Rappels et messagerie vocale",
+        "troubleshooting": "Dépannage",
+        "quickSupport": "Assistance rapide",
+        "contactCenterDashboard": "Tableau de bord centre de contact",
+        "agentMonitoring": "Surveillance des agents",
+        "exceptions": "Exceptions opérationnelles",
+        "cdr": "Historique des appels (CDR)",
+        "campaigns": "Campagnes d'appels",
+        "reports": "Rapports et analyses",
+        "callStats": "Statistiques d'appels",
+        "charts": "Graphiques",
+        "surveyMonitoring": "Suivi des enquêtes",
+        "managementConsole": "Console de gestion",
+        "agents": "Agents",
+        "users": "Utilisateurs",
+        "roles": "Rôles et autorisations",
+        "queues": "Files d'attente",
+        "ivr": "SVI",
+        "inboundRoutes": "Routes entrantes",
+        "outboundRoutes": "Routes sortantes",
+        "timeGroups": "Groupes d'heures",
+        "timeConditions": "Conditions horaires",
+        "recordings": "Enregistrements",
+        "subscriptions": "Abonnements",
+        "mailConfig": "Configuration des e-mails",
+        "infrastructure": "Système et infrastructure",
+        "systemHealth": "État du système",
+        "securityAdministration": "Sécurité",
+        "backups": "Sauvegardes",
+        "aiCenter": "Centre d'IA",
+        "tenantManagement": "Gestion des organisations",
+        "settings": "Répertoire des paramètres",
+        "profile": "Profil",
+        "accountSecurity": "Sécurité",
+        "appearance": "Apparence",
+        "musicOnHold": "Musique d'attente",
+        "tones": "Tonalités",
+        "agentStates": "États des agents",
+        "departments": "Départements",
+        "surveys": "Enquêtes",
+        "cdrConfiguration": "Configuration CDR",
+        "globalConfiguration": "Configuration globale"
     },
-    "pocRole": "Rôle POC :",
-    "pocAria": "Sélecteur de rôle POC",
-    "keyboard": "↑↓ naviguer · ↵ ouvrir · esc fermer",
-    "records": {
-      "cdrSubtitle": "CDR • {{agent}} • {{queue}}",
-      "campaignSubtitle": "Campagne • {{destination}}",
-      "agentSubtitle": "Agent • ext {{extension}} • {{queue}}"
+    "badges": {
+        "comingSoon": "Bientôt"
     },
-    "roles": {
-      "superAdmin": "SuperAdmin",
-      "admin": "Admin",
-      "supervisor": "Superviseur",
-      "agent": "Agent"
+    "profile": {
+        "myAccount": "Mon compte",
+        "profileSettings": "Paramètres du profil",
+        "appearance": "Apparence",
+        "security": "Sécurité",
+        "switchTenant": "Changer d'organisation",
+        "logOut": "Se déconnecter"
     },
-    "noResultsForQuery": "Aucun résultat pour « {{query}} »."
-  },
-  "domains": {
-    "agent": "Agent",
-    "supervision": "Supervision",
-    "administration": "Administration",
-    "platform": "Plateforme"
-  },
-  "groups": {
-    "engagement": "Engagement",
-    "support": "Assistance",
-    "operations": "Opérations",
-    "overview": "Aperçu",
-    "people": "Utilisateurs",
-    "routing": "Routage",
-    "media": "Médias",
-    "system": "Système"
-  },
-  "items": {
-    "agentDashboard": "Tableau de bord agent",
-    "agentWorkspace": "Espace de travail agent",
-    "socialInbox": "Boîte de réception sociale",
-    "missedCalls": "Rappels et messagerie vocale",
-    "troubleshooting": "Dépannage",
-    "quickSupport": "Assistance rapide",
-    "contactCenterDashboard": "Tableau de bord centre de contact",
-    "agentMonitoring": "Surveillance des agents",
-    "cdr": "Historique des appels (CDR)",
-    "campaigns": "Campagnes d'appels",
-    "reports": "Rapports et analyses",
-    "managementConsole": "Console de gestion",
-    "users": "Utilisateurs",
-    "roles": "Rôles et autorisations",
-    "queues": "Files d'attente",
-    "ivr": "SVI",
-    "timeGroups": "Groupes d'heures",
-    "timeConditions": "Conditions horaires",
-    "recordings": "Enregistrements",
-    "subscriptions": "Abonnements",
-    "mailConfig": "Configuration des e-mails",
-    "infrastructure": "Système et infrastructure",
-    "aiCenter": "Centre d'IA",
-    "tenantManagement": "Gestion des organisations",
-    "settings": "Paramètres"
-  },
-  "profile": {
-    "myAccount": "Mon compte",
-    "profileSettings": "Paramètres du profil",
-    "appearance": "Apparence",
-    "security": "Sécurité",
-    "switchTenant": "Changer d'organisation",
-    "logOut": "Se déconnecter"
-  },
-  "aria": {
-    "productDomains": "Domaines produit FLEX",
-    "toggleSidebar": "Afficher ou masquer la barre latérale de navigation",
-    "sidebarTitle": "Navigation",
-    "sidebarDescription": "Parcourir les modules FLEX disponibles"
-  }
+    "aria": {
+        "productDomains": "Domaines produit FLEX",
+        "openNavigation": "Ouvrir la navigation",
+        "toggleSidebar": "Afficher ou masquer la barre latérale de navigation",
+        "sidebarTitle": "Navigation",
+        "sidebarDescription": "Parcourir les modules FLEX disponibles"
+    }
 }

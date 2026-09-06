@@ -29,7 +29,7 @@ createInertiaApp({
             case name.startsWith('agent/'):
                 return WorkspaceProvidersLayout;
             default:
-                return AppLayout;
+                return [WorkspaceProvidersLayout, AppLayout];
         }
     },
     strictMode: true,

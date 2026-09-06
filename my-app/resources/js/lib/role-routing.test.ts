@@ -76,8 +76,10 @@ describe('role-routing', () => {
         // Settings
         it('admin can access /settings/profile', () =>
             expect(isRouteAccessibleForRole('/settings/profile', 'admin')).toBe(true));
-        it('supervisor cannot access /settings/profile', () =>
-            expect(isRouteAccessibleForRole('/settings/profile', 'supervisor')).toBe(false));
+        it('supervisor can access personal account settings', () =>
+            expect(isRouteAccessibleForRole('/settings/profile', 'supervisor')).toBe(true));
+        it('supervisor cannot access operational settings', () =>
+            expect(isRouteAccessibleForRole('/admin/settings/global', 'supervisor')).toBe(false));
 
         // Role-switch redirect examples from plan §63
         it('admin on /admin/roles switching to supervisor is inaccessible', () =>

@@ -1,94 +1,127 @@
 {
-  "search": {
-    "placeholder": "Tafuta FLEX",
-    "dialogTitle": "Utafutaji wa Kimataifa",
-    "dialogDescription": "Tafuta kurasa, vitendo na vipengele",
-    "noResults": "Hakuna matokeo",
+    "search": {
+        "placeholder": "Tafuta FLEX",
+        "dialogTitle": "Utafutaji wa Kimataifa",
+        "dialogDescription": "Tafuta kurasa, vitendo na vipengele",
+        "noResults": "Hakuna matokeo",
+        "groups": {
+            "navigation": "Urambazaji",
+            "modules": "Moduli",
+            "actions": "Vitendo",
+            "records": "Rekodi"
+        },
+        "actions": {
+            "newCampaign": "Kampeni Mpya",
+            "newCampaignSubtitle": "Unda kampeni ya simu zinazotoka",
+            "manageQueues": "Simamia Foleni",
+            "manageQueuesSubtitle": "Mikakati ya foleni na malengo ya SLA",
+            "viewReports": "Angalia Ripoti",
+            "viewReportsSubtitle": "Injini ya ripoti na uchambuzi"
+        },
+        "pocRole": "Jukumu la POC:",
+        "pocAria": "Kibadili cha jukumu la POC",
+        "keyboard": "↑↓ sogeza · ↵ fungua · esc funga",
+        "records": {
+            "cdrSubtitle": "CDR • {{agent}} • {{queue}}",
+            "campaignSubtitle": "Kampeni • {{destination}}",
+            "agentSubtitle": "Wakala • ext {{extension}} • {{queue}}"
+        },
+        "roles": {
+            "superAdmin": "SuperAdmin",
+            "admin": "Admin",
+            "supervisor": "Supervisor",
+            "agent": "Wakala"
+        },
+        "noResultsForQuery": "Hakuna matokeo kwa “{{query}}”."
+    },
+    "domains": {
+        "agent": "Wakala",
+        "supervision": "Usimamizi",
+        "administration": "Utawala",
+        "platform": "Jukwaa"
+    },
+    "areas": {
+        "settings": "Mipangilio"
+    },
     "groups": {
-      "navigation": "Urambazaji",
-      "modules": "Moduli",
-      "actions": "Vitendo",
-      "records": "Rekodi"
+        "account": "Akaunti",
+        "analytics": "Uchambuzi",
+        "contactCenter": "Kituo cha Mawasiliano",
+        "engagement": "Uhusiano",
+        "support": "Msaada",
+        "operations": "Uendeshaji",
+        "overview": "Muhtasari",
+        "people": "Watu",
+        "routing": "Uelekezaji",
+        "media": "Vyombo vya habari",
+        "operationalPolicies": "Sera za Uendeshaji",
+        "routingTrunks": "Uelekezaji na Trunks",
+        "system": "Mfumo",
+        "systemSecurity": "Mfumo na Usalama"
     },
-    "actions": {
-      "newCampaign": "Kampeni Mpya",
-      "newCampaignSubtitle": "Unda kampeni ya simu zinazotoka",
-      "manageQueues": "Simamia Foleni",
-      "manageQueuesSubtitle": "Mikakati ya foleni na malengo ya SLA",
-      "viewReports": "Angalia Ripoti",
-      "viewReportsSubtitle": "Injini ya ripoti na uchambuzi"
+    "items": {
+        "agentDashboard": "Dashibodi ya Wakala",
+        "agentWorkspace": "Eneo la Kazi la Wakala",
+        "socialInbox": "Kikasha cha Mitandao",
+        "missedCalls": "Piga tena na Barua ya Sauti",
+        "troubleshooting": "Utatuzi wa Matatizo",
+        "quickSupport": "Msaada wa Haraka",
+        "contactCenterDashboard": "Dashibodi ya Kituo cha Mawasiliano",
+        "agentMonitoring": "Ufuatiliaji wa Mawakala",
+        "exceptions": "Vighairi vya Uendeshaji",
+        "cdr": "Kumbukumbu za Simu (CDR)",
+        "campaigns": "Kampeni za Simu",
+        "reports": "Ripoti na Uchambuzi",
+        "callStats": "Takwimu za Simu",
+        "charts": "Chati",
+        "surveyMonitoring": "Ufuatiliaji wa Tafiti",
+        "managementConsole": "Dashibodi ya Usimamizi",
+        "agents": "Mawakala",
+        "users": "Watumiaji",
+        "roles": "Majukumu na Ruhusa",
+        "queues": "Foleni",
+        "ivr": "IVR",
+        "inboundRoutes": "Njia za Simu Zinazoingia",
+        "outboundRoutes": "Njia za Simu Zinazotoka",
+        "timeGroups": "Vikundi vya Muda",
+        "timeConditions": "Masharti ya Muda",
+        "recordings": "Rekodi",
+        "subscriptions": "Usajili",
+        "mailConfig": "Usanidi wa Barua Pepe",
+        "infrastructure": "Mfumo na Miundombinu",
+        "systemHealth": "Afya ya Mfumo",
+        "securityAdministration": "Usalama",
+        "backups": "Nakala Rudufu",
+        "aiCenter": "Kituo cha AI",
+        "tenantManagement": "Usimamizi wa Wapangaji",
+        "settings": "Orodha ya Mipangilio",
+        "profile": "Wasifu",
+        "accountSecurity": "Usalama",
+        "appearance": "Mwonekano",
+        "musicOnHold": "Muziki wa Kusubiri",
+        "tones": "Toni",
+        "agentStates": "Hali za Mawakala",
+        "departments": "Idara",
+        "surveys": "Tafiti",
+        "cdrConfiguration": "Usanidi wa CDR",
+        "globalConfiguration": "Usanidi wa Jumla"
     },
-    "pocRole": "Jukumu la POC:",
-    "pocAria": "Kibadili cha jukumu la POC",
-    "keyboard": "↑↓ sogeza · ↵ fungua · esc funga",
-    "records": {
-      "cdrSubtitle": "CDR • {{agent}} • {{queue}}",
-      "campaignSubtitle": "Kampeni • {{destination}}",
-      "agentSubtitle": "Wakala • ext {{extension}} • {{queue}}"
+    "badges": {
+        "comingSoon": "Inakuja"
     },
-    "roles": {
-      "superAdmin": "SuperAdmin",
-      "admin": "Admin",
-      "supervisor": "Supervisor",
-      "agent": "Wakala"
+    "profile": {
+        "myAccount": "Akaunti Yangu",
+        "profileSettings": "Mipangilio ya Wasifu",
+        "appearance": "Mwonekano",
+        "security": "Usalama",
+        "switchTenant": "Badilisha Mpangaji",
+        "logOut": "Ondoka"
     },
-    "noResultsForQuery": "Hakuna matokeo kwa “{{query}}”."
-  },
-  "domains": {
-    "agent": "Wakala",
-    "supervision": "Usimamizi",
-    "administration": "Utawala",
-    "platform": "Jukwaa"
-  },
-  "groups": {
-    "engagement": "Uhusiano",
-    "support": "Msaada",
-    "operations": "Uendeshaji",
-    "overview": "Muhtasari",
-    "people": "Watu",
-    "routing": "Uelekezaji",
-    "media": "Vyombo vya habari",
-    "system": "Mfumo"
-  },
-  "items": {
-    "agentDashboard": "Dashibodi ya Wakala",
-    "agentWorkspace": "Eneo la Kazi la Wakala",
-    "socialInbox": "Kikasha cha Mitandao",
-    "missedCalls": "Piga tena na Barua ya Sauti",
-    "troubleshooting": "Utatuzi wa Matatizo",
-    "quickSupport": "Msaada wa Haraka",
-    "contactCenterDashboard": "Dashibodi ya Kituo cha Mawasiliano",
-    "agentMonitoring": "Ufuatiliaji wa Mawakala",
-    "cdr": "Kumbukumbu za Simu (CDR)",
-    "campaigns": "Kampeni za Simu",
-    "reports": "Ripoti na Uchambuzi",
-    "managementConsole": "Dashibodi ya Usimamizi",
-    "users": "Watumiaji",
-    "roles": "Majukumu na Ruhusa",
-    "queues": "Foleni",
-    "ivr": "IVR",
-    "timeGroups": "Vikundi vya Muda",
-    "timeConditions": "Masharti ya Muda",
-    "recordings": "Rekodi",
-    "subscriptions": "Usajili",
-    "mailConfig": "Usanidi wa Barua Pepe",
-    "infrastructure": "Mfumo na Miundombinu",
-    "aiCenter": "Kituo cha AI",
-    "tenantManagement": "Usimamizi wa Wapangaji",
-    "settings": "Mipangilio"
-  },
-  "profile": {
-    "myAccount": "Akaunti Yangu",
-    "profileSettings": "Mipangilio ya Wasifu",
-    "appearance": "Mwonekano",
-    "security": "Usalama",
-    "switchTenant": "Badilisha Mpangaji",
-    "logOut": "Ondoka"
-  },
-  "aria": {
-    "productDomains": "Sehemu za bidhaa za FLEX",
-    "toggleSidebar": "Onyesha au ficha upau wa pembeni wa urambazaji",
-    "sidebarTitle": "Urambazaji",
-    "sidebarDescription": "Vinjari moduli za FLEX zinazopatikana"
-  }
+    "aria": {
+        "productDomains": "Sehemu za bidhaa za FLEX",
+        "openNavigation": "Fungua urambazaji",
+        "toggleSidebar": "Onyesha au ficha upau wa pembeni wa urambazaji",
+        "sidebarTitle": "Urambazaji",
+        "sidebarDescription": "Vinjari moduli za FLEX zinazopatikana"
+    }
 }

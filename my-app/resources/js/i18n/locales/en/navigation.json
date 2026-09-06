@@ -1,94 +1,127 @@
 {
-  "search": {
-    "placeholder": "Search FLEX",
-    "dialogTitle": "Global Search",
-    "dialogDescription": "Search pages, actions, and features across FLEX",
-    "noResults": "No results found",
+    "search": {
+        "placeholder": "Search FLEX",
+        "dialogTitle": "Global Search",
+        "dialogDescription": "Search pages, actions, and features across FLEX",
+        "noResults": "No results found",
+        "groups": {
+            "navigation": "Navigation",
+            "modules": "Modules",
+            "actions": "Actions",
+            "records": "Records"
+        },
+        "actions": {
+            "newCampaign": "New Campaign",
+            "newCampaignSubtitle": "Create an outbound call campaign",
+            "manageQueues": "Manage Queues",
+            "manageQueuesSubtitle": "Queue strategies & SLA targets",
+            "viewReports": "View Reports",
+            "viewReportsSubtitle": "Reports & analytics engine"
+        },
+        "pocRole": "POC role:",
+        "pocAria": "POC role switcher",
+        "keyboard": "↑↓ navigate · ↵ open · esc close",
+        "records": {
+            "cdrSubtitle": "CDR • {{agent}} • {{queue}}",
+            "campaignSubtitle": "Campaign • {{destination}}",
+            "agentSubtitle": "Agent • ext {{extension}} • {{queue}}"
+        },
+        "roles": {
+            "superAdmin": "SuperAdmin",
+            "admin": "Admin",
+            "supervisor": "Supervisor",
+            "agent": "Agent"
+        },
+        "noResultsForQuery": "No results found for “{{query}}”."
+    },
+    "domains": {
+        "agent": "Agent",
+        "supervision": "Supervision",
+        "administration": "Administration",
+        "platform": "Platform"
+    },
+    "areas": {
+        "settings": "Settings"
+    },
     "groups": {
-      "navigation": "Navigation",
-      "modules": "Modules",
-      "actions": "Actions",
-      "records": "Records"
+        "account": "Account",
+        "analytics": "Analytics",
+        "contactCenter": "Contact Center",
+        "engagement": "Engagement",
+        "support": "Support",
+        "operations": "Operations",
+        "overview": "Overview",
+        "people": "People",
+        "routing": "Routing",
+        "media": "Media",
+        "operationalPolicies": "Operational Policies",
+        "routingTrunks": "Routing & Trunks",
+        "system": "System",
+        "systemSecurity": "System & Security"
     },
-    "actions": {
-      "newCampaign": "New Campaign",
-      "newCampaignSubtitle": "Create an outbound call campaign",
-      "manageQueues": "Manage Queues",
-      "manageQueuesSubtitle": "Queue strategies & SLA targets",
-      "viewReports": "View Reports",
-      "viewReportsSubtitle": "Reports & analytics engine"
+    "items": {
+        "agentDashboard": "Agent Dashboard",
+        "agentWorkspace": "Agent Workspace",
+        "socialInbox": "Social Inbox",
+        "missedCalls": "Callback & Voicemail",
+        "troubleshooting": "Troubleshooting",
+        "quickSupport": "Quick Support",
+        "contactCenterDashboard": "Contact Center Dashboard",
+        "agentMonitoring": "Agent Monitoring",
+        "exceptions": "Operational Exceptions",
+        "cdr": "Call Records (CDR)",
+        "campaigns": "Call Campaigns",
+        "reports": "Reports & Analytics",
+        "callStats": "Call Statistics",
+        "charts": "Charts",
+        "surveyMonitoring": "Survey Monitoring",
+        "managementConsole": "Management Console",
+        "agents": "Agents",
+        "users": "Users",
+        "roles": "Roles & Permissions",
+        "queues": "Queues",
+        "ivr": "IVR",
+        "inboundRoutes": "Inbound Routes",
+        "outboundRoutes": "Outbound Routes",
+        "timeGroups": "Time Groups",
+        "timeConditions": "Time Conditions",
+        "recordings": "Recordings",
+        "subscriptions": "Subscriptions",
+        "mailConfig": "Mail Configuration",
+        "infrastructure": "System & Infrastructure",
+        "systemHealth": "System Health",
+        "securityAdministration": "Security",
+        "backups": "Backups",
+        "aiCenter": "AI Center",
+        "tenantManagement": "Tenant Management",
+        "settings": "Settings Directory",
+        "profile": "Profile",
+        "accountSecurity": "Security",
+        "appearance": "Appearance",
+        "musicOnHold": "Music on Hold",
+        "tones": "Tones",
+        "agentStates": "Agent States",
+        "departments": "Departments",
+        "surveys": "Surveys",
+        "cdrConfiguration": "CDR Configuration",
+        "globalConfiguration": "Global Configuration"
     },
-    "pocRole": "POC role:",
-    "pocAria": "POC role switcher",
-    "keyboard": "↑↓ navigate · ↵ open · esc close",
-    "records": {
-      "cdrSubtitle": "CDR • {{agent}} • {{queue}}",
-      "campaignSubtitle": "Campaign • {{destination}}",
-      "agentSubtitle": "Agent • ext {{extension}} • {{queue}}"
+    "badges": {
+        "comingSoon": "Coming soon"
     },
-    "roles": {
-      "superAdmin": "SuperAdmin",
-      "admin": "Admin",
-      "supervisor": "Supervisor",
-      "agent": "Agent"
+    "profile": {
+        "myAccount": "My Account",
+        "profileSettings": "Profile settings",
+        "appearance": "Appearance",
+        "security": "Security",
+        "switchTenant": "Switch Tenant",
+        "logOut": "Log out"
     },
-    "noResultsForQuery": "No results found for “{{query}}”."
-  },
-  "domains": {
-    "agent": "Agent",
-    "supervision": "Supervision",
-    "administration": "Administration",
-    "platform": "Platform"
-  },
-  "groups": {
-    "engagement": "Engagement",
-    "support": "Support",
-    "operations": "Operations",
-    "overview": "Overview",
-    "people": "People",
-    "routing": "Routing",
-    "media": "Media",
-    "system": "System"
-  },
-  "items": {
-    "agentDashboard": "Agent Dashboard",
-    "agentWorkspace": "Agent Workspace",
-    "socialInbox": "Social Inbox",
-    "missedCalls": "Callback & Voicemail",
-    "troubleshooting": "Troubleshooting",
-    "quickSupport": "Quick Support",
-    "contactCenterDashboard": "Contact Center Dashboard",
-    "agentMonitoring": "Agent Monitoring",
-    "cdr": "Call Records (CDR)",
-    "campaigns": "Call Campaigns",
-    "reports": "Reports & Analytics",
-    "managementConsole": "Management Console",
-    "users": "Users",
-    "roles": "Roles & Permissions",
-    "queues": "Queues",
-    "ivr": "IVR",
-    "timeGroups": "Time Groups",
-    "timeConditions": "Time Conditions",
-    "recordings": "Recordings",
-    "subscriptions": "Subscriptions",
-    "mailConfig": "Mail Configuration",
-    "infrastructure": "System & Infrastructure",
-    "aiCenter": "AI Center",
-    "tenantManagement": "Tenant Management",
-    "settings": "Settings"
-  },
-  "profile": {
-    "myAccount": "My Account",
-    "profileSettings": "Profile settings",
-    "appearance": "Appearance",
-    "security": "Security",
-    "switchTenant": "Switch Tenant",
-    "logOut": "Log out"
-  },
-  "aria": {
-    "productDomains": "FLEX product domains",
-    "toggleSidebar": "Toggle navigation sidebar",
-    "sidebarTitle": "Navigation",
-    "sidebarDescription": "Browse available FLEX modules"
-  }
+    "aria": {
+        "productDomains": "FLEX product domains",
+        "openNavigation": "Open navigation",
+        "toggleSidebar": "Toggle navigation sidebar",
+        "sidebarTitle": "Navigation",
+        "sidebarDescription": "Browse available FLEX modules"
+    }
 }

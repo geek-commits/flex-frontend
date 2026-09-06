@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { AppTopbar } from '@/components/flex/app-topbar';
 import { FlexAppShell } from '@/components/flex/flex-app-shell';
+import { AgentOperationalHeader } from '@/features/agent-workspace/agent-operational-header';
 import type { AgentState } from '@/types/flex';
 
 export interface AgentShellProps {
@@ -22,10 +22,14 @@ export function AgentShell({
 }: AgentShellProps) {
     const [agentState, setAgentState] = useState<AgentState>('ready');
 
-    const resolvedTopbar =
-        topbar ?? (
-            <AppTopbar title={title} mode="agent" agentState={agentState} onAgentStateChange={setAgentState} />
-        );
+    const resolvedTopbar = topbar ?? (
+        <AgentOperationalHeader
+            title={title}
+            agentState={agentState}
+            onAgentStateChange={setAgentState}
+            connectionState="live"
+        />
+    );
 
     return (
         <FlexAppShell

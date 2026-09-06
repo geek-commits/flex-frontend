@@ -6,7 +6,6 @@ import { FlexPageHeader } from '@/components/flex/flex-page-header';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { resolveCustomerTimeline } from '@/features/customer-360/customer-360-repository';
-import AppLayout from '@/layouts/app-layout';
 
 export default function Customer360Page() {
     const { t, i18n } = useTranslation('common');
@@ -18,25 +17,20 @@ export default function Customer360Page() {
     const filtered = items;
 
     return (
-        <AppLayout
-            breadcrumbs={[
-                { title: t('customers.breadcrumb'), href: '/customers' },
-                { title: displayName, href: `/customers/${encodeURIComponent(customerId)}` },
-            ]}
-        >
+        <>
             <Head title={t('customers.customer360Title', { name: displayName })} />
-            <FlexPageHeader
-                title={displayName}
-                description={phone}
-                actions={
-                    <div className="flex gap-2">
-                        <Link href="/agent" className="inline-flex h-8 items-center rounded-md border px-3 text-sm">
-                            {t('customers.openWorkspace')}
-                        </Link>
-                    </div>
-                }
-            />
-            <FlexPageContent>
+            <FlexPageContent className="flex flex-col gap-[var(--flex-space-section)]">
+                <FlexPageHeader
+                    title={displayName}
+                    description={phone}
+                    actions={
+                        <div className="flex gap-2">
+                            <Link href="/agent" className="inline-flex h-8 items-center rounded-md border px-3 text-sm">
+                                {t('customers.openWorkspace')}
+                            </Link>
+                        </div>
+                    }
+                />
                 <Card>
                     <CardContent className="pt-6">
                         <div className="flex items-center gap-2 mb-4">
@@ -96,6 +90,6 @@ export default function Customer360Page() {
                     </CardContent>
                 </Card>
             </FlexPageContent>
-        </AppLayout>
+        </>
     );
 }

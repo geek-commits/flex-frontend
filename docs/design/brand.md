@@ -8,7 +8,7 @@ The primary FLEX brand is the **full FLEX wordmark** — the complete wordmark l
 
 ```text
 Primary logo      → full FLEX wordmark
-Compact logo      → official FLEX monogram (only where the wordmark cannot fit)
+Compact logo      → official FLEX monogram (non-shell exceptional placements only)
 Animation         → full wordmark construction
 Operational timing→ ~1.3–1.6s
 Loop              → development only
@@ -21,7 +21,7 @@ Source of truth is the static SVG: `flex-logo.original.svg` (`viewBox 0 0 256 25
 
 ## Compact mark
 
-The F-monogram is the **responsive/compact exception** — used only where the full wordmark genuinely cannot fit, such as the collapsed 64px icon rail. It must not replace the wordmark as the primary brand.
+The F-monogram is the **responsive/compact exception** for non-shell placements where the full wordmark genuinely cannot fit. The signed-in application shell always reserves a full-width brand cell for the wordmark; its rail never substitutes the monogram.
 
 ```text
 F-monogram (compact)
@@ -60,7 +60,7 @@ components/flex/brand/
 └── index.ts
 ```
 
-The canonical shell consumes the brand components. Individual pages/routes must not maintain their own animated-logo implementations.
+The canonical shell consumes one static full wordmark in its global header. Individual pages/routes must not render another shell logo or maintain their own animated-logo implementation.
 
 ### Full wordmark (primary)
 
@@ -72,7 +72,7 @@ The canonical shell consumes the brand components. Individual pages/routes must 
 
 Production defaults are centralized in the wrapper: animate once on mount, hover off, loop off, `durationScale ≈ 0.28` (~1.46s); login uses `0.35–0.40`. Routes never set `loop` / `durationScale` / `replayOnHover`.
 
-### Compact monogram (exception)
+### Compact monogram (non-shell exception)
 
 ```tsx
 <FlexBrandMark size={28} animateOnMount animateOnHover={false} />

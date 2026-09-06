@@ -1,11 +1,17 @@
 import { router, usePage } from '@inertiajs/react';
 import { RiSearchLine, RiAppsLine } from '@remixicon/react';
 import type { TFunction } from 'i18next';
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import React, {
+    createContext,
+    useContext,
+    useEffect,
+    useMemo,
+    useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { NAVIGATION, useCapabilities } from '@/auth/capabilities';
 import type { Role } from '@/auth/capabilities';
-import { FLEX_DOMAINS } from '@/auth/nav-domains';
+import { FLEX_NAVIGATION_AREAS } from '@/auth/nav-domains';
 import { FlexIcon } from '@/components/flex/iconography';
 import type { FlexIconName } from '@/components/flex/iconography';
 import { SearchHighlight } from '@/components/flex/search-highlight';
@@ -24,15 +30,23 @@ import { AGENT_MOCK_ROSTER } from '@/data/agents.mock';
 import { CAMPAIGN_MOCK_RECORDS } from '@/data/campaigns.mock';
 import { CDR_MOCK_RECORDS } from '@/data/cdr.mock';
 import { CONSOLE_MODULES } from '@/domain/modules';
-import { filterModulesByPermission, filterModulesByQuery } from '@/features/management-console/use-visible-modules';
-import { getSafeLandingForRole, isRouteAccessibleForRole } from '@/lib/role-routing';
+import {
+    filterModulesByPermission,
+    filterModulesByQuery,
+} from '@/features/management-console/use-visible-modules';
+import {
+    getSafeLandingForRole,
+    isRouteAccessibleForRole,
+} from '@/lib/role-routing';
 
 interface GlobalSearchContextValue {
     open: boolean;
     setOpen: (open: boolean) => void;
 }
 
-const GlobalSearchContext = createContext<GlobalSearchContextValue | null>(null);
+const GlobalSearchContext = createContext<GlobalSearchContextValue | null>(
+    null,
+);
 
 interface SearchRecord {
     kind: 'navigation' | 'action' | 'record';
@@ -45,7 +59,14 @@ interface SearchRecord {
 
 type NavT = TFunction<'navigation', undefined>;
 
-const ROLE_OPTIONS: { value: Role; labelKey: 'search.roles.superAdmin' | 'search.roles.admin' | 'search.roles.supervisor' | 'search.roles.agent' }[] = [
+const ROLE_OPTIONS: {
+    value: Role;
+    labelKey:
+        | 'search.roles.superAdmin'
+        | 'search.roles.admin'
+        | 'search.roles.supervisor'
+        | 'search.roles.agent';
+}[] = [
     { value: 'super-admin', labelKey: 'search.roles.superAdmin' },
     { value: 'admin', labelKey: 'search.roles.admin' },
     { value: 'supervisor', labelKey: 'search.roles.supervisor' },
@@ -56,20 +77,19 @@ function useNavSubtitle(t: NavT): Map<string, string> {
     return useMemo(
         () =>
             new Map<string, string>([
-                ...FLEX_DOMAINS.flatMap((domain) =>
-                    domain.groups.flatMap((group) =>
+                ...FLEX_NAVIGATION_AREAS.flatMap((area) =>
+                    area.groups.flatMap((group) =>
                         group.items.map(
                             (item) =>
                                 [
                                     item.href,
                                     group.groupTitleKey
-                                        ? `${t(domain.labelKey)} · ${t(group.groupTitleKey)}`
-                                        : t(domain.labelKey),
+                                        ? `${t(area.labelKey)} · ${t(group.groupTitleKey)}`
+                                        : t(area.labelKey),
                                 ] as const,
                         ),
                     ),
                 ),
-                ['/settings/profile', t('groups.system')],
             ]),
         [t],
     );
@@ -86,7 +106,10 @@ function buildRecordIndex(t: NavT): Omit<SearchRecord, 'group'>[] {
         records.push({
             kind: 'record',
             title: cdr.customerPhone,
-            subtitle: t('search.records.cdrSubtitle', { agent: cdr.agentName, queue: cdr.queueName }),
+            subtitle: t('search.records.cdrSubtitle', {
+                agent: cdr.agentName,
+                queue: cdr.queueName,
+            }),
             href: '/admin/cdr',
             icon: 'call-records',
         });
@@ -96,7 +119,9 @@ function buildRecordIndex(t: NavT): Omit<SearchRecord, 'group'>[] {
         records.push({
             kind: 'record',
             title: campaign.title,
-            subtitle: t('search.records.campaignSubtitle', { destination: campaign.destination }),
+            subtitle: t('search.records.campaignSubtitle', {
+                destination: campaign.destination,
+            }),
             href: '/admin/campaigns',
             icon: 'campaigns',
         });
@@ -106,7 +131,10 @@ function buildRecordIndex(t: NavT): Omit<SearchRecord, 'group'>[] {
         records.push({
             kind: 'record',
             title: agent.name,
-            subtitle: t('search.records.agentSubtitle', { extension: agent.extension, queue: agent.queue }),
+            subtitle: t('search.records.agentSubtitle', {
+                extension: agent.extension,
+                queue: agent.queue,
+            }),
             href: '/agent',
             icon: 'agents',
         });
@@ -117,18 +145,43 @@ function buildRecordIndex(t: NavT): Omit<SearchRecord, 'group'>[] {
 
 function buildActionIndex(t: NavT): Omit<SearchRecord, 'group'>[] {
     return [
-        { kind: 'action', title: t('search.actions.newCampaign'), subtitle: t('search.actions.newCampaignSubtitle'), href: '/admin/campaigns', icon: 'campaigns' },
-        { kind: 'action', title: t('search.actions.manageQueues'), subtitle: t('search.actions.manageQueuesSubtitle'), href: '/admin/settings/queues', icon: 'routes' },
-        { kind: 'action', title: t('search.actions.viewReports'), subtitle: t('search.actions.viewReportsSubtitle'), href: '/admin/reports', icon: 'reports' },
+        {
+            kind: 'action',
+            title: t('search.actions.newCampaign'),
+            subtitle: t('search.actions.newCampaignSubtitle'),
+            href: '/admin/campaigns',
+            icon: 'campaigns',
+        },
+        {
+            kind: 'action',
+            title: t('search.actions.manageQueues'),
+            subtitle: t('search.actions.manageQueuesSubtitle'),
+            href: '/admin/queues',
+            icon: 'routes',
+        },
+        {
+            kind: 'action',
+            title: t('search.actions.viewReports'),
+            subtitle: t('search.actions.viewReportsSubtitle'),
+            href: '/admin/reports',
+            icon: 'reports',
+        },
     ];
 }
 
-export function GlobalSearchProvider({ children }: { children: React.ReactNode }) {
+export function GlobalSearchProvider({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
         const onKeyDown = (event: KeyboardEvent) => {
-            if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+            if (
+                (event.metaKey || event.ctrlKey) &&
+                event.key.toLowerCase() === 'k'
+            ) {
                 event.preventDefault();
                 setOpen((current) => !current);
             }
@@ -152,13 +205,21 @@ export function useGlobalSearch(): GlobalSearchContextValue {
     const ctx = useContext(GlobalSearchContext);
 
     if (!ctx) {
-        throw new Error('useGlobalSearch must be used within a GlobalSearchProvider');
+        throw new Error(
+            'useGlobalSearch must be used within a GlobalSearchProvider',
+        );
     }
 
     return ctx;
 }
 
-function GlobalSearchDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
+function GlobalSearchDialog({
+    open,
+    onOpenChange,
+}: {
+    open: boolean;
+    onOpenChange: (open: boolean) => void;
+}) {
     const { has, role, setRole } = useCapabilities();
     const { url } = usePage();
     const { t: tNav } = useTranslation('navigation');
@@ -176,7 +237,9 @@ function GlobalSearchDialog({ open, onOpenChange }: { open: boolean; onOpenChang
 
     const visibleNavigation = useMemo(
         () =>
-            NAVIGATION.filter((entry) => has(entry.capability)).map((entry) => ({
+            NAVIGATION.filter(
+                (entry) => !entry.capability || has(entry.capability),
+            ).map((entry) => ({
                 ...entry,
                 title: tNav(entry.titleKey),
                 subtitle: navSubtitleByHref.get(entry.href),
@@ -185,11 +248,18 @@ function GlobalSearchDialog({ open, onOpenChange }: { open: boolean; onOpenChang
     );
     const recordIndex = useMemo(() => buildRecordIndex(tNav), [tNav]);
     const moduleIndex = useMemo(() => {
-        const navigationHrefs = new Set(visibleNavigation.map((entry) => entry.href));
+        const navigationHrefs = new Set(
+            visibleNavigation.map((entry) => entry.href),
+        );
 
-        return filterModulesByPermission(CONSOLE_MODULES, has).filter((module) => !navigationHrefs.has(module.href));
+        return filterModulesByPermission(CONSOLE_MODULES, has).filter(
+            (module) => !navigationHrefs.has(module.href),
+        );
     }, [has, visibleNavigation]);
-    const filteredModules = useMemo(() => filterModulesByQuery(moduleIndex, query, tAdmin), [moduleIndex, query, tAdmin]);
+    const filteredModules = useMemo(
+        () => filterModulesByQuery(moduleIndex, query, tAdmin),
+        [moduleIndex, query, tAdmin],
+    );
 
     const filteredRecords = recordIndex
         .filter((record) => {
@@ -197,7 +267,9 @@ function GlobalSearchDialog({ open, onOpenChange }: { open: boolean; onOpenChang
                 return true;
             }
 
-            return query.trim().length > 0 && matches(record.title, query.trim());
+            return (
+                query.trim().length > 0 && matches(record.title, query.trim())
+            );
         })
         .filter((record) => {
             if (record.kind !== 'record') {
@@ -238,22 +310,33 @@ function GlobalSearchDialog({ open, onOpenChange }: { open: boolean; onOpenChang
         })),
         actions: actionIndex
             .filter((a) => {
-                if (a.href.startsWith('/admin/campaigns') && !has('campaigns.view')) {
+                if (
+                    a.href.startsWith('/admin/campaigns') &&
+                    !has('campaigns.view')
+                ) {
                     return false;
                 }
 
-                if (a.href.startsWith('/admin/reports') && !has('reports.view')) {
+                if (
+                    a.href.startsWith('/admin/reports') &&
+                    !has('reports.view')
+                ) {
                     return false;
                 }
 
-                if (a.href.startsWith('/admin/settings') && !has('settings.manage')) {
+                if (
+                    a.href.startsWith('/admin/settings') &&
+                    !has('settings.manage')
+                ) {
                     return false;
                 }
 
                 return true;
             })
             .map((a) => ({ ...a, group: tNav('search.groups.actions') })),
-        records: filteredRecords.filter((r) => r.kind === 'record').map((r) => ({ ...r, group: tNav('search.groups.records') })),
+        records: filteredRecords
+            .filter((r) => r.kind === 'record')
+            .map((r) => ({ ...r, group: tNav('search.groups.records') })),
     };
 
     const run = (href: string) => {
@@ -262,22 +345,48 @@ function GlobalSearchDialog({ open, onOpenChange }: { open: boolean; onOpenChang
     };
 
     return (
-        <CommandDialog open={open} onOpenChange={handleOpenChange} title={tNav('search.dialogTitle')} description={tNav('search.dialogDescription')}>
+        <CommandDialog
+            open={open}
+            onOpenChange={handleOpenChange}
+            title={tNav('search.dialogTitle')}
+            description={tNav('search.dialogDescription')}
+        >
             <Command>
-                <CommandInput placeholder={tNav('search.placeholder')} value={query} onValueChange={setQuery} autoFocus />
+                <CommandInput
+                    placeholder={tNav('search.placeholder')}
+                    value={query}
+                    onValueChange={setQuery}
+                    autoFocus
+                />
                 <CommandList>
-                    <CommandEmpty>{tNav('search.noResultsForQuery', { query })}</CommandEmpty>
+                    <CommandEmpty>
+                        {tNav('search.noResultsForQuery', { query })}
+                    </CommandEmpty>
 
                     {grouped.navigation.length > 0 && (
-                        <CommandGroup heading={tNav('search.groups.navigation')}>
+                        <CommandGroup
+                            heading={tNav('search.groups.navigation')}
+                        >
                             {grouped.navigation.map((item) => {
                                 return (
-                                    <CommandItem key={item.href} value={`nav ${item.title}`} onSelect={() => run(item.href)}>
-                                        <FlexIcon name={item.icon} className="size-4 text-muted-foreground" />
+                                    <CommandItem
+                                        key={item.href}
+                                        value={`nav ${item.title}`}
+                                        onSelect={() => run(item.href)}
+                                    >
+                                        <FlexIcon
+                                            name={item.icon}
+                                            className="size-4 text-muted-foreground"
+                                        />
                                         <div className="flex min-w-0 flex-col">
-                                            <SearchHighlight text={item.title} query={query} />
+                                            <SearchHighlight
+                                                text={item.title}
+                                                query={query}
+                                            />
                                             {item.subtitle && (
-                                                <span className="text-xs text-muted-foreground truncate">{item.subtitle}</span>
+                                                <span className="truncate text-xs text-muted-foreground">
+                                                    {item.subtitle}
+                                                </span>
                                             )}
                                         </div>
                                     </CommandItem>
@@ -290,10 +399,22 @@ function GlobalSearchDialog({ open, onOpenChange }: { open: boolean; onOpenChang
                         <CommandGroup heading={tNav('search.groups.modules')}>
                             {grouped.modules.map((item) => {
                                 return (
-                                    <CommandItem key={item.href} value={`module ${item.title}`} onSelect={() => run(item.href)}>
-                                        <FlexIcon name={item.icon} className="size-4 text-muted-foreground" />
-                                        <SearchHighlight text={item.title} query={query} />
-                                        <span className="text-[10px] text-muted-foreground uppercase">{item.subtitle}</span>
+                                    <CommandItem
+                                        key={item.href}
+                                        value={`module ${item.title}`}
+                                        onSelect={() => run(item.href)}
+                                    >
+                                        <FlexIcon
+                                            name={item.icon}
+                                            className="size-4 text-muted-foreground"
+                                        />
+                                        <SearchHighlight
+                                            text={item.title}
+                                            query={query}
+                                        />
+                                        <span className="text-[10px] text-muted-foreground uppercase">
+                                            {item.subtitle}
+                                        </span>
                                     </CommandItem>
                                 );
                             })}
@@ -306,9 +427,23 @@ function GlobalSearchDialog({ open, onOpenChange }: { open: boolean; onOpenChang
                                 const Icon = item.icon;
 
                                 return (
-                                    <CommandItem key={item.title} value={`action ${item.title}`} onSelect={() => run(item.href)}>
-                                        {typeof Icon === 'string' ? <FlexIcon name={Icon} className="size-4 text-muted-foreground" /> : <Icon className="size-4 text-muted-foreground" />}
-                                        <SearchHighlight text={item.title} query={query} />
+                                    <CommandItem
+                                        key={item.title}
+                                        value={`action ${item.title}`}
+                                        onSelect={() => run(item.href)}
+                                    >
+                                        {typeof Icon === 'string' ? (
+                                            <FlexIcon
+                                                name={Icon}
+                                                className="size-4 text-muted-foreground"
+                                            />
+                                        ) : (
+                                            <Icon className="size-4 text-muted-foreground" />
+                                        )}
+                                        <SearchHighlight
+                                            text={item.title}
+                                            query={query}
+                                        />
                                     </CommandItem>
                                 );
                             })}
@@ -321,15 +456,38 @@ function GlobalSearchDialog({ open, onOpenChange }: { open: boolean; onOpenChang
                                 const Icon = record.icon;
 
                                 return (
-                                    <CommandItem key={`record-${index}`} value={`record ${record.title} ${record.subtitle}`} onSelect={() => run(record.href)}>
-                                        {typeof Icon === 'string' ? <FlexIcon name={Icon} className="size-4 text-muted-foreground" /> : <Icon className="size-4 text-muted-foreground" />}
-                                        <div className="flex flex-col min-w-0">
-                                            <span className="truncate" title={record.title}>
-                                                <SearchHighlight text={record.title} query={query} />
+                                    <CommandItem
+                                        key={`record-${index}`}
+                                        value={`record ${record.title} ${record.subtitle}`}
+                                        onSelect={() => run(record.href)}
+                                    >
+                                        {typeof Icon === 'string' ? (
+                                            <FlexIcon
+                                                name={Icon}
+                                                className="size-4 text-muted-foreground"
+                                            />
+                                        ) : (
+                                            <Icon className="size-4 text-muted-foreground" />
+                                        )}
+                                        <div className="flex min-w-0 flex-col">
+                                            <span
+                                                className="truncate"
+                                                title={record.title}
+                                            >
+                                                <SearchHighlight
+                                                    text={record.title}
+                                                    query={query}
+                                                />
                                             </span>
                                             {record.subtitle && (
-                                                <span className="text-xs text-muted-foreground truncate" title={record.subtitle}>
-                                                    <SearchHighlight text={record.subtitle} query={query} />
+                                                <span
+                                                    className="truncate text-xs text-muted-foreground"
+                                                    title={record.subtitle}
+                                                >
+                                                    <SearchHighlight
+                                                        text={record.subtitle}
+                                                        query={query}
+                                                    />
                                                 </span>
                                             )}
                                         </div>
@@ -345,24 +503,31 @@ function GlobalSearchDialog({ open, onOpenChange }: { open: boolean; onOpenChang
                     <div className="flex items-center gap-1.5">
                         <RiAppsLine className="size-3" />
                         <span>{tNav('search.pocRole')}</span>
-                        <div className="flex items-center gap-0.5" role="group" aria-label={tNav('search.pocAria')}>
+                        <div
+                            className="flex items-center gap-0.5"
+                            role="group"
+                            aria-label={tNav('search.pocAria')}
+                        >
                             {ROLE_OPTIONS.map((option) => (
                                 <button
                                     key={option.value}
                                     type="button"
                                     onClick={() => {
                                         const next = option.value;
-                                        const accessible = isRouteAccessibleForRole(url, next);
+                                        const accessible =
+                                            isRouteAccessibleForRole(url, next);
                                         setRole(next);
 
                                         if (!accessible) {
-                                            router.visit(getSafeLandingForRole(next));
+                                            router.visit(
+                                                getSafeLandingForRole(next),
+                                            );
                                         }
                                     }}
-                                    className={`px-1.5 py-0.5 rounded text-[10px] font-semibold transition-colors ${
+                                    className={`rounded px-1.5 py-0.5 text-[10px] font-semibold transition-colors ${
                                         role === option.value
                                             ? 'bg-primary text-primary-foreground'
-                                            : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                                            : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                                     }`}
                                 >
                                     {tNav(option.labelKey)}
@@ -370,7 +535,9 @@ function GlobalSearchDialog({ open, onOpenChange }: { open: boolean; onOpenChang
                             ))}
                         </div>
                     </div>
-                    <span className="hidden sm:inline">{tNav('search.keyboard')}</span>
+                    <span className="hidden sm:inline">
+                        {tNav('search.keyboard')}
+                    </span>
                 </div>
             </Command>
         </CommandDialog>
@@ -386,12 +553,14 @@ export function GlobalSearchTrigger() {
             variant="outline"
             size="sm"
             aria-label={t('search.placeholder')}
-            className="w-9 justify-center px-0 h-7 rounded-lg border-flex-workspace-divider bg-flex-workspace-surface-muted text-xs text-muted-foreground shadow-none sm:w-48 lg:w-[364px] lg:justify-start lg:px-3"
+            className="h-7 w-9 justify-center rounded-lg border-flex-workspace-divider bg-flex-workspace-surface-muted px-0 text-xs text-muted-foreground shadow-none sm:w-48 lg:w-[364px] lg:justify-start lg:px-3"
             onClick={() => setOpen(true)}
         >
             <RiSearchLine className="size-3.5" />
-            <span className="hidden truncate sm:inline">{t('search.placeholder')}</span>
-            <kbd className="ml-auto hidden lg:inline-flex items-center gap-0.5 rounded border border-flex-workspace-divider bg-card px-1 py-0.5 text-[9px] font-semibold">
+            <span className="hidden truncate sm:inline">
+                {t('search.placeholder')}
+            </span>
+            <kbd className="ml-auto hidden items-center gap-0.5 rounded border border-flex-workspace-divider bg-card px-1 py-0.5 text-[9px] font-semibold lg:inline-flex">
                 ⌘K
             </kbd>
         </Button>

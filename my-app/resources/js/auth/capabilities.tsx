@@ -1,5 +1,12 @@
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { FLEX_DOMAINS } from '@/auth/nav-domains';
+import React, {
+    createContext,
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo,
+    useState,
+} from 'react';
+import { FLEX_NAVIGATION_AREAS } from '@/auth/nav-domains';
 import type { NavItemKey } from '@/auth/nav-domains';
 import type { FlexIconName } from '@/components/flex/iconography';
 
@@ -104,51 +111,39 @@ export interface NavEntry {
     titleKey: NavItemKey;
     href: string;
     icon: FlexIconName;
-    capability: Capability;
-    workspace: 'admin' | 'agent' | 'shared';
+    capability?: Capability;
+    workspace: 'admin' | 'agent' | 'settings';
     badge?: string;
 }
 
 /**
- * Derived flat navigation — single metadata source lives in `FLEX_DOMAINS`
+ * Derived flat navigation — single metadata source lives in `FLEX_NAVIGATION_AREAS`
  * (`auth/nav-domains.ts`). NAVIGATION is re-derived for consumers that need a
  * flat list (Global Search, mobile). Do not hand-maintain entries here.
  */
 
 function deriveNavigation(): NavEntry[] {
-    const domainWorkspace: Record<string, NavEntry['workspace']> = {
+    const areaWorkspace: Record<string, NavEntry['workspace']> = {
         agent: 'agent',
         supervision: 'admin',
         administration: 'admin',
         platform: 'admin',
+        settings: 'settings',
     };
 
-    const flat: NavEntry[] = FLEX_DOMAINS.flatMap((domain) =>
-        domain.groups.flatMap((group) =>
-            group.items.map(
-                (item): NavEntry => ({
-                    title: item.title,
-                    titleKey: item.titleKey,
-                    href: item.href,
-                    icon: item.icon,
-                    capability: item.capability as Capability,
-                    workspace: domainWorkspace[domain.id] ?? 'admin',
-                }),
-            ),
+    return FLEX_NAVIGATION_AREAS.flatMap((area) =>
+        area.groups.flatMap((group) =>
+            group.items.map((item): NavEntry => ({
+                title: item.title,
+                titleKey: item.titleKey,
+                href: item.href,
+                icon: item.icon,
+                capability: item.capability,
+                workspace: areaWorkspace[area.id] ?? 'admin',
+                badge: item.placeholder ? 'coming-soon' : undefined,
+            })),
         ),
     );
-
-    // Shared non-domain route (Settings/Profile) — not part of the main domain tree (§24).
-    flat.push({
-        title: 'Settings',
-        titleKey: 'items.settings',
-        href: '/settings/profile',
-        icon: 'settings',
-        capability: 'settings.manage',
-        workspace: 'shared',
-    });
-
-    return flat;
 }
 
 export const NAVIGATION: NavEntry[] = deriveNavigation();
@@ -160,8 +155,8 @@ function readInitialRole(): Role {
         const stored = localStorage.getItem(ROLE_STORAGE_KEY) as Role | null;
 
         if (stored && stored in ROLE_CAPABILITIES) {
-return stored;
-}
+            return stored;
+        }
     } catch {
         /* ignore */
     }
@@ -179,7 +174,11 @@ interface CapabilityContextValue {
 
 const CapabilityContext = createContext<CapabilityContextValue | null>(null);
 
-export function CapabilityProvider({ children }: { children: React.ReactNode }) {
+export function CapabilityProvider({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
     const [role, setRoleState] = useState<Role>(readInitialRole);
 
     useEffect(() => {
@@ -200,19 +199,27 @@ export function CapabilityProvider({ children }: { children: React.ReactNode }) 
             role,
             setRole,
             has,
-            navEntries: NAVIGATION.filter((entry) => caps.includes(entry.capability)),
+            navEntries: NAVIGATION.filter(
+                (entry) => !entry.capability || caps.includes(entry.capability),
+            ),
         };
     }, [role, setRole]);
 
-    return <CapabilityContext.Provider value={value}>{children}</CapabilityContext.Provider>;
+    return (
+        <CapabilityContext.Provider value={value}>
+            {children}
+        </CapabilityContext.Provider>
+    );
 }
 
 export function useCapabilities(): CapabilityContextValue {
     const ctx = useContext(CapabilityContext);
 
     if (!ctx) {
-throw new Error('useCapabilities must be used within a CapabilityProvider');
-}
+        throw new Error(
+            'useCapabilities must be used within a CapabilityProvider',
+        );
+    }
 
     return ctx;
 }

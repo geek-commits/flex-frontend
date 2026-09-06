@@ -4,7 +4,6 @@ import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexPageContent } from '@/components/flex/flex-page-content';
 import { FlexPageHeader } from '@/components/flex/flex-page-header';
 import { Card, CardContent } from '@/components/ui/card';
-import AppLayout from '@/layouts/app-layout';
 
 export default function ExceptionsPage() {
     const { t } = useTranslation('supervision');
@@ -12,10 +11,10 @@ export default function ExceptionsPage() {
     const exceptions: { id: string; title: string; detail: string; href: string }[] = [];
 
     return (
-        <AppLayout breadcrumbs={[{ title: t('exceptions.breadcrumb'), href: '/supervision/exceptions' }]}>
+        <>
             <Head title={t('exceptions.headTitle')} />
-            <FlexPageHeader title={t('exceptions.title')} description={t('exceptions.description')} />
-            <FlexPageContent>
+            <FlexPageContent className="flex flex-col gap-[var(--flex-space-section)]">
+                <FlexPageHeader title={t('exceptions.title')} description={t('exceptions.description')} />
                 <Card>
                     <CardContent className="pt-6">
                         {exceptions.length === 0 ? (
@@ -32,6 +31,6 @@ export default function ExceptionsPage() {
                     </CardContent>
                 </Card>
             </FlexPageContent>
-        </AppLayout>
+        </>
     );
 }

@@ -4,7 +4,6 @@ import { FlexPageContent } from '@/components/flex/flex-page-content';
 import { FlexPageHeader } from '@/components/flex/flex-page-header';
 import { Card, CardContent } from '@/components/ui/card';
 import { useWorkspaceState } from '@/features/agent-workspace/state/use-workspace-state';
-import AppLayout from '@/layouts/app-layout';
 
 export default function HealthPage() {
     const { t } = useTranslation('administration');
@@ -16,12 +15,12 @@ export default function HealthPage() {
     ];
 
     return (
-        <AppLayout breadcrumbs={[{ title: t('health.title'), href: '/admin/health' }]}>
+        <>
             <Head title={t('health.headTitle')} />
-            <FlexPageHeader title={t('health.title')} description={t('health.description')} />
-            <FlexPageContent>
+            <FlexPageContent className="flex flex-col gap-[var(--flex-space-section)]">
+                <FlexPageHeader title={t('health.title')} description={t('health.description')} />
                 <Card><CardContent className="pt-6"><ul className="space-y-2">{items.map((i) => (<li key={i.name} className="flex justify-between text-sm"><span>{i.name}</span><span className="font-medium">{i.state}</span></li>))}</ul></CardContent></Card>
             </FlexPageContent>
-        </AppLayout>
+        </>
     );
 }
