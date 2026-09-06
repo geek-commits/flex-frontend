@@ -1,6 +1,8 @@
 import React from 'react';
 import { AppTopbar } from '@/components/flex/app-topbar';
+import { ContextSidebar } from '@/components/flex/context-sidebar';
 import { FlexNavigationFileTree } from '@/components/flex/flex-navigation-file-tree';
+import { PrimaryRail } from '@/components/flex/primary-rail';
 import { Sidebar, SidebarProvider } from '@/components/ui/sidebar';
 
 export interface FlexAppShellProps {
@@ -19,9 +21,16 @@ export function FlexAppShell({ mode, children, topbar, rightPanel, assistPanel, 
     return (
         <SidebarProvider defaultOpen style={{ '--sidebar-width': '16rem', '--sidebar-width-icon': '4.5rem' } as React.CSSProperties}>
             <div data-flex-shell data-flex-shell-domain="unified" data-flex-shell-route={mode} className="flex min-h-screen w-full bg-background font-sans text-foreground antialiased">
-                <Sidebar data-flex-primary-rail data-flex-context-sidebar collapsible="icon" variant="sidebar">
-                    <FlexNavigationFileTree />
-                </Sidebar>
+                {mode === 'admin' ? (
+                    <>
+                        <PrimaryRail />
+                        <ContextSidebar />
+                    </>
+                ) : (
+                    <Sidebar data-flex-agent-navigation collapsible="icon" variant="sidebar">
+                        <FlexNavigationFileTree />
+                    </Sidebar>
+                )}
                 <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
                     <div data-flex-topbar>{topbar ?? <AppTopbar mode={mode} />}</div>
                     {hasSidePanels ? (

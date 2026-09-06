@@ -35,7 +35,7 @@ export function PrimaryRail({ currentPath, activeWorkspace = 'admin' }: PrimaryR
 
     return (
         <TooltipProvider delay={150}>
-            <aside className="w-14 hidden md:flex flex-col items-center justify-between py-3 bg-flex-workspace-surface border-r border-flex-workspace-divider h-screen sticky top-0 shrink-0 z-30 select-none">
+            <aside data-flex-primary-rail className="w-14 hidden md:flex flex-col items-center justify-between py-3 bg-flex-workspace-surface border-r border-flex-workspace-divider h-screen sticky top-0 shrink-0 z-30 select-none">
                 {/* Top Section: Brand anchor & primary domain navigation */}
                 <div className="flex flex-col items-center gap-4 w-full">
                     <Link href="/dashboard" className="p-1 hover:opacity-90 transition-opacity" title="Flex Contact Center">

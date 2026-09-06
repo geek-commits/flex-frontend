@@ -1,12 +1,12 @@
 import { Link, usePage } from '@inertiajs/react';
-import { RiLayoutLeftLine } from '@remixicon/react';
 import React, { useMemo } from 'react';
-import { useCapabilities  } from '@/auth/capabilities';
+import { useTranslation } from 'react-i18next';
+import { useCapabilities } from '@/auth/capabilities';
 import type { Capability } from '@/auth/capabilities';
-import { isActiveRoute } from '@/auth/nav-domains';
+import { deriveActiveDomain, FLEX_DOMAINS, isActiveRoute } from '@/auth/nav-domains';
 import type { FlexIconName } from '@/components/flex/iconography';
 import { FlexIcon } from '@/components/flex/iconography';
-import { useShell } from '@/components/flex/shell-context';
+import { useSidebar } from '@/components/ui/sidebar';
 
 export interface ContextSidebarItem {
     title: string;
@@ -21,16 +21,29 @@ export interface ContextSidebarGroup {
     items: ContextSidebarItem[];
 }
 
-export interface ContextSidebarProps {
-    title: string;
-    subtitle?: string;
-    groups: ContextSidebarGroup[];
-}
-
-export function ContextSidebar({ title, subtitle, groups }: ContextSidebarProps) {
+/**
+ * Contextual route navigation for the active FLEX domain. The domain tree owns
+ * all labels, groups, routes, icons, and capability checks; this component only
+ * renders that truth as the persistent desktop sidebar.
+ */
+export function ContextSidebar() {
     const { url } = usePage();
     const { has } = useCapabilities();
-    const { toggleContextSidebar } = useShell();
+    const { state } = useSidebar();
+    const { t } = useTranslation('navigation');
+    const activeDomain = useMemo(
+        () => FLEX_DOMAINS.find((domain) => domain.id === deriveActiveDomain(url)) ?? null,
+        [url],
+    );
+
+    const title = activeDomain ? t(activeDomain.labelKey) : '';
+    const groups = useMemo<ContextSidebarGroup[]>(
+        () => activeDomain?.groups.map((group) => ({
+            groupTitle: group.groupTitleKey ? t(group.groupTitleKey) : group.groupTitle,
+            items: group.items,
+        })) ?? [],
+        [activeDomain, t],
+    );
 
     const filteredGroups = useMemo(
         () =>
@@ -43,22 +56,16 @@ export function ContextSidebar({ title, subtitle, groups }: ContextSidebarProps)
         [groups, has]
     );
 
+    if (!activeDomain || state === 'collapsed') {
+        return null;
+    }
+
     return (
-        <aside className="w-[250px] bg-flex-workspace-surface border-r border-flex-workspace-divider h-screen sticky top-0 shrink-0 overflow-y-auto hidden md:flex flex-col py-4 px-3 select-none">
+        <aside data-flex-context-sidebar className="w-[250px] bg-flex-workspace-surface border-r border-flex-workspace-divider h-screen sticky top-0 shrink-0 overflow-y-auto hidden md:flex flex-col py-4 px-3 select-none">
             <div className="mb-3 px-2 flex items-start justify-between gap-2">
                 <div className="min-w-0">
                     <h2 className="text-[13px] font-semibold tracking-tight text-flex-text-primary">{title}</h2>
-                    {subtitle && <p className="text-xs text-flex-text-tertiary mt-0.5">{subtitle}</p>}
                 </div>
-                <button
-                    type="button"
-                    onClick={toggleContextSidebar}
-                    aria-label="Hide sidebar"
-                    title="Hide sidebar"
-                    className="flex size-7 shrink-0 items-center justify-center rounded-md bg-transparent text-flex-text-tertiary transition-colors duration-[var(--flex-duration-fast)] hover:bg-flex-layer-hover hover:text-flex-text-primary flex-focus-visible"
-                >
-                    <RiLayoutLeftLine className="size-4" />
-                </button>
             </div>
 
             <nav className="flex flex-col gap-4" aria-label={title}>

@@ -77,6 +77,25 @@ Platform       Tenant Management*
 
 ## Navigation rules
 
+### Desktop shell anatomy
+
+Administration and Supervision routes render the desktop shell in three
+structural layers:
+
+```text
+PrimaryRail (56px) → ContextSidebar (250px) → Topbar + work surface
+```
+
+- `PrimaryRail` exposes capability-filtered product domains; every icon has an
+  accessible name and tooltip.
+- `ContextSidebar` renders the active domain's visible route groups directly
+  from `FLEX_DOMAINS`; it can be collapsed by the user and its state persists.
+- The topbar owns the sidebar toggle, global search, language, real tenant
+  treatment, and profile controls. It does not add a fictional organisation
+  selector.
+- The route sidebar is the sole shell-level route navigation. Horizontal tabs
+  are reserved for real, runtime-backed subviews within a page.
+
 1. **Current route clearly indicated.** The active page must be identifiable in the rail/sidebar (e.g., active-item treatment). Users must never have to guess where they are.
 2. **Inaccessible routes excluded.** Entries the role cannot reach are removed, not shown disabled. Do not render dead navigation.
 3. **Global shell consistent.** The topbar/rail chrome stays consistent across pages within a workspace so orientation does not reset on navigation.

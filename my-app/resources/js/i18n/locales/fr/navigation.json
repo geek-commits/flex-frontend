@@ -84,5 +84,11 @@
     "security": "Sécurité",
     "switchTenant": "Changer d'organisation",
     "logOut": "Se déconnecter"
+  },
+  "aria": {
+    "productDomains": "Domaines produit FLEX",
+    "toggleSidebar": "Afficher ou masquer la barre latérale de navigation",
+    "sidebarTitle": "Navigation",
+    "sidebarDescription": "Parcourir les modules FLEX disponibles"
   }
 }

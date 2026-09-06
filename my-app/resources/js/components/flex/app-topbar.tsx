@@ -1,5 +1,5 @@
 import { Link, usePage } from '@inertiajs/react';
-import { RiWifiLine, RiMenuLine } from '@remixicon/react';
+import { RiLayoutLeftLine, RiMenuLine, RiWifiLine } from '@remixicon/react';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCapabilities } from '@/auth/capabilities';
@@ -14,7 +14,6 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { SidebarTrigger, useSidebar } from '@/components/ui/sidebar';
-import { SidebarToggleIcon } from '@/components/unlumen-ui/sidebar-toggle-icon';
 import { TenantContextIndicator } from '@/features/tenants/tenant-context-indicator';
 import { agentStateMap, connectionStateMap } from '@/lib/status-styles';
 import type { AgentState, ConnectionState } from '@/types/flex';
@@ -62,7 +61,7 @@ export function AppTopbar({
             {/* Left slot — mobile drawer trigger (layout-balancing column on desktop) */}
             <div className="flex items-center gap-2.5 justify-self-start">
                 <SidebarTrigger className="hidden md:flex" aria-label={t('aria.toggleSidebar')}>
-                    <SidebarToggleIcon isOpen={state === 'expanded'} className="size-5" />
+                    <RiLayoutLeftLine className={`size-4 ${state === 'collapsed' ? 'rotate-180' : ''}`} />
                 </SidebarTrigger>
                 <Sheet>
                     <SheetTrigger asChild>

@@ -84,5 +84,11 @@
     "security": "Usalama",
     "switchTenant": "Badilisha Mpangaji",
     "logOut": "Ondoka"
+  },
+  "aria": {
+    "productDomains": "Sehemu za bidhaa za FLEX",
+    "toggleSidebar": "Onyesha au ficha upau wa pembeni wa urambazaji",
+    "sidebarTitle": "Urambazaji",
+    "sidebarDescription": "Vinjari moduli za FLEX zinazopatikana"
   }
 }

@@ -84,5 +84,11 @@
     "security": "Security",
     "switchTenant": "Switch Tenant",
     "logOut": "Log out"
+  },
+  "aria": {
+    "productDomains": "FLEX product domains",
+    "toggleSidebar": "Toggle navigation sidebar",
+    "sidebarTitle": "Navigation",
+    "sidebarDescription": "Browse available FLEX modules"
   }
 }
