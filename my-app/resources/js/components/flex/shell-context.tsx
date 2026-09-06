@@ -1,4 +1,10 @@
-import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import React, {
+    createContext,
+    useCallback,
+    useContext,
+    useEffect,
+    useState,
+} from 'react';
 
 interface ShellContextValue {
     contextSidebarOpen: boolean;
@@ -13,9 +19,10 @@ const STORAGE_KEY = 'flex.shell.contextSidebarOpen';
 export function ShellProvider({ children }: { children: React.ReactNode }) {
     const [open, setOpen] = useState<boolean>(() => {
         try {
-            const v = localStorage.getItem(STORAGE_KEY);
+            const stored = localStorage.getItem(STORAGE_KEY);
+            const value = stored ? JSON.parse(stored) : true;
 
-            return v ? JSON.parse(v) : true;
+            return typeof value === 'boolean' ? value : true;
         } catch {
             return true;
         }
@@ -32,7 +39,13 @@ export function ShellProvider({ children }: { children: React.ReactNode }) {
     const toggle = useCallback(() => setOpen((v) => !v), []);
 
     return (
-        <ShellContext.Provider value={{ contextSidebarOpen: open, setContextSidebarOpen: setOpen, toggleContextSidebar: toggle }}>
+        <ShellContext.Provider
+            value={{
+                contextSidebarOpen: open,
+                setContextSidebarOpen: setOpen,
+                toggleContextSidebar: toggle,
+            }}
+        >
             {children}
         </ShellContext.Provider>
     );
@@ -43,7 +56,11 @@ export function useShell(): ShellContextValue {
 
     if (!ctx) {
         // fallback to open when outside provider (e.g. tests)
-        return { contextSidebarOpen: true, setContextSidebarOpen: () => {}, toggleContextSidebar: () => {} };
+        return {
+            contextSidebarOpen: true,
+            setContextSidebarOpen: () => {},
+            toggleContextSidebar: () => {},
+        };
     }
 
     return ctx;

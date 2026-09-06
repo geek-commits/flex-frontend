@@ -102,7 +102,7 @@ export function AppTopbar({
                         variant="static"
                         animateOnMount={false}
                         decorative
-                        className="h-auto !w-[108px] md:!w-[124px]"
+                        className="h-auto !w-[96px] md:!w-[112px]"
                     />
                 </Link>
             </div>

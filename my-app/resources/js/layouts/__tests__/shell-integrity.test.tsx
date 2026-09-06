@@ -59,6 +59,11 @@ describe('shell integrity — one shell invariant (static audit)', () => {
         expect(shellContent).toContain('<AppTopbar');
         expect(topbarContent).toContain('data-flex-global-header');
         expect(shellContent).toContain('data-flex-workspace');
+        expect(shellContent).toContain('<ShellProvider>');
+        expect(railContent).toContain('<ContextSidebarToggle');
+        expect(contextSidebarContent).toContain('<ContextSidebarToggle');
+        expect(contextSidebarContent).toContain('aria-hidden');
+        expect(contextSidebarContent).toContain('inert');
     });
 
     it('uses the full FLEX wordmark and no compact rail mark', () => {

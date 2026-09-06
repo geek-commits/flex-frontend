@@ -7,7 +7,9 @@ import {
     getFirstAccessibleHref,
     resolveNavigationArea,
 } from '@/auth/nav-domains';
+import { ContextSidebarToggle } from '@/components/flex/context-sidebar-toggle';
 import { FlexIcon } from '@/components/flex/iconography';
+import { useShell } from '@/components/flex/shell-context';
 
 /**
  * Permanent major-area rail. The reference shell keeps this level visually
@@ -17,6 +19,7 @@ export function PrimaryRail() {
     const { url } = usePage();
     const { has } = useCapabilities();
     const { t } = useTranslation('navigation');
+    const { contextSidebarOpen } = useShell();
     const activeArea = resolveNavigationArea(url);
     const visibleAreas = FLEX_NAVIGATION_AREAS.filter(
         (area) => !area.capability || has(area.capability),
@@ -51,14 +54,25 @@ export function PrimaryRail() {
     return (
         <aside
             data-flex-primary-rail
-            className="sticky top-0 z-20 hidden h-full w-[72px] shrink-0 flex-col justify-between border-r border-flex-workspace-divider bg-flex-workspace-surface px-1.5 py-2 select-none md:flex"
+            className="sticky top-0 z-20 hidden h-full w-[72px] shrink-0 flex-col justify-between bg-flex-workspace-surface px-1.5 py-2 select-none md:flex"
         >
-            <nav
-                className="flex flex-col gap-1"
-                aria-label={t('aria.productDomains')}
-            >
-                {workspaceAreas.map(renderArea)}
-            </nav>
+            <div className="relative flex flex-col gap-1">
+                {!contextSidebarOpen && (
+                    <div className="flex justify-center pb-1">
+                        <ContextSidebarToggle />
+                    </div>
+                )}
+                <nav
+                    className="flex flex-col gap-1"
+                    aria-label={t('aria.productDomains')}
+                >
+                    {workspaceAreas.map(renderArea)}
+                </nav>
+                <span
+                    aria-hidden="true"
+                    className="flex-rail-divider pointer-events-none absolute inset-y-0 -right-1.5 w-px"
+                />
+            </div>
             <nav
                 className="flex flex-col gap-1 border-t border-flex-workspace-divider pt-2"
                 aria-label={t('areas.settings')}

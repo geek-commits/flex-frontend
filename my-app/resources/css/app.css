@@ -820,6 +820,14 @@
             border-inline-end: 1px solid var(--flex-table-grid);
         }
     }
+    .flex-rail-divider {
+        background: linear-gradient(
+            to bottom,
+            var(--flex-workspace-divider) 0%,
+            var(--flex-workspace-divider) calc(100% - 2.5rem),
+            transparent 100%
+        );
+    }
 }
 
 /* Respect reduced motion — core functionality never depends on animation */

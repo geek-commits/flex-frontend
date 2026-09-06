@@ -84,15 +84,20 @@ Every signed-in product route renders one full-width header above three body col
 
 ```text
 GlobalHeader (56px, full width)
-└─ PrimaryRail (72px) → ContextSidebar (256px) → work surface
+└─ PrimaryRail (72px) → ContextSidebar (256px or collapsed) → work surface
 ```
 
 - The header owns the canonical full FLEX wordmark, global search, language,
   real tenant treatment, profile, and Agent operational controls where applicable.
 - `PrimaryRail` exposes capability-filtered product workspaces with persistent
   icon labels; Settings is pinned at the bottom. The rail contains no monogram.
-- `ContextSidebar` renders all visible groups for the active area. It remains
-  open on desktop; selecting a rail area navigates to its first accessible route.
+- `ContextSidebar` renders all visible groups for the active area. It is open by
+  default on desktop and may collapse without unmounting the workspace; selecting
+  a rail area navigates to its first accessible route.
+- `SidebarToggleIcon` is the shared collapse control: it appears in the contextual
+  header while open and at the top of `PrimaryRail` while closed. The choice is
+  persisted locally; the hidden route tree is inert and excluded from the
+  accessibility tree.
 - The route sidebar is the sole shell-level route navigation. Horizontal tabs
   are reserved for real, runtime-backed subviews within a page.
 - On mobile the two navigation levels become one hierarchical drawer sourced
