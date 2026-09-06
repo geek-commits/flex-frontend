@@ -10,12 +10,24 @@ export interface FlexMetricStripProps {
  * Replaces N equal-weight standalone cards with a single grouped operational
  * summary (used by Campaigns, and later the Dashboard, AI Center, System).
  */
-export function FlexMetricStrip({ children, className = '' }: FlexMetricStripProps) {
+export function FlexMetricStrip({
+    children,
+    className = '',
+}: FlexMetricStripProps) {
+    const items = React.Children.toArray(children);
+
     return (
         <div
-            className={`flex flex-wrap gap-x-8 gap-y-4 rounded-lg border border-border bg-card px-4 py-3 min-h-[96px] ${className}`}
+            className={`flex flex-wrap overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface ${className}`}
         >
-            {children}
+            {items.map((item, index) => (
+                <div
+                    key={index}
+                    className={`min-w-36 flex-1 px-4 py-3 ${index > 0 ? 'border-l border-flex-workspace-divider' : ''}`}
+                >
+                    {item}
+                </div>
+            ))}
         </div>
     );
 }
