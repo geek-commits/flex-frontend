@@ -18,7 +18,7 @@ MISSING      — documented in design system / manual but no shared owner
 
 | Primitive | Implementation(s) | Canonical candidate | Duplicates / route-locals | Known inconsistencies | Risk | Priority | Class |
 |---|---|---|---|---|---|---|---|
-| **FlexAppShell** | `layouts/app-layout.tsx`, `layouts/app/app-header-layout.tsx`, `layouts/app/app-sidebar-layout.tsx` | `app-layout.tsx` (`AppProviders` + `FlexLiveDataStatus` truth) | `agent-shell.tsx` / `admin-shell.tsx` thin wrappers | Shell nesting differs per workspace; LIVE/STALE badge is UI-only without reconnect semantics | Medium | P2 | PARTIAL |
+| **FlexAppShell** | `components/flex/flex-app-shell.tsx` | `FlexAppShell` (global header + labeled rail + contextual tree) | `agent-shell.tsx` / `admin-shell.tsx` thin wrappers; `layouts/app-layout.tsx` compatibility adapter | Workspace-specific controls remain slots; realtime status remains domain-owned | Low | P2 | CANONICAL |
 | **FlexSidebar — PrimaryRail** | `components/flex/primary-rail.tsx` | `primary-rail.tsx` | — | Uses `NAVIGATION` + `has(capability)` filtering; `duration-flex-fast` silent fallback (KD-002) | Low | P2 | CANONICAL |
 | **FlexSidebar — ContextSidebar** | `components/flex/context-sidebar.tsx` | `context-sidebar.tsx` | — | Permission filter before search required per parity §11 | Low | P2 | CANONICAL |
 | **FlexTopBar / AppTopBar** | `components/flex/app-topbar.tsx` (clock `setInterval`) | `app-topbar.tsx` | — | Clock tick is isolated `setInterval` (harmless duplicate) | Low | P3 | CANONICAL |

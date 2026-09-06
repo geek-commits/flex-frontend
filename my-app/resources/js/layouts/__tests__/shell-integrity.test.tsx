@@ -23,11 +23,13 @@ describe('shell integrity — one shell invariant (static audit)', () => {
         __dirname,
         '../../components/flex/flex-page-header.tsx',
     );
+    const appLayoutPath = path.resolve(__dirname, '../app-layout.tsx');
     const shellContent = fs.readFileSync(shellPath, 'utf8');
     const railContent = fs.readFileSync(railPath, 'utf8');
     const contextSidebarContent = fs.readFileSync(contextSidebarPath, 'utf8');
     const topbarContent = fs.readFileSync(topbarPath, 'utf8');
     const pageHeaderContent = fs.readFileSync(pageHeaderPath, 'utf8');
+    const appLayoutContent = fs.readFileSync(appLayoutPath, 'utf8');
 
     it('exposes permanent structural markers without sensitive data', () => {
         expect(shellContent).toContain('data-flex-shell');
@@ -36,6 +38,8 @@ describe('shell integrity — one shell invariant (static audit)', () => {
         expect(railContent).toContain('data-flex-primary-rail');
         expect(contextSidebarContent).toContain('data-flex-context-sidebar');
         expect(pageHeaderContent).toContain('data-flex-page-header');
+        expect(appLayoutContent).toContain('<FlexAppShell mode="admin">');
+        expect(appLayoutContent).not.toContain('AppSidebar');
         // ensure no sensitive runtime leaked into attributes
         expect(shellContent).not.toMatch(
             /data-flex-shell.*callId|tenantId|phone/i,

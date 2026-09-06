@@ -70,6 +70,32 @@ domain composition
 - Fewer containers — prefer spacing and dividers over nested cards (see the FLEX UI foundation rules).
 - No generic purple "AI" styling and no gradients unless they are genuinely part of the brand system.
 
+## Universal authenticated frame
+
+Every signed-in route composes the same structural owner:
+
+```text
+FlexAppShell
+├─ AppTopbar (56px, full FLEX wordmark + global controls)
+├─ PrimaryRail (72px, labeled areas)
+├─ ContextSidebar (256px, complete permission-filtered tree)
+└─ work surface (route content)
+```
+
+- `FLEX_NAVIGATION_AREAS` is the only navigation registry. Do not add route
+  links directly to a shell, page, or feature.
+- `AdminShell`, `AgentShell`, settings, detail, and utility adapters may add
+  workspace-specific controls, but they must delegate structural chrome to
+  `FlexAppShell`.
+- `FlexPageHeader` is the canonical compact page-header band. It owns title,
+  subtitle, metadata, and real page actions; sibling routes are not converted
+  into invented horizontal tabs.
+- Third-party controls are allowed for behavior, but their visible treatment
+  must use FLEX tokens, density, focus states, and semantic status primitives.
+- The old starter sidebar, compact shell logo, and route-specific shell copies
+  are retired. Authentication, welcome, and development-preview surfaces are
+  the only exceptions.
+
 ## Anti-patterns
 
 - Route-specific copies of a shared pattern (a second "status badge" component);

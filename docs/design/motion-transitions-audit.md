@@ -32,7 +32,6 @@ Existing convention note: `ln`/`n` identifier alias is intentionally preserved; 
 | `components/ui/select.tsx`, `popover.tsx`, `combobox.tsx` | Menu / popover surfaces | `duration-100` | menu-dropdown (`05`) | Menu family | `--flex-duration-default` (150ms) | Defer (align with dropdown once pilot lands) |
 | `components/ui/navigation-menu.tsx` | Nav menu | `duration-300`/`duration-200`, zoom-in/out | menu-dropdown (`05`) | Menu | `--flex-duration-default` (150ms) | Defer (documented) |
 | `components/ui/tooltip.tsx` | Tooltip | tw-animate slide-in-from | tooltip (`17`) | Dense icon controls | fast + subtle, minimal scale | Defer (documented) |
-| `components/ui/sidebar.tsx` | Sidebar rail | `duration-200`, data-state open/closed | panel-reveal | Expand/collapse | `--flex-duration-overlay` (200ms) — already aligned | Defer |
 | `pages/settings/profile.tsx`, `pages/auth/two-factor-challenge.tsx` | Page surfaces | `duration-300` | — | Over-range vs FLEX overlay | `--flex-duration-overlay` (200ms) | Defer (flag over-range) |
 | `components/ui/input-otp.tsx` | OTP input | `duration-1000` | — | Caret/blink, not a UI transition | Leave as-is | Out of scope |
 

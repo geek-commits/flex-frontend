@@ -200,6 +200,64 @@ describe('nav shell parity', () => {
     });
 
     describe('FLEX navigation-area canonical parity', () => {
+        it('covers every known authenticated runtime route family', () => {
+            const registered = new Set(
+                FLEX_NAVIGATION_AREAS.flatMap((area) =>
+                    area.groups.flatMap((group) =>
+                        group.items.flatMap((item) => [
+                            item.href,
+                            ...(item.aliases ?? []),
+                        ]),
+                    ),
+                ),
+            );
+            for (const href of [
+                '/dashboard',
+                '/admin/monitoring',
+                '/admin/console',
+                '/admin/cdr',
+                '/admin/cdr/record-1',
+                '/admin/campaigns',
+                '/admin/campaigns/campaign-1',
+                '/admin/reports',
+                '/admin/settings',
+                '/admin/system',
+                '/admin/ai',
+                '/admin/users',
+                '/admin/roles',
+                '/admin/queues',
+                '/admin/ivr',
+                '/admin/time-groups',
+                '/admin/time-conditions',
+                '/admin/recordings',
+                '/admin/subscription',
+                '/admin/mail-config',
+                '/admin/tenants',
+                '/admin/health',
+                '/supervision/exceptions',
+                '/agent',
+                '/agent/dashboard',
+                '/agent/social',
+                '/agent/missed-calls',
+                '/agent/troubleshooting',
+                '/agent/support',
+                '/customers/customer-1',
+                '/settings/profile',
+                '/settings/security',
+                '/settings/appearance',
+            ]) {
+                const match = [...registered].some(
+                    (route) =>
+                        href === route ||
+                        href.startsWith(`${route}/`) ||
+                        route.startsWith(`${href}/`),
+                );
+                expect(match, `runtime route ${href} should resolve`).toBe(
+                    true,
+                );
+            }
+        });
+
         it('NAVIGATION is derived from the unified navigation registry', () => {
             const derivedHrefs = new Set(
                 FLEX_NAVIGATION_AREAS.flatMap((area) =>
