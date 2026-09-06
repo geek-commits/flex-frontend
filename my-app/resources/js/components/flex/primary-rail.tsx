@@ -51,8 +51,12 @@ export function PrimaryRail() {
     return (
         <aside
             data-flex-primary-rail
-            className="sticky top-0 z-20 hidden h-full w-[72px] shrink-0 flex-col justify-between border-r border-flex-workspace-divider bg-flex-workspace-surface px-1.5 py-2 select-none md:flex"
+            className="relative sticky top-0 z-20 hidden h-full w-[72px] shrink-0 flex-col justify-between bg-flex-workspace-surface px-1.5 py-2 select-none md:flex"
         >
+            <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-y-0 right-0 w-px bg-gradient-to-b from-flex-workspace-divider via-flex-workspace-divider to-transparent"
+            />
             <nav
                 className="flex flex-col gap-1"
                 aria-label={t('aria.productDomains')}

@@ -147,6 +147,8 @@ All structural boundaries use semantic divider tokens:
 - `FlexListRow` — `min-h-11 py-3 px-[var(--flex-space-list-x)] border-b` row, title 13/400, ID 12/500 muted, hover `bg-flex-layer-hover`.
 - `FlexKanbanCard` / `FlexKanbanColumn` — `rounded-md border p-3` card, board column `w-[280px]`.
 - Shell geometry: full-width 56px global header above `PrimaryRail` (72px) + `ContextSidebar` (256px). Both navigation columns remain visible on desktop and start below the header.
+- The desktop `ContextSidebar` composes the `Sidebar001` primitives for its permission-filtered route tree: groups remain expanded, links preserve Inertia navigation, and the tree connectors stay short and fade toward their endpoints. The contextual rail is fixed at 256px; do not expose the primitive's resize handle from the shell.
+- Shell column dividers use a quiet vertical gradient that fades before the viewport bottom rather than a full-height hard rule. The divider remains structural at the top and becomes visually absent below the active navigation extent.
 
 Topbar search: centered `w-[364px] h-7 rounded-lg bg-flex-workspace-surface-muted border-flex-workspace-divider` (`GlobalSearchTrigger`) within the full-width global header.
 

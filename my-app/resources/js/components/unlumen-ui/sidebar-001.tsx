@@ -1,5 +1,6 @@
 "use client";
 
+import { Link } from "@inertiajs/react";
 import { ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import * as React from "react";
@@ -171,7 +172,7 @@ function HoverHighlight() {
       {enabled && hovered && hoverRect && (
         <motion.div
           key="sb001-hover-bg"
-          className="pointer-events-none absolute z-0 rounded-md bg-accent/50"
+          className="pointer-events-none absolute z-0 rounded-md bg-flex-layer-hover"
           style={{ right: 0 }}
           initial={false}
           animate={{
@@ -196,7 +197,7 @@ export interface Sidebar001ItemProps {
   isActive: boolean;
   isNew?: boolean;
   className?: string;
-  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+  onClick?: React.MouseEventHandler<Element>;
 }
 
 export const Sidebar001Item = memo(function Sidebar001Item({
@@ -225,20 +226,20 @@ export const Sidebar001Item = memo(function Sidebar001Item({
       {isActive && (
         <motion.span
           layoutId="sb001-active-bar"
-          className="pointer-events-none absolute z-10 left-[4px] top-1/2 h-[1.8px] -translate-y-1/2 rounded-full bg-accent-pro"
+          className="pointer-events-none absolute z-10 left-[4px] top-1/2 h-[1.8px] -translate-y-1/2 rounded-full bg-flex-brand"
           animate={{ width: 23 }}
           transition={{ type: "spring", stiffness: 800, damping: 40 }}
         />
       )}
 
       <motion.span
-        className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 h-px bg-foreground/50"
+        className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 h-px bg-gradient-to-r from-flex-workspace-divider-strong to-transparent"
         animate={{ width: isActive ? 0 : isHovered ? 26 : 18 }}
         transition={{ type: "spring", stiffness: 600, damping: 30 }}
       />
-      <motion.span className="pointer-events-none absolute w-[13px] left-0 top-1/4 h-px bg-foreground/30" />
-      <motion.span className="pointer-events-none absolute w-[16px] left-0 top-0 h-px bg-foreground/30" />
-      <motion.span className="pointer-events-none absolute w-[13px] left-0 top-3/4 h-px bg-foreground/30" />
+      <motion.span className="pointer-events-none absolute w-[13px] left-0 top-1/4 h-px bg-gradient-to-r from-flex-workspace-divider to-transparent" />
+      <motion.span className="pointer-events-none absolute w-[16px] left-0 top-0 h-px bg-gradient-to-r from-flex-workspace-divider to-transparent" />
+      <motion.span className="pointer-events-none absolute w-[13px] left-0 top-3/4 h-px bg-gradient-to-r from-flex-workspace-divider to-transparent" />
 
       <motion.div
         ref={itemRef}
@@ -246,8 +247,9 @@ export const Sidebar001Item = memo(function Sidebar001Item({
         transition={{ type: "spring", stiffness: 700, damping: 30 }}
         style={{ transformOrigin: "left center" }}
       >
-        <a
+        <Link
           href={href}
+          aria-current={isActive ? "page" : undefined}
           onClick={onClick}
           onMouseEnter={() => {
             const el = itemRef.current;
@@ -271,11 +273,11 @@ export const Sidebar001Item = memo(function Sidebar001Item({
             className,
           )}
         >
-          <span className="relative z-1 truncate">{label}</span>
+          <span className="relative z-1 min-w-0 truncate">{label}</span>
           {isNew && (
-            <span className="size-1.5 rounded-full bg-accent-pro shrink-0" />
+            <span className="size-1.5 shrink-0 rounded-full bg-flex-brand" />
           )}
-        </a>
+        </Link>
       </motion.div>
     </div>
   );
@@ -459,6 +461,7 @@ export interface Sidebar001Props {
   children: React.ReactNode;
   className?: string;
   defaultEffectsEnabled?: boolean;
+  resizable?: boolean;
   /** Initial width in px. Default: 240 */
   defaultWidth?: number;
   /** Min resize width in px. Default: 160 */
@@ -471,6 +474,7 @@ export function Sidebar001({
   children,
   className,
   defaultEffectsEnabled = true,
+  resizable = false,
   defaultWidth = 240,
   minWidth = 160,
   maxWidth = 400,
@@ -516,22 +520,29 @@ return;
       <HoverProvider containerRef={containerRef}>
         <aside
           className={cn(
-            "relative flex flex-col h-full shrink-0 bg-background",
+            "relative flex flex-col h-full shrink-0 bg-flex-workspace-surface",
             className,
           )}
           style={{ width }}
         >
           {children}
 
-          {/* Resize handle */}
           <div
-            className="absolute top-0 right-0 h-full w-1 cursor-col-resize group/handle z-20"
-            onPointerDown={onPointerDown}
-            onPointerMove={onPointerMove}
-            onPointerUp={onPointerUp}
-          >
-            <div className="absolute right-0 top-0 h-full w-px bg-border/50 group-hover/handle:bg-border transition-colors duration-150" />
-          </div>
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 right-0 w-px bg-gradient-to-b from-flex-workspace-divider via-flex-workspace-divider to-transparent"
+          />
+
+          {/* Resize handle */}
+          {resizable && (
+            <div
+              className="absolute top-0 right-0 z-20 h-full w-1 cursor-col-resize group/handle"
+              onPointerDown={onPointerDown}
+              onPointerMove={onPointerMove}
+              onPointerUp={onPointerUp}
+            >
+              <div className="absolute right-0 top-0 h-full w-px bg-flex-workspace-divider transition-colors duration-150 group-hover/handle:bg-flex-workspace-divider-strong" />
+            </div>
+          )}
         </aside>
       </HoverProvider>
     </EffectsProvider>
