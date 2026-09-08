@@ -6,7 +6,7 @@
   "mode": "external",
   "connection": "connected",
   "iframeConfig": {
-    "src": "https://demo-chat.flex.co.tz/login",
+    "src": "https://demo-chat.flex.co.tz/",
     "sandbox": "allow-same-origin allow-scripts allow-forms allow-popups",
     "referrerPolicy": "strict-origin-when-cross-origin"
   }

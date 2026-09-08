@@ -1,5 +1,5 @@
 {
-  "_doc": "TEST-ONLY: legacy mock for deprecated CrmIntegrationHost (features/agent-workspace/integration/crm-integration-host.tsx). Not mounted in production. Canonical production config is public/integrations/crm-primary.json (real external URL https://demo-crm.flex.co.tz/login) via features/integrations/external-workspace-host.tsx. Do not delete \u2014 retained for tests until deprecated files are removed. See crm-integration-host.tsx deprecation header.",
+  "_doc": "TEST-ONLY: legacy mock for deprecated CrmIntegrationHost (features/agent-workspace/integration/crm-integration-host.tsx). Not mounted in production. Canonical production config is public/integrations/crm-primary.json (real external root URL https://demo-crm.flex.co.tz/) via features/integrations/external-workspace-host.tsx. Do not delete \u2014 retained for tests until deprecated files are removed. See crm-integration-host.tsx deprecation header.",
   "integrationId": "crm-primary",
   "type": "crm",
   "vendor": "Flex CRM Adapter",

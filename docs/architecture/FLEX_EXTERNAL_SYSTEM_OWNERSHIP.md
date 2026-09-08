@@ -1,7 +1,6 @@
 # FLEX External System Ownership — CRM + Social
 
-**Status:** Code-complete (frontend integration), server CSP DEFERRED
-**Stage lock:** NO SERVER CHANGES / NO APACHE RELOAD / NO PRODUCTION DEPLOYMENT per plan §1
+**Status:** External iframe policy enabled for deployment verification
 
 ## Principle
 
@@ -11,8 +10,8 @@ FLEX owns the shell and embedding boundary. External systems own their UI/sessio
 |---------|-------|-------|
 | FLEX shell (global header, left rail) | FLEX | `FlexAppShell`, `PrimaryRail`, `AppTopbar`, `AgentShell` |
 | Agent state / Call Manager / Assist | FLEX | `features/agent-workspace/*` — safe call lifecycle, Assist call-scoped |
-| CRM UI / auth / session / data / routing | **External CRM** | `https://demo-crm.flex.co.tz/login` via `public/integrations/crm-primary.json` |
-| Social UI / auth / session / realtime / messages | **External Social** | `https://demo-chat.flex.co.tz/login` via `public/integrations/social-primary.json` |
+| CRM UI / auth / session / data / routing | **External CRM** | `https://demo-crm.flex.co.tz/` via `public/integrations/crm-primary.json` |
+| Social UI / auth / session / realtime / messages | **External Social** | `https://demo-chat.flex.co.tz/` via `public/integrations/social-primary.json` |
 | Iframe host / container / lifecycle / config / error-deferred | FLEX | `features/integrations/external-workspace-host.tsx` (`chrome="none"` full-bleed: relative min-h-0 → absolute inset-0 block) + `use-external-workspace-state.ts` (neutral loaded, frameKey only on config/retry) |
 
 ## Routes
@@ -23,7 +22,8 @@ FLEX owns the shell and embedding boundary. External systems own their UI/sessio
 ## Boundaries
 
 - FLEX does NOT: recreate external login/forms/tables, style iframe DOM, inject CSS/JS, proxy HTML, scrape, handle external credentials/cookies, fix frame-ancestors from React (browser enforces child headers).
-- External CSP currently blocks render (`frame-ancestors` violation) — honestly recorded as `BLOCKED — EXTERNAL CSP` until separate server phase (§79). Frontend composition is still PASS.
+- External services must serve no `X-Frame-Options` header and one CSP `frame-ancestors` allowlist for `cc.flex.co.tz`, `devcc.flex.co.tz`, and `flxcc.flex.co.tz` (plus `'self'`). Apache deployment and browser verification are required before calling embedded rendering PASS.
+- HTTPS sibling-domain environments are the supported embedded-auth workflow. The external apps own their session cookies and root-route authentication redirect; localhost is layout-only and is not promised persistent iframe authentication.
 
 ## Customer 360
 
