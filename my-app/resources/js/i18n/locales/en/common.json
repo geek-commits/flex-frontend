@@ -38,7 +38,9 @@
     "configurationMissing": "Workspace configuration unavailable",
     "configurationMissingDescription": "not found. Call Manager remains available.",
     "unavailable": "Workspace unavailable",
-    "unavailableDescription": "External workspace is unavailable. Telephony and Call Manager keep working independently."
+    "unavailableDescription": "External workspace is unavailable. Telephony and Call Manager keep working independently.",
+    "localWorkspaceTitle": "{{title}} is not connected locally.",
+    "localWorkspaceDescription": "This external workspace will appear here when a local backend integration is configured."
   },
   "languages": {
     "language": "Language",

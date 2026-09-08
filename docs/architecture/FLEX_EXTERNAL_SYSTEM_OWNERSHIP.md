@@ -1,6 +1,6 @@
 # FLEX External System Ownership — CRM + Social
 
-**Status:** External iframe policy enabled for deployment verification
+**Status:** Local fallback active; external-server deployment deferred
 
 ## Principle
 
@@ -23,7 +23,8 @@ FLEX owns the shell and embedding boundary. External systems own their UI/sessio
 
 - FLEX does NOT: recreate external login/forms/tables, style iframe DOM, inject CSS/JS, proxy HTML, scrape, handle external credentials/cookies, fix frame-ancestors from React (browser enforces child headers).
 - External services must serve no `X-Frame-Options` header and one CSP `frame-ancestors` allowlist for `cc.flex.co.tz`, `devcc.flex.co.tz`, and `flxcc.flex.co.tz` (plus `'self'`). Apache deployment and browser verification are required before calling embedded rendering PASS.
-- HTTPS sibling-domain environments are the supported embedded-auth workflow. The external apps own their session cookies and root-route authentication redirect; localhost is layout-only and is not promised persistent iframe authentication.
+- In local development, `ExternalWorkspaceHost` renders a host-owned, non-interactive fallback instead of loading either iframe. It never proxies, rewrites, or simulates external authentication. A later backend integration can provide the external configuration without changing this ownership boundary.
+- HTTPS sibling-domain environments remain the supported embedded-auth workflow when the external services are deployed. The external apps own their session cookies and root-route authentication redirect.
 
 ## Customer 360
 

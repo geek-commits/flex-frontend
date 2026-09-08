@@ -38,7 +38,9 @@
     "configurationMissing": "Usanidi wa nafasi ya kazi haupatikani",
     "configurationMissingDescription": "haikupatikana. Kidhibiti Simu kinaendelea kupatikana.",
     "unavailable": "Nafasi ya kazi haipatikani",
-    "unavailableDescription": "Nafasi ya kazi ya nje haipatikani. Simu na Kidhibiti Simu vinaendelea kufanya kazi."
+    "unavailableDescription": "Nafasi ya kazi ya nje haipatikani. Simu na Kidhibiti Simu vinaendelea kufanya kazi.",
+    "localWorkspaceTitle": "{{title}} haijaunganishwa ndani ya mazingira ya ndani.",
+    "localWorkspaceDescription": "Nafasi hii ya kazi ya nje itaonekana hapa wakati muunganisho wa backend wa ndani utakapowekwa."
   },
   "languages": {
     "language": "Lugha",

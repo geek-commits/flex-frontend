@@ -38,7 +38,9 @@
     "configurationMissing": "Configuration de l'espace indisponible",
     "configurationMissingDescription": "introuvable. Le gestionnaire d'appels reste disponible.",
     "unavailable": "Espace indisponible",
-    "unavailableDescription": "L'espace externe est indisponible. La téléphonie et le gestionnaire d'appels restent actifs."
+    "unavailableDescription": "L'espace externe est indisponible. La téléphonie et le gestionnaire d'appels restent actifs.",
+    "localWorkspaceTitle": "{{title}} n'est pas connecté localement.",
+    "localWorkspaceDescription": "Cet espace externe apparaîtra ici lorsqu'une intégration backend locale sera configurée."
   },
   "languages": {
     "language": "Langue",

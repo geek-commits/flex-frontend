@@ -24,8 +24,8 @@ The external CRM integration host is a **frozen integration boundary**. FLEX own
 | Warm Transfer | None |
 | Wrap Up | `setTimeout` 2 s → back to idle; no timer |
 | Call history | Hardcoded 3-row array |
-| CRM host | `EmbeddedWorkspace` (`components/flex/embedded-workspace.tsx`) — boundary header + host line + iframe; reads `/mocks/integrations/crm-primary.json` |
-| CRM state | loading / error / retry only; no `unavailable` / `retrying` / `missing-config` distinction |
+| CRM host | `ExternalWorkspaceHost` (`features/integrations/external-workspace-host.tsx`) — host-owned local fallback in development; deployed builds read `/integrations/crm-primary.json` for the external iframe boundary |
+| CRM state | local development shows a host-owned local fallback; deployed external config supports loading / error / retry only, with no invented authentication or postMessage contract |
 | Telephony store | None — no application-global store; call and agent state are route-local |
 
 ## Decisions (Phase 0)

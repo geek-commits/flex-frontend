@@ -6,6 +6,8 @@
 
 **Supported embedded-auth parents:** `https://cc.flex.co.tz`, `https://devcc.flex.co.tz`, and `https://flxcc.flex.co.tz`. Localhost remains suitable for shell/layout work only; it is not a supported persistent embedded-auth environment.
 
+**Current local phase:** these server patches are intentionally not deployed. Local development uses the FLEX host's non-interactive fallback; applying or emulating these headers locally is not a substitute for a future external-service deployment.
+
 **Patches:**
 - `demo-crm-apache-fix.conf` — unset `SAMEORIGIN`, set precise `frame-ancestors`
 - `demo-chat-apache-fix.conf` — unset invalid `cc.flex.co.tz`, set precise `frame-ancestors`

@@ -4,6 +4,7 @@ import type {ExternalWorkspaceConfig} from './external-workspace-config';
 
 export type ExternalWorkspaceStatus =
     | 'loading'
+    | 'local-fallback'
     | 'connected' // legacy alias for 'loaded' — onLoad is not proof of auth/health; keep for compat
     | 'loaded' // neutral: iframe document loaded (may be blocked page); not proof of connected/healthy
     | 'unavailable'
@@ -30,7 +31,17 @@ throw new Error('config not found');
     return (await response.json()) as ExternalWorkspaceConfig;
 }
 
-function resolveStatus(data: ExternalWorkspaceConfig): ExternalWorkspaceStatus {
+export function resolveExternalWorkspaceStatus(
+    data: ExternalWorkspaceConfig,
+    isLocalDevelopment = import.meta.env.DEV,
+): ExternalWorkspaceStatus {
+    // The external applications cannot provide an authenticated iframe session
+    // from HTTP localhost. Keep local development honest: render the host-owned
+    // fallback instead of proxying external auth, cookies, or frame policies.
+    if (isLocalDevelopment && data.mode === 'external') {
+        return 'local-fallback';
+    }
+
     if (data.connection === 'unavailable') {
 return 'unavailable';
 }
@@ -48,7 +59,7 @@ export function useExternalWorkspaceState(configPath: string): ExternalWorkspace
         (data: ExternalWorkspaceConfig) => {
             setConfig(data);
             setFrameKey((k) => k + 1);
-            setStatus(resolveStatus(data));
+            setStatus(resolveExternalWorkspaceStatus(data));
         },
         [],
     );

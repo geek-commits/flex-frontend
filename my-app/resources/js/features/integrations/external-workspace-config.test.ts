@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { resolveExternalWorkspaceStatus } from './use-external-workspace-state';
 
 type IntegrationConfig = {
     iframeConfig: {
@@ -37,4 +38,11 @@ describe('external workspace integration configuration', () => {
             expect(config.iframeConfig.sandbox).not.toContain('allow-top-navigation');
         },
     );
+
+    it('uses the honest local fallback without changing external configuration', () => {
+        const config = readIntegrationConfig('crm-primary');
+
+        expect(resolveExternalWorkspaceStatus(config, true)).toBe('local-fallback');
+        expect(resolveExternalWorkspaceStatus(config, false)).toBe('loading');
+    });
 });

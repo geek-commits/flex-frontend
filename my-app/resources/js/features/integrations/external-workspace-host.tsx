@@ -15,6 +15,7 @@ export function ExternalWorkspaceHost({ title, configPath, className, chrome = '
     const { t } = useTranslation('common');
     const { status, config, frameKey, retry, handleFrameLoad, handleFrameError } = useExternalWorkspaceState(configPath);
     const effectiveSrc = config?.iframeConfig?.src ?? null;
+    const isLocalFallback = status === 'local-fallback';
     const showFrame = config !== null && (status === 'loading' || status === 'mock' || status === 'connected' || status === 'loaded');
 
     return (
@@ -24,7 +25,7 @@ export function ExternalWorkspaceHost({ title, configPath, className, chrome = '
                 <div className="flex h-9 shrink-0 items-center justify-between gap-2 border-b border-flex-workspace-divider bg-flex-workspace-surface px-3">
                     <h2 className="truncate text-sm font-semibold text-flex-text-primary">{title}</h2>
                     <div className="flex items-center gap-1">
-                        {effectiveSrc && (
+                        {effectiveSrc && !isLocalFallback && (
                             <Button
                                 variant="ghost"
                                 size="icon-sm"
@@ -34,9 +35,11 @@ export function ExternalWorkspaceHost({ title, configPath, className, chrome = '
                                 <RiExternalLinkLine className="size-4" />
                             </Button>
                         )}
-                        <Button variant="ghost" size="icon-sm" aria-label={t('actions.refresh', 'Reload')} onClick={retry}>
-                            <RiRefreshLine className="size-4" />
-                        </Button>
+                        {!isLocalFallback && (
+                            <Button variant="ghost" size="icon-sm" aria-label={t('actions.refresh', 'Reload')} onClick={retry}>
+                                <RiRefreshLine className="size-4" />
+                            </Button>
+                        )}
                     </div>
                 </div>
             )}
@@ -50,6 +53,21 @@ export function ExternalWorkspaceHost({ title, configPath, className, chrome = '
                             {status === 'loading' ? t('status.loading', 'Loading workspace...') : t('status.reconnecting', 'Reconnecting workspace...')}
                         </span>
                     </div>
+                )}
+
+                {isLocalFallback && (
+                    <section
+                        data-external-workspace-local-fallback
+                        role="status"
+                        className="flex flex-1 flex-col items-center justify-center gap-2 px-6 text-center"
+                    >
+                        <h2 className="text-sm font-semibold text-flex-text-primary">
+                            {t('status.localWorkspaceTitle', '{{title}} is not connected locally.', { title })}
+                        </h2>
+                        <p className="max-w-sm text-xs leading-5 text-flex-text-muted">
+                            {t('status.localWorkspaceDescription', 'This external workspace will appear here when a local backend integration is configured.')}
+                        </p>
+                    </section>
                 )}
 
                 {status === 'configuration-missing' && (
