@@ -1,4 +1,4 @@
-import { RiCloseLine, RiSubtractLine } from '@remixicon/react';
+import { RiSubtractLine } from '@remixicon/react';
 import { useId } from 'react';
 import { Button } from '@/components/ui/button';
 import { ThinkingState } from '@/components/vendor/aicss/thinking-state';
@@ -9,24 +9,18 @@ import { AgentAssistSuggestions } from './agent-assist-suggestions';
 import { AgentAssistTranscript } from './agent-assist-transcript';
 
 export interface AgentAssistDockProps {
-    /** Close/minimize callback — caller may also use session minimize */
+    /** Optional callback for hosts that need to observe minimization. */
     onMinimize?: () => void;
-    onClose?: () => void;
 }
 
 /**
- * Compact Assist Dock — floating companion, not full-height column.
- * Desktop: fixed 360 preferred (320–400) × 50vh max. Mobile: defers to
- * call manager unified surface (returns null — mobile surface renders there).
+ * Call-scoped Assist pane. Desktop hosts place it inside the Agent call
+ * workspace; mobile defers to the unified Call Manager surface.
  */
-export function AgentAssistDock({ onMinimize, onClose }: AgentAssistDockProps) {
+export function AgentAssistDock({ onMinimize }: AgentAssistDockProps) {
     const headingId = useId();
     const session = useAgentAssistSession();
-    const { language, transportState, segments, suggestions, isOpen, error } = session;
-
-    if (!isOpen) {
-        return null;
-    }
+    const { language, transportState, segments, suggestions, error } = session;
 
     const isStalled = transportState === 'stalled';
     const isOffline = transportState === 'offline' || session.sessionState === 'error';
@@ -49,18 +43,6 @@ export function AgentAssistDock({ onMinimize, onClose }: AgentAssistDockProps) {
                     aria-label="Minimize Agent Assist"
                 >
                     <RiSubtractLine className="size-4" />
-                </Button>
-                <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon-sm"
-                    onClick={() => {
-                        session.closeAssist();
-                        onClose?.();
-                    }}
-                    aria-label="Close Agent Assist"
-                >
-                    <RiCloseLine className="size-4" />
                 </Button>
             </div>
         </div>
@@ -88,14 +70,11 @@ export function AgentAssistDock({ onMinimize, onClose }: AgentAssistDockProps) {
         </div>
     );
 
-    // Compact dock — 360 preferred (320–400) · 50vh max · not full-height column
     return (
         <aside
             role="complementary"
             aria-labelledby={headingId}
-            className={cn(
-                'flex w-[360px] max-h-[50vh] shrink-0 flex-col overflow-hidden border-l border-flex-workspace-divider bg-card',
-            )}
+            className={cn('flex h-full min-h-0 w-full flex-col overflow-hidden bg-card')}
         >
             {header}
             <div className="flex min-h-0 flex-1 flex-col overflow-hidden">{body}</div>

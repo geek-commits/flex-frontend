@@ -73,7 +73,7 @@ export function CallManager() {
             return;
         }
 
-        if (assist.isOpen) {
+        if (isMobile ? assist.isOpen : !assist.isMinimized) {
             assist.minimizeAssist();
         } else {
             assist.openAssist();

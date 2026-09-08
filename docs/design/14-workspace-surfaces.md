@@ -106,6 +106,27 @@ Split-pane workspaces use flat panes separated by the divider token:
 - Mobile/tablet flow collapses to list → detail (single pane) via responsive `lg:` utilities.
 - Do not invent a pane the runtime does not support (e.g. an AI context panel).
 
+### Vertical call workspaces
+
+Call-scoped Agent surfaces may stack when the primary call task and its
+supporting context share the same desktop work surface:
+
+```text
+<div className="grid h-full min-h-0 grid-rows-[minmax(0,3fr)_1px_minmax(0,2fr)]">
+  <section>Call Manager</section>
+  <div className="h-px bg-flex-workspace-divider" />
+  <section>Agent Assist</section>
+</div>
+```
+
+- The primary call surface occupies roughly 60% of the height; supporting
+  context occupies roughly 40%.
+- Use the semantic workspace divider token for the horizontal boundary.
+- Collapse the supporting pane to an explicit restore bar when the agent hides
+  it; keep its call-scoped runtime session alive.
+- On mobile, prefer the owning surface's single-pane mode rather than mounting
+  a second stacked pane.
+
 ## 6. Card-reduction policy
 
 Classify every surface:

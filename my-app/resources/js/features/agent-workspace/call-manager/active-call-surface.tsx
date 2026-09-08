@@ -16,6 +16,7 @@ import React, { useMemo, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useCallTimer } from '@/features/dashboard/use-call-timer';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { cn } from '@/lib/utils';
 import type { CallState } from '@/types/flex';
 import { useAgentAssistSessionOptional } from '../agent-assist/agent-assist-session-context';
@@ -83,8 +84,11 @@ export function ActiveCallSurface({
     const transferring = callState === 'transferring';
     const transferFailed = !transferring && transfer?.status === 'failed';
     const reduced = useReducedMotion();
+    const isMobile = useIsMobile();
     const assistSession = useAgentAssistSessionOptional();
-    const isAssistOpen = !!assistSession?.isOpen;
+    const isAssistOpen = isMobile
+        ? !!assistSession?.isOpen
+        : !!assistSession && !assistSession.isMinimized;
 
     return (
         <div className="flex min-h-0 flex-1 flex-col">
