@@ -31,7 +31,7 @@ export function FlexListRow({ href, idSlot, title, meta, hoverRevealMeta, classN
                 <div
                     className={cn(
                         'flex shrink-0 items-center gap-1.5',
-                        hoverRevealMeta && 'opacity-0 group-hover/list-row:opacity-100 group-focus-within/list-row:opacity-100 transition-opacity duration-flex-fast'
+                        hoverRevealMeta && 'opacity-0 group-hover/list-row:opacity-100 group-focus-within/list-row:opacity-100 transition-opacity duration-[var(--flex-duration-fast)]'
                     )}
                 >
                     {meta}

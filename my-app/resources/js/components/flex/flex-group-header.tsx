@@ -45,7 +45,7 @@ export function FlexGroupHeader({ label, count, icon, actions, collapsible, coll
                     aria-expanded={!collapsed}
                     className="flex flex-1 items-center gap-2 text-left flex-focus-visible rounded-md -mx-1 px-1 py-1"
                 >
-                    <span className={cn('size-3.5 shrink-0 text-flex-text-muted transition-transform duration-flex-default', collapsed && '-rotate-90')} aria-hidden="true">
+                    <span className={cn('size-3.5 shrink-0 text-flex-text-muted transition-transform duration-[var(--flex-duration-default)]', collapsed && '-rotate-90')} aria-hidden="true">
                         ▸
                     </span>
                     {content}
