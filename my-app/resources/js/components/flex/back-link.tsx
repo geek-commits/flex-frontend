@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 export function BackLink({ href, label }: { href: string; label: string }) {
     return (
         <Button
+            nativeButton={false}
             variant="ghost"
             size="sm"
             className="gap-1.5 text-xs text-muted-foreground w-fit"

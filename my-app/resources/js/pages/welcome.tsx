@@ -25,11 +25,11 @@ export default function Welcome() {
                         </div>
 
                         <div className="flex items-center gap-3">
-                            <Button variant="default" className="gap-1.5" render={<Link href="/login" />}>
+                            <Button nativeButton={false} variant="default" className="gap-1.5" render={<Link href="/login" />}>
                                 <RiLoginBoxLine className="size-4" />
                                 {t('welcome.login')}
                             </Button>
-                            <Button variant="outline" className="gap-1.5" render={<Link href="/register" />}>
+                            <Button nativeButton={false} variant="outline" className="gap-1.5" render={<Link href="/register" />}>
                                 <RiUserAddLine className="size-4" />
                                 {t('welcome.register')}
                             </Button>

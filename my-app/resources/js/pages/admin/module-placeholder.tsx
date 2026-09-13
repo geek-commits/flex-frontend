@@ -29,6 +29,7 @@ export default function ModulePlaceholderPage() {
 
             <div className="flex flex-col gap-4 w-full">
                 <Button
+                    nativeButton={false}
                     variant="ghost"
                     size="sm"
                     className="gap-1.5 text-xs text-muted-foreground w-fit"
@@ -70,7 +71,7 @@ export default function ModulePlaceholderPage() {
                             </>
                         )}
 
-                        <Button variant="outline" size="sm" className="gap-1.5 text-xs" render={<Link href={backHref} />}>
+                        <Button nativeButton={false} variant="outline" size="sm" className="gap-1.5 text-xs" render={<Link href={backHref} />}>
                             {isSettings ? t('placeholder.returnToSettings') : t('placeholder.returnToConsole')}
                         </Button>
                     </CardContent>
