@@ -12,13 +12,19 @@ const ContactCenterTrafficChart = lazy(() =>
     })),
 );
 const QueueHealth = lazy(() =>
-    import('@/features/dashboard/queue-health').then((m) => ({ default: m.QueueHealth })),
+    import('@/features/dashboard/queue-health').then((m) => ({
+        default: m.QueueHealth,
+    })),
 );
 const ActiveCalls = lazy(() =>
-    import('@/features/dashboard/active-calls').then((m) => ({ default: m.ActiveCalls })),
+    import('@/features/dashboard/active-calls').then((m) => ({
+        default: m.ActiveCalls,
+    })),
 );
 const AgentWallboard = lazy(() =>
-    import('@/features/dashboard/agent-wallboard').then((m) => ({ default: m.AgentWallboard })),
+    import('@/features/dashboard/agent-wallboard').then((m) => ({
+        default: m.AgentWallboard,
+    })),
 );
 
 function CardSkeleton({ bodyClassName }: { bodyClassName: string }) {
@@ -28,7 +34,9 @@ function CardSkeleton({ bodyClassName }: { bodyClassName: string }) {
                 <Skeleton className="h-4 w-36" />
                 <Skeleton className="h-3 w-20" />
             </div>
-            <div className={`${bodyClassName} flex items-center justify-center p-4`}>
+            <div
+                className={`${bodyClassName} flex items-center justify-center p-4`}
+            >
                 <Skeleton className="h-full w-full" />
             </div>
         </div>
@@ -55,7 +63,11 @@ export function ContactCenterDashboardContent() {
 
             <OperationsSummary />
 
-            <Suspense fallback={<CardSkeleton bodyClassName="aspect-[3/1]" />}>
+            <Suspense
+                fallback={
+                    <CardSkeleton bodyClassName="min-h-64 sm:aspect-[3/1] sm:min-h-0" />
+                }
+            >
                 <ContactCenterTrafficChart />
             </Suspense>
 

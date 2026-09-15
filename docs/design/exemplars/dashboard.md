@@ -10,9 +10,9 @@ Route: `/dashboard` · `features/dashboard/*` · page `pages/admin/contact-cente
 - **Queue health** — real `QueueHealth` fields, no invented thresholds (`domain/queue-state.md`).
 - **Active calls** — live call rows with ticking durations (`use-call-timer`) and call-state display (`domain/call-state.md`).
 - **Agent state** — the wallboard shows each agent's state, tone, and elapsed state time (`domain/agent-state.md`).
-- **Partial failure** — sections render independently; a failed source does not blank healthy sections (`07-feedback-states.md`).
+- **Partial failure** — sections render independently; a failed source does not blank healthy sections, and retry uses the shared dashboard refresh pipeline without reloading the page (`07-feedback-states.md`).
 - **Progressive loading** — the below-the-fold sections (traffic chart, queue health, active calls, agent wallboard) load asynchronously after first paint, each with a card skeleton fallback that reserves its height; the exception + metrics strip paints first (`12-quality-gates.md`).
-- **Chart restraint** — the call-volume chart shows the needed signal with no decorative animation or count-up effects (`05-motion.md`).
+- **Chart restraint** — the call-volume chart shows the needed signal with no decorative animation or count-up effects; it has an accessible name, preserves a usable mobile height, and wraps its legend on narrow screens (`05-motion.md`, `08-accessibility.md`).
 
 ## Patterns to reuse
 

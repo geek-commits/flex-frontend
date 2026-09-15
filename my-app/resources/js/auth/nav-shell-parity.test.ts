@@ -211,6 +211,7 @@ describe('nav shell parity', () => {
                     ),
                 ),
             );
+
             for (const href of [
                 '/dashboard',
                 '/admin/monitoring',

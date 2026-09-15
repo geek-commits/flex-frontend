@@ -76,6 +76,8 @@ export interface BarChartProps {
   aspectRatio?: string;
   /** Additional class name for the container */
   className?: string;
+  /** Accessible name for the chart. Adds an image role when provided. */
+  ariaLabel?: string;
   /** Gap between bar groups as a fraction of band width (0-1). Default: 0.2 */
   barGap?: number;
   /** Fixed bar width in pixels. If not set, bars auto-size to fill the band. */
@@ -685,6 +687,7 @@ export function BarChart({
   revealSignature,
   aspectRatio = "2 / 1",
   className = "",
+  ariaLabel,
   barGap = 0.2,
   barWidth,
   orientation = "vertical",
@@ -700,8 +703,10 @@ export function BarChart({
 
   return (
     <div
+      aria-label={ariaLabel}
       className={cn("relative w-full overflow-visible", className)}
       ref={containerRef}
+      role={ariaLabel ? "img" : undefined}
       style={{ aspectRatio }}
     >
       <ParentSize debounceTime={10}>

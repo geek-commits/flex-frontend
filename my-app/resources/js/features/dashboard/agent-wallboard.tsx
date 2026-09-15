@@ -17,7 +17,8 @@ import { useDashboardData } from '@/features/dashboard/use-dashboard-data';
 
 export function AgentWallboard() {
     const { t } = useTranslation('supervision');
-    const { data, isLoading, error } = useDashboardData();
+    const { data, isLoading, error, isRefreshing, refresh } =
+        useDashboardData();
 
     const rows = useMemo(() => data?.agents ?? [], [data]);
     const columns = useMemo(() => wallboardColumnsTranslated(t), [t]);
@@ -40,9 +41,16 @@ export function AgentWallboard() {
             <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
                 <FlexErrorState
                     title={t('dashboard.metrics.agentWallboard.errorTitle')}
-                    description={t('dashboard.metrics.agentWallboard.errorDescription')}
+                    description={t(
+                        'dashboard.metrics.agentWallboard.errorDescription',
+                    )}
                     action={
-                        <Button onClick={() => window.location.reload()} size="sm">
+                        <Button
+                            onClick={refresh}
+                            size="sm"
+                            disabled={isRefreshing}
+                            aria-busy={isRefreshing}
+                        >
                             {t('dashboard.live.retry')}
                         </Button>
                     }
@@ -56,7 +64,9 @@ export function AgentWallboard() {
             <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
                 <FlexEmptyState
                     title={t('dashboard.metrics.agentWallboard.empty')}
-                    description={t('dashboard.metrics.agentWallboard.emptyDescription')}
+                    description={t(
+                        'dashboard.metrics.agentWallboard.emptyDescription',
+                    )}
                 />
             </div>
         );
@@ -74,7 +84,9 @@ export function AgentWallboard() {
                         aria-hidden="true"
                     />
                     <span className="text-xs font-semibold text-status-live">
-                        {t('dashboard.metrics.agentWallboard.callsToday', { count: callsToday })}
+                        {t('dashboard.metrics.agentWallboard.callsToday', {
+                            count: callsToday,
+                        })}
                     </span>
                 </span>
             </div>

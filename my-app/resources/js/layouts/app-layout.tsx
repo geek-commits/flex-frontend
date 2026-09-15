@@ -9,5 +9,6 @@ export default function AppLayout({
     children: React.ReactNode;
 }) {
     void breadcrumbs;
+
     return <FlexAppShell mode="admin">{children}</FlexAppShell>;
 }

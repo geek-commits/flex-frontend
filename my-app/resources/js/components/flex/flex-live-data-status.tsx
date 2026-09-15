@@ -1,10 +1,12 @@
 import React, { useMemo } from 'react';
 /* eslint-disable react-hooks/purity -- impure Date.now for live status */
 import { useTranslation } from 'react-i18next';
+import { Button } from '@/components/ui/button';
 import { LOCALE_CONFIG, useFlexLocale } from '@/i18n/locale';
 import { connectionStateMap } from '@/lib/status-styles';
 
-export type FlexLiveConnectionState = 'live' | 'stale' | 'reconnecting' | 'error';
+export type FlexLiveConnectionState =
+    'live' | 'stale' | 'reconnecting' | 'error';
 
 export interface FlexLiveDataStatusProps {
     connectionState: FlexLiveConnectionState;
@@ -33,8 +35,8 @@ export function FlexLiveDataStatus({
     // date-fns Swahili locale shim.
     const relativeTime = useMemo(() => {
         if (!lastUpdated) {
-return '';
-}
+            return '';
+        }
 
         const diffMs = lastUpdated.getTime() - Date.now();
         const abs = Math.abs(diffMs);
@@ -63,9 +65,13 @@ return '';
 
         // Map to Intl expected: en → en, sw-TZ → sw-TZ, fr-FR → fr-FR all valid
         try {
-            return new Intl.RelativeTimeFormat(intlLocale, { numeric: 'auto' }).format(value, unit);
+            return new Intl.RelativeTimeFormat(intlLocale, {
+                numeric: 'auto',
+            }).format(value, unit);
         } catch {
-            return new Intl.RelativeTimeFormat('en', { numeric: 'auto' }).format(value, unit);
+            return new Intl.RelativeTimeFormat('en', {
+                numeric: 'auto',
+            }).format(value, unit);
         }
     }, [lastUpdated, locale]);
 
@@ -107,13 +113,14 @@ return '';
                 </div>
 
                 {connectionState === 'error' && onRefresh && (
-                    <button
-                        type="button"
+                    <Button
+                        size="sm"
                         onClick={onRefresh}
-                        className="rounded-md bg-primary px-2.5 py-1.5 text-xs font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+                        disabled={isRefreshing}
+                        aria-busy={isRefreshing}
                     >
                         {t('dashboard.live.retry')}
-                    </button>
+                    </Button>
                 )}
             </div>
         </div>

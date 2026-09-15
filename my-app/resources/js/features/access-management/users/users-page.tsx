@@ -53,7 +53,7 @@ export function UsersPage() {
 
             setIsLoading(false);
         }, 350);
-    }, [t]);
+    }, []);
 
     const filteredData = useMemo(() => {
         const needle = search.trim().toLowerCase();

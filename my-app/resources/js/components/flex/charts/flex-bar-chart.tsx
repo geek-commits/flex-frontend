@@ -25,6 +25,10 @@ export interface FlexBarChartProps {
     aspectRatio?: string;
     /** Max x-axis labels shown on desktop. Defaults to 8. */
     maxLabels?: number;
+    /** Accessible name announced for the chart. */
+    ariaLabel?: string;
+    /** Additional class name for responsive sizing. */
+    className?: string;
     /** Enable the entry grow animation. Defaults to false (realtime-safe). */
     animate?: boolean;
     /** Bar end radius in px. Defaults to 4. */
@@ -44,6 +48,8 @@ export function FlexBarChart({
     series,
     aspectRatio = '3 / 1',
     maxLabels = 8,
+    ariaLabel,
+    className,
     animate = false,
     lineCap = 4,
 }: FlexBarChartProps) {
@@ -55,7 +61,13 @@ export function FlexBarChart({
         }));
 
     return (
-        <BarChart data={data} xDataKey={xDataKey} aspectRatio={aspectRatio}>
+        <BarChart
+            ariaLabel={ariaLabel}
+            className={className}
+            data={data}
+            xDataKey={xDataKey}
+            aspectRatio={aspectRatio}
+        >
             <Grid horizontal />
             {series.map((s) => (
                 <Bar

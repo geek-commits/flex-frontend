@@ -16,7 +16,8 @@ import { useDashboardData } from '@/features/dashboard/use-dashboard-data';
 
 export function QueueHealth() {
     const { t } = useTranslation('supervision');
-    const { data, isLoading, error } = useDashboardData();
+    const { data, isLoading, error, isRefreshing, refresh } =
+        useDashboardData();
 
     const rows = useMemo(() => data?.queueHealth ?? [], [data]);
 
@@ -37,7 +38,12 @@ export function QueueHealth() {
                     title={t('dashboard.queueHealth.errorTitle')}
                     description={t('dashboard.queueHealth.errorDescription')}
                     action={
-                        <Button onClick={() => window.location.reload()} size="sm">
+                        <Button
+                            onClick={refresh}
+                            size="sm"
+                            disabled={isRefreshing}
+                            aria-busy={isRefreshing}
+                        >
                             {t('dashboard.live.retry')}
                         </Button>
                     }

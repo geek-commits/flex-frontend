@@ -17,7 +17,8 @@ import { useDashboardData } from '@/features/dashboard/use-dashboard-data';
 
 export function ActiveCalls() {
     const { t } = useTranslation('supervision');
-    const { data, isLoading, error } = useDashboardData();
+    const { data, isLoading, error, isRefreshing, refresh } =
+        useDashboardData();
 
     const rows = useMemo(() => data?.activeCalls ?? [], [data]);
     const columns = useMemo(() => activeCallColumnsTranslated(t), [t]);
@@ -35,9 +36,16 @@ export function ActiveCalls() {
             <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
                 <FlexErrorState
                     title={t('dashboard.metrics.activeCalls.errorTitle')}
-                    description={t('dashboard.metrics.activeCalls.errorDescription')}
+                    description={t(
+                        'dashboard.metrics.activeCalls.errorDescription',
+                    )}
                     action={
-                        <Button onClick={() => window.location.reload()} size="sm">
+                        <Button
+                            onClick={refresh}
+                            size="sm"
+                            disabled={isRefreshing}
+                            aria-busy={isRefreshing}
+                        >
                             {t('dashboard.live.retry')}
                         </Button>
                     }
@@ -51,7 +59,9 @@ export function ActiveCalls() {
             <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
                 <FlexEmptyState
                     title={t('dashboard.metrics.activeCalls.empty')}
-                    description={t('dashboard.metrics.activeCalls.emptyDescription')}
+                    description={t(
+                        'dashboard.metrics.activeCalls.emptyDescription',
+                    )}
                 />
             </div>
         );
