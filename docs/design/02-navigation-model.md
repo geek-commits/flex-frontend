@@ -22,7 +22,8 @@ The frontend has a single navigation source of truth — `FLEX_NAVIGATION_AREAS`
 - `ContextSidebar` — the active area's complete groups filtered by item capability;
 - `GlobalSearch` — navigation index derived from the domain tree with `Domain · Group` muted subtitles (no LIVE/AGENT suffix clutter);
 - Mobile Sheet — domain/group/route hierarchy identical to desktop (not a flat list);
-- `FlexAppShell` (`resources/js/components/flex/flex-app-shell.tsx`) — the only signed-in structural shell, reused by Admin, Agent, settings, detail, and utility layouts.
+- `FlexAppShell` (`resources/js/components/flex/flex-app-shell.tsx`) — the structural shell for Agent, settings, detail, and utility layouts.
+- `AppShell` (`resources/js/components/app-shell.tsx`, adapted from `@efferd/app-shell-3`) — Administration canary shell: single inset icon-collapsible sidebar plus merged header. `AppSidebar` derives workspace switching and the active area's groups from `FLEX_NAVIGATION_AREAS` with render-time capability filtering; `AppHeader` hosts the sidebar trigger, breadcrumbs, global search, language, tenant context, and profile. `AdminShell` renders it; Agent and settings stay on `FlexAppShell` until the canary is promoted.
 
 `NAVIGATION` in `resources/js/auth/capabilities.tsx` is derived flat from the area registry for consumers that need a list — manual entries are not maintained. Account settings have no product capability requirement; operational settings retain their existing capability gates. Boundary-aware matching plus longest-route resolution ensures detail routes inherit one canonical parent rather than activating several prefixes.
 
@@ -102,6 +103,11 @@ GlobalHeader (56px, full width)
   are reserved for real, runtime-backed subviews within a page.
 - On mobile the two navigation levels become one hierarchical drawer sourced
   from the identical registry.
+- **Administration canary.** Routes mounted by `AdminShell` use the inset
+  icon-collapsible `AppShell` instead of rail + context sidebar. Navigation
+  derivation, capability gating, tenant treatment, breadcrumbs, and route
+  paths are unchanged; collapse persists via the sidebar cookie and
+  icon-only targets expose tooltips (rule 8).
 
 1. **Current route clearly indicated.** The active page must be identifiable in the rail/sidebar (e.g., active-item treatment). Users must never have to guess where they are.
 2. **Inaccessible routes excluded.** Entries the role cannot reach are removed, not shown disabled. Do not render dead navigation.
