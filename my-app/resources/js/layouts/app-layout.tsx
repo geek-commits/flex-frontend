@@ -1,4 +1,4 @@
-import { FlexAppShell } from '@/components/flex/flex-app-shell';
+import { AppShell } from '@/components/app-shell';
 import type { BreadcrumbItem } from '@/types';
 
 export default function AppLayout({
@@ -10,5 +10,5 @@ export default function AppLayout({
 }) {
     void breadcrumbs;
 
-    return <FlexAppShell mode="admin">{children}</FlexAppShell>;
+    return <AppShell>{children}</AppShell>;
 }

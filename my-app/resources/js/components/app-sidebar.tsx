@@ -27,9 +27,9 @@ import {
 } from '@/components/ui/sidebar';
 
 /**
- * Administration-canary sidebar: single inset icon-collapsible rail that
- * replaces PrimaryRail + ContextSidebar. Workspace switching (rail parity)
- * followed by the active area's groups (context parity), both derived from
+ * Universal FLEX sidebar: single inset icon-collapsible rail that replaces
+ * PrimaryRail + ContextSidebar. Workspace switching (rail parity) followed
+ * by the active area's groups (context parity), both derived from
  * FLEX_NAVIGATION_AREAS with render-time capability filtering. Active
  * detection honors href aliases via isActiveRoute.
  */
@@ -97,22 +97,41 @@ export function AppSidebar() {
             variant="inset"
             aria-label={t('aria.productDomains')}
         >
-            <SidebarHeader className="h-14 justify-center">
-                <SidebarMenu>
-                    <SidebarMenuItem>
-                        <SidebarMenuButton
-                            render={<Link href={homeHref} aria-label="FLEX home" />}
-                            tooltip="FLEX"
-                        >
-                            <FlexBrandLogo
-                                variant={collapsed ? 'collapsed' : 'static'}
-                                animateOnMount={false}
-                                decorative
-                                style={collapsed ? undefined : { width: 112 }}
-                            />
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                </SidebarMenu>
+            <SidebarHeader className="h-14 justify-center px-2">
+                {collapsed ? (
+                    <SidebarMenu>
+                        <SidebarMenuItem>
+                            <SidebarMenuButton
+                                render={
+                                    <Link
+                                        href={homeHref}
+                                        aria-label="FLEX home"
+                                    />
+                                }
+                                tooltip="FLEX"
+                            >
+                                <FlexBrandLogo
+                                    variant="collapsed"
+                                    animateOnMount={false}
+                                    decorative
+                                />
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                    </SidebarMenu>
+                ) : (
+                    <Link
+                        href={homeHref}
+                        aria-label="FLEX home"
+                        className="flex-focus-visible flex items-center rounded-md px-1 transition-transform duration-[var(--flex-duration-fast)] ease-[var(--flex-ease)] active:scale-[0.98]"
+                    >
+                        <FlexBrandLogo
+                            variant="static"
+                            animateOnMount={false}
+                            decorative
+                            style={{ width: 112 }}
+                        />
+                    </Link>
+                )}
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>

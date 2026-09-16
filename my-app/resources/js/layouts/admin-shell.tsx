@@ -13,11 +13,10 @@ export interface AdminShellProps {
 }
 
 /**
- * Canonical FLEX admin shell (Administration canary on the inset
- * icon-collapsible AppShell adapted from @efferd/app-shell-3).
- * Frame chrome (sidebar, header) is owned by AppShell; this wrapper adds
- * the in-content page header and content container. AgentShell stays on
- * FlexAppShell until the canary is promoted.
+ * Canonical FLEX admin shell (universal inset icon-collapsible AppShell
+ * adapted from @efferd/app-shell-3). Frame chrome (sidebar, header) is
+ * owned by AppShell; this wrapper adds the in-content page header and
+ * content container.
  */
 export function AdminShell({ title, subtitle, eyebrow, meta, actions, children }: AdminShellProps) {
     return (

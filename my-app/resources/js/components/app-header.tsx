@@ -24,7 +24,12 @@ import { TenantContextIndicator } from '@/features/tenants/tenant-context-indica
  * (search, language, tenant context, profile) on the right. Registry demo
  * controls (Send/Bell/NavUser) are intentionally not carried over.
  */
-export function AppHeader() {
+export function AppHeader({
+    operationalControls,
+}: {
+    /** Agent-specific live controls rendered inside the shared global header. */
+    operationalControls?: React.ReactNode;
+}) {
     const { url } = usePage();
     const { t } = useTranslation('navigation');
 
@@ -61,6 +66,7 @@ export function AppHeader() {
             </div>
             <div className="flex min-w-0 items-center gap-2 md:gap-3">
                 <GlobalSearchTrigger />
+                {operationalControls}
                 <Separator
                     className="hidden h-4 data-[orientation=vertical]:self-center sm:block"
                     orientation="vertical"
