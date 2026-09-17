@@ -22,6 +22,7 @@ import { DataGridTable } from '@/components/reui/data-grid/data-grid-table';
 import { Button } from '@/components/ui/button';
 import type { SubscriptionRecord } from '@/domain/subscription-types';
 import { SubscriptionStatusBadge } from '@/features/subscriptions/subscription-status-badge';
+import { formatDate, formatNumber } from '@/i18n/formatters';
 
 export interface SubscriptionsTableProps {
     records: SubscriptionRecord[];
@@ -85,7 +86,7 @@ export function SubscriptionsTable({
                 cell: ({ row }) => (
                     <div className="flex flex-col text-xs">
                         <span className="font-semibold flex-numeric text-flex-text-primary">
-                            ${row.original.amount.toLocaleString()} {row.original.currency}
+                            {formatNumber(row.original.amount)} {row.original.currency}
                         </span>
                         <span className="text-[10px] text-flex-text-muted capitalize">
                             {row.original.billingCycle} · {row.original.autoRenew ? t('subscriptions.columns.autoRenew') : t('subscriptions.columns.manual')}
@@ -104,9 +105,7 @@ export function SubscriptionsTable({
 
                     return (
                         <span className="text-xs tabular-nums text-flex-text-muted whitespace-nowrap">
-                            {Number.isNaN(date.getTime())
-                                ? '—'
-                                : date.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' })}
+                            {Number.isNaN(date.getTime()) ? '—' : formatDate(date, undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
                         </span>
                     );
                 },
@@ -131,7 +130,9 @@ export function SubscriptionsTable({
                                           : 'text-flex-text-primary'
                                 }`}
                             >
-                                {days === 0 ? t('subscriptions.columns.zeroDays') : t(days === 1 ? 'subscriptions.columns.days_one' : 'subscriptions.columns.days_other', { count: days })}
+                                {days === 0
+                                    ? t('subscriptions.columns.zeroDays')
+                                    : t('subscriptions.columns.days', { count: days })}
                             </span>
                         </div>
                     );
@@ -158,18 +159,26 @@ export function SubscriptionsTable({
                 header: t('subscriptions.columns.reminders'),
                 cell: ({ row }) => {
                     const rec = row.original;
+                    const label = rec.reminderSent
+                        ? t('subscriptions.reminders.sent')
+                        : rec.remainingDays <= 5 && rec.remainingDays > 0
+                          ? t('subscriptions.reminders.due')
+                          : t('subscriptions.reminders.notSent');
 
                     return (
-                        <div className="flex items-center gap-1.5 text-[11px] text-flex-text-muted whitespace-nowrap">
+                        <div className="flex min-w-0 items-center gap-1.5 text-[11px] text-flex-text-muted">
                             {rec.reminderSent ? (
-                                <span className="inline-flex items-center gap-1 text-success">
-                                    <RiCalendarCheckLine className="size-3.5" />
-                                    {t('subscriptions.reminders.sent')}
+                                <span
+                                    className="inline-flex min-w-0 items-center gap-1 truncate text-success"
+                                    title={label}
+                                >
+                                    <RiCalendarCheckLine className="size-3.5 shrink-0" />
+                                    <span className="truncate">{label}</span>
                                 </span>
-                            ) : rec.remainingDays <= 5 && rec.remainingDays > 0 ? (
-                                <span className="text-warning font-medium">{t('subscriptions.reminders.due')}</span>
                             ) : (
-                                <span>{t('subscriptions.reminders.notSent')}</span>
+                                <span className="truncate" title={label}>
+                                    {label}
+                                </span>
                             )}
                         </div>
                     );
@@ -250,7 +259,7 @@ export function SubscriptionsTable({
             tableLayout={{ dense: true }}
             onRowClick={onRowClick}
         >
-            <div className="w-full space-y-2.5">
+            <div className="w-full min-w-0 space-y-2.5">
                 <DataGridContainer>
                     <DataGridScrollArea>
                         <DataGridTable />

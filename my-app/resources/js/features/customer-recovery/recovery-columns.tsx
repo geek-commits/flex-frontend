@@ -7,6 +7,7 @@ import { RecoveryOwnership } from '@/features/customer-recovery/recovery-ownersh
 import { RecoveryStatus } from '@/features/customer-recovery/recovery-status';
 import type { RecoveryRecord } from '@/features/customer-recovery/recovery-types';
 import { VoicemailPlayer } from '@/features/customer-recovery/voicemail-player';
+import { formatDate } from '@/i18n/formatters';
 
 type AgentT = TFunction<'agent', undefined>;
 
@@ -25,14 +26,14 @@ function formatMissedAt(value: string, t: AgentT): string {
     yesterday.setDate(today.getDate() - 1);
 
     if (sameDay) {
-        return `${t('recovery.today')}, ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+        return `${t('recovery.today')}, ${formatDate(date, undefined, { hour: '2-digit', minute: '2-digit' })}`;
     }
 
     if (date.toDateString() === yesterday.toDateString()) {
-        return `${t('recovery.yesterday')}, ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+        return `${t('recovery.yesterday')}, ${formatDate(date, undefined, { hour: '2-digit', minute: '2-digit' })}`;
     }
 
-    return date.toLocaleDateString([], { day: 'numeric', month: 'short' }) + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return `${formatDate(date, undefined, { day: 'numeric', month: 'short' })} ${formatDate(date, undefined, { hour: '2-digit', minute: '2-digit' })}`;
 }
 
 export function recoveryColumns(
@@ -53,7 +54,7 @@ export function recoveryColumns(
                     <span className="flex-numeric text-xs text-flex-text-muted">{row.original.phoneNumber}</span>
                 </div>
             ),
-            size: 260,
+            size: 200,
             enableSorting: true,
             meta: { kind: 'identity', align: 'start', headerTitle: t('recovery.columns.customerPhone') },
         },
@@ -73,7 +74,7 @@ export function recoveryColumns(
             id: 'queue',
             header: ({ column }) => <DataGridColumnHeader title={t('recovery.columns.queue')} column={column} />,
             cell: ({ getValue }) => <span className="text-xs text-flex-text-primary">{getValue() as string}</span>,
-            size: 220,
+            size: 160,
             enableSorting: true,
             meta: { kind: 'text', align: 'start', headerTitle: t('recovery.columns.queue') },
         },

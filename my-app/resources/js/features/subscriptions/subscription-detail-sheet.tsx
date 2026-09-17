@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import type { MailConnectionStatus } from '@/domain/mail-types';
 import type { SubscriptionRecord } from '@/domain/subscription-types';
 import { SubscriptionStatusBadge } from '@/features/subscriptions/subscription-status-badge';
+import { formatDate, formatNumber } from '@/i18n/formatters';
 
 export interface SubscriptionDetailSheetProps {
     record?: SubscriptionRecord;
@@ -45,14 +46,17 @@ export function SubscriptionDetailSheet({
         return null;
     }
 
-    const metaKey = record.remainingDays === 1 ? 'subscriptions.detail.meta_one' : 'subscriptions.detail.meta_other';
-
     return (
         <FlexDetailSheet
             open={open}
             onOpenChange={onOpenChange}
             title={record.accountName}
-            meta={t(metaKey, { plan: record.plan, seats: record.seats, days: record.remainingDays })}
+            meta={t('subscriptions.detail.meta', {
+                count: record.remainingDays,
+                plan: record.plan,
+                seats: record.seats,
+                days: record.remainingDays,
+            })}
             footer={
                 <div className="flex items-center justify-between gap-2 w-full">
                     <Button
@@ -95,12 +99,12 @@ export function SubscriptionDetailSheet({
                     </div>
                     <div className="flex items-baseline gap-2 mt-1">
                         <span className="text-2xl font-bold text-flex-text-primary flex-numeric">
-                            {t(record.remainingDays === 1 ? 'subscriptions.detail.daysRemaining_one' : 'subscriptions.detail.daysRemaining_other', { count: record.remainingDays })}
+                            {t('subscriptions.detail.daysRemaining', { count: record.remainingDays })}
                         </span>
                         <span className="text-xs text-flex-text-muted">{t('subscriptions.detail.remainingUntilExpiry')}</span>
                     </div>
                     <p className="text-[11px] text-flex-text-muted">
-                        {t('subscriptions.detail.expiresOn', { date: new Date(record.expiresAt).toLocaleDateString([], { dateStyle: 'full' }) })}
+                        {t('subscriptions.detail.expiresOn', { date: formatDate(record.expiresAt, undefined, { dateStyle: 'full' }) })}
                     </p>
                 </div>
 
@@ -116,19 +120,17 @@ export function SubscriptionDetailSheet({
                         <span className="font-mono text-[11px]">{record.contactEmail}</span>
                     </DetailRow>
                     <DetailRow label={t('subscriptions.detail.tierPlan')}>{record.plan}</DetailRow>
-                    <DetailRow label={t('subscriptions.detail.seatAllocation')}>{t(record.seats === 1 ? 'subscriptions.detail.seatAllocationValue_one' : 'subscriptions.detail.seatAllocationValue_other', { count: record.seats })}</DetailRow>
+                    <DetailRow label={t('subscriptions.detail.seatAllocation')}>
+                        {t('subscriptions.detail.seatAllocationValue', { count: record.seats })}
+                    </DetailRow>
                     <DetailRow label={t('subscriptions.detail.contractAmount')}>
-                        ${record.amount.toLocaleString()} {record.currency} ({record.billingCycle})
+                        {formatNumber(record.amount)} {record.currency} ({record.billingCycle})
                     </DetailRow>
                     <DetailRow label={t('subscriptions.detail.renewalPolicy')}>
                         {record.autoRenew ? t('subscriptions.detail.autoRenewActive') : t('subscriptions.detail.manualRenewal')}
                     </DetailRow>
                     <DetailRow label={t('subscriptions.detail.lastPayment')}>
-                        {new Date(record.lastPaymentDate).toLocaleDateString([], {
-                            month: 'short',
-                            day: 'numeric',
-                            year: 'numeric',
-                        })}{' '}
+                        {formatDate(record.lastPaymentDate, undefined, { month: 'short', day: 'numeric', year: 'numeric' })}{' '}
                         <span className="text-success font-normal">({record.lastPaymentStatus})</span>
                     </DetailRow>
                 </div>
@@ -174,7 +176,7 @@ export function SubscriptionDetailSheet({
                                     <span className="text-success inline-flex items-center gap-1">
                                         <RiCheckLine className="size-3.5" />
                                         {record.reminderSentAt
-                                            ? t('subscriptions.detail.sentAt', { date: new Date(record.reminderSentAt).toLocaleDateString() })
+                                            ? t('subscriptions.detail.sentAt', { date: formatDate(record.reminderSentAt) })
                                             : t('subscriptions.detail.sent')}
                                     </span>
                                 ) : (

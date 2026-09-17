@@ -49,7 +49,7 @@ export function ContactCenterDashboardContent() {
         useDashboardData();
 
     return (
-        <div className="flex w-full flex-col gap-[var(--flex-space-section)]">
+        <div className="flex w-full min-w-0 flex-col gap-[var(--flex-space-section)]">
             <FlexLiveDataStatus
                 connectionState={connectionState}
                 lastUpdated={lastUpdated}
@@ -71,12 +71,16 @@ export function ContactCenterDashboardContent() {
                 <ContactCenterTrafficChart />
             </Suspense>
 
-            <div className="grid grid-cols-1 gap-[var(--flex-space-section)] lg:grid-cols-2">
+            <div className="grid min-w-0 grid-cols-1 gap-[var(--flex-space-section)] lg:grid-cols-2">
                 <Suspense fallback={<CardSkeleton bodyClassName="h-56" />}>
-                    <QueueHealth />
+                    <div className="min-w-0">
+                        <QueueHealth />
+                    </div>
                 </Suspense>
                 <Suspense fallback={<CardSkeleton bodyClassName="h-56" />}>
-                    <ActiveCalls />
+                    <div className="min-w-0">
+                        <ActiveCalls />
+                    </div>
                 </Suspense>
             </div>
 

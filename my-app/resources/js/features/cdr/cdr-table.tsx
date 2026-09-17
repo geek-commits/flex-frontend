@@ -49,7 +49,7 @@ export function CdrTable({
             }}
             onRowClick={onRowClick}
         >
-            <div className="w-full space-y-2.5">
+            <div className="w-full min-w-0 space-y-2.5">
                 <CdrResultMeta table={table} shown={recordCount} total={total} quickFilter={quickFilter} />
                 <DataGridContainer>
                     <DataGridScrollArea>

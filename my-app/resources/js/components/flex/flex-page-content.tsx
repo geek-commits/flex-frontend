@@ -9,7 +9,7 @@ export function FlexPageContent({ children, className }: { children: React.React
     return (
         <div
             className={cn(
-                'px-[var(--flex-space-page-x)] py-[var(--flex-space-page-y)]',
+                'min-w-0 px-[var(--flex-space-page-x)] py-[var(--flex-space-page-y)]',
                 className
             )}
         >

@@ -42,7 +42,7 @@ export function CampaignsTable({
             }}
             onRowClick={onRowClick}
         >
-            <div className="w-full space-y-2.5">
+            <div className="w-full min-w-0 space-y-2.5">
                 <CampaignsResultMeta shown={recordCount} total={total} />
                 <DataGridContainer>
                     <DataGridScrollArea>

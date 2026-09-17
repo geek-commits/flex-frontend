@@ -66,7 +66,7 @@ export function RecoveryTable({
             tableLayout={{ dense: true, columnsMovable: true }}
             onRowClick={onRowClick}
         >
-            <div className="w-full space-y-2.5">
+            <div className="w-full min-w-0 space-y-2.5">
                 <DataGridContainer>
                     <DataGridScrollArea>
                         <DataGridTable />

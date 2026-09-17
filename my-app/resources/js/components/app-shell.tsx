@@ -54,7 +54,7 @@ export function AppShell({
                 <SidebarInset className="bg-flex-workspace-canvas md:peer-data-[variant=inset]:ml-0">
                     <AppHeader operationalControls={operationalControls} />
                     {hasSidePanels ? (
-                        <div className="flex min-h-0 flex-1 overflow-hidden">
+                        <div className="flex min-h-0 min-w-0 flex-1 overflow-hidden">
                             <div
                                 id="flex-main-content"
                                 data-flex-workspace
