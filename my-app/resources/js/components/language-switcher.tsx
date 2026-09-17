@@ -1,5 +1,6 @@
 import { Check, Globe } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { FlagIcon, hasFlag } from '@/components/flags';
 import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
@@ -38,7 +39,13 @@ export function LanguageSwitcher({ className, variant = 'default' }: LanguageSwi
                         aria-label={`${label}: ${current.label}`}
                         data-test="language-switcher-trigger"
                     >
-                        <Globe className="size-4 opacity-70" aria-hidden="true" />
+                        {hasFlag(locale) ? (
+                            <span className="inline-flex h-3 w-4 shrink-0 overflow-hidden rounded-sm ring-1 ring-border/30">
+                                <FlagIcon code={locale} aria-hidden />
+                            </span>
+                        ) : (
+                            <Globe className="size-4 opacity-70" aria-hidden="true" />
+                        )}
                         <span>{current.label}</span>
                     </Button>
                 }
@@ -48,17 +55,25 @@ export function LanguageSwitcher({ className, variant = 'default' }: LanguageSwi
                     const meta = LOCALE_CONFIG[code as FlexLocale];
                     const isActive = locale === code;
 
-                    // Full visible language names per spec, no flags
                     return (
                         <DropdownMenuItem
                             key={code}
                             onClick={() => setLocale(code as FlexLocale)}
                             aria-current={isActive ? 'true' : undefined}
-                            className="flex items-center justify-between gap-2 min-h-9 cursor-pointer"
+                            className="flex items-center gap-2 min-h-9 cursor-pointer"
                             data-test={`language-option-${code}`}
                         >
-                            <span className={cn(isActive && 'font-medium')}>{meta.label}</span>
-                            {isActive && <Check className="size-4 text-primary" aria-hidden="true" />}
+                            {hasFlag(code as FlexLocale) ? (
+                                <span className="inline-flex h-3 w-4 shrink-0 overflow-hidden rounded-sm ring-1 ring-border/30">
+                                    <FlagIcon code={code as FlexLocale} aria-hidden />
+                                </span>
+                            ) : (
+                                <Globe className="size-4 shrink-0 opacity-70" aria-hidden="true" />
+                            )}
+                            <span className={cn('flex-1', isActive && 'font-medium')}>{meta.label}</span>
+                            {isActive && (
+                                <Check className="ml-auto size-4 shrink-0 text-primary" aria-hidden="true" />
+                            )}
                         </DropdownMenuItem>
                     );
                 })}
