@@ -1,10 +1,14 @@
 #!/usr/bin/env node
 /* global process */
 /**
- * FLEX i18n literal audit — report mode (Phase 2)
+ * FLEX i18n literal audit — report mode (Phase 2) / gate mode
  * Detects likely hardcoded user-facing literals not via t().
  * Allowlist per §77: CSS/classes/URLs/routes/testIds/technical enums are ignored.
  * This is a lightweight regex audit; prefer AST parsing later.
+ *
+ * Usage:
+ *   bun run i18n:audit           # report mode (exit 0, writes markdown)
+ *   bun run i18n:audit --gate    # gate mode (exit 1 if hits > 0 after triage)
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -16,36 +20,75 @@ const ALLOW_PATTERNS = [
 ];
 const IGNORE_FILES = [/\.test\.(ts|tsx)$/, /__tests__/, /mock/, /\.mock\./];
 
+// Triage allowlist per §107: terms that are NOT translation violations even if hardcoded
+// TRANSLATE / RUNTIME_DATA / TECHNICAL / BRAND / EXTERNAL / FALSE_POSITIVE
+const TRIAGE_ALLOWLIST = new Set([
+  // Brand / product names
+  'FLEX', 'Flex Contact Center', 'FLEX Contact Center',
+  'CDR', 'IVR', 'SIP', 'API', 'SMTP', 'URI', 'URL', 'UUID', 'SLA', 'CSAT', 'NPS',
+  // Plan names (technical branding)
+  'Starter', 'Professional', 'Enterprise', 'Basic', 'Premium', 'Pro', 'Pro+', 'Plus', 'Max',
+  // Example / placeholder data (runtime data, not UI copy)
+  'Acme', 'acmecc.com', 'example.com', 'yourdomain.com', 'notifications@yourdomain.com',
+  'admin@acmecc.com', '+254 700 123 456', 'Fatuma Ally', 'John Doe', 'Acme Contact Center',
+  // Technical enums / constants / codes
+  'GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS',
+  'HTTP', 'HTTPS', 'SSL', 'TLS', 'SSH', 'DNS', 'DHCP', 'NAT', 'VPN', 'PSTN', 'DTMF',
+  'RTP', 'SRTP', 'SDP', 'ICE', 'STUN', 'TURN', 'RTCP', 'QoS', 'PBX', 'CTI', 'ACD',
+  'ASR', 'TTS', 'NLU', 'NLP', 'ML', 'AI', 'CI', 'CD', 'CI/CD', 'SLA', 'CSAT', 'NPS',
+  // Language native names
+  'English', 'Kiswahili', 'Français',
+  // Time zones / units
+  'GMT', 'UTC', 'EST', 'PST', 'CET', 'EAT', 'WAT', 'CAT', 'AM', 'PM',
+  // Status / severity (technical values)
+  'active', 'inactive', 'pending', 'completed', 'failed', 'success', 'error', 'warning',
+  'info', 'danger', 'primary', 'secondary', 'default', 'ghost', 'outline', 'destructive', 'link',
+  'active', 'inactive', 'pending', 'completed', 'failed', 'success', 'error', 'warning',
+  'info', 'danger', 'primary', 'secondary', 'default', 'ghost', 'outline', 'destructive', 'link',
+  'pending', 'completed', 'failed', 'success', 'error', 'warning',
+  // UI action verbs (often used as button labels in code before t())
+  'Save', 'Edit', 'Delete', 'Close', 'Search', 'Filter', 'Sort', 'Export', 'Import',
+  'Print', 'Copy', 'Paste', 'Yes', 'No', 'OK', 'Cancel', 'Submit', 'Create', 'Update',
+  // Chart / analytics
+  'Min', 'Max', 'Avg', 'Sum', 'Count', 'Total', 'Average', 'Median', 'Percentile',
+  'N/A', 'NA', 'TBD', 'OK', 'OK',
+]);
+
 function isAllowedLiteral(text) {
   const t = text.trim();
 
   if (!t) {
-return true;
-}
+    return true;
+  }
 
   if (t.length < 3) {
-return true;
-}
+    return true;
+  }
 
   if (/^[A-Z_]+$/.test(t)) {
-return true;
-} // enum
+    return true;
+  } // enum
 
   if (/^\/[a-z/]+$/.test(t)) {
-return true;
-} // route
+    return true;
+  } // route
 
   if (ALLOW_PATTERNS.some((re) => re.test(t))) {
-return true;
-}
+    return true;
+  }
+
+  // Triage allowlist: terms that are NOT translation violations
+  if (TRIAGE_ALLOWLIST.has(t)) {
+    return true;
+  }
 
   return false;
 }
 
 function scanFile(file) {
   if (IGNORE_FILES.some((re) => re.test(file))) {
-return [];
-}
+    return [];
+  }
 
   const content = fs.readFileSync(file, 'utf8');
   const hits = [];
@@ -57,16 +100,16 @@ return [];
     const literal = m[1].trim();
 
     if (isAllowedLiteral(literal)) {
-continue;
-}
+      continue;
+    }
 
     // skip if line contains t( nearby
     const lineStart = content.lastIndexOf('\n', m.index);
     const line = content.slice(lineStart, m.index + m[0].length);
 
     if (line.includes('t(') || line.includes('{t') || line.includes('<Trans')) {
-continue;
-}
+      continue;
+    }
 
     // skip if inside Head title already handled? still report
     hits.push({ file: path.relative(ROOT, file), line: content.slice(0, m.index).split('\n').length, literal, type: 'JSX text' });
@@ -80,20 +123,20 @@ continue;
     const literal = m[2].trim();
 
     if (isAllowedLiteral(literal)) {
-continue;
-}
+      continue;
+    }
 
     const lineStart = content.lastIndexOf('\n', m.index);
     const line = content.slice(lineStart, m.index + m[0].length + 50);
 
     if (line.includes('t(') || line.includes('{t')) {
-continue;
-}
+      continue;
+    }
 
     // ignore if literal is translation key-like with dot
     if (literal.includes('.') && literal.split('.').length > 1 && /^[a-z.]+$/.test(literal.toLowerCase())) {
-continue;
-}
+      continue;
+    }
 
     hits.push({ file: path.relative(ROOT, file), line: content.slice(0, m.index).split('\n').length, literal: `${attr}="${literal}"`, type: attr });
   }
@@ -109,20 +152,23 @@ function walk(dir) {
     const full = path.join(dir, e.name);
 
     if (e.isDirectory()) {
-files.push(...walk(full));
-} else if (e.isFile() && /\.(ts|tsx)$/.test(e.name)) {
-files.push(full);
-}
+      files.push(...walk(full));
+    } else if (e.isFile() && /\.(ts|tsx)$/.test(e.name)) {
+      files.push(full);
+    }
   }
 
   return files;
 }
 
+const args = process.argv.slice(2);
+const gateMode = args.includes('--gate');
+
 const files = walk(ROOT);
 const allHits = files.flatMap(scanFile);
 const outPath = path.resolve(import.meta.dirname, '..', '..', 'docs', 'localization', 'FLEX_I18N_LITERAL_AUDIT.md');
 
-let md = `# FLEX i18n Literal Audit — Report Mode (Phase 2)\n\n`;
+let md = `# FLEX i18n Literal Audit — ${gateMode ? 'Gate Mode' : 'Report Mode (Phase 2)'}\n\n`;
 md += `**Generated:** ${new Date().toISOString()} **SHA:** ${(globalThis.process?.env?.GITHUB_SHA) ?? 'local'} **Files scanned:** ${files.length} **Hits:** ${allHits.length}\n\n`;
 md += `> Classification per §107: TRANSLATE / RUNTIME_DATA / TECHNICAL / BRAND / EXTERNAL / FALSE_POSITIVE — triage before CI gate.\n\n`;
 
@@ -136,13 +182,24 @@ if (allHits.length === 0) {
   }
 
   if (allHits.length > 500) {
-md += `\n*Truncated ${allHits.length - 500} more hits*\n`;
-}
+    md += `\n*Truncated ${allHits.length - 500} more hits*\n`;
+  }
 }
 
-md += `\n## Next\n\nTriage every hit per §107. New violations must be zero before CI gate (\`bun run i18n:audit\` as failing).\n`;
+md += `\n## Next\n\nTriage every hit per §107. New violations must be zero before CI gate (\`bun run i18n:audit --gate\` as failing).\n`;
 fs.mkdirSync(path.dirname(outPath), { recursive: true });
 fs.writeFileSync(outPath, md);
 console.log(`i18n audit: ${allHits.length} hits across ${files.length} files → ${path.relative(process.cwd(), outPath)}`);
-// report mode never fails
-globalThis.process?.exit(0);
+
+if (gateMode) {
+  if (allHits.length > 0) {
+    console.error(`i18n audit GATE FAILED: ${allHits.length} hardcoded literal violations. Run 'bun run i18n:audit' for report.`);
+    globalThis.process?.exit(1);
+  } else {
+    console.log('i18n audit GATE PASSED: no violations.');
+    globalThis.process?.exit(0);
+  }
+} else {
+  // report mode never fails
+  globalThis.process?.exit(0);
+}
