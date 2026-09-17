@@ -21,6 +21,7 @@ const GlobalSearchProvider = lazy(() =>
 const Toaster = lazy(() =>
     import('@/components/ui/sonner').then((m) => ({ default: m.Toaster }))
 );
+import { IslandDemoSeeder } from '@/components/flex/call-island/island-demo-seeder';
 import { FlexCallIsland } from '@/components/flex/flex-call-island';
 import { AgentAssistSessionProvider } from '@/features/agent-workspace/agent-assist/agent-assist-session-context';
 
@@ -32,6 +33,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
                     <GlobalSearchProvider>{children}</GlobalSearchProvider>
                     <Toaster />
                     <FlexCallIsland />
+                    <IslandDemoSeeder />
                 </AgentAssistSessionProvider>
             </TooltipProvider>
         </Suspense>

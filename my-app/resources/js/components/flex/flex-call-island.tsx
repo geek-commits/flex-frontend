@@ -131,7 +131,7 @@ function FlexCallIslandSurface({ call }: { call: ActiveCallPresentation }) {
     );
 
     return (
-        <div className="pointer-events-none fixed inset-0 z-40">
+        <div className="pointer-events-none fixed inset-0 z-[60]">
             <motion.div
                 ref={islandRef}
                 style={{ x: drag.x, y: drag.y }}
