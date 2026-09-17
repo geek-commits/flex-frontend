@@ -35,8 +35,7 @@ describe('ConsoleModuleItem — key-driven', () => {
                 <ConsoleModuleItem module={mod} />
             </I18nextProvider>,
         );
-        // French translation for tenants title is still English copy (fallback) but key-driven — ensure no crash and still renders
-        expect(screen.getByText('Tenants & Multi-Org')).toBeTruthy();
+        expect(screen.getByText('Locataires & Multi-Org')).toBeTruthy();
         await i18n.changeLanguage('en');
     });
 });

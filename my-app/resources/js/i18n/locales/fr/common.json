@@ -172,7 +172,7 @@
     },
     "customers": {
       "breadcrumb": "Clients",
-      "customer360Title": "{{name}} — Customer 360",
+      "customer360Title": "{{name}} — Client 360",
       "openWorkspace": "Ouvrir l'espace de travail",
       "customerId": "ID client",
       "events": "{{count}} événements",
@@ -195,7 +195,7 @@
   },
   "customers": {
     "breadcrumb": "Clients",
-    "customer360Title": "{{name}} — Customer 360",
+    "customer360Title": "{{name}} — Client 360",
     "openWorkspace": "Ouvrir l'espace de travail",
     "customerId": "ID client",
     "events": "{{count}} événements",

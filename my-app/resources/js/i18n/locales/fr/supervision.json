@@ -93,71 +93,71 @@
     }
   },
   "monitoring": {
-    "label": "Agent Monitoring",
-    "title": "Agent Monitoring",
-    "subtitle": "Live agent activity and supervisor intervention.",
-    "headTitle": "Agent Monitoring — Flex Contact Center",
+    "label": "Supervision des agents",
+    "title": "Supervision des agents",
+    "subtitle": "Activité des agents en direct et intervention du superviseur.",
+    "headTitle": "Supervision des agents — Flex Contact Center",
     "error": {
-      "title": "Agent monitoring unavailable",
-      "description": "Failed to load live agent activity.",
-      "retry": "Retry"
+      "title": "Supervision des agents indisponible",
+      "description": "Échec du chargement de l'activité en direct des agents.",
+      "retry": "Réessayer"
     },
     "empty": {
-      "filteredTitle": "No agents match your filters",
-      "filteredDescription": "Try a different search or clear your filters.",
-      "noAgentsTitle": "No agents online",
-      "noAgentsDescription": "Agent activity will appear here once agents come online.",
-      "rosterTitle": "No agents online",
-      "rosterDescription": "Agent activity will appear here once agents come online.",
-      "clearFilters": "Clear filters"
+      "filteredTitle": "Aucun agent ne correspond à vos filtres",
+      "filteredDescription": "Essayez une recherche différente ou effacez vos filtres.",
+      "noAgentsTitle": "Aucun agent en ligne",
+      "noAgentsDescription": "L'activité des agents apparaîtra ici une fois que les agents seront connectés.",
+      "rosterTitle": "Aucun agent en ligne",
+      "rosterDescription": "L'activité des agents apparaîtra ici une fois que les agents seront connectés.",
+      "clearFilters": "Effacer les filtres"
     },
     "toolbar": {
-      "filters": "Filters",
-      "clear": "Clear",
-      "searchPlaceholder": "Search agents by name or extension...",
-      "searchAriaLabel": "Search agents",
-      "columns": "Columns",
-      "stateLabel": "State",
-      "queueLabel": "Queue"
+      "filters": "Filtres",
+      "clear": "Effacer",
+      "searchPlaceholder": "Rechercher des agents par nom ou extension...",
+      "searchAriaLabel": "Rechercher des agents",
+      "columns": "Colonnes",
+      "stateLabel": "État",
+      "queueLabel": "File"
     },
     "columns": {
       "agent": "Agent",
-      "ext": "Ext.",
-      "queue": "Queue",
-      "state": "State",
-      "stateTime": "State Time",
-      "currentCall": "Current Call",
-      "callsToday": "Calls Today",
-      "aht": "AHT"
+      "ext": "Poste",
+      "queue": "File",
+      "state": "État",
+      "stateTime": "Temps d'état",
+      "currentCall": "Appel en cours",
+      "callsToday": "Appels aujourd'hui",
+      "aht": "DMT"
     },
     "summary": {
       "talking": {
-        "label": "Talking",
-        "description": "Agents on active call"
+        "label": "En communication",
+        "description": "Agents en appel actif"
       },
       "ready": {
-        "label": "Ready",
-        "description": "Available for incoming calls"
+        "label": "Disponible",
+        "description": "Disponible pour les appels entrants"
       },
       "ringing": {
-        "label": "Ringing",
-        "description": "Agents on inbound ring"
+        "label": "Sonnerie",
+        "description": "Agents en sonnerie entrante"
       },
       "wrapUp": {
-        "label": "Wrap-Up",
-        "description": "Post-call work"
+        "label": "Post-appel",
+        "description": "Travail post-appel"
       },
       "break": {
-        "label": "Break",
-        "description": "Away on break"
+        "label": "Pause",
+        "description": "En pause"
       },
       "notReady": {
-        "label": "Not Ready",
-        "description": "Unavailable for calls"
+        "label": "Non prêt",
+        "description": "Indisponible pour les appels"
       },
       "offline": {
-        "label": "Offline",
-        "description": "Not currently logged in"
+        "label": "Hors ligne",
+        "description": "Pas actuellement connecté"
       }
     },
     "call": {
@@ -462,7 +462,7 @@
     "noCalls": "Aucun appel"
   },
   "activeCalls": {
-    "title": "Active Calls",
+    "title": "Appels actifs",
     "columns": {
       "customer": "Client",
       "agent": "Agent",
@@ -491,7 +491,7 @@
       "stateTime": "Temps d'état",
       "currentCall": "Appel en cours",
       "callsToday": "Appels aujourd'hui",
-      "aht": "AHT"
+      "aht": "DMT"
     }
   },
   "social": {
@@ -549,11 +549,11 @@
   "exceptions": {
     "breadcrumb": "Exceptions",
     "headTitle": "Exceptions — Flex",
-    "title": "Centre d’exceptions",
+    "title": "Centre d'exceptions",
     "description": "Problèmes nécessitant une attention — dérivés des métriques opérationnelles existantes.",
     "empty": {
       "title": "Aucune exception",
-      "description": "Aucune exception basée sur les seuils n’est active. Lorsque le SLA, l’arriéré des files ou les échecs de campagne dépassent les seuils, elles apparaissent ici."
+      "description": "Aucune exception basée sur les seuils n'est active. Lorsque le SLA, l'arriéré des files ou les échecs de campagne dépassent les seuils, elles apparaissent ici."
     }
   }
 }

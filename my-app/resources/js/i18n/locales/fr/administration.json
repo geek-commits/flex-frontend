@@ -286,10 +286,10 @@
       }
     },
     "lifecycleDialog": {
-      "deactivateSuccess": "{{name}} deactivated",
-      "removeSuccess": "{{name}} removed",
-      "restoreSuccess": "{{name}} restored",
-      "actionFailed": "The action could not be completed. Try again."
+      "deactivateSuccess": "Rôle désactivé avec succès",
+      "removeSuccess": "Rôle supprimé avec succès",
+      "restoreSuccess": "Rôle rétabli avec succès",
+      "actionFailed": "L'action a échoué"
     },
     "permissions": {
       "catalog": {
@@ -534,195 +534,195 @@
   "ivr": {
     "label": "IVR",
     "title": "IVR",
-    "subtitle": "Configure interactive voice response menus.",
+    "subtitle": "Configurer les menus de réponse vocale interactive.",
     "headTitle": "IVR — Flex Contact Center",
     "actions": {
-      "addIVR": "Add IVR"
+      "addIVR": "Ajouter un IVR"
     },
     "toolbar": {
-      "searchPlaceholder": "Search IVR menus...",
-      "searchAriaLabel": "Search IVR menus"
+      "searchPlaceholder": "Rechercher des menus IVR...",
+      "searchAriaLabel": "Rechercher des menus IVR"
     },
     "error": {
-      "title": "Couldn't load IVR menus",
-      "retry": "Try Again",
-      "generic": "IVR data could not be retrieved."
+      "title": "Impossible de charger les menus IVR",
+      "retry": "Réessayer",
+      "generic": "Les données IVR n'ont pas pu être récupérées."
     },
     "empty": {
-      "noIVRTitle": "No IVR menus configured",
-      "noIVRDescription": "Create an IVR menu to route callers by keypress.",
-      "noMatchTitle": "No IVR menus match your search",
-      "noMatchDescription": "Try changing your search.",
-      "addIVR": "Add IVR",
-      "clearFilters": "Clear filters"
+      "noIVRTitle": "Aucun menu IVR configuré",
+      "noIVRDescription": "Créez un menu IVR pour acheminer les appelants par touche.",
+      "noMatchTitle": "Aucun menu IVR ne correspond à votre recherche",
+      "noMatchDescription": "Essayez de modifier votre recherche.",
+      "addIVR": "Ajouter un IVR",
+      "clearFilters": "Effacer les filtres"
     },
-    "footerHint": "POC mock adapter — `RoutingRepository` boundary; replace with the real routing backend in rollout.",
+    "footerHint": "Adaptateur POC — frontière `RoutingRepository` ; remplacer par le backend de routage réel lors du déploiement.",
     "columns": {
       "ivr": "IVR",
-      "prompt": "Prompt",
-      "entries": "Entries",
-      "defaultDestination": "Default Destination",
-      "status": "Status",
+      "prompt": "Annonce / Enregistrement",
+      "entries": "Entrées",
+      "defaultDestination": "Destination par défaut",
+      "status": "Statut",
       "actions": "Actions"
     },
     "table": {
-      "view": "View",
-      "edit": "Edit",
-      "viewAria": "View {{name}}",
-      "editAria": "Edit {{name}}"
+      "view": "Voir",
+      "edit": "Modifier",
+      "viewAria": "Voir {{name}}",
+      "editAria": "Modifier {{name}}"
     },
     "detail": {
       "titleFallback": "IVR",
-      "status": "Status",
-      "prompt": "Prompt",
-      "defaultDestination": "Default Destination",
-      "menuEntries": "Menu Entries",
-      "key": "Key",
-      "label": "Label",
+      "status": "Statut",
+      "prompt": "Annonce / Enregistrement",
+      "defaultDestination": "Destination par défaut",
+      "menuEntries": "Entrées du menu",
+      "key": "Touche",
+      "label": "Libellé",
       "destination": "Destination",
-      "editIVR": "Edit IVR",
-      "delete": "Delete"
+      "editIVR": "Modifier l'IVR",
+      "delete": "Supprimer"
     },
     "form": {
-      "addTitle": "Add IVR",
-      "editTitle": "Edit IVR",
-      "description": "Configure the IVR menu, prompt, and routing destinations.",
-      "general": "General",
-      "ivrName": "IVR Name",
-      "ivrNamePlaceholder": "e.g. Main Menu",
-      "promptLabel": "Prompt / Recording",
-      "selectRecording": "Select a recording",
-      "status": "Status",
-      "active": "Active",
-      "inactive": "Inactive",
-      "menuEntries": "Menu Entries",
-      "key": "Key",
-      "label": "Label",
+      "addTitle": "Ajouter un IVR",
+      "editTitle": "Modifier l'IVR",
+      "description": "Configurer le menu IVR, l'annonce et les destinations de routage.",
+      "general": "Général",
+      "ivrName": "Nom de l'IVR",
+      "ivrNamePlaceholder": "ex. Menu principal",
+      "promptLabel": "Annonce / Enregistrement",
+      "selectRecording": "Sélectionner un enregistrement",
+      "status": "Statut",
+      "active": "Actif",
+      "inactive": "Inactif",
+      "menuEntries": "Entrées du menu",
+      "key": "Touche",
+      "label": "Libellé",
       "destination": "Destination",
       "entryKeyPlaceholder": "1",
-      "entryLabelPlaceholder": "e.g. Sales",
-      "entryKeyAria": "Entry {{index}} key",
-      "entryLabelAria": "Entry {{index}} label",
-      "removeEntryAria": "Remove entry {{index}}",
-      "addEntry": "Add Entry",
-      "fallbackDestination": "Fallback Destination",
-      "defaultDestination": "Default Destination",
-      "cancel": "Cancel",
-      "saving": "Saving…",
-      "saveIVR": "Save IVR",
-      "createIVR": "Create IVR",
+      "entryLabelPlaceholder": "ex. Ventes",
+      "entryKeyAria": "Touche de l'entrée {{index}}",
+      "entryLabelAria": "Libellé de l'entrée {{index}}",
+      "removeEntryAria": "Supprimer l'entrée {{index}}",
+      "addEntry": "Ajouter une entrée",
+      "fallbackDestination": "Destination de secours",
+      "defaultDestination": "Destination par défaut",
+      "cancel": "Annuler",
+      "saving": "Enregistrement…",
+      "saveIVR": "Enregistrer l'IVR",
+      "createIVR": "Créer un IVR",
       "validation": {
-        "nameRequired": "Le nom IVR est requis.",
-        "duplicateKeys": "Menu entry keys must be unique."
+        "nameRequired": "Le nom de l'IVR est requis.",
+        "duplicateKeys": "Les touches des entrées de menu doivent être uniques."
       },
       "toast": {
-        "saved": "IVR saved",
-        "created": "IVR created",
-        "saveFailed": "IVR could not be saved",
-        "createFailed": "IVR could not be created"
+        "saved": "IVR enregistré",
+        "created": "IVR créé",
+        "saveFailed": "L'IVR n'a pas pu être enregistré",
+        "createFailed": "L'IVR n'a pas pu être créé"
       }
     },
     "deleteDialog": {
-      "title": "Delete IVR?",
-      "description": "Delete \"{{name}}\"? Its menu entries and destinations will be removed.",
-      "cancel": "Cancel",
-      "delete": "Delete IVR",
-      "deleting": "Deleting…",
+      "title": "Supprimer l'IVR ?",
+      "description": "Supprimer « {{name}} » ? Ses entrées de menu et destinations seront supprimées.",
+      "cancel": "Annuler",
+      "delete": "Supprimer l'IVR",
+      "deleting": "Suppression…",
       "toast": {
-        "deleted": "IVR deleted",
-        "deleteFailed": "IVR could not be deleted"
+        "deleted": "IVR supprimé",
+        "deleteFailed": "L'IVR n'a pas pu être supprimé"
       }
     }
   },
   "timeGroups": {
-    "label": "Time Groups",
-    "title": "Time Groups",
-    "subtitle": "Define reusable schedules for time-based routing.",
-    "headTitle": "Time Groups — Flex Contact Center",
+    "label": "Groupes de temps",
+    "title": "Groupes de temps",
+    "subtitle": "Définir des programmations réutilisables pour le routage basé sur l'heure.",
+    "headTitle": "Groupes de temps — Flex Contact Center",
     "actions": {
-      "addTimeGroup": "Add Time Group"
+      "addTimeGroup": "Ajouter un groupe de temps"
     },
     "toolbar": {
-      "searchPlaceholder": "Search time groups...",
-      "searchAriaLabel": "Search time groups"
+      "searchPlaceholder": "Rechercher des groupes de temps...",
+      "searchAriaLabel": "Rechercher des groupes de temps"
     },
     "error": {
-      "title": "Couldn't load time groups",
-      "retry": "Try Again",
-      "generic": "Time Group data could not be retrieved."
+      "title": "Impossible de charger les groupes de temps",
+      "retry": "Réessayer",
+      "generic": "Les données du groupe de temps n'ont pas pu être récupérées."
     },
     "empty": {
-      "noTimeGroupsTitle": "No time groups configured",
-      "noTimeGroupsDescription": "Create a reusable schedule for time-based routing.",
-      "noMatchTitle": "No time groups match your search",
-      "noMatchDescription": "Try changing your search.",
-      "addTimeGroup": "Add Time Group",
-      "clearFilters": "Clear filters"
+      "noTimeGroupsTitle": "Aucun groupe de temps configuré",
+      "noTimeGroupsDescription": "Créez une programmation réutilisable pour le routage basé sur l'heure.",
+      "noMatchTitle": "Aucun groupe de temps ne correspond à votre recherche",
+      "noMatchDescription": "Essayez de modifier votre recherche.",
+      "addTimeGroup": "Ajouter un groupe de temps",
+      "clearFilters": "Effacer les filtres"
     },
-    "footerHint": "POC mock adapter — `RoutingRepository` boundary; replace with the real routing backend in rollout.",
+    "footerHint": "Adaptateur POC — frontière `RoutingRepository` ; remplacer par le backend de routage réel lors du déploiement.",
     "columns": {
-      "timeGroup": "Time Group",
-      "schedule": "Schedule",
-      "entries": "Entries",
-      "usedBy": "Used By",
+      "timeGroup": "Groupe de temps",
+      "schedule": "Programmation",
+      "entries": "Entrées",
+      "usedBy": "Utilisé par",
       "actions": "Actions"
     },
     "table": {
-      "edit": "Edit",
-      "delete": "Delete",
-      "editAria": "Edit {{name}}",
-      "deleteAria": "Delete {{name}}",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "editAria": "Modifier {{name}}",
+      "deleteAria": "Supprimer {{name}}",
       "usedBy_one": "{{count}} condition",
       "usedBy_other": "{{count}} conditions",
-      "notUsed": "Not used"
+      "notUsed": "Non utilisé"
     },
     "form": {
-      "addTitle": "Add Time Group",
-      "editTitle": "Edit Time Group",
-      "description": "Define a reusable schedule for time-based routing.",
-      "general": "General",
+      "addTitle": "Ajouter un groupe de temps",
+      "editTitle": "Modifier le groupe de temps",
+      "description": "Définir une programmation réutilisable pour le routage basé sur l'heure.",
+      "general": "Général",
       "descriptionLabel": "Description",
-      "descriptionPlaceholder": "e.g. Business Hours",
-      "scheduleHint": "Schedule times are evaluated in the tenant timezone. Configured values are stored as entered.",
-      "scheduleEntries": "Schedule Entries",
-      "addSchedule": "Add Schedule",
-      "cancel": "Cancel",
-      "saving": "Saving…",
-      "saveTimeGroup": "Save Time Group",
-      "createTimeGroup": "Create Time Group",
+      "descriptionPlaceholder": "ex. Heures de bureau",
+      "scheduleHint": "Les heures de programmation sont évaluées dans le fuseau horaire du tenant. Les valeurs configurées sont stockées telles qu'entrées.",
+      "scheduleEntries": "Entrées de programmation",
+      "addSchedule": "Ajouter une programmation",
+      "cancel": "Annuler",
+      "saving": "Enregistrement…",
+      "saveTimeGroup": "Enregistrer le groupe de temps",
+      "createTimeGroup": "Créer un groupe de temps",
       "validation": {
-        "descriptionRequired": "Description is required.",
-        "atLeastOneEntry": "Add at least one schedule entry."
+        "descriptionRequired": "La description est requise.",
+        "atLeastOneEntry": "Ajouter au moins une entrée de programmation."
       },
       "toast": {
-        "updated": "Time Group updated",
-        "created": "Time Group created",
-        "saveFailed": "Time Group could not be saved",
-        "createFailed": "Time Group could not be created"
+        "updated": "Groupe de temps mis à jour",
+        "created": "Groupe de temps créé",
+        "saveFailed": "Le groupe de temps n'a pas pu être enregistré",
+        "createFailed": "Le groupe de temps n'a pas pu être créé"
       }
     },
     "deleteDialog": {
-      "title": "Delete time group?",
-      "description": "Delete \"{{name}}\"? Its schedule definition will be removed.",
-      "blockedDescription": "This Time Group is currently used by {{count}} time conditions and cannot be deleted.",
-      "cancel": "Cancel",
-      "delete": "Delete Time Group",
-      "deleting": "Deleting…",
+      "title": "Supprimer le groupe de temps ?",
+      "description": "Supprimer « {{name}} » ? Sa définition de programmation sera supprimée.",
+      "blockedDescription": "Ce groupe de temps est actuellement utilisé par {{count}} conditions de temps et ne peut pas être supprimé.",
+      "cancel": "Annuler",
+      "delete": "Supprimer le groupe de temps",
+      "deleting": "Suppression…",
       "toast": {
-        "deleted": "Time Group deleted",
-        "deleteFailed": "Time Group could not be deleted"
+        "deleted": "Groupe de temps supprimé",
+        "deleteFailed": "Le groupe de temps n'a pas pu être supprimé"
       }
     },
     "editor": {
-      "scheduleEntry": "Schedule Entry {{index}}",
-      "hours": "Hours",
-      "to": "to",
-      "weekdays": "Weekdays",
-      "monthDays": "Month Days",
-      "monthsOfYear": "Months of Year",
-      "removeEntryAria": "Remove schedule entry {{index}}",
-      "startTimeAria": "Entry {{index}} start time",
-      "endTimeAria": "Entry {{index}} end time",
+      "scheduleEntry": "Entrée de programmation {{index}}",
+      "hours": "Heures",
+      "to": "à",
+      "weekdays": "Jours de la semaine",
+      "monthDays": "Jours du mois",
+      "monthsOfYear": "Mois de l'année",
+      "removeEntryAria": "Supprimer l'entrée de programmation {{index}}",
+      "startTimeAria": "Heure de début de l'entrée {{index}}",
+      "endTimeAria": "Heure de fin de l'entrée {{index}}",
       "weekdaysShort": {
         "sun": "Dim",
         "mon": "Lun",
@@ -734,106 +734,106 @@
       }
     },
     "summary": {
-      "noEntries": "Aucune entrée de planning",
-      "entries_other": "Entrées de planning {{count}}",
+      "noEntries": "Aucune entrée de programmation",
+      "entries_other": "Entrées {{count}} de programmation",
       "everyDay": "Tous les jours",
       "day": "Jour {{days}}",
       "monthPrefix": "M{{month}}",
-      "entries": "Entrées de planning {{count}}",
-      "entries_one": "Entrée de planning {{count}}"
+      "entries": "Entrées {{count}} de programmation",
+      "entries_one": "Entrée {{count}} de programmation"
     }
   },
   "timeConditions": {
-    "label": "Time Conditions",
-    "title": "Time Conditions",
-    "subtitle": "Route calls by date, time, and schedule.",
-    "headTitle": "Time Conditions — Flex Contact Center",
+    "label": "Conditions de temps",
+    "title": "Conditions de temps",
+    "subtitle": "Acheminer les appels par date, heure et programmation.",
+    "headTitle": "Conditions de temps — Flex Contact Center",
     "actions": {
-      "addTimeCondition": "Add Time Condition"
+      "addTimeCondition": "Ajouter une condition de temps"
     },
     "toolbar": {
-      "searchPlaceholder": "Search conditions...",
-      "searchAriaLabel": "Search conditions"
+      "searchPlaceholder": "Rechercher des conditions...",
+      "searchAriaLabel": "Rechercher des conditions"
     },
     "error": {
-      "title": "Couldn't load time conditions",
-      "retry": "Try Again",
-      "generic": "Time Condition data could not be retrieved."
+      "title": "Impossible de charger les conditions de temps",
+      "retry": "Réessayer",
+      "generic": "Les données de la condition de temps n'ont pas pu être récupérées."
     },
     "empty": {
-      "noConditionsTitle": "No time conditions configured",
-      "noConditionsDescription": "Create a condition to route calls by schedule.",
-      "noMatchTitle": "No conditions match your search",
-      "noMatchDescription": "Try changing your search.",
-      "addTimeCondition": "Add Time Condition",
-      "clearFilters": "Clear filters"
+      "noConditionsTitle": "Aucune condition de temps configurée",
+      "noConditionsDescription": "Créez une condition pour acheminer les appels par programmation.",
+      "noMatchTitle": "Aucune condition ne correspond à votre recherche",
+      "noMatchDescription": "Essayez de modifier votre recherche.",
+      "addTimeCondition": "Ajouter une condition de temps",
+      "clearFilters": "Effacer les filtres"
     },
-    "footerHint": "POC mock adapter — `RoutingRepository` boundary; replace with the real routing backend in rollout.",
+    "footerHint": "Adaptateur POC — frontière `RoutingRepository` ; remplacer par le backend de routage réel lors du déploiement.",
     "columns": {
       "condition": "Condition",
-      "timeGroup": "Time Group",
-      "matchDestination": "Match Destination",
-      "fallback": "Fallback",
-      "status": "Status",
+      "timeGroup": "Groupe de temps",
+      "matchDestination": "Destination en cas de correspondance",
+      "fallback": "Repli",
+      "status": "Statut",
       "actions": "Actions"
     },
     "table": {
-      "view": "View",
-      "edit": "Edit",
-      "viewAria": "View {{name}}",
-      "editAria": "Edit {{name}}"
+      "view": "Voir",
+      "edit": "Modifier",
+      "viewAria": "Voir {{name}}",
+      "editAria": "Modifier {{name}}"
     },
     "detail": {
-      "titleFallback": "Time Condition",
-      "status": "Status",
-      "timeGroup": "Time Group",
-      "whenMatches": "When schedule matches",
-      "whenNotMatches": "When schedule does not match",
-      "unknownDeleted": "Unknown / deleted",
-      "edit": "Edit",
-      "delete": "Delete"
+      "titleFallback": "Condition de temps",
+      "status": "Statut",
+      "timeGroup": "Groupe de temps",
+      "whenMatches": "Lorsque la programmation correspond",
+      "whenNotMatches": "Lorsque la programmation ne correspond pas",
+      "unknownDeleted": "Inconnu / Supprimé",
+      "edit": "Modifier",
+      "delete": "Supprimer"
     },
     "form": {
-      "addTitle": "Add Time Condition",
-      "editTitle": "Edit Time Condition",
-      "description": "Define when this condition routes and where calls go.",
-      "general": "General",
-      "conditionName": "Condition Name",
-      "conditionNamePlaceholder": "e.g. Business Hours Routing",
-      "status": "Status",
-      "active": "Active",
-      "inactive": "Inactive",
-      "schedule": "Schedule",
-      "timeGroup": "Time Group",
-      "selectTimeGroup": "Select a time group",
-      "scheduleHint": "This condition controls where calls are routed during the configured schedule.",
-      "routing": "Routing",
-      "whenMatches": "When schedule matches",
-      "whenNotMatches": "When schedule does not match",
-      "cancel": "Cancel",
-      "saving": "Saving…",
-      "saveCondition": "Save Condition",
-      "createCondition": "Create Condition",
+      "addTitle": "Ajouter une condition de temps",
+      "editTitle": "Modifier la condition de temps",
+      "description": "Définir quand cette condition achemine et où vont les appels.",
+      "general": "Général",
+      "conditionName": "Nom de la condition",
+      "conditionNamePlaceholder": "ex. Routage heures de bureau",
+      "status": "Statut",
+      "active": "Actif",
+      "inactive": "Inactif",
+      "schedule": "Programmation",
+      "timeGroup": "Groupe de temps",
+      "selectTimeGroup": "Sélectionner un groupe de temps",
+      "scheduleHint": "Cette condition contrôle où les appels sont acheminés pendant la programmation configurée.",
+      "routing": "Routage",
+      "whenMatches": "Lorsque la programmation correspond",
+      "whenNotMatches": "Lorsque la programmation ne correspond pas",
+      "cancel": "Annuler",
+      "saving": "Enregistrement…",
+      "saveCondition": "Enregistrer la condition",
+      "createCondition": "Créer une condition",
       "validation": {
         "nameRequired": "Le nom de la condition est requis.",
-        "timeGroupRequired": "Select a Time Group."
+        "timeGroupRequired": "Sélectionner un groupe de temps."
       },
       "toast": {
-        "updated": "Time Condition updated",
-        "created": "Time Condition created",
-        "saveFailed": "Time Condition could not be saved",
-        "createFailed": "Time Condition could not be created"
+        "updated": "Condition de temps mise à jour",
+        "created": "Condition de temps créée",
+        "saveFailed": "La condition de temps n'a pas pu être enregistrée",
+        "createFailed": "La condition de temps n'a pas pu être créée"
       }
     },
     "deleteDialog": {
-      "title": "Delete time condition?",
-      "description": "Delete \"{{name}}\"? Its schedule-based routing rules will be removed.",
-      "cancel": "Cancel",
-      "delete": "Delete Condition",
-      "deleting": "Deleting…",
+      "title": "Supprimer la condition de temps ?",
+      "description": "Supprimer « {{name}} » ? Ses règles de routage basées sur la programmation seront supprimées.",
+      "cancel": "Annuler",
+      "delete": "Supprimer la condition",
+      "deleting": "Suppression…",
       "toast": {
-        "deleted": "Time Condition deleted",
-        "deleteFailed": "Time Condition could not be deleted"
+        "deleted": "Condition de temps supprimée",
+        "deleteFailed": "La condition de temps n'a pas pu être supprimée"
       }
     }
   },
@@ -1258,84 +1258,84 @@
     "footer": "Données fictives POC — métriques d'exemple ; pas de télémétrie téléphonique ou SLA réelle."
   },
   "ai": {
-    "title": "AI Center",
+    "title": "Centre IA",
     "overview": {
-      "title": "AI Center",
-      "subtitle": "AI operations overview — what is enabled, what needs configuration, and usage",
-      "refreshStats": "Refresh Stats",
-      "usageSnapshot": "Today's Usage Snapshot",
-      "aiSessionsToday": "AI Sessions Today",
-      "assistAdoptionRate": "Assist Adoption Rate",
-      "totalTokensToday": "Total Tokens Today",
-      "estimatedCostToday": "Est. Cost Today",
-      "featureStatus": "AI Feature Status",
-      "knowledgeCoverage": "Knowledge Base Coverage",
-      "precisionNoData": "Precision — no data",
-      "activeVaults": "Active KB Vaults",
-      "knowledgeItems": "Knowledge Items",
-      "updatedToday": "Updated Today",
-      "lastUpdated": "Last Updated",
-      "noData": "No data",
+      "title": "Centre IA",
+      "subtitle": "Vue d'ensemble des opérations IA — ce qui est activé, ce qui nécessite une configuration, et l'utilisation",
+      "refreshStats": "Actualiser les stats",
+      "usageSnapshot": "Instantané de l'utilisation d'aujourd'hui",
+      "aiSessionsToday": "Sessions IA aujourd'hui",
+      "assistAdoptionRate": "Taux d'adoption de l'assistance",
+      "totalTokensToday": "Total de tokens aujourd'hui",
+      "estimatedCostToday": "Coût estimé aujourd'hui",
+      "featureStatus": "Statut des fonctionnalités IA",
+      "knowledgeCoverage": "Couverture de la base de connaissances",
+      "precisionNoData": "Précision — pas de données",
+      "activeVaults": "Coffres KB actifs",
+      "knowledgeItems": "Éléments de connaissances",
+      "updatedToday": "Mis à jour aujourd'hui",
+      "lastUpdated": "Dernière mise à jour",
+      "noData": "Aucune donnée",
       "precisionValue": "Précision — {{value}}%",
-      "aiSessionsTodayDescription": "Interactions copilote agent en temps réel",
+      "aiSessionsTodayDescription": "Interactions des agents avec l'assistant IA en temps réel",
       "assistAdoptionRateDescription": "Agents acceptant les suggestions IA",
-      "totalTokensTodayDescription": "Volume de tokens prompt et complétion",
-      "estimatedCostTodayDescription": "Estimation du coût fournisseur d'inférence"
+      "totalTokensTodayDescription": "Total des tokens de prompt et de réponse",
+      "estimatedCostTodayDescription": "Estimation du coût du fournisseur"
     },
     "knowledge": {
-      "title": "Knowledge Base",
-      "subtitle": "Manage knowledge vaults and indexed content",
-      "emptyTitle": "No knowledge vaults",
-      "emptyDescription": "Create a knowledge vault to get started.",
-      "reindex": "Reindex",
+      "title": "Base de connaissances",
+      "subtitle": "Gérer les coffres de connaissances et le contenu indexé",
+      "emptyTitle": "Aucun coffre de connaissances",
+      "emptyDescription": "Créez un coffre de connaissances pour commencer.",
+      "reindex": "Réindexer",
       "index": "Index",
-      "vaultsTitle": "Coffres de Connaissances",
-      "itemsTitle": "Éléments de Connaissance",
-      "vaultMeta": "{{queue}} · {{count}} éléments · {{updated}} mis à jour aujourd'hui",
-      "vaultMeta_one": "{{queue}} · {{count}} élément · {{updated}} mis à jour aujourd'hui",
-      "vaultMeta_other": "{{queue}} · {{count}} éléments · {{updated}} mis à jour aujourd'hui",
+      "vaultsTitle": "Coffres de connaissances",
+      "itemsTitle": "Éléments de connaissances",
+      "vaultMeta": "{{queue}} · éléments {{count}} · {{updated}} mis à jour aujourd'hui",
+      "vaultMeta_one": "{{queue}} · élément {{count}} · {{updated}} mis à jour aujourd'hui",
+      "vaultMeta_other": "{{queue}} · éléments {{count}} · {{updated}} mis à jour aujourd'hui",
       "indexed": "Indexé",
       "pending": "En attente",
       "emptyItemsTitle": "Aucun élément de connaissance",
-      "emptyItemsDescription": "Les éléments indexés apparaîtront ici."
+      "emptyItemsDescription": "Les éléments de connaissances indexés apparaîtront ici."
     },
     "assist": {
-      "title": "Agent Assist",
-      "subtitle": "Configure assist behavior and prompts",
-      "enabled": "Agent Assist enabled",
-      "disabled": "Agent Assist disabled",
-      "enabledLabel": "Enabled",
-      "disabledLabel": "Disabled",
+      "title": "Assistance Agent",
+      "subtitle": "Configurer le comportement et les invites d'assistance",
+      "enabled": "Assistance Agent activée",
+      "disabled": "Assistance Agent désactivée",
+      "enabledLabel": "Activé",
+      "disabledLabel": "Désactivé",
       "enablementTitle": "Activation",
-      "enablementDescription": "Les suggestions sont uniquement de configuration dans ce POC ; aucun contenu de suggestion n'est inventé.",
+      "enablementDescription": "Les suggestions sont en configuration seulement dans ce POC ; aucun contenu de suggestion n'est généré.",
       "toggleAria": "Basculer l'assistance agent",
-      "metricsTitle": "Métriques d'exécution",
+      "metricsTitle": "Métriques de temps d'exécution",
       "metrics": {
         "status": "Statut",
         "adoptionRate": "Taux d'adoption",
         "noData": "Aucune donnée"
       },
-      "emptyTitle": "Les suggestions d'assistance ne sont pas modélisées",
-      "emptyDescription": "Le contenu des suggestions, les retours et la latence nécessitent un runtime d'assistance réel. Ce POC expose uniquement la configuration."
+      "emptyTitle": "Suggestions d'assistance agent non déployées",
+      "emptyDescription": "Le contenu des suggestions, le retour et le temps de réponse nécessitent un runtime d'assistance agent réel. Ce POC ne montre que la configuration."
     },
     "voice": {
-      "title": "Virtual Assistants",
-      "subtitle": "Manage virtual assistants and voice configuration",
-      "enabled": "Virtual assistants are enabled.",
-      "disabled": "Virtual assistants are disabled.",
+      "title": "Assistants virtuels",
+      "subtitle": "Gérer les assistants virtuels et la configuration vocale",
+      "enabled": "Les assistants virtuels sont activés.",
+      "disabled": "Les assistants virtuels sont désactivés.",
       "statusTitle": "Statut",
       "enabledDescription": "Les assistants virtuels sont activés.",
-      "disabledDescription": "Configuration requise avant utilisation.",
-      "emptyTitle": "Voice AI uniquement en configuration",
-      "emptyDescription": "Aucun builder de bot Voice AI ni configuration vocale d'exécution. Une connexion fournisseur et une configuration téléphonique sécurisée sont requises."
+      "disabledDescription": "Une configuration est requise avant d'utiliser cet élément.",
+      "emptyTitle": "Voice AI est en configuration seulement",
+      "emptyDescription": "Aucun constructeur de bot Voice AI ni configuration vocale en cours d'exécution. Une connexion fournisseur et une configuration téléphonique sécurisée sont requises."
     },
     "usage": {
-      "title": "Usage & Costs",
-      "subtitle": "AI usage and cost analytics",
-      "queue": "Queue",
+      "title": "Utilisation & Coûts",
+      "subtitle": "Analyse de l'utilisation et des coûts IA",
+      "queue": "File",
       "sessions": "Sessions",
       "tokens": "Tokens",
-      "estimatedCost": "Est. Cost",
+      "estimatedCost": "Coût estimé",
       "usageTitle": "Utilisation",
       "emptyTitle": "Aucune donnée d'utilisation",
       "emptyDescription": "Les enregistrements d'utilisation et de coûts apparaîtront ici.",
@@ -1343,40 +1343,40 @@
         "queue": "File",
         "sessions": "Sessions",
         "tokens": "Tokens",
-        "estimatedCost": "Coût est."
+        "estimatedCost": "Coût estimé"
       },
       "noData": "Aucune donnée"
     },
     "providers": {
-      "title": "Providers & Models",
-      "subtitle": "Configure AI providers and models",
-      "emptyTitle": "No providers configured",
-      "emptyDescription": "Add a provider to get started.",
-      "testConnection": "Test connection",
+      "title": "Fournisseurs & Modèles",
+      "subtitle": "Configurer les fournisseurs et modèles IA",
+      "emptyTitle": "Aucun fournisseur configuré",
+      "emptyDescription": "Ajoutez un fournisseur pour commencer.",
+      "testConnection": "Tester la connexion",
       "providersTitle": "Fournisseurs",
       "modelLabel": "Modèle : {{model}}",
       "secretConfigured": "Secret configuré",
       "noSecret": "Aucun secret configuré"
     },
     "audit": {
-      "title": "AI Audit",
-      "subtitle": "AI audit log and compliance",
-      "auditLog": "Audit Log",
-      "emptyTitle": "No audit records",
+      "title": "Audit IA",
+      "subtitle": "Journal d'audit et conformité IA",
+      "auditLog": "Journal d'audit",
+      "emptyTitle": "Aucun enregistrement d'audit",
       "emptyDescription": "La configuration IA et l'historique des actions apparaîtront ici.",
       "auditLogTitle": "Journal d'audit"
     },
     "settings": {
-      "title": "AI Settings",
-      "subtitle": "Global AI Center configuration",
-      "globalEnabled": "Global AI Center is enabled",
-      "globalDisabled": "Global AI Center is disabled",
+      "title": "Paramètres IA",
+      "subtitle": "Configuration globale du Centre IA",
+      "globalEnabled": "Le Centre IA global est activé",
+      "globalDisabled": "Le Centre IA global est désactivé",
       "globalTitle": "IA Globale",
       "dependenciesTitle": "Dépendances",
       "emptyNotesTitle": "Aucune note de dépendance",
       "emptyNotesDescription": "Les dépendances de configuration apparaîtront ici.",
-      "emptyConfigTitle": "Paramètres uniquement de configuration",
-      "emptyConfigDescription": "Les bascules frontend ne priment jamais sur l'autorité backend. Les paramètres IA tenant et les feature toggles nécessitent le runtime réel."
+      "emptyConfigTitle": "La configuration seulement",
+      "emptyConfigDescription": "Les changements futurs ne peuvent pas contourner l'autorité du backend. Les paramètres d'IA du planificateur et les commutateurs d'éléments ne nécessitent pas de runtime réel."
     },
     "common": {
       "noData": "Aucune donnée"
@@ -1384,139 +1384,139 @@
   },
   "modules": {
     "tenants": {
-      "title": "Tenants & Multi-Org",
-      "description": "Manage tenant accounts, organizations, and domain isolation."
+      "title": "Locataires & Multi-Org",
+      "description": "Gérer les comptes locataires, les organisations et l'isolation de domaine."
     },
     "agents": {
-      "title": "Agents & Proficiencies",
-      "description": "Configure agent profiles, extension mapping, and skill routing."
+      "title": "Agents & Compétences",
+      "description": "Configurer les profils d'agents, le mappage des extensions et le routage par compétences."
     },
     "users": {
-      "title": "Users & Roles",
-      "description": "Role-based access control, credentials, and security policies."
+      "title": "Utilisateurs & Rôles",
+      "description": "Contrôle d'accès basé sur les rôles, identifiants et politiques de sécurité."
     },
     "roles": {
-      "title": "Roles & Permissions",
-      "description": "Granular policy management for admin and supervisory roles."
+      "title": "Rôles & Permissions",
+      "description": "Gestion granulaire des politiques pour les rôles d'administration et de supervision."
     },
     "subscriptions": {
-      "title": "Subscriptions",
-      "description": "Track subscription status, remaining days, reminders, and renewal activity."
+      "title": "Abonnements",
+      "description": "Suivre le statut d'abonnement, jours restants, rappels et activité de renouvellement."
     },
     "cdr": {
-      "title": "Call Records (CDR)",
-      "description": "Search, filter, and inspect granular telephony logs and recordings."
+      "title": "Enregistrements d'appels (CDR)",
+      "description": "Rechercher, filtrer et inspecter les journaux et enregistrements téléphoniques granulaires."
     },
     "call-campaigns": {
-      "title": "Call Campaigns",
-      "description": "Outbound campaign management, schedules, and analytics."
+      "title": "Campagnes d'appels",
+      "description": "Gestion des campagnes sortantes, programmations et analyses."
     },
     "queue": {
-      "title": "Queues & SLA",
-      "description": "Configure inbound queues, wrap-up rules, and SLA targets."
+      "title": "Files d'attente & SLA",
+      "description": "Configurer les files d'attente entrantes, règles de wrap-up et cibles SLA."
     },
     "ivr": {
-      "title": "IVR Trees",
-      "description": "Build interactive voice response menus and keypress flows."
+      "title": "Arbres IVR",
+      "description": "Construire des menus de réponse vocale interactive et flux par touche."
     },
     "time-groups": {
-      "title": "Time Groups",
-      "description": "Reusable schedule definitions for time-based routing."
+      "title": "Groupes de temps",
+      "description": "Définitions de programmation réutilisables pour le routage basé sur l'heure."
     },
     "recordings": {
-      "title": "Audio & Recordings",
-      "description": "Manage system audio prompts, greetings, IVR recordings, and hold music."
+      "title": "Audio & Enregistrements",
+      "description": "Gérer les annonces audio système, salutations, enregistrements IVR et musique d'attente."
     },
     "call-stats": {
-      "title": "Call Statistics",
-      "description": "Real-time performance analytics, call volumes, and metrics."
+      "title": "Statistiques d'appels",
+      "description": "Analyses de performance en temps réel, volumes d'appels et métriques."
     },
     "reports": {
-      "title": "Reports & Analytics",
-      "description": "Generate, schedule, and export operational PDF/Excel reports."
+      "title": "Rapports & Analyses",
+      "description": "Générer, programmer et exporter des rapports opérationnels PDF/Excel."
     },
     "charts": {
-      "title": "Flex Charts",
-      "description": "Visual analytics dashboard for supervisory overview."
+      "title": "Graphiques Flex",
+      "description": "Tableau de bord d'analytique visuelle pour aperçu de supervision."
     },
     "survey-monitoring": {
-      "title": "Survey Monitoring",
-      "description": "Customer CSAT/NPS survey feedback and scorecards."
+      "title": "Surveillance d'enquêtes",
+      "description": "Retours d'enquêtes CSAT/NPS clients et tableaux de bord."
     },
     "inbound-routes": {
-      "title": "Inbound Routes",
-      "description": "DID pattern routing, time conditions, and destination rules."
+      "title": "Routes entrantes",
+      "description": "Routage par motif DID, conditions temporelles et règles de destination."
     },
     "time-conditions": {
-      "title": "Time Conditions",
-      "description": "Schedule working hours, holidays, and off-hour routing."
+      "title": "Conditions temporelles",
+      "description": "Planifier heures de travail, jours fériés et routage hors heures."
     },
     "system-settings": {
-      "title": "System & Infrastructure",
-      "description": "Service health, server resources, backup status, and gateway connections."
+      "title": "Système & Infrastructure",
+      "description": "Santé des services, ressources serveur, statut de sauvegarde, connexions passerelle."
     },
     "mail-config": {
-      "title": "Mail Configuration",
-      "description": "Configure and test SMTP server settings for system alerts and notifications."
+      "title": "Configuration mail",
+      "description": "Configurer et tester les paramètres du serveur SMTP pour alertes et notifications système."
     },
     "security": {
-      "title": "Security & Audit",
-      "description": "IP access controls, firewall rules, and audit trail logs."
+      "title": "Sécurité & Audit",
+      "description": "Contrôles d'accès IP, règles pare-feu, et journaux de piste d'audit."
     },
     "backups": {
-      "title": "Backups & Storage",
-      "description": "Database snapshot archives, retention, and disaster recovery."
+      "title": "Sauvegardes & Stockage",
+      "description": "Archives de snapshots de base de données, rétention, et reprise après sinistre."
     },
     "global-settings": {
-      "title": "Settings",
-      "description": "Profile, account security, and application preferences."
+      "title": "Paramètres",
+      "description": "Profil, sécurité du compte, et préférences d'application."
     },
     "moh": {
-      "title": "Music On Hold (MOH)",
-      "description": "Manage audio playlists played while callers are queued or on hold."
+      "title": "Musique d'attente (MOH)",
+      "description": "Gérer les listes de lecture audio jouées pendant que les appelants sont en file ou en attente."
     },
     "tones": {
-      "title": "Tones & Frequencies",
-      "description": "Country-specific ringback, busy, and dialtone frequency profiles."
+      "title": "Tons & Fréquences",
+      "description": "Profils de fréquences de sonnerie, occupé, et tonalité spécifiques au pays."
     },
     "agent-states": {
-      "title": "Agent States & Reasons",
-      "description": "Custom pause codes, break reasons, and wrap-up status labels."
+      "title": "États d'agent & Raisons",
+      "description": "Codes de pause personnalisés, raisons de pause, et labels de statut wrap-up."
     },
     "departments": {
-      "title": "Departments",
-      "description": "Organizational units, cost center allocations, and supervisors."
+      "title": "Départements",
+      "description": "Unités organisationnelles, allocations centre de coûts, et superviseurs."
     },
     "survey": {
-      "title": "CSAT / Survey Config",
-      "description": "Post-call survey prompts, scoring rules, and rating thresholds."
+      "title": "Config CSAT / Enquête",
+      "description": "Invites d'enquête post-appel, règles de notation, et seuils d'évaluation."
     },
     "cdr-config": {
-      "title": "CDR Configuration",
-      "description": "Log storage parameters, anonymization rules, and purging schedules."
+      "title": "Configuration CDR",
+      "description": "Paramètres de stockage des logs, règles d'anonymisation, et programmations de purge."
     },
     "global-config": {
-      "title": "Global System Config",
-      "description": "Core application settings, default locale, and time zone offsets."
+      "title": "Configuration Système Globale",
+      "description": "Paramètres d'application de base, locale par défaut, et décalages de fuseau horaire."
     },
     "outbound-routes": {
-      "title": "Outbound Routes",
-      "description": "Dial plan prefixes, trunk failover priorities, and rate limits."
+      "title": "Routes sortantes",
+      "description": "Préfixes de plan de numérotation, priorités de basculement de trunk, et limites de débit."
     },
     "categories": {
-      "coreAdministration": "Administration de base",
-      "telephonyOperations": "Téléphonie et Opérations",
-      "analyticsQuality": "Analytique et Qualité",
-      "systemConfiguration": "Configuration Système",
-      "telephonySettings": "Paramètres Téléphonie",
-      "routingTrunks": "Routage et Trunks",
-      "mediaAudio": "Média et Audio",
-      "operationalPolicies": "Politiques Opérationnelles",
-      "systemSecurity": "Système et Sécurité"
+      "coreAdministration": "Administration principale",
+      "telephonyOperations": "Téléphonie & Opérations",
+      "analyticsQuality": "Analytique & Qualité",
+      "systemConfiguration": "Configuration système",
+      "telephonySettings": "Paramètres téléphonie",
+      "routingTrunks": "Routage & Trunks",
+      "mediaAudio": "Médias & Audio",
+      "operationalPolicies": "Politiques opérationnelles",
+      "systemSecurity": "Sécurité système"
     },
     "queues": {
-      "title": "Queues & SLA",
-      "description": "Configure inbound queues, wrap-up rules, and SLA targets."
+      "title": "Files d'attente & SLA",
+      "description": "Configurer les files d'attente entrantes, règles de wrap-up et cibles SLA."
     }
   },
   "tenants": {

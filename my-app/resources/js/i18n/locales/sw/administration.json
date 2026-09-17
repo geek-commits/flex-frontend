@@ -286,10 +286,10 @@
       }
     },
     "lifecycleDialog": {
-      "deactivateSuccess": "{{name}} deactivated",
-      "removeSuccess": "{{name}} removed",
-      "restoreSuccess": "{{name}} restored",
-      "actionFailed": "The action could not be completed. Try again."
+      "deactivateSuccess": "Jukumu limefutwa kwa mafanikio",
+      "removeSuccess": "Jukumu limeondolewa kwa mafanikio",
+      "restoreSuccess": "Jukumu limeuwekwa kwa mafanikio",
+      "actionFailed": "Kitendo kimeshindwa"
     },
     "permissions": {
       "catalog": {
@@ -534,195 +534,195 @@
   "ivr": {
     "label": "IVR",
     "title": "IVR",
-    "subtitle": "Configure interactive voice response menus.",
+    "subtitle": "Sanidi menyu za sauti ya mawasiliano za kivitendo.",
     "headTitle": "IVR — Flex Contact Center",
     "actions": {
-      "addIVR": "Add IVR"
+      "addIVR": "Ongeza IVR"
     },
     "toolbar": {
-      "searchPlaceholder": "Search IVR menus...",
-      "searchAriaLabel": "Search IVR menus"
+      "searchPlaceholder": "Tafuta menyu za IVR...",
+      "searchAriaLabel": "Tafuta menyu za IVR"
     },
     "error": {
-      "title": "Couldn't load IVR menus",
-      "retry": "Try Again",
-      "generic": "IVR data could not be retrieved."
+      "title": "Imeshindwa kupakia menyu za IVR",
+      "retry": "Jaribu Tena",
+      "generic": "Data ya IVR haikuweza kupatikana."
     },
     "empty": {
-      "noIVRTitle": "No IVR menus configured",
-      "noIVRDescription": "Create an IVR menu to route callers by keypress.",
-      "noMatchTitle": "No IVR menus match your search",
-      "noMatchDescription": "Try changing your search.",
-      "addIVR": "Add IVR",
-      "clearFilters": "Clear filters"
+      "noIVRTitle": "Hakuna menyu za IVR zilizosanidiwa",
+      "noIVRDescription": "Unda menyu ya IVR ili kuelekeza wapigaji kwa kivitendo cha kivitendo.",
+      "noMatchTitle": "Hakuna menyu za IVR zinazolingana na utafutaji wako",
+      "noMatchDescription": "Jaribu kubadilisha utafutaji wako.",
+      "addIVR": "Ongeza IVR",
+      "clearFilters": "Ondoa vichujio"
     },
-    "footerHint": "POC mock adapter — `RoutingRepository` boundary; replace with the real routing backend in rollout.",
+    "footerHint": "Mzigo wa jaribio wa POC — kipengele cha `RoutingRepository`; badilisha na backend halisi ya uelekezaji wakati wa uenezi.",
     "columns": {
       "ivr": "IVR",
-      "prompt": "Prompt",
-      "entries": "Entries",
-      "defaultDestination": "Default Destination",
-      "status": "Status",
-      "actions": "Actions"
+      "prompt": "Tangazo / Rekodi",
+      "entries": "Vingilio",
+      "defaultDestination": "Uhamiaji Utegemezi",
+      "status": "Hali",
+      "actions": "Vitendo"
     },
     "table": {
-      "view": "View",
-      "edit": "Edit",
-      "viewAria": "View {{name}}",
-      "editAria": "Edit {{name}}"
+      "view": "Tazama",
+      "edit": "Hariri",
+      "viewAria": "Tazama {{name}}",
+      "editAria": "Hariri {{name}}"
     },
     "detail": {
       "titleFallback": "IVR",
-      "status": "Status",
-      "prompt": "Prompt",
-      "defaultDestination": "Default Destination",
-      "menuEntries": "Menu Entries",
-      "key": "Key",
-      "label": "Label",
-      "destination": "Destination",
-      "editIVR": "Edit IVR",
-      "delete": "Delete"
+      "status": "Hali",
+      "prompt": "Tangazo / Rekodi",
+      "defaultDestination": "Uhamiaji Utegemezi",
+      "menuEntries": "Vingilio vya Menyu",
+      "key": "Kifunguo",
+      "label": "Kichwa",
+      "destination": "Uhamiaji",
+      "editIVR": "Hariri IVR",
+      "delete": "Futa"
     },
     "form": {
-      "addTitle": "Add IVR",
-      "editTitle": "Edit IVR",
-      "description": "Configure the IVR menu, prompt, and routing destinations.",
-      "general": "General",
-      "ivrName": "IVR Name",
-      "ivrNamePlaceholder": "e.g. Main Menu",
-      "promptLabel": "Prompt / Recording",
-      "selectRecording": "Select a recording",
-      "status": "Status",
-      "active": "Active",
-      "inactive": "Inactive",
-      "menuEntries": "Menu Entries",
-      "key": "Key",
-      "label": "Label",
-      "destination": "Destination",
+      "addTitle": "Ongeza IVR",
+      "editTitle": "Hariri IVR",
+      "description": "Sanidi menyu ya IVR, tangazo, na mabega ya uelekezaji.",
+      "general": "Jumla",
+      "ivrName": "Jina la IVR",
+      "ivrNamePlaceholder": "mf. Menyu Kuu",
+      "promptLabel": "Tangazo / Rekodi",
+      "selectRecording": "Chagua rekodi",
+      "status": "Hali",
+      "active": "Amilifu",
+      "inactive": "Haamilifu",
+      "menuEntries": "Vingilio vya Menyu",
+      "key": "Kifunguo",
+      "label": "Kichwa",
+      "destination": "Uhamiaji",
       "entryKeyPlaceholder": "1",
-      "entryLabelPlaceholder": "e.g. Sales",
-      "entryKeyAria": "Entry {{index}} key",
-      "entryLabelAria": "Entry {{index}} label",
-      "removeEntryAria": "Remove entry {{index}}",
-      "addEntry": "Add Entry",
-      "fallbackDestination": "Fallback Destination",
-      "defaultDestination": "Default Destination",
-      "cancel": "Cancel",
-      "saving": "Saving…",
-      "saveIVR": "Save IVR",
-      "createIVR": "Create IVR",
+      "entryLabelPlaceholder": "mf. Mauzo",
+      "entryKeyAria": "Kifunguo cha kipengee {{index}}",
+      "entryLabelAria": "Kichwa cha kipengee {{index}}",
+      "removeEntryAria": "Ondoa kipengee {{index}}",
+      "addEntry": "Ongeza Kipengee",
+      "fallbackDestination": "Uhamiaji wa Utegemezi",
+      "defaultDestination": "Uhamiaji Utegemezi",
+      "cancel": "Ghairi",
+      "saving": "Inahifadhi…",
+      "saveIVR": "Hifadhi IVR",
+      "createIVR": "Unda IVR",
       "validation": {
         "nameRequired": "Jina la IVR linahitajika.",
-        "duplicateKeys": "Menu entry keys must be unique."
+        "duplicateKeys": "Vifunguo vya vingilio vya menyu vinapaswa kuwa tofauti."
       },
       "toast": {
-        "saved": "IVR saved",
-        "created": "IVR created",
-        "saveFailed": "IVR could not be saved",
-        "createFailed": "IVR could not be created"
+        "saved": "IVR imehifadhiwa",
+        "created": "IVR imeundwa",
+        "saveFailed": "IVR haikuweza kuhifadhiwa",
+        "createFailed": "IVR haikuweza kuundwa"
       }
     },
     "deleteDialog": {
-      "title": "Delete IVR?",
-      "description": "Delete \"{{name}}\"? Its menu entries and destinations will be removed.",
-      "cancel": "Cancel",
-      "delete": "Delete IVR",
-      "deleting": "Deleting…",
+      "title": "Futa IVR?",
+      "description": "Futa \"{{name}}\"? Vingilio vyake vya menyu na mabega yake yatafutwa.",
+      "cancel": "Ghairi",
+      "delete": "Futa IVR",
+      "deleting": "Inafuta…",
       "toast": {
-        "deleted": "IVR deleted",
-        "deleteFailed": "IVR could not be deleted"
+        "deleted": "IVR imefutwa",
+        "deleteFailed": "IVR haikuweza kufutwa"
       }
     }
   },
   "timeGroups": {
-    "label": "Time Groups",
-    "title": "Time Groups",
-    "subtitle": "Define reusable schedules for time-based routing.",
-    "headTitle": "Time Groups — Flex Contact Center",
+    "label": "Vikundi vya Muda",
+    "title": "Vikundi vya Muda",
+    "subtitle": "Tengeneza ratiba zinazotumika tena kwa uelekezaji wa muda.",
+    "headTitle": "Vikundi vya Muda — Flex Contact Center",
     "actions": {
-      "addTimeGroup": "Add Time Group"
+      "addTimeGroup": "Ongeza Kikundi cha Muda"
     },
     "toolbar": {
-      "searchPlaceholder": "Search time groups...",
-      "searchAriaLabel": "Search time groups"
+      "searchPlaceholder": "Tafuta vikundi vya muda...",
+      "searchAriaLabel": "Tafuta vikundi vya muda"
     },
     "error": {
-      "title": "Couldn't load time groups",
-      "retry": "Try Again",
-      "generic": "Time Group data could not be retrieved."
+      "title": "Imeshindwa kupakia vikundi vya muda",
+      "retry": "Jaribu Tena",
+      "generic": "Data ya Kikundi cha Muda haikuweza kupatikana."
     },
     "empty": {
-      "noTimeGroupsTitle": "No time groups configured",
-      "noTimeGroupsDescription": "Create a reusable schedule for time-based routing.",
-      "noMatchTitle": "No time groups match your search",
-      "noMatchDescription": "Try changing your search.",
-      "addTimeGroup": "Add Time Group",
-      "clearFilters": "Clear filters"
+      "noTimeGroupsTitle": "Hakuna vikundi vya muda vilivyosanidiwa",
+      "noTimeGroupsDescription": "Unda ratiba inayotumika tena kwa uelekezaji wa muda.",
+      "noMatchTitle": "Hakuna vikundi vya muda vinazolingana na utafutaji wako",
+      "noMatchDescription": "Jaribu kubadilisha utafutaji wako.",
+      "addTimeGroup": "Ongeza Kikundi cha Muda",
+      "clearFilters": "Ondoa vichujio"
     },
-    "footerHint": "POC mock adapter — `RoutingRepository` boundary; replace with the real routing backend in rollout.",
+    "footerHint": "Mzigo wa jaribio wa POC — kipengele cha `RoutingRepository`; badilisha na backend halisi ya uelekezaji wakati wa uenezi.",
     "columns": {
-      "timeGroup": "Time Group",
-      "schedule": "Schedule",
-      "entries": "Entries",
-      "usedBy": "Used By",
-      "actions": "Actions"
+      "timeGroup": "Kikundi cha Muda",
+      "schedule": "Ratiba",
+      "entries": "Vingilio",
+      "usedBy": "Imetumika Na",
+      "actions": "Vitendo"
     },
     "table": {
-      "edit": "Edit",
-      "delete": "Delete",
-      "editAria": "Edit {{name}}",
-      "deleteAria": "Delete {{name}}",
-      "usedBy_one": "{{count}} condition",
-      "usedBy_other": "{{count}} conditions",
-      "notUsed": "Not used"
+      "edit": "Hariri",
+      "delete": "Futa",
+      "editAria": "Hariri {{name}}",
+      "deleteAria": "Futa {{name}}",
+      "usedBy_one": "{{count}} hali",
+      "usedBy_other": "{{count}} hali",
+      "notUsed": "Haijatumiki"
     },
     "form": {
-      "addTitle": "Add Time Group",
-      "editTitle": "Edit Time Group",
-      "description": "Define a reusable schedule for time-based routing.",
-      "general": "General",
-      "descriptionLabel": "Description",
-      "descriptionPlaceholder": "e.g. Business Hours",
-      "scheduleHint": "Schedule times are evaluated in the tenant timezone. Configured values are stored as entered.",
-      "scheduleEntries": "Schedule Entries",
-      "addSchedule": "Add Schedule",
-      "cancel": "Cancel",
-      "saving": "Saving…",
-      "saveTimeGroup": "Save Time Group",
-      "createTimeGroup": "Create Time Group",
+      "addTitle": "Ongeza Kikundi cha Muda",
+      "editTitle": "Hariri Kikundi cha Muda",
+      "description": "Tengeneza ratiba inayotumika tena kwa uelekezaji wa muda.",
+      "general": "Jumla",
+      "descriptionLabel": "Maelezo",
+      "descriptionPlaceholder": "mf. Masaa ya Biashara",
+      "scheduleHint": "Masaa ya ratiba huhesabiwa kwenye eneo la muda la mwanachama. Viwemo vilivyowekwa vinahifadhiwa kama vile.",
+      "scheduleEntries": "Vingilio vya Ratiba",
+      "addSchedule": "Ongeza Ratiba",
+      "cancel": "Ghairi",
+      "saving": "Inahifadhi…",
+      "saveTimeGroup": "Hifadhi Kikundi cha Muda",
+      "createTimeGroup": "Unda Kikundi cha Muda",
       "validation": {
-        "descriptionRequired": "Description is required.",
-        "atLeastOneEntry": "Add at least one schedule entry."
+        "descriptionRequired": "Maelezo yanahitajika.",
+        "atLeastOneEntry": "Ongeza angalau kipindi kimoja cha ratiba."
       },
       "toast": {
-        "updated": "Time Group updated",
-        "created": "Time Group created",
-        "saveFailed": "Time Group could not be saved",
-        "createFailed": "Time Group could not be created"
+        "updated": "Kikundi cha Muda kimesasishwa",
+        "created": "Kikundi cha Muda kimeundwa",
+        "saveFailed": "Kikundi cha Muda hakikuweza kuhifadhiwa",
+        "createFailed": "Kikundi cha Muda hakikuweza kuundwa"
       }
     },
     "deleteDialog": {
-      "title": "Delete time group?",
-      "description": "Delete \"{{name}}\"? Its schedule definition will be removed.",
-      "blockedDescription": "This Time Group is currently used by {{count}} time conditions and cannot be deleted.",
-      "cancel": "Cancel",
-      "delete": "Delete Time Group",
-      "deleting": "Deleting…",
+      "title": "Futa kikundi cha muda?",
+      "description": "Futa \"{{name}}\"? Ufafanuzi wake wa ratiba utafutwa.",
+      "blockedDescription": "Kikundi hiki cha Muda kinatumika na {{count}} masharti ya muda na hawezi kufutwa.",
+      "cancel": "Ghairi",
+      "delete": "Futa Kikundi cha Muda",
+      "deleting": "Inafuta…",
       "toast": {
-        "deleted": "Time Group deleted",
-        "deleteFailed": "Time Group could not be deleted"
+        "deleted": "Kikundi cha Muda kimefutwa",
+        "deleteFailed": "Kikundi cha Muda hakikuweza kufutwa"
       }
     },
     "editor": {
-      "scheduleEntry": "Schedule Entry {{index}}",
-      "hours": "Hours",
-      "to": "to",
-      "weekdays": "Weekdays",
-      "monthDays": "Month Days",
-      "monthsOfYear": "Months of Year",
-      "removeEntryAria": "Remove schedule entry {{index}}",
-      "startTimeAria": "Entry {{index}} start time",
-      "endTimeAria": "Entry {{index}} end time",
+      "scheduleEntry": "Kipindi cha Ratiba {{index}}",
+      "hours": "Masaa",
+      "to": "kwenda",
+      "weekdays": "Siku za Jumatatu hadi Ijumaa",
+      "monthDays": "Siku za Mwezi",
+      "monthsOfYear": "Miezi ya Mwaka",
+      "removeEntryAria": "Ondoa kipindi cha ratiba {{index}}",
+      "startTimeAria": "Muda wa mwanzo wa kipengee {{index}}",
+      "endTimeAria": "Muda wa mwisho wa kipengee {{index}}",
       "weekdaysShort": {
         "sun": "Jpi",
         "mon": "J2",
@@ -744,96 +744,96 @@
     }
   },
   "timeConditions": {
-    "label": "Time Conditions",
-    "title": "Time Conditions",
-    "subtitle": "Route calls by date, time, and schedule.",
-    "headTitle": "Time Conditions — Flex Contact Center",
+    "label": "Masharti ya Muda",
+    "title": "Masharti ya Muda",
+    "subtitle": "Elekeza simu kwa tarehe, muda, na ratiba.",
+    "headTitle": "Masharti ya Muda — Flex Contact Center",
     "actions": {
-      "addTimeCondition": "Add Time Condition"
+      "addTimeCondition": "Ongeza Sharti la Muda"
     },
     "toolbar": {
-      "searchPlaceholder": "Search conditions...",
-      "searchAriaLabel": "Search conditions"
+      "searchPlaceholder": "Tafuta masharti...",
+      "searchAriaLabel": "Tafuta masharti"
     },
     "error": {
-      "title": "Couldn't load time conditions",
-      "retry": "Try Again",
-      "generic": "Time Condition data could not be retrieved."
+      "title": "Imeshindwa kupakia masharti ya muda",
+      "retry": "Jaribu Tena",
+      "generic": "Data ya Sharti la Muda haikuweza kupatikana."
     },
     "empty": {
-      "noConditionsTitle": "No time conditions configured",
-      "noConditionsDescription": "Create a condition to route calls by schedule.",
-      "noMatchTitle": "No conditions match your search",
-      "noMatchDescription": "Try changing your search.",
-      "addTimeCondition": "Add Time Condition",
-      "clearFilters": "Clear filters"
+      "noConditionsTitle": "Hakuna masharti ya muda yaliyosanidiwa",
+      "noConditionsDescription": "Unda sharti ili kuelekeza simu kwa ratiba.",
+      "noMatchTitle": "Hakuna masharti yanazolingana na utafutaji wako",
+      "noMatchDescription": "Jaribu kubadilisha utafutaji wako.",
+      "addTimeCondition": "Ongeza Sharti la Muda",
+      "clearFilters": "Ondoa vichujio"
     },
-    "footerHint": "POC mock adapter — `RoutingRepository` boundary; replace with the real routing backend in rollout.",
+    "footerHint": "Mzigo wa jaribio wa POC — kipengele cha `RoutingRepository`; badilisha na backend halisi ya uelekezaji wakati wa uenezi.",
     "columns": {
-      "condition": "Condition",
-      "timeGroup": "Time Group",
-      "matchDestination": "Match Destination",
-      "fallback": "Fallback",
-      "status": "Status",
-      "actions": "Actions"
+      "condition": "Sharti",
+      "timeGroup": "Kikundi cha Muda",
+      "matchDestination": "Uhamiaji wa Kulingana",
+      "fallback": "Utegemezi",
+      "status": "Hali",
+      "actions": "Vitendo"
     },
     "table": {
-      "view": "View",
-      "edit": "Edit",
-      "viewAria": "View {{name}}",
-      "editAria": "Edit {{name}}"
+      "view": "Tazama",
+      "edit": "Hariri",
+      "viewAria": "Tazama {{name}}",
+      "editAria": "Hariri {{name}}"
     },
     "detail": {
-      "titleFallback": "Time Condition",
-      "status": "Status",
-      "timeGroup": "Time Group",
-      "whenMatches": "When schedule matches",
-      "whenNotMatches": "When schedule does not match",
-      "unknownDeleted": "Unknown / deleted",
-      "edit": "Edit",
-      "delete": "Delete"
+      "titleFallback": "Sharti la Muda",
+      "status": "Hali",
+      "timeGroup": "Kikundi cha Muda",
+      "whenMatches": "Wakati ratiba inalingana",
+      "whenNotMatches": "Wakati ratiba hailingani",
+      "unknownDeleted": "Haijulikani / Imefutwa",
+      "edit": "Hariri",
+      "delete": "Futa"
     },
     "form": {
-      "addTitle": "Add Time Condition",
-      "editTitle": "Edit Time Condition",
-      "description": "Define when this condition routes and where calls go.",
-      "general": "General",
-      "conditionName": "Condition Name",
-      "conditionNamePlaceholder": "e.g. Business Hours Routing",
-      "status": "Status",
-      "active": "Active",
-      "inactive": "Inactive",
-      "schedule": "Schedule",
-      "timeGroup": "Time Group",
-      "selectTimeGroup": "Select a time group",
-      "scheduleHint": "This condition controls where calls are routed during the configured schedule.",
-      "routing": "Routing",
-      "whenMatches": "When schedule matches",
-      "whenNotMatches": "When schedule does not match",
-      "cancel": "Cancel",
-      "saving": "Saving…",
-      "saveCondition": "Save Condition",
-      "createCondition": "Create Condition",
+      "addTitle": "Ongeza Sharti la Muda",
+      "editTitle": "Hariri Sharti la Muda",
+      "description": "Taja wakati hii hali hielekeza na simu zenda wapi.",
+      "general": "Jumla",
+      "conditionName": "Jina la Sharti",
+      "conditionNamePlaceholder": "mf. Uelekezaji wa Masaa ya Biashara",
+      "status": "Hali",
+      "active": "Amilifu",
+      "inactive": "Haamilifu",
+      "schedule": "Ratiba",
+      "timeGroup": "Kikundi cha Muda",
+      "selectTimeGroup": "Chagua Kikundi cha Muda",
+      "scheduleHint": "Hii hali inawakia wapi simu zielekezwe wakati wa ratiba iliyowekwa.",
+      "routing": "Uelekezaji",
+      "whenMatches": "Wakati ratiba inalingana",
+      "whenNotMatches": "Wakati ratiba hailingani",
+      "cancel": "Ghairi",
+      "saving": "Inahifadhi…",
+      "saveCondition": "Hifadhi Sharti",
+      "createCondition": "Unda Sharti",
       "validation": {
         "nameRequired": "Jina la sharti linahitajika.",
-        "timeGroupRequired": "Select a Time Group."
+        "timeGroupRequired": "Chagua Kikundi cha Muda."
       },
       "toast": {
-        "updated": "Time Condition updated",
-        "created": "Time Condition created",
-        "saveFailed": "Time Condition could not be saved",
-        "createFailed": "Time Condition could not be created"
+        "updated": "Sharti la Muda limesasishwa",
+        "created": "Sharti la Muda limeundwa",
+        "saveFailed": "Sharti la Muda halikuweza kuhifadhiwa",
+        "createFailed": "Sharti la Muda halikuweza kuundwa"
       }
     },
     "deleteDialog": {
-      "title": "Delete time condition?",
-      "description": "Delete \"{{name}}\"? Its schedule-based routing rules will be removed.",
-      "cancel": "Cancel",
-      "delete": "Delete Condition",
-      "deleting": "Deleting…",
+      "title": "Futa sharti la muda?",
+      "description": "Futa \"{{name}}\"? Kanuni zake za uelekezaji wa ratiba zitafutwa.",
+      "cancel": "Ghairi",
+      "delete": "Futa Sharti",
+      "deleting": "Inafuta…",
       "toast": {
-        "deleted": "Time Condition deleted",
-        "deleteFailed": "Time Condition could not be deleted"
+        "deleted": "Sharti la Muda limefutwa",
+        "deleteFailed": "Sharti la Muda halikuweza kufutwa"
       }
     }
   },
@@ -1258,24 +1258,24 @@
     "footer": "Data ya POC — vipimo vya sampuli; si telemetria halisi ya simu au SLA."
   },
   "ai": {
-    "title": "AI Center",
+    "title": "Kituo cha AI",
     "overview": {
-      "title": "AI Center",
-      "subtitle": "AI operations overview — what is enabled, what needs configuration, and usage",
-      "refreshStats": "Refresh Stats",
-      "usageSnapshot": "Today's Usage Snapshot",
-      "aiSessionsToday": "AI Sessions Today",
-      "assistAdoptionRate": "Assist Adoption Rate",
-      "totalTokensToday": "Total Tokens Today",
-      "estimatedCostToday": "Est. Cost Today",
-      "featureStatus": "AI Feature Status",
-      "knowledgeCoverage": "Knowledge Base Coverage",
-      "precisionNoData": "Precision — no data",
-      "activeVaults": "Active KB Vaults",
-      "knowledgeItems": "Knowledge Items",
-      "updatedToday": "Updated Today",
-      "lastUpdated": "Last Updated",
-      "noData": "No data",
+      "title": "Kituo cha AI",
+      "subtitle": "Muhtasari wa shughuli za AI — nini kilichoweza, kinachohitaji usanidi, na matumizi",
+      "refreshStats": "Sasisha Takwimu",
+      "usageSnapshot": "Muhtasari wa Matumizi ya Leo",
+      "aiSessionsToday": "Vipindi vya AI Leo",
+      "assistAdoptionRate": "Kiwango cha Kukubali Msaada",
+      "totalTokensToday": "Jumla ya Tokeni Leo",
+      "estimatedCostToday": "Gharama Inayokadiriwa Leo",
+      "featureStatus": "Hali ya Vipengele vya AI",
+      "knowledgeCoverage": "Uwanja wa Misingi ya Maarifa",
+      "precisionNoData": "Usahihi — hakuna data",
+      "activeVaults": "Vifuko vya KB vinavyofanya kazi",
+      "knowledgeItems": "Vipengee vya Maarifa",
+      "updatedToday": "Imeboreshwa Leo",
+      "lastUpdated": "Imeboreshwa Mwisho",
+      "noData": "Hakuna data",
       "precisionValue": "Usahihi — {{value}}%",
       "aiSessionsTodayDescription": "Mwingiliano wa wakala na msaidizi wa AI kwa wakati halisi",
       "assistAdoptionRateDescription": "Wakala wanaokubali mapendekezo ya AI",
@@ -1283,13 +1283,13 @@
       "estimatedCostTodayDescription": "Makadirio ya gharama ya mtoa huduma"
     },
     "knowledge": {
-      "title": "Knowledge Base",
-      "subtitle": "Manage knowledge vaults and indexed content",
-      "emptyTitle": "No knowledge vaults",
-      "emptyDescription": "Create a knowledge vault to get started.",
-      "reindex": "Reindex",
-      "index": "Index",
-      "vaultsTitle": "Vaulti za Maarifa",
+      "title": "Misingi ya Maarifa",
+      "subtitle": "Simamia vifuko vya maarifa na nilivyoorodheshwa",
+      "emptyTitle": "Hakuna vifuko vya maarifa",
+      "emptyDescription": "Unda kifuko cha maarifa ili kuanza.",
+      "reindex": "Rodhesha upya",
+      "index": "Orudhesha",
+      "vaultsTitle": "Vifuko vya Maarifa",
       "itemsTitle": "Vipengee vya Maarifa",
       "vaultMeta": "{{queue}} · vipengee {{count}} · {{updated}} vilivyosasishwa leo",
       "vaultMeta_one": "{{queue}} · kipengee {{count}} · {{updated}} kilichosasishwa leo",
@@ -1300,12 +1300,12 @@
       "emptyItemsDescription": "Vipengee vya maarifa vilivyoorodheshwa vitaonekana hapa."
     },
     "assist": {
-      "title": "Agent Assist",
-      "subtitle": "Configure assist behavior and prompts",
-      "enabled": "Agent Assist enabled",
-      "disabled": "Agent Assist disabled",
-      "enabledLabel": "Enabled",
-      "disabledLabel": "Disabled",
+      "title": "Msaada wa Wakala",
+      "subtitle": "Sanidi tabia ya msaada na mapendekezo",
+      "enabled": "Msaada wa Wakala umewezeshwa",
+      "disabled": "Msaada wa Wakala umezimwa",
+      "enabledLabel": "Umewezeshwa",
+      "disabledLabel": "Umezimwa",
       "enablementTitle": "Uwezeshaji",
       "enablementDescription": "Mapendekezo ni ya usanidi tu katika POC hii; hakuna maudhui ya mapendekezo yanayobuniwa.",
       "toggleAria": "Geuza Msaada wa Wakala",
@@ -1319,10 +1319,10 @@
       "emptyDescription": "Maudhui ya mapendekezo, mrejesho na muda wa kusubiri huhitaji runtime halisi ya Msaada wa Wakala. POC hii inaonyesha usanidi tu."
     },
     "voice": {
-      "title": "Virtual Assistants",
-      "subtitle": "Manage virtual assistants and voice configuration",
-      "enabled": "Virtual assistants are enabled.",
-      "disabled": "Virtual assistants are disabled.",
+      "title": "Wasaidizi Pepea",
+      "subtitle": "Simamia wasaidizi pepe na usanidi wa sauti",
+      "enabled": "Wasaidizi pepe wamewezeshwa.",
+      "disabled": "Wasaidizi pepe wamezimwa.",
       "statusTitle": "Hali",
       "enabledDescription": "Wasaidizi pepe wamewezeshwa.",
       "disabledDescription": "Usanidi unahitajika kabla ya kutumia kipengele hiki.",
@@ -1330,12 +1330,12 @@
       "emptyDescription": "Hakuna mjenzi wa boti ya Voice AI wala usanidi wa sauti unaoendeshwa. Muunganisho wa mtoa huduma na usanidi salama wa simu unahitajika."
     },
     "usage": {
-      "title": "Usage & Costs",
-      "subtitle": "AI usage and cost analytics",
-      "queue": "Queue",
-      "sessions": "Sessions",
-      "tokens": "Tokens",
-      "estimatedCost": "Est. Cost",
+      "title": "Matumizi & Gharama",
+      "subtitle": "Uchanganuzi wa matumizi na gharama za AI",
+      "queue": "Foleni",
+      "sessions": "Vipindi",
+      "tokens": "Tokeni",
+      "estimatedCost": "Gharama Inayokadiriwa",
       "usageTitle": "Matumizi",
       "emptyTitle": "Hakuna data ya matumizi",
       "emptyDescription": "Rekodi za matumizi na gharama zitaonekana hapa.",
@@ -1343,34 +1343,34 @@
         "queue": "Foleni",
         "sessions": "Vipindi",
         "tokens": "Tokeni",
-        "estimatedCost": "Gharama Kadiria"
+        "estimatedCost": "Gharama Inayokadiriwa"
       },
       "noData": "Hakuna data"
     },
     "providers": {
-      "title": "Providers & Models",
-      "subtitle": "Configure AI providers and models",
-      "emptyTitle": "No providers configured",
-      "emptyDescription": "Add a provider to get started.",
-      "testConnection": "Test connection",
+      "title": "Watoa Huduma & Modeli",
+      "subtitle": "Sanidi watoa huduma na modeli za AI",
+      "emptyTitle": "Hakuna watoa huduma waliosanidiwa",
+      "emptyDescription": "Ongeza mtoa huduma ili kuanza.",
+      "testConnection": "Jaribu muunganisho",
       "providersTitle": "Watoa Huduma",
       "modelLabel": "Modeli: {{model}}",
       "secretConfigured": "Siri imesanidiwa",
       "noSecret": "Hakuna siri iliyosanidiwa"
     },
     "audit": {
-      "title": "AI Audit",
-      "subtitle": "AI audit log and compliance",
-      "auditLog": "Audit Log",
-      "emptyTitle": "No audit records",
+      "title": "Ukaguzi wa AI",
+      "subtitle": "Logi ya ukaguzi wa AI na utekelezaji",
+      "auditLog": "Logi ya Ukaguzi",
+      "emptyTitle": "Hakuna rekodi za ukaguzi",
       "emptyDescription": "Usanidi wa AI na historia ya vitendo vitaonekana hapa.",
       "auditLogTitle": "Logi ya Ukaguzi"
     },
     "settings": {
-      "title": "AI Settings",
-      "subtitle": "Global AI Center configuration",
-      "globalEnabled": "Global AI Center is enabled",
-      "globalDisabled": "Global AI Center is disabled",
+      "title": "Mipangilio ya AI",
+      "subtitle": "Usanidi wa jumla wa Kituo cha AI",
+      "globalEnabled": "Kituo cha AI cha Jumla kimewezeshwa",
+      "globalDisabled": "Kituo cha AI cha Jumla kimezimwa",
       "globalTitle": "AI ya Jumla",
       "dependenciesTitle": "Vitegemezi",
       "emptyNotesTitle": "Hakuna maelezo ya vitegemezi",
@@ -1384,124 +1384,124 @@
   },
   "modules": {
     "tenants": {
-      "title": "Tenants & Multi-Org",
-      "description": "Manage tenant accounts, organizations, and domain isolation."
+      "title": "Wapangaji & Multi-Urwari",
+      "description": "Simamia akaunti za wapangaji, urwari, na utofauti wa kikoa."
     },
     "agents": {
-      "title": "Agents & Proficiencies",
-      "description": "Configure agent profiles, extension mapping, and skill routing."
+      "title": "Wakala & Ujuzi",
+      "description": "Sanidi miundo ya wakala, ulinganisho la kiambishi, na uelekezaji wa ujuzi."
     },
     "users": {
-      "title": "Users & Roles",
-      "description": "Role-based access control, credentials, and security policies."
+      "title": "Watumiaji & Majukumu",
+      "description": "Udhibiti wa ufikiaji wa msingi wa jukumu, vyevu, na sera za usalama."
     },
     "roles": {
-      "title": "Roles & Permissions",
-      "description": "Granular policy management for admin and supervisory roles."
+      "title": "Majukumu & Ruhusa",
+      "description": "Usimamizi wa sera ya kidogo kwa majukumu ya utawala na usimamizi."
     },
     "subscriptions": {
-      "title": "Subscriptions",
-      "description": "Track subscription status, remaining days, reminders, and renewal activity."
+      "title": "Usajili",
+      "description": "Fuatilia hali ya usajili, siku zilizobaki, vikumbusho, na shughuli za upya."
     },
     "cdr": {
-      "title": "Call Records (CDR)",
-      "description": "Search, filter, and inspect granular telephony logs and recordings."
+      "title": "Rekodi za Simu (CDR)",
+      "description": "Tafuta, chuja, na kagua kwa makini logi za simu na rekodi za kidigidigi."
     },
     "call-campaigns": {
-      "title": "Call Campaigns",
-      "description": "Outbound campaign management, schedules, and analytics."
+      "title": "Kampeni za Simu",
+      "description": "Usimamizi wa kampeni za kimwendelezo, ratiba, na uchanganuzi."
     },
     "queue": {
-      "title": "Queues & SLA",
-      "description": "Configure inbound queues, wrap-up rules, and SLA targets."
+      "title": "Foleni & SLA",
+      "description": "Sanidi foleni za ingia, kanuni za wrap-up, na malengo ya SLA."
     },
     "ivr": {
-      "title": "IVR Trees",
-      "description": "Build interactive voice response menus and keypress flows."
+      "title": "Miti ya IVR",
+      "description": "Jenga menyu za mawasiliano ya sauti za kivitendo na mawendo ya kivitendo."
     },
     "time-groups": {
-      "title": "Time Groups",
-      "description": "Reusable schedule definitions for time-based routing."
+      "title": "Vikundi vya Muda",
+      "description": "Ufafanuzi wa ratiba zinazotumika tena kwa uelekezaji wa muda."
     },
     "recordings": {
-      "title": "Audio & Recordings",
-      "description": "Manage system audio prompts, greetings, IVR recordings, and hold music."
+      "title": "Sauti & Rekodi",
+      "description": "Simamia matangazo ya sauti ya mfumo, salamu, rekodi za IVR, na muziki wa kusubiri."
     },
     "call-stats": {
-      "title": "Call Statistics",
-      "description": "Real-time performance analytics, call volumes, and metrics."
+      "title": "Takwimu za Simu",
+      "description": "Uchanganuzi wa utekelezaji wa wakati halisi, kiasi cha simu, na takwimu."
     },
     "reports": {
-      "title": "Reports & Analytics",
-      "description": "Generate, schedule, and export operational PDF/Excel reports."
+      "title": "Ripoti & Uchanganuzi",
+      "description": "Unda, ratibia, na hamisha ripoti za uendeshaji za PDF/Excel."
     },
     "charts": {
-      "title": "Flex Charts",
-      "description": "Visual analytics dashboard for supervisory overview."
+      "title": "Chati za Flex",
+      "description": "Dashibodi ya uchanganuzi ya kivitendo kwa mwango wa usimamizi."
     },
     "survey-monitoring": {
-      "title": "Survey Monitoring",
-      "description": "Customer CSAT/NPS survey feedback and scorecards."
+      "title": "Uchunguzi wa Survei",
+      "description": "Maoni ya wateja ya CSAT/NPS kwa survei na karti ya alama."
     },
     "inbound-routes": {
-      "title": "Inbound Routes",
-      "description": "DID pattern routing, time conditions, and destination rules."
+      "title": "Njia za Ingia",
+      "description": "Uelekezaji wa muundo wa DID, masharti ya muda, na kanuni za uhamiaji."
     },
     "time-conditions": {
-      "title": "Time Conditions",
-      "description": "Schedule working hours, holidays, and off-hour routing."
+      "title": "Masharti ya Muda",
+      "description": "Ratibisha masaa ya kazi, likizo, na uelekezaji wa masaa ya ziada."
     },
     "system-settings": {
-      "title": "System & Infrastructure",
-      "description": "Service health, server resources, backup status, and gateway connections."
+      "title": "Mfumo & Miundombinu",
+      "description": "Afya ya huduma, rasilimali za seva, hali ya hifadhi nakala, na miunganisho ya geti."
     },
     "mail-config": {
-      "title": "Mail Configuration",
-      "description": "Configure and test SMTP server settings for system alerts and notifications."
+      "title": "Usanidi wa Barua Pepe",
+      "description": "Sanidi na jaribu mipangilio ya seva ya SMTP kwa arifa za mfumo na arifa."
     },
     "security": {
-      "title": "Security & Audit",
-      "description": "IP access controls, firewall rules, and audit trail logs."
+      "title": "Usalama & Ukaguzi",
+      "description": "Makali ya ufikiaji wa IP, kanuni za kuta ya moto, na logi za njia ya ukaguzi."
     },
     "backups": {
-      "title": "Backups & Storage",
-      "description": "Database snapshot archives, retention, and disaster recovery."
+      "title": "Hifadhi Nakala & Hifadhi",
+      "description": "Arkiva za snapshot ya data, uendelevu, na ukombozi wa maafa."
     },
     "global-settings": {
-      "title": "Settings",
-      "description": "Profile, account security, and application preferences."
+      "title": "Mipangilio",
+      "description": "Wasifu, usalama wa akaunti, na mapendekezo ya programu."
     },
     "moh": {
-      "title": "Music On Hold (MOH)",
-      "description": "Manage audio playlists played while callers are queued or on hold."
+      "title": "Muziki wa Kusubiri (MOH)",
+      "description": "Simamia orodha ya kurasa za sauti zinazochezwa wakati wapigaji wanasubiri au kwenye subiri."
     },
     "tones": {
-      "title": "Tones & Frequencies",
-      "description": "Country-specific ringback, busy, and dialtone frequency profiles."
+      "title": "Sauti & Mwanga",
+      "description": "Miundo ya mringo, saa hivi, na mwanga wa nambari ya nchi maalum."
     },
     "agent-states": {
-      "title": "Agent States & Reasons",
-      "description": "Custom pause codes, break reasons, and wrap-up status labels."
+      "title": "Hali za Wakala & Sababu",
+      "description": "Mifumo ya kupumzika ya kawaida, sababu za mapumziko, na alama za hali ya wrap-up."
     },
     "departments": {
-      "title": "Departments",
-      "description": "Organizational units, cost center allocations, and supervisors."
+      "title": "Idara",
+      "description": "Vitengo vya urwari, ugawaji wa kituo cha gharama, na walezi."
     },
     "survey": {
-      "title": "CSAT / Survey Config",
-      "description": "Post-call survey prompts, scoring rules, and rating thresholds."
+      "title": "Mipangilio ya CSAT / Survei",
+      "description": "Vitisho vya survei baada ya simu, kanuni za alama, na kizuizi cha alama."
     },
     "cdr-config": {
-      "title": "CDR Configuration",
-      "description": "Log storage parameters, anonymization rules, and purging schedules."
+      "title": "Usanidi wa CDR",
+      "description": "Vipimo vya uhifadhi wa logi, kanuni za kuficha utambulisho, na ratiba za kufuta."
     },
     "global-config": {
-      "title": "Global System Config",
-      "description": "Core application settings, default locale, and time zone offsets."
+      "title": "Usanidi wa Mfumo wa Jumla",
+      "description": "Mipangilio ya msingi ya programu, eneo la chaguo-msingi, na ofseti ya eneo la muda."
     },
     "outbound-routes": {
-      "title": "Outbound Routes",
-      "description": "Dial plan prefixes, trunk failover priorities, and rate limits."
+      "title": "Njia za Nje",
+      "description": "Vipangaji mwanzilishi wa mpangilio wa nambari, kipaumbele cha trunk, na vikwazo vya kiwango."
     },
     "categories": {
       "coreAdministration": "Utawala Msingi",
@@ -1515,8 +1515,8 @@
       "systemSecurity": "Mfumo na Usalama"
     },
     "queues": {
-      "title": "Queues & SLA",
-      "description": "Configure inbound queues, wrap-up rules, and SLA targets."
+      "title": "Foleni & SLA",
+      "description": "Sanidi foleni za ingia, kanuni za wrap-up, na malengo ya SLA."
     }
   },
   "tenants": {

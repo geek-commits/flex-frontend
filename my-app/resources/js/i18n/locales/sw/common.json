@@ -172,7 +172,7 @@
     },
     "customers": {
       "breadcrumb": "Wateja",
-      "customer360Title": "{{name}} — Customer 360",
+      "customer360Title": "{{name}} — Mteja 360",
       "openWorkspace": "Fungua Nafasi ya Kazi",
       "customerId": "Kitambulisho cha Mteja",
       "events": "matukio {{count}}",
@@ -195,7 +195,7 @@
   },
   "customers": {
     "breadcrumb": "Wateja",
-    "customer360Title": "{{name}} — Customer 360",
+    "customer360Title": "{{name}} — Mteja 360",
     "openWorkspace": "Fungua Nafasi ya Kazi",
     "customerId": "Kitambulisho cha Mteja",
     "events": "matukio {{count}}",

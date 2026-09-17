@@ -244,7 +244,7 @@
       "queue": "Foleni",
       "category": "Kategoria",
       "attempts": "Majaribio",
-      "voicemail": "Voicemail",
+      "voicemail": "Barua ya sauti",
       "ownership": "Umiliki",
       "status": "Hali",
       "action": "Kitendo"
@@ -256,7 +256,7 @@
       "statusLabel": "Hali",
       "queueLabel": "Foleni",
       "ownershipLabel": "Umiliki",
-      "voicemailLabel": "Voicemail",
+      "voicemailLabel": "Barua ya sauti",
       "allStatuses": "Hali zote",
       "allQueues": "Foleni zote",
       "all": "Zote",
@@ -299,7 +299,7 @@
       "status": "Hali",
       "ownership": "Umiliki",
       "attempts": "Majaribio",
-      "voicemail": "Voicemail",
+      "voicemail": "Barua ya sauti",
       "attemptHistory": "Historia ya Majaribio",
       "noAttempts": "Hakuna majaribio bado."
     },

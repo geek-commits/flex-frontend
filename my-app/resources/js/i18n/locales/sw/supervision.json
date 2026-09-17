@@ -93,71 +93,71 @@
     }
   },
   "monitoring": {
-    "label": "Agent Monitoring",
-    "title": "Agent Monitoring",
-    "subtitle": "Live agent activity and supervisor intervention.",
-    "headTitle": "Agent Monitoring — Flex Contact Center",
+    "label": "Uchunguzi wa Wakala",
+    "title": "Uchunguzi wa Wakala",
+    "subtitle": "Shughuli ya wakala moja kwa moja na mwingilio wa msimamizi.",
+    "headTitle": "Uchunguzi wa Wakala — Flex Contact Center",
     "error": {
-      "title": "Agent monitoring unavailable",
-      "description": "Failed to load live agent activity.",
-      "retry": "Retry"
+      "title": "Uchunguzi wa wakala haipatikani",
+      "description": "Imeshindwa kupakia shughuli za wakala moja kwa moja.",
+      "retry": "Jaribu tena"
     },
     "empty": {
-      "filteredTitle": "No agents match your filters",
-      "filteredDescription": "Try a different search or clear your filters.",
-      "noAgentsTitle": "No agents online",
-      "noAgentsDescription": "Agent activity will appear here once agents come online.",
-      "rosterTitle": "No agents online",
-      "rosterDescription": "Agent activity will appear here once agents come online.",
-      "clearFilters": "Clear filters"
+      "filteredTitle": "Hakuna wakala wanaolingana na vichujio vyako",
+      "filteredDescription": "Jaribu utafutaji tofauti au ondoa vichujio vyako.",
+      "noAgentsTitle": "Hakuna wakala wanaoendeshwa",
+      "noAgentsDescription": "Shughuli za wakala zitaonekana hapa mara wakala watapokuwa mtaani.",
+      "rosterTitle": "Hakuna wakala wanaoendeshwa",
+      "rosterDescription": "Shughuli za wakala zitaonekana hapa mara wakala watapokuwa mtaani.",
+      "clearFilters": "Ondoa vichujio"
     },
     "toolbar": {
-      "filters": "Filters",
-      "clear": "Clear",
-      "searchPlaceholder": "Search agents by name or extension...",
-      "searchAriaLabel": "Search agents",
-      "columns": "Columns",
-      "stateLabel": "State",
-      "queueLabel": "Queue"
+      "filters": "Vichujio",
+      "clear": "Ondoa",
+      "searchPlaceholder": "Tafuta wakala kwa jina au kiambishi...",
+      "searchAriaLabel": "Tafuta wakala",
+      "columns": "Safu",
+      "stateLabel": "Hali",
+      "queueLabel": "Foleni"
     },
     "columns": {
-      "agent": "Agent",
-      "ext": "Ext.",
-      "queue": "Queue",
-      "state": "State",
-      "stateTime": "State Time",
-      "currentCall": "Current Call",
-      "callsToday": "Calls Today",
+      "agent": "Wakala",
+      "ext": "Kiamb.",
+      "queue": "Foleni",
+      "state": "Hali",
+      "stateTime": "Muda wa Hali",
+      "currentCall": "Simu ya Sasa",
+      "callsToday": "Simu Leo",
       "aht": "AHT"
     },
     "summary": {
       "talking": {
-        "label": "Talking",
-        "description": "Agents on active call"
+        "label": "Wanazungumza",
+        "description": "Wakala kwenye simu iliyounganishwa"
       },
       "ready": {
-        "label": "Ready",
-        "description": "Available for incoming calls"
+        "label": "Tayari",
+        "description": "Wanaopatikana kwa simu zinazoingia"
       },
       "ringing": {
-        "label": "Ringing",
-        "description": "Agents on inbound ring"
+        "label": "Inalia",
+        "description": "Wakala kwenye ringia inayoingia"
       },
       "wrapUp": {
-        "label": "Wrap-Up",
-        "description": "Post-call work"
+        "label": "Kuhitimisha",
+        "description": "Kazi baada ya simu"
       },
       "break": {
-        "label": "Break",
-        "description": "Away on break"
+        "label": "Mapumziko",
+        "description": "Waliopumzika"
       },
       "notReady": {
-        "label": "Not Ready",
-        "description": "Unavailable for calls"
+        "label": "Haiko Tayari",
+        "description": "Hawapatikani kwa simu"
       },
       "offline": {
-        "label": "Offline",
-        "description": "Not currently logged in"
+        "label": "Ofisini",
+        "description": "Hawako kwenye mtandao kwa sasa"
       }
     },
     "call": {
@@ -227,7 +227,7 @@
       "today": "Leo",
       "answered": "Zilizojibiwa",
       "missed": "Zilizokosekana",
-      "voicemail": "Voicemail",
+      "voicemail": "Barua ya sauti",
       "transferred": "Zilizopelekwa"
     },
     "detail": {
@@ -462,7 +462,7 @@
     "noCalls": "Hakuna simu"
   },
   "activeCalls": {
-    "title": "Active Calls",
+    "title": "Simu Zinazoendelea",
     "columns": {
       "customer": "Mteja",
       "agent": "Wakala",
