@@ -59,7 +59,7 @@ function AgentMonitoringContent() {
     });
 
     return (
-        <div className="flex w-full flex-col gap-[var(--flex-space-section)]">
+        <div className="flex w-full min-w-0 flex-col gap-[var(--flex-space-section)]">
             <FlexLiveDataStatus
                 connectionState={connectionState}
                 lastUpdated={lastUpdated}
