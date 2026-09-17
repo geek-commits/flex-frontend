@@ -19,7 +19,7 @@
 | Switch | 24×14 / 10px thumb / #0077E6 | `--flex-switch-*` | `app.css:344-347` + `components/ui/switch.tsx` |
 | Text light primary | #333333 | `--flex-text-primary` | `app.css:348` |
 | Text light subtle | #777777 | `--flex-text-muted` | `app.css:349` |
-| Avatar account fallback | solid brand blue | `--flex-account-avatar-bg` / `bg-flex-brand` | `app.css:350` + `components/flex/account-avatar.tsx` (scoped) |
+| Avatar account fallback | layered blue/cyan/violet/magenta | `--flex-account-avatar-gradient` (alias `--flex-avatar-gradient`) | `app.css:350` layered triple-gradient + `components/flex/account-avatar.tsx` (scoped) |
 | Motion slow | 300ms | `--flex-duration-slow` | `app.css:287` |
 
 ## Token Migration
@@ -29,7 +29,7 @@
 | `h-9` buttons | `h-8` 32px `rounded-[10px]` | `Button` primitive | Done (`644918f`) |
 | `rounded-md` badge success | `h-5 rounded-[6px] bg-[#CAFACE] text-[#15B042]` | `Badge success variant` | Done |
 | missing switch tokens | `24/14/10 #0077E6` + `Switch` component | `Switch` | Tokens done, component done this batch |
-| `AvatarFallback gradient` | `AvatarFallback bg-flex-brand` (account) / `bg-muted` (generic) | `Avatar` / `AccountAvatar` | Done (solid brand fallback, zero UI gradients per brand.md) |
+| `AvatarFallback bg-muted` | `AvatarFallback var(--flex-avatar-gradient)` fallback-only | `Avatar` | Done (Phase 3: generic bg-muted, AccountAvatar layered) |
 | `text-muted-foreground oklch(0.55)` as subtle | `#777777` light + dark theme-aware oklch equivalents | `app.css` + charts/surfaces | Done (duplicate def intentional, dark overrides added Phase 4) |
 | `--flex-font-size-section 0.75rem` | `0.875rem 600` | group headers | Done (`62dbbcb`, weight fixed 500→600 Phase 4) |
 | `--flex-workspace-divider 0.935 0.003` | `0.93 0.0025` | shell dividers | Done |

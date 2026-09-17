@@ -10,26 +10,28 @@ describe('AccountAvatar scope', () => {
         const html = container.innerHTML;
         expect(html.includes('GJ')).toBe(true);
         const fallback = screen.getByText('GJ');
-        expect(fallback.className).toContain('bg-flex-brand');
-        expect(fallback.className).toContain('text-white');
+        const style = (fallback as HTMLElement).getAttribute('style') ?? '';
+        expect(style).toContain('var(--flex-account-avatar-gradient)');
     });
 
-    it('renders initials with solid brand styling when no src', () => {
+    it('renders initials + account gradient when no src', () => {
         render(<AccountAvatar initials="GJ" />);
         const fallback = screen.getByText('GJ');
         expect(fallback).not.toBeNull();
-        expect(fallback.className).toContain('bg-flex-brand');
-        expect(fallback.className).toContain('text-white');
+        const style = (fallback as HTMLElement).getAttribute('style') ?? '';
+        expect(style).toContain('var(--flex-account-avatar-gradient)');
     });
 
-    it('generic Avatar uses neutral muted styling', () => {
+    it('generic Avatar does not use account gradient', () => {
         render(
             <Avatar>
                 <AvatarFallback>XX</AvatarFallback>
             </Avatar>
         );
         const fallback = screen.getByText('XX');
-        expect(fallback.className).not.toContain('bg-flex-brand');
+        const style = (fallback as HTMLElement).getAttribute('style') ?? '';
+        expect(style).not.toContain('var(--flex-account-avatar-gradient)');
+        expect(style).not.toContain('var(--flex-avatar-gradient)');
         expect(fallback.className).toContain('bg-muted');
     });
 });
