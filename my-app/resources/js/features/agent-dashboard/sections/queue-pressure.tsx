@@ -76,7 +76,7 @@ export function QueuePressureSection({ queues }: QueuePressureSectionProps) {
                                     </FlexStatus>
                                 </div>
 
-                                <FlexMetricStrip className="gap-x-6 px-3 py-2">
+                                <FlexMetricStrip>
                                     <FlexMetricItem
                                         label={t('dashboard.queuePressure.metrics.waiting')}
                                         value={queue.waiting}

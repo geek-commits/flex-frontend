@@ -11,22 +11,14 @@ export interface AccountAvatarProps extends React.ComponentPropsWithoutRef<typeo
 /**
  * Canonical signed-in account/profile avatar.
  * - Has photo → show photo unchanged
- * - No photo → initials on layered account gradient (blue/cyan/violet/magenta), white text with shadow
+ * - No photo → initials on solid brand surface (blue), white text
  * Scope: global account/profile control only. Never use for agent/customer/wallboard/generic avatars.
  */
 export function AccountAvatar({ src, initials, alt, className, size = 'default', ...props }: AccountAvatarProps & { size?: 'default' | 'sm' | 'lg' }) {
     return (
         <Avatar size={size} className={className} {...props}>
             {src ? <AvatarImage src={src} alt={alt ?? ''} /> : null}
-            <AvatarFallback
-                style={
-                    {
-                        background: 'var(--flex-account-avatar-gradient)',
-                        color: '#FFFFFF',
-                        textShadow: '0 1px 2px rgba(0, 0, 0, 0.28)',
-                    } as React.CSSProperties
-                }
-            >
+            <AvatarFallback className="bg-flex-brand font-medium text-white select-none">
                 {initials}
             </AvatarFallback>
         </Avatar>
