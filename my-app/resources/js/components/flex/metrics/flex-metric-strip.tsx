@@ -24,13 +24,17 @@ export function FlexMetricStrip({
     const defaultGridClass =
         count === 7
             ? 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7'
-            : count === 4
-              ? 'grid-cols-2 lg:grid-cols-4'
-              : count === 3
-                ? 'grid-cols-1 sm:grid-cols-3'
-                : count === 2
-                  ? 'grid-cols-2'
-                  : 'grid-cols-2 sm:grid-cols-4';
+            : count === 6
+              ? 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-6'
+              : count === 5
+                ? 'grid-cols-2 lg:grid-cols-5'
+                : count === 4
+                  ? 'grid-cols-2 lg:grid-cols-4'
+                  : count === 3
+                    ? 'grid-cols-1 sm:grid-cols-3'
+                    : count === 2
+                      ? 'grid-cols-2'
+                      : 'grid-cols-1';
 
     return (
         <div
@@ -43,7 +47,10 @@ export function FlexMetricStrip({
             {items.map((item, index) => (
                 <div
                     key={index}
-                    className="min-w-0 bg-flex-workspace-surface px-4 py-3"
+                    className={cn(
+                        'min-w-0 bg-flex-workspace-surface px-4 py-3',
+                        count === 5 && index === 4 && 'col-span-2 lg:col-span-1',
+                    )}
                 >
                     {item}
                 </div>
