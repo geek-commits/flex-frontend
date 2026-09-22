@@ -33,18 +33,14 @@ throw new Error('config not found');
 
 export function resolveExternalWorkspaceStatus(
     data: ExternalWorkspaceConfig,
-    isLocalDevelopment = import.meta.env.DEV,
 ): ExternalWorkspaceStatus {
-    // The external applications cannot provide an authenticated iframe session
-    // from HTTP localhost. Keep local development honest: render the host-owned
-    // fallback instead of proxying external auth, cookies, or frame policies.
-    if (isLocalDevelopment && data.mode === 'external') {
-        return 'local-fallback';
+    if (data.connection === 'unavailable') {
+        return 'unavailable';
     }
 
-    if (data.connection === 'unavailable') {
-return 'unavailable';
-}
+    if (data.mode === 'local-fallback') {
+        return 'local-fallback';
+    }
 
     return hasExternalSrc(data) ? 'loading' : 'mock';
 }
