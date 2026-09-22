@@ -50,16 +50,24 @@ export function ContactCenterDashboardContent() {
 
     return (
         <div className="flex w-full min-w-0 flex-col gap-[var(--flex-space-section)]">
-            <FlexLiveDataStatus
-                connectionState={connectionState}
-                lastUpdated={lastUpdated}
-                isRefreshing={isRefreshing}
-                onRefresh={refresh}
-                title={t('dashboard.titleShort')}
-                description={t('dashboard.descriptionShort')}
-            />
-
-            <OperationalException />
+            <section
+                aria-label={t('dashboard.titleShort')}
+                className="overflow-hidden rounded-md border border-flex-workspace-divider bg-flex-workspace-surface-muted"
+            >
+                <div className="border-b border-flex-workspace-divider px-4 py-2.5">
+                    <OperationalException />
+                </div>
+                <div className="px-4 py-3">
+                    <FlexLiveDataStatus
+                        connectionState={connectionState}
+                        lastUpdated={lastUpdated}
+                        isRefreshing={isRefreshing}
+                        onRefresh={refresh}
+                        title={t('dashboard.titleShort')}
+                        description={t('dashboard.descriptionShort')}
+                    />
+                </div>
+            </section>
 
             <OperationsSummary />
 
