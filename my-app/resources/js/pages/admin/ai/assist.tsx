@@ -19,13 +19,13 @@ export default function AiAssistPage() {
             subtitleKey="ai.assist.subtitle"
         >
             <div className="flex flex-col gap-6 w-full">
-                <Card className="bg-card border-border shadow-2xs">
-                    <CardHeader className="p-4 pb-2 border-b border-border">
-                        <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                <Card className="border-0 bg-transparent shadow-none rounded-none">
+                    <CardHeader className="p-0 pb-3 border-b border-flex-workspace-divider">
+                        <CardTitle className="text-sm font-semibold text-flex-text-muted">
                             {t('ai.assist.enablementTitle')}
                         </CardTitle>
                     </CardHeader>
-                    <CardContent className="p-4 flex items-center justify-between gap-4">
+                    <CardContent className="p-0 pt-3 flex items-center justify-between gap-4">
                         <div className="flex flex-col gap-0.5">
                             <span className="text-sm font-semibold text-foreground">
                                 {assistConfig.enabled ? t('ai.assist.enabled') : t('ai.assist.disabled')}
@@ -43,14 +43,14 @@ export default function AiAssistPage() {
                     </CardContent>
                 </Card>
 
-                <Card className="bg-card border-border shadow-2xs">
-                    <CardHeader className="p-4 pb-2 border-b border-border">
-                        <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                <Card className="border-0 bg-transparent shadow-none rounded-none">
+                    <CardHeader className="p-0 pb-3 border-b border-flex-workspace-divider">
+                        <CardTitle className="text-sm font-semibold text-flex-text-muted">
                             {t('ai.assist.metricsTitle')}
                         </CardTitle>
                     </CardHeader>
-                    <CardContent className="p-4 grid grid-cols-2 gap-4">
-                        <div className="p-3 rounded-lg bg-muted/40 border border-border flex flex-col">
+                    <CardContent className="p-0 pt-3 grid grid-cols-2 gap-4">
+                        <div className="border-t border-border pt-3 flex flex-col">
                             <span className="text-[10px] uppercase font-semibold text-muted-foreground">
                                 {t('ai.assist.metrics.status')}
                             </span>
@@ -58,7 +58,7 @@ export default function AiAssistPage() {
                                 <StatusBadge domain="ai" status={assistConfig.enabled ? 'enabled' : 'disabled'} />
                             </div>
                         </div>
-                        <div className="p-3 rounded-lg bg-muted/40 border border-border flex flex-col">
+                        <div className="border-t border-border pt-3 flex flex-col">
                             <span className="text-[10px] uppercase font-semibold text-muted-foreground">
                                 {t('ai.assist.metrics.adoptionRate')}
                             </span>

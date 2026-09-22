@@ -58,7 +58,7 @@ export default function SystemPage() {
             <div className="flex flex-col gap-6 w-full">
                 {/* 1. Infrastructure Health Overview */}
                 <div className="flex flex-col gap-2.5">
-                    <h2 className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+                    <h2 className="text-sm font-semibold text-flex-text-muted flex items-center gap-1.5">
                         <FlexIcon name="infrastructure" className="text-primary" />
                         <span>{t('system.infrastructureHealth')}</span>
                     </h2>
@@ -88,14 +88,14 @@ export default function SystemPage() {
 
                 {/* 2. Server Resources + Backup Status */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <Card className="bg-card border-border shadow-2xs">
-                        <CardHeader className="p-4 pb-2 border-b border-border">
-                            <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+                    <Card className="border-0 bg-transparent shadow-none rounded-none">
+                        <CardHeader className="p-0 pb-3 border-b border-flex-workspace-divider">
+                            <CardTitle className="text-sm font-semibold text-flex-text-muted flex items-center gap-1.5">
                                 <FlexIcon name="server-resources" className="text-primary" />
                                 {t('system.serverResources')}
                             </CardTitle>
                         </CardHeader>
-                        <CardContent className="p-4 flex flex-col gap-4">
+                        <CardContent className="p-0 pt-3 flex flex-col gap-4">
                             {serverResources.map((r) => (
                                 <div key={r.label} className="flex flex-col gap-1.5">
                                     <div className="flex items-center justify-between text-xs">
@@ -116,14 +116,14 @@ export default function SystemPage() {
                         </CardContent>
                     </Card>
 
-                    <Card className="bg-card border-border shadow-2xs">
-                        <CardHeader className="p-4 pb-2 border-b border-border">
-                            <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+                    <Card className="border-0 bg-transparent shadow-none rounded-none">
+                        <CardHeader className="p-0 pb-3 border-b border-flex-workspace-divider">
+                            <CardTitle className="text-sm font-semibold text-flex-text-muted flex items-center gap-1.5">
                                 <FlexIcon name="backup-status" className="text-primary" />
                                 {t('system.backupStatus')}
                             </CardTitle>
                         </CardHeader>
-                        <CardContent className="p-4 flex flex-col gap-3">
+                        <CardContent className="p-0 pt-3 flex flex-col gap-3">
                             {backups.map((b) => (
                                 <div key={b.label} className="flex items-center justify-between text-xs">
                                     <span className="text-muted-foreground">{b.label}</span>
@@ -137,14 +137,14 @@ export default function SystemPage() {
                 </div>
 
                 {/* 3. Service Health Table */}
-                <Card className="bg-card border-border shadow-2xs">
-                    <CardHeader className="p-4 pb-2 border-b border-border">
-                        <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+                <Card className="border-0 bg-transparent shadow-none rounded-none">
+                    <CardHeader className="p-0 pb-3 border-b border-flex-workspace-divider">
+                        <CardTitle className="text-sm font-semibold text-flex-text-muted flex items-center gap-1.5">
                             <FlexIcon name="service-health" className="text-primary" />
                             {t('system.serviceHealthMatrix')}
                         </CardTitle>
                     </CardHeader>
-                    <CardContent className="p-4 overflow-x-auto">
+                    <CardContent className="p-0 pt-3 overflow-x-auto">
                         <table className="flex-table-grid w-full text-left text-xs">
                             <thead>
                                 <tr className="border-b border-border text-muted-foreground font-semibold uppercase text-[10px]">

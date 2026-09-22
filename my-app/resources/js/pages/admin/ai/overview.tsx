@@ -92,9 +92,9 @@ export default function AiOverviewPage() {
                     <AIFeatureStatusGrid features={features} />
                 </div>
 
-                <Card className="bg-card border-border shadow-2xs">
-                    <CardHeader className="p-4 pb-2 border-b border-border">
-                        <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center justify-between">
+                <Card className="border-0 bg-transparent shadow-none rounded-none">
+                    <CardHeader className="p-0 pb-3 border-b border-flex-workspace-divider">
+                        <CardTitle className="text-sm font-semibold text-flex-text-muted flex items-center justify-between">
                             <span className="flex items-center gap-1.5">
                                 <FlexIcon name="knowledge-base" className="text-primary" />
                                 {t('ai.overview.knowledgeCoverage')}
@@ -106,9 +106,9 @@ export default function AiOverviewPage() {
                             </span>
                         </CardTitle>
                     </CardHeader>
-                    <CardContent className="p-4">
+                    <CardContent className="p-0 pt-3">
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                            <div className="p-3 rounded-lg bg-muted/40 border border-border flex flex-col">
+                            <div className="border-t border-border pt-3 flex flex-col">
                                 <span className="text-[10px] uppercase font-semibold text-muted-foreground">
                                     {t('ai.overview.activeVaults')}
                                 </span>
@@ -116,7 +116,7 @@ export default function AiOverviewPage() {
                                     {indexedVaults} / {knowledgeVaults.length}
                                 </span>
                             </div>
-                            <div className="p-3 rounded-lg bg-muted/40 border border-border flex flex-col">
+                            <div className="border-t border-border pt-3 flex flex-col">
                                 <span className="text-[10px] uppercase font-semibold text-muted-foreground">
                                     {t('ai.overview.knowledgeItems')}
                                 </span>
@@ -124,13 +124,13 @@ export default function AiOverviewPage() {
                                     {formatNumber(knowledgeItems.length, locale)}
                                 </span>
                             </div>
-                            <div className="p-3 rounded-lg bg-muted/40 border border-border flex flex-col">
+                            <div className="border-t border-border pt-3 flex flex-col">
                                 <span className="text-[10px] uppercase font-semibold text-muted-foreground">
                                     {t('ai.overview.updatedToday')}
                                 </span>
                                 <span className="text-lg font-bold text-status-live">{updatedToday}</span>
                             </div>
-                            <div className="p-3 rounded-lg bg-muted/40 border border-border flex flex-col">
+                            <div className="border-t border-border pt-3 flex flex-col">
                                 <span className="text-[10px] uppercase font-semibold text-muted-foreground">
                                     {t('ai.overview.lastUpdated')}
                                 </span>

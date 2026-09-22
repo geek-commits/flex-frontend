@@ -2,7 +2,7 @@ import { Head } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 import { FlexPageContent } from '@/components/flex/flex-page-content';
 import { FlexPageHeader } from '@/components/flex/flex-page-header';
-import { Card, CardContent } from '@/components/ui/card';
+import { FlexStatus } from '@/components/flex/flex-status';
 import { useWorkspaceState } from '@/features/agent-workspace/state/use-workspace-state';
 
 export default function HealthPage() {
@@ -19,7 +19,16 @@ export default function HealthPage() {
             <Head title={t('health.headTitle')} />
             <FlexPageContent className="flex flex-col gap-[var(--flex-space-section)]">
                 <FlexPageHeader title={t('health.title')} description={t('health.description')} />
-                <Card><CardContent className="pt-6"><ul className="space-y-2">{items.map((i) => (<li key={i.name} className="flex justify-between text-sm"><span>{i.name}</span><span className="font-medium">{i.state}</span></li>))}</ul></CardContent></Card>
+                <section className="border-y border-flex-workspace-divider">
+                    <ul className="divide-y divide-border">
+                        {items.map((i) => (
+                            <li key={i.name} className="flex items-center justify-between gap-4 py-3 text-sm">
+                                <span className="font-medium text-foreground">{i.name}</span>
+                                <FlexStatus tone={i.state === 'Operational' ? 'success' : 'warning'}>{i.state}</FlexStatus>
+                            </li>
+                        ))}
+                    </ul>
+                </section>
             </FlexPageContent>
         </>
     );

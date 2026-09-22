@@ -55,14 +55,14 @@ export default function TroubleshootingPage() {
             <div className="flex flex-col gap-6 w-full">
                 <DiagnosticPanel />
 
-                <Card className="bg-card border-border shadow-2xs">
-                    <CardHeader className="p-4 pb-2 border-b border-border">
-                        <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+                <Card className="border-0 bg-transparent shadow-none rounded-none">
+                    <CardHeader className="p-0 pb-3 border-b border-flex-workspace-divider">
+                        <CardTitle className="text-sm font-semibold text-flex-text-muted flex items-center gap-1.5">
                             <RiMicLine className="size-4 text-primary" />
                             {t('troubleshooting.audioDeviceSelection')}
                         </CardTitle>
                     </CardHeader>
-                    <CardContent className="p-4">
+                    <CardContent className="p-0 pt-3">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="flex flex-col gap-1.5">
                                 <label className="text-xs font-medium text-foreground">{t('troubleshooting.microphoneInput')}</label>
@@ -101,9 +101,9 @@ export default function TroubleshootingPage() {
                     </CardContent>
                 </Card>
 
-                <Card className="bg-card border-border shadow-2xs">
-                    <CardHeader className="p-4 pb-2 border-b border-border">
-                        <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center justify-between">
+                <Card className="border-0 bg-transparent shadow-none rounded-none">
+                    <CardHeader className="p-0 pb-3 border-b border-flex-workspace-divider">
+                        <CardTitle className="text-sm font-semibold text-flex-text-muted flex items-center justify-between">
                             <span className="flex items-center gap-1.5">
                                 <RiPulseLine className="size-4 text-primary" />
                                 {t('troubleshooting.fullDiagnosticSuite')}
@@ -123,7 +123,7 @@ export default function TroubleshootingPage() {
                             </div>
                         </CardTitle>
                     </CardHeader>
-                    <CardContent className="p-4">
+                    <CardContent className="p-0 pt-3">
                         <div className="flex flex-col divide-y divide-border">
                             {checks.map((check) => (
                                 <div key={check.id} className="py-3 flex items-center justify-between gap-4">
@@ -154,8 +154,8 @@ export default function TroubleshootingPage() {
                     </CardContent>
                 </Card>
 
-                <Card className="bg-card border-border shadow-2xs">
-                    <CardContent className="p-4">
+                <Card className="border-0 bg-transparent shadow-none rounded-none border-t border-flex-workspace-divider pt-4">
+                    <CardContent className="p-0">
                         <div className="flex items-center justify-between gap-4 text-xs">
                             <div>
                                 <div className="font-semibold text-foreground">{t('troubleshooting.stillExperiencing')}</div>

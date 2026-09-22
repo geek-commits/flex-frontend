@@ -53,14 +53,14 @@ return;
             <Head title={t('support.headTitle')} />
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
-                <Card className="bg-card border-border shadow-2xs lg:col-span-1">
-                    <CardHeader className="p-4 pb-2 border-b border-border">
-                        <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+                <Card className="border-0 bg-transparent shadow-none rounded-none lg:col-span-1">
+                    <CardHeader className="p-0 pb-3 border-b border-flex-workspace-divider">
+                        <CardTitle className="text-sm font-semibold text-flex-text-muted flex items-center gap-1.5">
                             <RiLifebuoyLine className="size-4 text-primary" />
                             {t('support.submitTicket')}
                         </CardTitle>
                     </CardHeader>
-                    <CardContent className="p-4 flex flex-col gap-4">
+                    <CardContent className="p-0 pt-3 flex flex-col gap-4">
                         <div className="flex flex-col gap-1.5">
                             <Label className="text-xs">{t('support.issueCategory')}</Label>
                             <Select value={category} onValueChange={(value) => setCategory((value as SupportCategory) ?? categories[0])}>
@@ -95,13 +95,13 @@ return;
                     </CardContent>
                 </Card>
 
-                <Card className="bg-card border-border shadow-2xs lg:col-span-2">
-                    <CardHeader className="p-4 pb-2 border-b border-border">
-                        <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                <Card className="border-0 bg-transparent shadow-none rounded-none lg:col-span-2">
+                    <CardHeader className="p-0 pb-3 border-b border-flex-workspace-divider">
+                        <CardTitle className="text-sm font-semibold text-flex-text-muted">
                             {t('support.myTickets')}
                         </CardTitle>
                     </CardHeader>
-                    <CardContent className="p-4">
+                    <CardContent className="p-0 pt-3">
                         {tickets.length === 0 ? (
                             <FlexEmptyState title={t('support.emptyTitle')} description={t('support.emptyDescription')} />
                         ) : (
@@ -109,7 +109,7 @@ return;
                                 {tickets.map((ticket) => (
                                     <div
                                         key={ticket.id}
-                                        className="p-3 rounded-lg bg-muted/40 border border-border flex items-center justify-between gap-3 text-xs"
+                                        className="border-t border-border py-3 flex items-center justify-between gap-3 text-xs"
                                     >
                                         <div className="flex flex-col gap-0.5 min-w-0">
                                             <div className="flex items-center gap-2">
