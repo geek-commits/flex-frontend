@@ -39,7 +39,7 @@ export default function CampaignDetailPage() {
                 <Head title={t('campaigns.detail.notFoundTitle') + ' — Flex Contact Center'} />
                 <div className="flex flex-col gap-4 w-full">
                     <BackLink href="/admin/campaigns" label={t('campaigns.detail.back')} />
-                    <Card className="bg-card border-border shadow-2xs">
+                    <Card className="border-0 bg-transparent shadow-none rounded-none border-y border-flex-workspace-divider">
                         <CardContent className="p-8 text-center text-sm text-muted-foreground">
                             {t('campaigns.detail.notFoundDetail', { id: campaignId })}
                         </CardContent>
@@ -117,8 +117,8 @@ export default function CampaignDetailPage() {
                 <BackLink href="/admin/campaigns" label={t('campaigns.detail.back')} />
 
                 {/* Header card */}
-                <Card className="bg-card border-border shadow-2xs">
-                    <CardContent className="p-5 flex flex-col gap-5">
+                <Card className="border-0 bg-transparent shadow-none rounded-none border-y border-flex-workspace-divider">
+                    <CardContent className="px-0 py-5 flex flex-col gap-5">
                         <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                             <div className="flex flex-col gap-1.5">
                                 <div className="flex items-center gap-2.5">

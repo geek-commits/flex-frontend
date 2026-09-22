@@ -45,7 +45,7 @@ export default function CdrDetailPage() {
                 <BackLink href="/admin/cdr" label={t('cdr.page.back')} />
 
                 {!record ? (
-                    <Card className="bg-card border-border shadow-2xs">
+                    <Card className="border-0 bg-transparent shadow-none rounded-none border-y border-flex-workspace-divider">
                         <CardContent className="p-8 text-center text-sm text-muted-foreground">
                             {t('cdr.page.notFoundDetail', { id: recordId })}
                         </CardContent>
@@ -53,8 +53,8 @@ export default function CdrDetailPage() {
                 ) : (
                     <>
                         {/* Entity header */}
-                        <Card className="bg-card border-border shadow-2xs">
-                            <CardContent className="p-5 flex flex-col gap-5">
+                        <Card className="border-0 bg-transparent shadow-none rounded-none border-y border-flex-workspace-divider">
+                            <CardContent className="px-0 py-5 flex flex-col gap-5">
                                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                                     <div className="flex flex-col gap-1.5">
                                         <div className="flex items-center gap-2.5">
@@ -76,19 +76,19 @@ export default function CdrDetailPage() {
                                 </div>
 
                                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                                    <div className="p-3 rounded-lg bg-muted/40 border border-border flex flex-col">
+                                    <div className="border-t border-border pt-3 flex flex-col">
                                         <span className="text-[10px] uppercase font-semibold text-muted-foreground">{t('cdr.detail.queue')}</span>
                                         <span className="text-sm font-semibold text-foreground truncate">{record.queueName}</span>
                                     </div>
-                                    <div className="p-3 rounded-lg bg-muted/40 border border-border flex flex-col">
+                                    <div className="border-t border-border pt-3 flex flex-col">
                                         <span className="text-[10px] uppercase font-semibold text-muted-foreground">{t('cdr.detail.agent')}</span>
                                         <span className="text-sm font-semibold text-foreground truncate">{record.agentName}</span>
                                     </div>
-                                    <div className="p-3 rounded-lg bg-muted/40 border border-border flex flex-col">
+                                    <div className="border-t border-border pt-3 flex flex-col">
                                         <span className="text-[10px] uppercase font-semibold text-muted-foreground">{t('cdr.detail.duration')}</span>
                                         <span className="text-sm font-semibold text-foreground font-mono">{formatDuration(record.durationSeconds)}</span>
                                     </div>
-                                    <div className="p-3 rounded-lg bg-muted/40 border border-border flex flex-col">
+                                    <div className="border-t border-border pt-3 flex flex-col">
                                         <span className="text-[10px] uppercase font-semibold text-muted-foreground">{t('cdr.detail.recording')}</span>
                                         <span className="text-sm font-semibold text-foreground">
                                             {record.hasRecording ? t('cdr.detail.recordingAvailable') : t('cdr.detail.recordingNone')}
@@ -100,13 +100,13 @@ export default function CdrDetailPage() {
 
                         {/* Recording player (mock) */}
                         {record.hasRecording && (
-                            <Card className="bg-card border-border shadow-2xs">
-                                <CardHeader className="p-4 pb-2 border-b border-border">
-                                    <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                            <Card className="border-0 bg-transparent shadow-none rounded-none border-y border-flex-workspace-divider">
+                                <CardHeader className="p-0 py-3 border-b border-flex-workspace-divider">
+                                    <CardTitle className="text-sm font-semibold text-flex-text-muted">
                                         {t('cdr.page.recordingTitle')}
                                     </CardTitle>
                                 </CardHeader>
-                                <CardContent className="p-4 flex items-center gap-3">
+                                <CardContent className="p-0 pt-3 pb-4 flex items-center gap-3">
                                     <Button
                                         variant="outline"
                                         size="icon-sm"
@@ -133,13 +133,13 @@ export default function CdrDetailPage() {
                         )}
 
                         {/* Call timeline */}
-                        <Card className="bg-card border-border shadow-2xs">
-                            <CardHeader className="p-4 pb-2 border-b border-border">
-                                <CardTitle className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                        <Card className="border-0 bg-transparent shadow-none rounded-none border-y border-flex-workspace-divider">
+                            <CardHeader className="p-0 py-3 border-b border-flex-workspace-divider">
+                                <CardTitle className="text-sm font-semibold text-flex-text-muted">
                                     {t('cdr.page.timelineTitle')}
                                 </CardTitle>
                             </CardHeader>
-                            <CardContent className="p-4 flex flex-col gap-0">
+                            <CardContent className="p-0 pt-3 pb-4 flex flex-col gap-0">
                                 {getCallTimeline(record).map((event, index, all) => {
                                     const eventTone = statusToneClasses[event.tone];
 
