@@ -1,5 +1,5 @@
 import { Link, router, usePage } from '@inertiajs/react';
-import { RiLogoutBoxRLine, RiShieldUserLine, RiSettings4Line, RiUserSettingsLine, RiStore3Line } from '@remixicon/react';
+import { RiLogoutBoxRLine, RiShieldUserLine, RiUserSettingsLine } from '@remixicon/react';
 import React, { useState } from 'react';
 import { useCapabilities } from '@/auth/capabilities';
 import { AccountAvatar } from '@/components/flex/account-avatar';
@@ -16,7 +16,6 @@ import {
 import { useInitials } from '@/hooks/use-initials';
 import { useMobileNavigation } from '@/hooks/use-mobile-navigation';
 import { logout } from '@/routes';
-import { roles, tenants } from '@/routes/admin';
 import { edit } from '@/routes/profile';
 import type { User } from '@/types';
 
@@ -32,13 +31,15 @@ function roleLabel(role: string): string {
 }
 
 /**
- * Canonical top-right account/profile control. Separates identity (avatar +
- * name + role) from role/access and tenant/platform context (adjacent trigger).
+ * Canonical top-right account/profile control. Strictly scopes to personal
+ * identity (avatar + name + email + role badge), profile settings, personal
+ * access inspection, and session termination. System administration routes
+ * belong exclusively in workspace navigation rails.
  */
 export function FlexProfileMenu() {
     const { auth } = usePage().props;
     const user = auth?.user as User | undefined;
-    const { role, has } = useCapabilities();
+    const { role } = useCapabilities();
     const getInitials = useInitials();
     const cleanup = useMobileNavigation();
     const [roleAccessOpen, setRoleAccessOpen] = useState(false);
@@ -58,7 +59,7 @@ export function FlexProfileMenu() {
         <>
             <DropdownMenu>
                 <DropdownMenuTrigger
-                    className="flex items-center justify-center size-8 rounded-full bg-transparent p-0 outline-none transition-colors hover:bg-flex-layer-hover focus-visible:ring-2 focus-visible:ring-ring"
+                    className="flex items-center justify-center size-8 rounded-full bg-transparent p-0 outline-none transition-colors hover:bg-flex-layer-hover focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
                     aria-label="Open profile menu"
                 >
                     <AccountAvatar size="default" className="size-8" src={user.avatar ?? null} initials={initials} alt="" />
@@ -76,8 +77,10 @@ export function FlexProfileMenu() {
                                     <div className="truncate text-xs text-muted-foreground" title={user.email}>
                                         {user.email}
                                     </div>
-                                    <div className="truncate text-[11px] font-medium text-status-info mt-0.5">
-                                        {roleLabel(role)}
+                                    <div className="mt-1">
+                                        <span className="inline-flex items-center rounded-md border border-border bg-muted/60 px-1.5 py-0.5 text-[11px] font-medium text-muted-foreground">
+                                            {roleLabel(role)}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -96,20 +99,7 @@ export function FlexProfileMenu() {
                                     onClick={cleanup}
                                 >
                                     <RiUserSettingsLine className="mr-2" />
-                                    View profile
-                                </Link>
-                            }
-                        />
-                        <DropdownMenuItem
-                            render={
-                                <Link
-                                    className="block w-full cursor-pointer"
-                                    href={edit()}
-                                    prefetch
-                                    onClick={cleanup}
-                                >
-                                    <RiSettings4Line className="mr-2" />
-                                    Account settings
+                                    Profile settings
                                 </Link>
                             }
                         />
@@ -124,42 +114,10 @@ export function FlexProfileMenu() {
 
                     <DropdownMenuSeparator />
 
-                    {has('roles.manage') && (
-                        <DropdownMenuGroup>
-                            <DropdownMenuItem
-                                render={
-                                    <Link
-                                        className="block w-full cursor-pointer"
-                                        href={roles()}
-                                        prefetch
-                                        onClick={cleanup}
-                                    >
-                                        <RiShieldUserLine className="mr-2" />
-                                        Roles &amp; permissions
-                                    </Link>
-                                }
-                            />
-                            <DropdownMenuItem
-                                render={
-                                    <Link
-                                        className="block w-full cursor-pointer"
-                                        href={tenants()}
-                                        prefetch
-                                        onClick={cleanup}
-                                    >
-                                        <RiStore3Line className="mr-2" />
-                                        Tenant administration
-                                    </Link>
-                                }
-                            />
-                        </DropdownMenuGroup>
-                    )}
-
-                    {has('roles.manage') && <DropdownMenuSeparator />}
-
                     <DropdownMenuGroup>
                         <DropdownMenuItem
                             variant="destructive"
+                            nativeButton
                             render={
                                 <Link
                                     className="block w-full cursor-pointer"
