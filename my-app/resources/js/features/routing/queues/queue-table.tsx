@@ -30,8 +30,7 @@ export function QueueTable({ records, onView, onEdit, onMembers }: QueueTablePro
         align === 'end' ? 'text-end' : align === 'center' ? 'text-center' : 'text-start';
 
     return (
-        <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
-            <div className="overflow-x-auto">
+        <div className="overflow-x-auto">
                 <table className="flex-table-grid w-full text-sm">
                     <thead>
                         <tr className="border-b border-border bg-muted/40 text-left">
@@ -76,7 +75,6 @@ export function QueueTable({ records, onView, onEdit, onMembers }: QueueTablePro
                         ))}
                     </tbody>
                 </table>
-            </div>
         </div>
     );
 }

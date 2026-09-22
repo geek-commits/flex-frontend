@@ -1,10 +1,10 @@
-import { RiAddLine, RiSearchLine } from '@remixicon/react';
+import { RiAddLine } from '@remixicon/react';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlexEmptyState } from '@/components/flex/flex-empty-state';
 import { FlexErrorState } from '@/components/flex/flex-error-state';
+import { FlexWorkbenchShell } from '@/components/flex/flex-workbench-shell';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -16,6 +16,7 @@ import { QueueFormSheet } from '@/features/routing/queues/queue-form-sheet';
 import { QueueMembersSheet } from '@/features/routing/queues/queue-members-sheet';
 import { QueueTable } from '@/features/routing/queues/queue-table';
 import { RoutingShell } from '@/features/routing/routing-shell';
+import { RoutingWorkspaceToolbar } from '@/features/routing/shared/routing-workspace-toolbar';
 
 const STRATEGY_FILTERS: (QueueStrategy | 'all')[] = ['all', 'ring-all', 'least-recent', 'fewest-calls', 'random'];
 
@@ -98,36 +99,6 @@ export function QueuesPage() {
             }
         >
             <div className="flex flex-col gap-[var(--flex-space-section)] w-full">
-                <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:flex-wrap">
-                    <div className="relative w-full lg:w-72">
-                        <RiSearchLine className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-flex-text-muted" />
-                        <Input
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                            placeholder={t('queues.toolbar.searchPlaceholder')}
-                            aria-label={t('queues.toolbar.searchAriaLabel')}
-                            className="pl-9 h-9 text-xs"
-                        />
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <Label htmlFor="queue-strategy" className="text-xs font-semibold text-flex-text-muted">
-                            {t('queues.toolbar.strategyLabel')}
-                        </Label>
-                        <Select value={strategyFilter} onValueChange={(value) => setStrategyFilter((value as QueueStrategy | 'all') ?? 'all')}>
-                            <SelectTrigger id="queue-strategy" className="w-40 h-9 text-xs">
-                                <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {STRATEGY_FILTERS.map((strategy) => (
-                                    <SelectItem key={strategy} value={strategy} className="text-xs capitalize">
-                                        {strategy === 'all' ? t('queues.toolbar.allStrategies') : t(`queues.toolbar.strategies.${strategy}`)}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                    </div>
-                </div>
-
                 {error ? (
                     <FlexErrorState
                         title={t('queues.error.title')}
@@ -138,48 +109,66 @@ export function QueuesPage() {
                             </Button>
                         }
                     />
-                ) : isLoading ? (
-                    <div className="flex flex-col gap-2">
-                        {Array.from({ length: 3 }).map((_, index) => (
-                            <Skeleton key={index} className="h-12 w-full" />
-                        ))}
-                    </div>
-                ) : filtered.length === 0 ? (
-                    <FlexEmptyState
-                        title={records.length === 0 ? t('queues.empty.noQueuesTitle') : t('queues.empty.noMatchTitle')}
-                        description={
-                            records.length === 0
-                                ? t('queues.empty.noQueuesDescription')
-                                : t('queues.empty.noMatchDescription')
-                        }
-                        illustration={records.length === 0 ? 'empty-queues' : undefined}
-                        action={
-                            records.length === 0 ? (
-                                <Button variant="outline" size="sm" className="text-xs" onClick={openCreate}>
-                                    {t('queues.empty.addQueue')}
-                                </Button>
-                            ) : (
-                                <Button
-                                    variant="outline"
-                                    size="sm"
-                                    className="text-xs"
-                                    onClick={() => {
-                                        setSearch('');
-                                        setStrategyFilter('all');
-                                    }}
-                                >
-                                    {t('queues.empty.clearFilters')}
-                                </Button>
-                            )
-                        }
-                    />
                 ) : (
-                    <QueueTable
-                        records={filtered}
-                        onView={openDetail}
-                        onEdit={openEdit}
-                        onMembers={openMembers}
-                    />
+                    <FlexWorkbenchShell
+                        variant="primary"
+                        toolbar={
+                            <RoutingWorkspaceToolbar
+                                search={search}
+                                onSearchChange={setSearch}
+                                searchPlaceholder={t('queues.toolbar.searchPlaceholder')}
+                                searchAriaLabel={t('queues.toolbar.searchAriaLabel')}
+                                hasActiveFilters={strategyFilter !== 'all' || Boolean(search)}
+                                onClearFilters={() => {
+                                    setSearch('');
+                                    setStrategyFilter('all');
+                                }}
+                                clearLabel={t('queues.empty.clearFilters')}
+                                filters={
+                                    <div className="flex items-center gap-2">
+                                        <Label htmlFor="queue-strategy" className="text-xs font-semibold text-flex-text-muted">
+                                            {t('queues.toolbar.strategyLabel')}
+                                        </Label>
+                                        <Select value={strategyFilter} onValueChange={(value) => setStrategyFilter((value as QueueStrategy | 'all') ?? 'all')}>
+                                            <SelectTrigger id="queue-strategy" className="h-7 w-40 rounded-[6px] text-[13px] font-medium">
+                                                <SelectValue />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {STRATEGY_FILTERS.map((strategy) => (
+                                                    <SelectItem key={strategy} value={strategy} className="text-xs capitalize">
+                                                        {strategy === 'all' ? t('queues.toolbar.allStrategies') : t(`queues.toolbar.strategies.${strategy}`)}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                }
+                            />
+                        }
+                    >
+                        {isLoading ? (
+                            <div className="flex flex-col gap-2 p-4">
+                                {Array.from({ length: 3 }).map((_, index) => (
+                                    <Skeleton key={index} className="h-12 w-full" />
+                                ))}
+                            </div>
+                        ) : filtered.length === 0 ? (
+                            <FlexEmptyState
+                                title={records.length === 0 ? t('queues.empty.noQueuesTitle') : t('queues.empty.noMatchTitle')}
+                                description={records.length === 0 ? t('queues.empty.noQueuesDescription') : t('queues.empty.noMatchDescription')}
+                                illustration={records.length === 0 ? 'empty-queues' : undefined}
+                                action={
+                                    records.length === 0 ? (
+                                        <Button variant="outline" size="sm" className="text-xs" onClick={openCreate}>
+                                            {t('queues.empty.addQueue')}
+                                        </Button>
+                                    ) : undefined
+                                }
+                            />
+                        ) : (
+                            <QueueTable records={filtered} onView={openDetail} onEdit={openEdit} onMembers={openMembers} />
+                        )}
+                    </FlexWorkbenchShell>
                 )}
 
                 <p className="text-[10px] text-flex-text-muted">

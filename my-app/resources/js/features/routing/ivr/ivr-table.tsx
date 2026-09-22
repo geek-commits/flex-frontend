@@ -29,8 +29,7 @@ export function IVRTable({ records, onView, onEdit }: IVRTableProps) {
     ];
 
     return (
-        <div className="overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface">
-            <div className="overflow-x-auto">
+        <div className="overflow-x-auto">
                 <table className="flex-table-grid w-full text-sm">
                     <thead>
                         <tr className="border-b border-border bg-muted/40 text-left">
@@ -63,7 +62,6 @@ export function IVRTable({ records, onView, onEdit }: IVRTableProps) {
                         ))}
                     </tbody>
                 </table>
-            </div>
         </div>
     );
 }
