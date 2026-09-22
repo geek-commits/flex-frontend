@@ -1,7 +1,7 @@
 # FLEX production UI design audit
 
-Date: 2026-09-22  
-Scope: production-facing routes in `my-app/routes/web.php`  
+Date: 2026-09-22
+Scope: production-facing routes in `my-app/routes/web.php`
 Method: UI-design heuristics plus `docs/design/` operating system
 
 ## Audit lens

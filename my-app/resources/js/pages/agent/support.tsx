@@ -109,7 +109,7 @@ return;
                                 {tickets.map((ticket) => (
                                     <div
                                         key={ticket.id}
-                                        className="border-t border-border py-3 flex items-center justify-between gap-3 text-xs"
+                                        className="border-t border-flex-workspace-divider py-3 flex items-center justify-between gap-3 text-xs"
                                     >
                                         <div className="flex flex-col gap-0.5 min-w-0">
                                             <div className="flex items-center gap-2">

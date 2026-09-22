@@ -34,7 +34,7 @@ export default function AiAuditPage() {
                                 className="py-10"
                             />
                         ) : (
-                            <div className="divide-y divide-border">
+                            <div className="divide-y divide-flex-workspace-divider">
                                 {audit.map((record) => (
                                     <div key={record.id} className="flex items-start justify-between gap-3 p-3 px-4">
                                         <div className="flex flex-col gap-0.5 min-w-0">

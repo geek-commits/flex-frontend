@@ -32,7 +32,7 @@ export default function AiProvidersPage() {
                                 className="py-10"
                             />
                         ) : (
-                            <div className="divide-y divide-border">
+                            <div className="divide-y divide-flex-workspace-divider">
                                 {providers.map((provider) => (
                                     <div key={provider.id} className="flex items-center justify-between gap-3 p-3 px-4">
                                         <div className="flex flex-col gap-0.5 min-w-0">

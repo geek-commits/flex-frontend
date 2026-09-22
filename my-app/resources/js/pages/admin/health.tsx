@@ -20,7 +20,7 @@ export default function HealthPage() {
             <FlexPageContent className="flex flex-col gap-[var(--flex-space-section)]">
                 <FlexPageHeader title={t('health.title')} description={t('health.description')} />
                 <section className="border-y border-flex-workspace-divider">
-                    <ul className="divide-y divide-border">
+                    <ul className="divide-y divide-flex-workspace-divider">
                         {items.map((i) => (
                             <li key={i.name} className="flex items-center justify-between gap-4 py-3 text-sm">
                                 <span className="font-medium text-foreground">{i.name}</span>

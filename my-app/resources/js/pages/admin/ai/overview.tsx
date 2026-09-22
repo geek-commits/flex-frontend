@@ -108,7 +108,7 @@ export default function AiOverviewPage() {
                     </CardHeader>
                     <CardContent className="p-0 pt-3">
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                            <div className="border-t border-border pt-3 flex flex-col">
+                            <div className="border-t border-flex-workspace-divider pt-3 flex flex-col">
                                 <span className="text-[10px] uppercase font-semibold text-muted-foreground">
                                     {t('ai.overview.activeVaults')}
                                 </span>
@@ -116,7 +116,7 @@ export default function AiOverviewPage() {
                                     {indexedVaults} / {knowledgeVaults.length}
                                 </span>
                             </div>
-                            <div className="border-t border-border pt-3 flex flex-col">
+                            <div className="border-t border-flex-workspace-divider pt-3 flex flex-col">
                                 <span className="text-[10px] uppercase font-semibold text-muted-foreground">
                                     {t('ai.overview.knowledgeItems')}
                                 </span>
@@ -124,13 +124,13 @@ export default function AiOverviewPage() {
                                     {formatNumber(knowledgeItems.length, locale)}
                                 </span>
                             </div>
-                            <div className="border-t border-border pt-3 flex flex-col">
+                            <div className="border-t border-flex-workspace-divider pt-3 flex flex-col">
                                 <span className="text-[10px] uppercase font-semibold text-muted-foreground">
                                     {t('ai.overview.updatedToday')}
                                 </span>
                                 <span className="text-lg font-bold text-status-live">{updatedToday}</span>
                             </div>
-                            <div className="border-t border-border pt-3 flex flex-col">
+                            <div className="border-t border-flex-workspace-divider pt-3 flex flex-col">
                                 <span className="text-[10px] uppercase font-semibold text-muted-foreground">
                                     {t('ai.overview.lastUpdated')}
                                 </span>

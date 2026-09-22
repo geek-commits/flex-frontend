@@ -34,7 +34,7 @@ export default function AiVoicePage() {
                             </span>
                         </div>
 
-                        <div className="flex flex-col gap-1.5 pt-2 border-t border-border">
+                        <div className="flex flex-col gap-1.5 pt-2 border-t border-flex-workspace-divider">
                             {voiceConfig.capabilityNotes.map((note, idx) => (
                                 <p key={idx} className="text-[11px] text-muted-foreground">
                                     · {note}

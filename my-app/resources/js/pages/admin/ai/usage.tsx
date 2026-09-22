@@ -51,7 +51,7 @@ export default function AiUsagePage() {
                                 className="py-10"
                             />
                         ) : (
-                            <div className="divide-y divide-border">
+                            <div className="divide-y divide-flex-workspace-divider">
                                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 px-4 py-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
                                     <span>{t('ai.usage.table.queue')}</span>
                                     <span>{t('ai.usage.table.sessions')}</span>

@@ -130,7 +130,7 @@ export function QueuesPage() {
                                             {t('queues.toolbar.strategyLabel')}
                                         </Label>
                                         <Select value={strategyFilter} onValueChange={(value) => setStrategyFilter((value as QueueStrategy | 'all') ?? 'all')}>
-                                            <SelectTrigger id="queue-strategy" className="h-7 w-40 rounded-[6px] text-[13px] font-medium">
+                                            <SelectTrigger id="queue-strategy" className="h-7 w-40 rounded-md text-[13px] font-medium">
                                                 <SelectValue />
                                             </SelectTrigger>
                                             <SelectContent>

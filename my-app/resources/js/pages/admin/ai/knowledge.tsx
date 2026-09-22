@@ -36,7 +36,7 @@ export default function AiKnowledgePage() {
                             knowledgeVaults.map((vault) => (
                                 <div
                                     key={vault.id}
-                                    className="flex items-center justify-between gap-3 border-t border-border pt-3"
+                                    className="flex items-center justify-between gap-3 border-t border-flex-workspace-divider pt-3"
                                 >
                                     <div className="flex flex-col gap-0.5 min-w-0">
                                         <span className="text-sm font-semibold text-foreground truncate">{vault.name}</span>
@@ -78,7 +78,7 @@ export default function AiKnowledgePage() {
                                 className="py-8"
                             />
                         ) : (
-                            <div className="divide-y divide-border">
+                            <div className="divide-y divide-flex-workspace-divider">
                                 {knowledgeItems.map((item) => (
                                     <div key={item.id} className="flex items-center justify-between gap-3 p-3 px-4">
                                         <div className="flex flex-col gap-0.5 min-w-0">

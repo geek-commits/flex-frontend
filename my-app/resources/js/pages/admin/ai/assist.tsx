@@ -50,7 +50,7 @@ export default function AiAssistPage() {
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="p-0 pt-3 grid grid-cols-2 gap-4">
-                        <div className="border-t border-border pt-3 flex flex-col">
+                        <div className="border-t border-flex-workspace-divider pt-3 flex flex-col">
                             <span className="text-[10px] uppercase font-semibold text-muted-foreground">
                                 {t('ai.assist.metrics.status')}
                             </span>
@@ -58,7 +58,7 @@ export default function AiAssistPage() {
                                 <StatusBadge domain="ai" status={assistConfig.enabled ? 'enabled' : 'disabled'} />
                             </div>
                         </div>
-                        <div className="border-t border-border pt-3 flex flex-col">
+                        <div className="border-t border-flex-workspace-divider pt-3 flex flex-col">
                             <span className="text-[10px] uppercase font-semibold text-muted-foreground">
                                 {t('ai.assist.metrics.adoptionRate')}
                             </span>
