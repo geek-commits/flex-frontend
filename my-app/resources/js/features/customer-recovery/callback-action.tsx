@@ -79,7 +79,7 @@ export function CallbackAction({ record, currentAgent, onChanged }: CallbackActi
         <Button
             size="sm"
             variant="outline"
-            className="gap-1 text-xs text-primary"
+            className="gap-1 text-xs text-primary border-primary/20 hover:border-primary/40 hover:bg-primary/10 dark:border-primary/30 dark:hover:bg-primary/15"
             onClick={(e) => {
                 e.stopPropagation();
                 handleCall();
