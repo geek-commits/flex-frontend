@@ -6,15 +6,14 @@ const CURRENT_AGENT = { id: 'u1', name: 'Grace Mwanga' };
 
 /**
  * Single feature-level data owner for the customer-recovery workspace.
- * Owns the missed-call records, filters, refresh, freshness, and mutation
- * reconciliation. Telephony state stays in the canonical workspace store.
+ * Owns the missed-call records, filters, refresh, and mutation reconciliation.
+ * Telephony state stays in the canonical workspace store.
  */
 export function useRecoveryData() {
     const [query, setQuery] = useState<RecoveryQuery>({});
     const [isLoading, setIsLoading] = useState(true);
     const [refreshKey, setRefreshKey] = useState(0);
     const [overrides, setOverrides] = useState<Record<string, RecoveryRecord>>({});
-    const [lastUpdated, setLastUpdated] = useState<Date>(() => new Date());
     const timerRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
     const loadTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
@@ -31,7 +30,7 @@ export function useRecoveryData() {
         [baseRecords, overrides]
     );
 
-    // Full unresolved workload for the summary, independent of active filters.
+    // Full record set provides stable queue options while the table is filtered.
     const allRecords = useMemo(() => {
         void refreshKey;
 
@@ -45,14 +44,12 @@ export function useRecoveryData() {
     const refresh = useCallback(() => {
         setRefreshKey((k) => k + 1);
         setOverrides({});
-        setLastUpdated(new Date());
     }, []);
 
     // Initial load.
     useEffect(() => {
         loadTimerRef.current = setTimeout(() => {
             setIsLoading(false);
-            setLastUpdated(new Date());
         }, 350);
 
         return () => {
@@ -67,7 +64,6 @@ export function useRecoveryData() {
         timerRef.current = setInterval(() => {
             setRefreshKey((k) => k + 1);
             setOverrides({});
-            setLastUpdated(new Date());
         }, 30000);
 
         return () => {
@@ -86,16 +82,7 @@ export function useRecoveryData() {
     const mutate = useCallback((record: RecoveryRecord) => {
         setOverrides((prev) => ({ ...prev, [record.id]: record }));
         setRefreshKey((k) => k + 1);
-        setLastUpdated(new Date());
     }, []);
-
-    const summary = useMemo(() => {
-        const unclaimedCount = allRecords.filter((record) => !record.claimedBy && record.status !== 'resolved').length;
-        const claimedByMeCount = allRecords.filter((record) => record.claimedBy?.id === CURRENT_AGENT.id).length;
-        const voicemailCount = allRecords.filter((record) => record.voicemail.hasVoicemail).length;
-
-        return { unclaimedCount, claimedByMeCount, voicemailCount };
-    }, [allRecords]);
 
     return {
         records,
@@ -108,7 +95,5 @@ export function useRecoveryData() {
         getById,
         mutate,
         currentAgent: CURRENT_AGENT,
-        summary,
-        lastUpdated,
     };
 }

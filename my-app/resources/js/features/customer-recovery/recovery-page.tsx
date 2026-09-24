@@ -22,7 +22,7 @@ import { AgentShell } from '@/layouts/agent-shell';
  */
 export function RecoveryPage() {
     const { t } = useTranslation('agent');
-    const { records, allRecords, query, setQuery, isLoading, error, refresh, getById, mutate, currentAgent, summary, lastUpdated } = useRecoveryData();
+    const { records, allRecords, query, setQuery, isLoading, error, refresh, getById, mutate, currentAgent } = useRecoveryData();
     const [detailId, setDetailId] = useState<string>();
     const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
     const [sorting, setSorting] = useState<SortingState>([{ id: 'missedAt', desc: true }]);
@@ -60,21 +60,6 @@ export function RecoveryPage() {
             <Head title={t('recovery.headTitle')} />
 
             <div className="flex w-full flex-col gap-4">
-                <div className="flex flex-wrap items-center gap-4 text-xs text-flex-text-muted">
-                    <span>
-                        <span className="font-semibold text-flex-text-primary">{summary.unclaimedCount}</span> {t('recovery.summary.unresolved')}
-                    </span>
-                    <span>
-                        <span className="font-semibold text-flex-text-primary">{summary.claimedByMeCount}</span> {t('recovery.summary.claimedByMe')}
-                    </span>
-                    <span>
-                        <span className="font-semibold text-flex-text-primary">{summary.voicemailCount}</span> {t('recovery.summary.withVoicemail')}
-                    </span>
-                    <span className="ml-auto">
-                        {t('recovery.summary.updated', { time: lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) })}
-                    </span>
-                </div>
-
                 <FlexWorkbenchShell variant="primary"
                     toolbar={
                         <RecoveryToolbar
