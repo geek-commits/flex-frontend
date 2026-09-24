@@ -145,7 +145,7 @@ export default function SystemPage() {
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="p-0 pt-3 overflow-x-auto">
-                        <table className="flex-table-grid w-full text-left text-xs">
+                        <table className="flex-table-grid w-full text-left text-xs border-b border-border">
                             <thead>
                                 <tr className="border-b border-border text-muted-foreground font-semibold uppercase text-[10px]">
                                     <th className="pb-2">{t('system.table.service')}</th>
@@ -171,15 +171,15 @@ export default function SystemPage() {
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className="py-3">
+                                            <td className="py-3 align-middle">
                                                 <FlexStatus tone={HEALTH_TONE[svc.status]} className="capitalize text-[11px]">
                                                     {svc.status}
                                                 </FlexStatus>
                                             </td>
-                                            <td className="py-3 font-mono text-muted-foreground">
+                                            <td className="py-3 align-middle font-mono text-muted-foreground">
                                                 {svc.latencyMs !== undefined ? `${svc.latencyMs}ms` : '—'}
                                             </td>
-                                            <td className="py-3 text-muted-foreground">{svc.lastChecked}</td>
+                                            <td className="py-3 align-middle text-muted-foreground">{svc.lastChecked}</td>
                                         </tr>
                                     );
                                 })}
@@ -188,7 +188,7 @@ export default function SystemPage() {
                     </CardContent>
                 </Card>
 
-                <p className="text-[10px] text-flex-text-muted">
+                <p className="text-[10px] text-flex-text-muted pb-10">
                     {t('system.footer')}
                 </p>
             </div>

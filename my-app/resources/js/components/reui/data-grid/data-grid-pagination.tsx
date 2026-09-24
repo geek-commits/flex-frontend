@@ -143,7 +143,7 @@ function DataGridPagination(props: DataGridPaginationProps): JSX.Element {
     <div
       data-slot="data-grid-pagination"
       className={cn(
-        "flex grow flex-col flex-wrap items-center justify-between gap-2.5 py-2.5 sm:flex-row sm:py-0",
+        "flex grow flex-col flex-wrap items-center justify-between gap-2.5 px-1 py-2.5 sm:flex-row sm:py-0",
         mergedProps.className
       )}
     >
@@ -152,7 +152,7 @@ function DataGridPagination(props: DataGridPaginationProps): JSX.Element {
           mergedProps.sizesSkeleton
         ) : (
           <>
-            <div className="text-muted-foreground text-sm">
+            <div className="text-muted-foreground text-sm whitespace-nowrap shrink-0">
               {mergedProps.rowsPerPageLabel}
             </div>
             <Select

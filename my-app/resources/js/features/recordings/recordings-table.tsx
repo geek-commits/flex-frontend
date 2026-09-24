@@ -79,10 +79,11 @@ export function buildRecordingsColumns(
                     <span className="text-xs font-semibold text-flex-text-primary truncate">
                         {row.original.name}
                     </span>
-                    <span className="font-mono text-[11px] text-flex-text-muted">{row.original.filename}</span>
+                    <span className="font-mono text-[11px] text-flex-text-muted truncate">{row.original.filename}</span>
                 </div>
             ),
-            size: 220,
+            size: 240,
+            minSize: 180,
             enableSorting: true,
             meta: { kind: 'identity', align: 'start' },
         },
@@ -92,14 +93,16 @@ export function buildRecordingsColumns(
             header: ({ column }) => <DataGridColumnHeader title={t('recordings.columns.category')} column={column} />,
             cell: ({ row }) => {
                 const tone = CATEGORY_TONE[row.original.category] ?? 'neutral';
+                const label = t(RECORDING_CATEGORY_KEYS[row.original.category]);
 
                 return (
-                    <FlexStatus tone={tone} className="text-[11px]">
-                        {t(RECORDING_CATEGORY_KEYS[row.original.category])}
+                    <FlexStatus tone={tone} className="text-[11px]" title={label}>
+                        {label}
                     </FlexStatus>
                 );
             },
-            size: 130,
+            size: 175,
+            minSize: 150,
             enableSorting: true,
             meta: { kind: 'status', align: 'start' },
         },
@@ -115,7 +118,8 @@ export function buildRecordingsColumns(
                     compact
                 />
             ),
-            size: 130,
+            size: 110,
+            minSize: 95,
             meta: { kind: 'duration', align: 'start' },
         },
         {

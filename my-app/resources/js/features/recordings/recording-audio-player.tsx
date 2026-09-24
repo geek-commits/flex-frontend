@@ -119,7 +119,7 @@ export function RecordingAudioPlayer({ url, duration, compact = true, name }: Re
             )}
 
             {compact && (
-                <span className="text-xs tabular-nums text-flex-text-muted">
+                <span className="text-xs tabular-nums text-flex-text-muted whitespace-nowrap shrink-0">
                     {playing ? formatTime(currentTime) : (duration ?? '0:00')}
                 </span>
             )}
