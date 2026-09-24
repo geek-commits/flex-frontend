@@ -31,7 +31,7 @@ export default function Customer360Page() {
                         </div>
                     }
                 />
-                <Card className="border-0 bg-transparent shadow-none rounded-none border-y border-flex-workspace-divider">
+                <Card className="border-0 bg-transparent shadow-none rounded-none">
                     <CardContent className="px-0 py-4">
                         <div className="flex items-center gap-2 mb-4">
                             <span className="text-sm font-medium">{t('customers.customerId')}</span>

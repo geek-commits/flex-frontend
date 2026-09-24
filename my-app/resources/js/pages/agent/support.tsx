@@ -54,7 +54,7 @@ return;
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
                 <Card className="border-0 bg-transparent shadow-none rounded-none lg:col-span-1">
-                    <CardHeader className="p-0 pb-3 border-b border-flex-workspace-divider">
+                    <CardHeader className="p-0 pb-3">
                         <CardTitle className="text-sm font-semibold text-flex-text-muted flex items-center gap-1.5">
                             <RiLifebuoyLine className="size-4 text-primary" />
                             {t('support.submitTicket')}
@@ -96,7 +96,7 @@ return;
                 </Card>
 
                 <Card className="border-0 bg-transparent shadow-none rounded-none lg:col-span-2">
-                    <CardHeader className="p-0 pb-3 border-b border-flex-workspace-divider">
+                    <CardHeader className="p-0 pb-3">
                         <CardTitle className="text-sm font-semibold text-flex-text-muted">
                             {t('support.myTickets')}
                         </CardTitle>

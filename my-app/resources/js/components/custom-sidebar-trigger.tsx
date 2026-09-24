@@ -1,27 +1,16 @@
-import { Kbd, KbdGroup } from '@/components/ui/kbd';
+import { useTranslation } from 'react-i18next';
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipTrigger,
-} from '@/components/ui/tooltip';
 
 /**
- * Sidebar toggle with a discoverable shortcut hint. Delay is owned by the
- * global TooltipProvider (app-providers); this trigger stays instant so
- * repeated toggles never feel queued.
+ * Mobile-only entry point for the full navigation drawer.
  */
 export function CustomSidebarTrigger() {
+    const { t } = useTranslation('navigation');
+
     return (
-        <Tooltip>
-            <TooltipTrigger render={<SidebarTrigger />} />
-            <TooltipContent className="px-2 py-1" side="right">
-                Toggle Sidebar{' '}
-                <KbdGroup>
-                    <Kbd>⌘</Kbd>
-                    <Kbd>b</Kbd>
-                </KbdGroup>
-            </TooltipContent>
-        </Tooltip>
+        <SidebarTrigger
+            className="md:hidden"
+            aria-label={t('aria.openNavigation')}
+        />
     );
 }

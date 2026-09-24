@@ -16,7 +16,7 @@ export function FlexPageHeader({ title, description, eyebrow, actions, meta }: F
     return (
         <header
             data-flex-page-header
-            className="flex flex-wrap items-start justify-between gap-x-6 gap-y-3 border-b border-border/70 pb-4"
+            className="flex flex-wrap items-start justify-between gap-x-6 gap-y-3 pb-4"
         >
             <div className="flex flex-col gap-1 min-w-0">
                 {eyebrow && <div className="text-xs font-medium text-flex-brand">{eyebrow}</div>}

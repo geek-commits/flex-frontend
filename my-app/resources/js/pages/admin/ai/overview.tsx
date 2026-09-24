@@ -93,7 +93,7 @@ export default function AiOverviewPage() {
                 </div>
 
                 <Card className="border-0 bg-transparent shadow-none rounded-none">
-                    <CardHeader className="p-0 pb-3 border-b border-flex-workspace-divider">
+                    <CardHeader className="p-0 pb-3">
                         <CardTitle className="text-sm font-semibold text-flex-text-muted flex items-center justify-between">
                             <span className="flex items-center gap-1.5">
                                 <FlexIcon name="knowledge-base" className="text-primary" />

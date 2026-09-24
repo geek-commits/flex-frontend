@@ -37,7 +37,7 @@ export function AppSidebar() {
     const { url } = usePage();
     const { has } = useCapabilities();
     const { t } = useTranslation('navigation');
-    const { state } = useSidebar();
+    const { state, isMobile } = useSidebar();
     const activeAreaId = resolveNavigationArea(url);
 
     const visibleAreas = useMemo(
@@ -89,7 +89,7 @@ export function AppSidebar() {
             .filter((group) => group.items.length > 0);
     }, [visibleAreas, activeAreaId, has, url, t]);
 
-    const collapsed = state === 'collapsed';
+    const collapsed = state === 'collapsed' && !isMobile;
 
     return (
         <Sidebar
@@ -151,6 +151,7 @@ export function AppSidebar() {
                                                     area,
                                                     has,
                                                 )}
+                                                aria-label={t(area.labelKey)}
                                             />
                                         }
                                         isActive={isActive}

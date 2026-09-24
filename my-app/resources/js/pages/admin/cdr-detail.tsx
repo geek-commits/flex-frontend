@@ -45,7 +45,7 @@ export default function CdrDetailPage() {
                 <BackLink href="/admin/cdr" label={t('cdr.page.back')} />
 
                 {!record ? (
-                    <Card className="border-0 bg-transparent shadow-none rounded-none border-y border-flex-workspace-divider">
+                    <Card className="border-0 bg-transparent shadow-none rounded-none">
                         <CardContent className="p-8 text-center text-sm text-muted-foreground">
                             {t('cdr.page.notFoundDetail', { id: recordId })}
                         </CardContent>
@@ -53,7 +53,7 @@ export default function CdrDetailPage() {
                 ) : (
                     <>
                         {/* Entity header */}
-                        <Card className="border-0 bg-transparent shadow-none rounded-none border-y border-flex-workspace-divider">
+                        <Card className="border-0 bg-transparent shadow-none rounded-none">
                             <CardContent className="px-0 py-5 flex flex-col gap-5">
                                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                                     <div className="flex flex-col gap-1.5">
@@ -100,8 +100,8 @@ export default function CdrDetailPage() {
 
                         {/* Recording player (mock) */}
                         {record.hasRecording && (
-                            <Card className="border-0 bg-transparent shadow-none rounded-none border-y border-flex-workspace-divider">
-                                <CardHeader className="p-0 py-3 border-b border-flex-workspace-divider">
+                            <Card className="border-0 bg-transparent shadow-none rounded-none">
+                                <CardHeader className="p-0 py-3">
                                     <CardTitle className="text-sm font-semibold text-flex-text-muted">
                                         {t('cdr.page.recordingTitle')}
                                     </CardTitle>
@@ -133,8 +133,8 @@ export default function CdrDetailPage() {
                         )}
 
                         {/* Call timeline */}
-                        <Card className="border-0 bg-transparent shadow-none rounded-none border-y border-flex-workspace-divider">
-                            <CardHeader className="p-0 py-3 border-b border-flex-workspace-divider">
+                        <Card className="border-0 bg-transparent shadow-none rounded-none">
+                            <CardHeader className="p-0 py-3">
                                 <CardTitle className="text-sm font-semibold text-flex-text-muted">
                                     {t('cdr.page.timelineTitle')}
                                 </CardTitle>

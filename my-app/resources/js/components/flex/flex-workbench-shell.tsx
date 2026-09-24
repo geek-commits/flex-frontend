@@ -12,8 +12,8 @@ export interface FlexWorkbenchShellProps {
 }
 
 /**
- * Canonical FLEX workbench shell — a single bounded white work surface that
- * owns the outer border, radius, and clipping. Internal panes stay flat.
+ * Canonical FLEX workbench shell — a continuous white work surface. Internal
+ * panes stay flat; row and toolbar rules provide structure where needed.
  *
  * Neutral canvas → white work surface → 1px structural dividers. The shell must
  * not own domain data or realtime behavior; it is a pure layout frame.
@@ -26,7 +26,7 @@ export function FlexWorkbenchShell({ toolbar, children, className = '', variant 
             className={cn(
                 isPrimary
                     ? 'flex flex-col overflow-hidden rounded-none border-0 bg-flex-workspace-surface shadow-none'
-                    : 'flex flex-col overflow-hidden rounded-lg border border-flex-workspace-divider bg-flex-workspace-surface',
+                    : 'flex flex-col overflow-hidden rounded-none border-0 bg-flex-workspace-surface shadow-none',
                 className
             )}
         >

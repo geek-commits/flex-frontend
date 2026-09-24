@@ -14,7 +14,7 @@ export default function ExceptionsPage() {
             <Head title={t('exceptions.headTitle')} />
             <FlexPageContent className="flex flex-col gap-[var(--flex-space-section)]">
                 <FlexPageHeader title={t('exceptions.title')} description={t('exceptions.description')} />
-                <section className="border-y border-flex-workspace-divider py-5">
+                <section className="py-5">
                         {exceptions.length === 0 ? (
                             <FlexEmptyState title={t('exceptions.empty.title')} description={t('exceptions.empty.description')} />
                         ) : (

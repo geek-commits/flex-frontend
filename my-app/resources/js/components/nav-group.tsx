@@ -73,6 +73,7 @@ export function NavGroup({ label, items }: SidebarNavGroup) {
                                                                     subItem.path ??
                                                                     '#'
                                                                 }
+                                                                aria-label={subItem.title}
                                                             />
                                                         }
                                                         isActive={
@@ -97,7 +98,10 @@ export function NavGroup({ label, items }: SidebarNavGroup) {
                         <SidebarMenuItem key={key}>
                             <SidebarMenuButton
                                 render={
-                                    <Link href={item.path ?? '#'} />
+                                    <Link
+                                        href={item.path ?? '#'}
+                                        aria-label={item.title}
+                                    />
                                 }
                                 isActive={item.isActive}
                                 aria-current={

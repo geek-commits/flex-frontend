@@ -926,7 +926,7 @@ function DataGridTableHeadRowCell<TData extends object>({
           column.getCanPin() &&
           cn(
             "data-pinned:bg-muted data-outer-pinned-col:bg-clip-padding data-pinned:isolate",
-            "[&[data-pinned=end]:last-child_div.cursor-col-resize:last-child]:opacity-0 [&[data-pinned=end][data-last-col=end]]:shadow-[inset_1px_0_0_0_var(--flex-table-grid)] [&[data-pinned=start][data-last-col=start]]:shadow-[inset_-1px_0_0_0_var(--flex-table-grid)]",
+            "[&[data-pinned=end]:last-child_div.cursor-col-resize:last-child]:opacity-0",
             "[&:not([data-pinned]):has(+[data-pinned])_div.cursor-col-resize:last-child]:opacity-0 [&[data-last-col=start]_div.cursor-col-resize:last-child]:opacity-0"
           ),
         header.column.columnDef.meta?.headerClassName,
@@ -1316,7 +1316,7 @@ function DataGridTableBodyRowSkeletonCell<TData extends object>({
         column.columnDef.meta?.cellClassName,
         props.tableLayout?.columnsPinnable &&
           column.getCanPin() &&
-          "data-pinned:bg-background data-pinned:isolate [&[data-pinned=end][data-last-col=end]]:shadow-[inset_1px_0_0_0_var(--flex-table-grid)] [&[data-pinned=start][data-last-col=start]]:shadow-[inset_-1px_0_0_0_var(--flex-table-grid)]",
+          "data-pinned:bg-background data-pinned:isolate",
         column.getIndex() === 0 ||
           column.getIndex() === table.getVisibleLeafColumns().length - 1
           ? props.tableClassNames?.edgeCell
@@ -1489,11 +1489,7 @@ function DataGridTableBodyRowCell<TData extends object>({
         cell.column.columnDef.meta?.cellClassName,
         props.tableLayout?.columnsPinnable &&
           column.getCanPin() &&
-          cn(
-            "data-pinned:bg-background data-pinned:isolate",
-            "[&[data-pinned=start][data-last-col=start]]:shadow-[inset_-1px_0_0_0_var(--flex-table-grid)]",
-            "[&[data-pinned=end][data-last-col=end]]:shadow-[inset_1px_0_0_0_var(--flex-table-grid)]"
-          ),
+          "data-pinned:bg-background data-pinned:isolate",
         column.getIndex() === 0 ||
           column.getIndex() === row.getVisibleCells().length - 1
           ? props.tableClassNames?.edgeCell

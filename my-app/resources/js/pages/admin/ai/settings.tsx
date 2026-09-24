@@ -17,7 +17,7 @@ export default function AiSettingsPage() {
         >
             <div className="flex flex-col gap-6 w-full">
                 <Card className="border-0 bg-transparent shadow-none rounded-none">
-                    <CardHeader className="p-0 pb-3 border-b border-flex-workspace-divider">
+                    <CardHeader className="p-0 pb-3">
                         <CardTitle className="text-sm font-semibold text-flex-text-muted">
                             {t('ai.settings.globalTitle')}
                         </CardTitle>
@@ -30,7 +30,7 @@ export default function AiSettingsPage() {
                 </Card>
 
                 <Card className="border-0 bg-transparent shadow-none rounded-none">
-                    <CardHeader className="p-0 pb-3 border-b border-flex-workspace-divider">
+                    <CardHeader className="p-0 pb-3">
                         <CardTitle className="text-sm font-semibold text-flex-text-muted">
                             {t('ai.settings.dependenciesTitle')}
                         </CardTitle>

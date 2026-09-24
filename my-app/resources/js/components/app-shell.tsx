@@ -19,11 +19,10 @@ export interface AppShellProps {
 }
 
 /**
- * App shell root (adapted from @efferd/app-shell-3): inset
- * icon-collapsible sidebar + sticky header + scrollable content column.
+ * App shell root (adapted from @efferd/app-shell-3): fixed icon rail + sticky
+ * header + scrollable content column.
  * Frame only — page chrome (FlexPageContent/FlexPageHeader/Workbench)
- * renders inside. Outer background is the FLEX workspace canvas so the
- * inset reads as the work surface; no new tokens introduced.
+ * renders inside. The workspace and rail meet without an inset perimeter.
  */
 export function AppShell({
     children,
@@ -49,9 +48,13 @@ export function AppShell({
             >
                 Skip to content
             </a>
-            <SidebarProvider className="relative h-svh bg-flex-workspace-canvas has-data-[variant=inset]:bg-flex-workspace-canvas">
+            <SidebarProvider
+                defaultOpen={false}
+                desktopCollapsed
+                className="relative h-svh bg-flex-workspace-canvas has-data-[variant=inset]:bg-flex-workspace-canvas"
+            >
                 <AppSidebar />
-                <SidebarInset className="bg-flex-workspace-canvas md:peer-data-[variant=inset]:ml-0">
+                <SidebarInset className="bg-flex-workspace-canvas">
                     <AppHeader operationalControls={operationalControls} />
                     {hasSidePanels ? (
                         <div className="flex min-h-0 min-w-0 flex-1 overflow-hidden">

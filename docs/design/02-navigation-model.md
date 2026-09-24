@@ -23,7 +23,7 @@ The frontend has a single navigation source of truth — `FLEX_NAVIGATION_AREAS`
 - `GlobalSearch` — navigation index derived from the domain tree with `Domain · Group` muted subtitles (no LIVE/AGENT suffix clutter);
 - Mobile Sheet — domain/group/route hierarchy identical to desktop (not a flat list);
 - `FlexAppShell` (`resources/js/components/flex/flex-app-shell.tsx`) — the structural shell for Agent, settings, detail, and utility layouts.
-- `AppShell` (`resources/js/components/app-shell.tsx`, adapted from `@efferd/app-shell-3`) — universal signed-in shell: single inset icon-collapsible sidebar plus merged header. `AppSidebar` derives workspace switching and the active area's groups from `FLEX_NAVIGATION_AREAS` with render-time capability filtering; `AppHeader` hosts the sidebar trigger, breadcrumbs, global search, agent operational controls, language, tenant context, and profile. `AdminShell`, `AgentShell` (Call Manager / Assist dock beside the workspace via `rightPanel`/`assistPanel`), and `AppLayout` (settings) all render it. The legacy `FlexAppShell` rail + context sidebar stays on disk as reference only.
+- `AppShell` (`resources/js/components/app-shell.tsx`, adapted from `@efferd/app-shell-3`) — universal signed-in shell: fixed desktop icon rail plus merged header. `AppSidebar` derives workspace switching and the active area's groups from `FLEX_NAVIGATION_AREAS` with render-time capability filtering; `AppHeader` hosts the mobile navigation trigger, breadcrumbs, global search, agent operational controls, language, tenant context, and profile. `AdminShell`, `AgentShell` (Call Manager / Assist dock beside the workspace via `rightPanel`/`assistPanel`), and `AppLayout` (settings) all render it. The legacy `FlexAppShell` rail + context sidebar stays on disk as reference only.
 
 `NAVIGATION` in `resources/js/auth/capabilities.tsx` is derived flat from the area registry for consumers that need a list — manual entries are not maintained. Account settings have no product capability requirement; operational settings retain their existing capability gates. Boundary-aware matching plus longest-route resolution ensures detail routes inherit one canonical parent rather than activating several prefixes.
 
@@ -85,29 +85,25 @@ Every signed-in product route renders one full-width header above three body col
 
 ```text
 GlobalHeader (56px, full width)
-└─ PrimaryRail (72px) → ContextSidebar (256px or collapsed) → work surface
+└─ Fixed icon rail (64px) → work surface
 ```
 
 - The header owns the canonical full FLEX wordmark, global search, language,
   real tenant treatment, profile, and Agent operational controls where applicable.
-- `PrimaryRail` exposes capability-filtered product workspaces with persistent
-  icon labels; Settings is pinned at the bottom. The rail contains no monogram.
-- `ContextSidebar` renders all visible groups for the active area. It is open by
-  default on desktop and may collapse without unmounting the workspace; selecting
-  a rail area navigates to its first accessible route.
-- `SidebarToggleIcon` is the shared collapse control: it appears in the contextual
-  header while open and at the top of `PrimaryRail` while closed. The choice is
-  persisted locally; the hidden route tree is inert and excluded from the
-  accessibility tree.
+- The rail exposes capability-filtered product workspaces and Settings without
+  persistent text labels; Settings stays in its registry-defined position.
+- The fixed desktop rail shows workspace switching and all visible routes for the
+  active area. Icon-only links expose localized tooltips and accessible names;
+  the active destination remains visually distinct. Desktop controls, keyboard
+  shortcuts, and saved preferences cannot expand the rail.
 - The route sidebar is the sole shell-level route navigation. Horizontal tabs
   are reserved for real, runtime-backed subviews within a page.
 - On mobile the two navigation levels become one hierarchical drawer sourced
-  from the identical registry.
+  from the identical registry; the header menu control opens it.
 - **Universal shell.** All signed-in routes (`AdminShell`, `AgentShell`,
-  `AppLayout`) use the inset icon-collapsible `AppShell` instead of rail +
-  context sidebar. Navigation derivation, capability gating, tenant
-  treatment, breadcrumbs, and route paths are unchanged; collapse persists
-  via the sidebar cookie and icon-only targets expose tooltips (rule 8).
+  `AppLayout`) use the same fixed desktop icon rail and mobile navigation drawer.
+  Navigation derivation, capability gating, tenant treatment, breadcrumbs, and
+  route paths remain unchanged.
 
 1. **Current route clearly indicated.** The active page must be identifiable in the rail/sidebar (e.g., active-item treatment). Users must never have to guess where they are.
 2. **Inaccessible routes excluded.** Entries the role cannot reach are removed, not shown disabled. Do not render dead navigation.

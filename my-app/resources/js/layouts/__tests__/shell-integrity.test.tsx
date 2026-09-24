@@ -54,6 +54,8 @@ describe('shell integrity — one shell invariant (static audit)', () => {
         expect(appShellContent).toContain('data-flex-shell');
         expect(appShellContent).toContain('data-flex-workspace');
         expect(appShellContent).toContain('<SidebarProvider');
+        expect(appShellContent).toContain('defaultOpen={false}');
+        expect(appShellContent).toContain('desktopCollapsed');
         expect(appShellContent).toContain('<AppSidebar');
         expect(appShellContent).toContain('<AppHeader');
         expect(appHeaderContent).toContain('data-flex-global-header');

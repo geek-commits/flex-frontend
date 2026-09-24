@@ -89,7 +89,7 @@ export default function SystemPage() {
                 {/* 2. Server Resources + Backup Status */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <Card className="border-0 bg-transparent shadow-none rounded-none">
-                        <CardHeader className="p-0 pb-3 border-b border-flex-workspace-divider">
+                        <CardHeader className="p-0 pb-3">
                             <CardTitle className="text-sm font-semibold text-flex-text-muted flex items-center gap-1.5">
                                 <FlexIcon name="server-resources" className="text-primary" />
                                 {t('system.serverResources')}
@@ -117,7 +117,7 @@ export default function SystemPage() {
                     </Card>
 
                     <Card className="border-0 bg-transparent shadow-none rounded-none">
-                        <CardHeader className="p-0 pb-3 border-b border-flex-workspace-divider">
+                        <CardHeader className="p-0 pb-3">
                             <CardTitle className="text-sm font-semibold text-flex-text-muted flex items-center gap-1.5">
                                 <FlexIcon name="backup-status" className="text-primary" />
                                 {t('system.backupStatus')}
@@ -138,14 +138,14 @@ export default function SystemPage() {
 
                 {/* 3. Service Health Table */}
                 <Card className="border-0 bg-transparent shadow-none rounded-none">
-                    <CardHeader className="p-0 pb-3 border-b border-flex-workspace-divider">
+                    <CardHeader className="p-0 pb-3">
                         <CardTitle className="text-sm font-semibold text-flex-text-muted flex items-center gap-1.5">
                             <FlexIcon name="service-health" className="text-primary" />
                             {t('system.serviceHealthMatrix')}
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="p-0 pt-3 overflow-x-auto">
-                        <table className="flex-table-grid w-full text-left text-xs border-b border-border">
+                        <table className="flex-table-grid w-full text-left text-xs">
                             <thead>
                                 <tr className="border-b border-border text-muted-foreground font-semibold uppercase text-[10px]">
                                     <th className="px-4 pb-2.5 w-[42%]">{t('system.table.service')}</th>
