@@ -43,7 +43,15 @@ export function AppSidebar() {
     const visibleAreas = useMemo(
         () =>
             FLEX_NAVIGATION_AREAS.filter(
-                (area) => !area.capability || has(area.capability),
+                (area) =>
+                    (!area.capability || has(area.capability)) &&
+                    area.groups.some((group) =>
+                        group.items.some(
+                            (item) =>
+                                !item.placeholder &&
+                                (!item.capability || has(item.capability)),
+                        ),
+                    ),
             ),
         [has],
     );
@@ -67,7 +75,9 @@ export function AppSidebar() {
                     : group.groupTitle,
                 items: group.items
                     .filter(
-                        (item) => !item.capability || has(item.capability),
+                        (item) =>
+                            !item.placeholder &&
+                            (!item.capability || has(item.capability)),
                     )
                     .map((item) => ({
                         title: t(item.titleKey),
@@ -81,9 +91,6 @@ export function AppSidebar() {
                         isActive: [item.href, ...(item.aliases ?? [])].some(
                             (href) => isActiveRoute(url, href),
                         ),
-                        badge: item.placeholder
-                            ? t('badges.comingSoon')
-                            : undefined,
                     })),
             }))
             .filter((group) => group.items.length > 0);

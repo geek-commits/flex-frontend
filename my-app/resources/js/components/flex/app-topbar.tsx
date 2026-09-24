@@ -70,7 +70,8 @@ export function AppTopbar({
                             ...group,
                             items: group.items.filter(
                                 (item) =>
-                                    !item.capability || has(item.capability),
+                                    !item.placeholder &&
+                                    (!item.capability || has(item.capability)),
                             ),
                         }))
                         .filter((group) => group.items.length > 0),

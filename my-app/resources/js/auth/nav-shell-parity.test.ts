@@ -19,7 +19,9 @@ function visibleHrefsForRole(role: keyof typeof ROLE_CAPABILITIES) {
             : domain.groups.flatMap((group) =>
                   group.items
                       .filter(
-                          (item) => !item.capability || has(item.capability),
+                          (item) =>
+                              !item.placeholder &&
+                              (!item.capability || has(item.capability)),
                       )
                       .map((i) => i.href),
               ),
@@ -42,7 +44,11 @@ function visibleGroupsForDomain(
         .map((g) => ({
             groupTitle: g.groupTitle,
             hrefs: g.items
-                .filter((i) => !i.capability || has(i.capability))
+                .filter(
+                    (i) =>
+                        !i.placeholder &&
+                        (!i.capability || has(i.capability)),
+                )
                 .map((i) => i.href),
         }))
         .filter((g) => g.hrefs.length > 0);
@@ -157,7 +163,7 @@ describe('nav shell parity', () => {
             }
         });
 
-        it('keeps every accessible administration group, including placeholder modules', () => {
+        it('shows accessible administration groups and hides unfinished modules', () => {
             const groups = visibleGroupsForDomain(
                 'administration',
                 'supervisor',
@@ -167,7 +173,10 @@ describe('nav shell parity', () => {
             expect(titles).toContain('People');
             expect(titles).toContain('Routing');
             expect(titles).toContain('Media');
-            expect(titles).toContain('System');
+            expect(titles).not.toContain('System');
+            expect(
+                groups.flatMap((group) => group.hrefs),
+            ).not.toContain('/admin/inbound-routes');
         });
     });
 
@@ -263,7 +272,9 @@ describe('nav shell parity', () => {
             const derivedHrefs = new Set(
                 FLEX_NAVIGATION_AREAS.flatMap((area) =>
                     area.groups.flatMap((group) =>
-                        group.items.map((item) => item.href),
+                        group.items
+                            .filter((item) => !item.placeholder)
+                            .map((item) => item.href),
                     ),
                 ),
             );

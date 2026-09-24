@@ -22,7 +22,15 @@ export function PrimaryRail() {
     const { contextSidebarOpen } = useShell();
     const activeArea = resolveNavigationArea(url);
     const visibleAreas = FLEX_NAVIGATION_AREAS.filter(
-        (area) => !area.capability || has(area.capability),
+        (area) =>
+            (!area.capability || has(area.capability)) &&
+            area.groups.some((group) =>
+                group.items.some(
+                    (item) =>
+                        !item.placeholder &&
+                        (!item.capability || has(item.capability)),
+                ),
+            ),
     );
     const workspaceAreas = visibleAreas.filter(
         (area) => area.kind === 'workspace',

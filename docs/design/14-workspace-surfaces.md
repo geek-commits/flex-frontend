@@ -13,10 +13,11 @@ neutral canvas  →  continuous white work surface  →  selective separators  �
 ```
 
 - The **canvas** is the neutral page background behind everything.
-- The **work surface** uses white surface color and clipping without a page-level perimeter outline.
+- The **work surface** uses white surface color and clipping without a page-level perimeter outline. Page-level workbenches stay square and borderless; semantic cards and contained panels keep a restrained radius and outline when that boundary distinguishes a separate unit.
 - **Dividers** separate table rows and distinct persistent panes when they improve scanning.
-- Internal sections are **flat** — they do not get their own card frames.
+- Internal sections are **flat** unless they are true cards (such as isolated metrics or diagnostics) or distinct embedded panels. Use one rounded frame for a semantic unit; avoid nested duplicate frames.
 - The sidebar and work surface share a continuous edge with no full-height seam or inset shadow.
+- The global header and work surface share a continuous edge without a decorative bottom rule.
 - Shadows stay minimal; nested frames are removed.
 
 Do not add decorative frames, gradients, or per-section borders to structural surfaces.
@@ -157,6 +158,8 @@ Use semantic divider tokens only for useful structural boundaries:
 - vertical pane boundaries
 - horizontal toolbar boundaries
 - table row separators
+
+Keep control outlines, status borders, focus rings, and the boundary of a true card or contained panel. Use rounded corners to distinguish those semantic units; do not round or outline the page-level workbench.
 
 Do not draw vertical table column rules or a full-height sidebar/content partition. `border-border` remains valid for controls, focus states, status treatments, and true cards. Useful row and pane separators use `border-flex-workspace-divider`.
 

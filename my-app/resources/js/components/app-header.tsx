@@ -54,14 +54,10 @@ export function AppHeader({
     return (
         <header
             data-flex-global-header
-            className="sticky top-0 z-50 flex h-14 shrink-0 items-center justify-between gap-2 border-b border-flex-workspace-divider bg-flex-workspace-surface px-4 select-none md:px-6"
+            className="sticky top-0 z-50 flex h-14 shrink-0 items-center justify-between gap-2 bg-flex-workspace-surface px-4 select-none md:px-6"
         >
             <div className="flex min-w-0 items-center gap-3">
                 <CustomSidebarTrigger />
-                <Separator
-                    className="mr-2 h-4 data-[orientation=vertical]:self-center"
-                    orientation="vertical"
-                />
                 <AppBreadcrumbs page={activePage} />
             </div>
             <div className="flex min-w-0 items-center gap-2 md:gap-3">

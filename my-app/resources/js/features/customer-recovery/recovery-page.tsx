@@ -59,7 +59,7 @@ export function RecoveryPage() {
         <AgentShell title={t('recovery.title')}>
             <Head title={t('recovery.headTitle')} />
 
-            <div className="flex w-full flex-col gap-[var(--flex-space-section)]">
+            <div className="flex w-full flex-col gap-4">
                 <div className="flex flex-wrap items-center gap-4 text-xs text-flex-text-muted">
                     <span>
                         <span className="font-semibold text-flex-text-primary">{summary.unclaimedCount}</span> {t('recovery.summary.unresolved')}

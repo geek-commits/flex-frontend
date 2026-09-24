@@ -133,15 +133,16 @@ function deriveNavigation(): NavEntry[] {
 
     return FLEX_NAVIGATION_AREAS.flatMap((area) =>
         area.groups.flatMap((group) =>
-            group.items.map((item): NavEntry => ({
-                title: item.title,
-                titleKey: item.titleKey,
-                href: item.href,
-                icon: item.icon,
-                capability: item.capability,
-                workspace: areaWorkspace[area.id] ?? 'admin',
-                badge: item.placeholder ? 'coming-soon' : undefined,
-            })),
+            group.items
+                .filter((item) => !item.placeholder)
+                .map((item): NavEntry => ({
+                    title: item.title,
+                    titleKey: item.titleKey,
+                    href: item.href,
+                    icon: item.icon,
+                    capability: item.capability,
+                    workspace: areaWorkspace[area.id] ?? 'admin',
+                })),
         ),
     );
 }

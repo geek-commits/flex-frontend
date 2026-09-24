@@ -725,7 +725,11 @@ export function getFirstAccessibleHref(
     return (
         area.groups
             .flatMap((group) => group.items)
-            .find((item) => !item.capability || has(item.capability))?.href ??
+            .find(
+                (item) =>
+                    !item.placeholder &&
+                    (!item.capability || has(item.capability)),
+            )?.href ??
         area.landingHref
     );
 }

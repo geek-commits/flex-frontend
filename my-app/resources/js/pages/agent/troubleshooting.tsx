@@ -52,17 +52,17 @@ export default function TroubleshootingPage() {
         <AgentShell title={t('troubleshooting.title')}>
             <Head title={t('troubleshooting.headTitle')} />
 
-            <div className="flex flex-col gap-6 w-full">
+            <div className="flex w-full flex-col gap-4 pb-4 sm:gap-5">
                 <DiagnosticPanel />
 
-                <Card className="border-0 bg-transparent shadow-none rounded-none">
-                    <CardHeader className="p-0 pb-3">
+                <Card className="rounded-xl border border-flex-workspace-divider bg-card shadow-none">
+                    <CardHeader className="p-4 pb-2 sm:px-5">
                         <CardTitle className="text-sm font-semibold text-flex-text-muted flex items-center gap-1.5">
                             <RiMicLine className="size-4 text-primary" />
                             {t('troubleshooting.audioDeviceSelection')}
                         </CardTitle>
                     </CardHeader>
-                    <CardContent className="p-0 pt-3">
+                    <CardContent className="space-y-3 p-4 pt-2 sm:px-5 sm:pb-5">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="flex flex-col gap-1.5">
                                 <label className="text-xs font-medium text-foreground">{t('troubleshooting.microphoneInput')}</label>
@@ -91,7 +91,7 @@ export default function TroubleshootingPage() {
                                 </Select>
                             </div>
                         </div>
-                        <div className="mt-4 flex items-center gap-2">
+                        <div className="flex items-center gap-2">
                             <Button variant="outline" size="sm" className="gap-1.5 text-xs" aria-label={t('troubleshooting.playTestTone')}>
                                 <RiVolumeUpLine className="size-3.5" />
                                 <span>{t('troubleshooting.playTestTone')}</span>
@@ -101,8 +101,8 @@ export default function TroubleshootingPage() {
                     </CardContent>
                 </Card>
 
-                <Card className="border-0 bg-transparent shadow-none rounded-none">
-                    <CardHeader className="p-0 pb-3">
+                <Card className="rounded-xl border border-flex-workspace-divider bg-card shadow-none">
+                    <CardHeader className="p-4 pb-2 sm:px-5">
                         <CardTitle className="text-sm font-semibold text-flex-text-muted flex items-center justify-between">
                             <span className="flex items-center gap-1.5">
                                 <RiPulseLine className="size-4 text-primary" />
@@ -123,10 +123,10 @@ export default function TroubleshootingPage() {
                             </div>
                         </CardTitle>
                     </CardHeader>
-                    <CardContent className="p-0 pt-3">
-                        <div className="flex flex-col divide-y divide-border">
+                    <CardContent className="p-4 pt-2 sm:px-5 sm:pb-5">
+                        <div className="flex flex-col divide-y divide-flex-workspace-divider">
                             {checks.map((check) => (
-                                <div key={check.id} className="py-3 flex items-center justify-between gap-4">
+                                <div key={check.id} className="flex items-center justify-between gap-4 py-2.5 first:pt-0 last:pb-0">
                                     <div className="flex items-center gap-3 min-w-0">
                                         <div className="p-1.5 rounded-md bg-muted/50 text-muted-foreground shrink-0">
                                             <FlexIcon name={check.icon} size="sm" />
@@ -154,8 +154,8 @@ export default function TroubleshootingPage() {
                     </CardContent>
                 </Card>
 
-                <Card className="border-0 bg-transparent shadow-none rounded-none pt-4">
-                    <CardContent className="p-0">
+                <Card className="rounded-xl border border-flex-workspace-divider bg-card shadow-none">
+                    <CardContent className="p-4 sm:px-5 sm:py-4">
                         <div className="flex items-center justify-between gap-4 text-xs">
                             <div>
                                 <div className="font-semibold text-foreground">{t('troubleshooting.stillExperiencing')}</div>
