@@ -148,18 +148,18 @@ export default function SystemPage() {
                         <table className="flex-table-grid w-full text-left text-xs border-b border-border">
                             <thead>
                                 <tr className="border-b border-border text-muted-foreground font-semibold uppercase text-[10px]">
-                                    <th className="pb-2">{t('system.table.service')}</th>
-                                    <th className="pb-2">{t('system.table.status')}</th>
-                                    <th className="pb-2">{t('system.table.latency')}</th>
-                                    <th className="pb-2">{t('system.table.lastChecked')}</th>
+                                    <th className="px-4 pb-2.5 w-[42%]">{t('system.table.service')}</th>
+                                    <th className="px-4 pb-2.5 w-[20%]">{t('system.table.status')}</th>
+                                    <th className="px-4 pb-2.5 w-[16%]">{t('system.table.latency')}</th>
+                                    <th className="px-4 pb-2.5 w-[22%]">{t('system.table.lastChecked')}</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-border">
                                 {services.map((svc) => {
                                     return (
                                         <tr key={svc.id} className="hover:bg-muted/30">
-                                            <td className="py-3">
-                                                <div className="flex items-center gap-2">
+                                            <td className="px-4 py-3">
+                                                <div className="flex items-center gap-2.5">
                                                     <div className="p-1.5 rounded-md bg-muted/50 text-muted-foreground shrink-0">
                                                         <FlexIcon name={svc.icon} size="sm" />
                                                     </div>
@@ -171,15 +171,15 @@ export default function SystemPage() {
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className="py-3 align-middle">
+                                            <td className="px-4 py-3 align-middle">
                                                 <FlexStatus tone={HEALTH_TONE[svc.status]} className="capitalize text-[11px]">
                                                     {svc.status}
                                                 </FlexStatus>
                                             </td>
-                                            <td className="py-3 align-middle font-mono text-muted-foreground">
+                                            <td className="px-4 py-3 align-middle font-mono text-muted-foreground">
                                                 {svc.latencyMs !== undefined ? `${svc.latencyMs}ms` : '—'}
                                             </td>
-                                            <td className="py-3 align-middle text-muted-foreground">{svc.lastChecked}</td>
+                                            <td className="px-4 py-3 align-middle text-muted-foreground">{svc.lastChecked}</td>
                                         </tr>
                                     );
                                 })}
