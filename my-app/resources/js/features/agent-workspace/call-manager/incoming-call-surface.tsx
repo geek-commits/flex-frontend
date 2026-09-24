@@ -11,7 +11,7 @@ export interface IncomingCallSurfaceProps {
 }
 
 /**
- * Incoming call — the highest-priority event (AGENT_WORKSPACE_PLAN §30–§34).
+ * Incoming call — the highest-priority event.
  * Answer is visually primary, large, and duplicate-click safe (the mock
  * ignores repeated answers). Between Answer and Connected the surface shows
  * the Connecting state; talk time is never started before real connection.

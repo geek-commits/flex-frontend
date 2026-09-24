@@ -2,7 +2,6 @@
 
 * Status: **Accepted — UI-only canonical, backend authority deferred**
 * Date: 2026-08-21
-* Deciders: FLEX Hardening plan §§7, 9, 43, 26
 
 ## Context
 

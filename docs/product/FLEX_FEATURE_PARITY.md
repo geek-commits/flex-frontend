@@ -1,16 +1,14 @@
-# FLEX CRM — MASTER FEATURE PARITY & REVAMP TRACKER
+# FLEX Contact Center — Feature Parity Tracker
 
-**Canonical product-status document** (per `FLEX_MASTER_FEATURE_PARITY_PLAN.md` §5).
-**Status:** Baseline v1.0 — reconciled against repository Git history and frontend source on 2026-08-12. Whole-product parity audit executed 2026-08-17 (see `FLEX_PARITY_AUDIT_REPORT.md`).
-**Governing plan:** `FLEX_MASTER_FEATURE_PARITY_PLAN.md`
-**Primary source:** `Flex CC User Manual`
-**Purpose:** One source of truth that keeps "documented" distinct from "implemented / verified / revamped / shipped".
+This document tracks product capabilities against the frontend runtime. It
+distinguishes documented product requirements from behavior currently
+implemented or verified in the application.
 
 ## How to use this tracker
 
-- `SHIPPED` requires a remote-verified commit hash; `REVAMPED` only local verification; `REVAMP_PLANNED` only a PLAN exists. Never promote status without evidence (plan §2, §21).
+- `SHIPPED` requires a remote-verified commit hash; `REVAMPED` indicates local implementation evidence; `REVAMP_PLANNED` indicates planned work.
 - Unknown stays `UNKNOWN` — never guess.
-- Before any future module revamp: find its feature IDs here, fill current-state evidence, mark `REVAMP_PLANNED`, implement on the canonical FLEX system, regression test, update this tracker in the same commit, push, verify (plan §29).
+- Before a module revamp, identify its feature IDs, record current behavior, and update this tracker with verified results.
 - Update a row's status to `IMPLEMENTATION_IN_PROGRESS` during implementation, `REGRESSION_VERIFIED` after preserved-functionality regression tests, `SHIPPED` only after remote verification.
 
 ## Lifecycle status enum
@@ -27,29 +25,7 @@ SHIPPED / NOT_PRESENT / DEPRECATED / NEEDS_PRODUCT_DECISION
 
 ---
 
-# 1. PROJECT-WIDE REVAMP CONTROL
-
-Resolved from `git log` (46 commits, `main`, remote `origin` → `github.com/geek-commits/flex-frontend`, branch up-to-date).
-
-| Area | Plan evidence | Implementation | Regression | Remote shipped (hash range) |
-|---|---|---|---|---|
-| FLEX UI Foundation (tokens/shell/status/table) | `docs/flex-ui-foundation.md` | `features/*`, `components/flex/*` | browser QA screenshots | ✅ `19732ca` → `838674c` |
-| CDR modernization | AGENT/CDR plan material | `features/cdr/*` | `docs/screenshots/0X-cdr-*.png` | ✅ `5d1d6f4` → `2ea25f9` |
-| Campaigns modernization | campaigns plan | `features/campaigns/*` | `docs/screenshots/0X-campaigns-*.png` | ✅ `a957e85` → `e5f8ec4` |
-| Contact Center Dashboard modernization | dashboard plan | `features/dashboard/*` | `docs/screenshots/0X-dashboard-*.png` | ✅ `fde327b` → `a5089c0` |
-| Craft Infrastructure (design OS + AGENTS.md) | `FLEX_CRAFT_INFRASTRUCTURE_PLAN.md` §6 | `docs/design/*` (01–12, `domain/`, `exemplars/`), root `AGENTS.md` | docs QAs | ✅ `655db6e` → `4bfd90b` |
-| Agent Monitoring + Call Whispering | `AGENT_MONITORING_PLAN.md` | `features/agent-monitoring/*`, `pages/admin/agent-monitoring.tsx` | store/browser verified | ✅ `f54145e` → `24187c6` |
-| Agent Workspace + Call Manager (Phases 1–11) | `AGENT_WORKSPACE_PLAN.md` | `features/agent-workspace/*`, `pages/agent/index.tsx` | store/browser verified | ✅ `ad46ccf` → `3c501e6` |
-| Management Console + Navigation | next after parity | `pages/admin/management-console.tsx` + `admin/{module}` placeholders | verified | ✅ `7827cb8` → `5a84f0d` |
-| Customer Recovery (Callback & Voicemail) | feature parity §4 | `features/customer-recovery/*`, `pages/agent/missed-calls.tsx` | store/browser verified | ✅ `d990b9e` → `9474c81` |
-| Recordings & Audio Prompts | feature parity §11 | `features/recordings/*`, `pages/admin/recordings.tsx` | store/browser verified | ✅ `07ac7a1` |
-| Subscriptions & Mail Configuration | feature parity §11 | `features/subscriptions/*`, `features/mail-config/*` | store/browser verified | ✅ in release |
-
-> Rule: every `SHIPPED` above is backed by remote-verified commits on `origin/main`. Detail pages using Inertia routes: `admin/cdr/{record}`, `admin/campaigns/{campaign}`.
-
----
-
-# 2. AGENT WORKSPACE FEATURES
+# Agent Workspace Features
 
 | ID | Feature | Manual | Frontend evidence | Route | Source | Lifecycle | Notes |
 |---|---|---|---|---|---|---|---|
@@ -106,7 +82,8 @@ Resolved from `git log` (46 commits, `main`, remote `origin` → `github.com/gee
 
 # 3. EXTERNAL CRM BOUNDARY FEATURES
 
-Treat as external/integration-owned. Do not redesign blindly (plan §7).
+Treat these capabilities as integration-owned. Confirm product and runtime
+ownership before changing the integration surface.
 
 | ID | Feature | Manual | Evidence | Lifecycle | Notes |
 |---|---|---|---|---|---|
@@ -230,7 +207,7 @@ Treat as external/integration-owned. Do not redesign blindly (plan §7).
 
 | ID | Feature | Manual | Evidence | Lifecycle | Notes |
 |---|---|---|---|---|---|
-| ADMIN-CONSOLE-001 | Management Console | YES | `pages/admin/management-console.tsx`, `features/management-console/*`, `domain/modules.ts` | REVAMPED | grouped directory surface; 18 modules / 4 categories; `docs/screenshots/02-management-console-after-desktop.png` |
+| ADMIN-CONSOLE-001 | Management Console | YES | `pages/admin/management-console.tsx`, `features/management-console/*`, `domain/modules.ts` | REVAMPED | grouped directory surface; 18 modules / 4 categories |
 | ADMIN-CONSOLE-002 | Search settings/modules | YES | `features/management-console/console-search.tsx` + `use-visible-modules.ts` | REVAMPED | searches canonical registry (label/description/category/keywords); permission filter runs first |
 | ADMIN-CONSOLE-003 | Default timers (incl. Wrap-Up duration) | YES | described in `domain/modules.ts` queue description; mock owner `wrapUpReturnMs` | CONFIRMED_FRONTEND | **real config location unresolved** — readiness gap |
 | ADMIN-CONSOLE-004 | Ringtone | YES | — | MANUAL_ONLY | |
@@ -294,7 +271,7 @@ Result of the completeness audit. No build performed beyond the SYS/SUPPORT rows
 | `security` (settings) → `/admin/settings/security` | ALIAS | Covered by account security + console Security & Audit is NOT_PRESENT |
 | `cdr-config` → `/admin/settings/cdr-config` | ALIAS | Covered by `/admin/cdr` feature |
 | `agents`, `call-stats`, `charts`, `survey-monitoring`, `tones`, `agent-states`, `departments`, `survey`, `global-config`, `moh` | NOT PRESENT | no runtime or mock surface; placeholders only (honest empty state via `module-placeholder`) |
-| `inbound-routes`, `outbound-routes` | BLOCKED | telephony routing semantics — do not alter during visual modernization (plan §181) |
+| `inbound-routes`, `outbound-routes` | BLOCKED | telephony routing semantics — confirm supported runtime behavior before changing these routes |
 
 ---
 
@@ -320,9 +297,7 @@ Maintained during audits. Unresolved entries are kept (do not delete to look gre
 
 ---
 
-# 14. MANAGEMENT CONSOLE READINESS GATE (plan §8)
-
-After `MANAGEMENT_CONSOLE_PLAN.md` execution (`7827cb8` → `5a84f0d`):
+# Management Console Status
 
 | Readiness item | Status | Evidence |
 |---|---|---|
@@ -361,8 +336,7 @@ After `MANAGEMENT_CONSOLE_PLAN.md` execution (`7827cb8` → `5a84f0d`):
 10. Social / Omnichannel
 11. AI Center / AI extensions
 12. Remaining confirmed modules
-13. ~~Whole-product parity audit~~ ✅ executed 2026-08-17 — see `FLEX_PARITY_AUDIT_REPORT.md`; corrected tracker truth (SUP-MON-002/003/005/006 computed-not-rendered, SUP-CAMP-005/007/008 absent, AGENT-CALL history tabs, CALLBACK-001/008, SUP-CDR-011/012). Gaps GAP-009…013 opened.
-14. Whole-product quality sweep
+13. Whole-product parity review completed; use the feature rows above as the current status record.
 ```
 
 Resolve whisper (GAP-001) and warm transfer (GAP-002) before any surface is offered — manually documented ≠ implemented. GAP-009 (Agent Monitoring list) was surfaced 2026-08-17 via `agent-monitoring-roster.tsx`.

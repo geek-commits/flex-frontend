@@ -33,4 +33,7 @@ Loader is `fixed inset-0 z-[9999]` sibling of `#app` (Blade `resources/views/app
 Charts/tables keep skeletons; call controls keep local spinners; Assist keeps own `Listening/Delayed` states.
 
 ## Verification
-Fresh login, role shells, locale EN/SW/FR reloads, fast/slow/throttled, reduced motion, active-call/Dynamic Island/Assist/CRM/Social continuity all manual per plan §46–60 + `bun run types:check/test/build`.
+Verify login and role shells, EN/SW/FR locale changes, fast and slow loads,
+reduced motion, and active-call, Dynamic Island, Assist, CRM, and Social
+continuity. Run `bun run types:check`, `bun run test`, and `bun run build` from
+`my-app/`.

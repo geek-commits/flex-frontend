@@ -31,7 +31,7 @@ const IN_CALL_STATES = new Set([
 ]);
 
 /**
- * State-driven Call Manager (AGENT_WORKSPACE_PLAN §23, §50).
+ * State-driven Call Manager.
  *
  * The current call state selects the surface and which controls are valid;
  * idle never shows a sea of disabled active-call buttons. All state and
@@ -154,7 +154,7 @@ export function CallManager() {
     }
 
     if (isMobile) {
-        // Unified mobile surface — single Sheet with Call/Assist modes (locked decision §5)
+        // Unified mobile surface with Call and Assist modes.
         const showAssistToggle =
             callState === 'connected' || callState === 'hold' || callState === 'transferring';
         const mobileContent = showAssistToggle && mobileAssistMode ? (

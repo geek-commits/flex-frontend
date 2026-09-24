@@ -1,8 +1,7 @@
 # ADR-003 — Social Realtime Ownership (Superseded for external Social)
 
-* Status: **Superseded 2026-08-28** — Social is external (`https://demo-chat.flex.co.tz` via `public/integrations/social-primary.json` embedded at `/agent/social` via `ExternalWorkspaceHost` `chrome="none"`). See `docs/architecture/FLEX_EXTERNAL_SYSTEM_OWNERSHIP.md`.
+* Status: **Superseded 2026-08-28** — Social is external (`https://demo-chat.flex.co.tz` via `public/integrations/social-primary.json` embedded at `/agent/social` via `ExternalWorkspaceHost` `chrome="none"`).
 * Date: 2026-08-21 (original), updated 2026-08-28
-* Deciders: Old-version parity plan §§30-35 + Customer 360 decoupling decision
 
 ## Context
 

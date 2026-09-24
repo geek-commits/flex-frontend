@@ -53,10 +53,10 @@ const DURATION_STATES: CallState[] = ['connected', 'hold', 'transferring'];
 const TRANSFER_TARGETS = buildTransferTargets();
 
 /**
- * Active call surface (AGENT_WORKSPACE_PLAN §35–§39, §40–§44).
+ * Active call surface.
  *
  * Shows who the call is with, the current state, a connected-time timer
- * (isolated to this component — §36), and only the controls valid for the
+ * (isolated to this component), and only the controls valid for the
  * current state. Transfer is contextual: entering it replaces the call
  * controls with target search/selection, then returns to the call (cancel or
  * failure) or ends the call (hand-off). Labels are explicit so agents never

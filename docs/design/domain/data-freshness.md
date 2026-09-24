@@ -31,7 +31,8 @@ Runtime type: `ConnectionState` in `resources/js/types/flex.ts` (`connecting | l
 
 - `live` → static "Live" status (a live dot never pulses — see `05-motion.md`).
 - `refreshing` → subtle in-flight indicator; existing data stays visible.
-- `stale` → explicit staleness ("data may be out of date"), with a refresh path. Stale is recoverable, not a failure.
+- `stale` → explicit staleness ("data may be out of date"). Automatic polling
+  continues; stale is recoverable, not a failure.
 - `error` → failure message with retry; last known data retained where safe.
 
 ## Mock vs production

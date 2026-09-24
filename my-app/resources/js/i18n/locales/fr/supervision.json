@@ -4,15 +4,13 @@
     "description": "Analytique opérationnelle en temps réel et supervision téléphonique",
     "titleShort": "Centre de contact",
     "descriptionShort": "Opérations en temps réel et performance des files",
-    "refresh": "Actualiser les données en direct",
     "live": {
       "live": "En direct",
       "stale": "Obsolète",
       "reconnecting": "Reconnexion",
       "error": "Erreur",
       "retry": "Réessayer",
-      "updated": "Mis à jour {{time}}",
-      "updating": "Mise à jour…"
+      "updated": "Mis à jour {{time}}"
     },
     "metrics": {
       "talking": {

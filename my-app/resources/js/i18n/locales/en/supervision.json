@@ -4,15 +4,13 @@
     "description": "Real-Time Operational Analytics & Telephony Monitoring",
     "titleShort": "Contact Center",
     "descriptionShort": "Real-time operations and queue performance",
-    "refresh": "Refresh Live Data",
     "live": {
       "live": "Live",
       "stale": "Stale",
       "reconnecting": "Reconnecting",
       "error": "Error",
       "retry": "Retry",
-      "updated": "Updated {{time}}",
-      "updating": "Updating…"
+      "updated": "Updated {{time}}"
     },
     "metrics": {
       "talking": {

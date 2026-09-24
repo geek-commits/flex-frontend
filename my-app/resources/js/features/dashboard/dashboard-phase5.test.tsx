@@ -3,10 +3,10 @@ import i18n from '@/i18n';
 import { queueColumns } from './dashboard-queue-columns';
 
 describe('Dashboard — Phase 5 residuals', () => {
-    it('refresh/updating key exists and translates', async () => {
-        expect(i18n.t('supervision:dashboard.live.updating', { lng: 'en' })).toBe('Updating\u2026');
-        expect(i18n.t('supervision:dashboard.live.updating', { lng: 'sw' })).toBe('Inasasisha\u2026');
-        expect(i18n.t('supervision:dashboard.live.updating', { lng: 'fr' })).toBe('Mise \u00e0 jour\u2026');
+    it('last-updated status translates', async () => {
+        expect(i18n.t('supervision:dashboard.live.updated', { lng: 'en', time: 'now' })).toBe('Updated now');
+        expect(i18n.t('supervision:dashboard.live.updated', { lng: 'sw', time: 'sasa' })).toBe('Imeboreshwa sasa');
+        expect(i18n.t('supervision:dashboard.live.updated', { lng: 'fr', time: 'maintenant' })).toBe('Mis à jour maintenant');
     });
 
     it('queue headers via typed translator', async () => {

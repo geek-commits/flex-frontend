@@ -61,7 +61,12 @@ Avoid vague placeholders for actions. Prefer the specific verb:
 | Manage | (name the actual action) |
 | Proceed | (name the actual action) |
 | Confirm | (name the actual action, e.g., Delete Recording) |
-| Refresh | Refresh Live Data |
+
+## Dashboard data actions
+
+The Contact Center Dashboard updates automatically. Offer a retry only when a
+live data source reports an error; do not add a manual refresh action to its
+header.
 
 ## Error copy
 

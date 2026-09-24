@@ -68,6 +68,6 @@ feedback states, responsiveness, accessibility, motion, and copy consistency.
 ## Upgrade / Deployment Notes
 
 - No external upgrade required for this frontend POC candidate.
-- Deployment: build frontend assets (`npm run build`), serve via the Laravel
+- Deployment: build frontend assets (`bun run build`), serve via the Laravel
   app. `Vite` dev server (port 5173) is for development only; the production
   surface is served through the Laravel app on port 8000.

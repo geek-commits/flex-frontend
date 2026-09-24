@@ -35,6 +35,6 @@ Run `gh issue view <number> --comments`.
 
 ## Ticket conventions for FLEX
 
-- Tickets are cut **per `AGENT_WORKSPACE_PLAN.md` / `MANAGEMENT_CONSOLE_PLAN.md` phase** (one phase = a small set of tracer-bullet tickets).
+- Organize related tickets into implementation phases when that helps coordinate delivery.
 - Every ticket references the canonical parity feature IDs (`docs/product/FLEX_FEATURE_PARITY.md`) it touches.
-- Status labels follow `docs/agents/triage-labels.md`; the tracker's lifecycle (REVAMP_PLANNED → SHIPPED) is updated in the same commit per `FLEX_MASTER_FEATURE_PARITY_PLAN.md` §29.
+- Status labels follow `docs/agents/triage-labels.md`; update the canonical feature tracker when verified implementation status changes.

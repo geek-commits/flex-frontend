@@ -1,7 +1,7 @@
 import type { AgentState, CallState, ConnectionState } from '@/types/flex';
 
 /**
- * Call manager domain types (AGENT_WORKSPACE_PLAN §13, §24, §45, §46).
+ * Call manager domain types.
  *
  * The POC telephony is a deterministic mock (see mock-workspace-state.ts);
  * these types describe what the mock adapter may expose. No external system
@@ -36,7 +36,7 @@ export interface ActiveCall {
 
 export type CallHistoryOutcome = 'answered' | 'missed' | 'declined' | 'failed' | 'outgoing' | 'transferred';
 
-/** Lightweight agent convenience history — not CDR (AGENT_WORKSPACE_PLAN §46). */
+/** Lightweight agent convenience history — not CDR. */
 export interface CallHistoryEntry {
     id: string;
     target: CallTarget;
@@ -49,7 +49,7 @@ export interface CallHistoryEntry {
 export type TransferStatus = 'selecting' | 'pending' | 'failed';
 
 /**
- * Direct-transfer flow state (AGENT_WORKSPACE_PLAN §40–§44).
+ * Direct-transfer flow state.
  *
  * Warm transfer is not supported: the runtime has no consultation state, so
  * `transferring` always means a direct transfer. `failed` keeps the target so

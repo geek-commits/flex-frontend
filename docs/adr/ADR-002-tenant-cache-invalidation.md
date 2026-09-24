@@ -2,7 +2,6 @@
 
 * Status: **Accepted — contract deferred to Increment 3** (Increment 1 records baseline truth, no invalidation code yet)
 * Date: 2026-08-21
-* Deciders: FLEX Hardening plan §§7, 9, 26
 
 ## Context
 
@@ -34,7 +33,7 @@ future: tenant/ domain helpers (+ test harness in Vitest, Inc.2)
 
 ## Consequences
 
-* Until Increment 3, POC mocks do NOT prove backend isolation. Baseline records `Query/cache invalidation: GAP`, `Realtime isolation: GAP`, `Backend authorization: NOT VERIFIED` (see `FLEX_HARDENING_BASELINE.md:4`).
+* Until tenant-scoped backend behavior is implemented and verified, POC mocks do not prove backend isolation. Query/cache invalidation, realtime isolation, and backend authorization remain unverified.
 * Frontend mock exercise `Platform → Tenant A → Tenant B → Tenant A` (rapid) will show UI context flips but data does not re-scope — which is expected at Increment 1 and scheduled for fix.
 * Backend isolation will be tested only against an approved real multi-tenant environment/branch if one is supplied (none identified at baseline).
 

@@ -12,7 +12,7 @@ export interface DialerProps {
 }
 
 /**
- * Dial input + compact dialpad (AGENT_WORKSPACE_PLAN §26, §27).
+ * Dial input + compact dialpad.
  * The Call action is disabled until the target is usable; duplicate
  * initiation is impossible because dialing only starts from idle.
  */

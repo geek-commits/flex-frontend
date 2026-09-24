@@ -4,15 +4,13 @@
     "description": "Uchambuzi wa Uendeshaji wa Wakati Halisi na Ufuatiliaji wa Simu",
     "titleShort": "Kituo cha Mawasiliano",
     "descriptionShort": "Uendeshaji wa wakati halisi na utendaji wa foleni",
-    "refresh": "Onyesha Upya Data ya Moja kwa Moja",
     "live": {
       "live": "Moja kwa moja",
       "stale": "Iliyopitwa",
       "reconnecting": "Inaunganisha tena",
       "error": "Hitilafu",
       "retry": "Jaribu tena",
-      "updated": "Imeboreshwa {{time}}",
-      "updating": "Inasasisha…"
+      "updated": "Imeboreshwa {{time}}"
     },
     "metrics": {
       "talking": {

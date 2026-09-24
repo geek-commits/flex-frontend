@@ -16,8 +16,8 @@ export interface IdleCallSurfaceProps {
 }
 
 /**
- * Quiet idle state: dialer and lightweight call history (AGENT_WORKSPACE_PLAN
- * §25, §46). Active-call controls are never shown here as a sea of disabled
+ * Quiet idle state: dialer and lightweight call history. Active-call controls
+ * are never shown here as a sea of disabled
  * buttons.
  */
 type HistoryFilter = 'all' | 'missed' | 'outgoing' | 'recent';

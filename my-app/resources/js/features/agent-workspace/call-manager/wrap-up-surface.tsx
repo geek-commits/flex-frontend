@@ -10,7 +10,7 @@ export interface WrapUpSurfaceProps {
 }
 
 /**
- * Wrap Up — a deliberate first-class post-call mode (AGENT_WORKSPACE_PLAN §20).
+ * Wrap Up — a deliberate first-class post-call mode.
  *
  * CRM work stays primary while the supervisor-set wrap-up timer runs; the mock
  * owner returns the agent to Ready automatically when it expires. The countdown

@@ -2,7 +2,6 @@
 
 * Status: **Accepted** (Increment 1 — audit only, no code change)
 * Date: 2026-08-21
-* Deciders: FLEX Hardening (Whole-Product Reliability plan §7, §26)
 
 ## Context
 

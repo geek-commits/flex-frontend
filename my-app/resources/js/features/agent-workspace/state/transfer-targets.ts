@@ -3,7 +3,7 @@ import type { AgentState } from '@/types/flex';
 import type { CallTarget } from './workspace-types';
 
 /**
- * Transfer target source (AGENT_WORKSPACE_PLAN §41).
+ * Transfer target source.
  *
  * Only real supported targets are offered: agents and queues derived from the
  * POC agent roster. No placeholder target categories. Reachability comes from
@@ -92,7 +92,7 @@ function splitByKind(options: TransferTargetOption[]): TransferTargetFilter {
  *
  * Queues accept transfers; agents must be reachable per the roster state.
  * Unknown targets (including unsupported kinds like phone numbers) are not
- * reachable — the backend stays authoritative on failure (§44).
+ * reachable. A failed transfer leaves the original call connected.
  */
 export function isTransferTargetReachable(target: CallTarget): boolean {
     if (target.kind === 'queue') {

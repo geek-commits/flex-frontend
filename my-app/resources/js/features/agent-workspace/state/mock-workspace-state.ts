@@ -10,7 +10,7 @@ import type {
 } from './workspace-types';
 
 /**
- * Deterministic mock workspace owner (AGENT_WORKSPACE_PLAN §50, §56, §57).
+ * Deterministic mock workspace owner.
  *
  * This is the POC's single canonical owner for agent state, telephony
  * connection, call state, the active call, mute/hold, transfer, wrap-up, and
@@ -18,10 +18,9 @@ import type {
  * transitions in components — every transition lives here, behind the same
  * production-facing interface a real adapter would implement.
  *
- * Timings are deterministic constants (dev/test reproducibility over
- * randomness). The singleton keeps a live call alive across route
- * leave/re-enter (call persistence audit — §51); subscribers clean up on
- * unmount.
+ * Timings are deterministic constants for reproducible development and tests.
+ * The singleton keeps a live call alive across route changes; subscribers
+ * clean up on unmount.
  */
 
 export const WORKSPACE_TIMINGS = {
@@ -298,7 +297,7 @@ export class MockWorkspaceState {
 
     // ── Transfer (direct only — warm requires real backend capability) ────
     //
-    // Deterministic direct-transfer flow (AGENT_WORKSPACE_PLAN §40–§44, §57):
+    // Deterministic direct-transfer flow:
     // connected → transfer (selecting) → choose target → pending → hand-off
     // (records `transferred`) OR failure (returns to connected, caller stays
     // on the line). Warm transfer is not supported: the runtime has no
@@ -349,7 +348,7 @@ export class MockWorkspaceState {
         }
 
         if (!isTransferTargetReachable(target)) {
-            // §44 — backend authoritative: the caller stays on the line.
+            // The caller remains connected when the transfer fails.
             this.transitionTo('connected', { transfer: { status: 'failed', target } });
             this.schedule(() => {
                 if (this.state.transfer?.status === 'failed') {
@@ -384,7 +383,7 @@ export class MockWorkspaceState {
         }
     }
 
-    // ── Media / connection (deterministic mock scenarios — §57) ───────────
+    // ── Media / connection (deterministic mock scenarios) ─────────────────
 
     setConnection(state: ConnectionState): void {
         this.set({ connection: state });

@@ -29,7 +29,7 @@ export function wrapUpRemaining(
 }
 
 /**
- * Countdown to a Wrap Up deadline (AGENT_WORKSPACE_PLAN §20, §36).
+ * Countdown to a Wrap Up deadline.
  *
  * Mirrors `useCallTimer`'s isolation pattern: a single 1 Hz interval drives
  * the display only — the hook never mutates workspace state. When the
